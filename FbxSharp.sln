@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxSharp", "FbxSharp.csproj", "{64FAA76A-CAEA-42A3-9E23-660CFF84394B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxSharpTests", "FbxSharpTests\FbxSharpTests.csproj", "{06E9280F-1851-4A20-BA7C-18AAE0A809D4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06E9280F-1851-4A20-BA7C-18AAE0A809D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06E9280F-1851-4A20-BA7C-18AAE0A809D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06E9280F-1851-4A20-BA7C-18AAE0A809D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06E9280F-1851-4A20-BA7C-18AAE0A809D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

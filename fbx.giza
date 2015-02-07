@@ -1,0 +1,20 @@
+// File saved at 1/31/2015 2:59:36 PM
+
+<comment> comment = ';' [^\n]* '\n';
+
+file = object+;
+
+object = name ':' ( ( value ( ',' value )* )? block | value ( ',' value )* );
+
+<token> name = [\l_] [\l\d_]*;
+
+value = ( number | string | array );
+
+block = '{' object* '}';
+
+<token> number = [+-]? [\d]+ ( '.' [\d]+ )?;
+
+<token> string = '"' [^"]* '"';
+
+array = '*' number block;
+
