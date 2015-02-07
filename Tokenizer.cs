@@ -32,9 +32,9 @@ namespace FbxSharp
                 {
                     if (IsValidChar(currentTokenType, ch))
                     {
-                        if (IsClosingChar(currentTokenType, ch))
+                        if (IsForceEndChar(currentTokenType, ch))
                         {
-                            var value = input.Substring(tokenStart, index - tokenStart);
+                            var value = input.Substring(tokenStart, index - tokenStart + 1);
                             tokens.Add(new Token {
                                 Type = currentTokenType,
                                 Value = value,
@@ -62,46 +62,6 @@ namespace FbxSharp
                     else
                     {
                         throw new InvalidOperationException();
-                    }
-
-
-
-                    switch (currentTokenType)
-                    {
-                    case TokenType.None:
-                        break;
-                    case TokenType.Comment:
-                        if (ch == '\n')
-                            close = true;
-                        break;
-                    case TokenType.Name:
-                        if (!char.IsLetterOrDigit(ch) && ch != '_')
-                            close = true;
-                        break;
-                    case TokenType.Number:
-                        if (!char.IsLetterOrDigit(ch) && ch != 'e' && ch != 'E' && ch != '.' && ch != '-' && ch != '+')
-                            close = true;
-                        break;
-                    case TokenType.String:
-                        if (ch == '"')
-                            close = true;
-                        break;
-                    case TokenType.Whitespace:
-                        if (!char.IsWhiteSpace(ch))
-                            close = true;
-                        break;
-                    case TokenType.Star:
-                    case TokenType.OpenBrace:
-                    case TokenType.CloseBrace:
-                    case TokenType.Colon:
-                    case TokenType.Comma:
-                        close = true;
-                        break;
-                    default:
-                        throw new InvalidOperationException(
-                            string.Format(
-                                "Unkonwn token type: {0} ({1})",
-                                currentTokenType, (int)currentTokenType));
                     }
                 }
             }
@@ -173,7 +133,7 @@ namespace FbxSharp
         }
 
 
-        static bool IsClosingChar(TokenType tokenType, char ch)
+        static bool IsForceEndChar(TokenType tokenType, char ch)
         {
             // forces token type x to end
             switch (tokenType)
