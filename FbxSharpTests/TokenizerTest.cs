@@ -16,7 +16,7 @@ namespace FbxSharpTests
         {
             // given
             const string input = "    ";
-            var tokenizer = new Tokenizer(input);
+            var tokenizer = new Tokenizer(input, false);
 
             // when
             var token = tokenizer.GetNextToken();
@@ -36,7 +36,7 @@ namespace FbxSharpTests
         {
             // given
             const string input = "; comment\n";
-            var tokenizer = new Tokenizer(input);
+            var tokenizer = new Tokenizer(input, false);
 
             // when
             var token = tokenizer.GetNextToken();
@@ -216,7 +216,7 @@ namespace FbxSharpTests
         {
             // given
             const string input = "   abcd   ";
-            var tokenizer = new Tokenizer(input);
+            var tokenizer = new Tokenizer(input, false);
 
             // when
             var token = tokenizer.GetNextToken();
@@ -249,7 +249,7 @@ namespace FbxSharpTests
         {
             // given
             const string input = "***";
-         Token token = new Token(TokenType.Star, "*");
+            var token = new Token(TokenType.Star, "*");
             var tokenizer = new Tokenizer(input);
 
             // when
@@ -260,6 +260,23 @@ namespace FbxSharpTests
             Assert.AreEqual(token, list[0]);
             Assert.AreEqual(token, list[1]);
             Assert.AreEqual(token, list[2]);
+        }
+
+        [Test]
+        public void TestIgnoreWhitespace()
+        {
+            // given
+            const string input = " name 123 \"one two three\" ";
+            var tokenizer = new Tokenizer(input);
+
+            // when
+            var list = tokenizer.EnumerateTokens().ToList<Token>();
+
+            // then
+            Assert.AreEqual(3, list.Count);
+            Assert.AreEqual(new Token(TokenType.Name, "name"), list[0]);
+            Assert.AreEqual(new Token(TokenType.Number, "123"), list[1]);
+            Assert.AreEqual(new Token(TokenType.String, "\"one two three\""), list[2]);
         }
     }
 }

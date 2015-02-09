@@ -7,14 +7,16 @@ namespace FbxSharp
 {
     public class Tokenizer
     {
-        public Tokenizer(string input)
+        public Tokenizer(string input, bool ignoreWhitespace=true)
         {
             if (input == null) throw new ArgumentNullException("input");
 
             Input = input;
+            IgnoreWhitespace = ignoreWhitespace;
         }
 
         public readonly string Input;
+        public readonly bool IgnoreWhitespace;
 
         int index = 0;
         TokenType currentTokenType = TokenType.None;
@@ -49,8 +51,11 @@ namespace FbxSharp
                         var value = Input.Substring(tokenStart, index - tokenStart + 1);
                         var token = new Token(currentTokenType, value);
                         currentTokenType = TokenType.None;
-                        index++;
-                        return token;
+                        if (!ShouldIgnoreToken(token))
+                        {
+                            index++;
+                            return token;
+                        }
                     }
                     else
                     {
@@ -66,8 +71,11 @@ namespace FbxSharp
                         throw new InvalidOperationException(
                             string.Format("Unknown character '{0}' at index {1}", ch.ToString(), index));
                     tokenStart = index;
-                    index++;
-                    return token;
+                    if (!ShouldIgnoreToken(token))
+                    {
+                        index++;
+                        return token;
+                    }
                 }
                 else
                 {
@@ -84,10 +92,23 @@ namespace FbxSharp
                 }
 
                 var token = new Token(currentTokenType, Input.Substring(tokenStart));
-                return token;
+                if (!ShouldIgnoreToken(token))
+                {
+                    return token;
+                }
             }
 
             return null;
+        }
+
+        bool ShouldIgnoreToken(Token token)
+        {
+            if (!IgnoreWhitespace) return false;
+
+            if (token.Type == TokenType.Whitespace) return true;
+            if (token.Type == TokenType.Comment) return true;
+
+            return false;
         }
 
         // start token type x
