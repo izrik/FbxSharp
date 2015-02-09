@@ -7,16 +7,25 @@ namespace FbxSharp
 {
     public class Tokenizer
     {
-        public List<Token> Tokenize(string input)
+        public Tokenizer(string input)
+        {
+            if (input == null) throw new ArgumentNullException("input");
+
+            Input = input;
+        }
+
+        public readonly string Input;
+
+        public List<Token> Tokenize()
         {
             var tokens = new List<Token>();
             int tokenStart = -1;
             int index;
             TokenType currentTokenType = TokenType.None;
 
-            for (index = 0; index < input.Length; index++)
+            for (index = 0; index < Input.Length; index++)
             {
-                char ch = input[index];
+                char ch = Input[index];
 
                 // close current token?
                 bool close = false;
@@ -34,7 +43,7 @@ namespace FbxSharp
                     {
                         if (IsForceEndChar(currentTokenType, ch))
                         {
-                            var value = input.Substring(tokenStart, index - tokenStart + 1);
+                            var value = Input.Substring(tokenStart, index - tokenStart + 1);
                             tokens.Add(new Token(currentTokenType, value));
                             currentTokenType = TokenType.None;
                         }
@@ -42,9 +51,9 @@ namespace FbxSharp
                         {
                         }
                     }
-                    else if (IsEndingChar(currentTokenType, input[index - 1]))
+                    else if (IsEndingChar(currentTokenType, Input[index - 1]))
                     {
-                        var value = input.Substring(tokenStart, index - tokenStart);
+                        var value = Input.Substring(tokenStart, index - tokenStart);
                         tokens.Add(new Token(currentTokenType, value));
 
                         currentTokenType = GetNewTokenType(ch);
@@ -62,13 +71,13 @@ namespace FbxSharp
 
             if (currentTokenType != TokenType.None)
             {
-                char ch = input[input.Length-1];
+                char ch = Input[Input.Length-1];
                 if (!IsEndingChar(currentTokenType, ch))
                 {
                     throw new InvalidOperationException("Bad ending char");
                 }
 
-                tokens.Add(new Token(currentTokenType, input.Substring(tokenStart)));
+                tokens.Add(new Token(currentTokenType, Input.Substring(tokenStart)));
             }
 
             return tokens;

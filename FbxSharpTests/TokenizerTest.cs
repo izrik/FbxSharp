@@ -16,10 +16,10 @@ namespace FbxSharpTests
         {
             // given
             const string input = "    ";
-            var tokenizer = new Tokenizer();
+            var tokenizer = new Tokenizer(input);
 
             // when
-            var tokens = tokenizer.Tokenize(input);
+            var tokens = tokenizer.Tokenize();
 
             // then
             Assert.AreEqual(1, tokens.Count);
@@ -32,10 +32,10 @@ namespace FbxSharpTests
         {
             // given
             const string input = "; comment\n";
-            var tokenizer = new Tokenizer();
+            var tokenizer = new Tokenizer(input);
 
             // when
-            var tokens = tokenizer.Tokenize(input);
+            var tokens = tokenizer.Tokenize();
 
             // then
             Assert.AreEqual(1, tokens.Count);
@@ -48,10 +48,10 @@ namespace FbxSharpTests
 		{
 			// given
 			const string input = "*";
-			var tokenizer = new Tokenizer();
+			var tokenizer = new Tokenizer(input);
 
 			// when
-			var tokens = tokenizer.Tokenize(input);
+			var tokens = tokenizer.Tokenize();
 
 			// then
 			Assert.AreEqual(1, tokens.Count);
@@ -64,10 +64,10 @@ namespace FbxSharpTests
 		{
 			// given
 			const string input = "{";
-			var tokenizer = new Tokenizer();
+			var tokenizer = new Tokenizer(input);
 
 			// when
-			var tokens = tokenizer.Tokenize(input);
+			var tokens = tokenizer.Tokenize();
 
 			// then
 			Assert.AreEqual(1, tokens.Count);
@@ -80,10 +80,10 @@ namespace FbxSharpTests
 		{
 			// given
 			const string input = "}";
-			var tokenizer = new Tokenizer();
+			var tokenizer = new Tokenizer(input);
 
 			// when
-			var tokens = tokenizer.Tokenize(input);
+			var tokens = tokenizer.Tokenize();
 
 			// then
 			Assert.AreEqual(1, tokens.Count);
@@ -96,10 +96,10 @@ namespace FbxSharpTests
 		{
 			// given
 			const string input = ":";
-			var tokenizer = new Tokenizer();
+			var tokenizer = new Tokenizer(input);
 
 			// when
-			var tokens = tokenizer.Tokenize(input);
+			var tokens = tokenizer.Tokenize();
 
 			// then
 			Assert.AreEqual(1, tokens.Count);
@@ -112,10 +112,10 @@ namespace FbxSharpTests
 		{
 			// given
 			const string input = ",";
-			var tokenizer = new Tokenizer();
+			var tokenizer = new Tokenizer(input);
 
 			// when
-			var tokens = tokenizer.Tokenize(input);
+			var tokens = tokenizer.Tokenize();
 
 			// then
 			Assert.AreEqual(1, tokens.Count);
@@ -128,10 +128,10 @@ namespace FbxSharpTests
 		{
 			// given
 			const string input = "\"this is a ; string \n\"";
-			var tokenizer = new Tokenizer();
+			var tokenizer = new Tokenizer(input);
 
 			// when
-			var tokens = tokenizer.Tokenize(input);
+			var tokens = tokenizer.Tokenize();
 
 			// then
 			Assert.AreEqual(1, tokens.Count);
@@ -144,10 +144,10 @@ namespace FbxSharpTests
 		{
 			// given
 			const string input = "asdf";
-			var tokenizer = new Tokenizer();
+			var tokenizer = new Tokenizer(input);
 
 			// when
-			var tokens = tokenizer.Tokenize(input);
+			var tokens = tokenizer.Tokenize();
 
 			// then
 			Assert.AreEqual(1, tokens.Count);
@@ -160,10 +160,10 @@ namespace FbxSharpTests
 		{
 			// given
 			const string input = "123.45e67";
-			var tokenizer = new Tokenizer();
+			var tokenizer = new Tokenizer(input);
 
 			// when
-			var tokens = tokenizer.Tokenize(input);
+			var tokens = tokenizer.Tokenize();
 
 			// then
 			Assert.AreEqual(1, tokens.Count);
@@ -176,10 +176,10 @@ namespace FbxSharpTests
 		{
 			// given
 			const string input = "   abcd   ";
-			var tokenizer = new Tokenizer();
+			var tokenizer = new Tokenizer(input);
 
 			// when
-			var tokens = tokenizer.Tokenize(input);
+			var tokens = tokenizer.Tokenize();
 
 			// then
 			Assert.AreEqual(3, tokens.Count);
