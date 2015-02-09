@@ -19,12 +19,16 @@ namespace FbxSharpTests
             var tokenizer = new Tokenizer(input);
 
             // when
-            var tokens = tokenizer.Tokenize();
+            var token = tokenizer.GetNextToken();
 
             // then
-            Assert.AreEqual(1, tokens.Count);
-            Assert.AreEqual(TokenType.Whitespace, tokens[0].Type);
-            Assert.AreEqual("    ", tokens[0].Value);
+            Assert.AreEqual(new Token(TokenType.Whitespace, input), token);
+
+            // when
+            token = tokenizer.GetNextToken();
+
+            // then
+            Assert.IsNull(token);
         }
 
         [Test]
@@ -35,157 +39,209 @@ namespace FbxSharpTests
             var tokenizer = new Tokenizer(input);
 
             // when
-            var tokens = tokenizer.Tokenize();
+            var token = tokenizer.GetNextToken();
 
             // then
-            Assert.AreEqual(1, tokens.Count);
-			Assert.AreEqual(TokenType.Comment, tokens[0].Type);
-			Assert.AreEqual(input, tokens[0].Value);
+            Assert.AreEqual(new Token(TokenType.Comment, input), token);
+
+            // when
+            token = tokenizer.GetNextToken();
+
+            // then
+            Assert.IsNull(token);
         }
 
-		[Test]
-		public void TestStar()
-		{
-			// given
-			const string input = "*";
-			var tokenizer = new Tokenizer(input);
+        [Test]
+        public void TestStar()
+        {
+            // given
+            const string input = "*";
+            var tokenizer = new Tokenizer(input);
 
-			// when
-			var tokens = tokenizer.Tokenize();
+            // when
+            var token = tokenizer.GetNextToken();
 
-			// then
-			Assert.AreEqual(1, tokens.Count);
-			Assert.AreEqual(TokenType.Star, tokens[0].Type);
-			Assert.AreEqual(input, tokens[0].Value);
-		}
+            // then
+            Assert.AreEqual(new Token(TokenType.Star, input), token);
 
-		[Test]
-		public void TestOpenBrace()
-		{
-			// given
-			const string input = "{";
-			var tokenizer = new Tokenizer(input);
+            // when
+            token = tokenizer.GetNextToken();
 
-			// when
-			var tokens = tokenizer.Tokenize();
+            // then
+            Assert.IsNull(token);
+        }
 
-			// then
-			Assert.AreEqual(1, tokens.Count);
-			Assert.AreEqual(TokenType.OpenBrace, tokens[0].Type);
-			Assert.AreEqual(input, tokens[0].Value);
-		}
+        [Test]
+        public void TestOpenBrace()
+        {
+            // given
+            const string input = "{";
+            var tokenizer = new Tokenizer(input);
 
-		[Test]
-		public void TestCloseBrace()
-		{
-			// given
-			const string input = "}";
-			var tokenizer = new Tokenizer(input);
+            // when
+            var token = tokenizer.GetNextToken();
 
-			// when
-			var tokens = tokenizer.Tokenize();
+            // then
+            Assert.AreEqual(new Token(TokenType.OpenBrace, input), token);
 
-			// then
-			Assert.AreEqual(1, tokens.Count);
-			Assert.AreEqual(TokenType.CloseBrace, tokens[0].Type);
-			Assert.AreEqual(input, tokens[0].Value);
-		}
+            // when
+            token = tokenizer.GetNextToken();
 
-		[Test]
-		public void TestColon()
-		{
-			// given
-			const string input = ":";
-			var tokenizer = new Tokenizer(input);
+            // then
+            Assert.IsNull(token);
+        }
 
-			// when
-			var tokens = tokenizer.Tokenize();
+        [Test]
+        public void TestCloseBrace()
+        {
+            // given
+            const string input = "}";
+            var tokenizer = new Tokenizer(input);
 
-			// then
-			Assert.AreEqual(1, tokens.Count);
-			Assert.AreEqual(TokenType.Colon, tokens[0].Type);
-			Assert.AreEqual(input, tokens[0].Value);
-		}
+            // when
+            var token = tokenizer.GetNextToken();
 
-		[Test]
-		public void TestComma()
-		{
-			// given
-			const string input = ",";
-			var tokenizer = new Tokenizer(input);
+            // then
+            Assert.AreEqual(new Token(TokenType.CloseBrace, input), token);
 
-			// when
-			var tokens = tokenizer.Tokenize();
+            // when
+            token = tokenizer.GetNextToken();
 
-			// then
-			Assert.AreEqual(1, tokens.Count);
-			Assert.AreEqual(TokenType.Comma, tokens[0].Type);
-			Assert.AreEqual(input, tokens[0].Value);
-		}
+            // then
+            Assert.IsNull(token);
+        }
 
-		[Test]
-		public void TestString()
-		{
-			// given
-			const string input = "\"this is a ; string \n\"";
-			var tokenizer = new Tokenizer(input);
+        [Test]
+        public void TestColon()
+        {
+            // given
+            const string input = ":";
+            var tokenizer = new Tokenizer(input);
 
-			// when
-			var tokens = tokenizer.Tokenize();
+            // when
+            var token = tokenizer.GetNextToken();
 
-			// then
-			Assert.AreEqual(1, tokens.Count);
-			Assert.AreEqual(TokenType.String, tokens[0].Type);
-			Assert.AreEqual(input, tokens[0].Value);
-		}
+            // then
+            Assert.AreEqual(new Token(TokenType.Colon, input), token);
 
-		[Test]
-		public void TestName()
-		{
-			// given
-			const string input = "asdf";
-			var tokenizer = new Tokenizer(input);
+            // when
+            token = tokenizer.GetNextToken();
 
-			// when
-			var tokens = tokenizer.Tokenize();
+            // then
+            Assert.IsNull(token);
+        }
 
-			// then
-			Assert.AreEqual(1, tokens.Count);
-			Assert.AreEqual(TokenType.Name, tokens[0].Type);
-			Assert.AreEqual(input, tokens[0].Value);
-		}
+        [Test]
+        public void TestComma()
+        {
+            // given
+            const string input = ",";
+            var tokenizer = new Tokenizer(input);
 
-		[Test]
-		public void TestNumber()
-		{
-			// given
-			const string input = "123.45e67";
-			var tokenizer = new Tokenizer(input);
+            // when
+            var token = tokenizer.GetNextToken();
 
-			// when
-			var tokens = tokenizer.Tokenize();
+            // then
+            Assert.AreEqual(new Token(TokenType.Comma, input), token);
 
-			// then
-			Assert.AreEqual(1, tokens.Count);
-			Assert.AreEqual(TokenType.Number, tokens[0].Type);
-			Assert.AreEqual(input, tokens[0].Value);
-		}
+            // when
+            token = tokenizer.GetNextToken();
 
-		[Test]
-		public void TestNameInWhitespace()
-		{
-			// given
-			const string input = "   abcd   ";
-			var tokenizer = new Tokenizer(input);
+            // then
+            Assert.IsNull(token);
+        }
 
-			// when
-			var tokens = tokenizer.Tokenize();
+        [Test]
+        public void TestString()
+        {
+            // given
+            const string input = "\"this is a ; string \n\"";
+            var tokenizer = new Tokenizer(input);
 
-			// then
-			Assert.AreEqual(3, tokens.Count);
-			Assert.AreEqual(new Token(TokenType.Whitespace, "   "), tokens[0]);
-			Assert.AreEqual(new Token(TokenType.Name, "abcd"), tokens[1]);
-			Assert.AreEqual(new Token(TokenType.Whitespace, "   "), tokens[2]);
-		}
+            // when
+            var token = tokenizer.GetNextToken();
+
+            // then
+            Assert.AreEqual(new Token(TokenType.String, input), token);
+
+            // when
+            token = tokenizer.GetNextToken();
+
+            // then
+            Assert.IsNull(token);
+        }
+
+        [Test]
+        public void TestName()
+        {
+            // given
+            const string input = "asdf";
+            var tokenizer = new Tokenizer(input);
+
+            // when
+            var token = tokenizer.GetNextToken();
+
+            // then
+            Assert.AreEqual(new Token(TokenType.Name, input), token);
+
+            // when
+            token = tokenizer.GetNextToken();
+
+            // then
+            Assert.IsNull(token);
+        }
+
+        [Test]
+        public void TestNumber()
+        {
+            // given
+            const string input = "123.45e67";
+            var tokenizer = new Tokenizer(input);
+
+            // when
+            var token = tokenizer.GetNextToken();
+
+            // then
+            Assert.AreEqual(new Token(TokenType.Number, input), token);
+
+            // when
+            token = tokenizer.GetNextToken();
+
+            // then
+            Assert.IsNull(token);
+        }
+
+        [Test]
+        public void TestNameInWhitespace()
+        {
+            // given
+            const string input = "   abcd   ";
+            var tokenizer = new Tokenizer(input);
+
+            // when
+            var token = tokenizer.GetNextToken();
+
+            // then
+            Assert.AreEqual(new Token(TokenType.Whitespace, "   "), token);
+
+            // when
+            token = tokenizer.GetNextToken();
+
+            // then
+            Assert.AreEqual(new Token(TokenType.Name, "abcd"), token);
+
+
+            // when
+            token = tokenizer.GetNextToken();
+
+            // then
+            Assert.AreEqual(new Token(TokenType.Whitespace, "   "), token);
+
+            // when
+            token = tokenizer.GetNextToken();
+
+            // then
+            Assert.IsNull(token);
+        }
     }
 }
