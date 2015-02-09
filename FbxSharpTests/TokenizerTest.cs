@@ -278,5 +278,40 @@ namespace FbxSharpTests
             Assert.AreEqual(new Token(TokenType.Number, "123"), list[1]);
             Assert.AreEqual(new Token(TokenType.String, "\"one two three\""), list[2]);
         }
+
+        [Test]
+        public void TestBlock()
+        {
+            const string input =
+                "FBXHeaderExtension:  {\n" +
+                "    ; This is a comment \n" +
+                "    FBXHeaderVersion: 1003\n" +
+                "    FBXVersion: 6100\n" +
+                "    Creator: \"FBX SDK/FBX Plugins version 2010.2\"\n" +
+                "    ; This is another comment \n" +
+                "}\n";
+            var tokens = new Token[] {
+                new Token(TokenType.Name, "FBXHeaderExtension"),
+                new Token(TokenType.Colon, ":"),
+                new Token(TokenType.OpenBrace, "{"),
+                new Token(TokenType.Name, "FBXHeaderVersion"),
+                new Token(TokenType.Colon, ":"),
+                new Token(TokenType.Number, "1003"),
+                new Token(TokenType.Name, "FBXVersion"),
+                new Token(TokenType.Colon, ":"),
+                new Token(TokenType.Number, "6100"),
+                new Token(TokenType.Name, "Creator"),
+                new Token(TokenType.Colon, ":"),
+                new Token(TokenType.String, "\"FBX SDK/FBX Plugins version 2010.2\""),
+                new Token(TokenType.CloseBrace, "}"),
+            };
+            var tokenizer = new Tokenizer(input);
+
+            // when
+            var list = tokenizer.EnumerateTokens().ToList<Token>();
+
+            // then
+            CollectionAssert.AreEqual(tokens, list);
+        }
     }
 }
