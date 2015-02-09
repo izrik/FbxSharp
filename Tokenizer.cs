@@ -30,6 +30,7 @@ namespace FbxSharp
             for (; index < Input.Length; index++)
             {
                 char ch = Input[index];
+                bool startString = false;
 
                 if (currentTokenType == TokenType.None)
                 {
@@ -38,40 +39,39 @@ namespace FbxSharp
                         throw new InvalidOperationException(
                             string.Format("Unknown character '{0}' at index {1}", ch.ToString(), index));
                     tokenStart = index;
+                    if (currentTokenType == TokenType.String) startString = true;
                 }
-                else
-                {
-                    if (IsValidChar(currentTokenType, ch))
-                    {
-                        if (IsForceEndChar(currentTokenType, ch))
-                        {
-                            var value = Input.Substring(tokenStart, index - tokenStart + 1);
-                            var token = new Token(currentTokenType, value);
-                            currentTokenType = TokenType.None;
-                            index++;
-                            return token;
-                        }
-                        else
-                        {
-                        }
-                    }
-                    else if (IsEndingChar(currentTokenType, Input[index - 1]))
-                    {
-                        var value = Input.Substring(tokenStart, index - tokenStart);
-                        var token = new Token(currentTokenType, value);
 
-                        currentTokenType = GetNewTokenType(ch);
-                        if (currentTokenType == TokenType.Unknown) 
-                            throw new InvalidOperationException(
-                                string.Format("Unknown character '{0}' at index {1}", ch.ToString(), index));
-                        tokenStart = index;
+                if (IsValidChar(currentTokenType, ch))
+                {
+                    if (!startString && IsForceEndChar(currentTokenType, ch))
+                    {
+                        var value = Input.Substring(tokenStart, index - tokenStart + 1);
+                        var token = new Token(currentTokenType, value);
+                        currentTokenType = TokenType.None;
                         index++;
                         return token;
                     }
                     else
                     {
-                        throw new InvalidOperationException();
                     }
+                }
+                else if (IsEndingChar(currentTokenType, Input[index - 1]))
+                {
+                    var value = Input.Substring(tokenStart, index - tokenStart);
+                    var token = new Token(currentTokenType, value);
+
+                    currentTokenType = GetNewTokenType(ch);
+                    if (currentTokenType == TokenType.Unknown) 
+                        throw new InvalidOperationException(
+                            string.Format("Unknown character '{0}' at index {1}", ch.ToString(), index));
+                    tokenStart = index;
+                    index++;
+                    return token;
+                }
+                else
+                {
+                    throw new InvalidOperationException();
                 }
             }
 
@@ -208,6 +208,17 @@ namespace FbxSharp
             }
 
             return IsValidChar(tokenType, ch);
+        }
+
+        public IEnumerable<Token> EnumerateTokens()
+        {
+            while (true)
+            {
+                var token = GetNextToken();
+                if (token == null)
+                    yield break;
+                yield return token.Value;
+            }
         }
     }
 }

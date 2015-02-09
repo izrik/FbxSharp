@@ -243,5 +243,23 @@ namespace FbxSharpTests
             // then
             Assert.IsNull(token);
         }
+
+        [Test]
+        public void TestEnumerateTokens()
+        {
+            // given
+            const string input = "***";
+         Token token = new Token(TokenType.Star, "*");
+            var tokenizer = new Tokenizer(input);
+
+            // when
+            var list = tokenizer.EnumerateTokens().ToList<Token>();
+
+            // then
+            Assert.AreEqual(3, list.Count);
+            Assert.AreEqual(token, list[0]);
+            Assert.AreEqual(token, list[1]);
+            Assert.AreEqual(token, list[2]);
+        }
     }
 }
