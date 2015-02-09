@@ -170,5 +170,22 @@ namespace FbxSharpTests
 			Assert.AreEqual(TokenType.Number, tokens[0].Type);
 			Assert.AreEqual(input, tokens[0].Value);
 		}
+
+		[Test]
+		public void TestNameInWhitespace()
+		{
+			// given
+			const string input = "   abcd   ";
+			var tokenizer = new Tokenizer();
+
+			// when
+			var tokens = tokenizer.Tokenize(input);
+
+			// then
+			Assert.AreEqual(3, tokens.Count);
+			Assert.AreEqual(new Token(TokenType.Whitespace, "   "), tokens[0]);
+			Assert.AreEqual(new Token(TokenType.Name, "abcd"), tokens[1]);
+			Assert.AreEqual(new Token(TokenType.Whitespace, "   "), tokens[2]);
+		}
     }
 }
