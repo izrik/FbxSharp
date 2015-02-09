@@ -35,10 +35,7 @@ namespace FbxSharp
                         if (IsForceEndChar(currentTokenType, ch))
                         {
                             var value = input.Substring(tokenStart, index - tokenStart + 1);
-                            tokens.Add(new Token {
-                                Type = currentTokenType,
-                                Value = value,
-                            });
+                            tokens.Add(new Token(currentTokenType, value));
                             currentTokenType = TokenType.None;
                         }
                         else
@@ -47,11 +44,8 @@ namespace FbxSharp
                     }
                     else if (IsEndingChar(currentTokenType, input[index - 1]))
                     {
-                        var value = input.Substring(tokenStart, index - tokenStart - 1);
-                        tokens.Add(new Token {
-                            Type = currentTokenType,
-                            Value = value,
-                        });
+                        var value = input.Substring(tokenStart, index - tokenStart);
+                        tokens.Add(new Token(currentTokenType, value));
 
                         currentTokenType = GetNewTokenType(ch);
                         if (currentTokenType == TokenType.Unknown) 
@@ -74,10 +68,7 @@ namespace FbxSharp
                     throw new InvalidOperationException("Bad ending char");
                 }
 
-                tokens.Add(new Token {
-                    Type = currentTokenType,
-                    Value = input.Substring(tokenStart)
-                });
+                tokens.Add(new Token(currentTokenType, input.Substring(tokenStart)));
             }
 
             return tokens;
