@@ -37,6 +37,7 @@ namespace FbxSharp
             Array,
             String,
             Number,
+            NameValue,
             PostValue,
             Comma,
             Block,
@@ -106,6 +107,9 @@ namespace FbxSharp
                     case TokenType.Number:
                         state = ObjectState.Number;
                         break;
+                    case TokenType.Name:
+                        state = ObjectState.NameValue;
+                        break;
                     default:
                         throw new InvalidOperationException();
                     }
@@ -120,6 +124,7 @@ namespace FbxSharp
                     state = ObjectState.End;
                     break;
                 case ObjectState.String:
+                case ObjectState.NameValue:
                     token = GetNextToken().Value;
                     values.Add(UnescapeString(token.Value));
                     state = ObjectState.PostValue;
