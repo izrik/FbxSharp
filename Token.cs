@@ -7,14 +7,16 @@ namespace FbxSharp
 {
     public struct Token
     {
-        public Token(TokenType type, string value)
+        public Token(TokenType type, string value, InputLocation location=default(InputLocation))
         {
             Type = type;
             Value = value;
+            Location = location;
         }
 
         public readonly TokenType Type;
         public readonly string Value;
+        public readonly InputLocation Location;
 
         public override bool Equals(object obj)
         {
