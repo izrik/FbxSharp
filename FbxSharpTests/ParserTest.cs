@@ -82,10 +82,10 @@ namespace FbxSharpTests
             Assert.AreEqual(3, obj.Values.Count);
             Assert.IsInstanceOf<string>(obj.Values[0]);
             Assert.IsInstanceOf<string>(obj.Values[1]);
-            Assert.IsInstanceOf<float>(obj.Values[2]);
+            Assert.IsInstanceOf<Number>(obj.Values[2]);
             Assert.AreEqual("value1", (string)obj.Values[0]);
             Assert.AreEqual("value2", (string)obj.Values[1]);
-            Assert.AreEqual(3.0f, (float)obj.Values[2]);
+            Assert.AreEqual(3.0, ((Number)obj.Values[2]).AsDouble.Value);
             Assert.IsNull(obj.Properties);
         }
 
@@ -109,8 +109,8 @@ namespace FbxSharpTests
             Assert.IsNotNull(objs[0]);
             Assert.AreEqual("x", objs[0].Name);
             Assert.AreEqual(2, objs[0].Values.Count);
-            Assert.IsInstanceOf<float>(objs[0].Values[0]);
-            Assert.AreEqual(1.0f, (float)objs[0].Values[0]);
+            Assert.IsInstanceOf<Number>(objs[0].Values[0]);
+            Assert.AreEqual(1, ((Number)objs[0].Values[0]).AsLong.Value);
             Assert.IsInstanceOf<string>(objs[0].Values[1]);
             Assert.AreEqual("two", (string)objs[0].Values[1]);
             Assert.IsNull(objs[0].Properties);
@@ -120,8 +120,8 @@ namespace FbxSharpTests
             Assert.AreEqual(2, objs[1].Values.Count);
             Assert.IsInstanceOf<string>(objs[1].Values[0]);
             Assert.AreEqual("three", (string)objs[1].Values[0]);
-            Assert.IsInstanceOf<float>(objs[1].Values[1]);
-            Assert.AreEqual(4.0f, (float)objs[1].Values[1]);
+            Assert.IsInstanceOf<Number>(objs[1].Values[1]);
+            Assert.AreEqual(4, ((Number)objs[1].Values[1]).AsLong.Value);
             Assert.IsNull(objs[1].Properties);
             Assert.That(!objs[1].HasEmptyBlock);
         }
@@ -153,8 +153,8 @@ namespace FbxSharpTests
             Assert.IsNotNull(sub);
             Assert.AreEqual("x", sub.Name);
             Assert.AreEqual(2, sub.Values.Count);
-            Assert.IsInstanceOf<float>(sub.Values[0]);
-            Assert.AreEqual(1.0f, (float)sub.Values[0]);
+            Assert.IsInstanceOf<Number>(sub.Values[0]);
+            Assert.AreEqual(1, ((Number)sub.Values[0]).AsLong.Value);
             Assert.IsInstanceOf<string>(sub.Values[1]);
             Assert.AreEqual("two", (string)sub.Values[1]);
             Assert.IsNull(sub.Properties);
@@ -199,11 +199,11 @@ namespace FbxSharpTests
             Assert.AreEqual(1, objects.Count);
             Assert.AreEqual("a", objects[0].Name);
             Assert.AreEqual(4, objects[0].Values.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(objects[0].Values, typeof(float));
-            Assert.AreEqual(1.0f, (float)objects[0].Values[0]);
-            Assert.AreEqual(2.0f, (float)objects[0].Values[1]);
-            Assert.AreEqual(3.0f, (float)objects[0].Values[2]);
-            Assert.AreEqual(4.0f, (float)objects[0].Values[3]);
+            CollectionAssert.AllItemsAreInstancesOfType(objects[0].Values, typeof(Number));
+            Assert.AreEqual(1, ((Number)objects[0].Values[0]).AsLong.Value);
+            Assert.AreEqual(2, ((Number)objects[0].Values[1]).AsLong.Value);
+            Assert.AreEqual(3, ((Number)objects[0].Values[2]).AsLong.Value);
+            Assert.AreEqual(4, ((Number)objects[0].Values[3]).AsLong.Value);
             Assert.IsNull(objects[0].Properties);
         }
 
@@ -241,8 +241,8 @@ namespace FbxSharpTests
             Assert.IsNotNull(sub);
             Assert.AreEqual("Count", sub.Name);
             Assert.AreEqual(1, sub.Values.Count);
-            Assert.IsInstanceOf<float>(sub.Values[0]);
-            Assert.AreEqual(1.0f, (float)sub.Values[0]);
+            Assert.IsInstanceOf<Number>(sub.Values[0]);
+            Assert.AreEqual(1, ((Number)sub.Values[0]).AsLong.Value);
             Assert.IsNull(sub.Properties);
             Assert.That(!sub.HasEmptyBlock);
 
@@ -273,9 +273,9 @@ namespace FbxSharpTests
             Assert.AreEqual("ColorRGB", (string)subsub.Values[1]);
             Assert.AreEqual("Color", (string)subsub.Values[2]);
             Assert.AreEqual("", (string)subsub.Values[3]);
-            Assert.AreEqual(0.8f, (float)subsub.Values[4]);
-            Assert.AreEqual(0.8f, (float)subsub.Values[5]);
-            Assert.AreEqual(0.8f, (float)subsub.Values[6]);
+            Assert.AreEqual(0.8, ((Number)subsub.Values[4]).AsDouble.Value);
+            Assert.AreEqual(0.8, ((Number)subsub.Values[5]).AsDouble.Value);
+            Assert.AreEqual(0.8, ((Number)subsub.Values[6]).AsDouble.Value);
             Assert.IsNull(subsub.Properties);
             Assert.That(!subsub.HasEmptyBlock);
 
@@ -288,9 +288,12 @@ namespace FbxSharpTests
             Assert.AreEqual("Vector3D", (string)subsub.Values[1]);
             Assert.AreEqual("Vector", (string)subsub.Values[2]);
             Assert.AreEqual("", (string)subsub.Values[3]);
-            Assert.AreEqual(0f, (float)subsub.Values[4]);
-            Assert.AreEqual(0f, (float)subsub.Values[5]);
-            Assert.AreEqual(0f, (float)subsub.Values[6]);
+            Assert.AreEqual(0.0, ((Number)subsub.Values[4]).AsDouble.Value);
+            Assert.AreEqual(0, ((Number)subsub.Values[4]).AsLong.Value);
+            Assert.AreEqual(0.0, ((Number)subsub.Values[5]).AsDouble.Value);
+            Assert.AreEqual(0, ((Number)subsub.Values[5]).AsLong.Value);
+            Assert.AreEqual(0.0, ((Number)subsub.Values[6]).AsDouble.Value);
+            Assert.AreEqual(0, ((Number)subsub.Values[6]).AsLong.Value);
             Assert.IsNull(subsub.Properties);
             Assert.That(!subsub.HasEmptyBlock);
 
@@ -303,9 +306,12 @@ namespace FbxSharpTests
             Assert.AreEqual("Vector3D", (string)subsub.Values[1]);
             Assert.AreEqual("Vector", (string)subsub.Values[2]);
             Assert.AreEqual("", (string)subsub.Values[3]);
-            Assert.AreEqual(0f, (float)subsub.Values[4]);
-            Assert.AreEqual(0f, (float)subsub.Values[5]);
-            Assert.AreEqual(0f, (float)subsub.Values[6]);
+            Assert.AreEqual(0.0, ((Number)subsub.Values[4]).AsDouble.Value);
+            Assert.AreEqual(0, ((Number)subsub.Values[4]).AsLong.Value);
+            Assert.AreEqual(0.0, ((Number)subsub.Values[5]).AsDouble.Value);
+            Assert.AreEqual(0, ((Number)subsub.Values[5]).AsLong.Value);
+            Assert.AreEqual(0.0, ((Number)subsub.Values[6]).AsDouble.Value);
+            Assert.AreEqual(0, ((Number)subsub.Values[6]).AsLong.Value);
             Assert.IsNull(subsub.Properties);
             Assert.That(!subsub.HasEmptyBlock);
         }

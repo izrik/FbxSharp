@@ -131,7 +131,7 @@ namespace FbxSharp
                     break;
                 case ObjectState.Number:
                     token = GetNextToken().Value;
-                    values.Add(float.Parse(token.Value));
+                    values.Add(new Number(token.Value));
                     state = ObjectState.PostValue;
                     break;
                 case ObjectState.PostValue:

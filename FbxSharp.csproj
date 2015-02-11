@@ -45,6 +45,7 @@
     <Compile Include="Parser.cs" />
     <Compile Include="ParseObject.cs" />
     <Compile Include="InputLocation.cs" />
+    <Compile Include="Number.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
