@@ -43,6 +43,11 @@ namespace FbxSharp
 
             return sb.ToString();
         }
+
+        public ParseObject FindPropertyByName(string name)
+        {
+            return this.Properties.Find(p => p.Name == name);
+        }
     }
 }
 
