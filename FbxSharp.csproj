@@ -49,6 +49,21 @@
     <Compile Include="ParseObject.cs" />
     <Compile Include="InputLocation.cs" />
     <Compile Include="Number.cs" />
+    <Compile Include="FbxObject.cs" />
+    <Compile Include="Skeleton.cs" />
+    <Compile Include="Collection.cs" />
+    <Compile Include="Document.cs" />
+    <Compile Include="Emitter.cs" />
+    <Compile Include="Geometry.cs" />
+    <Compile Include="GeometryBase.cs" />
+    <Compile Include="LayerContainer.cs" />
+    <Compile Include="Mesh.cs" />
+    <Compile Include="Node.cs" />
+    <Compile Include="Null.cs" />
+    <Compile Include="Property.cs" />
+    <Compile Include="PropertyT.cs" />
+    <Compile Include="Scene.cs" />
+    <Compile Include="NodeAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
