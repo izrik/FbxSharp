@@ -64,6 +64,15 @@
     <Compile Include="PropertyT.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="NodeAttribute.cs" />
+    <Compile Include="Converter.cs" />
+    <Compile Include="LayerElementNormal.cs" />
+    <Compile Include="LayerElement.cs" />
+    <Compile Include="LayerElementUV.cs" />
+    <Compile Include="Layer.cs" />
+    <Compile Include="LayerElementVisibility.cs" />
+    <Compile Include="LayerElementT.cs" />
+    <Compile Include="LayerElementMaterial.cs" />
+    <Compile Include="SurfaceMaterial.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

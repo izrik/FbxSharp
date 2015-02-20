@@ -18,6 +18,11 @@ namespace FbxSharp
         public abstract void Set(object value);
 
         //public Object FbxObject { get; protected set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0}: {1}", Name, GetValue());
+        }
     }
 }
 
