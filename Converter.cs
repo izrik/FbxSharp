@@ -30,7 +30,7 @@ namespace FbxSharp
             var fbxObjectsById = new Dictionary<ulong, FbxObject>();
             foreach (var obj in objs.Properties)
             {
-                var fobj = ConvertObject(obj);
+                var fobj = ConvertObject(obj, fbxObjectsById);
                 fbxObjects.Add(fobj);
                 fbxObjectsById[fobj.UniqueId] = fobj;
             }
@@ -105,7 +105,6 @@ namespace FbxSharp
                 { "NodeAttribute", ConvertNodeAttribute },
                 { "Geometry", ConvertGeometry },
                 { "Model", ConvertNode }, // Node?
-                { "Pose", ConvertPose },
                 { "Material", ConvertMaterial },
                 { "Deformer", ConvertDeformer },
                 { "Video", ConvertVideo },
@@ -116,11 +115,16 @@ namespace FbxSharp
                 { "AnimationCurve", ConvertAnimationCurve },
             };
 
-        public FbxObject ConvertObject(ParseObject obj)
+        public FbxObject ConvertObject(ParseObject obj, Dictionary<ulong, FbxObject> fbxObjectsById)
         {
             if (ConvertersByObjectName.ContainsKey(obj.Name))
             {
                 return ConvertersByObjectName[obj.Name](obj);
+            }
+
+            if (obj.Name == "Pose")
+            {
+                return ConvertPose(obj, fbxObjectsById);
             }
 
             throw new InvalidOperationException(
@@ -680,9 +684,91 @@ namespace FbxSharp
             return node;
         }
 
-        public static NodeAttribute ConvertPose(ParseObject obj)
+        public static Pose ConvertPose(ParseObject obj, Dictionary<ulong, FbxObject> fbxObjectsById)
         {
-            throw new NotImplementedException();
+            var pose = new Pose();
+
+            if (obj.Values.Count < 3)
+                throw new InvalidOperationException();
+            if (obj.Values.Count > 3)
+                throw new NotImplementedException();
+            pose.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
+            pose.Name = ((string)obj.Values[1]);
+            var type = ((string)obj.Values[2]);
+
+            long numPoseNodes = 0;
+
+            foreach (var prop in obj.Properties)
+            {
+                switch (prop.Name)
+                {
+                case "Type":
+                    if ((string)prop.Values[0] == "BindPose")
+                    {
+                        pose.IsBindPose = true;
+                    }
+                    else
+                    {
+                        throw new NotImplementedException();
+                    }
+                    break;
+                case "Version":
+                    if (((Number)prop.Values[0]).AsLong.Value != 100)
+                        throw new NotImplementedException();
+                    break;
+                case "NbPoseNodes":
+                    numPoseNodes = ((Number)prop.Values[0]).AsLong.Value;
+                    break;
+                case "PoseNode":
+                    var posenode = ConvertPoseNode(prop, fbxObjectsById);
+                    pose.PoseNodes.Add(posenode);
+                    break;
+                default:
+                    throw new NotImplementedException();
+                }
+            }
+
+            if (numPoseNodes != pose.PoseNodes.Count)
+                throw new InvalidOperationException();
+
+            return pose;
+        }
+
+        public static Pose.PoseNode ConvertPoseNode(ParseObject obj, Dictionary<ulong, FbxObject> fbxObjectsById)
+        {
+            if (obj.Properties.Count != 2)
+                throw new NotImplementedException();
+
+            var nodeIdProp = obj.FindPropertyByName("Node");
+            if (nodeIdProp == null)
+                throw new InvalidOperationException();
+            var nodeId = ((Number)nodeIdProp.Values[0]).AsLong.Value;
+            var node = (Node)fbxObjectsById[(ulong)nodeId];
+
+            var matrixProp = obj.FindPropertyByName("Matrix");
+            if (matrixProp == null)
+                throw new InvalidOperationException();
+            var matrix = ConvertMatrix(matrixProp);
+
+            return new Pose.PoseNode(node, matrix);
+        }
+
+        public static Matrix ConvertMatrix(ParseObject obj)
+        {
+            if (obj.Properties.Count != 1)
+                throw new InvalidOperationException();
+            var values = obj.Properties[0].Values;
+            if (values.Count != 16)
+                throw new InvalidOperationException();
+
+            var v = values.Select(n => (float)(((Number)n).AsDouble.Value)).ToArray();
+
+            var m = new Matrix(
+                        v[0], v[1], v[2], v[3],
+                        v[4], v[5], v[6], v[7],
+                        v[8], v[9], v[10], v[11],
+                        v[12], v[13], v[14], v[15]);
+            return m;
         }
 
         public static NodeAttribute ConvertMaterial(ParseObject obj)
