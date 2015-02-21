@@ -5,7 +5,7 @@ using ChamberLib;
 
 namespace FbxSharp
 {
-	public class SurfaceMaterial
+    public abstract class SurfaceMaterial : FbxObject
 	{
 	}
 }

@@ -775,9 +775,56 @@ namespace FbxSharp
             return m;
         }
 
-        public static NodeAttribute ConvertMaterial(ParseObject obj)
+        public static SurfaceMaterial ConvertMaterial(ParseObject obj)
         {
-            throw new NotImplementedException();
+
+
+            var shadingModelProp = obj.FindPropertyByName("ShadingModel");
+            if (shadingModelProp == null)
+                throw new InvalidOperationException();
+
+            var shadingModel = (string)shadingModelProp.Values[0];
+            if (shadingModel != "phong")
+                throw new NotImplementedException();
+
+            return ConvertPhongMaterial(obj);
+        }
+
+        public static SurfacePhong ConvertPhongMaterial(ParseObject obj)
+        {
+            var material = new SurfacePhong();
+
+            if (obj.Values.Count < 3)
+                throw new InvalidOperationException();
+            if (obj.Values.Count > 3)
+                throw new NotImplementedException();
+            material.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
+            material.Name = ((string)obj.Values[1]);
+            var type = ((string)obj.Values[2]);
+
+            foreach (var prop in obj.Properties)
+            {
+                switch (prop.Name)
+                {
+                case "Version":
+                    if (((Number)prop.Values[0]).AsLong.Value != 102)
+                        throw new NotImplementedException();
+                    break;
+                case "ShadingModel":
+                    break;
+                case "MultiLayer":
+                    var multilayer = (((Number)prop.Values[0]).AsLong.Value != 0);
+                    ImportProperty(material, "MultiLayer", typeof(bool), multilayer);
+                    break;
+                case "Properties70":
+                    ImportProperties(material, ConvertProperties70(prop));
+                    break;
+                default:
+                    throw new NotImplementedException();
+                }
+            }
+
+            return material;
         }
 
         public static NodeAttribute ConvertDeformer(ParseObject obj)
