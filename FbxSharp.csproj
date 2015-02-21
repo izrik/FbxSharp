@@ -76,6 +76,10 @@
     <Compile Include="Pose.cs" />
     <Compile Include="SurfacePhong.cs" />
     <Compile Include="SurfaceLambert.cs" />
+    <Compile Include="Deformer.cs" />
+    <Compile Include="Skin.cs" />
+    <Compile Include="SubDeformer.cs" />
+    <Compile Include="Cluster.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

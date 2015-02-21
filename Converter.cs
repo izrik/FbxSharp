@@ -777,8 +777,6 @@ namespace FbxSharp
 
         public static SurfaceMaterial ConvertMaterial(ParseObject obj)
         {
-
-
             var shadingModelProp = obj.FindPropertyByName("ShadingModel");
             if (shadingModelProp == null)
                 throw new InvalidOperationException();
@@ -827,14 +825,112 @@ namespace FbxSharp
             return material;
         }
 
-        public static NodeAttribute ConvertDeformer(ParseObject obj)
+        public static FbxObject ConvertDeformer(ParseObject obj)
         {
-            throw new NotImplementedException();
+            if (obj.Values.Count < 3)
+                throw new InvalidOperationException();
+            if (obj.Values.Count > 3)
+                throw new NotImplementedException();
+            var type = ((string)obj.Values[2]);
+
+            switch (type)
+            {
+            case "Skin":
+                return ConvertSkin(obj);
+            case "Cluster":
+                return ConvertCluster(obj);
+            default:
+                throw new NotImplementedException();
+            }
         }
 
-        public static NodeAttribute ConvertVideo(ParseObject obj)
+        public static Skin ConvertSkin(ParseObject obj)
         {
-            throw new NotImplementedException();
+            var skin = new Skin();
+
+            if (obj.Values.Count < 3)
+                throw new InvalidOperationException();
+            if (obj.Values.Count > 3)
+                throw new NotImplementedException();
+            skin.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
+            skin.Name = ((string)obj.Values[1]);
+
+            foreach (var prop in obj.Properties)
+            {
+                switch (prop.Name)
+                {
+                case "Version":
+                    if (((Number)prop.Values[0]).AsLong.Value != 101)
+                        throw new NotImplementedException();
+                    break;
+                case "Link_DeformAcuracy":
+                    var accuracy = ((Number)prop.Values[0]).AsDouble.Value;
+                    skin.DeformAccuracy = accuracy;
+                    break;
+                default:
+                    throw new NotImplementedException();
+                }
+            }
+
+            return skin;
+        }
+
+        public static Cluster ConvertCluster(ParseObject obj)
+        {
+            var cluster = new Cluster();
+
+            if (obj.Values.Count < 3)
+                throw new InvalidOperationException();
+            if (obj.Values.Count > 3)
+                throw new NotImplementedException();
+            cluster.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
+            cluster.Name = ((string)obj.Values[1]);
+
+            bool hasIndexes = false;
+            bool hasWeights = false;
+            bool hasTransform = false;
+            bool hasTransformLink = false;
+
+            foreach (var prop in obj.Properties)
+            {
+                switch (prop.Name)
+                {
+                case "Version":
+                    if (((Number)prop.Values[0]).AsLong.Value != 100)
+                        throw new NotImplementedException();
+                    break;
+                case "UserData":
+                    break;
+                case "Indexes":
+                    cluster.Indexes = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToList();
+                    hasIndexes = true;
+                    break;
+                case "Weights":
+                    cluster.Weights = prop.Properties[0].Values.Select(n => ((Number)n).AsDouble.Value).ToList();
+                    hasWeights = true;
+                    break;
+                case "Transform":
+                    cluster.Transform = ConvertMatrix(prop);
+                    hasTransform = true;
+                    break;
+                case "TransformLink":
+                    cluster.TransformLink = ConvertMatrix(prop);
+                    hasTransformLink = true;
+                    break;
+                default:
+                    throw new NotImplementedException();
+                }
+            }
+
+            if (!hasIndexes ||
+                !hasWeights ||
+                !hasTransform ||
+                !hasTransformLink)
+            {
+                throw new InvalidOperationException();
+            }
+
+            return cluster;
         }
 
         public static NodeAttribute ConvertTexture(ParseObject obj)
