@@ -933,6 +933,45 @@ namespace FbxSharp
             return cluster;
         }
 
+        public static Video ConvertVideo(ParseObject obj)
+        {
+            var video = new Video();
+
+            if (obj.Values.Count < 3)
+                throw new InvalidOperationException();
+            if (obj.Values.Count > 3)
+                throw new NotImplementedException();
+            video.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
+            video.Name = ((string)obj.Values[1]);
+            var type = ((string)obj.Values[2]);
+
+            foreach (var prop in obj.Properties)
+            {
+                switch (prop.Name)
+                {
+                case "Type":
+                    video.Type = (string)prop.Values[0];
+                    break;
+                case "Properties70":
+                    ImportProperties(video, ConvertProperties70(prop));
+                    break;
+                case "UseMipMap":
+                    video.UseMipMap = (((Number)prop.Values[0]).AsLong.Value != 0);
+                    break;
+                case "Filename":
+                    video.Filename = (string)prop.Values[0];
+                    break;
+                case "RelativeFilename":
+                    video.RelativeFilename = (string)prop.Values[0];
+                    break;
+                default:
+                    throw new NotImplementedException();
+                }
+            }
+
+            return video;
+        }
+
         public static NodeAttribute ConvertTexture(ParseObject obj)
         {
             throw new NotImplementedException();
