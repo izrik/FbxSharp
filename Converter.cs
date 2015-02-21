@@ -245,20 +245,7 @@ namespace FbxSharp
                 switch (prop.Name)
                 {
                 case "Properties70":
-                    var propinfos = ConvertProperties70(prop);
-                    foreach (var propinfo in propinfos)
-                    {
-                        var name = propinfo.Item1;
-                        var type = propinfo.Item2;
-                        var value = propinfo.Item3;
-
-                        var meshprop = mesh.FindProperty(name, type);
-                        if (meshprop == null)
-                        {
-                            meshprop = mesh.CreateProperty(name, type);
-                        }
-                        meshprop.Set(value);
-                    }
+                    ImportProperties(mesh, ConvertProperties70(prop));
                     break;
                 case "Vertices":
                     mesh.VertexPositions = ConvertVertices(prop);
@@ -579,6 +566,14 @@ namespace FbxSharp
                         throw new NotImplementedException();
                     propValue = new Vector3((float)x, (float)y, (float)z);
                     break;
+                case "KString":
+                    propType = typeof(string);
+                    propValue = (string)p.Values[4];
+                    break;
+                case "double":
+                    propType = typeof(double);
+                    propValue = ((Number)p.Values[4]).AsDouble.Value;
+                    break;
                 default:
                     throw new NotImplementedException();
                 }
@@ -649,20 +644,7 @@ namespace FbxSharp
                         throw new NotImplementedException();
                     break;
                 case "Properties70":
-                    var propinfos = ConvertProperties70(prop);
-                    foreach (var propinfo in propinfos)
-                    {
-                        var pname = propinfo.Item1;
-                        var ptype = propinfo.Item2;
-                        var pvalue = propinfo.Item3;
-
-                        var pprop = node.FindProperty(pname, ptype);
-                        if (pprop == null)
-                        {
-                            pprop = node.CreateProperty(pname, ptype);
-                        }
-                        pprop.Set(pvalue);
-                    }
+                    ImportProperties(node, ConvertProperties70(prop));
                     break;
                 case "MultiLayer":
                     node.MultiLayer = (((Number)prop.Values[0]).AsLong.Value != 0);
@@ -682,6 +664,28 @@ namespace FbxSharp
             }
 
             return node;
+        }
+
+        public static void ImportProperty(FbxObject obj, string name, Type type, object value)
+        {
+            var pprop = obj.FindProperty(name, type);
+            if (pprop == null)
+            {
+                pprop = obj.CreateProperty(name, type);
+            }
+            pprop.Set(value);
+        }
+
+        public static void ImportProperties(FbxObject obj, IEnumerable<Tuple<string, Type, object>> propinfos)
+        {
+            foreach (var propinfo in propinfos)
+            {
+                var pname = propinfo.Item1;
+                var ptype = propinfo.Item2;
+                var pvalue = propinfo.Item3;
+
+                ImportProperty(obj, pname, ptype, pvalue);
+            }
         }
 
         public static Pose ConvertPose(ParseObject obj, Dictionary<ulong, FbxObject> fbxObjectsById)
