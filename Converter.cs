@@ -574,6 +574,10 @@ namespace FbxSharp
                     propType = typeof(double);
                     propValue = ((Number)p.Values[4]).AsDouble.Value;
                     break;
+                case "KTime":
+                    propType = typeof(long);
+                    propValue = ((Number)p.Values[4]).AsLong.Value;
+                    break;
                 default:
                     throw new NotImplementedException();
                 }
@@ -1060,9 +1064,31 @@ namespace FbxSharp
                     (float)((Number)values[startIndex + 3]).AsDouble.Value);
         }
 
-        public static NodeAttribute ConvertAnimationStack(ParseObject obj)
+        public static AnimationStack ConvertAnimationStack(ParseObject obj)
         {
-            throw new NotImplementedException();
+            var animstack = new AnimationStack();
+
+            if (obj.Values.Count < 3)
+                throw new InvalidOperationException();
+            if (obj.Values.Count > 3)
+                throw new NotImplementedException();
+            animstack.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
+            animstack.Name = ((string)obj.Values[1]);
+            var type = ((string)obj.Values[2]);
+
+            foreach (var prop in obj.Properties)
+            {
+                switch (prop.Name)
+                {
+                case "Properties70":
+                    ImportProperties(animstack, ConvertProperties70(prop));
+                    break;
+                default:
+                    throw new NotImplementedException();
+                }
+            }
+
+            return animstack;
         }
 
         public static NodeAttribute ConvertAnimationLayer(ParseObject obj)
