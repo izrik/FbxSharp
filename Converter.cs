@@ -972,9 +972,92 @@ namespace FbxSharp
             return video;
         }
 
-        public static NodeAttribute ConvertTexture(ParseObject obj)
+        public static Texture ConvertTexture(ParseObject obj)
         {
-            throw new NotImplementedException();
+            var texture = new Texture();
+
+            if (obj.Values.Count < 3)
+                throw new InvalidOperationException();
+            if (obj.Values.Count > 3)
+                throw new NotImplementedException();
+            texture.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
+            texture.Name = ((string)obj.Values[1]);
+            var type = ((string)obj.Values[2]);
+
+            foreach (var prop in obj.Properties)
+            {
+                switch (prop.Name)
+                {
+                case "Type":
+                    texture.Type = (string)prop.Values[0];
+                    break;
+                case "Version":
+                    if (((Number)prop.Values[0]).AsLong.Value != 202)
+                        throw new NotImplementedException();
+                    break;
+                case "TextureName":
+                    var name = (string)prop.Values[0];
+                    if (name != texture.Name)
+                        throw new InvalidOperationException();
+                    break;
+                case "Properties70":
+                    ImportProperties(texture, ConvertProperties70(prop));
+                    break;
+                case "Media":
+                    texture.Media = (string)prop.Values[0];
+                    break;
+                case "Filename":
+                case "FileName":
+                    texture.Filename = (string)prop.Values[0];
+                    break;
+                case "RelativeFilename":
+                    texture.RelativeFilename = (string)prop.Values[0];
+                    break;
+                case "ModelUVTranslation":
+                    texture.ModelUVTranslation = ConvertVector2(prop.Values);
+                    break;
+                case "ModelUVScaling":
+                    texture.ModelUVScaling = ConvertVector2(prop.Values);
+                    break;
+                case "Texture_Alpha_Source":
+                    texture.AlphaSource = (Texture.EAlphaSource)Enum.Parse(typeof(Texture.EAlphaSource), (string)prop.Values[0]);
+                    break;
+                case "Cropping":
+                    texture.Cropping = ConvertVector4(prop.Values);
+                    break;
+                default:
+                    throw new NotImplementedException();
+                }
+            }
+
+            return texture;
+        }
+
+        public static Vector2 ConvertVector2(List<object> values, int startIndex=0)
+        {
+            return
+                new Vector2(
+                    (float)((Number)values[startIndex]).AsDouble.Value,
+                    (float)((Number)values[startIndex + 1]).AsDouble.Value);
+        }
+
+        public static Vector3 ConvertVector3(List<object> values, int startIndex=0)
+        {
+            return
+                new Vector3(
+                    (float)((Number)values[startIndex]).AsDouble.Value,
+                    (float)((Number)values[startIndex + 1]).AsDouble.Value,
+                    (float)((Number)values[startIndex + 2]).AsDouble.Value);
+        }
+
+        public static Vector4 ConvertVector4(List<object> values, int startIndex=0)
+        {
+            return
+                new Vector4(
+                    (float)((Number)values[startIndex]).AsDouble.Value,
+                    (float)((Number)values[startIndex + 1]).AsDouble.Value,
+                    (float)((Number)values[startIndex + 2]).AsDouble.Value,
+                    (float)((Number)values[startIndex + 3]).AsDouble.Value);
         }
 
         public static NodeAttribute ConvertAnimationStack(ParseObject obj)
