@@ -1091,9 +1091,22 @@ namespace FbxSharp
             return animstack;
         }
 
-        public static NodeAttribute ConvertAnimationLayer(ParseObject obj)
+        public static AnimationLayer ConvertAnimationLayer(ParseObject obj)
         {
-            throw new NotImplementedException();
+            var animlayer = new AnimationLayer();
+
+            if (obj.Values.Count < 3)
+                throw new InvalidOperationException();
+            if (obj.Values.Count > 3)
+                throw new NotImplementedException();
+            animlayer.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
+            animlayer.Name = ((string)obj.Values[1]);
+            var type = ((string)obj.Values[2]);
+
+            if (obj.Properties.Count > 0)
+                throw new NotImplementedException();
+
+            return animlayer;
         }
 
         public static NodeAttribute ConvertAnimationCurveNode(ParseObject obj)

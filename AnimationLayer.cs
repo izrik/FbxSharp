@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class AnimationStack : Collection
+    public class AnimationLayer : Collection
     {
     }
 }
