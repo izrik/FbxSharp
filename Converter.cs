@@ -578,6 +578,16 @@ namespace FbxSharp
                     propType = typeof(long);
                     propValue = ((Number)p.Values[4]).AsLong.Value;
                     break;
+                case "Compound":
+                    propType = typeof(string);
+                    propValue = "";
+                    break;
+                case "Number":
+                    if ((string)p.Values[3] != "A")
+                        throw new InvalidOperationException();
+                    propType = typeof(double);
+                    propValue = ((Number)p.Values[4]).AsDouble.Value;
+                    break;
                 default:
                     throw new NotImplementedException();
                 }
@@ -1109,14 +1119,87 @@ namespace FbxSharp
             return animlayer;
         }
 
-        public static NodeAttribute ConvertAnimationCurveNode(ParseObject obj)
+        public static AnimationCurveNode ConvertAnimationCurveNode(ParseObject obj)
         {
-            throw new NotImplementedException();
+            var animCurveNode = new AnimationCurveNode();
+
+            if (obj.Values.Count < 3)
+                throw new InvalidOperationException();
+            if (obj.Values.Count > 3)
+                throw new NotImplementedException();
+            animCurveNode.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
+            animCurveNode.Name = ((string)obj.Values[1]);
+            var type = ((string)obj.Values[2]);
+
+            foreach (var prop in obj.Properties)
+            {
+                switch (prop.Name)
+                {
+                case "Properties70":
+                    ImportProperties(animCurveNode, ConvertProperties70(prop));
+                    break;
+                default:
+                    throw new NotImplementedException();
+                }
+            }
+
+            return animCurveNode;
         }
 
-        public static NodeAttribute ConvertAnimationCurve(ParseObject obj)
+        public static AnimationCurve ConvertAnimationCurve(ParseObject obj)
         {
-            throw new NotImplementedException();
+            var curve = new AnimationCurve();
+
+            if (obj.Values.Count < 3)
+                throw new InvalidOperationException();
+            if (obj.Values.Count > 3)
+                throw new NotImplementedException();
+            curve.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
+            curve.Name = ((string)obj.Values[1]);
+            var type = ((string)obj.Values[2]);
+
+            long[] keyTimes = null;
+            double[] keyValues = null;
+
+            foreach (var prop in obj.Properties)
+            {
+                switch (prop.Name)
+                {
+                case "Default":
+                    curve.DefaultValue = ((Number)prop.Values[0]).AsDouble.Value;
+                    break;
+                case "KeyVer":
+                    if (((Number)prop.Values[0]).AsLong.Value != 4008)
+                        throw new NotImplementedException();
+                    break;
+                case "KeyTime":
+                    keyTimes = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
+                    break;
+                case "KeyValueFloat":
+                    keyValues = prop.Properties[0].Values.Select(n => ((Number)n).AsDouble.Value).ToArray();
+                    break;
+                case "KeyAttrFlags":
+                    var attrFlags = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
+                    break;
+                case "KeyAttrDataFloat":
+                    var attrData = prop.Properties[0].Values.Select(n => ((Number)n).AsDouble.Value).ToArray();
+                    break;
+                case "KeyAttrRefCount":
+                    var attrRefCount = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
+                    break;
+                default:
+                    throw new NotImplementedException();
+                }
+            }
+
+            int i;
+            for (i = 0; i < Math.Min(keyTimes.Length, keyValues.Length); i++)
+            {
+                var key = new AnimationCurveKey(keyTimes[i], keyValues[i]);
+                curve.Keys.Add(key);
+            }
+
+            return curve;
         }
 
         void CheckConnections(ParseObject conns)
