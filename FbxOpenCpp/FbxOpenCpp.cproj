@@ -45,6 +45,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="main.cpp" />
+    <Compile Include="objects.cpp" />
+    <Compile Include="textures.cpp" />
+    <Compile Include="properties.cpp" />
+    <Compile Include="basic_types.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="model.fbx">
@@ -54,5 +58,6 @@
       <Link>libfbxsdk.dylib</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="common.h" />
   </ItemGroup>
 </Project>
