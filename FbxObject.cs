@@ -5,6 +5,11 @@ namespace FbxSharp
 {
     public class FbxObject : Emitter
     {
+        public override string ToString()
+        {
+            return string.Format("[{2}: Name={0}, UniqueId={1}]", Name, UniqueId, this.GetType().Name);
+        }
+
         public List<Property> Properties = new List<Property>();
 
         public Property FindProperty(string name, bool caseSensitive=true)
