@@ -16,9 +16,26 @@ int main (int argc, char *argv[])
 {
     cout << "Loading file with fbxsdk" << endl;
 
-    const char* filename = "model.fbx";
-    FbxScene* scene = Load(filename);
-    PrintObject(scene);
+//    const char* filename = "model.fbx";
+//    FbxScene* scene = Load(filename);
+
+    FbxManager* manager = FbxManager::Create();
+
+    FbxScene* scene = FbxScene::Create(manager, "TheScene");
+
+    FbxNode* root = scene->GetRootNode();
+
+    FbxNode* node2 = FbxNode::Create(manager, "ChildNode");
+
+    PrintObject(root);
+    PrintObject(node2);
+
+    cout << "------------------------------------------------" << endl;
+
+    root->AddChild(node2);
+
+    PrintObject(root);
+    PrintObject(node2);
 
     return 0;
 }
