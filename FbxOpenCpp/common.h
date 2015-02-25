@@ -35,5 +35,6 @@ std::ostream& operator<<(std::ostream& os, const FbxDouble2& value);
 std::ostream& operator<<(std::ostream& os, const FbxDouble3& value);
 std::ostream& operator<<(std::ostream& os, const FbxDouble4& value);
 
+FbxScene* Load(const char* filename, FbxManager* manager=NULL);
 
 #endif // __FBXOPENCPP_COMMON_H
