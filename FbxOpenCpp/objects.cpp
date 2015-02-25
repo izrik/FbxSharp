@@ -191,6 +191,101 @@ void PrintDeformer(FbxDeformer* deformer, const char* prefix)
     throw "Not Implemented";
 }
 
+const char* ToString(const FbxTransform::EInheritType& value)
+{
+    switch (value)
+    {
+        case FbxTransform::eInheritRrSs:    return "eInheritRrSs";
+        case FbxTransform::eInheritRSrs:    return "eInheritRSrs";
+        case FbxTransform::eInheritRrs:     return "eInheritRrs";
+    }
+
+    return "<<unknown EInheritType>>";
+}
+
+ostream& operator<<(ostream& os, const FbxTransform::EInheritType& value)
+{
+    os << ToString(value);
+    return os;
+}
+
+const char* ToString(const EFbxQuatInterpMode& value)
+{
+    switch (value)
+    {
+        case eQuatInterpOff:              return "eQuatInterpOff";
+        case eQuatInterpClassic:          return "eQuatInterpClassic";
+        case eQuatInterpSlerp:            return "eQuatInterpSlerp";
+        case eQuatInterpCubic:            return "eQuatInterpCubic";
+        case eQuatInterpTangentDependent: return "eQuatInterpTangentDependent";
+        case eQuatInterpCount:            return "eQuatInterpCount";
+    }
+
+    return "<<unknown EFbxQuatInterpMode>>";
+}
+
+ostream& operator<<(ostream& os, const EFbxQuatInterpMode& value)
+{
+    os << ToString(value);
+    return os;
+}
+
+const char* ToString(const EFbxRotationOrder& value)
+{
+    switch (value)
+    {
+        case eEulerXYZ:   return "eEulerXYZ";
+        case eEulerXZY:   return "eEulerXZY";
+        case eEulerYZX:   return "eEulerYZX";
+        case eEulerYXZ:   return "eEulerYXZ";
+        case eEulerZXY:   return "eEulerZXY";
+        case eEulerZYX:   return "eEulerZYX";
+        case eSphericXYZ: return "eSphericXYZ";
+    }
+
+    return "<<unknown EFbxRotationOrder>>";
+}
+
+ostream& operator<<(ostream& os, const EFbxRotationOrder& value)
+{
+    os << ToString(value);
+    return os;
+}
+
+ostream& operator<<(ostream& os, const FbxObject*& value)
+{
+    if (value == NULL)
+        os << "<<null>>";
+    else
+        os <<
+            value->GetUniqueID() << ", " <<
+            value->GetRuntimeClassId().GetName() << ", " <<
+            value->GetName();
+    return os;
+}
+
+
+const char* ToString(const FbxNode::EShadingMode& value)
+{
+    switch (value)
+    {
+        case FbxNode::eHardShading:    return "eHardShading";
+        case FbxNode::eWireFrame:      return "eWireFrame";
+        case FbxNode::eFlatShading:    return "eFlatShading";
+        case FbxNode::eLightShading:   return "eLightShading";
+        case FbxNode::eTextureShading: return "eTextureShading";
+        case FbxNode::eFullShading:    return "eFullShading";
+    }
+
+    return "<<unknown EShadingMode>>";
+}
+
+ostream& operator<<(ostream& os, const FbxNode::EShadingMode& value)
+{
+    os << ToString(value);
+    return os;
+}
+
 void PrintNode(FbxNode* node, const char* prefix)
 {
 
@@ -206,8 +301,107 @@ void PrintNode(FbxNode* node, const char* prefix)
         PrintObjectID(node->GetParent());
         cout << endl;
     }
-    
-    throw "Not Implemented";
+
+    cout << prefix << ".Target = ";
+    PrintObjectID(node->GetTarget());
+    cout << endl;
+    cout << prefix << ".PostTargetRotation = " << node->GetPostTargetRotation() << endl;
+    cout << prefix << ".TargetUp = ";
+    PrintObjectID(node->GetTargetUp());
+    cout << endl;
+    cout << prefix << ".TargetUpVector = " << node->GetTargetUpVector() << endl;
+
+    cout << prefix << ".NodeAttribute = ";
+    PrintObjectID(node->GetNodeAttribute());
+    cout << endl;
+    cout << prefix << ".NumNodeAttributes = " << node->GetNodeAttributeCount() << endl;
+
+    FbxTransform::EInheritType inhtype;
+    node->GetTransformationInheritType(inhtype);
+    cout << prefix << ".TransformationInheritType = " << inhtype << endl;
+
+    cout << prefix << ".GetCharacterLinkCount() = " << node->GetCharacterLinkCount() << endl;
+
+    cout << prefix << ".GetMaterialCount() = " << node->GetMaterialCount() << endl;
+
+    cout << prefix << ".LclTranslation" << node->LclTranslation.Get() << endl;
+    cout << prefix << ".LclRotation" << node->LclRotation.Get() << endl;
+    cout << prefix << ".LclScaling" << node->LclScaling.Get() << endl;
+    cout << prefix << ".Visibility" << node->Visibility.Get() << endl;
+    cout << prefix << ".VisibilityInheritance" << node->VisibilityInheritance.Get() << endl;
+    cout << prefix << ".QuaternionInterpolate" << node->QuaternionInterpolate.Get() << endl;
+    cout << prefix << ".RotationOffset" << node->RotationOffset.Get() << endl;
+    cout << prefix << ".RotationPivot" << node->RotationPivot.Get() << endl;
+    cout << prefix << ".ScalingOffset" << node->ScalingOffset.Get() << endl;
+    cout << prefix << ".ScalingPivot" << node->ScalingPivot.Get() << endl;
+    cout << prefix << ".TranslationActive" << node->TranslationActive.Get() << endl;
+    cout << prefix << ".TranslationMin" << node->TranslationMin.Get() << endl;
+    cout << prefix << ".TranslationMax" << node->TranslationMax.Get() << endl;
+    cout << prefix << ".TranslationMinX" << node->TranslationMinX.Get() << endl;
+    cout << prefix << ".TranslationMinY" << node->TranslationMinY.Get() << endl;
+    cout << prefix << ".TranslationMinZ" << node->TranslationMinZ.Get() << endl;
+    cout << prefix << ".TranslationMaxX" << node->TranslationMaxX.Get() << endl;
+    cout << prefix << ".TranslationMaxY" << node->TranslationMaxY.Get() << endl;
+    cout << prefix << ".TranslationMaxZ" << node->TranslationMaxZ.Get() << endl;
+    cout << prefix << ".RotationOrder" << node->RotationOrder.Get() << endl;
+    cout << prefix << ".RotationSpaceForLimitOnly" << node->RotationSpaceForLimitOnly.Get() << endl;
+    cout << prefix << ".RotationStiffnessX" << node->RotationStiffnessX.Get() << endl;
+    cout << prefix << ".RotationStiffnessY" << node->RotationStiffnessY.Get() << endl;
+    cout << prefix << ".RotationStiffnessZ" << node->RotationStiffnessZ.Get() << endl;
+    cout << prefix << ".AxisLen" << node->AxisLen.Get() << endl;
+    cout << prefix << ".PreRotation" << node->PreRotation.Get() << endl;
+    cout << prefix << ".PostRotation" << node->PostRotation.Get() << endl;
+    cout << prefix << ".RotationActive" << node->RotationActive.Get() << endl;
+    cout << prefix << ".RotationMin" << node->RotationMin.Get() << endl;
+    cout << prefix << ".RotationMax" << node->RotationMax.Get() << endl;
+    cout << prefix << ".RotationMinX" << node->RotationMinX.Get() << endl;
+    cout << prefix << ".RotationMinY" << node->RotationMinY.Get() << endl;
+    cout << prefix << ".RotationMinZ" << node->RotationMinZ.Get() << endl;
+    cout << prefix << ".RotationMaxX" << node->RotationMaxX.Get() << endl;
+    cout << prefix << ".RotationMaxY" << node->RotationMaxY.Get() << endl;
+    cout << prefix << ".RotationMaxZ" << node->RotationMaxZ.Get() << endl;
+    cout << prefix << ".InheritType" << node->InheritType.Get() << endl;
+    cout << prefix << ".ScalingActive" << node->ScalingActive.Get() << endl;
+    cout << prefix << ".ScalingMin" << node->ScalingMin.Get() << endl;
+    cout << prefix << ".ScalingMax" << node->ScalingMax.Get() << endl;
+    cout << prefix << ".ScalingMinX" << node->ScalingMinX.Get() << endl;
+    cout << prefix << ".ScalingMinY" << node->ScalingMinY.Get() << endl;
+    cout << prefix << ".ScalingMinZ" << node->ScalingMinZ.Get() << endl;
+    cout << prefix << ".ScalingMaxX" << node->ScalingMaxX.Get() << endl;
+    cout << prefix << ".ScalingMaxY" << node->ScalingMaxY.Get() << endl;
+    cout << prefix << ".ScalingMaxZ" << node->ScalingMaxZ.Get() << endl;
+    cout << prefix << ".GeometricTranslation" << node->GeometricTranslation.Get() << endl;
+    cout << prefix << ".GeometricRotation" << node->GeometricRotation.Get() << endl;
+    cout << prefix << ".GeometricScaling" << node->GeometricScaling.Get() << endl;
+    cout << prefix << ".MinDampRangeX" << node->MinDampRangeX.Get() << endl;
+    cout << prefix << ".MinDampRangeY" << node->MinDampRangeY.Get() << endl;
+    cout << prefix << ".MinDampRangeZ" << node->MinDampRangeZ.Get() << endl;
+    cout << prefix << ".MaxDampRangeX" << node->MaxDampRangeX.Get() << endl;
+    cout << prefix << ".MaxDampRangeY" << node->MaxDampRangeY.Get() << endl;
+    cout << prefix << ".MaxDampRangeZ" << node->MaxDampRangeZ.Get() << endl;
+    cout << prefix << ".MinDampStrengthX" << node->MinDampStrengthX.Get() << endl;
+    cout << prefix << ".MinDampStrengthY" << node->MinDampStrengthY.Get() << endl;
+    cout << prefix << ".MinDampStrengthZ" << node->MinDampStrengthZ.Get() << endl;
+    cout << prefix << ".MaxDampStrengthX" << node->MaxDampStrengthX.Get() << endl;
+    cout << prefix << ".MaxDampStrengthY" << node->MaxDampStrengthY.Get() << endl;
+    cout << prefix << ".MaxDampStrengthZ" << node->MaxDampStrengthZ.Get() << endl;
+    cout << prefix << ".PreferedAngleX" << node->PreferedAngleX.Get() << endl;
+    cout << prefix << ".PreferedAngleY" << node->PreferedAngleY.Get() << endl;
+    cout << prefix << ".PreferedAngleZ" << node->PreferedAngleZ.Get() << endl;
+    cout << prefix << ".LookAtProperty" << node->LookAtProperty.Get() << endl;
+    cout << prefix << ".UpVectorProperty" << node->UpVectorProperty.Get() << endl;
+    cout << prefix << ".Show" << node->Show.Get() << endl;
+    cout << prefix << ".NegativePercentShapeSupport" << node->NegativePercentShapeSupport.Get() << endl;
+    cout << prefix << ".DefaultAttributeIndex" << node->DefaultAttributeIndex.Get() << endl;
+    cout << prefix << ".Freeze" << node->Freeze.Get() << endl;
+    cout << prefix << ".LODBox" << node->LODBox.Get() << endl;
+
+    cout << prefix << ".GetVisibility()" << node->GetVisibility() << endl;
+    cout << prefix << ".GetShadingMode()" << node->GetShadingMode() << endl;
+
+    // pivot management
+    //throw "Not Implemented";
+
 }
 
 void PrintNodeAttribute(FbxNodeAttribute* obj, const char* prefix)
