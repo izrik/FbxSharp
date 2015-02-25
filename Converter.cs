@@ -13,6 +13,9 @@ namespace FbxSharp
                 Name = "Parsed Scene",
                 Properties = parsedObjects,
             };
+
+            var scene = new Scene();
+
             var docs = parsed.FindPropertyByName("Documents");
             CheckDocuments(docs);
 
@@ -40,21 +43,21 @@ namespace FbxSharp
             foreach (var conn in conns.Properties)
             {
                 CheckConnection(conn);
-                long fromId;
-                long toId;
                 var connType = ((string)conn.Values[0]);
-                fromId = ((Number)conn.Values[1]).AsLong.Value;
-                toId = ((Number)conn.Values[2]).AsLong.Value;
+                var srcId = (ulong)((Number)conn.Values[1]).AsLong.Value;
+                var dstId = (ulong)((Number)conn.Values[2]).AsLong.Value;
+                FbxObject dstObj;
                 switch (connType)
                 {
                 case "OO":
-//                    fbxObjectsById[fromId].AddConnectionTo(fbxObjectsById[toId]);
-                    throw new NotImplementedException();
+                    dstObj = (dstId == 0 ? scene.RootNode : fbxObjectsById[dstId]);
+                    dstObj.ConnectSrcObject(fbxObjectsById[srcId]);
                     break;
                 case "OP":
                     string propertyName = ((string)conn.Values[3]);
-//                    fbxObjectsById[fromId].AddConnectionTo(fbxObjectsById[toId].GetPropertyByName(propertyName));
-                    throw new NotImplementedException();
+                    dstObj = (dstId == 0 ? scene.RootNode : fbxObjectsById[dstId]);
+                    var dstProp = dstObj.FindProperty(propertyName);
+                    dstProp.ConnectSrcObject(fbxObjectsById[srcId]);
                     break;
                 default:
                     throw new InvalidOperationException(string.Format("Unknown connection type: {0}", connType));
@@ -64,7 +67,9 @@ namespace FbxSharp
             var takes = parsed.FindPropertyByName("Takes");
             CheckTakes(takes);
 
-            throw new NotImplementedException();
+//            throw new NotImplementedException();
+            scene.Nodes.AddRange(fbxObjects.Where(o => o is Node).Cast<Node>());
+            return scene;
         }
 
         void CheckDocuments(ParseObject docs)

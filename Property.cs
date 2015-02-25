@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FbxSharp
 {
@@ -22,6 +23,14 @@ namespace FbxSharp
         public override string ToString()
         {
             return string.Format("{0}: {1}", Name, GetValue());
+        }
+
+        public List<FbxObject> SrcObjects = new List<FbxObject>();
+
+        public bool ConnectSrcObject(FbxObject src, Connection.EType type=Connection.EType.None)
+        {
+            SrcObjects.Add(src);
+            return true;
         }
     }
 }
