@@ -66,6 +66,10 @@ void PrintProperty(FbxProperty* prop, const char* prefix)
     float f;
     double d;
     FbxString fstr;
+    FbxDouble2 v2;
+    FbxDouble3 v3;
+    FbxDouble4 v4;
+
     switch (type.GetType())
     {
         case eFbxUndefined:
@@ -120,8 +124,17 @@ void PrintProperty(FbxProperty* prop, const char* prefix)
             sprintf(n, "%lf", d);
             break;
         case eFbxDouble2:
+            v2 = prop->Get<FbxDouble2>();
+            sprintf(n, "%lf, %lf", v2[0], v2[1]);
+            break;
         case eFbxDouble3:
+            v3 = prop->Get<FbxDouble3>();
+            sprintf(n, "%lf, %lf, %lf", v3[0], v3[1], v3[1]);
+            break;
         case eFbxDouble4:
+            v4 = prop->Get<FbxDouble4>();
+            sprintf(n, "%lf, %lf, %lf, %lf", v4[0], v4[1], v4[1], v4[1]);
+            break;
         case eFbxDouble4x4:
         case eFbxEnum:
             break;
