@@ -298,7 +298,7 @@ void PrintNode(FbxNode* node, const char* prefix)
     for (i = 0; i < node->GetChildCount(); i++)
     {
         cout << prefix << ".Child[" << i << "] = ";
-        PrintObjectID(node->GetParent());
+        PrintObjectID(node->GetChild(i));
         cout << endl;
     }
 
