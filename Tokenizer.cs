@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace FbxSharp
 {
     public class Tokenizer
     {
         public Tokenizer(string input, bool ignoreWhitespace=true)
+            : this(new StringReader(input), ignoreWhitespace)
+        {
+        }
+        public Tokenizer(TextReader input, bool ignoreWhitespace=true)
         {
             if (input == null) throw new ArgumentNullException("input");
 
@@ -15,26 +20,31 @@ namespace FbxSharp
             IgnoreWhitespace = ignoreWhitespace;
         }
 
-        public readonly string Input;
+        public readonly TextReader Input;
         public readonly bool IgnoreWhitespace;
 
         int index = 0;
         int line = 1;
         int column = 0;
         TokenType currentTokenType = TokenType.None;
-        int tokenStart = -1;
+        string newToken = "";
         InputLocation tokenLocation;
+        char lastChar = '\0';
 
         public Token? GetNextToken()
         {
-            if (index >= Input.Length)
+            if (Input.Peek() == -1)
             {
                 return null;
             }
 
-            for (; index < Input.Length; index++)
+            char ch = '\0';
+            for (; ; index++, lastChar = ch)
             {
-                char ch = Input[index];
+                if (Input.Peek() == -1)
+                    break;
+
+                ch = (char)Input.Read();
                 column++;
                 if (ch == '\n')
                 {
@@ -49,21 +59,24 @@ namespace FbxSharp
                     if (currentTokenType == TokenType.Unknown) 
                         throw new InvalidOperationException(
                             string.Format("Unknown character '{0}' at index {1}", ch.ToString(), index));
-                    tokenStart = index;
+                    newToken = "";
                     tokenLocation = new InputLocation(line, column, index);
                     if (currentTokenType == TokenType.String) startString = true;
                 }
 
+
                 if (IsValidChar(currentTokenType, ch))
                 {
+                    newToken += ch;
                     if (!startString && IsForceEndChar(currentTokenType, ch))
                     {
-                        var value = Input.Substring(tokenStart, index - tokenStart + 1);
+                        var value = newToken; //new string(newToken.ToArray());
                         var token = new Token(currentTokenType, value, tokenLocation);
                         currentTokenType = TokenType.None;
                         if (!ShouldIgnoreToken(token))
                         {
                             index++;
+                            lastChar = ch;
                             return token;
                         }
                     }
@@ -71,20 +84,21 @@ namespace FbxSharp
                     {
                     }
                 }
-                else if (IsEndingChar(currentTokenType, Input[index - 1]))
+                else if (IsEndingChar(currentTokenType, lastChar))
                 {
-                    var value = Input.Substring(tokenStart, index - tokenStart);
+                    var value = newToken;
                     var token = new Token(currentTokenType, value, tokenLocation);
 
                     currentTokenType = GetNewTokenType(ch);
                     if (currentTokenType == TokenType.Unknown) 
                         throw new InvalidOperationException(
                             string.Format("Unknown character '{0}' at index {1}", ch.ToString(), index));
-                    tokenStart = index;
+                    newToken = ch.ToString();
                     tokenLocation = new InputLocation(line, column, index);
                     if (!ShouldIgnoreToken(token))
                     {
                         index++;
+                        lastChar = ch;
                         return token;
                     }
                 }
@@ -96,13 +110,12 @@ namespace FbxSharp
 
             if (currentTokenType != TokenType.None)
             {
-                char ch = Input[Input.Length-1];
                 if (!IsEndingChar(currentTokenType, ch))
                 {
                     throw new InvalidOperationException("Bad ending char");
                 }
 
-                var token = new Token(currentTokenType, Input.Substring(tokenStart), tokenLocation);
+                var token = new Token(currentTokenType, newToken, tokenLocation);
                 if (!ShouldIgnoreToken(token))
                 {
                     return token;
