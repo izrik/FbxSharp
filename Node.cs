@@ -1,5 +1,6 @@
 ﻿using System;
 using ChamberLib;
+using System.Collections.Generic;
 
 namespace FbxSharp
 {
@@ -80,12 +81,82 @@ namespace FbxSharp
                     DefaultAttributeIndex,
                     Freeze,
                     LODBox});
+
+            this.ChildNodes = new NodeNodeOrderedParentChildrenCollection(this);
         }
 
         public bool MultiLayer;
         public bool MultiTake;
         public bool Shading;
         public string Culling;
+
+        #region Node Tree Management
+
+        // TODO: also create object-object connections
+
+        //Get the parent node.
+        public Node GetParent()
+        {
+            return ParentNode;
+        }
+
+        //Add a child node and its underlying node tree.
+        public bool AddChild(Node pNode)
+        {
+            if (pNode == null)
+                return false;
+            ChildNodes.Add(pNode);
+            return true;
+        }
+
+        //Remove the child node.
+        public Node RemoveChild(Node pNode)
+        {
+            if (ChildNodes.Remove(pNode))
+                return pNode;
+            return null;
+        }
+
+        //Get the number of children nodes.
+        public int GetChildCount()//bool pRecursive = false)
+        {
+            return ChildNodes.Count;
+        }
+
+        //Get child by index.
+        public Node GetChild(int pIndex)
+        {
+            return ChildNodes[pIndex];
+        }
+
+        private Node _parentNode = null;
+        public Node ParentNode
+        {
+            get { return _parentNode; }
+            set
+            {
+                if (_parentNode != value)
+                {
+                    if (_parentNode != null)
+                    {
+                        _parentNode.ChildNodes.Remove(this);
+                    }
+
+                    _parentNode = value;
+
+                    if (_parentNode != null)
+                    {
+                        _parentNode.ChildNodes.Add(this);
+                    }
+                }
+            }
+        }
+        readonly NodeNodeOrderedParentChildrenCollection ChildNodes;
+
+        //Finds a child node by name.
+        //FbxNode *   FindChild (const char *pName, bool pRecursive=true, bool pInitial=false)
+
+        #endregion
 
         #region Public and Fast Access Properties
 
