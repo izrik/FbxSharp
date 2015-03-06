@@ -49,6 +49,10 @@
     <Compile Include="textures.cpp" />
     <Compile Include="properties.cpp" />
     <Compile Include="basic_types.cpp" />
+    <Compile Include="TestRunner.cpp" />
+    <Compile Include="TestFixture.cpp" />
+    <Compile Include="NodeTest.cpp" />
+    <Compile Include="Assertions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="model.fbx">

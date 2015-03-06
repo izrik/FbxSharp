@@ -4,6 +4,9 @@
 
 #include <iostream>
 #include <fbxsdk.h>
+#include <vector>
+#include <string>
+#include <sstream>
 
 void PrintObject(FbxObject* obj, const char* prefix="");
 
@@ -36,5 +39,53 @@ std::ostream& operator<<(std::ostream& os, const FbxDouble3& value);
 std::ostream& operator<<(std::ostream& os, const FbxDouble4& value);
 
 FbxScene* Load(const char* filename, FbxManager* manager=NULL);
+
+// unit tests
+
+void RunTests();
+
+typedef void (*TestFunction)();
+
+struct TestCase
+{
+    TestCase(const char* name, TestFunction function)
+        : Name(name), Function(function)
+    {
+    }
+
+    const char* Name;
+    TestFunction Function;
+};
+
+class TestFixture
+{
+public:
+    TestFixture(const char* name);
+
+    virtual void RegisterTestCases();
+
+    virtual void SetupFixture();
+    virtual void Setup();
+    virtual void TearDown();
+    virtual void TearDownFixture();
+
+    const char* Name;
+
+    std::vector<TestCase> TestCases;
+};
+
+
+void _AssertEqual(int expected, int actual, const char* filename, int line);
+void _AssertEqual(void* expected, void* actual, const char* filename, int line);
+
+#define AssertEqual(expected, actual) _AssertEqual((expected), (actual), __FILE__, __LINE__)
+
+#define AddTestCase(name) TestCases.push_back(TestCase(#name, &name))
+
+#define TestClass(name) class name : public virtual TestFixture {\
+    public: name() : TestFixture(#name) { RegisterTestCases(); }\
+    virtual void RegisterTestCases(); };
+
+TestClass(NodeTest);
 
 #endif // __FBXOPENCPP_COMMON_H

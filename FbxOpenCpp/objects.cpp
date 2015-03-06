@@ -406,7 +406,6 @@ void PrintNode(FbxNode* node, const char* prefix)
 
 void PrintNodeAttribute(FbxNodeAttribute* obj, const char* prefix)
 {
-    throw "Not Implemented";
     if (obj->Is<FbxCamera>())
         PrintCamera(dynamic_cast<FbxCamera*>(obj), prefix);
     else if (obj->Is<FbxLight>())
@@ -438,7 +437,6 @@ void PrintMesh(FbxMesh* mesh, const char* prefix)
 
 void PrintNull(FbxNull* null, const char* prefix)
 {
-    throw "Not Implemented";
 }
 
 void PrintSkeleton(FbxSkeleton* skeleton, const char* prefix)
