@@ -10,6 +10,8 @@
     <AssemblyName>FbxSharp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,9 +38,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="ChamberLib">
-      <HintPath>packages\ChamberLib.0.1.1\lib\ChamberLib.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TokenType.cs" />
@@ -99,7 +98,12 @@
   </Target>
   -->
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="FbxSharp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ChamberLib\ChamberLib.csproj">
+      <Project>{7DE0B8DB-460B-4455-9BAD-B4FF1280F3CE}</Project>
+      <Name>ChamberLib</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
