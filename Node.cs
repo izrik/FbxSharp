@@ -162,17 +162,20 @@ namespace FbxSharp
 
         NodeAttribute nodeAttribute;
 
-        //Set the node attribute.
         public NodeAttribute SetNodeAttribute(NodeAttribute pNodeAttribute)
         {
             nodeAttribute = pNodeAttribute;
             return pNodeAttribute;
         }
 
-        //Get the default node attribute.
         public NodeAttribute GetNodeAttribute()
         {
             return nodeAttribute;
+        }
+
+        public int GetNodeAttributeCount()
+        {
+            return (nodeAttribute != null ? 1 : 0);
         }
 
         #endregion
