@@ -136,7 +136,7 @@ namespace FbxSharp
 
         public int GetSrcPropertyCount()
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
         public Property GetSrcProperty(int pIndex = 0)
@@ -166,7 +166,7 @@ namespace FbxSharp
 
         public int GetDstPropertyCount()
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
         public Property GetDstProperty(int pIndex = 0)
