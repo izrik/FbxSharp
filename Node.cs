@@ -169,7 +169,18 @@ namespace FbxSharp
 
         public NodeAttribute SetNodeAttribute(NodeAttribute pNodeAttribute)
         {
+            if (nodeAttribute != null)
+            {
+                this.DisconnectSrcObject(nodeAttribute);
+            }
+
             nodeAttribute = pNodeAttribute;
+
+            if (nodeAttribute != null)
+            {
+                this.ConnectSrcObject(nodeAttribute);
+            }
+
             return pNodeAttribute;
         }
 
