@@ -87,5 +87,6 @@ void _AssertEqual(void* expected, void* actual, const char* filename, int line);
     virtual void RegisterTestCases(); };
 
 TestClass(NodeTest);
+TestClass(SceneTest);
 
 #endif // __FBXOPENCPP_COMMON_H

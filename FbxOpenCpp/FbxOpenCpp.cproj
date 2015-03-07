@@ -53,6 +53,7 @@
     <Compile Include="TestFixture.cpp" />
     <Compile Include="NodeTest.cpp" />
     <Compile Include="Assertions.cpp" />
+    <Compile Include="SceneTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="model.fbx">

@@ -110,6 +110,7 @@ void RunTests()
     vector<TestFixture*> tests;
 
     tests.push_back(new NodeTest());
+    tests.push_back(new SceneTest());
 
     cout << "Running tests..." << endl;
 
