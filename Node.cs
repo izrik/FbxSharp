@@ -93,6 +93,7 @@ namespace FbxSharp
         #region Node Tree Management
 
         // TODO: also create object-object connections
+        // TODO: put connection management code into the collection class
 
         //Get the parent node.
         public Node GetParent()
@@ -105,6 +106,7 @@ namespace FbxSharp
         {
             if (pNode == null)
                 return false;
+            this.ConnectSrcObject(pNode);
             ChildNodes.Add(pNode);
             return true;
         }
@@ -113,7 +115,10 @@ namespace FbxSharp
         public Node RemoveChild(Node pNode)
         {
             if (ChildNodes.Remove(pNode))
+            {
+                this.DisconnectSrcObject(pNode);
                 return pNode;
+            }
             return null;
         }
 
