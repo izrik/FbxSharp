@@ -6,7 +6,7 @@ namespace FbxSharp
 {
     public class Node : FbxObject
     {
-        public Node()
+        public Node(string name="")
         {
             this.Properties.AddRange(
                 new Property[] {

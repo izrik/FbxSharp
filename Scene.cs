@@ -5,7 +5,7 @@ namespace FbxSharp
 {
     public class Scene : Document
     {
-        public Scene()
+        public Scene(string name="")
         {
             RootNode = new Node();
             Nodes.Add(RootNode);
