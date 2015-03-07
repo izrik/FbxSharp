@@ -89,6 +89,8 @@ namespace FbxSharp
 
         #endregion
 
+        #region Property Management
+
         public List<Property> Properties = new List<Property>();
 
         public Property FindProperty(string name, bool caseSensitive=true)
@@ -115,6 +117,70 @@ namespace FbxSharp
             });
         }
 
+
+
+        public bool ConnectSrcProperty(Property pProperty)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsConnectedSrcProperty(Property pProperty)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DisconnectSrcProperty(Property pProperty)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetSrcPropertyCount()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Property GetSrcProperty(int pIndex = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Property FindSrcProperty(string pName, int pStartIndex = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ConnectDstProperty(Property pProperty)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsConnectedDstProperty(Property pProperty)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DisconnectDstProperty(Property pProperty)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetDstPropertyCount()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Property GetDstProperty(int pIndex = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Property FindDstProperty(string pName, int pStartIndex = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
         public PropertyT<T> CreateProperty<T>(string name)
         {
             var prop = new PropertyT<T>(name);
@@ -129,6 +195,7 @@ namespace FbxSharp
             return prop;
         }
 
+        #endregion
 
         public string Name { get; set; }
 
