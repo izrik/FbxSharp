@@ -158,6 +158,25 @@ namespace FbxSharp
 
         #endregion
 
+        #region Node Attribute Management
+
+        NodeAttribute nodeAttribute;
+
+        //Set the node attribute.
+        public NodeAttribute SetNodeAttribute(NodeAttribute pNodeAttribute)
+        {
+            nodeAttribute = pNodeAttribute;
+            return pNodeAttribute;
+        }
+
+        //Get the default node attribute.
+        public NodeAttribute GetNodeAttribute()
+        {
+            return nodeAttribute;
+        }
+
+        #endregion
+
         #region Public and Fast Access Properties
 
         public PropertyT<Vector3>                       LclTranslation              = new PropertyT<Vector3>("Lcl Translation");
