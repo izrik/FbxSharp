@@ -13,6 +13,11 @@ namespace FbxSharp
 
         public List<Node> Nodes = new List<Node>();
         public Node RootNode { get; protected set; }
+
+        public Node GetRootNode()
+        {
+            return RootNode;
+        }
     }
 }
 
