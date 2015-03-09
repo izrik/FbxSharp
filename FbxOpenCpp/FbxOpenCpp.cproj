@@ -59,7 +59,7 @@
     <None Include="model.fbx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\..\..\Applications\Autodesk\FBX SDK\2015.1\lib\clang\debug\libfbxsdk.dylib">
+    <None Include="\Applications\Autodesk\FBX SDK\2015.1\lib\clang\debug\libfbxsdk.dylib">
       <Link>libfbxsdk.dylib</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
