@@ -129,11 +129,10 @@ namespace FbxSharpTests
             node2.AddChild(node3);
 
             // require:
-//            Assert.AreEqual(3, scene.GetSrcObjectCount());
-            Assert.AreEqual(1, scene.GetSrcObjectCount());
+            Assert.AreEqual(3, scene.GetSrcObjectCount());
             Assert.AreEqual(root, scene.GetSrcObject(0));
-//            Assert.AreEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1));
-//            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
+            Assert.AreEqual(scene.GetGlobalSettings(), scene.GetSrcObject(1));
+            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
             Assert.AreEqual(0, scene.GetDstObjectCount());
             Assert.AreEqual(1, scene.GetNodeCount());
             Assert.AreEqual(root, scene.GetNode(0));
@@ -163,15 +162,12 @@ namespace FbxSharpTests
             root.AddChild(node2);
 
             // then:
-//            Assert.AreEqual(5, scene.GetSrcObjectCount());
-            Assert.AreEqual(3, scene.GetSrcObjectCount());
+            Assert.AreEqual(5, scene.GetSrcObjectCount());
             Assert.AreEqual(root, scene.GetSrcObject(0));
-//            Assert.AreEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1));
-//            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
-//            Assert.AreEqual(node2, scene.GetSrcObject(3));
-//            Assert.AreEqual(node3, scene.GetSrcObject(4));
-            Assert.AreEqual(node2, scene.GetSrcObject(1));
-            Assert.AreEqual(node3, scene.GetSrcObject(2));
+            Assert.AreEqual(scene.GetGlobalSettings(), scene.GetSrcObject(1));
+            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
+            Assert.AreEqual(node2, scene.GetSrcObject(3));
+            Assert.AreEqual(node3, scene.GetSrcObject(4));
             Assert.AreEqual(0, scene.GetDstObjectCount());
             Assert.AreEqual(3, scene.GetNodeCount());
             Assert.AreEqual(root, scene.GetNode(0));

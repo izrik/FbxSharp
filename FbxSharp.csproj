@@ -92,6 +92,8 @@
     <Compile Include="NodeNodeOrderedParentChildrenCollection.cs" />
     <Compile Include="SrcObjectCollection.cs" />
     <Compile Include="DstObjectCollection.cs" />
+    <Compile Include="AnimEvaluator.cs" />
+    <Compile Include="GlobalSettings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

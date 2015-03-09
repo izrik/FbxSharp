@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FbxSharp
 {
@@ -9,9 +10,50 @@ namespace FbxSharp
         {
             RootNode = new Node();
             Nodes.Add(RootNode);
+
+            SrcObjects.Add(new GlobalSettings());
+            SetAnimationEvaluator(new AnimEvaluator());
         }
 
         public List<Node> Nodes = new List<Node>();
+
+        #region Global Settings
+
+        public GlobalSettings GetGlobalSettings()
+        {
+            return (GlobalSettings)SrcObjects.FirstOrDefault(x => x is GlobalSettings);
+        }
+
+        #endregion
+
+        #region Scene Animation Evaluation
+
+        public void SetCurrentAnimationStack(AnimationStack pAnimStack)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AnimationStack GetCurrentAnimationStack()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetAnimationEvaluator(AnimEvaluator pEvaluator)
+        {
+            var current = GetAnimationEvaluator();
+            if (current != null)
+            {
+                SrcObjects.Remove(current);
+            }
+            SrcObjects.Add(pEvaluator);
+        }
+
+        public AnimEvaluator GetAnimationEvaluator()
+        {
+            return (AnimEvaluator)SrcObjects.FirstOrDefault(x => x is AnimEvaluator);
+        }
+
+        #endregion
 
         #region Node Tree Access
 

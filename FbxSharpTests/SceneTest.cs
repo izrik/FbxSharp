@@ -15,11 +15,10 @@ namespace FbxSharpTests
             var node = new Node("ChildNode");
 
             // require:
-//            Assert.AreEqual(3, scene.GetSrcObjectCount());
-            Assert.AreEqual(1, scene.GetSrcObjectCount());
+            Assert.AreEqual(3, scene.GetSrcObjectCount());
             Assert.AreEqual(scene.GetRootNode(), scene.GetSrcObject(0));
-//            Assert.AreEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1));
-//            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
+            Assert.AreEqual(scene.GetGlobalSettings(), scene.GetSrcObject(1));
+            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
             Assert.AreEqual(0, scene.GetDstObjectCount());
             Assert.AreEqual(1, scene.GetNodeCount());
             Assert.AreEqual(scene.GetRootNode(), scene.GetNode(0));
@@ -32,13 +31,11 @@ namespace FbxSharpTests
             scene.AddNode(node);
 
             // then:
-//            Assert.AreEqual(4, scene.GetSrcObjectCount());
-            Assert.AreEqual(2, scene.GetSrcObjectCount());
+            Assert.AreEqual(4, scene.GetSrcObjectCount());
             Assert.AreEqual(scene.GetRootNode(), scene.GetSrcObject(0));
-//            Assert.AreEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1));
-//            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
-//            Assert.AreEqual(node, scene.GetSrcObject(3));
-            Assert.AreEqual(node, scene.GetSrcObject(1));
+            Assert.AreEqual(scene.GetGlobalSettings(), scene.GetSrcObject(1));
+            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
+            Assert.AreEqual(node, scene.GetSrcObject(3));
             Assert.AreEqual(0, scene.GetDstObjectCount());
             Assert.AreEqual(2, scene.GetNodeCount());
             Assert.AreEqual(scene.GetRootNode(), scene.GetNode(0));
@@ -59,11 +56,10 @@ namespace FbxSharpTests
             var node = new Node("ChildNode");
 
             // require:
-//            Assert.AreEqual(3, scene.GetSrcObjectCount());
-            Assert.AreEqual(1, scene.GetSrcObjectCount());
+            Assert.AreEqual(3, scene.GetSrcObjectCount());
             Assert.AreEqual(root, scene.GetSrcObject(0));
-//            Assert.AreEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1));
-//            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
+            Assert.AreEqual(scene.GetGlobalSettings(), scene.GetSrcObject(1));
+            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
             Assert.AreEqual(0, scene.GetDstObjectCount());
             Assert.AreEqual(1, scene.GetNodeCount());
             Assert.AreEqual(root, scene.GetNode(0));
@@ -81,14 +77,12 @@ namespace FbxSharpTests
             root.AddChild(node);
 
             // then:
-//            Assert.AreEqual(4, scene.GetSrcObjectCount());
-            Assert.AreEqual(2, scene.GetSrcObjectCount());
+            Assert.AreEqual(4, scene.GetSrcObjectCount());
             Assert.AreEqual(0, scene.GetDstObjectCount());
             Assert.AreEqual(root, scene.GetSrcObject(0));
-//            Assert.AreEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1));
-//            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
-//            Assert.AreEqual(node, scene.GetSrcObject(3));
-            Assert.AreEqual(node, scene.GetSrcObject(1));
+            Assert.AreEqual(scene.GetGlobalSettings(), scene.GetSrcObject(1));
+            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
+            Assert.AreEqual(node, scene.GetSrcObject(3));
             Assert.AreEqual(0, scene.GetDstObjectCount());
             Assert.AreEqual(2, scene.GetNodeCount());
             Assert.AreEqual(root, scene.GetNode(0));
