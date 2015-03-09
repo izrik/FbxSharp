@@ -13,6 +13,8 @@ namespace FbxSharp
 
         public List<Node> Nodes = new List<Node>();
 
+        #region Node Tree Access
+
         Node _rootNode;
         public Node RootNode {
             get { return _rootNode; }
@@ -39,6 +41,40 @@ namespace FbxSharp
         {
             return RootNode;
         }
+
+        #endregion
+
+        #region Node Access
+
+        public int GetNodeCount()
+        {
+            return Nodes.Count;
+        }
+
+        public Node GetNode(int pIndex)
+        {
+            return Nodes[pIndex];
+        }
+
+        public bool AddNode(Node pNode)
+        {
+            if (!Nodes.Contains(pNode))
+            {
+                ConnectSrcObject(pNode);
+                Nodes.Add(pNode);
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool RemoveNode(Node pNode)
+        {
+            return Nodes.Remove(pNode);
+        }
+
+
+        #endregion
     }
 }
 

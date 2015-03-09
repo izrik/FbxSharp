@@ -79,7 +79,7 @@ namespace FbxSharpTests
 //  "->"   "."
 //  /(\w+)::Create/    "new $1"
 //  "*"  ""
-//  "Assert.AreEqual"    "Assert.AreEqual"
+//  "AssertEqual"    "Assert.AreEqual"
 //  delete FbxManager lines
 //  /Fbx(Scene|Node|Null)/  "$1"
 //  /(\s\s+)(Scene|Node|Null)/  "$1var"

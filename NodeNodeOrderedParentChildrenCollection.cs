@@ -20,6 +20,10 @@ namespace FbxSharp
                 item.ParentNode = null;
                 _list.Add(item);
                 item.ParentNode = _container;
+                if (_container.Scene != null)
+                {
+                    _container.Scene.AddNode(item);
+                }
             }
         }
 
@@ -34,6 +38,10 @@ namespace FbxSharp
             {
                 bool ret = _list.Remove(item);
                 item.ParentNode = null;
+                if (_container.Scene != null)
+                {
+                    _container.Scene.RemoveNode(item);
+                }
                 return ret;
             }
 

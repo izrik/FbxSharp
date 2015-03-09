@@ -45,6 +45,7 @@
     <Compile Include="TokenizerTest.cs" />
     <Compile Include="ParserTest.cs" />
     <Compile Include="NodeTest.cs" />
+    <Compile Include="SceneTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

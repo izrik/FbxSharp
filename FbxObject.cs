@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FbxSharp
 {
@@ -20,6 +21,22 @@ namespace FbxSharp
         {
             return string.Format("[{2}: Name={0}, UniqueId={1}]", Name, UniqueId, this.GetType().Name);
         }
+
+        #region General Object Management
+
+        public Scene Scene
+        {
+            get
+            {
+                return DstObjects.Where(x => x is Scene).Cast<Scene>().FirstOrDefault();
+            }
+        }
+        public Scene GetScene()
+        {
+            return Scene;
+        }
+
+        #endregion
 
         #region General Object Connection and Relationship Management
 
