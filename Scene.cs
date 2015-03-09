@@ -9,13 +9,13 @@ namespace FbxSharp
         public Scene(string name="")
         {
             RootNode = new Node();
-            Nodes.Add(RootNode);
+
+            Nodes = SrcObjects.CreateCollectionView<Node>();
 
             SrcObjects.Add(new GlobalSettings());
             SetAnimationEvaluator(new AnimEvaluator());
         }
 
-        public List<Node> Nodes = new List<Node>();
 
         #region Global Settings
 
@@ -56,6 +56,8 @@ namespace FbxSharp
         #endregion
 
         #region Node Tree Access
+
+        public SrcObjectCollectionView<Node> Nodes;
 
         Node _rootNode;
         public Node RootNode {
@@ -103,7 +105,10 @@ namespace FbxSharp
             if (!Nodes.Contains(pNode))
             {
                 ConnectSrcObject(pNode);
-                Nodes.Add(pNode);
+                foreach (var child in pNode.ChildNodes)
+                {
+                    AddNode(child);
+                }
                 return true;
             }
 
@@ -112,7 +117,17 @@ namespace FbxSharp
 
         public bool RemoveNode(Node pNode)
         {
-            return Nodes.Remove(pNode);
+            if (Nodes.Contains(pNode))
+            {
+                DisconnectSrcObject(pNode);
+                foreach (var child in pNode.ChildNodes)
+                {
+                    RemoveNode(child);
+                }
+                return true;
+            }
+
+            return false;
         }
 
 

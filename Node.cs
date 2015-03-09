@@ -156,7 +156,7 @@ namespace FbxSharp
                 }
             }
         }
-        readonly NodeNodeOrderedParentChildrenCollection ChildNodes;
+        public readonly NodeNodeOrderedParentChildrenCollection ChildNodes;
 
         //Finds a child node by name.
         //FbxNode *   FindChild (const char *pName, bool pRecursive=true, bool pInitial=false)
