@@ -5,11 +5,15 @@ namespace FbxSharp
 {
     public class FbxObject : Emitter
     {
+        static ulong __uniqueId = 0;
 
         public FbxObject()
         {
             DstObjects = new DstObjectCollection(this);
             SrcObjects = new SrcObjectCollection(this);
+
+            UniqueId = __uniqueId;
+            __uniqueId++;
         }
 
         public override string ToString()
