@@ -98,9 +98,37 @@ void RootNode_AddChildNode_AddsNodeToScene()
     AssertEqual(scene, node->GetScene());
 }
 
+void Scene_Create_HasRootNode()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+
+    // when:
+    FbxScene* scene = FbxScene::Create(manager, "Scene1");
+    FbxNode* root = scene->GetRootNode();
+
+    // then:
+    AssertEqual(3, scene->GetSrcObjectCount());
+    AssertEqual(0, scene->GetDstObjectCount());
+    AssertEqual(root, scene->GetSrcObject(0));
+    AssertEqual(&scene->GetGlobalSettings(), scene->GetSrcObject(1));
+    AssertEqual(scene->GetAnimationEvaluator(), scene->GetSrcObject(2));
+    AssertEqual(1, scene->GetNodeCount());
+    AssertEqual(root, scene->GetNode(0));
+
+    AssertNotEqual(NULL, root);
+    AssertEqual(0, root->GetSrcObjectCount());
+    AssertEqual(1, root->GetDstObjectCount());
+    AssertEqual(scene, root->GetDstObject(0));
+    AssertEqual(scene, root->GetScene());
+    AssertEqual(0, root->GetChildCount());
+
+}
+
 void SceneTest::RegisterTestCases()
 {
     AddTestCase(Scene_AddNode_AddsNode);
     AddTestCase(RootNode_AddChildNode_AddsNodeToScene);
+    AddTestCase(Scene_Create_HasRootNode);
 }
 
