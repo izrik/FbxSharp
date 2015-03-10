@@ -3,10 +3,10 @@ using System.Linq;
 
 namespace FbxSharp
 {
-    public class SrcObjectView<T>
+    public class ObjectView<T>
         where T : FbxObject
     {
-        public SrcObjectView(SrcObjectCollection collection)
+        public ObjectView(IConnectedObjectCollection collection)
         {
             if (collection == null) throw new ArgumentNullException("collection");
 
@@ -14,7 +14,7 @@ namespace FbxSharp
             this.collection.CollectionChanged += CollectionChanged;
         }
 
-        readonly SrcObjectCollection collection;
+        readonly IConnectedObjectCollection collection;
 
         bool collectionHasChanged = true;
         T value = null;

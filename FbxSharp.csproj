@@ -94,8 +94,9 @@
     <Compile Include="DstObjectCollection.cs" />
     <Compile Include="AnimEvaluator.cs" />
     <Compile Include="GlobalSettings.cs" />
-    <Compile Include="SrcObjectView.cs" />
-    <Compile Include="SrcObjectCollectionView.cs" />
+    <Compile Include="IConnectedObjectCollection.cs" />
+    <Compile Include="CollectionView.cs" />
+    <Compile Include="ObjectView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

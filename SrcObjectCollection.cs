@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class SrcObjectCollection : IList<FbxObject>, IDisposable
+    public class SrcObjectCollection : IConnectedObjectCollection, IDisposable
     {
         // An ordered collection of FbxObject source objects
 
@@ -163,16 +163,16 @@ namespace FbxSharp
             }
         }
 
-        public SrcObjectView<T> CreateObjectView<T>()
+        public ObjectView<T> CreateObjectView<T>()
             where T : FbxObject
         {
-            return new SrcObjectView<T>(this);
+            return new ObjectView<T>(this);
         }
 
-        public SrcObjectCollectionView<T> CreateCollectionView<T>()
+        public CollectionView<T> CreateCollectionView<T>()
             where T : FbxObject
         {
-            return new SrcObjectCollectionView<T>(this);
+            return new CollectionView<T>(this);
         }
     }
 }

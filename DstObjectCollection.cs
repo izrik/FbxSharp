@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class DstObjectCollection : IList<FbxObject>, IDisposable
+    public class DstObjectCollection : IConnectedObjectCollection, IDisposable
     {
         // An ordered collection of FbxObject destination objects
 
@@ -46,6 +46,7 @@ namespace FbxSharp
             if (!Contains(item))
             {
                 _list.Add(item);
+                OnCollectionChanged();
                 item.SrcObjects.Add(_container);
             }
         }
@@ -60,6 +61,7 @@ namespace FbxSharp
             if (Contains(item))
             {
                 bool ret = _list.Remove(item);
+                OnCollectionChanged();
                 item.SrcObjects.Remove(_container);
                 return ret;
             }
@@ -79,6 +81,7 @@ namespace FbxSharp
             }
 
             _list.Clear();
+            OnCollectionChanged();
         }
 
         public virtual void CopyTo(FbxObject[] array, int arrayIndex)
@@ -111,6 +114,7 @@ namespace FbxSharp
 
             item.SrcObjects.Remove(_container);
             _list.Insert(index, item);
+            OnCollectionChanged();
             item.SrcObjects.Add(_container);
         }
 
@@ -148,5 +152,27 @@ namespace FbxSharp
 
         private FbxObject _container;
         private List<FbxObject> _list = new List<FbxObject>();
+
+        public event EventHandler CollectionChanged;
+
+        protected void OnCollectionChanged()
+        {
+            if (CollectionChanged != null)
+            {
+                CollectionChanged(this, EventArgs.Empty);
+            }
+        }
+
+        public ObjectView<T> CreateObjectView<T>()
+            where T : FbxObject
+        {
+            return new ObjectView<T>(this);
+        }
+
+        public CollectionView<T> CreateCollectionView<T>()
+            where T : FbxObject
+        {
+            return new CollectionView<T>(this);
+        }
     }
 }
