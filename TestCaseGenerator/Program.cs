@@ -3,6 +3,8 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.Reflection;
+using NCommander;
 
 namespace TestCaseGenerator
 {
@@ -10,95 +12,133 @@ namespace TestCaseGenerator
     {
         public static void Main(string [] args)
         {
-            string language = string.Empty;
+            var commander = new Commander("TestCaseGenerator", GetVersionStringFromAssembly());
+            commander.Commands.Add("cs", CreateCommand("cs", "Generate C# tests", GenerateCs));
+            commander.Commands.Add("cpp", CreateCommand("cpp", "Generate C++ tests", GenerateCpp));
 
-            if (args.Length > 0)
+            try
             {
-                language = args[0];
-            }
-            else
-            {
-                //Console.Write("What output type? [cs]");
-                //type = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(language))
+                if (args.Length < 1)
                 {
-                    language = "cs";
+                    commander.ShowUsage();
                 }
-            }
-
-            if (language != "cs" && language != "cpp")
-            {
-                Console.WriteLine("Unrecognized output type: {0}", language);
-                return;
-            }
-
-            string outputType = (args.Length > 1 ? args[1] : "-");
-
-            var inputs = args.Skip(2).ToList();
-            if (inputs.Count < 1) inputs.Add("test_cases.txt");
-
-            foreach (var input in inputs)
-            {
-                var fixtures = new List<TestFixture>();
-
-
-                using (var reader = new StreamReader(input))
+                else if (args.Length > 0 && args[0] == "--version")
                 {
-                    TestFixture currentFixture = null;
-                    TestCase currentTest = null;
-
-
-                    while (!reader.EndOfStream)
+                    commander.ShowVersion();
+                }
+                else
+                {
+                    try
                     {
-                        var line = reader.ReadLine();
-                        if (string.IsNullOrWhiteSpace(line))
-                        {
-                            currentTest.Statements.Add(string.Empty);
-                            continue;
-                        }
-
-                        var trimmed = line.Trim();
-                        var parts = trimmed.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                        string name;
-                        switch (parts[0].ToLower())
-                        {
-                        case "fixture":
-                            name = parts[1];
-                            currentFixture = new TestFixture { Name = name };
-                            fixtures.Add(currentFixture);
-                            break;
-                        case "test":
-                            name = parts[1];
-                            currentTest = new TestCase { Name = name };
-                            currentFixture.TestCases.Add(currentTest);
-                            break;
-                        case "given":
-                        case "require":
-                        case "when":
-                        case "then":
-                            currentTest.Statements.Add(parts[0].ToLower());
-                            break;
-                        default:
-                            currentTest.Statements.Add(trimmed);
-                            break;
-                        }
+                        commander.ProcessArgs(args);
+                    }
+                    catch (NCommanderException ex)
+                    {
+                        Console.WriteLine("Error: {0}", ex.Message);
+                    }
+                    catch(System.UnauthorizedAccessException ex)
+                    {
+                        Console.WriteLine("Error: {0}", ex.Message);
+                    }
+                    catch (System.IO.IOException ex)
+                    {
+                        Console.WriteLine("Error: {0}", ex.Message);
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.Write("There was an internal error:");
+                Console.WriteLine(ex.ToString());
+            }
+        }
 
-                using (var writer = 
-                    outputType == "-" ? 
-                        Console.Out :
-                        new StreamWriter(input + "." + language))
+        public static string GetVersionStringFromAssembly()
+        {
+            var version = Assembly.GetCallingAssembly().GetName().Version;
+            return version.ToString(version.Major == 0 ? 2 : 3);
+        }
+
+        static Command CreateCommand(string name, string description, Action<List<TestFixture>, TextWriter> generator)
+        {
+
+            var cmd = new Command {
+                Name = name,
+                Description = description,
+                Params = new [] {
+                    new Parameter {
+                        Name = "input-filename",
+                        ParameterType = ParameterType.String,
+                    },
+                    new Parameter {
+                        Name = "output-filename",
+                        ParameterType = ParameterType.String,
+                        IsOptional = true,
+                    },
+                },
+                ExecuteDelegate = args => {
+                    ExecuteDelegate(args, generator);
+                },
+            };
+
+            return cmd;
+        }
+
+        static void ExecuteDelegate(Dictionary<string, object> args, Action<List<TestFixture>, TextWriter> generator)
+        {
+            var input = (string)args["input-filename"];
+            var fixtures = new List<TestFixture>();
+
+            using (var reader = new StreamReader(input))
+            {
+                TestFixture currentFixture = null;
+                TestCase currentTest = null;
+
+
+                while (!reader.EndOfStream)
                 {
-                    if (language == "cs")
+                    var line = reader.ReadLine();
+                    if (string.IsNullOrWhiteSpace(line))
                     {
-                        GenerateCs(fixtures, writer);
+                        currentTest.Statements.Add(string.Empty);
+                        continue;
                     }
-                    else
+
+                    var trimmed = line.Trim();
+                    var parts = trimmed.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                    string name;
+                    switch (parts[0].ToLower())
                     {
-                        GenerateCpp(fixtures, writer);
+                    case "fixture":
+                        name = parts[1];
+                        currentFixture = new TestFixture { Name = name };
+                        fixtures.Add(currentFixture);
+                        break;
+                    case "test":
+                        name = parts[1];
+                        currentTest = new TestCase { Name = name };
+                        currentFixture.TestCases.Add(currentTest);
+                        break;
+                    case "given":
+                    case "require":
+                    case "when":
+                    case "then":
+                        currentTest.Statements.Add(parts[0].ToLower());
+                        break;
+                    default:
+                        currentTest.Statements.Add(trimmed);
+                        break;
                     }
                 }
+            }
+
+
+            using (var writer = 
+                (!args.ContainsKey("output-filename") || args["output-filename"] == null ?
+                    Console.Out :
+                    new StreamWriter((string)args["output-filename"])))
+            {
+                generator(fixtures, writer);
             }
         }
 
