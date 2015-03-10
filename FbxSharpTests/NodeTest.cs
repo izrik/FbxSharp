@@ -210,5 +210,58 @@ namespace FbxSharpTests
             Assert.AreEqual(node2, node3.GetParent());
             Assert.AreEqual(scene, node3.GetScene());
         }
+
+        [Test]
+        public void RootNode_AddSrcObject_AddsChild()
+        {
+            // given:
+            var scene = new Scene("TheScene");
+            var root = scene.GetRootNode();
+            var node2 = new Node("ChildNode");
+
+            // require:
+            Assert.AreEqual(3, scene.GetSrcObjectCount());
+            Assert.AreEqual(root, scene.GetSrcObject(0));
+            Assert.AreEqual(scene.GetGlobalSettings(), scene.GetSrcObject(1));
+            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
+            Assert.AreEqual(root, scene.GetSrcObject());
+            Assert.AreEqual(0, scene.GetDstObjectCount());
+            Assert.AreEqual(1, scene.GetNodeCount());
+            Assert.AreEqual(root, scene.GetNode(0));
+
+            Assert.AreEqual(0, root.GetSrcObjectCount());
+            Assert.AreEqual(1, root.GetDstObjectCount());
+            Assert.AreEqual(scene, root.GetDstObject(0));
+
+            Assert.AreEqual(0, node2.GetSrcObjectCount());
+            Assert.AreEqual(0, node2.GetDstObjectCount());
+            Assert.AreEqual(null, node2.GetScene());
+
+            // when:
+            root.ConnectSrcObject(node2);
+
+            // then:
+            Assert.AreEqual(4, scene.GetSrcObjectCount());
+            Assert.AreEqual(root, scene.GetSrcObject(0));
+            Assert.AreEqual(scene.GetGlobalSettings(), scene.GetSrcObject(1));
+            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
+            Assert.AreEqual(node2, scene.GetSrcObject(3));
+            Assert.AreEqual(root, scene.GetSrcObject());
+            Assert.AreEqual(0, scene.GetDstObjectCount());
+            Assert.AreEqual(2, scene.GetNodeCount());
+            Assert.AreEqual(root, scene.GetNode(0));
+            Assert.AreEqual(node2, scene.GetNode(1));
+
+            Assert.AreEqual(1, root.GetSrcObjectCount());
+            Assert.AreEqual(node2, root.GetSrcObject(0));
+            Assert.AreEqual(1, root.GetDstObjectCount());
+            Assert.AreEqual(scene, root.GetDstObject(0));
+
+            Assert.AreEqual(0, node2.GetSrcObjectCount());
+            Assert.AreEqual(2, node2.GetDstObjectCount());
+            Assert.AreEqual(root, node2.GetDstObject(0));
+            Assert.AreEqual(scene, node2.GetDstObject(1));
+            Assert.AreEqual(scene, node2.GetScene());
+        }
     }
 }
