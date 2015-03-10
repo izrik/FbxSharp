@@ -41,6 +41,7 @@ namespace TestCaseGenerator
             {
                 var fixtures = new List<TestFixture>();
 
+
                 using (var reader = new StreamReader(input))
                 {
                     TestFixture currentFixture = null;
@@ -89,81 +90,203 @@ namespace TestCaseGenerator
                         Console.Out :
                         new StreamWriter(input + "." + language))
                 {
-                    writer.WriteLine("using System;");
-                    writer.WriteLine("using NUnit.Framework;");
-                    writer.WriteLine("using FbxSharp;");
-                    writer.WriteLine();
-                    writer.WriteLine("namespace FbxSharpTests");
-                    writer.WriteLine("{");
-                    var fixturesStarted = false;
-                    foreach (var fixture in fixtures)
+                    if (language == "cs")
                     {
-                        if (fixturesStarted) writer.WriteLine();
-                        writer.WriteLine("    [TestFixture]");
-                        writer.WriteLine("    public class {0}", fixture.Name);
-                        writer.WriteLine("    {");
-
-                        var casesStarted = false;
-                        foreach (var testcase in fixture.TestCases)
-                        {
-                            if (casesStarted) writer.WriteLine();
-                            writer.WriteLine("        [Test]");
-                            writer.WriteLine("        public void {0}()", testcase.Name);
-                            writer.WriteLine("        {");
-                            int blanks = 0;
-                            List<String> parts;
-                            foreach (var stmt in testcase.Statements)
-                            {
-                                if (string.IsNullOrWhiteSpace(stmt))
-                                {
-                                    blanks++;
-                                }
-                                else
-                                {
-                                    for (; blanks > 0; blanks--) writer.WriteLine();
-                                }
-                                switch (stmt)
-                                {
-                                case "given":
-                                case "require":
-                                case "when":
-                                case "then":
-                                    writer.WriteLine("            // {0}:", stmt);
-                                    break;
-                                default:
-                                    var outline = stmt.Replace("AssertEqual", "Assert.AreEqual");
-                                    if (Regex.IsMatch(outline, @"\bnew\b"))
-                                    {
-                                        parts = outline.Split(new[]{ ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-                                        parts[3] = parts[3].Replace("new", "new " + parts[0]);
-                                        outline = string.Join(" ", parts);
-                                    }
-                                    parts = outline.Split(new[]{ ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-                                    if (parts.Count > 3 && parts[2] == "=")
-                                    {
-                                        parts[0] = "var";
-                                        outline = string.Join(" ", parts);
-                                    }
-                                    if (!string.IsNullOrWhiteSpace(outline))
-                                    {
-                                        writer.Write("            {0};", outline);
-                                        writer.WriteLine();
-                                    }
-                                    break;
-                                }
-                            }
-
-                            writer.WriteLine("        }");
-                            casesStarted = true;
-                        }
-
-                        writer.WriteLine("    }");
-                        fixturesStarted = true;
+                        GenerateCs(fixtures, writer);
                     }
-                    writer.WriteLine("}");
-                    writer.Flush();
+                    else
+                    {
+                        GenerateCpp(fixtures, writer);
+                    }
                 }
             }
+        }
+
+        static void GenerateCs(List<TestFixture> fixtures, TextWriter writer)
+        {
+            writer.WriteLine("using System;");
+            writer.WriteLine("using NUnit.Framework;");
+            writer.WriteLine("using FbxSharp;");
+            writer.WriteLine();
+            writer.WriteLine("namespace FbxSharpTests");
+            writer.WriteLine("{");
+            var fixturesStarted = false;
+            foreach (var fixture in fixtures)
+            {
+                if (fixturesStarted)
+                    writer.WriteLine();
+                writer.WriteLine("    [TestFixture]");
+                writer.WriteLine("    public class {0}", fixture.Name);
+                writer.WriteLine("    {");
+                var casesStarted = false;
+                foreach (var testcase in fixture.TestCases)
+                {
+                    if (casesStarted)
+                        writer.WriteLine();
+                    writer.WriteLine("        [Test]");
+                    writer.WriteLine("        public void {0}()", testcase.Name);
+                    writer.WriteLine("        {");
+                    int blanks = 0;
+                    List<String> parts;
+                    foreach (var stmt in testcase.Statements)
+                    {
+                        if (string.IsNullOrWhiteSpace(stmt))
+                        {
+                            blanks++;
+                        }
+                        else
+                        {
+                            for (; blanks > 0; blanks--)
+                                writer.WriteLine();
+                        }
+                        switch (stmt)
+                        {
+                        case "given":
+                        case "require":
+                        case "when":
+                        case "then":
+                            writer.WriteLine("            // {0}:", stmt);
+                            break;
+                        default:
+                            var outline = stmt.Replace("AssertEqual", "Assert.AreEqual");
+
+                            outline = outline.Replace("&", "");
+
+                            if (Regex.IsMatch(outline, @"\bnew\b"))
+                            {
+                                parts = outline.Split(new[] {
+                                    ' '
+                                }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                                parts[3] = parts[3].Replace("new", "new " + parts[0]);
+                                outline = string.Join(" ", parts);
+                            }
+
+                            parts = outline.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries).ToList();
+                            if (parts.Count > 3 && parts[2] == "=")
+                            {
+                                parts[0] = "var";
+                                outline = string.Join(" ", parts);
+                            }
+
+                            if (!string.IsNullOrWhiteSpace(outline))
+                            {
+                                writer.Write("            {0};", outline);
+                                writer.WriteLine();
+                            }
+                            break;
+                        }
+                    }
+                    writer.WriteLine("        }");
+                    casesStarted = true;
+                }
+                writer.WriteLine("    }");
+                fixturesStarted = true;
+            }
+            writer.WriteLine("}");
+            writer.Flush();
+        }
+
+        static void GenerateCpp(List<TestFixture> fixtures, TextWriter writer)
+        {
+            writer.WriteLine();
+            writer.WriteLine("#include \"common.h\"");
+            writer.WriteLine();
+            writer.WriteLine("using namespace std;");
+            foreach (var fixture in fixtures)
+            {
+                foreach (var testcase in fixture.TestCases)
+                {
+                    writer.WriteLine();
+                    writer.WriteLine("void {0}()", testcase.Name);
+                    writer.WriteLine("{");
+                    int blanks = 0;
+                    List<String> parts;
+                    foreach (var stmt in testcase.Statements)
+                    {
+                        if (string.IsNullOrWhiteSpace(stmt))
+                        {
+                            blanks++;
+                        }
+                        else
+                        {
+                            for (; blanks > 0; blanks--)
+                                writer.WriteLine();
+                        }
+                        switch (stmt)
+                        {
+                        case "given":
+                            writer.WriteLine("    // {0}:", stmt);
+                            writer.WriteLine("    FbxManager* manager = FbxManager::Create();");
+                            break;
+                        case "require":
+                        case "when":
+                        case "then":
+                            writer.WriteLine("    // {0}:", stmt);
+                            break;
+                        default:
+                            var outline = stmt;
+
+                            parts = outline.Split(' ').ToList();
+                            if (parts.Count > 3 && 
+                                parts[2] == "=" &&
+                                !parts[0].StartsWith("Fbx"))
+                            {
+                                parts[0] = "Fbx" + parts[0];
+                                outline = string.Join(" ", parts);
+                            }
+
+                            if (Regex.IsMatch(outline, @"\bnew\b"))
+                            {
+                                parts = outline.Split(new[] {
+                                    ' '
+                                }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                                parts[3] = parts[3].Replace("new(", parts[0] + "::Create(manager, ");
+                                outline = string.Join(" ", parts);
+                            }
+
+                            parts = outline.Split(' ').ToList();
+                            if (parts.Count > 3 && parts[2] == "=")
+                            {
+                                parts[0] += "*";
+                                outline = string.Join(" ", parts);
+                            }
+
+                            if (Regex.IsMatch(outline, @"[\w)]\.\w"))
+                            {
+                                outline = 
+                                    Regex.Replace(
+                                        outline,
+                                        @"([\w\)])\.(\w)",
+                                        m => m.Groups[1].Value + "->" + m.Groups[2].Value);
+                            }
+
+                            if (Regex.IsMatch(outline, @"\bnull\b"))
+                            {
+                                outline = Regex.Replace(outline, @"\bnull\b", "NULL");
+                            }
+
+                            if (!string.IsNullOrWhiteSpace(outline))
+                            {
+                                writer.Write("    {0};", outline);
+                                writer.WriteLine();
+                            }
+                            break;
+                        }
+                    }
+                    writer.WriteLine("}");
+                }
+
+                writer.WriteLine();
+                writer.WriteLine("void {0}::RegisterTestCases()", fixture.Name);
+                writer.WriteLine("{");
+                foreach (var testcase in fixture.TestCases)
+                {
+                    writer.WriteLine("    AddTestCase({0});", testcase.Name);
+                }
+                writer.WriteLine("}");
+                writer.WriteLine();
+            }
+            writer.Flush();
         }
     }
 }
