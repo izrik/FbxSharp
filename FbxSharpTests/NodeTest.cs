@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using NUnit.Framework;
 using FbxSharp;
 
@@ -16,9 +16,19 @@ namespace FbxSharpTests
             var node2 = new Node("ChildNode");
 
             // require:
+            Assert.AreEqual(3, scene.GetSrcObjectCount());
+            Assert.AreEqual(root, scene.GetSrcObject(0));
+            Assert.AreEqual(scene.GetGlobalSettings(), scene.GetSrcObject(1));
+            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
+            Assert.AreEqual(root, scene.GetSrcObject());
+            Assert.AreEqual(0, scene.GetDstObjectCount());
+            Assert.AreEqual(1, scene.GetNodeCount());
+            Assert.AreEqual(root, scene.GetNode(0));
+
             Assert.AreEqual(0, root.GetSrcObjectCount());
             Assert.AreEqual(1, root.GetDstObjectCount());
             Assert.AreEqual(scene, root.GetDstObject(0));
+
             Assert.AreEqual(0, node2.GetSrcObjectCount());
             Assert.AreEqual(0, node2.GetDstObjectCount());
 
@@ -42,7 +52,7 @@ namespace FbxSharpTests
         {
             // given:
             var node = new Node("Node");
-            var nullattr = new Null("Nulla");
+            var nullattr = new Null("nullattr");
 
             // require:
             Assert.AreEqual(0, node.GetSrcObjectCount());
@@ -202,12 +212,3 @@ namespace FbxSharpTests
         }
     }
 }
-
-//  "->"   "."
-//  /(\w+)::Create/    "new $1"
-//  "*"  ""
-//  "AssertEqual"    "Assert.AreEqual"
-//  delete FbxManager lines
-//  /Fbx(Scene|Node|Null)/  "$1"
-//  /(\s\s+)(Scene|Node|Null)/  "$1var"
-//  "(manager, "    "("
