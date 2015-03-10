@@ -190,3 +190,54 @@ test RootNode_AddChild_AddsNodeSubtree
     AssertEqual(0, node3.GetChildCount())
     AssertEqual(node2, node3.GetParent())
     AssertEqual(scene, node3.GetScene())
+
+test RootNode_AddSrcObject_AddsChild
+    given
+    Scene scene = new("TheScene")
+    Node root = scene.GetRootNode()
+    Node node2 = new("ChildNode")
+
+    require
+    AssertEqual(3, scene.GetSrcObjectCount())
+    AssertEqual(root, scene.GetSrcObject(0))
+    AssertEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1))
+    AssertEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2))
+    AssertEqual(root, scene.GetSrcObject())
+    AssertEqual(0, scene.GetDstObjectCount())
+    AssertEqual(1, scene.GetNodeCount())
+    AssertEqual(root, scene.GetNode(0))
+
+    AssertEqual(0, root.GetSrcObjectCount())
+    AssertEqual(1, root.GetDstObjectCount())
+    AssertEqual(scene, root.GetDstObject(0))
+
+    AssertEqual(0, node2.GetSrcObjectCount())
+    AssertEqual(0, node2.GetDstObjectCount())
+    AssertEqual(null, node2.GetScene())
+
+    when
+    root.ConnectSrcObject(node2)
+
+    then
+    AssertEqual(4, scene.GetSrcObjectCount())
+    AssertEqual(root, scene.GetSrcObject(0))
+    AssertEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1))
+    AssertEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2))
+    AssertEqual(node2, scene.GetSrcObject(3))
+    AssertEqual(root, scene.GetSrcObject())
+    AssertEqual(0, scene.GetDstObjectCount())
+    AssertEqual(2, scene.GetNodeCount())
+    AssertEqual(root, scene.GetNode(0))
+    AssertEqual(node2, scene.GetNode(1))
+
+    AssertEqual(1, root.GetSrcObjectCount())
+    AssertEqual(node2, root.GetSrcObject(0))
+    AssertEqual(1, root.GetDstObjectCount())
+    AssertEqual(scene, root.GetDstObject(0))
+
+    AssertEqual(0, node2.GetSrcObjectCount())
+    AssertEqual(2, node2.GetDstObjectCount())
+    AssertEqual(root, node2.GetDstObject(0))
+    AssertEqual(scene, node2.GetDstObject(1))
+    AssertEqual(scene, node2.GetScene())
+
