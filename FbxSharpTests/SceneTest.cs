@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using NUnit.Framework;
 using FbxSharp;
 
@@ -100,7 +100,31 @@ namespace FbxSharpTests
             Assert.AreEqual(scene, node.GetDstObject(1));
             Assert.AreEqual(scene, node.GetScene());
         }
+
+        [Test]
+        public void Scene_Create_HasRootNode()
+        {
+            // given:
+
+            // when:
+            var scene = new Scene("Scene1");
+            var root = scene.GetRootNode();
+
+            // then:
+            Assert.AreEqual(3, scene.GetSrcObjectCount());
+            Assert.AreEqual(root, scene.GetSrcObject(0));
+            Assert.AreEqual(scene.GetGlobalSettings(), scene.GetSrcObject(1));
+            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
+            Assert.AreEqual(0, scene.GetDstObjectCount());
+            Assert.AreEqual(1, scene.GetNodeCount());
+            Assert.AreEqual(root, scene.GetNode(0));
+
+            AssertNotEqual(NULL, root);
+            Assert.AreEqual(0, root.GetSrcObjectCount());
+            Assert.AreEqual(1, root.GetDstObjectCount());
+            Assert.AreEqual(scene, root.GetDstObject(0));
+            Assert.AreEqual(scene, root.GetScene());
+            Assert.AreEqual(0, root.GetChildCount());
+        }
     }
 }
-
-
