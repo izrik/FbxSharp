@@ -1,4 +1,4 @@
-﻿
+
 #include "common.h"
 
 using namespace std;
@@ -12,6 +12,12 @@ void RootNode_AddChild_AddsConnection()
     FbxNode* node2 = FbxNode::Create(manager, "ChildNode");
 
     // require:
+    AssertEqual(3, scene->GetSrcObjectCount());
+    AssertEqual(root, scene->GetSrcObject(0));
+    AssertEqual(&scene->GetGlobalSettings(), scene->GetSrcObject(1));
+    AssertEqual(scene->GetAnimationEvaluator(), scene->GetSrcObject(2));
+    AssertEqual(root, scene->GetSrcObject());
+    AssertEqual(0, scene->GetDstObjectCount());
     AssertEqual(1, scene->GetNodeCount());
     AssertEqual(root, scene->GetNode(0));
 
@@ -42,7 +48,7 @@ void Node_SetNodeAttribute_SetsNodeAttribute()
     // given:
     FbxManager* manager = FbxManager::Create();
     FbxNode* node = FbxNode::Create(manager, "Node");
-    FbxNull* nulla = FbxNull::Create(manager, "Nulla");
+    FbxNull* nullattr = FbxNull::Create(manager, "nullattr");
 
     // require:
     AssertEqual(0, node->GetSrcObjectCount());
@@ -51,27 +57,27 @@ void Node_SetNodeAttribute_SetsNodeAttribute()
     AssertEqual(0, node->GetDstPropertyCount());
     AssertEqual(0, node->GetNodeAttributeCount());
     AssertEqual(NULL, node->GetNodeAttribute());
-    AssertEqual(0, nulla->GetSrcObjectCount());
-    AssertEqual(0, nulla->GetDstObjectCount());
-    AssertEqual(0, nulla->GetSrcPropertyCount());
-    AssertEqual(0, nulla->GetDstPropertyCount());
+    AssertEqual(0, nullattr->GetSrcObjectCount());
+    AssertEqual(0, nullattr->GetDstObjectCount());
+    AssertEqual(0, nullattr->GetSrcPropertyCount());
+    AssertEqual(0, nullattr->GetDstPropertyCount());
 
     // when:
-    node->SetNodeAttribute(nulla);
+    node->SetNodeAttribute(nullattr);
 
     // then:
     AssertEqual(1, node->GetSrcObjectCount());
-    AssertEqual(nulla, node->GetSrcObject(0));
+    AssertEqual(nullattr, node->GetSrcObject(0));
     AssertEqual(0, node->GetDstObjectCount());
     AssertEqual(0, node->GetSrcPropertyCount());
     AssertEqual(0, node->GetDstPropertyCount());
     AssertEqual(1, node->GetNodeAttributeCount());
-    AssertEqual(nulla, node->GetNodeAttribute());
-    AssertEqual(0, nulla->GetSrcObjectCount());
-    AssertEqual(1, nulla->GetDstObjectCount());
-    AssertEqual(node, nulla->GetDstObject(0));
-    AssertEqual(0, nulla->GetSrcPropertyCount());
-    AssertEqual(0, nulla->GetDstPropertyCount());
+    AssertEqual(nullattr, node->GetNodeAttribute());
+    AssertEqual(0, nullattr->GetSrcObjectCount());
+    AssertEqual(1, nullattr->GetDstObjectCount());
+    AssertEqual(node, nullattr->GetDstObject(0));
+    AssertEqual(0, nullattr->GetSrcPropertyCount());
+    AssertEqual(0, nullattr->GetDstPropertyCount());
 }
 
 void Node_AddChild_AddsChild()
