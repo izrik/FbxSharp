@@ -189,6 +189,7 @@ namespace TestCaseGenerator
                             break;
                         default:
                             var outline = stmt.Replace("AssertEqual", "Assert.AreEqual");
+                            outline = outline.Replace("AssertNotEqual", "Assert.AreNotEqual");
 
                             outline = outline.Replace("&", "");
 
@@ -206,6 +207,11 @@ namespace TestCaseGenerator
                             {
                                 parts[0] = "var";
                                 outline = string.Join(" ", parts);
+                            }
+
+                            if (Regex.IsMatch(outline, @"\bNULL\b"))
+                            {
+                                outline = Regex.Replace(outline, @"\bNULL\b", "null");
                             }
 
                             if (!string.IsNullOrWhiteSpace(outline))
