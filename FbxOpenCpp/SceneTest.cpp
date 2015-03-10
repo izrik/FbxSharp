@@ -1,4 +1,4 @@
-﻿
+
 #include "common.h"
 
 using namespace std;
@@ -12,10 +12,10 @@ void Scene_AddNode_AddsNode()
 
     // require:
     AssertEqual(3, scene->GetSrcObjectCount());
-    AssertEqual(0, scene->GetDstObjectCount());
     AssertEqual(scene->GetRootNode(), scene->GetSrcObject(0));
     AssertEqual(&scene->GetGlobalSettings(), scene->GetSrcObject(1));
     AssertEqual(scene->GetAnimationEvaluator(), scene->GetSrcObject(2));
+    AssertEqual(0, scene->GetDstObjectCount());
     AssertEqual(1, scene->GetNodeCount());
     AssertEqual(scene->GetRootNode(), scene->GetNode(0));
 
@@ -28,7 +28,6 @@ void Scene_AddNode_AddsNode()
 
     // then:
     AssertEqual(4, scene->GetSrcObjectCount());
-    AssertEqual(0, scene->GetDstObjectCount());
     AssertEqual(scene->GetRootNode(), scene->GetSrcObject(0));
     AssertEqual(&scene->GetGlobalSettings(), scene->GetSrcObject(1));
     AssertEqual(scene->GetAnimationEvaluator(), scene->GetSrcObject(2));
@@ -54,10 +53,10 @@ void RootNode_AddChildNode_AddsNodeToScene()
 
     // require:
     AssertEqual(3, scene->GetSrcObjectCount());
-    AssertEqual(0, scene->GetDstObjectCount());
     AssertEqual(root, scene->GetSrcObject(0));
     AssertEqual(&scene->GetGlobalSettings(), scene->GetSrcObject(1));
     AssertEqual(scene->GetAnimationEvaluator(), scene->GetSrcObject(2));
+    AssertEqual(0, scene->GetDstObjectCount());
     AssertEqual(1, scene->GetNodeCount());
     AssertEqual(root, scene->GetNode(0));
 
@@ -109,10 +108,10 @@ void Scene_Create_HasRootNode()
 
     // then:
     AssertEqual(3, scene->GetSrcObjectCount());
-    AssertEqual(0, scene->GetDstObjectCount());
     AssertEqual(root, scene->GetSrcObject(0));
     AssertEqual(&scene->GetGlobalSettings(), scene->GetSrcObject(1));
     AssertEqual(scene->GetAnimationEvaluator(), scene->GetSrcObject(2));
+    AssertEqual(0, scene->GetDstObjectCount());
     AssertEqual(1, scene->GetNodeCount());
     AssertEqual(root, scene->GetNode(0));
 
@@ -122,7 +121,6 @@ void Scene_Create_HasRootNode()
     AssertEqual(scene, root->GetDstObject(0));
     AssertEqual(scene, root->GetScene());
     AssertEqual(0, root->GetChildCount());
-
 }
 
 void SceneTest::RegisterTestCases()

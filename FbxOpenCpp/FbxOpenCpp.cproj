@@ -64,5 +64,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="common.h" />
+    <None Include="NodeTest.tc" />
+    <None Include="SceneTest.tc" />
   </ItemGroup>
 </Project>
