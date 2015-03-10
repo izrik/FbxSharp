@@ -57,7 +57,7 @@ namespace FbxSharp
 
         #region Node Tree Access
 
-        public SrcObjectCollectionView<Node> Nodes;
+        public CollectionView<Node> Nodes;
 
         Node _rootNode;
         public Node RootNode {

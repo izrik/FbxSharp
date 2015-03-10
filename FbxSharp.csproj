@@ -89,7 +89,6 @@
     <Compile Include="Time.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="Importer.cs" />
-    <Compile Include="NodeNodeOrderedParentChildrenCollection.cs" />
     <Compile Include="SrcObjectCollection.cs" />
     <Compile Include="DstObjectCollection.cs" />
     <Compile Include="AnimEvaluator.cs" />

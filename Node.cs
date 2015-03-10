@@ -82,7 +82,8 @@ namespace FbxSharp
                     Freeze,
                     LODBox});
 
-            this.ChildNodes = new NodeNodeOrderedParentChildrenCollection(this);
+            this.ChildNodes = SrcObjects.CreateCollectionView<Node>();
+            _parentNode = DstObjects.CreateObjectView<Node>();
         }
 
         public bool MultiLayer;
@@ -107,19 +108,70 @@ namespace FbxSharp
             if (pNode == null)
                 return false;
             this.ConnectSrcObject(pNode);
-            ChildNodes.Add(pNode);
             return true;
+        }
+
+        public override void ConnectSrcObject(FbxObject fbxObject, Connection.EType type = Connection.EType.None)
+        {
+            base.ConnectSrcObject(fbxObject, type);
+
+            if (fbxObject is Node)
+            {
+                ConnectScene((Node)fbxObject);
+            }
+        }
+
+        void ConnectScene(Node child)
+        {
+            if (child.Scene != this.Scene)
+            {
+                if (child.Scene != null)
+                {
+                    child.DisconnectDstObject(child.Scene);
+                }
+                if (this.Scene != null)
+                {
+                    child.ConnectDstObject(this.Scene);
+                }
+            }
+            foreach (var subchild in child.ChildNodes)
+            {
+                ConnectScene(subchild);
+            }
         }
 
         //Remove the child node.
         public Node RemoveChild(Node pNode)
         {
-            if (ChildNodes.Remove(pNode))
+            if (this.DisconnectSrcObject(pNode))
             {
-                this.DisconnectSrcObject(pNode);
                 return pNode;
             }
             return null;
+        }
+
+        public override bool DisconnectSrcObject(FbxObject pObject)
+        {
+            var ret = base.DisconnectSrcObject(pObject);
+
+            if (pObject is Node)
+            {
+                DisconnectScene((Node)pObject);
+            }
+
+            return ret;
+        }
+
+        void DisconnectScene(Node child)
+        {
+            if (child.Scene != null)
+            {
+                child.DisconnectDstObject(child.Scene);
+            }
+            foreach (var subchild in child.ChildNodes)
+            {
+                DisconnectScene(subchild);
+            }
         }
 
         //Get the number of children nodes.
@@ -134,29 +186,12 @@ namespace FbxSharp
             return ChildNodes[pIndex];
         }
 
-        private Node _parentNode = null;
+        private ObjectView<Node> _parentNode;
         public Node ParentNode
         {
-            get { return _parentNode; }
-            set
-            {
-                if (_parentNode != value)
-                {
-                    if (_parentNode != null)
-                    {
-                        _parentNode.ChildNodes.Remove(this);
-                    }
-
-                    _parentNode = value;
-
-                    if (_parentNode != null)
-                    {
-                        _parentNode.ChildNodes.Add(this);
-                    }
-                }
-            }
+            get { return _parentNode.Get(); }
         }
-        public readonly NodeNodeOrderedParentChildrenCollection ChildNodes;
+        public readonly CollectionView<Node> ChildNodes;
 
         //Finds a child node by name.
         //FbxNode *   FindChild (const char *pName, bool pRecursive=true, bool pInitial=false)

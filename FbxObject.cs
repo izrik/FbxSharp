@@ -15,6 +15,8 @@ namespace FbxSharp
 
             UniqueId = __uniqueId;
             __uniqueId++;
+
+            _scene = DstObjects.CreateObjectView<Scene>();
         }
 
         public override string ToString()
@@ -24,11 +26,12 @@ namespace FbxSharp
 
         #region General Object Management
 
+        protected readonly ObjectView<Scene> _scene;
         public Scene Scene
         {
             get
             {
-                return DstObjects.Where(x => x is Scene).Cast<Scene>().FirstOrDefault();
+                return _scene.Get();
             }
         }
         public Scene GetScene()
@@ -43,7 +46,7 @@ namespace FbxSharp
         public readonly SrcObjectCollection SrcObjects;
         public readonly DstObjectCollection DstObjects;
 
-        public void ConnectSrcObject(FbxObject fbxObject, Connection.EType type = Connection.EType.None)
+        public virtual void ConnectSrcObject(FbxObject fbxObject, Connection.EType type = Connection.EType.None)
         {
             SrcObjects.Add(fbxObject);
         }
@@ -53,14 +56,17 @@ namespace FbxSharp
             return SrcObjects.Contains(pObject);
         }
 
-        public bool DisconnectSrcObject(FbxObject pObject)
+        public virtual bool DisconnectSrcObject(FbxObject pObject)
         {
             return SrcObjects.Remove(pObject);
         }
 
         public bool DisconnectAllSrcObject()
         {
-            SrcObjects.Clear();
+            foreach (var src in SrcObjects.ToArray())
+            {
+                DisconnectSrcObject(src);
+            }
             return true;
         }
 
@@ -75,7 +81,7 @@ namespace FbxSharp
             return SrcObjects[pIndex];
         }
 
-        public bool ConnectDstObject(FbxObject pObject, Connection.EType pType = Connection.EType.None)
+        public virtual bool ConnectDstObject(FbxObject pObject, Connection.EType pType = Connection.EType.None)
         {
             DstObjects.Add(pObject);
             return true;
@@ -86,14 +92,17 @@ namespace FbxSharp
             return DstObjects.Contains(pObject);
         }
 
-        public bool DisconnectDstObject(FbxObject pObject)
+        public virtual bool DisconnectDstObject(FbxObject pObject)
         {
             return DstObjects.Remove(pObject);
         }
 
         public bool DisconnectAllDstObject()
         {
-            DstObjects.Clear();
+            foreach (var dst in DstObjects.ToArray())
+            {
+                DisconnectDstObject(dst);
+            }
             return true;
         }
 
