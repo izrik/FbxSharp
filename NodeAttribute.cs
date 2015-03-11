@@ -4,7 +4,10 @@ namespace FbxSharp
 {
     public abstract class NodeAttribute : FbxObject
     {
-
+        protected NodeAttribute()
+        {
+            nodes = DstObjects.CreateCollectionView<Node>();
+        }
 
         public enum EAttributeType
         {
@@ -35,6 +38,25 @@ namespace FbxSharp
 
         public abstract EAttributeType AttributeType { get; }
 
+        #region Public Member Functions
+
+        public EAttributeType GetAttributeType()
+        {
+            return AttributeType;
+        }
+
+        readonly CollectionView<Node> nodes;
+        public int GetNodeCount()
+        {
+            return nodes.Count;
+        }
+
+        public Node GetNode(int pIndex=0)
+        {
+            return nodes[pIndex];
+        }
+
+        #endregion
     }
 }
 

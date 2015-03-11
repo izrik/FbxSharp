@@ -84,6 +84,9 @@ namespace FbxSharp
 
             this.ChildNodes = SrcObjects.CreateCollectionView<Node>();
             _parentNode = DstObjects.CreateObjectView<Node>();
+
+            DefaultAttributeIndex.Set(-1);
+            nodeAttributes = SrcObjects.CreateCollectionView<NodeAttribute>();
         }
 
         public bool MultiLayer;
@@ -200,20 +203,14 @@ namespace FbxSharp
 
         #region Node Attribute Management
 
-        NodeAttribute nodeAttribute;
+        readonly CollectionView<NodeAttribute> nodeAttributes;
 
         public NodeAttribute SetNodeAttribute(NodeAttribute pNodeAttribute)
         {
-            if (nodeAttribute != null)
+            ConnectSrcObject(pNodeAttribute);
+            if (DefaultAttributeIndex.Get() < 0)
             {
-                this.DisconnectSrcObject(nodeAttribute);
-            }
-
-            nodeAttribute = pNodeAttribute;
-
-            if (nodeAttribute != null)
-            {
-                this.ConnectSrcObject(nodeAttribute);
+                DefaultAttributeIndex.Set(nodeAttributes.IndexOf(pNodeAttribute));
             }
 
             return pNodeAttribute;
@@ -221,12 +218,34 @@ namespace FbxSharp
 
         public NodeAttribute GetNodeAttribute()
         {
-            return nodeAttribute;
+            if (DefaultAttributeIndex.Get() < 0) return null;
+            if (DefaultAttributeIndex.Get() >= nodeAttributes.Count) return null;
+            return nodeAttributes[DefaultAttributeIndex.Get()];
         }
 
         public int GetNodeAttributeCount()
         {
-            return (nodeAttribute != null ? 1 : 0);
+            return nodeAttributes.Count;
+        }
+
+        public int GetDefaultNodeAttributeIndex()
+        {
+            return DefaultAttributeIndex.Get();
+        }
+
+        public bool SetDefaultNodeAttributeIndex(int pIndex /*, FbxStatus=null*/)
+        {
+            throw new NotImplementedException();
+        }
+
+        public NodeAttribute GetNodeAttributeByIndex(int pIndex)
+        {
+            return nodeAttributes[pIndex];
+        }
+
+        public int GetNodeAttributeIndex(NodeAttribute nodeattr /*, FbxStatus=null*/)
+        {
+            return nodeAttributes.IndexOf(nodeattr);
         }
 
         #endregion
