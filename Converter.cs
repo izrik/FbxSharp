@@ -38,6 +38,7 @@ namespace FbxSharp
                 fbxObjectsById[fobj.UniqueId] = fobj;
             }
 
+
             var conns = parsed.FindPropertyByName("Connections");
             CheckConnections(conns);
             foreach (var conn in conns.Properties)
@@ -67,8 +68,6 @@ namespace FbxSharp
             var takes = parsed.FindPropertyByName("Takes");
             CheckTakes(takes);
 
-//            throw new NotImplementedException();
-            scene.Nodes.AddRange(fbxObjects.Where(o => o is Node).Cast<Node>());
             return scene;
         }
 
