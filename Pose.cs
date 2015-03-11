@@ -1,5 +1,4 @@
 ﻿using System;
-using ChamberLib;
 using System.Collections.Generic;
 
 namespace FbxSharp

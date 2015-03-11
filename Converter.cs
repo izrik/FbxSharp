@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using ChamberLib;
 
 namespace FbxSharp
 {
@@ -538,7 +537,7 @@ namespace FbxSharp
                     var g = ((Number)p.Values[5]).AsDouble.Value;
                     var b = ((Number)p.Values[6]).AsDouble.Value;
                     propType = typeof(Color);
-                    propValue = new Color(new Vector3((float)r, (float)g, (float)b));
+                    propValue = new Color(r, g, b);
                     break;
                 case "bool":
                     propType = typeof(bool);
@@ -553,7 +552,7 @@ namespace FbxSharp
                     var x = ((Number)p.Values[4]).AsDouble.Value;
                     var y = ((Number)p.Values[5]).AsDouble.Value;
                     var z = ((Number)p.Values[6]).AsDouble.Value;
-                    propValue = new Vector3((float)x, (float)y, (float)z);
+                    propValue = new Vector3(x, y, z);
                     break;
                 case "int":
                     propType = typeof(int);
@@ -568,7 +567,7 @@ namespace FbxSharp
                     z = ((Number)p.Values[6]).AsDouble.Value;
                     if (comment != "A+" && comment != "A")
                         throw new NotImplementedException();
-                    propValue = new Vector3((float)x, (float)y, (float)z);
+                    propValue = new Vector3(x, y, z);
                     break;
                 case "KString":
                     propType = typeof(string);
@@ -612,9 +611,9 @@ namespace FbxSharp
             {
                 vectors.Add(
                     new Vector3(
-                        (float)((Number)obj.Values[i]).AsDouble.Value,
-                        (float)((Number)obj.Values[i+1]).AsDouble.Value,
-                        (float)((Number)obj.Values[i+2]).AsDouble.Value));
+                        ((Number)obj.Values[i]).AsDouble.Value,
+                        ((Number)obj.Values[i+1]).AsDouble.Value,
+                        ((Number)obj.Values[i+2]).AsDouble.Value));
             }
             return vectors;
         }
@@ -783,7 +782,7 @@ namespace FbxSharp
             if (values.Count != 16)
                 throw new InvalidOperationException();
 
-            var v = values.Select(n => (float)(((Number)n).AsDouble.Value)).ToArray();
+            var v = values.Select(n => ((Number)n).AsDouble.Value).ToArray();
 
             var m = new Matrix(
                         v[0], v[1], v[2], v[3],
@@ -1055,27 +1054,27 @@ namespace FbxSharp
         {
             return
                 new Vector2(
-                    (float)((Number)values[startIndex]).AsDouble.Value,
-                    (float)((Number)values[startIndex + 1]).AsDouble.Value);
+                    ((Number)values[startIndex]).AsDouble.Value,
+                    ((Number)values[startIndex + 1]).AsDouble.Value);
         }
 
         public static Vector3 ConvertVector3(List<object> values, int startIndex=0)
         {
             return
                 new Vector3(
-                    (float)((Number)values[startIndex]).AsDouble.Value,
-                    (float)((Number)values[startIndex + 1]).AsDouble.Value,
-                    (float)((Number)values[startIndex + 2]).AsDouble.Value);
+                    ((Number)values[startIndex]).AsDouble.Value,
+                    ((Number)values[startIndex + 1]).AsDouble.Value,
+                    ((Number)values[startIndex + 2]).AsDouble.Value);
         }
 
         public static Vector4 ConvertVector4(List<object> values, int startIndex=0)
         {
             return
                 new Vector4(
-                    (float)((Number)values[startIndex]).AsDouble.Value,
-                    (float)((Number)values[startIndex + 1]).AsDouble.Value,
-                    (float)((Number)values[startIndex + 2]).AsDouble.Value,
-                    (float)((Number)values[startIndex + 3]).AsDouble.Value);
+                    ((Number)values[startIndex]).AsDouble.Value,
+                    ((Number)values[startIndex + 1]).AsDouble.Value,
+                    ((Number)values[startIndex + 2]).AsDouble.Value,
+                    ((Number)values[startIndex + 3]).AsDouble.Value);
         }
 
         public static AnimationStack ConvertAnimationStack(ParseObject obj)

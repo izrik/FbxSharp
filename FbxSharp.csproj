@@ -96,6 +96,11 @@
     <Compile Include="IConnectedObjectCollection.cs" />
     <Compile Include="CollectionView.cs" />
     <Compile Include="ObjectView.cs" />
+    <Compile Include="Vector4.cs" />
+    <Compile Include="Color.cs" />
+    <Compile Include="Vector3.cs" />
+    <Compile Include="Vector2.cs" />
+    <Compile Include="Matrix.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -107,11 +112,5 @@
   -->
   <ItemGroup>
     <None Include="FbxSharp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\ChamberLib\ChamberLib.csproj">
-      <Project>{7DE0B8DB-460B-4455-9BAD-B4FF1280F3CE}</Project>
-      <Name>ChamberLib</Name>
-    </ProjectReference>
   </ItemGroup>
 </Project>
