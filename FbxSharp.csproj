@@ -112,5 +112,7 @@
   -->
   <ItemGroup>
     <None Include="FbxSharp.png" />
+    <None Include="LICENSE" />
+    <None Include="README.md" />
   </ItemGroup>
 </Project>
