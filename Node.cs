@@ -270,7 +270,7 @@ namespace FbxSharp
         public PropertyT<bool>                          TranslationMaxX             = new PropertyT<bool>("TranslationMaxX");
         public PropertyT<bool>                          TranslationMaxY             = new PropertyT<bool>("TranslationMaxY");
         public PropertyT<bool>                          TranslationMaxZ             = new PropertyT<bool>("TranslationMaxZ");
-        //public PropertyT<EFbxRotationOrder>             RotationOrder               = new PropertyT<EFbxRotationOrder>("RotationOrder");
+        public PropertyT<ERotationOrder>                RotationOrder               = new PropertyT<ERotationOrder>("RotationOrder");
         public PropertyT<bool>                          RotationSpaceForLimitOnly   = new PropertyT<bool>("RotationSpaceForLimitOnly");
         public PropertyT<double>                        RotationStiffnessX          = new PropertyT<double>("RotationStiffnessX");
         public PropertyT<double>                        RotationStiffnessY          = new PropertyT<double>("RotationStiffnessY");
@@ -324,6 +324,17 @@ namespace FbxSharp
         public PropertyT<bool>                          LODBox                      = new PropertyT<bool>("LODBox");
 
         #endregion
+
+        public enum ERotationOrder
+        {
+            OrderXYZ,
+            OrderXZY,
+            OrderYZX,
+            OrderYXZ,
+            OrderZXY,
+            OrderZYX,
+            OrderSphericXYZ,
+        }
     }
 }
 
