@@ -251,7 +251,7 @@ namespace FbxSharp
                     ImportProperties(mesh, ConvertProperties70(prop));
                     break;
                 case "Vertices":
-                    mesh.VertexPositions = ConvertVertices(prop);
+                    ConvertVertices(mesh, prop);
                     break;
                 case "PolygonVertexIndex":
                     mesh.PolygonIndexes = ConvertPolygonVertexIndex(prop);
@@ -603,27 +603,29 @@ namespace FbxSharp
             return propNamesTypesValues;
         }
 
-        public static List<Vector3> ConvertVertices(ParseObject obj)
+        public static void ConvertVertices(Mesh mesh, ParseObject obj)
         {
+            var values = obj.Properties[0].Values;
+            mesh.InitControlPoints(values.Count / 3);
             int i;
-            var vectors = new List<Vector3>();
-            for (i = 0; i+2 < obj.Values.Count; i+=3)
+            for (i = 0; i+2 < values.Count; i+=3)
             {
-                vectors.Add(
-                    new Vector3(
-                        ((Number)obj.Values[i]).AsDouble.Value,
-                        ((Number)obj.Values[i+1]).AsDouble.Value,
-                        ((Number)obj.Values[i+2]).AsDouble.Value));
+                var v = new Vector4(
+                        ((Number)values[i]).AsDouble.Value,
+                        ((Number)values[i+1]).AsDouble.Value,
+                        ((Number)values[i+2]).AsDouble.Value,
+                        0);
+                mesh.SetControlPointAt(v, i/3);
             }
-            return vectors;
         }
 
         public static List<List<long>> ConvertPolygonVertexIndex(ParseObject obj)
         {
+            var values = obj.Properties[0].Values;
             int i;
             var polygons = new List<List<long>>();
             var current = new List<long>();
-            foreach (var v in obj.Values)
+            foreach (var v in values)
             {
                 var n = ((Number)v).AsLong.Value;
                 current.Add(n < 0 ? -n - 1 : n);
