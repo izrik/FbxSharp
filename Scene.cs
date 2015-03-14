@@ -10,12 +10,47 @@ namespace FbxSharp
         {
             RootNode = new Node();
 
+            Poses = SrcObjects.CreateCollectionView<Pose>();
             Nodes = SrcObjects.CreateCollectionView<Node>();
 
             SrcObjects.Add(new GlobalSettings());
             SetAnimationEvaluator(new AnimEvaluator());
         }
 
+        #region Pose Management
+
+        public readonly CollectionView<Pose> Poses;
+
+        public int GetPoseCount()
+        {
+            return Poses.Count;
+        }
+
+        public Pose GetPose(int pIndex)
+        {
+            return Poses[pIndex];
+        }
+
+        public bool AddPose(Pose pPose)
+        {
+            if (this.Poses.Contains(pPose)) return false;
+
+            this.ConnectSrcObject(pPose);
+
+            return true;
+        }
+
+        public bool RemovePose(Pose pPose)
+        {
+            return this.DisconnectSrcObject(pPose);
+        }
+
+        public bool RemovePose(int pIndex)
+        {
+            return RemovePose(Poses[pIndex]);
+        }
+
+        #endregion
 
         #region Global Settings
 

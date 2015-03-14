@@ -5,6 +5,11 @@ namespace FbxSharp
 {
     public class Pose : FbxObject
     {
+        public Pose(String name="")
+            : base(name)
+        {
+        }
+
         public bool IsBindPose;
         public bool IsRestPose
         {

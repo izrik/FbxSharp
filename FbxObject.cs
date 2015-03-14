@@ -8,8 +8,10 @@ namespace FbxSharp
     {
         static ulong __uniqueId = 0;
 
-        public FbxObject()
+        public FbxObject(String name="")
         {
+            Name = name ?? "";
+
             DstObjects = new DstObjectCollection(this);
             SrcObjects = new SrcObjectCollection(this);
 
