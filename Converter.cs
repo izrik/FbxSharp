@@ -728,7 +728,7 @@ namespace FbxSharp
                 case "Type":
                     if ((string)prop.Values[0] == "BindPose")
                     {
-                        pose.IsBindPose = true;
+                        pose.SetIsBindPose(true);
                     }
                     else
                     {
@@ -744,20 +744,20 @@ namespace FbxSharp
                     break;
                 case "PoseNode":
                     var posenode = ConvertPoseNode(prop, fbxObjectsById);
-                    pose.PoseNodes.Add(posenode);
+                    pose.Add(posenode.Item1, posenode.Item2, posenode.Item3);
                     break;
                 default:
                     throw new NotImplementedException();
                 }
             }
 
-            if (numPoseNodes != pose.PoseNodes.Count)
+            if (numPoseNodes != pose.GetCount())
                 throw new InvalidOperationException();
 
             return pose;
         }
 
-        public static Pose.PoseNode ConvertPoseNode(ParseObject obj, Dictionary<ulong, FbxObject> fbxObjectsById)
+        public static Tuple<Node, Matrix, bool> ConvertPoseNode(ParseObject obj, Dictionary<ulong, FbxObject> fbxObjectsById)
         {
             if (obj.Properties.Count != 2)
                 throw new NotImplementedException();
@@ -773,7 +773,7 @@ namespace FbxSharp
                 throw new InvalidOperationException();
             var matrix = ConvertMatrix(matrixProp);
 
-            return new Pose.PoseNode(node, matrix);
+            return new Tuple<Node, Matrix, bool>(node, matrix, false);
         }
 
         public static Matrix ConvertMatrix(ParseObject obj)

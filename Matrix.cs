@@ -75,6 +75,68 @@ namespace FbxSharp
         public readonly double M13;
         public readonly double M23;
         public readonly double M33;
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Matrix))
+                return false;
+
+            var m = (Matrix)obj;
+
+            return this.Equals(m);
+        }
+
+        public bool Equals(Matrix m, double epsilon=0)
+        {
+            return
+                Math.Abs(this.M00 - m.M00) <= epsilon &&
+                Math.Abs(this.M01 - m.M01) <= epsilon &&
+                Math.Abs(this.M02 - m.M02) <= epsilon &&
+                Math.Abs(this.M03 - m.M03) <= epsilon &&
+                Math.Abs(this.M10 - m.M10) <= epsilon &&
+                Math.Abs(this.M11 - m.M11) <= epsilon &&
+                Math.Abs(this.M12 - m.M12) <= epsilon &&
+                Math.Abs(this.M13 - m.M13) <= epsilon &&
+                Math.Abs(this.M20 - m.M20) <= epsilon &&
+                Math.Abs(this.M21 - m.M21) <= epsilon &&
+                Math.Abs(this.M22 - m.M22) <= epsilon &&
+                Math.Abs(this.M23 - m.M23) <= epsilon &&
+                Math.Abs(this.M30 - m.M30) <= epsilon &&
+                Math.Abs(this.M31 - m.M31) <= epsilon &&
+                Math.Abs(this.M32 - m.M32) <= epsilon &&
+                Math.Abs(this.M33 - m.M33) <= epsilon;
+        }
+
+        public override int GetHashCode()
+        {
+            return
+                M00.GetHashCode() ^
+                M01.GetHashCode() ^
+                M02.GetHashCode() ^
+                M03.GetHashCode() ^
+                M10.GetHashCode() ^
+                M11.GetHashCode() ^
+                M12.GetHashCode() ^
+                M13.GetHashCode() ^
+                M20.GetHashCode() ^
+                M21.GetHashCode() ^
+                M22.GetHashCode() ^
+                M23.GetHashCode() ^
+                M30.GetHashCode() ^
+                M31.GetHashCode() ^
+                M32.GetHashCode() ^
+                M33.GetHashCode();
+        }
+
+        public static bool operator == (Matrix a, Matrix b)
+        {
+            return a.Equals(b);
+        }
+
+        public static bool operator != (Matrix a, Matrix b)
+        {
+            return !a.Equals(b);
+        }
     }
 }
 
