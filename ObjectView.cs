@@ -1,27 +1,36 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class ObjectView<T>
+    public class ObjectView<T> : ObjectView<T, FbxObject>
         where T : FbxObject
     {
-        public ObjectView(IConnectedObjectCollection collection)
+        public ObjectView(IList<FbxObject> collection, Action<EventHandler> collectionChanged)
+            : base(collection, collectionChanged)
+        {
+        }
+    }
+    public class ObjectView<T, U>
+        where T : U
+    {
+        public ObjectView(IList<U> collection, Action<EventHandler> collectionChanged)
         {
             if (collection == null) throw new ArgumentNullException("collection");
 
             this.collection = collection;
-            this.collection.CollectionChanged += CollectionChanged;
+            collectionChanged(this.CollectionChanged);
         }
 
-        readonly IConnectedObjectCollection collection;
+        readonly IList<U> collection;
 
         bool collectionHasChanged = true;
-        T value = null;
+        T value = default(T);
 
         void CollectionChanged(object sender, EventArgs e)
         {
-            value = null;
+            value = default(T);
             collectionHasChanged = true;
         }
 

@@ -166,13 +166,13 @@ namespace FbxSharp
         public ObjectView<T> CreateObjectView<T>()
             where T : FbxObject
         {
-            return new ObjectView<T>(this);
+            return new ObjectView<T>(this, eh => this.CollectionChanged += eh);
         }
 
         public CollectionView<T> CreateCollectionView<T>()
             where T : FbxObject
         {
-            return new CollectionView<T>(this);
+            return new CollectionView<T>(this, eh => this.CollectionChanged += eh);
         }
     }
 }

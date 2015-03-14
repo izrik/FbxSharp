@@ -4,18 +4,27 @@ using System.Linq;
 
 namespace FbxSharp
 {
-    public class CollectionView<T> : IEnumerable<T>
+    public class CollectionView<T> : CollectionView<T, FbxObject>
         where T : FbxObject
     {
-        public CollectionView(IConnectedObjectCollection collection)
+        public CollectionView(IList<FbxObject> collection, Action<EventHandler> collectionChanged)
+            : base(collection, collectionChanged)
+        {
+        }
+
+    }
+    public class CollectionView<T, U> : IEnumerable<T>
+        where T : U
+    {
+        public CollectionView(IList<U> collection, Action<EventHandler> collectionChanged)
         {
             if (collection == null) throw new ArgumentNullException("collection");
 
             this.collection = collection;
-            this.collection.CollectionChanged += CollectionChanged;
+            collectionChanged(this.CollectionChanged);
         }
 
-        readonly IConnectedObjectCollection collection;
+        readonly IList<U> collection;
 
         bool collectionHasChanged = true;
         readonly List<T> _list = new List<T>();
