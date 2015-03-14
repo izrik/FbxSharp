@@ -8,13 +8,15 @@ namespace FbxSharp
         public Pose(String name="")
             : base(name)
         {
+            PoseInfos = new CollectionView<PoseInfo, PoseInfo>(poseInfos, eh => poseInfos.CollectionChanged += eh);
         }
 
         #region Public Member Functions
 
-        readonly List<PoseInfo> PoseInfos = new List<PoseInfo>();
+        readonly ChangeNotifyList<PoseInfo> poseInfos = new ChangeNotifyList<PoseInfo>();
+        public readonly CollectionView<PoseInfo, PoseInfo> PoseInfos;
 
-        struct PoseInfo
+        public struct PoseInfo
         {
             public PoseInfo(Node node, Matrix matrix, bool matrixIsLocal=false)
             {
@@ -46,43 +48,43 @@ namespace FbxSharp
 
         public int GetCount()
         {
-            return PoseInfos.Count;
+            return poseInfos.Count;
         }
 
         public int Add(Node pNode, Matrix pMatrix, bool pLocalMatrix=false/*, bool pMultipleBindPose=true*/)
         {
-            var match = PoseInfos.FindIndex(pi => pi.Node == pNode);
+            var match = poseInfos.FindIndex(pi => pi.Node == pNode);
             if (match >= 0)
             {
-                if (PoseInfos[match].Matrix != pMatrix)
+                if (poseInfos[match].Matrix != pMatrix)
                     return -1;
                 return match;
             }
 
             var p = new PoseInfo(pNode, pMatrix, pLocalMatrix);
-            PoseInfos.Add(p);
+            poseInfos.Add(p);
 
-            return PoseInfos.IndexOf(p);
+            return poseInfos.IndexOf(p);
         }
 
         public void Remove(int pIndex)
         {
-            PoseInfos.RemoveAt(pIndex);
+            poseInfos.RemoveAt(pIndex);
         }
 
         public Node GetNode(int pIndex)
         {
-            return PoseInfos[pIndex].Node;
+            return poseInfos[pIndex].Node;
         }
 
         public Matrix GetMatrix(int pIndex)
         {
-            return PoseInfos[pIndex].Matrix;
+            return poseInfos[pIndex].Matrix;
         }
 
         public bool IsLocalMatrix(int pIndex)
         {
-            return PoseInfos[pIndex].MatrixIsLocal;
+            return poseInfos[pIndex].MatrixIsLocal;
         }
 
         #endregion
