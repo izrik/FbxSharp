@@ -111,6 +111,10 @@ void RunTests()
 
     tests.push_back(new NodeTest());
     tests.push_back(new SceneTest());
+    tests.push_back(new LayerContainerTest());
+    tests.push_back(new GeometryBaseTest());
+    tests.push_back(new GeometryTest());
+    tests.push_back(new MeshTest());
 
     cout << "Running tests..." << endl;
 

@@ -54,6 +54,10 @@
     <Compile Include="NodeTest.cpp" />
     <Compile Include="Assertions.cpp" />
     <Compile Include="SceneTest.cpp" />
+    <Compile Include="GeometryBaseTest.cpp" />
+    <Compile Include="MeshTest.cpp" />
+    <Compile Include="GeometryTest.cpp" />
+    <Compile Include="LayerContainerTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="model.fbx">
@@ -66,5 +70,9 @@
     <None Include="common.h" />
     <None Include="NodeTest.tc" />
     <None Include="SceneTest.tc" />
+    <None Include="GeometryBaseTest.tc" />
+    <None Include="MeshTest.tc" />
+    <None Include="LayerContainerTest.tc" />
+    <None Include="GeometryTest.tc" />
   </ItemGroup>
 </Project>

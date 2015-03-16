@@ -93,5 +93,9 @@ void _AssertNotEqual(void* expected, void* actual, const char* filename, int lin
 
 TestClass(NodeTest);
 TestClass(SceneTest);
+TestClass(LayerContainerTest);
+TestClass(GeometryBaseTest);
+TestClass(GeometryTest);
+TestClass(MeshTest);
 
 #endif // __FBXOPENCPP_COMMON_H
