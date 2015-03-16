@@ -4,7 +4,8 @@ namespace FbxSharp
 {
     public abstract class NodeAttribute : FbxObject
     {
-        protected NodeAttribute()
+        protected NodeAttribute(string name="")
+            : base(name)
         {
             nodes = DstObjects.CreateCollectionView<Node>();
         }

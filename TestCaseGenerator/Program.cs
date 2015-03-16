@@ -198,7 +198,15 @@ namespace TestCaseGenerator
                                 parts = outline.Split(new[] {
                                     ' '
                                 }, StringSplitOptions.RemoveEmptyEntries).ToList();
-                                parts[3] = parts[3].Replace("new", "new " + parts[0]);
+                                var targetTypeName = parts[0];
+                                if (targetTypeName == "LayerContainer" ||
+                                    targetTypeName == "GeometryBase" ||
+                                    targetTypeName == "Geometry")
+                                {
+                                    targetTypeName = "Mesh";
+                                }
+
+                                parts[3] = parts[3].Replace("new", "new " + targetTypeName);
                                 outline = string.Join(" ", parts);
                             }
 
@@ -207,6 +215,15 @@ namespace TestCaseGenerator
                             {
                                 parts[0] = "var";
                                 outline = string.Join(" ", parts);
+                            }
+
+                            if (Regex.IsMatch(outline, @"\bVector(\d)\("))
+                            {
+                                outline =
+                                    Regex.Replace(
+                                        outline,
+                                        @"\bVector(\d)\(",
+                                        m => "new Vector" + m.Groups[1].Value + "(");
                             }
 
                             if (Regex.IsMatch(outline, @"\bNULL\b"))

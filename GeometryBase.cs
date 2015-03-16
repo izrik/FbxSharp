@@ -4,6 +4,11 @@ namespace FbxSharp
 {
     public abstract class GeometryBase : LayerContainer
     {
+        protected GeometryBase(string name="")
+            : base(name)
+        {
+        }
+
         #region Control Points, Normals, Binormals and Tangent Management
 
         Vector4 [] controlPoints = new Vector4[0];
