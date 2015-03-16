@@ -273,7 +273,7 @@ namespace TestCaseGenerator
                             var outline = stmt;
 
                             parts = outline.Split(' ').ToList();
-                            if (parts.Count > 3 && 
+                            if (parts.Count > 3 &&
                                 parts[2] == "=" &&
                                 !parts[0].StartsWith("Fbx"))
                             {
@@ -304,6 +304,15 @@ namespace TestCaseGenerator
                                         outline,
                                         @"([a-zA-Z\)])\.([a-zA-Z])",
                                         m => m.Groups[1].Value + "->" + m.Groups[2].Value);
+                            }
+
+                            if (Regex.IsMatch(outline, @"\bVector(\d)\("))
+                            {
+                                outline =
+                                    Regex.Replace(
+                                        outline,
+                                        @"\bVector(\d)\(",
+                                        m => "FbxVector" + m.Groups[1].Value + "(");
                             }
 
                             if (Regex.IsMatch(outline, @"\bnull\b"))
