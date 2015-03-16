@@ -118,6 +118,8 @@ void RunTests()
 
     cout << "Running tests..." << endl;
 
+    vector<TestCase*> failures;
+
     int i;
     for (i = 0; i < tests.size(); i++)
     {
@@ -132,16 +134,45 @@ void RunTests()
         {
             TestCase* testCase = &test->TestCases[j];
             string* exception;
-            {
+
+            { // ScopedTestRun
                 ScopedTestRun testRun(test, testCase, &exception);
                 testRun.RunTest();
             }
+
             if (exception == NULL)
             {
                 cout << "pass" << endl;
             }
+            else
+            {
+                failures.push_back(testCase);
+            }
         }
 
         test->TearDownFixture();
+    }
+
+    cout << endl;
+    if (failures.size() < 1)
+    {
+        cout << "All tests passed." << endl;
+    }
+    else
+    {
+        if (failures.size() == 1)
+        {
+            cout << "There was " << failures.size() << " failure:" << endl;
+        }
+        else
+        {
+            cout << "There were " << failures.size() << " failures:" << endl;
+        }
+
+        for (i = 0; i < failures.size(); i++)
+        {
+            TestCase* tc = failures[i];
+            cout << "  " << tc->ParentFixture->Name << "." << tc->Name << endl;
+        }
     }
 }
