@@ -1,1 +1,7 @@
 ﻿fixture MeshTest
+test Mesh_Create
+    given
+    Mesh mesh = new("Mesh")
+
+    then
+    AssertEqual(0, mesh.GetControlPointsCount())
