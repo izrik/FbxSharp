@@ -23,6 +23,16 @@ void _AssertEqual(void* expected, void* actual, const char* filename, int line)
     }
 }
 
+void _AssertEqual(FbxVector4 expected, FbxVector4 actual, const char* filename, int line)
+{
+    if (expected != actual)
+    {
+        stringstream ss;
+        ss << "Expected " << expected << " but got " << actual << ", at " << filename << ":" << line;
+        throw new string(ss.str());
+    }
+}
+
 void _AssertNotEqual(void* expected, void* actual, const char* filename, int line)
 {
     if (expected == actual)
