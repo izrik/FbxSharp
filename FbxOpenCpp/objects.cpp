@@ -455,7 +455,21 @@ void PrintPose(FbxPose* pose, const char* prefix)
         cout << prefix << ".Node[" << i << "] = ";
         PrintObjectID(pose->GetNode(i));
         cout << endl;
-        cout << prefix << ".Node[" << i << "].IsLocalMatrix = " << pose->IsLocalMatrix(i) << endl;
+        const FbxMatrix& m = pose->GetMatrix(i);
+        cout << prefix << ".Node[" << i << "].Matrix = " <<
+            m.mData[0][0] << ", " << m.mData[0][1] << ", " <<
+            m.mData[0][2] << ", " << m.mData[0][3] << ", " << endl;
+        cout << prefix << ".Node[" << i << "].Matrix = " <<
+            m.mData[1][0] << ", " << m.mData[1][1] << ", " <<
+            m.mData[1][2] << ", " << m.mData[1][3] << ", " << endl;
+        cout << prefix << ".Node[" << i << "].Matrix = " <<
+            m.mData[2][0] << ", " << m.mData[2][1] << ", " <<
+            m.mData[2][2] << ", " << m.mData[2][3] << ", " << endl;
+        cout << prefix << ".Node[" << i << "].Matrix = " <<
+            m.mData[3][0] << ", " << m.mData[3][1] << ", " <<
+            m.mData[3][2] << ", " << m.mData[3][3] << ", " << endl;
+        cout << prefix << ".Node[" << i << "].IsLocalMatrix = " <<
+            pose->IsLocalMatrix(i) << endl;
     }
 }
 
