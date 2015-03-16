@@ -49,15 +49,18 @@ void RunTests();
 
 typedef void (*TestFunction)();
 
+class TestFixture;
+
 struct TestCase
 {
-    TestCase(const char* name, TestFunction function)
-        : Name(name), Function(function)
+    TestCase(const char* name, TestFunction function, TestFixture* parentFixture)
+        : Name(name), Function(function), ParentFixture(parentFixture)
     {
     }
 
     const char* Name;
     TestFunction Function;
+    TestFixture* ParentFixture;
 };
 
 class TestFixture
@@ -85,7 +88,7 @@ void _AssertNotEqual(void* expected, void* actual, const char* filename, int lin
 #define AssertEqual(expected, actual) _AssertEqual((expected), (actual), __FILE__, __LINE__)
 #define AssertNotEqual(expected, actual) _AssertNotEqual((expected), (actual), __FILE__, __LINE__)
 
-#define AddTestCase(name) TestCases.push_back(TestCase(#name, &name))
+#define AddTestCase(name) TestCases.push_back(TestCase(#name, &name, this))
 
 #define TestClass(name) class name : public virtual TestFixture {\
     public: name() : TestFixture(#name) { RegisterTestCases(); }\
