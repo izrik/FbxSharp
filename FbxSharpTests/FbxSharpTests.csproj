@@ -46,11 +46,19 @@
     <Compile Include="ParserTest.cs" />
     <Compile Include="NodeTest.cs" />
     <Compile Include="SceneTest.cs" />
+    <Compile Include="GeometryBaseTest.cs" />
+    <Compile Include="GeometryTest.cs" />
+    <Compile Include="LayerContainerTest.cs" />
+    <Compile Include="MeshTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="NodeTest.tc" />
     <None Include="SceneTest.tc" />
+    <None Include="GeometryBaseTest.tc" />
+    <None Include="GeometryTest.tc" />
+    <None Include="LayerContainerTest.tc" />
+    <None Include="MeshTest.tc" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
