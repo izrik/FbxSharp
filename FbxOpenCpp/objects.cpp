@@ -410,8 +410,8 @@ void PrintNodeAttribute(FbxNodeAttribute* obj, const char* prefix)
         PrintCamera(dynamic_cast<FbxCamera*>(obj), prefix);
     else if (obj->Is<FbxLight>())
         PrintLight(dynamic_cast<FbxLight*>(obj), prefix);
-    else if (obj->Is<FbxMesh>())
-        PrintMesh(dynamic_cast<FbxMesh*>(obj), prefix);
+    else if (obj->Is<FbxLayerContainer>())
+        PrintLayerContainer(dynamic_cast<FbxLayerContainer*>(obj), prefix);
     else if (obj->Is<FbxNull>())
         PrintNull(dynamic_cast<FbxNull*>(obj), prefix);
     else if (obj->Is<FbxSkeleton>())
@@ -430,9 +430,33 @@ void PrintLight(FbxLight* light, const char* prefix)
     throw "Not Implemented";
 }
 
+void PrintLayerContainer(FbxLayerContainer* layerContainer, const char* prefix)
+{
+    if (layerContainer->Is<FbxGeometryBase>())
+        PrintGeometryBase(dynamic_cast<FbxGeometryBase*>(layerContainer), prefix);
+    else
+        cout << "Unknown node attribute class: " << layerContainer->GetRuntimeClassId().GetName() << endl;
+}
+
+void PrintGeometryBase(FbxGeometryBase* geometryBase, const char* prefix)
+{
+    if (geometryBase->Is<FbxGeometry>())
+        PrintGeometry(dynamic_cast<FbxGeometry*>(geometryBase), prefix);
+    else
+        cout << "Unknown node attribute class: " << geometryBase->GetRuntimeClassId().GetName() << endl;
+}
+
+void PrintGeometry(FbxGeometry* geometry, const char* prefix)
+{
+    if (geometry->Is<FbxMesh>())
+        PrintMesh(dynamic_cast<FbxMesh*>(geometry), prefix);
+    else
+        cout << "Unknown node attribute class: " << geometry->GetRuntimeClassId().GetName() << endl;
+}
+
 void PrintMesh(FbxMesh* mesh, const char* prefix)
 {
-    throw "Not Implemented";
+    cout << prefix << ".GetPolygonCount() = " << mesh->GetPolygonCount() << endl;
 }
 
 void PrintNull(FbxNull* null, const char* prefix)
