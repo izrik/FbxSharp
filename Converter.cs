@@ -397,10 +397,15 @@ namespace FbxSharp
                     uvs.ReferenceMode = ConvertReferenceInformationType(prop);
                     break;
                 case "UV":
-                    uvs.GetDirectArray().List.AddRange(prop.Properties[0].Values.Select(n => ((Number)n).AsDouble.Value));
+                    uvs.GetDirectArray().List.AddRange(
+                        prop.Properties[0].Values
+                        .Select(n => ((Number)n).AsDouble.Value)
+                        .ToVector2List());
                     break;
                 case "UVIndex":
-                    uvs.UVIndex = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToList();
+                    uvs.GetIndexArray().List.AddRange(
+                        prop.Properties[0].Values
+                        .Select(n => (int)((Number)n).AsLong.Value));
                     break;
                 default:
                     throw new NotImplementedException();
