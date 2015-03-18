@@ -8,9 +8,11 @@ namespace FbxSharp
         protected LayerContainer(string name="")
             : base(name)
         {
+            Layers = new CollectionView<Layer, Layer>(layers, eh => layers.CollectionChanged += eh);
         }
 
-        readonly List<Layer> layers = new List<Layer>();
+        readonly ChangeNotifyList<Layer> layers = new ChangeNotifyList<Layer>();
+        public readonly CollectionView<Layer, Layer> Layers;
 
         public int CreateLayer()
         {
