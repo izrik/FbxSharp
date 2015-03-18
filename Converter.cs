@@ -27,6 +27,7 @@ namespace FbxSharp
             var defs = parsed.FindPropertyByName("Definitions");
             CheckDefinitions(defs);
 
+            // read and convert objects
             var objs = parsed.FindPropertyByName("Objects");
             var fbxObjects = new List<FbxObject>();
             var fbxObjectsById = new Dictionary<ulong, FbxObject>();
@@ -37,7 +38,7 @@ namespace FbxSharp
                 fbxObjectsById[fobj.UniqueId] = fobj;
             }
 
-
+            // connect objects
             var conns = parsed.FindPropertyByName("Connections");
             CheckConnections(conns);
             foreach (var conn in conns.Properties)
@@ -61,6 +62,25 @@ namespace FbxSharp
                     break;
                 default:
                     throw new InvalidOperationException(string.Format("Unknown connection type: {0}", connType));
+                }
+            }
+
+            // fix-up material layer elements
+            foreach (var node in scene.Nodes)
+            {
+                if ((node.GetNodeAttribute() as LayerContainer) == null) continue;
+
+                var lc = (LayerContainer)node.GetNodeAttribute();
+                foreach (var layer in lc.Layers)
+                {
+                    var matelem = layer.GetMaterials();
+                    if (matelem == null) continue;
+
+                    foreach (var mi in matelem.MaterialIndexes.List)
+                    {
+                        var mat = node.Materials[mi];
+                        matelem.GetDirectArray().Add(mat);
+                    }
                 }
             }
 
@@ -469,8 +489,8 @@ namespace FbxSharp
                     material.ReferenceMode = ConvertReferenceInformationType(prop);
                     break;
                 case "Materials":
-                    //material.Values = prop.Properties[0].Values.Select(n => (((Number)n).AsLong.Value == 1)).ToList();
-                    material.MaterialIndexes = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToList();
+                    material.MaterialIndexes.List.AddRange(
+                        prop.Properties[0].Values.Select(n => (int)((Number)n).AsLong.Value));
                     break;
                 default:
                     throw new NotImplementedException();
