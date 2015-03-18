@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FbxSharp
 {
@@ -86,6 +87,7 @@ namespace FbxSharp
 
             DefaultAttributeIndex.Set(-1);
             nodeAttributes = SrcObjects.CreateCollectionView<NodeAttribute>();
+            Materials = SrcObjects.CreateCollectionView<SurfaceMaterial>();
         }
 
         public bool MultiLayer;
@@ -245,6 +247,46 @@ namespace FbxSharp
         public int GetNodeAttributeIndex(NodeAttribute nodeattr /*, FbxStatus=null*/)
         {
             return nodeAttributes.IndexOf(nodeattr);
+        }
+
+        #endregion
+
+        #region Material Management
+
+        public readonly CollectionView<SurfaceMaterial> Materials;
+
+        public int AddMaterial(SurfaceMaterial pMaterial)
+        {
+            ConnectSrcObject(pMaterial);
+            return Materials.IndexOf(pMaterial);
+        }
+
+        public bool RemoveMaterial(SurfaceMaterial pMaterial)
+        {
+            return DisconnectSrcObject(pMaterial);
+        }
+
+        public int GetMaterialCount()
+        {
+            return Materials.Count;
+        }
+
+        public SurfaceMaterial GetMaterial(int pIndex)
+        {
+            return Materials[pIndex];
+        }
+
+        public void RemoveAllMaterials()
+        {
+            foreach (var m in Materials.ToArray())
+            {
+                RemoveMaterial(m);
+            }
+        }
+
+        public int GetMaterialIndex(string pName)
+        {
+            return Materials.ToList().FindIndex(m => m.Name == pName);
         }
 
         #endregion
