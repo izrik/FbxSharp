@@ -1,1 +1,11 @@
 ﻿fixture LayerContainerTest
+test LayerContainer_Create
+	given
+
+	when
+	LayerContainer lc = new("")
+
+	then
+	AssertEqual(0, lc.GetSrcObjectCount())
+	AssertEqual(0, lc.GetDstObjectCount())
+	AssertEqual(0, lc.GetLayerCount())
