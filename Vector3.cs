@@ -65,6 +65,11 @@ namespace FbxSharp
         {
             return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
         }
+
+        public Vector4 ToVector4(double w=0)
+        {
+            return new Vector4(X, Y, Z, w);
+        }
     }
 }
 

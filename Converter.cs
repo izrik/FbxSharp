@@ -284,7 +284,8 @@ namespace FbxSharp
                     materials[index] = ConvertLayerElementMaterial(prop);
                     break;
                 case "Layer":
-                    mesh.Layers.Add(ConvertLayer(prop, normals, uvs, visibility, materials));
+                    var layer = mesh.GetLayer(mesh.CreateLayer());
+                    ConvertLayer(layer, prop, normals, uvs, visibility, materials);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -294,10 +295,8 @@ namespace FbxSharp
             return mesh;
         }
 
-        static Layer ConvertLayer(ParseObject obj, List<LayerElementNormal> normals, List<LayerElementUV> uvs, List<LayerElementVisibility> visibility, List<LayerElementMaterial> materials)
+        static void ConvertLayer(Layer layer, ParseObject obj, List<LayerElementNormal> normals, List<LayerElementUV> uvs, List<LayerElementVisibility> visibility, List<LayerElementMaterial> materials)
         {
-            var layer = new Layer();
-
             foreach (var prop in obj.Properties)
             {
                 switch (prop.Name)
@@ -316,32 +315,28 @@ namespace FbxSharp
                     if (index == null)
                         throw new NotImplementedException();
                     var indexValue = (int)((Number)index.Values[0]).AsLong.Value;
-                    LayerElement layerElement;
                     switch ((string)type.Values[0])
                     {
                     case "LayerElementNormal":
-                        layerElement = normals[indexValue];
+                        layer.SetNormals(normals[indexValue]);
                         break;
                     case "LayerElementMaterial":
-                        layerElement = materials[indexValue];
+                        layer.SetMaterials(materials[indexValue]);
                         break;
                     case "LayerElementVisibility":
-                        layerElement = visibility[indexValue];
+                        layer.SetVisibility(visibility[indexValue]);
                         break;
                     case "LayerElementUV":
-                        layerElement = uvs[indexValue];
+                        layer.SetUVs(uvs[indexValue]);
                         break;
                     default:
                         throw new NotImplementedException();
                     }
-                    layer.LayerElements.Add(layerElement);
                     break;
                 default:
                     throw new NotImplementedException();
                 }
             }
-
-            return layer;
         }
 
         public static LayerElementNormal ConvertLayerElementNormal(ParseObject obj)
@@ -357,16 +352,20 @@ namespace FbxSharp
                         throw new NotImplementedException();
                     break;
                 case "Name":
-                    normals.Name = ((string)prop.Values[0]);
+                    normals.SetName((string)prop.Values[0]);
                     break;
                 case "MappingInformationType":
-                    normals.MappingMode = ConvertMappingInformationType(prop);
+                    normals.SetMappingMode(ConvertMappingInformationType(prop));
                     break;
                 case "ReferenceInformationType":
-                    normals.ReferenceMode = ConvertReferenceInformationType(prop);
+                    normals.SetReferenceMode(ConvertReferenceInformationType(prop));
                     break;
                 case "Normals":
-                    normals.Values = prop.Properties[0].Values.Select(n => ((Number)n).AsDouble.Value).ToList();
+                    normals.GetDirectArray().List.AddRange(
+                        prop.Properties[0].Values
+                        .Select(n => ((Number)n).AsDouble.Value)
+                        .ToVector3List()
+                        .Select(v => v.ToVector4()));
                     break;
                 default:
                     throw new NotImplementedException();
@@ -398,7 +397,7 @@ namespace FbxSharp
                     uvs.ReferenceMode = ConvertReferenceInformationType(prop);
                     break;
                 case "UV":
-                    uvs.Values = prop.Properties[0].Values.Select(n => ((Number)n).AsDouble.Value).ToList();
+                    uvs.GetDirectArray().List.AddRange(prop.Properties[0].Values.Select(n => ((Number)n).AsDouble.Value));
                     break;
                 case "UVIndex":
                     uvs.UVIndex = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToList();
@@ -433,7 +432,7 @@ namespace FbxSharp
                     visibility.ReferenceMode = ConvertReferenceInformationType(prop);
                     break;
                 case "Visibility":
-                    visibility.Values = prop.Properties[0].Values.Select(n => (((Number)n).AsLong.Value == 1)).ToList();
+                    visibility.GetDirectArray().List.AddRange(prop.Properties[0].Values.Select(n => (((Number)n).AsLong.Value == 1)));
                     break;
                 default:
                     throw new NotImplementedException();

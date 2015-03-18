@@ -69,7 +69,6 @@
     <Compile Include="LayerElementUV.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="LayerElementVisibility.cs" />
-    <Compile Include="LayerElementT.cs" />
     <Compile Include="LayerElementMaterial.cs" />
     <Compile Include="SurfaceMaterial.cs" />
     <Compile Include="Pose.cs" />
@@ -102,6 +101,17 @@
     <Compile Include="Vector2.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="ChangeNotifyList.cs" />
+    <Compile Include="LayerElementArray.cs" />
+    <Compile Include="LayerElementTangent.cs" />
+    <Compile Include="LayerElementBinormal.cs" />
+    <Compile Include="LayerElementPolygonGroup.cs" />
+    <Compile Include="LayerElementVertexColor.cs" />
+    <Compile Include="LayerElementSmoothing.cs" />
+    <Compile Include="LayerElementCrease.cs" />
+    <Compile Include="LayerElementHole.cs" />
+    <Compile Include="LayerElementUserData.cs" />
+    <Compile Include="LayerElementTexture.cs" />
+    <Compile Include="VectorHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

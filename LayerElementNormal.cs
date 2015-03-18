@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class LayerElementNormal : LayerElementT<double>
+    public class LayerElementNormal : LayerElementT<Vector4>
     {
     }
 }

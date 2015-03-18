@@ -7,5 +7,18 @@ namespace FbxSharpTests
     [TestFixture]
     public class LayerContainerTest
     {
+        [Test]
+        public void LayerContainer_Create()
+        {
+            // given:
+
+            // when:
+            var lc = new Mesh("");
+
+            // then:
+            Assert.AreEqual(0, lc.GetSrcObjectCount());
+            Assert.AreEqual(0, lc.GetDstObjectCount());
+            Assert.AreEqual(0, lc.GetLayerCount());
+        }
     }
 }

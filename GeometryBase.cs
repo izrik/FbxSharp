@@ -12,10 +12,20 @@ namespace FbxSharp
         #region Control Points, Normals, Binormals and Tangent Management
 
         Vector4 [] controlPoints = new Vector4[0];
+        Vector4[] controlPointNormals = new Vector4[0];
 
         public void InitControlPoints(int pCount)
         {
             controlPoints = new Vector4[pCount];
+        }
+
+        public void InitNormals(int pCount=0)
+        {
+            controlPointNormals =
+                new Vector4[
+                    pCount > 0 ?
+                        pCount :
+                        controlPoints.Length];
         }
 
         public int GetControlPointsCount()
@@ -34,7 +44,8 @@ namespace FbxSharp
 
         public virtual void SetControlPointAt(Vector4 pCtrlPoint, Vector4 pNormal, int pIndex, bool pI2DSearch=false)
         {
-            throw new NotImplementedException();
+            SetControlPointAt(pCtrlPoint, pIndex);
+            SetControlPointNormalAt(pNormal, pIndex);
         }
 
         public virtual void SetControlPointAt(Vector4 pCtrlPoint, int pIndex)
@@ -47,9 +58,9 @@ namespace FbxSharp
             return controlPoints[pIndex];
         }
 
-        public virtual void SetControlPointNormalAt(Vector4 pNormal, int pIndex, bool pI2DSearch = false)
+        public virtual void SetControlPointNormalAt(Vector4 pNormal, int pIndex /*, bool pI2DSearch=false*/)
         {
-            throw new NotImplementedException();
+            controlPointNormals[pIndex] = pNormal;
         }
 
         public virtual Vector4[] GetControlPoints(/*FbxStatus pStatus=null*/)
