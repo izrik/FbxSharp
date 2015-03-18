@@ -432,10 +432,104 @@ void PrintLight(FbxLight* light, const char* prefix)
 
 void PrintLayerContainer(FbxLayerContainer* layerContainer, const char* prefix)
 {
+    cout << prefix << ".GetLayerCount() = " << layerContainer->GetLayerCount() << endl;
+    int i;
+    char n[1024];
+    for (i = 0; i < layerContainer->GetLayerCount(); i++)
+    {
+        sprintf(n, "%s.Layer[%i]", prefix, i);
+        PrintLayer(layerContainer->GetLayer(i), n);
+    }
+
     if (layerContainer->Is<FbxGeometryBase>())
         PrintGeometryBase(dynamic_cast<FbxGeometryBase*>(layerContainer), prefix);
     else
         cout << "Unknown node attribute class: " << layerContainer->GetRuntimeClassId().GetName() << endl;
+}
+
+
+
+ostream& operator<<(ostream& os, const FbxLayerElement::EMappingMode& value)
+{
+    switch (value)
+    {
+    case FbxLayerElement::eNone: os << "eNone"; break;
+    case FbxLayerElement::eByControlPoint: os << "eByControlPoint"; break;
+    case FbxLayerElement::eByPolygonVertex: os << "eByPolygonVertex"; break;
+    case FbxLayerElement::eByPolygon: os << "eByPolygon"; break;
+    case FbxLayerElement::eByEdge: os << "eByEdge"; break;
+    case FbxLayerElement::eAllSame:  os << "eAllSame"; break;
+    default:
+        os << "<<unknown>>";
+        break;
+    }
+    return os;
+}
+ostream& operator<<(ostream& os, const FbxLayerElement::EReferenceMode& value)
+{
+    switch (value)
+    {
+    case FbxLayerElement::eDirect: os << "eDirect"; break;
+    case FbxLayerElement::eIndex: os << "eIndex"; break;
+    case FbxLayerElement::eIndexToDirect: os << "eIndexToDirect"; break;
+    default:
+        os << "<<unknown>>";
+        break;
+    }
+    return os;
+}
+
+std::string ToString(const FbxLayerElement* value)
+{
+    std:string s;
+    if (value == NULL)
+       s = "<<null>>";
+    else
+    {
+        stringstream ss;
+        ss <<
+            value->GetName() << ", " <<
+            value->GetMappingMode() << ", " <<
+            value->GetReferenceMode();
+        s = ss.str();
+    }
+    return s;
+}
+
+void PrintLayer(FbxLayer* layer, const char* prefix)
+{
+    cout << prefix << ".GetNormals() = " << ToString(layer->GetNormals()) << endl;
+    cout << prefix << ".GetTangents() = " << ToString(layer->GetTangents()) << endl;
+    cout << prefix << ".GetBinormals() = " << ToString(layer->GetBinormals()) << endl;
+    cout << prefix << ".GetMaterials() = " << ToString(layer->GetMaterials()) << endl;
+    cout << prefix << ".GetPolygonGroups() = " << ToString(layer->GetPolygonGroups()) << endl;
+    cout << prefix << ".GetUVs() = " << ToString(layer->GetUVs()) << endl;
+    cout << prefix << ".GetUVSetCount() = " << layer->GetUVSetCount() << endl;
+//    cout << prefix << ".GetUVSetChannels() = " << ToString(layer->GetUVSetChannels()) << endl;
+//    cout << prefix << ".GetUVSets() = " << ToString(layer->GetUVSets()) << endl;
+    cout << prefix << ".GetVertexColors() = " << ToString(layer->GetVertexColors()) << endl;
+    cout << prefix << ".GetSmoothing() = " << ToString(layer->GetSmoothing()) << endl;
+    cout << prefix << ".GetVertexCrease() = " << ToString(layer->GetVertexCrease()) << endl;
+    cout << prefix << ".GetEdgeCrease() = " << ToString(layer->GetEdgeCrease()) << endl;
+    cout << prefix << ".GetHole() = " << ToString(layer->GetHole()) << endl;
+    cout << prefix << ".GetUserData() = " << ToString(layer->GetUserData()) << endl;
+    cout << prefix << ".GetVisibility() = " << ToString(layer->GetVisibility()) << endl;
+
+    cout << prefix << ".GetTextures(eTextureEmissive) = " << ToString(layer->GetTextures(FbxLayerElement::eTextureEmissive)) << endl;
+    cout << prefix << ".GetTextures(eTextureEmissiveFactor) = " << ToString(layer->GetTextures(FbxLayerElement::eTextureEmissiveFactor)) << endl;
+    cout << prefix << ".GetTextures(eTextureAmbient) = " << ToString(layer->GetTextures(FbxLayerElement::eTextureAmbient)) << endl;
+    cout << prefix << ".GetTextures(eTextureAmbientFactor) = " << ToString(layer->GetTextures(FbxLayerElement::eTextureAmbientFactor)) << endl;
+    cout << prefix << ".GetTextures(eTextureDiffuseFactor) = " << ToString(layer->GetTextures(FbxLayerElement::eTextureDiffuseFactor)) << endl;
+    cout << prefix << ".GetTextures(eTextureSpecular) = " << ToString(layer->GetTextures(FbxLayerElement::eTextureSpecular)) << endl;
+    cout << prefix << ".GetTextures(eTextureNormalMap) = " << ToString(layer->GetTextures(FbxLayerElement::eTextureNormalMap)) << endl;
+    cout << prefix << ".GetTextures(eTextureSpecularFactor) = " << ToString(layer->GetTextures(FbxLayerElement::eTextureSpecularFactor)) << endl;
+    cout << prefix << ".GetTextures(eTextureShininess) = " << ToString(layer->GetTextures(FbxLayerElement::eTextureShininess)) << endl;
+    cout << prefix << ".GetTextures(eTextureBump) = " << ToString(layer->GetTextures(FbxLayerElement::eTextureBump)) << endl;
+    cout << prefix << ".GetTextures(eTextureTransparency) = " << ToString(layer->GetTextures(FbxLayerElement::eTextureTransparency)) << endl;
+    cout << prefix << ".GetTextures(eTextureTransparencyFactor) = " << ToString(layer->GetTextures(FbxLayerElement::eTextureTransparencyFactor)) << endl;
+    cout << prefix << ".GetTextures(eTextureReflection) = " << ToString(layer->GetTextures(FbxLayerElement::eTextureReflection)) << endl;
+    cout << prefix << ".GetTextures(eTextureReflectionFactor) = " << ToString(layer->GetTextures(FbxLayerElement::eTextureReflectionFactor)) << endl;
+    cout << prefix << ".GetTextures(eTextureDisplacement) = " << ToString(layer->GetTextures(FbxLayerElement::eTextureDisplacement)) << endl;
 }
 
 void PrintGeometryBase(FbxGeometryBase* geometryBase, const char* prefix)

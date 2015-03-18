@@ -22,6 +22,7 @@ void PrintNodeAttribute(FbxNodeAttribute* nodeAttribute, const char* prefix="");
 void PrintCamera(FbxCamera* camera, const char* prefix="");
 void PrintLight(FbxLight* light, const char* prefix="");
 void PrintLayerContainer(FbxLayerContainer* layerContainer, const char* prefix="");
+void PrintLayer(FbxLayer* layer, const char* prefix="");
 void PrintGeometryBase(FbxGeometryBase* geometryBase, const char* prefix="");
 void PrintGeometry(FbxGeometry* geometry, const char* prefix="");
 void PrintMesh(FbxMesh* mesh, const char* prefix="");
