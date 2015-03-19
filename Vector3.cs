@@ -21,6 +21,11 @@ namespace FbxSharp
         public readonly double Y;
         public readonly double Z;
 
+        public override string ToString()
+        {
+            return string.Format("{{X:{0} Y:{1} Z:{2}}}", X, Y, Z);
+        }
+
         public double this [ int pIndex ]
         {
             get

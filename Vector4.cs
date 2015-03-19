@@ -30,6 +30,11 @@ namespace FbxSharp
         public readonly double Y;
         public readonly double Z;
         public readonly double W;
+
+        public override string ToString()
+        {
+            return string.Format("{{X:{0} Y:{1} Z:{2} W:{3}}}", X, Y, Z, W);
+        }
     }
 }
 
