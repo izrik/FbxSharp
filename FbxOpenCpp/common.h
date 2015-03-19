@@ -102,5 +102,7 @@ TestClass(LayerContainerTest);
 TestClass(GeometryBaseTest);
 TestClass(GeometryTest);
 TestClass(MeshTest);
+TestClass(FbxObjectTest);
+TestClass(SurfacePhongTest);
 
 #endif // __FBXOPENCPP_COMMON_H

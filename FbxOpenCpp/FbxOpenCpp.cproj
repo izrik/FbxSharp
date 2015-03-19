@@ -58,6 +58,8 @@
     <Compile Include="MeshTest.cpp" />
     <Compile Include="GeometryTest.cpp" />
     <Compile Include="LayerContainerTest.cpp" />
+    <Compile Include="FbxObjectTest.cpp" />
+    <Compile Include="SurfacePhongTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="model.fbx">
@@ -74,5 +76,7 @@
     <None Include="MeshTest.tc" />
     <None Include="LayerContainerTest.tc" />
     <None Include="GeometryTest.tc" />
+    <None Include="FbxObjectTest.tc" />
+    <None Include="SurfacePhongTest.tc" />
   </ItemGroup>
 </Project>

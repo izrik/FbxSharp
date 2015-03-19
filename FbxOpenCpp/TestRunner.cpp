@@ -115,6 +115,8 @@ void RunTests()
     tests.push_back(new GeometryBaseTest());
     tests.push_back(new GeometryTest());
     tests.push_back(new MeshTest());
+    tests.push_back(new FbxObjectTest());
+    tests.push_back(new SurfacePhongTest());
 
     cout << "Running tests..." << endl;
 
