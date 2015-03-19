@@ -115,6 +115,10 @@ namespace TestCaseGenerator
                             continue;
                         }
                     }
+                    if (parts[0].StartsWith("//"))
+                    {
+                        continue;
+                    }
 
                     string name;
                     switch (parts[0].ToLower())
