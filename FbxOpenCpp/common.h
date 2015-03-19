@@ -86,6 +86,8 @@ public:
 
 void _AssertEqual(int expected, int actual, const char* filename, int line);
 void _AssertEqual(void* expected, void* actual, const char* filename, int line);
+void _AssertEqual(const char* expected, const char* actual, const char* filename, int line);
+void _AssertEqual(const char* expected, FbxString& actual, const char* filename, int line);
 void _AssertEqual(FbxVector4 expected, FbxVector4 actual, const char* filename, int line);
 void _AssertNotEqual(void* expected, void* actual, const char* filename, int line);
 void _AssertNull(void* actual, const char* filename, int line);

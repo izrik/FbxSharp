@@ -23,6 +23,7 @@ void FbxObject_Create_HasRootProperty()
 
     // then:
     AssertTrue((&obj->RootProperty)->IsValid());
+    AssertEqual("", obj->RootProperty.GetName());
 }
 
 void FbxObject_Create_HasClassRootProperty()
