@@ -42,3 +42,23 @@ void _AssertNotEqual(void* expected, void* actual, const char* filename, int lin
         throw new string(ss.str());
     }
 }
+
+void _AssertNull(void* actual, const char* filename, int line)
+{
+    _AssertEqual(NULL, actual, filename, line);
+}
+
+void _AssertNotNull(void* actual, const char* filename, int line)
+{
+    _AssertNotEqual(NULL, actual, filename, line);
+}
+
+void _AssertTrue(bool condition, const char* filename, int line)
+{
+    if (!condition)
+    {
+        stringstream ss;
+        ss << "Assertion failed at " << filename << ":" << line;
+        throw new string(ss.str());
+    }
+}

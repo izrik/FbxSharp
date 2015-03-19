@@ -86,9 +86,15 @@ void _AssertEqual(int expected, int actual, const char* filename, int line);
 void _AssertEqual(void* expected, void* actual, const char* filename, int line);
 void _AssertEqual(FbxVector4 expected, FbxVector4 actual, const char* filename, int line);
 void _AssertNotEqual(void* expected, void* actual, const char* filename, int line);
+void _AssertNull(void* actual, const char* filename, int line);
+void _AssertNotNull(void* actual, const char* filename, int line);
+void _AssertTrue(bool condition, const char* filename, int line);
 
 #define AssertEqual(expected, actual) _AssertEqual((expected), (actual), __FILE__, __LINE__)
 #define AssertNotEqual(expected, actual) _AssertNotEqual((expected), (actual), __FILE__, __LINE__)
+#define AssertNull(actual) _AssertNull((actual), __FILE__, __LINE__)
+#define AssertNotNull(actual) _AssertNotNull((actual), __FILE__, __LINE__)
+#define AssertTrue(condition) _AssertTrue((condition), __FILE__, __LINE__)
 
 #define AddTestCase(name) TestCases.push_back(TestCase(#name, &name, this))
 
