@@ -333,6 +333,15 @@ namespace TestCaseGenerator
                                         m => m.Groups[1].Value + "->" + m.Groups[2].Value);
                             }
 
+                            if (Regex.IsMatch(outline, @"[\w)]&\.[a-zA-Z]"))
+                            {
+                                outline =
+                                    Regex.Replace(
+                                        outline,
+                                        @"([\w\)])&\.([a-zA-Z])",
+                                        m => m.Groups[1].Value + "." + m.Groups[2].Value);
+                            }
+
                             if (Regex.IsMatch(outline, @"\bVector(\d)\("))
                             {
                                 outline =
