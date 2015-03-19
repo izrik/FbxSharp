@@ -114,5 +114,6 @@ TestClass(GeometryTest);
 TestClass(MeshTest);
 TestClass(FbxObjectTest);
 TestClass(SurfacePhongTest);
+TestClass(PropertyTest);
 
 #endif // __FBXOPENCPP_COMMON_H

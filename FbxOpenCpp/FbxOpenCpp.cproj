@@ -60,6 +60,7 @@
     <Compile Include="LayerContainerTest.cpp" />
     <Compile Include="FbxObjectTest.cpp" />
     <Compile Include="SurfacePhongTest.cpp" />
+    <Compile Include="PropertyTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="model.fbx">
@@ -78,5 +79,6 @@
     <None Include="GeometryTest.tc" />
     <None Include="FbxObjectTest.tc" />
     <None Include="SurfacePhongTest.tc" />
+    <None Include="PropertyTest.tc" />
   </ItemGroup>
 </Project>

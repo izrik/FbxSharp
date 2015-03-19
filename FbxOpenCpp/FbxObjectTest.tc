@@ -24,3 +24,6 @@ test FbxObject_Create_HasClassRootProperty
     then
 #cs AssertNotNull(obj.GetClassRootProperty())
     AssertTrue(obj.GetClassRootProperty()&.IsValid())
+
+// what do class root properties do in the case of inheritance?
+// does FbxSurfacePhong have its own class root property and FbxSurfaceLambert another?
