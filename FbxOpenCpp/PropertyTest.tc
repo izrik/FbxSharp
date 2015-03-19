@@ -1,1 +1,11 @@
 fixture PropertyTest
+test SurfacePhong_FindProperty_FindsProperty
+    given
+    FbxSurfacePhong surf = new("")
+
+    when
+    FbxProperty! prop = surf.FindProperty("SpecularColor")
+
+    then
+#cs AssertNotNull(&prop)
+    AssertTrue(prop&.IsValid())
