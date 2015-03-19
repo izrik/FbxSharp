@@ -77,14 +77,14 @@ namespace TestCaseGenerator
                     },
                 },
                 ExecuteDelegate = args => {
-                    ExecuteDelegate(args, generator);
+                    ExecuteDelegate(args, generator, name);
                 },
             };
 
             return cmd;
         }
 
-        static void ExecuteDelegate(Dictionary<string, object> args, Action<List<TestFixture>, TextWriter> generator)
+        static void ExecuteDelegate(Dictionary<string, object> args, Action<List<TestFixture>, TextWriter> generator, string language)
         {
             var input = (string)args["input-filename"];
             var fixtures = new List<TestFixture>();
@@ -106,6 +106,16 @@ namespace TestCaseGenerator
 
                     var trimmed = line.Trim();
                     var parts = trimmed.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (parts[0].StartsWith("#"))
+                    {
+                        var targets = parts[0].Split(',');
+                        if (!targets.Contains(language))
+                        {
+                            continue;
+                        }
+                    }
+
                     string name;
                     switch (parts[0].ToLower())
                     {
