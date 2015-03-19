@@ -325,7 +325,14 @@ namespace TestCaseGenerator
                             parts = outline.Split(' ').ToList();
                             if (parts.Count > 3 && parts[2] == "=")
                             {
-                                parts[0] += "*";
+                                if (parts[0].EndsWith("!"))
+                                {
+                                    parts[0] = parts[0].Replace("!", "");
+                                }
+                                else
+                                {
+                                    parts[0] += "*";
+                                }
                                 outline = string.Join(" ", parts);
                             }
 
