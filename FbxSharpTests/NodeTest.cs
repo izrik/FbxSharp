@@ -5,7 +5,7 @@ using FbxSharp;
 namespace FbxSharpTests
 {
     [TestFixture]
-    public class NodeTest
+    public class NodeTest : TestBase
     {
         [Test]
         public void RootNode_AddChild_AddsConnection()

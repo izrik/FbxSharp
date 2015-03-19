@@ -5,7 +5,7 @@ using FbxSharp;
 namespace FbxSharpTests
 {
     [TestFixture]
-    public class GeometryTest
+    public class GeometryTest : TestBase
     {
     }
 }

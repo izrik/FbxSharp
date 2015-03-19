@@ -50,6 +50,7 @@
     <Compile Include="GeometryTest.cs" />
     <Compile Include="LayerContainerTest.cs" />
     <Compile Include="MeshTest.cs" />
+    <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -166,7 +166,7 @@ namespace TestCaseGenerator
                 if (fixturesStarted)
                     writer.WriteLine();
                 writer.WriteLine("    [TestFixture]");
-                writer.WriteLine("    public class {0}", fixture.Name);
+                writer.WriteLine("    public class {0} : TestBase", fixture.Name);
                 writer.WriteLine("    {");
                 var casesStarted = false;
                 foreach (var testcase in fixture.TestCases)

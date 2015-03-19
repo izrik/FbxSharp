@@ -5,7 +5,7 @@ using FbxSharp;
 namespace FbxSharpTests
 {
     [TestFixture]
-    public class MeshTest
+    public class MeshTest : TestBase
     {
         [Test]
         public void Mesh_Create()

@@ -5,7 +5,7 @@ using FbxSharp;
 namespace FbxSharpTests
 {
     [TestFixture]
-    public class LayerContainerTest
+    public class LayerContainerTest : TestBase
     {
         [Test]
         public void LayerContainer_Create()

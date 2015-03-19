@@ -5,7 +5,7 @@ using FbxSharp;
 namespace FbxSharpTests
 {
     [TestFixture]
-    public class SceneTest
+    public class SceneTest : TestBase
     {
         [Test]
         public void Scene_AddNode_AddsNode()
