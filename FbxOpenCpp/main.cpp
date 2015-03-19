@@ -11,6 +11,7 @@
 using namespace std;
 
 #include "common.h"
+#include "Tests.h"
 
 int main (int argc, char *argv[])
 {

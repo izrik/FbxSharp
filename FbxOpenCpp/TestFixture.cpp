@@ -1,5 +1,5 @@
 ﻿
-#include "common.h"
+#include "Tests.h"
 
 TestFixture::TestFixture(const char* name)
     : Name(name)

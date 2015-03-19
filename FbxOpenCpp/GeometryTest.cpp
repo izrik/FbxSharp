@@ -1,5 +1,5 @@
 
-#include "common.h"
+#include "Tests.h"
 
 using namespace std;
 

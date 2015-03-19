@@ -80,5 +80,7 @@
     <None Include="FbxObjectTest.tc" />
     <None Include="SurfacePhongTest.tc" />
     <None Include="PropertyTest.tc" />
+    <None Include="Assertions.h" />
+    <None Include="Tests.h" />
   </ItemGroup>
 </Project>
