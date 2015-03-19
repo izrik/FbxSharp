@@ -4,7 +4,7 @@ namespace FbxSharp
 {
     public class PropertyT<T> : Property
     {
-        public PropertyT(string name)
+        public PropertyT(string name="")
             : base(name)
         {
         }
@@ -39,7 +39,7 @@ namespace FbxSharp
             return Value;
         }
 
-        public override void Set<U>(U value)
+        public override bool Set<U>(U value)
         {
             // if U can be assigned to a prop/field of type T,
             //  then do so
@@ -51,14 +51,14 @@ namespace FbxSharp
             }
 
             Value = (T)(object)value;
+
+            return true;
         }
 
-        public override void Set(object value)
+        public override bool Set(object value)
         {
-            Set<object>(value);
+            return Set<object>(value);
         }
-
-
     }
 }
 

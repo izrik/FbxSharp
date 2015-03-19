@@ -7,6 +7,11 @@ namespace FbxSharp
         protected GeometryBase(string name="")
             : base(name)
         {
+            this.Properties.Add(PrimaryVisibility);
+            this.Properties.Add(CastShadow);
+            this.Properties.Add(ReceiveShadow);
+            this.Properties.Add(BBoxMin);
+            this.Properties.Add(BBoxMax);
         }
 
         #region Control Points, Normals, Binormals and Tangent Management
@@ -66,6 +71,21 @@ namespace FbxSharp
         public virtual Vector4[] GetControlPoints(/*FbxStatus pStatus=null*/)
         {
             return controlPoints;
+        }
+
+        #endregion
+
+        #region Public and Fast Access Properties
+
+        public readonly PropertyT<bool>     PrimaryVisibility   = new PropertyT<bool>(   "PrimaryVisibility");
+        public readonly PropertyT<bool>     CastShadow          = new PropertyT<bool>(   "CastShadow");
+        public readonly PropertyT<bool>     ReceiveShadow       = new PropertyT<bool>(   "ReceiveShadow");
+        public readonly PropertyT<Vector3>  BBoxMin             = new PropertyT<Vector3>("BBoxMin");
+        public readonly PropertyT<Vector3>  BBoxMax             = new PropertyT<Vector3>("BBoxMax");
+
+        public void ComputeBBox()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

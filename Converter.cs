@@ -712,6 +712,7 @@ namespace FbxSharp
         public static void ImportProperty(FbxObject obj, string name, Type type, object value)
         {
             var pprop = obj.FindProperty(name, type);
+
             if (pprop == null)
             {
                 pprop = obj.CreateProperty(name, type);

@@ -5,3 +5,12 @@ test Mesh_Create
 
     then
     AssertEqual(0, mesh.GetControlPointsCount())
+
+test Mesh_Create_HasProperties
+    given
+    Mesh mesh = new("Mesh")
+
+    then
+    AssertEqual(6, CountProperties(mesh))
+    AssertEqual(0, mesh.GetSrcPropertyCount())
+    AssertEqual(0, mesh.GetDstPropertyCount())

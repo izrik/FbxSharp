@@ -7,7 +7,7 @@ namespace FbxSharpTests
     {
         public static int CountProperties(FbxObject obj)
         {
-            throw new NotImplementedException();
+            return obj.Properties.Count;
         }
     }
 }

@@ -123,33 +123,44 @@ namespace FbxSharp
 
         #region Property Management
 
-        public List<Property> Properties = new List<Property>();
+        public readonly List<Property> Properties = new List<Property>();
 
-        public Property FindProperty(string name, bool caseSensitive=true)
+        public Property GetFirstProperty()
         {
-            return Properties.Find(p =>
-                string.Compare(p.Name, name, ignoreCase: !caseSensitive) == 0
-            );
+            throw new NotImplementedException();
         }
 
-        public Property FindProperty(string name, Type type, bool caseSensitive=true)
+        public Property GetNextProperty(Property pProperty)
         {
-            return Properties.Find(p => {
-                if (p.PropertyDataType != type) return false;
-
-                return string.Compare(p.Name, name, ignoreCase: !caseSensitive) == 0;
-            });
-        }
-        public PropertyT<T> FindProperty<T>(string name, bool caseSensitive=true)
-        {
-            return (PropertyT<T>)Properties.Find(p => {
-                if (!(p is PropertyT<T>)) return false;
-
-                return string.Compare(p.Name, name, ignoreCase: !caseSensitive) == 0;
-            });
+            throw new NotImplementedException();
         }
 
+        public Property FindProperty(string pName, bool pCaseSensitive=true)
+        {
+            throw new NotImplementedException();
+        }
 
+        //public Property FindProperty(string pName, FbxDataType pDataType, bool pCaseSensitive=true)
+        public Property FindProperty(string pName, Type pDataType, bool pCaseSensitive=true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Property FindPropertyHierarchical(string pName, bool pCaseSensitive=true)
+        {
+            throw new NotImplementedException();
+        }
+
+        //public Property FindPropertyHierarchical(string pName, FbxDataType pDataType, bool pCaseSensitive=true)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        readonly static PropertyT<object> classRootProperty = new PropertyT<object>();
+        public Property GetClassRootProperty()
+        {
+            return classRootProperty;
+        }
 
         public bool ConnectSrcProperty(Property pProperty)
         {
@@ -171,12 +182,12 @@ namespace FbxSharp
             return 0;
         }
 
-        public Property GetSrcProperty(int pIndex = 0)
+        public Property GetSrcProperty(int pIndex=0)
         {
             throw new NotImplementedException();
         }
 
-        public Property FindSrcProperty(string pName, int pStartIndex = 0)
+        public Property FindSrcProperty(string pName, int pStartIndex=0)
         {
             throw new NotImplementedException();
         }
@@ -201,38 +212,37 @@ namespace FbxSharp
             return 0;
         }
 
-        public Property GetDstProperty(int pIndex = 0)
+        public Property GetDstProperty(int pIndex=0)
         {
             throw new NotImplementedException();
         }
 
-        public Property FindDstProperty(string pName, int pStartIndex = 0)
+        public Property FindDstProperty(string pName, int pStartIndex=0)
         {
             throw new NotImplementedException();
         }
 
-
-
-        public PropertyT<T> CreateProperty<T>(string name)
-        {
-            var prop = new PropertyT<T>(name);
-            Properties.Add(prop);
-            return prop;
-        }
         public Property CreateProperty(string name, Type type)
         {
-            var concreteType = typeof(PropertyT<>).MakeGenericType(type);
-            var prop = (Property)Activator.CreateInstance(concreteType, (object)name);
-            Properties.Add(prop);
-            return prop;
+            throw new NotImplementedException();
         }
 
         #endregion
+
+        #region Public Attributes
+
+        public readonly Property RootProperty = new PropertyT<object>();
+
+        #endregion
+
+        #region Object Name Management
 
         public string Name { get; set; }
 
         //Returns the unique ID of this object.
         public ulong UniqueId { get; set; } //protected set; }
+
+        #endregion
     }
 }
 

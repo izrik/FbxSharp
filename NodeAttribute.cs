@@ -7,6 +7,7 @@ namespace FbxSharp
         protected NodeAttribute(string name="")
             : base(name)
         {
+            this.Properties.Add(Color);
             nodes = DstObjects.CreateCollectionView<Node>();
         }
 
@@ -56,6 +57,12 @@ namespace FbxSharp
         {
             return nodes[pIndex];
         }
+
+        #endregion
+
+        #region Public Attributes
+
+        public readonly PropertyT<Vector3> Color = new PropertyT<Vector3>("Color");
 
         #endregion
     }

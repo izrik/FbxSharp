@@ -1,1 +1,26 @@
 ﻿fixture FbxObjectTest
+test FbxObject_Create_HasZeroProperties
+    given
+    FbxObject obj = new("")
+
+    then
+    AssertEqual(0, CountProperties(obj))
+    AssertEqual(0, obj.GetSrcPropertyCount())
+    AssertEqual(0, obj.GetDstPropertyCount())
+
+test FbxObject_Create_HasRootProperty
+    given
+    FbxObject obj = new("")
+
+    then
+#cs AssertNotNull(&obj.RootProperty)
+    AssertTrue((&obj.RootProperty).IsValid())
+    AssertEqual("", obj.RootProperty&.GetName())
+
+test FbxObject_Create_HasClassRootProperty
+    given
+    FbxObject obj = new("")
+
+    then
+#cs AssertNotNull(obj.GetClassRootProperty())
+    AssertTrue(obj.GetClassRootProperty()&.IsValid())
