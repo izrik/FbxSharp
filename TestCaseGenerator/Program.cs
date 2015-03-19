@@ -267,7 +267,7 @@ namespace TestCaseGenerator
         static void GenerateCpp(List<TestFixture> fixtures, TextWriter writer)
         {
             writer.WriteLine();
-            writer.WriteLine("#include \"common.h\"");
+            writer.WriteLine("#include \"Tests.h\"");
             writer.WriteLine();
             writer.WriteLine("using namespace std;");
             foreach (var fixture in fixtures)
