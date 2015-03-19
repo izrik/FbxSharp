@@ -1,1 +1,9 @@
 ﻿fixture SurfacePhongTest
+test SurfacePhong_Create_HasProperties
+    given
+    SurfacePhong surface = new("")
+
+    then
+    AssertEqual(22, CountProperties(surface))
+    AssertEqual(0, surface.GetSrcPropertyCount())
+    AssertEqual(0, surface.GetDstPropertyCount())

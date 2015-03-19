@@ -657,4 +657,15 @@ void PrintVideo(FbxVideo* obj, const char* prefix)
     throw "Not Implemented";
 }
 
+int CountProperties(FbxObject* obj)
+{
+    FbxProperty prop = obj->GetFirstProperty();
+    int n = 0;
+    while (prop.IsValid())
+    {
+        n++;
+        prop = obj->GetNextProperty(prop);
+    }
 
+    return n;
+}

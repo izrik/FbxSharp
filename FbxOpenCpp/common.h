@@ -38,6 +38,8 @@ void PrintVideo(FbxVideo* video, const char* prefix="");
 
 void PrintProperty(FbxProperty* prop, const char* prefix="");
 
+int CountProperties(FbxObject* obj);
+
 std::ostream& operator<<(std::ostream& os, const FbxDouble2& value);
 std::ostream& operator<<(std::ostream& os, const FbxDouble3& value);
 std::ostream& operator<<(std::ostream& os, const FbxDouble4& value);
