@@ -53,6 +53,7 @@
     <Compile Include="TestBase.cs" />
     <Compile Include="SurfacePhongTest.cs" />
     <Compile Include="FbxObjectTest.cs" />
+    <Compile Include="PropertyTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -64,6 +65,7 @@
     <None Include="MeshTest.tc" />
     <None Include="FbxObjectTest.tc" />
     <None Include="SurfacePhongTest.tc" />
+    <None Include="PropertyTest.tc" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

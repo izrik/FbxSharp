@@ -1,0 +1,18 @@
+fixture PropertyTest
+test SurfacePhong_FindProperty_FindsProperty
+    given
+    SurfacePhong surf = new("")
+
+    when
+    Property! prop = surf.FindProperty("SpecularColor")
+
+    then
+#cs AssertNotNull(&prop)
+    AssertTrue(prop&.IsValid())
+
+//test SurfacePhong_SearchForPropertyWithWrongType_DoesntFindProperty
+//test SurfacePhong_SearchForMissingProperty_DoesntFindProperty
+//    given
+//test SurfacePhong_AddNewProperty_AddsNewProperty
+//    given
+//test SurfacePhong_AddNewPropertyWithconflictingName_AddsNewProperty
