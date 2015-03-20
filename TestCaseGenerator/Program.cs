@@ -305,9 +305,8 @@ namespace TestCaseGenerator
                             var outline = stmt;
 
                             parts = outline.Split(' ').ToList();
-                            if (parts.Count > 3 &&
-                                parts[2] == "=" &&
-                                !parts[0].StartsWith("Fbx"))
+                            if ((parts.Count > 3 && parts[2] == "=" && !parts[0].StartsWith("Fbx")) ||
+                                (parts.Count == 2 && Regex.IsMatch(parts[0], @"^\w+$") && Regex.IsMatch(parts[1], @"^\w+$") && !parts[0].StartsWith("Fbx")))
                             {
                                 parts[0] = "Fbx" + parts[0];
                                 outline = string.Join(" ", parts);
