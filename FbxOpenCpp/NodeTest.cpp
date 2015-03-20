@@ -315,6 +315,374 @@ void Node_AddSrcObject_SetsNodeAttribute()
     AssertEqual(node, nullattr->GetNode(0));
 }
 
+void Node_Create_HasProperties()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxNode* node = FbxNode::Create(manager, "");
+    FbxProperty prop;
+
+    // then:
+    AssertEqual(71, CountProperties(node));
+    AssertEqual(0, node->GetSrcPropertyCount());
+    AssertEqual(0, node->GetDstPropertyCount());
+
+    prop = node->FindProperty("QuaternionInterpolate");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->QuaternionInterpolate.IsValid());
+    AssertEqual("QuaternionInterpolate", node->QuaternionInterpolate.GetName());
+
+    prop = node->FindProperty("RotationOffset");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationOffset.IsValid());
+    AssertEqual("RotationOffset", node->RotationOffset.GetName());
+
+    prop = node->FindProperty("RotationPivot");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationPivot.IsValid());
+    AssertEqual("RotationPivot", node->RotationPivot.GetName());
+
+    prop = node->FindProperty("ScalingOffset");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->ScalingOffset.IsValid());
+    AssertEqual("ScalingOffset", node->ScalingOffset.GetName());
+
+    prop = node->FindProperty("ScalingPivot");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->ScalingPivot.IsValid());
+    AssertEqual("ScalingPivot", node->ScalingPivot.GetName());
+
+    prop = node->FindProperty("TranslationActive");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->TranslationActive.IsValid());
+    AssertEqual("TranslationActive", node->TranslationActive.GetName());
+
+    prop = node->FindProperty("TranslationMin");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->TranslationMin.IsValid());
+    AssertEqual("TranslationMin", node->TranslationMin.GetName());
+
+    prop = node->FindProperty("TranslationMax");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->TranslationMax.IsValid());
+    AssertEqual("TranslationMax", node->TranslationMax.GetName());
+
+    prop = node->FindProperty("TranslationMinX");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->TranslationMinX.IsValid());
+    AssertEqual("TranslationMinX", node->TranslationMinX.GetName());
+
+    prop = node->FindProperty("TranslationMinY");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->TranslationMinY.IsValid());
+    AssertEqual("TranslationMinY", node->TranslationMinY.GetName());
+
+    prop = node->FindProperty("TranslationMinZ");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->TranslationMinZ.IsValid());
+    AssertEqual("TranslationMinZ", node->TranslationMinZ.GetName());
+
+    prop = node->FindProperty("TranslationMaxX");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->TranslationMaxX.IsValid());
+    AssertEqual("TranslationMaxX", node->TranslationMaxX.GetName());
+
+    prop = node->FindProperty("TranslationMaxY");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->TranslationMaxY.IsValid());
+    AssertEqual("TranslationMaxY", node->TranslationMaxY.GetName());
+
+    prop = node->FindProperty("TranslationMaxZ");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->TranslationMaxZ.IsValid());
+    AssertEqual("TranslationMaxZ", node->TranslationMaxZ.GetName());
+
+    prop = node->FindProperty("RotationOrder");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationOrder.IsValid());
+    AssertEqual("RotationOrder", node->RotationOrder.GetName());
+
+    prop = node->FindProperty("RotationSpaceForLimitOnly");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationSpaceForLimitOnly.IsValid());
+    AssertEqual("RotationSpaceForLimitOnly", node->RotationSpaceForLimitOnly.GetName());
+
+    prop = node->FindProperty("RotationStiffnessX");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationStiffnessX.IsValid());
+    AssertEqual("RotationStiffnessX", node->RotationStiffnessX.GetName());
+
+    prop = node->FindProperty("RotationStiffnessY");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationStiffnessY.IsValid());
+    AssertEqual("RotationStiffnessY", node->RotationStiffnessY.GetName());
+
+    prop = node->FindProperty("RotationStiffnessZ");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationStiffnessZ.IsValid());
+    AssertEqual("RotationStiffnessZ", node->RotationStiffnessZ.GetName());
+
+    prop = node->FindProperty("AxisLen");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->AxisLen.IsValid());
+    AssertEqual("AxisLen", node->AxisLen.GetName());
+
+    prop = node->FindProperty("PreRotation");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->PreRotation.IsValid());
+    AssertEqual("PreRotation", node->PreRotation.GetName());
+
+    prop = node->FindProperty("PostRotation");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->PostRotation.IsValid());
+    AssertEqual("PostRotation", node->PostRotation.GetName());
+
+    prop = node->FindProperty("RotationActive");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationActive.IsValid());
+    AssertEqual("RotationActive", node->RotationActive.GetName());
+
+    prop = node->FindProperty("RotationMin");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationMin.IsValid());
+    AssertEqual("RotationMin", node->RotationMin.GetName());
+
+    prop = node->FindProperty("RotationMax");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationMax.IsValid());
+    AssertEqual("RotationMax", node->RotationMax.GetName());
+
+    prop = node->FindProperty("RotationMinX");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationMinX.IsValid());
+    AssertEqual("RotationMinX", node->RotationMinX.GetName());
+
+    prop = node->FindProperty("RotationMinY");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationMinY.IsValid());
+    AssertEqual("RotationMinY", node->RotationMinY.GetName());
+
+    prop = node->FindProperty("RotationMinZ");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationMinZ.IsValid());
+    AssertEqual("RotationMinZ", node->RotationMinZ.GetName());
+
+    prop = node->FindProperty("RotationMaxX");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationMaxX.IsValid());
+    AssertEqual("RotationMaxX", node->RotationMaxX.GetName());
+
+    prop = node->FindProperty("RotationMaxY");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationMaxY.IsValid());
+    AssertEqual("RotationMaxY", node->RotationMaxY.GetName());
+
+    prop = node->FindProperty("RotationMaxZ");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->RotationMaxZ.IsValid());
+    AssertEqual("RotationMaxZ", node->RotationMaxZ.GetName());
+
+    prop = node->FindProperty("InheritType");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->InheritType.IsValid());
+    AssertEqual("InheritType", node->InheritType.GetName());
+
+    prop = node->FindProperty("ScalingActive");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->ScalingActive.IsValid());
+    AssertEqual("ScalingActive", node->ScalingActive.GetName());
+
+    prop = node->FindProperty("ScalingMin");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->ScalingMin.IsValid());
+    AssertEqual("ScalingMin", node->ScalingMin.GetName());
+
+    prop = node->FindProperty("ScalingMax");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->ScalingMax.IsValid());
+    AssertEqual("ScalingMax", node->ScalingMax.GetName());
+
+    prop = node->FindProperty("ScalingMinX");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->ScalingMinX.IsValid());
+    AssertEqual("ScalingMinX", node->ScalingMinX.GetName());
+
+    prop = node->FindProperty("ScalingMinY");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->ScalingMinY.IsValid());
+    AssertEqual("ScalingMinY", node->ScalingMinY.GetName());
+
+    prop = node->FindProperty("ScalingMinZ");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->ScalingMinZ.IsValid());
+    AssertEqual("ScalingMinZ", node->ScalingMinZ.GetName());
+
+    prop = node->FindProperty("ScalingMaxX");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->ScalingMaxX.IsValid());
+    AssertEqual("ScalingMaxX", node->ScalingMaxX.GetName());
+
+    prop = node->FindProperty("ScalingMaxY");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->ScalingMaxY.IsValid());
+    AssertEqual("ScalingMaxY", node->ScalingMaxY.GetName());
+
+    prop = node->FindProperty("ScalingMaxZ");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->ScalingMaxZ.IsValid());
+    AssertEqual("ScalingMaxZ", node->ScalingMaxZ.GetName());
+
+    prop = node->FindProperty("GeometricTranslation");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->GeometricTranslation.IsValid());
+    AssertEqual("GeometricTranslation", node->GeometricTranslation.GetName());
+
+    prop = node->FindProperty("GeometricRotation");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->GeometricRotation.IsValid());
+    AssertEqual("GeometricRotation", node->GeometricRotation.GetName());
+
+    prop = node->FindProperty("GeometricScaling");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->GeometricScaling.IsValid());
+    AssertEqual("GeometricScaling", node->GeometricScaling.GetName());
+
+    prop = node->FindProperty("MinDampRangeX");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->MinDampRangeX.IsValid());
+    AssertEqual("MinDampRangeX", node->MinDampRangeX.GetName());
+
+    prop = node->FindProperty("MinDampRangeY");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->MinDampRangeY.IsValid());
+    AssertEqual("MinDampRangeY", node->MinDampRangeY.GetName());
+
+    prop = node->FindProperty("MinDampRangeZ");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->MinDampRangeZ.IsValid());
+    AssertEqual("MinDampRangeZ", node->MinDampRangeZ.GetName());
+
+    prop = node->FindProperty("MaxDampRangeX");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->MaxDampRangeX.IsValid());
+    AssertEqual("MaxDampRangeX", node->MaxDampRangeX.GetName());
+
+    prop = node->FindProperty("MaxDampRangeY");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->MaxDampRangeY.IsValid());
+    AssertEqual("MaxDampRangeY", node->MaxDampRangeY.GetName());
+
+    prop = node->FindProperty("MaxDampRangeZ");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->MaxDampRangeZ.IsValid());
+    AssertEqual("MaxDampRangeZ", node->MaxDampRangeZ.GetName());
+
+    prop = node->FindProperty("MinDampStrengthX");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->MinDampStrengthX.IsValid());
+    AssertEqual("MinDampStrengthX", node->MinDampStrengthX.GetName());
+
+    prop = node->FindProperty("MinDampStrengthY");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->MinDampStrengthY.IsValid());
+    AssertEqual("MinDampStrengthY", node->MinDampStrengthY.GetName());
+
+    prop = node->FindProperty("MinDampStrengthZ");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->MinDampStrengthZ.IsValid());
+    AssertEqual("MinDampStrengthZ", node->MinDampStrengthZ.GetName());
+
+    prop = node->FindProperty("MaxDampStrengthX");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->MaxDampStrengthX.IsValid());
+    AssertEqual("MaxDampStrengthX", node->MaxDampStrengthX.GetName());
+
+    prop = node->FindProperty("MaxDampStrengthY");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->MaxDampStrengthY.IsValid());
+    AssertEqual("MaxDampStrengthY", node->MaxDampStrengthY.GetName());
+
+    prop = node->FindProperty("MaxDampStrengthZ");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->MaxDampStrengthZ.IsValid());
+    AssertEqual("MaxDampStrengthZ", node->MaxDampStrengthZ.GetName());
+
+    prop = node->FindProperty("PreferedAngleX");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->PreferedAngleX.IsValid());
+    AssertEqual("PreferedAngleX", node->PreferedAngleX.GetName());
+
+    prop = node->FindProperty("PreferedAngleY");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->PreferedAngleY.IsValid());
+    AssertEqual("PreferedAngleY", node->PreferedAngleY.GetName());
+
+    prop = node->FindProperty("PreferedAngleZ");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->PreferedAngleZ.IsValid());
+    AssertEqual("PreferedAngleZ", node->PreferedAngleZ.GetName());
+
+    prop = node->FindProperty("LookAtProperty");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->LookAtProperty.IsValid());
+    AssertEqual("LookAtProperty", node->LookAtProperty.GetName());
+
+    prop = node->FindProperty("UpVectorProperty");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->UpVectorProperty.IsValid());
+    AssertEqual("UpVectorProperty", node->UpVectorProperty.GetName());
+
+    prop = node->FindProperty("Show");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->Show.IsValid());
+    AssertEqual("Show", node->Show.GetName());
+
+    prop = node->FindProperty("NegativePercentShapeSupport");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->NegativePercentShapeSupport.IsValid());
+    AssertEqual("NegativePercentShapeSupport", node->NegativePercentShapeSupport.GetName());
+
+    prop = node->FindProperty("DefaultAttributeIndex");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->DefaultAttributeIndex.IsValid());
+    AssertEqual("DefaultAttributeIndex", node->DefaultAttributeIndex.GetName());
+
+    prop = node->FindProperty("Freeze");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->Freeze.IsValid());
+    AssertEqual("Freeze", node->Freeze.GetName());
+
+    prop = node->FindProperty("LODBox");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->LODBox.IsValid());
+    AssertEqual("LODBox", node->LODBox.GetName());
+
+    prop = node->FindProperty("Lcl Translation");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->LclTranslation.IsValid());
+    AssertEqual("Lcl Translation", node->LclTranslation.GetName());
+
+    prop = node->FindProperty("Lcl Rotation");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->LclRotation.IsValid());
+    AssertEqual("Lcl Rotation", node->LclRotation.GetName());
+
+    prop = node->FindProperty("Lcl Scaling");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->LclScaling.IsValid());
+    AssertEqual("Lcl Scaling", node->LclScaling.GetName());
+
+    prop = node->FindProperty("Visibility");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->Visibility.IsValid());
+    AssertEqual("Visibility", node->Visibility.GetName());
+
+    prop = node->FindProperty("Visibility Inheritance");
+    AssertTrue(prop.IsValid());
+    AssertTrue(node->VisibilityInheritance.IsValid());
+    AssertEqual("Visibility Inheritance", node->VisibilityInheritance.GetName());
+}
+
 void NodeTest::RegisterTestCases()
 {
     AddTestCase(RootNode_AddChild_AddsConnection);
@@ -323,5 +691,6 @@ void NodeTest::RegisterTestCases()
     AddTestCase(RootNode_AddChild_AddsNodeSubtree);
     AddTestCase(RootNode_AddSrcObject_AddsChild);
     AddTestCase(Node_AddSrcObject_SetsNodeAttribute);
+    AddTestCase(Node_Create_HasProperties);
 }
 

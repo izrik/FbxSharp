@@ -43,6 +43,8 @@ int CountProperties(FbxObject* obj);
 std::ostream& operator<<(std::ostream& os, const FbxDouble2& value);
 std::ostream& operator<<(std::ostream& os, const FbxDouble3& value);
 std::ostream& operator<<(std::ostream& os, const FbxDouble4& value);
+std::ostream& operator<<(std::ostream& os, const FbxDataType& value);
+std::ostream& operator<<(std::ostream& os, const EFbxType& value);
 
 FbxScene* Load(const char* filename, FbxManager* manager=NULL);
 

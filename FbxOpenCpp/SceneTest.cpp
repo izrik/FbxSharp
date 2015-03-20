@@ -211,6 +211,52 @@ void Scene_ConnectSrcObject_AddsPose()
     AssertEqual(scene, pose->GetScene());
 }
 
+void Scene_Create_HasProperties()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxScene* scene = FbxScene::Create(manager, "");
+    FbxProperty prop;
+
+    // then:
+    AssertEqual(2, CountProperties(scene));
+    AssertEqual(0, scene->GetSrcPropertyCount());
+    AssertEqual(0, scene->GetDstPropertyCount());
+
+    prop = scene->FindProperty("SourceObject");
+    AssertTrue(prop.IsValid());
+    AssertTrue(scene->Roots.IsValid());
+    AssertEqual("SourceObject", scene->Roots.GetName());
+
+    prop = scene->FindProperty("ActiveAnimStackName");
+    AssertTrue(prop.IsValid());
+    AssertTrue(scene->ActiveAnimStackName.IsValid());
+    AssertEqual("ActiveAnimStackName", scene->ActiveAnimStackName.GetName());
+}
+
+void Document_Create_HasProperties()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxDocument* doc = FbxDocument::Create(manager, "");
+    FbxProperty prop;
+
+    // then:
+    AssertEqual(2, CountProperties(doc));
+    AssertEqual(0, doc->GetSrcPropertyCount());
+    AssertEqual(0, doc->GetDstPropertyCount());
+
+    prop = doc->FindProperty("SourceObject");
+    AssertTrue(prop.IsValid());
+    AssertTrue(doc->Roots.IsValid());
+    AssertEqual("SourceObject", doc->Roots.GetName());
+
+    prop = doc->FindProperty("ActiveAnimStackName");
+    AssertTrue(prop.IsValid());
+    AssertTrue(doc->ActiveAnimStackName.IsValid());
+    AssertEqual("ActiveAnimStackName", doc->ActiveAnimStackName.GetName());
+}
+
 void SceneTest::RegisterTestCases()
 {
     AddTestCase(Scene_AddNode_AddsNode);
@@ -219,5 +265,7 @@ void SceneTest::RegisterTestCases()
     AddTestCase(Scene_Create_HasZeroPoses);
     AddTestCase(Scene_AddPose_AddsPose);
     AddTestCase(Scene_ConnectSrcObject_AddsPose);
+    AddTestCase(Scene_Create_HasProperties);
+    AddTestCase(Document_Create_HasProperties);
 }
 

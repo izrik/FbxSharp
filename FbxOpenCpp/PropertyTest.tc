@@ -4,7 +4,7 @@ test SurfacePhong_FindProperty_FindsProperty
     FbxSurfacePhong surf = new("")
 
     when
-    FbxProperty! prop = surf.FindProperty("SpecularColor")
+    Property! prop = surf.FindProperty("SpecularColor")
 
     then
 #cs AssertNotNull(&prop)
