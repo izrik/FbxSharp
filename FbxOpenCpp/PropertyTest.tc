@@ -1,7 +1,7 @@
 fixture PropertyTest
 test SurfacePhong_FindProperty_FindsProperty
     given
-    FbxSurfacePhong surf = new("")
+    SurfacePhong surf = new("")
 
     when
     Property! prop = surf.FindProperty("SpecularColor")
