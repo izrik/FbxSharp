@@ -189,3 +189,55 @@ test Scene_ConnectSrcObject_AddsPose
     AssertEqual(1, pose.GetDstObjectCount())
     AssertEqual(scene, pose.GetDstObject(0))
     AssertEqual(scene, pose.GetScene())
+
+test Scene_Create_HasProperties
+    given
+    Scene scene = new("")
+    Property prop
+
+    then
+    AssertEqual(2, CountProperties(scene))
+    AssertEqual(0, scene.GetSrcPropertyCount())
+    AssertEqual(0, scene.GetDstPropertyCount())
+
+    prop = scene.FindProperty("SourceObject")
+#cs AssertNotNull(prop)
+    AssertTrue(prop&.IsValid())
+#cs AssertNotNull(scene.Roots)
+    AssertTrue(scene.Roots&.IsValid())
+    AssertEqual("SourceObject", scene.Roots&.GetName())
+#cs AssertAreSame(prop, scene.Roots)
+
+    prop = scene.FindProperty("ActiveAnimStackName")
+#cs AssertNotNull(prop)
+    AssertTrue(prop&.IsValid())
+#cs AssertNotNull(scene.ActiveAnimStackName)
+    AssertTrue(scene.ActiveAnimStackName&.IsValid())
+    AssertEqual("ActiveAnimStackName", scene.ActiveAnimStackName&.GetName())
+#cs AssertAreSame(prop, scene.ActiveAnimStackName)
+
+test Document_Create_HasProperties
+    given
+    Document doc = new("")
+    Property prop
+
+    then
+    AssertEqual(2, CountProperties(doc))
+    AssertEqual(0, doc.GetSrcPropertyCount())
+    AssertEqual(0, doc.GetDstPropertyCount())
+
+    prop = doc.FindProperty("SourceObject")
+#cs AssertNotNull(prop)
+    AssertTrue(prop&.IsValid())
+#cs AssertNotNull(doc.Roots)
+    AssertTrue(doc.Roots&.IsValid())
+    AssertEqual("SourceObject", doc.Roots&.GetName())
+#cs AssertAreSame(prop, doc.Roots)
+
+    prop = doc.FindProperty("ActiveAnimStackName")
+#cs AssertNotNull(prop)
+    AssertTrue(prop&.IsValid())
+#cs AssertNotNull(doc.ActiveAnimStackName)
+    AssertTrue(doc.ActiveAnimStackName&.IsValid())
+    AssertEqual("ActiveAnimStackName", doc.ActiveAnimStackName&.GetName())
+#cs AssertAreSame(prop, doc.ActiveAnimStackName)

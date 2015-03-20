@@ -77,9 +77,9 @@ namespace FbxSharp
 
         #region Public and Fast Access Properties
 
-        public readonly PropertyT<bool>     PrimaryVisibility   = new PropertyT<bool>(   "PrimaryVisibility");
-        public readonly PropertyT<bool>     CastShadow          = new PropertyT<bool>(   "CastShadow");
-        public readonly PropertyT<bool>     ReceiveShadow       = new PropertyT<bool>(   "ReceiveShadow");
+        public readonly PropertyT<bool>     PrimaryVisibility   = new PropertyT<bool>(   "Primary Visibility");
+        public readonly PropertyT<bool>     CastShadow          = new PropertyT<bool>(   "Casts Shadows");
+        public readonly PropertyT<bool>     ReceiveShadow       = new PropertyT<bool>(   "Receive Shadows");
         public readonly PropertyT<Vector3>  BBoxMin             = new PropertyT<Vector3>("BBoxMin");
         public readonly PropertyT<Vector3>  BBoxMax             = new PropertyT<Vector3>("BBoxMax");
 

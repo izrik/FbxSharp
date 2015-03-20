@@ -7,6 +7,7 @@ namespace FbxSharp
     public class Scene : Document
     {
         public Scene(string name="")
+            : base(name)
         {
             RootNode = new Node();
 

@@ -15,7 +15,7 @@ namespace FbxSharp
                     LclScaling,
                     Visibility,
                     VisibilityInheritance,
-                    //QuaternionInterpolate,
+                    QuaternionInterpolate,
                     RotationOffset,
                     RotationPivot,
                     ScalingOffset,
@@ -29,7 +29,7 @@ namespace FbxSharp
                     TranslationMaxX,
                     TranslationMaxY,
                     TranslationMaxZ,
-                    //RotationOrder,
+                    RotationOrder,
                     RotationSpaceForLimitOnly,
                     RotationStiffnessX,
                     RotationStiffnessY,
@@ -46,7 +46,7 @@ namespace FbxSharp
                     RotationMaxX,
                     RotationMaxY,
                     RotationMaxZ,
-                    //InheritType,
+                    InheritType,
                     ScalingActive,
                     ScalingMin,
                     ScalingMax,
@@ -297,8 +297,8 @@ namespace FbxSharp
         public PropertyT<Vector3>                       LclRotation                 = new PropertyT<Vector3>("Lcl Rotation");
         public PropertyT<Vector3>                       LclScaling                  = new PropertyT<Vector3>("Lcl Scaling");
         public PropertyT<double>                        Visibility                  = new PropertyT<double>("Visibility");
-        public PropertyT<bool>                          VisibilityInheritance       = new PropertyT<bool>("VisibilityInheritance");
-        //public PropertyT<EFbxQuatInterpMode>           QuaternionInterpolate       = new PropertyT<EFbxQuatInterpMode>("QuaternionInterpolate");
+        public PropertyT<bool>                          VisibilityInheritance       = new PropertyT<bool>("Visibility Inheritance");
+        public PropertyT<EQuatInterpMode>               QuaternionInterpolate       = new PropertyT<EQuatInterpMode>("QuaternionInterpolate");
         public PropertyT<Vector3>                       RotationOffset              = new PropertyT<Vector3>("RotationOffset");
         public PropertyT<Vector3>                       RotationPivot               = new PropertyT<Vector3>("RotationPivot");
         public PropertyT<Vector3>                       ScalingOffset               = new PropertyT<Vector3>("ScalingOffset");
@@ -329,7 +329,7 @@ namespace FbxSharp
         public PropertyT<bool>                          RotationMaxX                = new PropertyT<bool>("RotationMaxX");
         public PropertyT<bool>                          RotationMaxY                = new PropertyT<bool>("RotationMaxY");
         public PropertyT<bool>                          RotationMaxZ                = new PropertyT<bool>("RotationMaxZ");
-        //public PropertyT<FbxTransform::EInheritType>    InheritType                 = new PropertyT<FbxTransform::EInheritType>("InheritType");
+        public PropertyT<Transform.EInheritType>        InheritType                 = new PropertyT<Transform.EInheritType>("InheritType");
         public PropertyT<bool>                          ScalingActive               = new PropertyT<bool>("ScalingActive");
         public PropertyT<Vector3>                       ScalingMin                  = new PropertyT<Vector3>("ScalingMin");
         public PropertyT<Vector3>                       ScalingMax                  = new PropertyT<Vector3>("ScalingMax");

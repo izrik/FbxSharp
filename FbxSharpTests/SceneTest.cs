@@ -214,5 +214,63 @@ namespace FbxSharpTests
             Assert.AreEqual(scene, pose.GetDstObject(0));
             Assert.AreEqual(scene, pose.GetScene());
         }
+
+        [Test]
+        public void Scene_Create_HasProperties()
+        {
+            // given:
+            var scene = new Scene("");
+            Property prop;
+
+            // then:
+            Assert.AreEqual(2, CountProperties(scene));
+            Assert.AreEqual(0, scene.GetSrcPropertyCount());
+            Assert.AreEqual(0, scene.GetDstPropertyCount());
+
+            prop = scene.FindProperty("SourceObject");
+            Assert.NotNull(prop);
+            Assert.True(prop.IsValid());
+            Assert.NotNull(scene.Roots);
+            Assert.True(scene.Roots.IsValid());
+            Assert.AreEqual("SourceObject", scene.Roots.GetName());
+            Assert.AreSame(prop, scene.Roots);
+
+            prop = scene.FindProperty("ActiveAnimStackName");
+            Assert.NotNull(prop);
+            Assert.True(prop.IsValid());
+            Assert.NotNull(scene.ActiveAnimStackName);
+            Assert.True(scene.ActiveAnimStackName.IsValid());
+            Assert.AreEqual("ActiveAnimStackName", scene.ActiveAnimStackName.GetName());
+            Assert.AreSame(prop, scene.ActiveAnimStackName);
+        }
+
+        [Test]
+        public void Document_Create_HasProperties()
+        {
+            // given:
+            var doc = new Document("");
+            Property prop;
+
+            // then:
+            Assert.AreEqual(2, CountProperties(doc));
+            Assert.AreEqual(0, doc.GetSrcPropertyCount());
+            Assert.AreEqual(0, doc.GetDstPropertyCount());
+
+            prop = doc.FindProperty("SourceObject");
+            Assert.NotNull(prop);
+            Assert.True(prop.IsValid());
+            Assert.NotNull(doc.Roots);
+            Assert.True(doc.Roots.IsValid());
+            Assert.AreEqual("SourceObject", doc.Roots.GetName());
+            Assert.AreSame(prop, doc.Roots);
+
+            prop = doc.FindProperty("ActiveAnimStackName");
+            Assert.NotNull(prop);
+            Assert.True(prop.IsValid());
+            Assert.NotNull(doc.ActiveAnimStackName);
+            Assert.True(doc.ActiveAnimStackName.IsValid());
+            Assert.AreEqual("ActiveAnimStackName", doc.ActiveAnimStackName.GetName());
+            Assert.AreSame(prop, doc.ActiveAnimStackName);
+        }
     }
 }

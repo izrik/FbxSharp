@@ -137,7 +137,7 @@ namespace FbxSharp
 
         public Property FindProperty(string pName, bool pCaseSensitive=true)
         {
-            throw new NotImplementedException();
+            return Properties.FirstOrDefault(p => string.Compare(p.Name, pName, ignoreCase: !pCaseSensitive) == 0);
         }
 
         //public Property FindProperty(string pName, FbxDataType pDataType, bool pCaseSensitive=true)

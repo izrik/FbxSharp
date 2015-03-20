@@ -29,11 +29,11 @@ namespace FbxSharp
 
         #region Material properties
 
-        public readonly PropertyT<Vector3>  Emissive                    = new PropertyT<Vector3>("Emissive");
+        public readonly PropertyT<Vector3>  Emissive                    = new PropertyT<Vector3>("EmissiveColor");
         public readonly PropertyT<double>   EmissiveFactor              = new PropertyT<double>("EmissiveFactor");
-        public readonly PropertyT<Vector3>  Ambient                     = new PropertyT<Vector3>("Ambient");
+        public readonly PropertyT<Vector3>  Ambient                     = new PropertyT<Vector3>("AmbientColor");
         public readonly PropertyT<double>   AmbientFactor               = new PropertyT<double>("AmbientFactor");
-        public readonly PropertyT<Vector3>  Diffuse                     = new PropertyT<Vector3>("Diffuse");
+        public readonly PropertyT<Vector3>  Diffuse                     = new PropertyT<Vector3>("DiffuseColor");
         public readonly PropertyT<double>   DiffuseFactor               = new PropertyT<double>("DiffuseFactor");
         public readonly PropertyT<Vector3>  NormalMap                   = new PropertyT<Vector3>("NormalMap");
         public readonly PropertyT<Vector3>  Bump                        = new PropertyT<Vector3>("Bump");

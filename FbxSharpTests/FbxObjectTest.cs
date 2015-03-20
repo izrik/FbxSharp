@@ -26,6 +26,7 @@ namespace FbxSharpTests
             var obj = new FbxObject("");
 
             // then:
+            Assert.NotNull(obj.RootProperty);
             Assert.True((obj.RootProperty).IsValid());
             Assert.AreEqual("", obj.RootProperty.GetName());
         }
@@ -37,6 +38,7 @@ namespace FbxSharpTests
             var obj = new FbxObject("");
 
             // then:
+            Assert.NotNull(obj.GetClassRootProperty());
             Assert.True(obj.GetClassRootProperty().IsValid());
         }
     }
