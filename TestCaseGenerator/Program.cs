@@ -109,13 +109,16 @@ namespace TestCaseGenerator
 
                     if (parts[0].StartsWith("#"))
                     {
-                        var targets = parts[0].Split(',');
+                        var targets = parts[0].Substring(1).Split(',');
                         if (!targets.Contains(language))
                         {
                             continue;
                         }
+
+                        trimmed = trimmed.Replace(parts[0], string.Empty).Trim();
+                        parts = trimmed.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                     }
-                    if (parts[0].StartsWith("//"))
+                    else if (parts[0].StartsWith("//"))
                     {
                         continue;
                     }
