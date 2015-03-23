@@ -42,6 +42,16 @@ namespace FbxSharp
         {
             return string.Format("{{R:{0} G:{1} B:{2} A:{3}}}", Red, Green, Blue, Alpha);
         }
+
+        public Vector4 ToVector4()
+        {
+            return new Vector4(Red, Green, Blue, Alpha);
+        }
+
+        public Vector3 ToVector3()
+        {
+            return new Vector3(Red, Green, Blue);
+        }
     }
 }
 

@@ -143,7 +143,19 @@ namespace FbxSharp
         //public Property FindProperty(string pName, FbxDataType pDataType, bool pCaseSensitive=true)
         public Property FindProperty(string pName, Type pDataType, bool pCaseSensitive=true)
         {
-            throw new NotImplementedException();
+            return FindProperty(prop =>
+                string.Compare(prop.Name, pName, ignoreCase: !pCaseSensitive) == 0 &&
+                prop.PropertyDataType == pDataType);
+        }
+
+        public Property FindProperty(Func<Property, bool> predicate)
+        {
+            return FindProperties(predicate).FirstOrDefault();
+        }
+
+        public IEnumerable<Property> FindProperties(Func<Property, bool> predicate)
+        {
+            return Properties.Where(predicate);
         }
 
         public Property FindPropertyHierarchical(string pName, bool pCaseSensitive=true)
@@ -224,7 +236,10 @@ namespace FbxSharp
 
         public Property CreateProperty(string name, Type type)
         {
-            throw new NotImplementedException();
+            var concreteType = typeof(PropertyT<>).MakeGenericType(type);
+            var prop = (Property)Activator.CreateInstance(concreteType, (object)name);
+            Properties.Add(prop);
+            return prop;
         }
 
         #endregion
