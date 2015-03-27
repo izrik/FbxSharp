@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class SrcObjectCollection : IList<FbxObject>
+    public class ObjectDstObjectCollection : IList<FbxObject>
     {
-        // An ordered collection of FbxObject source objects
+        // An ordered collection of FbxObject destination objects
 
-        public SrcObjectCollection(FbxObject container)
+        public ObjectDstObjectCollection(FbxObject container)
         {
             _container = container;
         }
@@ -42,7 +42,7 @@ namespace FbxSharp
             {
                 _list.Add(item);
                 OnCollectionChanged();
-                item.DstObjects.Add(_container);
+                item.SrcObjects.Add(_container);
             }
         }
 
@@ -57,7 +57,7 @@ namespace FbxSharp
             {
                 bool ret = _list.Remove(item);
                 OnCollectionChanged();
-                item.DstObjects.Remove(_container);
+                item.SrcObjects.Remove(_container);
                 return ret;
             }
 
@@ -107,10 +107,10 @@ namespace FbxSharp
                 Remove(item);
             }
 
-            item.DstObjects.Remove(_container);
+            item.SrcObjects.Remove(_container);
             _list.Insert(index, item);
             OnCollectionChanged();
-            item.DstObjects.Add(_container);
+            item.SrcObjects.Add(_container);
         }
 
         public virtual void RemoveAt(int index)
@@ -145,8 +145,8 @@ namespace FbxSharp
             }
         }
 
-        readonly FbxObject _container;
-        readonly List<FbxObject> _list = new List<FbxObject>();
+        private FbxObject _container;
+        private List<FbxObject> _list = new List<FbxObject>();
 
         public event EventHandler CollectionChanged;
 

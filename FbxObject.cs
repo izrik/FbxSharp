@@ -12,8 +12,8 @@ namespace FbxSharp
         {
             Name = name ?? "";
 
-            DstObjects = new DstObjectCollection(this);
-            SrcObjects = new SrcObjectCollection(this);
+            DstObjects = new ObjectDstObjectCollection(this);
+            SrcObjects = new ObjectSrcObjectCollection(this);
 
             UniqueId = __uniqueId;
             __uniqueId++;
@@ -45,8 +45,8 @@ namespace FbxSharp
 
         #region General Object Connection and Relationship Management
 
-        public readonly SrcObjectCollection SrcObjects;
-        public readonly DstObjectCollection DstObjects;
+        public readonly ObjectSrcObjectCollection SrcObjects;
+        public readonly ObjectDstObjectCollection DstObjects;
 
         public virtual void ConnectSrcObject(FbxObject fbxObject, Connection.EType type = Connection.EType.None)
         {

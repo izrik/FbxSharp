@@ -88,8 +88,6 @@
     <Compile Include="Time.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="Importer.cs" />
-    <Compile Include="SrcObjectCollection.cs" />
-    <Compile Include="DstObjectCollection.cs" />
     <Compile Include="AnimEvaluator.cs" />
     <Compile Include="GlobalSettings.cs" />
     <Compile Include="CollectionView.cs" />
@@ -114,6 +112,8 @@
     <Compile Include="PropertyFlags.cs" />
     <Compile Include="Transform.cs" />
     <Compile Include="EQuatInterpMode.cs" />
+    <Compile Include="ObjectDstObjectCollection.cs" />
+    <Compile Include="ObjectSrcObjectCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
