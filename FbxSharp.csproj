@@ -114,6 +114,10 @@
     <Compile Include="EQuatInterpMode.cs" />
     <Compile Include="ObjectDstObjectCollection.cs" />
     <Compile Include="ObjectSrcObjectCollection.cs" />
+    <Compile Include="ObjectSrcPropertyCollection.cs" />
+    <Compile Include="PropertyDstObjectCollection.cs" />
+    <Compile Include="ObjectDstPropertyCollection.cs" />
+    <Compile Include="PropertySrcObjectCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

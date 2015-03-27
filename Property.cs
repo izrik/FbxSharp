@@ -8,6 +8,9 @@ namespace FbxSharp
         protected Property(string name)
         {
             Name = name;
+
+            SrcObjects = new PropertySrcObjectCollection(this);
+            DstObjects = new PropertyDstObjectCollection(this);
         }
 
         #region Property Identification
@@ -95,13 +98,15 @@ namespace FbxSharp
 
         #endregion
 
-
         public override string ToString()
         {
             return string.Format("{0}: {1}", Name, GetValue());
         }
 
         #region General Object Connection and Relationship Management
+
+        public readonly PropertySrcObjectCollection SrcObjects;
+        public readonly PropertyDstObjectCollection DstObjects;
 
         public bool ConnectSrcObject(FbxObject pObject, Connection.EType pType=Connection.EType.None)
         {

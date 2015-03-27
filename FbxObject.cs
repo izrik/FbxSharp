@@ -12,8 +12,11 @@ namespace FbxSharp
         {
             Name = name ?? "";
 
-            DstObjects = new ObjectDstObjectCollection(this);
             SrcObjects = new ObjectSrcObjectCollection(this);
+            DstObjects = new ObjectDstObjectCollection(this);
+
+            SrcProperties = new ObjectSrcPropertyCollection(this);
+            DstProperties = new ObjectDstPropertyCollection(this);
 
             UniqueId = __uniqueId;
             __uniqueId++;
@@ -124,6 +127,9 @@ namespace FbxSharp
         #region Property Management
 
         public readonly List<Property> Properties = new List<Property>();
+
+        public readonly ObjectSrcPropertyCollection SrcProperties;
+        public readonly ObjectDstPropertyCollection DstProperties;
 
         public Property GetFirstProperty()
         {
