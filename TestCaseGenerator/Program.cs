@@ -311,8 +311,11 @@ namespace TestCaseGenerator
                             if ((parts.Count > 3 && parts[2] == "=" && !parts[0].StartsWith("Fbx")) ||
                                 (parts.Count == 2 && Regex.IsMatch(parts[0], @"^\w+$") && Regex.IsMatch(parts[1], @"^\w+$") && !parts[0].StartsWith("Fbx")))
                             {
-                                parts[0] = "Fbx" + parts[0];
-                                outline = string.Join(" ", parts);
+                                if (char.IsUpper(parts[0][0]))
+                                {
+                                    parts[0] = "Fbx" + parts[0];
+                                    outline = string.Join(" ", parts);
+                                }
                             }
 
                             if (Regex.IsMatch(outline, @"\bnew\b"))
@@ -327,7 +330,7 @@ namespace TestCaseGenerator
                             parts = outline.Split(' ').ToList();
                             if (parts.Count > 3 && parts[2] == "=")
                             {
-                                if (parts[0].EndsWith("!"))
+                                if (char.IsLower(parts[0][0]) || parts[0].EndsWith("!"))
                                 {
                                     parts[0] = parts[0].Replace("!", "");
                                 }
