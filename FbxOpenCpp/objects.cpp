@@ -102,7 +102,7 @@ void PrintObject(FbxObject* obj, const char* prefix)
     {
         FbxProperty prop = obj->GetDstProperty(i);
         char nn[1024];
-        sprintf(nn, "%s.Property[%i] = ", prefix, i);
+        sprintf(nn, "%s.DstProperty[%i] = ", prefix, i);
         cout << nn;
         PrintPropertyID(&prop);
         cout << endl;
