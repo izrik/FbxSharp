@@ -92,7 +92,6 @@
     <Compile Include="DstObjectCollection.cs" />
     <Compile Include="AnimEvaluator.cs" />
     <Compile Include="GlobalSettings.cs" />
-    <Compile Include="IConnectedObjectCollection.cs" />
     <Compile Include="CollectionView.cs" />
     <Compile Include="ObjectView.cs" />
     <Compile Include="Vector4.cs" />

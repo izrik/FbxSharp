@@ -3,18 +3,13 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class DstObjectCollection : IConnectedObjectCollection, IDisposable
+    public class DstObjectCollection : IList<FbxObject>
     {
         // An ordered collection of FbxObject destination objects
 
         public DstObjectCollection(FbxObject container)
         {
             _container = container;
-        }
-
-        public virtual void Dispose()
-        {
-            Clear();
         }
 
         public void AddRange(params FbxObject[] items)
