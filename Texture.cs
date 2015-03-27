@@ -4,6 +4,11 @@ namespace FbxSharp
 {
     public class Texture : FbxObject
     {
+        public Texture(string name="")
+            : base(name)
+        {
+        }
+
         public string Type;
 
         public string Media;
