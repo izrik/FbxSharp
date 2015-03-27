@@ -51,7 +51,7 @@ namespace FbxSharp
         public readonly ObjectSrcObjectCollection SrcObjects;
         public readonly ObjectDstObjectCollection DstObjects;
 
-        public virtual void ConnectSrcObject(FbxObject fbxObject, Connection.EType type = Connection.EType.None)
+        public virtual void ConnectSrcObject(FbxObject fbxObject/*, Connection.EType type = Connection.EType.None*/)
         {
             SrcObjects.Add(fbxObject);
         }
@@ -86,7 +86,7 @@ namespace FbxSharp
             return SrcObjects[pIndex];
         }
 
-        public virtual bool ConnectDstObject(FbxObject pObject, Connection.EType pType = Connection.EType.None)
+        public virtual bool ConnectDstObject(FbxObject pObject/*, Connection.EType pType = Connection.EType.None*/)
         {
             DstObjects.Add(pObject);
             return true;
@@ -182,27 +182,32 @@ namespace FbxSharp
 
         public bool ConnectSrcProperty(Property pProperty)
         {
-            throw new NotImplementedException();
+            if (SrcProperties.Contains(pProperty))
+                return false;
+
+            SrcProperties.Add(pProperty);
+
+            return true;
         }
 
         public bool IsConnectedSrcProperty(Property pProperty)
         {
-            throw new NotImplementedException();
+            return SrcProperties.Contains(pProperty);
         }
 
         public bool DisconnectSrcProperty(Property pProperty)
         {
-            throw new NotImplementedException();
+            return SrcProperties.Remove(pProperty);
         }
 
         public int GetSrcPropertyCount()
         {
-            return 0;
+            return SrcProperties.Count;
         }
 
         public Property GetSrcProperty(int pIndex=0)
         {
-            throw new NotImplementedException();
+            return SrcProperties[pIndex];
         }
 
         public Property FindSrcProperty(string pName, int pStartIndex=0)
@@ -212,27 +217,32 @@ namespace FbxSharp
 
         public bool ConnectDstProperty(Property pProperty)
         {
-            throw new NotImplementedException();
+            if (DstProperties.Contains(pProperty))
+                return false;
+
+            DstProperties.Add(pProperty);
+
+            return true;
         }
 
         public bool IsConnectedDstProperty(Property pProperty)
         {
-            throw new NotImplementedException();
+            return DstProperties.Contains(pProperty);
         }
 
         public bool DisconnectDstProperty(Property pProperty)
         {
-            throw new NotImplementedException();
+            return DstProperties.Remove(pProperty);
         }
 
         public int GetDstPropertyCount()
         {
-            return 0;
+            return DstProperties.Count;
         }
 
         public Property GetDstProperty(int pIndex=0)
         {
-            throw new NotImplementedException();
+            return DstProperties[pIndex];
         }
 
         public Property FindDstProperty(string pName, int pStartIndex=0)

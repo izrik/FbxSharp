@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FbxSharp
 {
@@ -108,24 +109,33 @@ namespace FbxSharp
         public readonly PropertySrcObjectCollection SrcObjects;
         public readonly PropertyDstObjectCollection DstObjects;
 
-        public bool ConnectSrcObject(FbxObject pObject, Connection.EType pType=Connection.EType.None)
+        public bool ConnectSrcObject(FbxObject pObject/*, Connection.EType pType=Connection.EType.None*/)
         {
-            throw new NotImplementedException();
+            if (SrcObjects.Contains(pObject))
+                return false;
+
+            SrcObjects.Add(pObject);
+
+            return true;
         }
 
         public bool IsConnectedSrcObject(FbxObject pObject)
         {
-            throw new NotImplementedException();
+            return SrcObjects.Contains(pObject);
         }
 
         public bool DisconnectSrcObject(FbxObject pObject)
         {
-            throw new NotImplementedException();
+            return SrcObjects.Remove(pObject);
         }
 
         public bool DisconnectAllSrcObject()
         {
-            throw new NotImplementedException();
+            foreach (var src in SrcObjects.ToArray())
+            {
+                DisconnectSrcObject(src);
+            }
+            return true;
         }
 
         //public bool DisconnectAllSrcObject(FbxCriteria pCriteria)
@@ -135,7 +145,7 @@ namespace FbxSharp
 
         public int GetSrcObjectCount()
         {
-            throw new NotImplementedException();
+            return SrcObjects.Count;
         }
 
         //public int GetSrcObjectCount(FbxCriteria pCriteria)
@@ -145,7 +155,7 @@ namespace FbxSharp
 
         public FbxObject GetSrcObject(int pIndex=0)
         {
-            throw new NotImplementedException();
+            return SrcObjects[pIndex];
         }
 
         //public FbxObject GetSrcObject(FbxCriteria pCriteria, int pIndex=0)
@@ -213,22 +223,31 @@ namespace FbxSharp
 
         public bool ConnectDstObject(FbxObject pObject, Connection.EType pType=Connection.EType.None)
         {
-            throw new NotImplementedException();
+            if (DstObjects.Contains(pObject))
+                return false;
+
+            DstObjects.Add(pObject);
+
+            return true;
         }
 
         public bool IsConnectedDstObject(FbxObject pObject)
         {
-            throw new NotImplementedException();
+            return DstObjects.Contains(pObject);
         }
 
         public bool DisconnectDstObject(FbxObject pObject)
         {
-            throw new NotImplementedException();
+            return DstObjects.Remove(pObject);
         }
 
         public bool DisconnectAllDstObject()
         {
-            throw new NotImplementedException();
+            foreach (var dst in DstObjects.ToArray())
+            {
+                DisconnectDstObject(dst);
+            }
+            return true;
         }
 
         //public bool DisconnectAllDstObject(FbxCriteria pCriteria)
@@ -238,7 +257,7 @@ namespace FbxSharp
 
         public int GetDstObjectCount()
         {
-            throw new NotImplementedException();
+            return DstObjects.Count;
         }
 
         //public int GetDstObjectCount(FbxCriteria pCriteria)
@@ -248,7 +267,7 @@ namespace FbxSharp
 
         public FbxObject GetDstObject(int pIndex=0)
         {
-            throw new NotImplementedException();
+            return DstObjects[pIndex];
         }
 
         //public FbxObject GetDstObject(FbxCriteria pCriteria, int pIndex=0)

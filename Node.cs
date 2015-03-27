@@ -115,9 +115,9 @@ namespace FbxSharp
             return true;
         }
 
-        public override void ConnectSrcObject(FbxObject fbxObject, Connection.EType type = Connection.EType.None)
+        public override void ConnectSrcObject(FbxObject fbxObject/*, Connection.EType type = Connection.EType.None*/)
         {
-            base.ConnectSrcObject(fbxObject, type);
+            base.ConnectSrcObject(fbxObject/*, type*/);
 
             if (fbxObject is Node)
             {
