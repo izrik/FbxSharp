@@ -158,4 +158,38 @@ void PrintProperty(FbxProperty* prop, const char* prefix)
     {
         cout << prefix << ".Value = " << n << endl;
     }
+
+
+    cout << prefix << ".GetSrcObjectCount() = " << prop->GetSrcObjectCount() << endl;
+    for (i = 0; i < prop->GetSrcObjectCount(); i++)
+    {
+        FbxObject* srcObj = prop->GetSrcObject(i);
+        cout << prefix << ".SrcObject[" << i << "] = ";
+        PrintObjectID(srcObj);
+        cout << endl;
+    }
+    cout << prefix << ".GetDstObjectCount() = " << prop->GetDstObjectCount() << endl;
+    for (i = 0; i < prop->GetDstObjectCount(); i++)
+    {
+        FbxObject* dstObj = prop->GetDstObject(i);
+        cout << prefix << ".DstObject[" << i << "] = ";
+        PrintObjectID(dstObj);
+        cout << endl;
+    }
+    cout << prefix << ".GetSrcPropertyCount() = " << prop->GetSrcPropertyCount() << endl;
+    for (i = 0; i < prop->GetSrcPropertyCount(); i++)
+    {
+        FbxProperty prop2 = prop->GetSrcProperty(i);
+        cout << prefix << ".SrcProperty[" << i << "] = ";
+        PrintPropertyID(&prop2);
+        cout << endl;
+    }
+    cout << prefix << ".NumDstProperties() = " << prop->GetDstPropertyCount() << endl;
+    for (i = 0; i < prop->GetDstPropertyCount(); i++)
+    {
+        FbxProperty prop2 = prop->GetDstProperty(i);
+        cout << prefix << ".DstProperty[" << i << "] = ";
+        PrintPropertyID(&prop2);
+        cout << endl;
+    }
 }

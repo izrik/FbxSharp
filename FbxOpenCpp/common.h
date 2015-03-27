@@ -8,6 +8,9 @@
 #include <string>
 #include <sstream>
 
+void PrintObjectID(FbxObject* obj);
+void PrintPropertyID(FbxProperty* prop);
+
 void PrintObject(FbxObject* obj, const char* prefix="");
 
 void PrintScene(FbxScene* obj, const char* prefix="");

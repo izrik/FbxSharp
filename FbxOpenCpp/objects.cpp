@@ -16,6 +16,18 @@ void PrintObjectID(FbxObject* obj)
             obj->GetName();
 }
 
+void PrintPropertyID(FbxProperty* prop)
+{
+    if (prop == NULL)
+        cout << "<<null>>";
+    else
+    {
+        FbxObject* pobj = prop->GetFbxObject();
+        PrintObjectID(pobj);
+        cout << " -> " << prop->GetName() << " : " << prop->GetPropertyDataType();
+    }
+}
+
 void PrintObject(FbxObject* obj, const char* prefix)
 {
     char prefixn[1024];
@@ -62,7 +74,7 @@ void PrintObject(FbxObject* obj, const char* prefix)
         n++;
         prop = obj->GetNextProperty(prop);
     }
-    cout << prefix << ".Propreties = " << n << endl;
+    cout << prefix << ".Properties = " << n << endl;
 
     prop = obj->GetFirstProperty();
     n = 0;
@@ -76,7 +88,25 @@ void PrintObject(FbxObject* obj, const char* prefix)
     }
 
     cout << prefix << ".NumSrcProperties = " << obj->GetSrcPropertyCount() << endl;
+    for (i = 0; i < obj->GetSrcPropertyCount(); i++)
+    {
+        FbxProperty prop = obj->GetSrcProperty(i);
+        char nn[1024];
+        sprintf(nn, "%s.SrcProperty[%i] = ", prefix, i);
+        cout << nn;
+        PrintPropertyID(&prop);
+        cout << endl;
+    }
     cout << prefix << ".NumDstProperties = " << obj->GetDstPropertyCount() << endl;
+    for (i = 0; i < obj->GetDstPropertyCount(); i++)
+    {
+        FbxProperty prop = obj->GetDstProperty(i);
+        char nn[1024];
+        sprintf(nn, "%s.Property[%i] = ", prefix, i);
+        cout << nn;
+        PrintPropertyID(&prop);
+        cout << endl;
+    }
     if (obj->RootProperty.IsValid())
     {
         char nn[1024];
