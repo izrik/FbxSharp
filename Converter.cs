@@ -557,6 +557,7 @@ namespace FbxSharp
                 switch (type1)
                 {
                 case "ColorRGB":
+                case "Color":
                     var r = ((Number)p.Values[4]).AsDouble.Value;
                     var g = ((Number)p.Values[5]).AsDouble.Value;
                     var b = ((Number)p.Values[6]).AsDouble.Value;
