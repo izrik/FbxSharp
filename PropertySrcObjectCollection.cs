@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class PropertySrcObjectCollection : IList<FbxObject>, IDisposable
+    public class PropertySrcObjectCollection : IList<FbxObject>
     {
         // An ordered collection of FbxObject objects
 
@@ -12,9 +12,9 @@ namespace FbxSharp
             _container = container;
         }
 
-        public virtual void Dispose()
+        public override string ToString()
         {
-            Clear();
+            return string.Format("[PropertySrcObjectCollection: Count={0}]", Count);
         }
 
         public void AddRange(params FbxObject[] items)

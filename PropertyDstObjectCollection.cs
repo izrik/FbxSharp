@@ -12,6 +12,11 @@ namespace FbxSharp
             _container = container;
         }
 
+        public override string ToString()
+        {
+            return string.Format("[PropertyDstObjectCollection: Count={0}]", Count);
+        }
+
         public void AddRange(params FbxObject[] items)
         {
             AddRange((IEnumerable<FbxObject>)items);

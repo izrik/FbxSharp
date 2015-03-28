@@ -97,9 +97,6 @@ namespace FbxSharp
 
         #region Node Tree Management
 
-        // TODO: also create object-object connections
-        // TODO: put connection management code into the collection class
-
         //Get the parent node.
         public Node GetParent()
         {
