@@ -63,38 +63,15 @@
     <Compile Include="FbxObjectTest.cpp" />
     <Compile Include="SurfacePhongTest.cpp" />
     <Compile Include="PropertyTest.cpp" />
+    <Compile Include="DeformerTest.cpp" />
+    <Compile Include="SkinTest.cpp" />
+    <Compile Include="SubDeformerTest.cpp" />
+    <Compile Include="ClusterTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.h" />
     <None Include="Assertions.h" />
     <None Include="Tests.h" />
-    <None Include="..\test-cases\FbxObjectTest.tc">
-      <Link>FbxObjectTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\GeometryBaseTest.tc">
-      <Link>GeometryBaseTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\GeometryTest.tc">
-      <Link>GeometryTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\LayerContainerTest.tc">
-      <Link>LayerContainerTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\MeshTest.tc">
-      <Link>MeshTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\NodeTest.tc">
-      <Link>NodeTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\PropertyTest.tc">
-      <Link>PropertyTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\SceneTest.tc">
-      <Link>SceneTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\SurfacePhongTest.tc">
-      <Link>SurfacePhongTest.tc</Link>
-    </None>
     <None Include="\Applications\Autodesk\FBX SDK\2015.1\lib\clang\debug\libfbxsdk.dylib">
       <Link>libfbxsdk.dylib</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

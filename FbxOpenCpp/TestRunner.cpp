@@ -118,6 +118,10 @@ void RunTests()
     tests.push_back(new FbxObjectTest());
     tests.push_back(new SurfacePhongTest());
     tests.push_back(new PropertyTest());
+    tests.push_back(new DeformerTest());
+    tests.push_back(new SubDeformerTest());
+    tests.push_back(new SkinTest());
+    tests.push_back(new ClusterTest());
 
     cout << "Running tests..." << endl;
 

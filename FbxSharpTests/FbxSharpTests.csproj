@@ -56,36 +56,13 @@
     <Compile Include="SurfacePhongTest.cs" />
     <Compile Include="FbxObjectTest.cs" />
     <Compile Include="PropertyTest.cs" />
+    <Compile Include="DeformerTest.cs" />
+    <Compile Include="SkinTest.cs" />
+    <Compile Include="SubDeformerTest.cs" />
+    <Compile Include="ClusterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="..\test-cases\FbxObjectTest.tc">
-      <Link>FbxObjectTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\GeometryBaseTest.tc">
-      <Link>GeometryBaseTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\GeometryTest.tc">
-      <Link>GeometryTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\LayerContainerTest.tc">
-      <Link>LayerContainerTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\MeshTest.tc">
-      <Link>MeshTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\NodeTest.tc">
-      <Link>NodeTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\PropertyTest.tc">
-      <Link>PropertyTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\SceneTest.tc">
-      <Link>SceneTest.tc</Link>
-    </None>
-    <None Include="..\test-cases\SurfacePhongTest.tc">
-      <Link>SurfacePhongTest.tc</Link>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

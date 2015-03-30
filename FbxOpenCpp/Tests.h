@@ -56,5 +56,9 @@ TestClass(MeshTest);
 TestClass(FbxObjectTest);
 TestClass(SurfacePhongTest);
 TestClass(PropertyTest);
+TestClass(DeformerTest);
+TestClass(SubDeformerTest);
+TestClass(SkinTest);
+TestClass(ClusterTest);
 
 #endif // __FBXOPENCPP_TESTS_H
