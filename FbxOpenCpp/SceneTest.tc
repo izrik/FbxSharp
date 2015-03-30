@@ -1,0 +1,243 @@
+﻿fixture SceneTest
+test Scene_AddNode_AddsNode
+    given
+    Scene scene = new("TheScene")
+    Node node = new("ChildNode")
+
+    require
+    AssertEqual(3, scene.GetSrcObjectCount())
+    AssertEqual(scene.GetRootNode(), scene.GetSrcObject(0))
+    AssertEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1))
+    AssertEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2))
+    AssertEqual(0, scene.GetDstObjectCount())
+    AssertEqual(1, scene.GetNodeCount())
+    AssertEqual(scene.GetRootNode(), scene.GetNode(0))
+
+    AssertEqual(0, node.GetSrcObjectCount())
+    AssertEqual(0, node.GetDstObjectCount())
+    AssertEqual(null, node.GetScene())
+
+    when
+    scene.AddNode(node)
+
+    then
+    AssertEqual(4, scene.GetSrcObjectCount())
+    AssertEqual(scene.GetRootNode(), scene.GetSrcObject(0))
+    AssertEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1))
+    AssertEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2))
+    AssertEqual(node, scene.GetSrcObject(3))
+    AssertEqual(0, scene.GetDstObjectCount())
+    AssertEqual(2, scene.GetNodeCount())
+    AssertEqual(scene.GetRootNode(), scene.GetNode(0))
+    AssertEqual(node, scene.GetNode(1))
+
+    AssertEqual(0, node.GetSrcObjectCount())
+    AssertEqual(1, node.GetDstObjectCount())
+    AssertEqual(scene, node.GetDstObject(0))
+    AssertEqual(scene, node.GetScene())
+
+test RootNode_AddChildNode_AddsNodeToScene
+    given
+    Scene scene = new("TheScene")
+    Node root = scene.GetRootNode()
+    Node node = new("ChildNode")
+
+    require
+    AssertEqual(3, scene.GetSrcObjectCount())
+    AssertEqual(root, scene.GetSrcObject(0))
+    AssertEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1))
+    AssertEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2))
+    AssertEqual(0, scene.GetDstObjectCount())
+    AssertEqual(1, scene.GetNodeCount())
+    AssertEqual(root, scene.GetNode(0))
+
+    AssertEqual(0, root.GetSrcObjectCount())
+    AssertEqual(1, root.GetDstObjectCount())
+    AssertEqual(scene, root.GetDstObject(0))
+    AssertEqual(scene, root.GetScene())
+
+    AssertEqual(0, node.GetSrcObjectCount())
+    AssertEqual(0, node.GetDstObjectCount())
+    AssertEqual(null, node.GetScene())
+
+    when
+    root.AddChild(node)
+
+    then
+    AssertEqual(4, scene.GetSrcObjectCount())
+    AssertEqual(0, scene.GetDstObjectCount())
+    AssertEqual(root, scene.GetSrcObject(0))
+    AssertEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1))
+    AssertEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2))
+    AssertEqual(node, scene.GetSrcObject(3))
+    AssertEqual(0, scene.GetDstObjectCount())
+    AssertEqual(2, scene.GetNodeCount())
+    AssertEqual(root, scene.GetNode(0))
+    AssertEqual(node, scene.GetNode(1))
+
+    AssertEqual(1, root.GetSrcObjectCount())
+    AssertEqual(node, root.GetSrcObject(0))
+    AssertEqual(1, root.GetDstObjectCount())
+    AssertEqual(scene, root.GetDstObject(0))
+    AssertEqual(scene, root.GetScene())
+
+    AssertEqual(0, node.GetSrcObjectCount())
+    AssertEqual(2, node.GetDstObjectCount())
+    AssertEqual(root, node.GetDstObject(0))
+    AssertEqual(scene, node.GetDstObject(1))
+    AssertEqual(scene, node.GetScene())
+
+
+test Scene_Create_HasRootNode
+    given
+
+    when
+    Scene scene = new("Scene1")
+    Node root = scene.GetRootNode()
+
+    then
+    AssertEqual(3, scene.GetSrcObjectCount())
+    AssertEqual(root, scene.GetSrcObject(0))
+    AssertEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1))
+    AssertEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2))
+    AssertEqual(0, scene.GetDstObjectCount())
+    AssertEqual(1, scene.GetNodeCount())
+    AssertEqual(root, scene.GetNode(0))
+
+    AssertNotEqual(NULL, root)
+    AssertEqual(0, root.GetSrcObjectCount())
+    AssertEqual(1, root.GetDstObjectCount())
+    AssertEqual(scene, root.GetDstObject(0))
+    AssertEqual(scene, root.GetScene())
+    AssertEqual(0, root.GetChildCount())
+
+test Scene_Create_HasZeroPoses
+    given
+
+    when
+    Scene scene = new("Scene1")
+
+    then
+    AssertEqual(0, scene.GetPoseCount())
+
+test Scene_AddPose_AddsPose
+    given
+    Scene scene = new("Scene")
+    Pose pose = new("Pose")
+
+    require
+    AssertEqual(3, scene.GetSrcObjectCount())
+    AssertEqual(scene.GetRootNode(), scene.GetSrcObject(0))
+    AssertEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1))
+    AssertEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2))
+    AssertEqual(0, scene.GetDstObjectCount())
+    AssertEqual(0, scene.GetPoseCount())
+
+    AssertEqual(0, pose.GetSrcObjectCount())
+    AssertEqual(0, pose.GetDstObjectCount())
+    AssertEqual(null, pose.GetScene())
+
+    when
+    scene.AddPose(pose)
+
+    then
+    AssertEqual(4, scene.GetSrcObjectCount())
+    AssertEqual(scene.GetRootNode(), scene.GetSrcObject(0))
+    AssertEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1))
+    AssertEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2))
+    AssertEqual(pose, scene.GetSrcObject(3))
+    AssertEqual(0, scene.GetDstObjectCount())
+    AssertEqual(1, scene.GetPoseCount())
+    AssertEqual(pose, scene.GetPose(0))
+
+    AssertEqual(0, pose.GetSrcObjectCount())
+    AssertEqual(1, pose.GetDstObjectCount())
+    AssertEqual(scene, pose.GetDstObject(0))
+    AssertEqual(scene, pose.GetScene())
+
+test Scene_ConnectSrcObject_AddsPose
+    given
+    Scene scene = new("Scene")
+    Pose pose = new("Pose")
+
+    require
+    AssertEqual(3, scene.GetSrcObjectCount())
+    AssertEqual(scene.GetRootNode(), scene.GetSrcObject(0))
+    AssertEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1))
+    AssertEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2))
+    AssertEqual(0, scene.GetDstObjectCount())
+    AssertEqual(0, scene.GetPoseCount())
+
+    AssertEqual(0, pose.GetSrcObjectCount())
+    AssertEqual(0, pose.GetDstObjectCount())
+    AssertEqual(null, pose.GetScene())
+
+    when
+    scene.ConnectSrcObject(pose)
+
+    then
+    AssertEqual(4, scene.GetSrcObjectCount())
+    AssertEqual(scene.GetRootNode(), scene.GetSrcObject(0))
+    AssertEqual(&scene.GetGlobalSettings(), scene.GetSrcObject(1))
+    AssertEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2))
+    AssertEqual(pose, scene.GetSrcObject(3))
+    AssertEqual(0, scene.GetDstObjectCount())
+    AssertEqual(1, scene.GetPoseCount())
+    AssertEqual(pose, scene.GetPose(0))
+
+    AssertEqual(0, pose.GetSrcObjectCount())
+    AssertEqual(1, pose.GetDstObjectCount())
+    AssertEqual(scene, pose.GetDstObject(0))
+    AssertEqual(scene, pose.GetScene())
+
+test Scene_Create_HasProperties
+    given
+    Scene scene = new("")
+    Property prop
+
+    then
+    AssertEqual(2, CountProperties(scene))
+    AssertEqual(0, scene.GetSrcPropertyCount())
+    AssertEqual(0, scene.GetDstPropertyCount())
+
+    prop = scene.FindProperty("SourceObject")
+#cs AssertNotNull(prop)
+    AssertTrue(prop&.IsValid())
+#cs AssertNotNull(scene.Roots)
+    AssertTrue(scene.Roots&.IsValid())
+    AssertEqual("SourceObject", scene.Roots&.GetName())
+#cs AssertAreSame(prop, scene.Roots)
+
+    prop = scene.FindProperty("ActiveAnimStackName")
+#cs AssertNotNull(prop)
+    AssertTrue(prop&.IsValid())
+#cs AssertNotNull(scene.ActiveAnimStackName)
+    AssertTrue(scene.ActiveAnimStackName&.IsValid())
+    AssertEqual("ActiveAnimStackName", scene.ActiveAnimStackName&.GetName())
+#cs AssertAreSame(prop, scene.ActiveAnimStackName)
+
+test Document_Create_HasProperties
+    given
+    Document doc = new("")
+    Property prop
+
+    then
+    AssertEqual(2, CountProperties(doc))
+    AssertEqual(0, doc.GetSrcPropertyCount())
+    AssertEqual(0, doc.GetDstPropertyCount())
+
+    prop = doc.FindProperty("SourceObject")
+#cs AssertNotNull(prop)
+    AssertTrue(prop&.IsValid())
+#cs AssertNotNull(doc.Roots)
+    AssertTrue(doc.Roots&.IsValid())
+    AssertEqual("SourceObject", doc.Roots&.GetName())
+#cs AssertAreSame(prop, doc.Roots)
+
+    prop = doc.FindProperty("ActiveAnimStackName")
+#cs AssertNotNull(prop)
+    AssertTrue(prop&.IsValid())
+#cs AssertNotNull(doc.ActiveAnimStackName)
+    AssertTrue(doc.ActiveAnimStackName&.IsValid())
+    AssertEqual("ActiveAnimStackName", doc.ActiveAnimStackName&.GetName())
+#cs AssertAreSame(prop, doc.ActiveAnimStackName)
