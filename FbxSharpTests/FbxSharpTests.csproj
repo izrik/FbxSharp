@@ -10,6 +10,8 @@
     <AssemblyName>FbxSharpTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,15 +59,33 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="NodeTest.tc" />
-    <None Include="SceneTest.tc" />
-    <None Include="GeometryBaseTest.tc" />
-    <None Include="GeometryTest.tc" />
-    <None Include="LayerContainerTest.tc" />
-    <None Include="MeshTest.tc" />
-    <None Include="FbxObjectTest.tc" />
-    <None Include="SurfacePhongTest.tc" />
-    <None Include="PropertyTest.tc" />
+    <None Include="..\test-cases\FbxObjectTest.tc">
+      <Link>FbxObjectTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\GeometryBaseTest.tc">
+      <Link>GeometryBaseTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\GeometryTest.tc">
+      <Link>GeometryTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\LayerContainerTest.tc">
+      <Link>LayerContainerTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\MeshTest.tc">
+      <Link>MeshTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\NodeTest.tc">
+      <Link>NodeTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\PropertyTest.tc">
+      <Link>PropertyTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\SceneTest.tc">
+      <Link>SceneTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\SurfacePhongTest.tc">
+      <Link>SurfacePhongTest.tc</Link>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

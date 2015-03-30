@@ -9,6 +9,8 @@
     </Compiler>
     <Language>CPP</Language>
     <Target>Bin</Target>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,24 +65,39 @@
     <Compile Include="PropertyTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="model.fbx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include="common.h" />
+    <None Include="Assertions.h" />
+    <None Include="Tests.h" />
+    <None Include="..\test-cases\FbxObjectTest.tc">
+      <Link>FbxObjectTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\GeometryBaseTest.tc">
+      <Link>GeometryBaseTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\GeometryTest.tc">
+      <Link>GeometryTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\LayerContainerTest.tc">
+      <Link>LayerContainerTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\MeshTest.tc">
+      <Link>MeshTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\NodeTest.tc">
+      <Link>NodeTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\PropertyTest.tc">
+      <Link>PropertyTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\SceneTest.tc">
+      <Link>SceneTest.tc</Link>
+    </None>
+    <None Include="..\test-cases\SurfacePhongTest.tc">
+      <Link>SurfacePhongTest.tc</Link>
     </None>
     <None Include="\Applications\Autodesk\FBX SDK\2015.1\lib\clang\debug\libfbxsdk.dylib">
       <Link>libfbxsdk.dylib</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="common.h" />
-    <None Include="NodeTest.tc" />
-    <None Include="SceneTest.tc" />
-    <None Include="GeometryBaseTest.tc" />
-    <None Include="MeshTest.tc" />
-    <None Include="LayerContainerTest.tc" />
-    <None Include="GeometryTest.tc" />
-    <None Include="FbxObjectTest.tc" />
-    <None Include="SurfacePhongTest.tc" />
-    <None Include="PropertyTest.tc" />
-    <None Include="Assertions.h" />
-    <None Include="Tests.h" />
   </ItemGroup>
 </Project>
