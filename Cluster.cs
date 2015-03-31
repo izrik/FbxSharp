@@ -13,9 +13,6 @@ namespace FbxSharp
         public List<long> Indexes;
         public List<double> Weights;
 
-        public Matrix Transform;
-        public Matrix TransformLink;
-
         #region Public Member Functions
 
         public void SetControlPointIWCount(int pCount)
@@ -29,7 +26,7 @@ namespace FbxSharp
 
         public override EType GetSubDeformerType()
         {
-            throw new NotImplementedException();
+            return EType.eCluster;
         }
 
         public void Reset()
@@ -48,14 +45,16 @@ namespace FbxSharp
             eTotalOne,
         }
 
+        public ELinkMode LinkMode;
+
         public void SetLinkMode(ELinkMode pMode)
         {
-            throw new NotImplementedException();
+            LinkMode = pMode;
         }
 
         public ELinkMode GetLinkMode()
         {
-            throw new NotImplementedException();
+            return LinkMode;
         }
 
         public void SetLink(Node pNode)
@@ -106,24 +105,28 @@ namespace FbxSharp
 
         #region Transformation matrices
 
+        public Matrix Transform;
+
         public void SetTransformMatrix(Matrix pMatrix)
         {
-            throw new NotImplementedException();
+            Transform = pMatrix;
         }
 
         public Matrix GetTransformMatrix(Matrix pMatrix)
         {
-            throw new NotImplementedException();
+            return Transform;
         }
+
+        public Matrix TransformLink;
 
         public void SetTransformLinkMatrix(Matrix pMatrix)
         {
-            throw new NotImplementedException();
+            TransformLink = pMatrix;
         }
 
         public Matrix GetTransformLinkMatrix(Matrix pMatrix)
         {
-            throw new NotImplementedException();
+            return TransformLink;
         }
 
         public void SetTransformAssociateModelMatrix(Matrix pMatrix)
