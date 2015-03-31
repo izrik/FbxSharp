@@ -25,3 +25,30 @@ test Skin_SetGeometry_SetsGeometry
     AssertEqual(0, mesh.GetDstObjectCount())
     AssertEqual(1, mesh.GetDeformerCount())
     AssertSame(skin, mesh.GetDeformer(0))
+
+test Skin_AddCluster_AddsCluster
+	given
+	Skin s = new("")
+	Cluster c = new("")
+
+	require
+    AssertEqual(0, s.GetSrcObjectCount())
+    AssertEqual(0, s.GetDstObjectCount())
+    AssertEqual(0, s.GetClusterCount())
+
+    AssertEqual(0, c.GetSrcObjectCount())
+    AssertEqual(0, c.GetDstObjectCount())
+
+    when
+    s.AddCluster(c)
+
+    then
+    AssertEqual(1, s.GetSrcObjectCount())
+    AssertSame(c, s.GetSrcObject(0))
+    AssertEqual(0, s.GetDstObjectCount())
+    AssertEqual(1, s.GetClusterCount())
+    AssertSame(c, s.GetCluster(0))
+
+    AssertEqual(0, c.GetSrcObjectCount())
+    AssertEqual(1, c.GetDstObjectCount())
+    AssertSame(s, c.GetDstObject(0))

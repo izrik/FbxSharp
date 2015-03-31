@@ -8,6 +8,7 @@ namespace FbxSharp
             : base(name)
         {
             Geometry = this.DstObjects.CreateObjectView<Geometry>();
+            Clusters = this.SrcObjects.CreateCollectionView<Cluster>();
         }
 
         public double DeformAccuracy;
@@ -41,24 +42,30 @@ namespace FbxSharp
             return Geometry.Get();
         }
 
+        public readonly CollectionView<Cluster> Clusters;
+
         public bool AddCluster(Cluster pCluster)
         {
-            throw new NotImplementedException();
+            ConnectSrcObject(pCluster);
+            return true;
         }
 
         public Cluster RemoveCluster(Cluster pCluster)
         {
-            throw new NotImplementedException();
+            if (DisconnectSrcObject(pCluster))
+                return pCluster;
+
+            return null;
         }
 
         public int GetClusterCount()
         {
-            throw new NotImplementedException();
+            return Clusters.Count;
         }
 
         public Cluster GetCluster(int pIndex)
         {
-            throw new NotImplementedException();
+            return Clusters[pIndex];
         }
 
         public override EDeformerType GetDeformerType()

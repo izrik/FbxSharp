@@ -36,5 +36,35 @@ namespace FbxSharpTests
             Assert.AreEqual(1, mesh.GetDeformerCount());
             Assert.AreSame(skin, mesh.GetDeformer(0));
         }
+
+        [Test]
+        public void Skin_AddCluster_AddsCluster()
+        {
+            // given:
+            var s = new Skin("");
+            var c = new Cluster("");
+
+            // require:
+            Assert.AreEqual(0, s.GetSrcObjectCount());
+            Assert.AreEqual(0, s.GetDstObjectCount());
+            Assert.AreEqual(0, s.GetClusterCount());
+
+            Assert.AreEqual(0, c.GetSrcObjectCount());
+            Assert.AreEqual(0, c.GetDstObjectCount());
+
+            // when:
+            s.AddCluster(c);
+
+            // then:
+            Assert.AreEqual(1, s.GetSrcObjectCount());
+            Assert.AreSame(c, s.GetSrcObject(0));
+            Assert.AreEqual(0, s.GetDstObjectCount());
+            Assert.AreEqual(1, s.GetClusterCount());
+            Assert.AreSame(c, s.GetCluster(0));
+
+            Assert.AreEqual(0, c.GetSrcObjectCount());
+            Assert.AreEqual(1, c.GetDstObjectCount());
+            Assert.AreSame(s, c.GetDstObject(0));
+        }
     }
 }

@@ -33,8 +33,39 @@ void Skin_SetGeometry_SetsGeometry()
     AssertEqual(skin, mesh->GetDeformer(0));
 }
 
+void Skin_AddCluster_AddsCluster()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxSkin* s = FbxSkin::Create(manager, "");
+    FbxCluster* c = FbxCluster::Create(manager, "");
+
+    // require:
+    AssertEqual(0, s->GetSrcObjectCount());
+    AssertEqual(0, s->GetDstObjectCount());
+    AssertEqual(0, s->GetClusterCount());
+
+    AssertEqual(0, c->GetSrcObjectCount());
+    AssertEqual(0, c->GetDstObjectCount());
+
+    // when:
+    s->AddCluster(c);
+
+    // then:
+    AssertEqual(1, s->GetSrcObjectCount());
+    AssertEqual(c, s->GetSrcObject(0));
+    AssertEqual(0, s->GetDstObjectCount());
+    AssertEqual(1, s->GetClusterCount());
+    AssertEqual(c, s->GetCluster(0));
+
+    AssertEqual(0, c->GetSrcObjectCount());
+    AssertEqual(1, c->GetDstObjectCount());
+    AssertEqual(s, c->GetDstObject(0));
+}
+
 void SkinTest::RegisterTestCases()
 {
     AddTestCase(Skin_SetGeometry_SetsGeometry);
+    AddTestCase(Skin_AddCluster_AddsCluster);
 }
 
