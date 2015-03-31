@@ -131,7 +131,6 @@
     <None Include="FbxSharp.png" />
     <None Include="LICENSE" />
     <None Include="README.md" />
-    <None Include="test-cases\Cluster.tc" />
     <None Include="test-cases\DeformerTest.tc" />
     <None Include="test-cases\FbxObjectTest.tc" />
     <None Include="test-cases\GeometryBaseTest.tc" />
@@ -144,6 +143,7 @@
     <None Include="test-cases\SkinTest.tc" />
     <None Include="test-cases\SubDeformerTest.tc" />
     <None Include="test-cases\SurfacePhongTest.tc" />
+    <None Include="test-cases\ClusterTest.tc" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="test-cases\" />

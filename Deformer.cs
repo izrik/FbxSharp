@@ -2,12 +2,22 @@
 
 namespace FbxSharp
 {
-    public class Deformer : FbxObject
+    public abstract class Deformer : FbxObject
     {
-        public Deformer(string name="")
+        protected Deformer(string name="")
             : base(name)
         {
         }
+
+        public enum    EDeformerType
+        {
+            eUnknown,
+            eSkin,
+            eBlendShape,
+            eVertexCache,
+        }
+
+        public abstract EDeformerType GetDeformerType();
     }
 }
 
