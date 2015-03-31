@@ -1,1 +1,26 @@
 ﻿fixture ClusterTest
+test Cluster_SetLink_SetsLink
+	given
+	Cluster cluster = new("")
+	Node node = new("")
+
+	require
+    AssertEqual(0, cluster.GetSrcObjectCount())
+    AssertEqual(0, cluster.GetDstObjectCount())
+    AssertNull(cluster.GetLink())
+
+    AssertEqual(0, node.GetSrcObjectCount())
+    AssertEqual(0, node.GetDstObjectCount())
+
+    when
+    cluster.SetLink(node)
+
+	then
+    AssertEqual(1, cluster.GetSrcObjectCount())
+    AssertSame(node, cluster.GetSrcObject(0))
+    AssertEqual(0, cluster.GetDstObjectCount())
+    AssertSame(node, cluster.GetLink())
+
+    AssertEqual(0, node.GetSrcObjectCount())
+    AssertEqual(1, node.GetDstObjectCount())
+    AssertSame(cluster, node.GetDstObject(0))

@@ -8,6 +8,7 @@ namespace FbxSharp
         public Cluster(string name="")
             : base(name)
         {
+            Link = this.SrcObjects.CreateObjectView<Node>();
         }
 
         public List<long> Indexes;
@@ -57,14 +58,24 @@ namespace FbxSharp
             return LinkMode;
         }
 
+        public readonly ObjectView<Node> Link;
+
         public void SetLink(Node pNode)
         {
-            throw new NotImplementedException();
+            if (GetLink() == pNode)
+                return;
+
+            if (GetLink() != null)
+            {
+                DisconnectSrcObject(GetLink());
+            }
+
+            ConnectSrcObject(pNode);
         }
 
         public Node GetLink()
         {
-            throw new NotImplementedException();
+            return Link.Get();
         }
 
         public void SetAssociateModel(Node pNode)
