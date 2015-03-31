@@ -207,6 +207,7 @@ namespace TestCaseGenerator
                         default:
                             var outline = stmt.Replace("AssertEqual", "Assert.AreEqual");
                             outline = outline.Replace("AssertNotEqual", "Assert.AreNotEqual");
+                            outline = outline.Replace("AssertSame", "Assert.AreSame");
                             outline = Regex.Replace(outline, @"Assert(\w)", m => "Assert." + m.Groups[1].Value);
 
                             outline = outline.Replace("&", "");
@@ -306,6 +307,8 @@ namespace TestCaseGenerator
                             break;
                         default:
                             var outline = stmt;
+
+                            outline = outline.Replace("AssertSame", "AssertEqual");
 
                             parts = outline.Split(' ').ToList();
                             if ((parts.Count > 3 && parts[2] == "=" && !parts[0].StartsWith("Fbx")) ||
