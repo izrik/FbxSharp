@@ -683,6 +683,61 @@ void Node_Create_HasProperties()
     AssertEqual("Visibility Inheritance", node->VisibilityInheritance.GetName());
 }
 
+void Node_AddMaterial_SetsMaterialScene()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxScene* scene = FbxScene::Create(manager, "");
+    FbxNode* root = scene->GetRootNode();
+    FbxNode* node = FbxNode::Create(manager, "");
+    FbxSurfacePhong* mat = FbxSurfacePhong::Create(manager, "");
+
+    root->AddChild(node);
+
+    // require:
+    AssertEqual(4, scene->GetSrcObjectCount());
+    AssertEqual(scene->GetRootNode(), scene->GetSrcObject(0));
+    AssertEqual(&scene->GetGlobalSettings(), scene->GetSrcObject(1));
+    AssertEqual(scene->GetAnimationEvaluator(), scene->GetSrcObject(2));
+    AssertEqual(node, scene->GetSrcObject(3));
+    AssertEqual(0, scene->GetDstObjectCount());
+    AssertEqual(2, scene->GetNodeCount());
+    AssertEqual(scene->GetRootNode(), scene->GetNode(0));
+    AssertEqual(node, scene->GetNode(1));
+
+    AssertEqual(0, node->GetSrcObjectCount());
+    AssertEqual(2, node->GetDstObjectCount());
+    AssertEqual(root, node->GetDstObject(0));
+    AssertEqual(scene, node->GetDstObject(1));
+    AssertEqual(scene, node->GetScene());
+    AssertEqual(0, node->GetMaterialCount());
+
+    AssertEqual(0, mat->GetSrcObjectCount());
+    AssertEqual(0, mat->GetDstObjectCount());
+    AssertEqual(NULL, mat->GetScene());
+
+    // when:
+    node->AddMaterial(mat);
+
+    // then:
+    AssertEqual(5, scene->GetSrcObjectCount());
+    AssertEqual(mat, scene->GetSrcObject(4));
+    AssertEqual(2, scene->GetNodeCount());
+    AssertEqual(scene->GetRootNode(), scene->GetNode(0));
+    AssertEqual(node, scene->GetNode(1));
+
+    AssertEqual(1, node->GetSrcObjectCount());
+    AssertEqual(mat, node->GetSrcObject(0));
+    AssertEqual(1, node->GetMaterialCount());
+    AssertEqual(mat, node->GetMaterial(0));
+
+    AssertEqual(0, mat->GetSrcObjectCount());
+    AssertEqual(2, mat->GetDstObjectCount());
+    AssertEqual(node, mat->GetDstObject(0));
+    AssertEqual(scene, mat->GetDstObject(1));
+    AssertEqual(scene, mat->GetScene());
+}
+
 void NodeTest::RegisterTestCases()
 {
     AddTestCase(RootNode_AddChild_AddsConnection);
@@ -692,5 +747,6 @@ void NodeTest::RegisterTestCases()
     AddTestCase(RootNode_AddSrcObject_AddsChild);
     AddTestCase(Node_AddSrcObject_SetsNodeAttribute);
     AddTestCase(Node_Create_HasProperties);
+    AddTestCase(Node_AddMaterial_SetsMaterialScene);
 }
 

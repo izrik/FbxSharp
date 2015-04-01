@@ -116,28 +116,30 @@ namespace FbxSharp
         {
             base.ConnectSrcObject(fbxObject/*, type*/);
 
-            if (fbxObject is Node)
-            {
-                ConnectScene((Node)fbxObject);
-            }
+            ConnectScene(fbxObject);
         }
 
-        void ConnectScene(Node child)
+        void ConnectScene(FbxObject obj)
         {
-            if (child.Scene != this.Scene)
+            if (obj.Scene != this.Scene)
             {
-                if (child.Scene != null)
+                if (obj.Scene != null)
                 {
-                    child.DisconnectDstObject(child.Scene);
+                    obj.DisconnectDstObject(obj.Scene);
                 }
                 if (this.Scene != null)
                 {
-                    child.ConnectDstObject(this.Scene);
+                    obj.ConnectDstObject(this.Scene);
                 }
             }
-            foreach (var subchild in child.ChildNodes)
+
+            var node = obj as Node;
+            if (node != null)
             {
-                ConnectScene(subchild);
+                foreach (var child in node.ChildNodes)
+                {
+                    ConnectScene(child);
+                }
             }
         }
 

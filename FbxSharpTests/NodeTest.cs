@@ -899,5 +899,60 @@ namespace FbxSharpTests
             Assert.AreEqual("Visibility Inheritance", node.VisibilityInheritance.GetName());
             Assert.AreSame(prop, node.VisibilityInheritance);
         }
+
+        [Test]
+        public void Node_AddMaterial_SetsMaterialScene()
+        {
+            // given:
+            var scene = new Scene("");
+            var root = scene.GetRootNode();
+            var node = new Node("");
+            var mat = new SurfacePhong("");
+
+            root.AddChild(node);
+
+            // require:
+            Assert.AreEqual(4, scene.GetSrcObjectCount());
+            Assert.AreEqual(scene.GetRootNode(), scene.GetSrcObject(0));
+            Assert.AreEqual(scene.GetGlobalSettings(), scene.GetSrcObject(1));
+            Assert.AreEqual(scene.GetAnimationEvaluator(), scene.GetSrcObject(2));
+            Assert.AreEqual(node, scene.GetSrcObject(3));
+            Assert.AreEqual(0, scene.GetDstObjectCount());
+            Assert.AreEqual(2, scene.GetNodeCount());
+            Assert.AreEqual(scene.GetRootNode(), scene.GetNode(0));
+            Assert.AreEqual(node, scene.GetNode(1));
+
+            Assert.AreEqual(0, node.GetSrcObjectCount());
+            Assert.AreEqual(2, node.GetDstObjectCount());
+            Assert.AreEqual(root, node.GetDstObject(0));
+            Assert.AreEqual(scene, node.GetDstObject(1));
+            Assert.AreEqual(scene, node.GetScene());
+            Assert.AreEqual(0, node.GetMaterialCount());
+
+            Assert.AreEqual(0, mat.GetSrcObjectCount());
+            Assert.AreEqual(0, mat.GetDstObjectCount());
+            Assert.AreEqual(null, mat.GetScene());
+
+            // when:
+            node.AddMaterial(mat);
+
+            // then:
+            Assert.AreEqual(5, scene.GetSrcObjectCount());
+            Assert.AreEqual(mat, scene.GetSrcObject(4));
+            Assert.AreEqual(2, scene.GetNodeCount());
+            Assert.AreEqual(scene.GetRootNode(), scene.GetNode(0));
+            Assert.AreEqual(node, scene.GetNode(1));
+
+            Assert.AreEqual(1, node.GetSrcObjectCount());
+            Assert.AreEqual(mat, node.GetSrcObject(0));
+            Assert.AreEqual(1, node.GetMaterialCount());
+            Assert.AreEqual(mat, node.GetMaterial(0));
+
+            Assert.AreEqual(0, mat.GetSrcObjectCount());
+            Assert.AreEqual(2, mat.GetDstObjectCount());
+            Assert.AreEqual(node, mat.GetDstObject(0));
+            Assert.AreEqual(scene, mat.GetDstObject(1));
+            Assert.AreEqual(scene, mat.GetScene());
+        }
     }
 }
