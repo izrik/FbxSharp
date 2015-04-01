@@ -12,6 +12,8 @@ namespace FbxSharp
             RootNode = new Node();
 
             Poses = SrcObjects.CreateCollectionView<Pose>();
+            Materials = SrcObjects.CreateCollectionView<SurfaceMaterial>();
+            Textures = SrcObjects.CreateCollectionView<Texture>();
             Nodes = SrcObjects.CreateCollectionView<Node>();
 
             SrcObjects.Add(new GlobalSettings());
@@ -87,6 +89,70 @@ namespace FbxSharp
         public AnimEvaluator GetAnimationEvaluator()
         {
             return (AnimEvaluator)SrcObjects.FirstOrDefault(x => x is AnimEvaluator);
+        }
+
+        #endregion
+
+        #region Material Access
+
+        public readonly CollectionView<SurfaceMaterial> Materials;
+
+        public int GetMaterialCount()
+        {
+            return Materials.Count;
+        }
+
+        public SurfaceMaterial GetMaterial(int pIndex)
+        {
+            return Materials[pIndex];
+        }
+
+        public SurfaceMaterial GetMaterial(string pName)
+        {
+            return Materials.FirstOrDefault(m => m.Name == pName);
+        }
+
+        public bool AddMaterial(SurfaceMaterial pMaterial)
+        {
+            ConnectSrcObject(pMaterial);
+            return true;
+        }
+
+        public bool RemoveMaterial(SurfaceMaterial pMaterial)
+        {
+            return DisconnectSrcObject(pMaterial);
+        }
+
+        #endregion
+
+        #region Texture Access
+
+        public readonly CollectionView<Texture> Textures;
+
+        public int GetTextureCount()
+        {
+            return Textures.Count;
+        }
+
+        public Texture GetTexture(int pIndex)
+        {
+            return Textures[pIndex];
+        }
+
+        public Texture GetTexture(string pName)
+        {
+            return Textures.FirstOrDefault(t => t.Name == pName);
+        }
+
+        public bool AddTexture(Texture pTexture)
+        {
+            ConnectSrcObject(pTexture);
+            return true;
+        }
+
+        public bool RemoveTexture(Texture pTexture)
+        {
+            return DisconnectSrcObject(pTexture);
         }
 
         #endregion
