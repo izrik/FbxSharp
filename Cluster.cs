@@ -116,7 +116,7 @@ namespace FbxSharp
 
         #region Transformation matrices
 
-        public Matrix Transform;
+        public Matrix Transform = Matrix.Identity;
 
         public void SetTransformMatrix(Matrix pMatrix)
         {
@@ -128,7 +128,7 @@ namespace FbxSharp
             return Transform;
         }
 
-        public Matrix TransformLink;
+        public Matrix TransformLink = Matrix.Identity;
 
         public void SetTransformLinkMatrix(Matrix pMatrix)
         {

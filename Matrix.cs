@@ -4,6 +4,10 @@ namespace FbxSharp
 {
     public struct Matrix
     {
+        public static readonly Matrix Identity = new Matrix(1,0,0,0,
+                                                            0,1,0,0,
+                                                            0,0,1,0,
+                                                            0,0,0,1);
 
         public Matrix(Matrix pM)
         {
