@@ -947,11 +947,13 @@ namespace FbxSharp
                 case "UserData":
                     break;
                 case "Indexes":
-                    cluster.Indexes = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToList();
+                    cluster.ControlPointIndices.AddRange(
+                        prop.Properties[0].Values.Select(n => (int)((Number)n).AsLong.Value));
                     hasIndexes = true;
                     break;
                 case "Weights":
-                    cluster.Weights = prop.Properties[0].Values.Select(n => ((Number)n).AsDouble.Value).ToList();
+                    cluster.ControlPointWeights.AddRange(
+                        prop.Properties[0].Values.Select(n => ((Number)n).AsDouble.Value));
                     hasWeights = true;
                     break;
                 case "Transform":

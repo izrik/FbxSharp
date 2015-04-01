@@ -11,9 +11,6 @@ namespace FbxSharp
             Link = this.SrcObjects.CreateObjectView<Node>();
         }
 
-        public List<long> Indexes;
-        public List<double> Weights;
-
         #region Public Member Functions
 
         public void SetControlPointIWCount(int pCount)
@@ -46,7 +43,7 @@ namespace FbxSharp
             eTotalOne,
         }
 
-        public ELinkMode LinkMode;
+        public ELinkMode LinkMode = ELinkMode.eNormalize;
 
         public void SetLinkMode(ELinkMode pMode)
         {
@@ -92,24 +89,28 @@ namespace FbxSharp
 
         #region Control Points
 
+        public readonly List<int> ControlPointIndices = new List<int>();
+        public readonly List<double> ControlPointWeights = new List<double>();
+
         public void AddControlPointIndex(int pIndex, double pWeight)
         {
-            throw new NotImplementedException();
+            ControlPointIndices.Add(pIndex);
+            ControlPointWeights.Add(pWeight);
         }
 
         public int GetControlPointIndicesCount()
         {
-            throw new NotImplementedException();
+            return ControlPointIndices.Count;
         }
 
-        public int GetControlPointIndices()
+        public IList<int> GetControlPointIndices()
         {
-            throw new NotImplementedException();
+            return ControlPointIndices;
         }
 
-        public double GetControlPointWeights()
+        public IList<double> GetControlPointWeights()
         {
-            throw new NotImplementedException();
+            return ControlPointWeights;
         }
 
         #endregion
