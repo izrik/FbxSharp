@@ -15,7 +15,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug</OutputPath>
-    <Externalconsole>true</Externalconsole>
     <OutputName>FbxOpenCpp</OutputName>
     <CompileTarget>Bin</CompileTarget>
     <DefineSymbols>DEBUG MONODEVELOP</DefineSymbols>
@@ -35,6 +34,7 @@
         <LibPath>/Applications/Autodesk/FBX\ SDK/2015.1/lib/clang/debug</LibPath>
       </LibPaths>
     </LibPaths>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release</OutputPath>
@@ -67,6 +67,7 @@
     <Compile Include="SkinTest.cpp" />
     <Compile Include="SubDeformerTest.cpp" />
     <Compile Include="ClusterTest.cpp" />
+    <Compile Include="Collector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.h" />
@@ -76,5 +77,6 @@
       <Link>libfbxsdk.dylib</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Collector.h" />
   </ItemGroup>
 </Project>

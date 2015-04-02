@@ -41,13 +41,15 @@ const char* GetTypeName(EFbxType tid)
     return "<<unknown>>";
 }
 
-void PrintProperty(FbxProperty* prop, const char* prefix)
+void PrintProperty(FbxProperty* prop, bool indent)
 {
-    cout << prefix << ".Name = " << prop->GetName() << endl;
+    const char * prefix = indent ? "            " : "        ";
+
+    cout << prefix << "Name = " << prop->GetName() << endl;
     FbxDataType type = prop->GetPropertyDataType();
-    cout << prefix << ".Type = " << type.GetName() << " (" << GetTypeName(type.GetType()) << ")" << endl;
-    cout << prefix << ".HierName = " << prop->GetHierarchicalName() << endl;
-    cout << prefix << ".Label = " << prop->GetLabel() << endl;
+    cout << prefix << "Type = " << type.GetName() << " (" << GetTypeName(type.GetType()) << ")" << endl;
+    cout << prefix << "HierName = " << prop->GetHierarchicalName() << endl;
+    cout << prefix << "Label = " << prop->GetLabel() << endl;
 
     char n[1024];
     int i;
@@ -109,7 +111,7 @@ void PrintProperty(FbxProperty* prop, const char* prefix)
             if (b)
                 sprintf(n, "true");
             else
-                sprintf(n, "true");
+                sprintf(n, "false");
             break;
         case eFbxInt:
             i = prop->Get<int>();
@@ -142,12 +144,12 @@ void PrintProperty(FbxProperty* prop, const char* prefix)
             fstr = prop->Get<FbxString>();
             sprintf(n, "%s", fstr.Buffer());
             break;
-        case eFbxTime:
         case eFbxReference:
 //            FbxObject* obj;
 //            obj = prop->Get<FbxObject*>();
 //            cout << prefix << ".Value = " << obj->GetRuntimeClassId().GetName() << ", uid=" << obj->GetUniqueID() << endl;
 //            break;
+        case eFbxTime:
         case eFbxBlob:
         case eFbxDistance:
         case eFbxDateTime:
@@ -156,39 +158,39 @@ void PrintProperty(FbxProperty* prop, const char* prefix)
     }
     if (n[0])
     {
-        cout << prefix << ".Value = " << n << endl;
+        cout << prefix << "Value = " << n << endl;
     }
 
 
-    cout << prefix << ".GetSrcObjectCount() = " << prop->GetSrcObjectCount() << endl;
+    cout << prefix << "SrcObjectCount = " << prop->GetSrcObjectCount() << endl;
     for (i = 0; i < prop->GetSrcObjectCount(); i++)
     {
         FbxObject* srcObj = prop->GetSrcObject(i);
-        cout << prefix << ".SrcObject[" << i << "] = ";
+        cout << prefix << "    #" << i << " ";
         PrintObjectID(srcObj);
         cout << endl;
     }
-    cout << prefix << ".GetDstObjectCount() = " << prop->GetDstObjectCount() << endl;
+    cout << prefix << "DstObjectCount = " << prop->GetDstObjectCount() << endl;
     for (i = 0; i < prop->GetDstObjectCount(); i++)
     {
         FbxObject* dstObj = prop->GetDstObject(i);
-        cout << prefix << ".DstObject[" << i << "] = ";
+        cout << prefix << "    #" << i << " ";
         PrintObjectID(dstObj);
         cout << endl;
     }
-    cout << prefix << ".GetSrcPropertyCount() = " << prop->GetSrcPropertyCount() << endl;
+    cout << prefix << "SrcPropertyCount = " << prop->GetSrcPropertyCount() << endl;
     for (i = 0; i < prop->GetSrcPropertyCount(); i++)
     {
         FbxProperty prop2 = prop->GetSrcProperty(i);
-        cout << prefix << ".SrcProperty[" << i << "] = ";
+        cout << prefix << "    #" << i << " ";
         PrintPropertyID(&prop2);
         cout << endl;
     }
-    cout << prefix << ".NumDstProperties() = " << prop->GetDstPropertyCount() << endl;
+    cout << prefix << "DstPropertyCount = " << prop->GetDstPropertyCount() << endl;
     for (i = 0; i < prop->GetDstPropertyCount(); i++)
     {
         FbxProperty prop2 = prop->GetDstProperty(i);
-        cout << prefix << ".DstProperty[" << i << "] = ";
+        cout << prefix << "    #" << i << " ";
         PrintPropertyID(&prop2);
         cout << endl;
     }
