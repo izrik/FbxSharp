@@ -118,7 +118,6 @@ void PrintObject(FbxObject* obj)
         cout << "        #" << i << " ";
         PrintPropertyID(&prop);
         cout << endl;
-        PrintProperty(&prop);
     }
     cout << "    DstPropertyCount = " << obj->GetDstPropertyCount() << endl;
     for (i = 0; i < obj->GetDstPropertyCount(); i++)
@@ -127,7 +126,6 @@ void PrintObject(FbxObject* obj)
         cout << "        #" << i << " ";
         PrintPropertyID(&prop);
         cout << endl;
-        PrintProperty(&prop);
     }
     if (obj->RootProperty.IsValid())
     {
