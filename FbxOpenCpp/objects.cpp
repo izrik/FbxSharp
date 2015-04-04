@@ -236,7 +236,28 @@ void PrintAnimStack(FbxAnimStack* animStack)
 
 void PrintAnimCurve(FbxAnimCurve* animCurve)
 {
-    cout << "PrintAnimCurve: Not Implemented" << endl;
+    cout << "    KeyGetCount() = " << animCurve->KeyGetCount() << endl;
+    if (animCurve->KeyGetCount() <= 6)
+    {
+        int i;
+        for (i = 0; i < animCurve->KeyGetCount(); i++)
+        {
+            cout << "        #" << i << ": " << animCurve->KeyGetTime(i) << ", " << animCurve->KeyGetValue(i) << endl;
+        }
+    }
+    else
+    {
+        int i;
+        for (i = 0; i < 3; i++)
+        {
+            cout << "        #" << i << ": " << animCurve->KeyGetTime(i) << ", " << animCurve->KeyGetValue(i) << endl;
+        }
+        cout << "        ..." << endl;
+        for (i = animCurve->KeyGetCount() - 3; i < animCurve->KeyGetCount(); i++)
+        {
+            cout << "        #" << i << ": " << animCurve->KeyGetTime(i) << ", " << animCurve->KeyGetValue(i) << endl;
+        }
+    }
 }
 
 void PrintAnimCurveNode(FbxAnimCurveNode* animCurveNode)

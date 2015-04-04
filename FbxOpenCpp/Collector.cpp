@@ -295,7 +295,7 @@ void Collector::VisitAnimStack(FbxAnimStack* obj)
 
 void Collector::VisitAnimCurve(FbxAnimCurve* obj)
 {
-    cout << "VisitAnimCurve: Not Implemented" << endl;
+    // nothing to do
 }
 
 void Collector::VisitAnimCurveNode(FbxAnimCurveNode* obj)
