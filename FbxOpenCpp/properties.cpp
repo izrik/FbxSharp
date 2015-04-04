@@ -71,10 +71,15 @@ void PrintProperty(FbxProperty* prop, bool indent)
     FbxDouble2 v2;
     FbxDouble3 v3;
     FbxDouble4 v4;
+    std::string s;
+    std::stringstream ss;
+
+    bool printValue = true;
 
     switch (type.GetType())
     {
         case eFbxUndefined:
+            printValue = false;
             break;
         case eFbxChar:
             ch = prop->Get<char>();
@@ -105,6 +110,7 @@ void PrintProperty(FbxProperty* prop, bool indent)
             sprintf(n, "%llu", ull);
             break;
         case eFbxHalfFloat:
+            printValue = false;
             break;
         case eFbxBool:
             b = prop->Get<bool>();
@@ -139,24 +145,32 @@ void PrintProperty(FbxProperty* prop, bool indent)
             break;
         case eFbxDouble4x4:
         case eFbxEnum:
+            printValue = false;
             break;
         case eFbxString:
             fstr = prop->Get<FbxString>();
             sprintf(n, "%s", fstr.Buffer());
+            s = (fstr.Buffer());
+            s = quote(s.c_str());
+            sprintf(n, "%s", s.c_str());
+            break;
+        case eFbxTime:
+            ss << prop->Get<FbxTime>();
+            sprintf(n, "%s", ss.str().c_str());
             break;
         case eFbxReference:
 //            FbxObject* obj;
 //            obj = prop->Get<FbxObject*>();
 //            cout << prefix << ".Value = " << obj->GetRuntimeClassId().GetName() << ", uid=" << obj->GetUniqueID() << endl;
 //            break;
-        case eFbxTime:
         case eFbxBlob:
         case eFbxDistance:
         case eFbxDateTime:
         case eFbxTypeCount:
+            printValue = false;
             break;
     }
-    if (n[0])
+    if (printValue)
     {
         cout << prefix << "Value = " << n << endl;
     }

@@ -148,6 +148,8 @@ void Collector::VisitScene(FbxScene* scene)
     {
         Visit(scene->GetRootNode());
     }
+
+    // other stuff
 }
 
 void Collector::VisitNode(FbxNode* node)
@@ -288,7 +290,7 @@ void Collector::VisitAnimLayer(FbxAnimLayer* obj)
 
 void Collector::VisitAnimStack(FbxAnimStack* obj)
 {
-    cout << "VisitAnimStack: Not Implemented" << endl;
+    // nothing to do
 }
 
 void Collector::VisitAnimCurve(FbxAnimCurve* obj)

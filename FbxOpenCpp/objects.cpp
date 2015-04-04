@@ -230,7 +230,8 @@ void PrintAnimLayer(FbxAnimLayer* animLayer)
 
 void PrintAnimStack(FbxAnimStack* animStack)
 {
-    cout << "PrintAnimStack: Not Implemented" << endl;
+    cout << "    GetLocalTimeSpan() = " << animStack->GetLocalTimeSpan() << endl;
+    cout << "    GetReferenceTimeSpan() = " << animStack->GetReferenceTimeSpan() << endl;
 }
 
 void PrintAnimCurve(FbxAnimCurve* animCurve)
@@ -799,4 +800,50 @@ std::string quote(const char* s)
     ss << "\"";
 
     return ss.str();
+}
+
+
+std::ostream& operator<<(std::ostream& os, const FbxTime::EMode& value)
+{
+    switch (value)
+    {
+    case FbxTime::eDefaultMode   : os << "eDefaultMode"; break;
+    case FbxTime::eFrames120     : os << "eFrames120"; break;
+    case FbxTime::eFrames100     : os << "eFrames100"; break;
+    case FbxTime::eFrames60      : os << "eFrames60"; break;
+    case FbxTime::eFrames50      : os << "eFrames50"; break;
+    case FbxTime::eFrames48      : os << "eFrames48"; break;
+    case FbxTime::eFrames30      : os << "eFrames30"; break;
+    case FbxTime::eFrames30Drop  : os << "eFrames30Drop"; break;
+    case FbxTime::eNTSCDropFrame : os << "eNTSCDropFrame"; break;
+    case FbxTime::eNTSCFullFrame : os << "eNTSCFullFrame"; break;
+    case FbxTime::ePAL           : os << "ePAL"; break;
+    case FbxTime::eFrames24      : os << "eFrames24"; break;
+    case FbxTime::eFrames1000    : os << "eFrames1000"; break;
+    case FbxTime::eFilmFullFrame : os << "eFilmFullFrame"; break;
+    case FbxTime::eCustom        : os << "eCustom"; break;
+    case FbxTime::eFrames96      : os << "eFrames96"; break;
+    case FbxTime::eFrames72      : os << "eFrames72"; break;
+    case FbxTime::eFrames59dot94 : os << "eFrames59dot94"; break;
+    case FbxTime::eModesCount    : os << "eModesCount"; break;
+    default:
+        os << "<<unknown>>";
+        break;
+    }
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const FbxTime& value)
+{
+    os << "[" << value.GetSecondDouble() << "s;" <<
+                 value.GetSecondCount() << "s;" <<
+                 value.GetFrameCount() << "f;" <<
+                 FbxTime::GetGlobalTimeMode() << "tm]";
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const FbxTimeSpan& value)
+{
+    os << "(start: " << value.GetStart() << ", stop: " << value.GetStop() << ")";
+    return os;
 }
