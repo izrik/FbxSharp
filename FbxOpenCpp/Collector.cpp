@@ -300,7 +300,17 @@ void Collector::VisitAnimCurve(FbxAnimCurve* obj)
 
 void Collector::VisitAnimCurveNode(FbxAnimCurveNode* obj)
 {
-    cout << "VisitAnimCurveNode: Not Implemented" << endl;
+    int i;
+    int j;
+
+    for (i = 0; i < obj->GetChannelsCount(); i++)
+    {
+        for (j = 0; j < obj->GetCurveCount(i); j++)
+        {
+            FbxAnimCurve* curve = obj->GetCurve(i, j);
+            Visit(curve);
+        }
+    }
 }
 
 void Collector::VisitDeformer(FbxDeformer* obj)

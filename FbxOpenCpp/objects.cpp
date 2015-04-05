@@ -262,7 +262,26 @@ void PrintAnimCurve(FbxAnimCurve* animCurve)
 
 void PrintAnimCurveNode(FbxAnimCurveNode* animCurveNode)
 {
-    cout << "PrintAnimCurveNode: Not Implemented" << endl;
+    cout << "    IsAnimated(pRecurse: false) = " << animCurveNode->IsAnimated(false) << endl;
+    cout << "    IsAnimated(pRecurse: true) = " << animCurveNode->IsAnimated(true) << endl;
+    FbxTimeSpan interval;
+    animCurveNode->GetAnimationInterval(interval);
+    cout << "    GetAnimationInterval() = " << interval << endl;
+    cout << "    IsComposite() = " << animCurveNode->IsComposite() << endl;
+    cout << "    GetChannelsCount() = " << animCurveNode->GetChannelsCount() << endl;
+    int i;
+    int j;
+    for (i = 0; i < animCurveNode->GetChannelsCount(); i++)
+    {
+        cout << "        #" << i << ": " << quote(animCurveNode->GetChannelName(i).Buffer()) << endl;
+        cout << "            GetCurveCount() = " << animCurveNode->GetCurveCount(i) << endl;
+        for (j = 0; j < animCurveNode->GetCurveCount(i); j++)
+        {
+            cout << "                #" << j << ": ";
+            PrintObjectID(animCurveNode->GetCurve(i, j));
+            cout << endl;
+        }
+    }
 }
 
 void PrintDeformer(FbxDeformer* deformer)
