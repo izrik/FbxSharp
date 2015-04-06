@@ -796,7 +796,14 @@ void PrintTexture(FbxTexture* tex)
 
 void PrintCollection(FbxCollection* col)
 {
-    cout << "PrintCollection: Not Implemented" << endl;
+    cout << "    GetMemberCount() = " << col->GetMemberCount() << endl;
+    int i;
+    for (i = 0; i < col->GetMemberCount(); i++)
+    {
+        cout << "        #" << i << ": ";
+        PrintObjectID(col->GetMember(i));
+        cout << endl;
+    }
 
     if (col->Is<FbxAnimStack>())
         PrintAnimStack(dynamic_cast<FbxAnimStack*>(col));
@@ -810,7 +817,16 @@ void PrintCollection(FbxCollection* col)
 
 void PrintDocument(FbxDocument* doc)
 {
-    cout << "PrintCollection: Not Implemented" << endl;
+    cout << "    GetRootMemberCount() = " << doc->GetRootMemberCount() << endl;
+    int i;
+    for (i = 0; i < doc->GetRootMemberCount(); i++)
+    {
+        cout << "        #" << i << ": ";
+        PrintObjectID(doc->GetRootMember(i));
+        cout << endl;
+    }
+
+    // obj->GetDocumentInfo()
 
     if (doc->Is<FbxScene>())
         PrintScene(dynamic_cast<FbxScene*>(doc));
