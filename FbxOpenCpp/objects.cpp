@@ -221,9 +221,18 @@ void PrintScene(FbxScene* scene)
     cout << endl;
 }
 
-void PrintAnimLayer(FbxAnimLayer* animLayer)
+void PrintAnimLayer(FbxAnimLayer* al)
 {
-    cout << "PrintAnimLayer: Not Implemented" << endl;
+    cout << "        Weight: " << al->Weight.Get() << endl;
+    cout << "        Mute: " << al->Mute.Get() << endl;
+    cout << "        Solo: " << al->Solo.Get() << endl;
+    cout << "        Lock: " << al->Lock.Get() << endl;
+    cout << "        Color: " << al->Color.Get() << endl;
+    //cout << "        BlendMode: " << al->BlendMode.Get() << endl;
+    //cout << "        RotationAccumulationMode: " << al->RotationAccumulationMode.Get() << endl;
+    //cout << "        ScaleAccumulationMode: " << al->ScaleAccumulationMode.Get() << endl;
+
+    // blend mode bypass
 }
 
 void PrintAnimStack(FbxAnimStack* animStack)

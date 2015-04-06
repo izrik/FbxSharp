@@ -327,7 +327,7 @@ void Collector::VisitCollection(FbxCollection* obj)
 
 void Collector::VisitAnimLayer(FbxAnimLayer* obj)
 {
-    cout << "VisitAnimLayer: Not Implemented" << endl;
+    // nothing to do
 }
 
 void Collector::VisitAnimStack(FbxAnimStack* obj)
