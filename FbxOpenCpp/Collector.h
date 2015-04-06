@@ -22,6 +22,7 @@ public:
     void VisitGeometryBase(FbxGeometryBase* obj);
     void VisitLayerContainer(FbxLayerContainer* obj);
     void VisitDocument(FbxDocument* obj);
+    void VisitCollection(FbxCollection* obj);
     void VisitAnimLayer(FbxAnimLayer* obj);
     void VisitAnimStack(FbxAnimStack* obj);
     void VisitAnimCurve(FbxAnimCurve* obj);

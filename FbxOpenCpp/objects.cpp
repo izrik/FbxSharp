@@ -32,6 +32,8 @@ void PrintObjectGraph(FbxObject* obj)
 
     c.Visit(obj);
 
+    cout << endl;
+
     vector<FbxObject*>& objs = c.Objects;
     sort(objs.begin(), objs.end(), sort_by_id);
 
@@ -134,12 +136,8 @@ void PrintObject(FbxObject* obj)
         PrintProperty(&obj->RootProperty);
     }
     
-    if (obj->Is<FbxScene>())
-        PrintScene(dynamic_cast<FbxScene*>(obj));
-    else if (obj->Is<FbxAnimLayer>())
-        PrintAnimLayer(dynamic_cast<FbxAnimLayer*>(obj));
-    else if (obj->Is<FbxAnimStack>())
-        PrintAnimStack(dynamic_cast<FbxAnimStack*>(obj));
+    if (obj->Is<FbxCollection>())
+        PrintCollection(dynamic_cast<FbxCollection*>(obj));
     else if (obj->Is<FbxAnimCurve>())
         PrintAnimCurve(dynamic_cast<FbxAnimCurve*>(obj));
     else if (obj->Is<FbxAnimCurveNode>())
@@ -794,6 +792,31 @@ void PrintVideo(FbxVideo* obj)
 void PrintTexture(FbxTexture* tex)
 {
     cout << "PrintTexture: Not Implemented" << endl;
+}
+
+void PrintCollection(FbxCollection* col)
+{
+    cout << "PrintCollection: Not Implemented" << endl;
+
+    if (col->Is<FbxAnimStack>())
+        PrintAnimStack(dynamic_cast<FbxAnimStack*>(col));
+    else if (col->Is<FbxAnimLayer>())
+        PrintAnimLayer(dynamic_cast<FbxAnimLayer*>(col));
+    else if (col->Is<FbxDocument>())
+        PrintDocument(dynamic_cast<FbxDocument*>(col));
+    else
+        cout << "Unknown surface lambert class: " << col->GetRuntimeClassId().GetName() << endl;
+}
+
+void PrintDocument(FbxDocument* doc)
+{
+    cout << "PrintCollection: Not Implemented" << endl;
+
+    if (doc->Is<FbxScene>())
+        PrintScene(dynamic_cast<FbxScene*>(doc));
+    else
+        cout << "Unknown surface lambert class: " << doc->GetRuntimeClassId().GetName() << endl;
+
 }
 
 int CountProperties(FbxObject* obj)

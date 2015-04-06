@@ -40,6 +40,8 @@ void PrintSurfaceLambert(FbxSurfaceLambert* surfaceLambert);
 void PrintSurfacePhong(FbxSurfacePhong* surfacePhong);
 void PrintTexture(FbxTexture* texture);
 void PrintVideo(FbxVideo* video);
+void PrintCollection(FbxCollection* col);
+void PrintDocument(FbxDocument* doc);
 
 void PrintProperty(FbxProperty* prop, bool indent=false);
 
