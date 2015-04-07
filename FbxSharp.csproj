@@ -118,6 +118,11 @@
     <Compile Include="PropertyDstObjectCollection.cs" />
     <Compile Include="ObjectDstPropertyCollection.cs" />
     <Compile Include="PropertySrcObjectCollection.cs" />
+    <Compile Include="AnimationCurveBase.cs" />
+    <Compile Include="FbxTime.cs" />
+    <Compile Include="FbxTimeSpan.cs" />
+    <Compile Include="AnimationCurveKeyBase.cs" />
+    <Compile Include="AnimationCurveDef.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

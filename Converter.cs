@@ -1199,7 +1199,8 @@ namespace FbxSharp
                 switch (prop.Name)
                 {
                 case "Default":
-                    curve.DefaultValue = ((Number)prop.Values[0]).AsDouble.Value;
+//                    curve.DefaultValue = ((Number)prop.Values[0]).AsDouble.Value;
+                    throw new NotImplementedException();
                     break;
                 case "KeyVer":
                     if (((Number)prop.Values[0]).AsLong.Value != 4008)
@@ -1228,8 +1229,9 @@ namespace FbxSharp
             int i;
             for (i = 0; i < Math.Min(keyTimes.Length, keyValues.Length); i++)
             {
-                var key = new AnimationCurveKey(keyTimes[i], keyValues[i]);
-                curve.Keys.Add(key);
+                throw new NotImplementedException();
+//                var key = new AnimationCurveKey(keyTimes[i], keyValues[i]);
+//                curve.Keys.Add(key);
             }
 
             return curve;

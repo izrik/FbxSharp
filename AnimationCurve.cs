@@ -5,80 +5,94 @@ namespace FbxSharp
 {
     public class AnimationCurve : FbxObject
     {
-        public double DefaultValue;
+        //public double DefaultValue;
+        //
+        //public List<AnimationCurveKey> Keys = new List<AnimationCurveKey>();
 
-        public List<AnimationCurveKey> Keys = new List<AnimationCurveKey>();
+        #region Animation curve creation.
 
-        [Flags]
-        public enum ETangentMode
+        public static AnimationCurve Create(Scene pContainer, string pName)
         {
-            TangentAuto =                       0x00000100,
-            TangentTCB =                        0x00000200,
-            TangentUser =                       0x00000400,
-            TangentGenericBreak =               0x00000800,
-            TangentBreak =                      TangentGenericBreak | TangentUser,
-            TangentAutoBreak =                  TangentGenericBreak | TangentAuto,
-            TangentGenericClamp =               0x00001000,
-            TangentGenericTimeIndependent =     0x00002000,
-            TangentGenericClampProgressive =    0x00004000 | TangentGenericTimeIndependent
+            throw new NotImplementedException();
         }
 
-        [Flags]
-        public enum EInterpolationType
+        #endregion
+
+        #region Key Management
+
+        public virtual void ResizeKeyBuffer(int pKeyCount)
         {
-            InterpolationConstant =             0x00000002,
-            InterpolationLinear =               0x00000004,
-            InterpolationCubic =                0x00000008
+            throw new NotImplementedException();
         }
 
-        [Flags]
-        public enum EWeightedMode
+        public virtual void KeyModifyBegin()
         {
-            WeightedNone =                      0x00000000,
-            WeightedRight =                     0x01000000,
-            WeightedNextLeft =                  0x02000000,
-            WeightedAll =                       WeightedRight | WeightedNextLeft
+            throw new NotImplementedException();
         }
 
-        [Flags]
-        public enum EConstantMode
+        public virtual void KeyModifyEnd()
         {
-            ConstantStandard =                  0x00000000,
-            ConstantNext =                      0x00000100
+            throw new NotImplementedException();
         }
 
-        [Flags]
-        public enum EVelocityMode
+        public virtual void KeyClear()
         {
-            VelocityNone =                      0x00000000,
-            VelocityRight =                     0x10000000,
-            VelocityNextLeft =                  0x20000000,
-            VelocityAll =                       VelocityRight | VelocityNextLeft
+            throw new NotImplementedException();
         }
 
-        [Flags]
-        public enum ETangentVisibility
+        public virtual int KeyGetCount()
         {
-            TangentShowNone =                   0x00000000,
-            TangentShowLeft =                   0x00100000,
-            TangentShowRight =                  0x00200000,
-            TangentShowBoth =                   TangentShowLeft | TangentShowRight
+            throw new NotImplementedException();
         }
 
-        public enum EDataIndex
+        public virtual int KeyAdd(FbxTime pTime, AnimationCurveKeyBase pKey/*, int *pLast=NULL*/)
         {
-            RightSlope =        0,
-            NextLeftSlope =     1,
-            Weights =           2,
-            RightWeight =       2,
-            NextLeftWeight =    3,
-            Velocity =          4,
-            RightVelocity =     4,
-            NextLeftVelocity =  5,
-            TCBTension =        0,
-            TCBContinuity =     1,
-            TCBBias =           2
+            throw new NotImplementedException();
         }
+
+        public virtual int KeyAdd(FbxTime pTime/*, int *pLast=NULL*/)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool KeySet(int pIndex, AnimationCurveKeyBase pKey)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool KeyRemove(int pIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool KeyRemove(int pStartIndex, int pEndIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual int KeyInsert(FbxTime pTime/*, int *pLast=NULL*/)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual double KeyFind(FbxTime pTime/*, int *pLast=NULL*/)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool KeyScaleValue(float pMultValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool KeyScaleValueAndTangent(float pMultValue)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        #endregion
+
     }
 }
 
