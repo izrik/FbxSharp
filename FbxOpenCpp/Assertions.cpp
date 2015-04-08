@@ -48,6 +48,17 @@ void _AssertEqual(FbxVector4 expected, FbxVector4 actual, const char* filename, 
     }
 }
 
+void _AssertEqual(double expected, double actual, const char* filename, int line, double epsilon=0)
+{
+    double difference = abs(expected - actual);
+    if (difference > epsilon)
+    {
+        stringstream ss;
+        ss << "Expected " << expected << " but got " << actual << " (difference="<< difference << ", epsilon=" << epsilon << "), at " << filename << ":" << line;
+        throw new string(ss.str());
+    }
+}
+
 void _AssertNotEqual(void* expected, void* actual, const char* filename, int line)
 {
     if (expected == actual)
