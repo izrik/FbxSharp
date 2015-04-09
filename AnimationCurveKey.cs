@@ -6,34 +6,38 @@ namespace FbxSharp
     {
         #region Public Member Functions
 
-        public AnimationCurveKey()
+        public AnimationCurveKey(FbxTime? pTime=null, float pVal=0)
         {
-            throw new NotImplementedException();
+            if (pTime.HasValue)
+            {
+                Time = pTime.Value;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+
+            Value = pVal;
         }
 
-        public AnimationCurveKey(FbxTime pTime)
-        {
-            throw new NotImplementedException();
-        }
-
-        public AnimationCurveKey(FbxTime pTime, float pVal)
-        {
-            throw new NotImplementedException();
-        }
+        public FbxTime Time;
+        public float Value;
+        public bool Break;
 
         public override FbxTime GetTime()
         {
-            throw new NotImplementedException();
+            return Time;
         }
 
         public override void SetTime(FbxTime pTime)
         {
-            throw new NotImplementedException();
+            Time = pTime;
         }
 
         public void Set(FbxTime pTime, float pValue)
         {
-            throw new NotImplementedException();
+            Time = pTime;
+            Value = pValue;
         }
 
         public void SetTCB(FbxTime pTime, float pValue, float pData0=0.0f, float pData1=0.0f, float pData2=0.0f)
@@ -43,12 +47,12 @@ namespace FbxSharp
 
         public float GetValue()
         {
-            throw new NotImplementedException();
+            return Value;
         }
 
         public void SetValue(float pValue)
         {
-            throw new NotImplementedException();
+            Value = pValue;
         }
 
         public AnimationCurveDef.EInterpolationType GetInterpolation()
@@ -128,12 +132,12 @@ namespace FbxSharp
 
         public void SetBreak(bool pVal)
         {
-            throw new NotImplementedException();
+            Break = pVal;
         }
 
         public bool GetBreak()
         {
-            throw new NotImplementedException();
+            return Break;
         }
 
         #endregion

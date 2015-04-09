@@ -5,10 +5,6 @@ namespace FbxSharp
 {
     public class AnimationCurve : FbxObject
     {
-        //public double DefaultValue;
-        //
-        //public List<AnimationCurveKey> Keys = new List<AnimationCurveKey>();
-
         #region Animation curve creation.
 
         public static AnimationCurve Create(Scene pContainer, string pName)
@@ -18,7 +14,11 @@ namespace FbxSharp
 
         #endregion
 
+        //public double DefaultValue;
+
         #region Key Management
+
+        SortedList<long, AnimationCurveKeyBase> keys = new SortedList<long, AnimationCurveKeyBase>();
 
         public virtual void ResizeKeyBuffer(int pKeyCount)
         {
@@ -47,12 +47,21 @@ namespace FbxSharp
 
         public virtual int KeyAdd(FbxTime pTime, AnimationCurveKeyBase pKey/*, int *pLast=NULL*/)
         {
-            throw new NotImplementedException();
+            if (keys.ContainsKey(pTime.Value))
+            {
+                keys[pTime.Value] = pKey;
+            }
+            else
+            {
+                keys.Add(pTime.Value, pKey);
+            }
+
+            return keys.IndexOfKey(pTime.Value);
         }
 
         public virtual int KeyAdd(FbxTime pTime/*, int *pLast=NULL*/)
         {
-            throw new NotImplementedException();
+            return KeyAdd(pTime, new AnimationCurveKey(pTime));
         }
 
         public virtual bool KeySet(int pIndex, AnimationCurveKeyBase pKey)
