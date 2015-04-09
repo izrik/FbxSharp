@@ -60,5 +60,6 @@ TestClass(DeformerTest);
 TestClass(SubDeformerTest);
 TestClass(SkinTest);
 TestClass(ClusterTest);
+TestClass(FbxTimeTest);
 
 #endif // __FBXOPENCPP_TESTS_H

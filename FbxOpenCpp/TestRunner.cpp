@@ -122,6 +122,7 @@ void RunTests()
     tests.push_back(new SubDeformerTest());
     tests.push_back(new SkinTest());
     tests.push_back(new ClusterTest());
+    tests.push_back(new FbxTimeTest());
 
     cout << "Running tests..." << endl;
 

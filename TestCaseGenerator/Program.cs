@@ -323,10 +323,16 @@ namespace TestCaseGenerator
 
                             if (Regex.IsMatch(outline, @"\bnew\b"))
                             {
-                                parts = outline.Split(new[] {
-                                    ' '
-                                }, StringSplitOptions.RemoveEmptyEntries).ToList();
-                                parts[3] = parts[3].Replace("new(", parts[0] + "::Create(manager, ");
+                                parts = outline.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries).ToList();
+                                var type = parts[0];
+                                if (type == "FbxTime")
+                                {
+                                    parts[3] = parts[3].Replace("new(", "new " + type + "(");
+                                }
+                                else
+                                {
+                                    parts[3] = parts[3].Replace("new(", type + "::Create(manager, ");
+                                }
                                 outline = string.Join(" ", parts);
                             }
 

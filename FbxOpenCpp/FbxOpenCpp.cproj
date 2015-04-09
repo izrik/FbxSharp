@@ -68,6 +68,7 @@
     <Compile Include="SubDeformerTest.cpp" />
     <Compile Include="ClusterTest.cpp" />
     <Compile Include="Collector.cpp" />
+    <Compile Include="FbxTimeTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.h" />

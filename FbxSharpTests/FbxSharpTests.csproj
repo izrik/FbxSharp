@@ -60,6 +60,7 @@
     <Compile Include="SkinTest.cs" />
     <Compile Include="SubDeformerTest.cs" />
     <Compile Include="ClusterTest.cs" />
+    <Compile Include="FbxTimeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

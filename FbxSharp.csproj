@@ -149,6 +149,7 @@
     <None Include="test-cases\SubDeformerTest.tc" />
     <None Include="test-cases\SurfacePhongTest.tc" />
     <None Include="test-cases\ClusterTest.tc" />
+    <None Include="test-cases\FbxTimeTest.tc" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="test-cases\" />
