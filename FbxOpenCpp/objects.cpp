@@ -219,6 +219,10 @@ void PrintScene(FbxScene* scene)
     cout << "    RootNode ";
     PrintObjectID(scene->GetRootNode());
     cout << endl;
+
+    cout << "    GetCurrentAnimationStack() = ";
+    PrintObjectID(scene->GetCurrentAnimationStack());
+    cout << endl;
 }
 
 void PrintAnimLayer(FbxAnimLayer* al)
