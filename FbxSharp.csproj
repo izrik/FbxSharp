@@ -123,6 +123,8 @@
     <Compile Include="FbxTimeSpan.cs" />
     <Compile Include="AnimationCurveKeyBase.cs" />
     <Compile Include="AnimationCurveDef.cs" />
+    <Compile Include="AnimEvalClassic.cs" />
+    <Compile Include="FbxEuler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

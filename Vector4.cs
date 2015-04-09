@@ -4,6 +4,8 @@ namespace FbxSharp
 {
     public struct Vector4
     {
+        public static readonly Vector4 Zero = new Vector4(0, 0, 0, 0);
+
         public Vector4(double pX, double pY, double pZ, double pW=1.0)
         {
             X = pX;

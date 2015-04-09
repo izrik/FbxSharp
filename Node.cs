@@ -376,6 +376,12 @@ namespace FbxSharp
             OrderZYX,
             OrderSphericXYZ,
         }
+
+        public enum EPivotSet
+        {
+            eSourcePivot,
+            eDestinationPivot,
+        }
     }
 }
 
