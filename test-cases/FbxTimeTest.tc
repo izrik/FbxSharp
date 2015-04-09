@@ -1,10 +1,10 @@
 ﻿fixture FbxTimeTest
 test FbxTime_CreateLongLong_HasSeconds
     given
-    FbxTime time
+    FbxTime* time
 
     when
-    FbxTime time = new(0)
+    time = new FbxTime(0)
 
     then
     AssertEqual(0.0, time.GetSecondDouble())

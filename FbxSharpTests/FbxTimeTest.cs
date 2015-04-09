@@ -11,10 +11,10 @@ namespace FbxSharpTests
         public void FbxTime_CreateLongLong_HasSeconds()
         {
             // given:
-            FbxTime time;
+            FbxTime  time;
 
             // when:
-            var time = new FbxTime(0);
+            time = new FbxTime(0);
 
             // then:
             Assert.AreEqual(0.0, time.GetSecondDouble());

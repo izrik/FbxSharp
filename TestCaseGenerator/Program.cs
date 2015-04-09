@@ -212,11 +212,14 @@ namespace TestCaseGenerator
 
                             outline = outline.Replace("&", "");
 
+                            if (Regex.IsMatch(outline, @"^\w+\s*\*\s*\w+$"))
+                            {
+                                outline = outline.Replace('*', ' ');
+                            }
+
                             if (Regex.IsMatch(outline, @"\bnew\b"))
                             {
-                                parts = outline.Split(new[] {
-                                    ' '
-                                }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                                parts = outline.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries).ToList();
                                 var targetTypeName = parts[0];
                                 if (targetTypeName == "LayerContainer" ||
                                     targetTypeName == "GeometryBase" ||

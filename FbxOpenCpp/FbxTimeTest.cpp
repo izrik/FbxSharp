@@ -7,10 +7,10 @@ void FbxTime_CreateLongLong_HasSeconds()
 {
     // given:
     FbxManager* manager = FbxManager::Create();
-    FbxTime time;
+    FbxTime* time;
 
     // when:
-    FbxTime* time = new FbxTime(0);
+    time = new FbxTime(0);
 
     // then:
     AssertEqual(0.0, time->GetSecondDouble());
