@@ -37,6 +37,10 @@ void Collector::Visit(FbxObject* obj)
 
 //    cout << "adding object "; PrintObjectID(obj); cout << endl;
 
+    Visit(obj->GetDocument());
+    Visit(obj->GetRootDocument());
+    Visit(obj->GetScene());
+
     int i;
     for (i = 0; i < obj->GetSrcObjectCount(); i++)
     {

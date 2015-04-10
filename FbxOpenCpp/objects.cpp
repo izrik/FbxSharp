@@ -73,6 +73,9 @@ void PrintObject(FbxObject* obj)
     cout << "    Name = " << quote(obj->GetName()) << endl;
     cout << "    ClassId = " << obj->GetRuntimeClassId().GetName() << endl;
     cout << "    UniqueId = " << obj->GetUniqueID() << endl;
+    cout << "    GetScene() = "; PrintObjectID(obj->GetScene()); cout << endl;
+    cout << "    GetDocument() = "; PrintObjectID(obj->GetDocument()); cout << endl;
+    cout << "    GetRootDocument() = "; PrintObjectID(obj->GetRootDocument()); cout << endl;
     cout << "    SrcObjectCount = " << obj->GetSrcObjectCount() << endl;
     int i;
     for (i = 0; i < obj->GetSrcObjectCount(); i++)
