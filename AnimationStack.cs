@@ -18,12 +18,13 @@ namespace FbxSharp
 
         public FbxTimeSpan GetLocalTimeSpan()
         {
-            throw new NotImplementedException();
+            return new FbxTimeSpan(LocalStart.Get(), LocalStop.Get());
         }
 
         public void SetLocalTimeSpan(FbxTimeSpan pTimeSpan)
         {
-            throw new NotImplementedException();
+            LocalStart.Set(pTimeSpan.GetStart());
+            LocalStop.Set(pTimeSpan.GetStop());
         }
 
         public FbxTimeSpan GetReferenceTimeSpan()
