@@ -59,7 +59,7 @@ namespace FbxSharp
         //    throw new NotImplementedException();
         //}
 
-        public AnimationCurveNode GetPropertyCurveNode(Property pProperty, AnimationLayer pAnimLayer)
+        public AnimCurveNode GetPropertyCurveNode(Property pProperty, AnimLayer pAnimLayer)
         {
             throw new NotImplementedException();
         }

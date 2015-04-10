@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class AnimationCurveKeyBase
+    public class AnimCurveKeyBase
     {
         #region Public Member Functions
 

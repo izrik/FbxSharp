@@ -1107,9 +1107,9 @@ namespace FbxSharp
                     ((Number)values[startIndex + 3]).AsDouble.Value);
         }
 
-        public static AnimationStack ConvertAnimationStack(ParseObject obj)
+        public static AnimStack ConvertAnimationStack(ParseObject obj)
         {
-            var animstack = new AnimationStack();
+            var animstack = new AnimStack();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1134,9 +1134,9 @@ namespace FbxSharp
             return animstack;
         }
 
-        public static AnimationLayer ConvertAnimationLayer(ParseObject obj)
+        public static AnimLayer ConvertAnimationLayer(ParseObject obj)
         {
-            var animlayer = new AnimationLayer();
+            var animlayer = new AnimLayer();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1152,9 +1152,9 @@ namespace FbxSharp
             return animlayer;
         }
 
-        public static AnimationCurveNode ConvertAnimationCurveNode(ParseObject obj)
+        public static AnimCurveNode ConvertAnimationCurveNode(ParseObject obj)
         {
-            var animCurveNode = new AnimationCurveNode();
+            var animCurveNode = new AnimCurveNode();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1179,9 +1179,9 @@ namespace FbxSharp
             return animCurveNode;
         }
 
-        public static AnimationCurve ConvertAnimationCurve(ParseObject obj)
+        public static AnimCurve ConvertAnimationCurve(ParseObject obj)
         {
-            var curve = new AnimationCurve();
+            var curve = new AnimCurve();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1229,7 +1229,7 @@ namespace FbxSharp
             for (i = 0; i < Math.Min(keyTimes.Length, keyValues.Length); i++)
             {
                 var time = new FbxTime(keyTimes[i]);
-                var key = new AnimationCurveKey(time, (float)keyValues[i]);
+                var key = new AnimCurveKey(time, (float)keyValues[i]);
                 curve.KeyAdd(time, key);
             }
 

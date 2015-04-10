@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class AnimationLayer : Collection
+    public class AnimLayer : Collection
     {
         #region Public Types
 
@@ -65,7 +65,7 @@ namespace FbxSharp
 
         #region CurveNode Management
 
-        public AnimationCurveNode CreateCurveNode(Property pProperty)
+        public AnimCurveNode CreateCurveNode(Property pProperty)
         {
             throw new NotImplementedException();
         }

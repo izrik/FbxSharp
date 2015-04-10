@@ -2,11 +2,11 @@
 
 namespace FbxSharp
 {
-    public class AnimationCurveKey : AnimationCurveKeyBase
+    public class AnimCurveKey : AnimCurveKeyBase
     {
         #region Public Member Functions
 
-        public AnimationCurveKey(FbxTime? pTime=null, float pVal=0)
+        public AnimCurveKey(FbxTime? pTime=null, float pVal=0)
         {
             if (pTime.HasValue)
             {
@@ -55,77 +55,77 @@ namespace FbxSharp
             Value = pValue;
         }
 
-        public AnimationCurveDef.EInterpolationType GetInterpolation()
+        public AnimCurveDef.EInterpolationType GetInterpolation()
         {
             throw new NotImplementedException();
         }
 
-        public void SetInterpolation(AnimationCurveDef.EInterpolationType pInterpolation)
+        public void SetInterpolation(AnimCurveDef.EInterpolationType pInterpolation)
         {
             throw new NotImplementedException();
         }
 
-        public AnimationCurveDef.ETangentMode GetTangentMode(bool pIncludeOverrides=false)
+        public AnimCurveDef.ETangentMode GetTangentMode(bool pIncludeOverrides=false)
         {
             throw new NotImplementedException();
         }
 
-        public void SetTangentMode(AnimationCurveDef.ETangentMode pTangentMode)
+        public void SetTangentMode(AnimCurveDef.ETangentMode pTangentMode)
         {
             throw new NotImplementedException();
         }
 
-        public AnimationCurveDef.EWeightedMode GetTangentWeightMode()
+        public AnimCurveDef.EWeightedMode GetTangentWeightMode()
         {
             throw new NotImplementedException();
         }
 
-        public void SetTangentWeightMode(AnimationCurveDef.EWeightedMode pTangentWeightMode, AnimationCurveDef.EWeightedMode pMask=AnimationCurveDef.EWeightedMode.eWeightedAll)
+        public void SetTangentWeightMode(AnimCurveDef.EWeightedMode pTangentWeightMode, AnimCurveDef.EWeightedMode pMask=AnimCurveDef.EWeightedMode.eWeightedAll)
         {
             throw new NotImplementedException();
         }
 
-        public void SetTangentWeightAndAdjustTangent(AnimationCurveDef.EDataIndex pIndex, double pWeight)
+        public void SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex pIndex, double pWeight)
         {
             throw new NotImplementedException();
         }
 
-        public AnimationCurveDef.EVelocityMode GetTangentVelocityMode()
+        public AnimCurveDef.EVelocityMode GetTangentVelocityMode()
         {
             throw new NotImplementedException();
         }
 
-        public void SetTangentVelocityMode(AnimationCurveDef.EVelocityMode pTangentVelocityMode, AnimationCurveDef.EVelocityMode pMask=AnimationCurveDef.EVelocityMode.eVelocityAll)
+        public void SetTangentVelocityMode(AnimCurveDef.EVelocityMode pTangentVelocityMode, AnimCurveDef.EVelocityMode pMask=AnimCurveDef.EVelocityMode.eVelocityAll)
         {
             throw new NotImplementedException();
         }
 
-        public AnimationCurveDef.EConstantMode GetConstantMode()
+        public AnimCurveDef.EConstantMode GetConstantMode()
         {
             throw new NotImplementedException();
         }
 
-        public void SetConstantMode(AnimationCurveDef.EConstantMode pMode)
+        public void SetConstantMode(AnimCurveDef.EConstantMode pMode)
         {
             throw new NotImplementedException();
         }
 
-        public float GetDataFloat(AnimationCurveDef.EDataIndex pIndex)
+        public float GetDataFloat(AnimCurveDef.EDataIndex pIndex)
         {
             throw new NotImplementedException();
         }
 
-        public void SetDataFloat(AnimationCurveDef.EDataIndex pIndex, float pValue)
+        public void SetDataFloat(AnimCurveDef.EDataIndex pIndex, float pValue)
         {
             throw new NotImplementedException();
         }
 
-        public void SetTangentVisibility(AnimationCurveDef.ETangentVisibility pVisibility)
+        public void SetTangentVisibility(AnimCurveDef.ETangentVisibility pVisibility)
         {
             throw new NotImplementedException();
         }
 
-        public AnimationCurveDef.ETangentVisibility GetTangentVisibility()
+        public AnimCurveDef.ETangentVisibility GetTangentVisibility()
         {
             throw new NotImplementedException();
         }

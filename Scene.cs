@@ -66,14 +66,14 @@ namespace FbxSharp
 
         #region Scene Animation Evaluation
 
-        public AnimationStack CurrentAnimationStack;
+        public AnimStack CurrentAnimationStack;
 
-        public void SetCurrentAnimationStack(AnimationStack pAnimStack)
+        public void SetCurrentAnimationStack(AnimStack pAnimStack)
         {
             CurrentAnimationStack = pAnimStack;
         }
 
-        public AnimationStack GetCurrentAnimationStack()
+        public AnimStack GetCurrentAnimationStack()
         {
             return CurrentAnimationStack;
         }

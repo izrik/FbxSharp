@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public static class AnimationCurveDef
+    public static class AnimCurveDef
     {
         [Flags]
         public enum ETangentMode

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class AnimationCurve : FbxObject
+    public class AnimCurve : FbxObject
     {
         #region Animation curve creation.
 
-        public static AnimationCurve Create(Scene pContainer, string pName)
+        public static AnimCurve Create(Scene pContainer, string pName)
         {
             throw new NotImplementedException();
         }
@@ -18,7 +18,7 @@ namespace FbxSharp
 
         #region Key Management
 
-        SortedList<long, AnimationCurveKeyBase> keys = new SortedList<long, AnimationCurveKeyBase>();
+        SortedList<long, AnimCurveKeyBase> keys = new SortedList<long, AnimCurveKeyBase>();
 
         public virtual void ResizeKeyBuffer(int pKeyCount)
         {
@@ -45,7 +45,7 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public virtual int KeyAdd(FbxTime pTime, AnimationCurveKeyBase pKey/*, int *pLast=NULL*/)
+        public virtual int KeyAdd(FbxTime pTime, AnimCurveKeyBase pKey/*, int *pLast=NULL*/)
         {
             if (keys.ContainsKey(pTime.Value))
             {
@@ -61,10 +61,10 @@ namespace FbxSharp
 
         public virtual int KeyAdd(FbxTime pTime/*, int *pLast=NULL*/)
         {
-            return KeyAdd(pTime, new AnimationCurveKey(pTime));
+            return KeyAdd(pTime, new AnimCurveKey(pTime));
         }
 
-        public virtual bool KeySet(int pIndex, AnimationCurveKeyBase pKey)
+        public virtual bool KeySet(int pIndex, AnimCurveKeyBase pKey)
         {
             throw new NotImplementedException();
         }

@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public class AnimationCurveNode : FbxObject
+    public class AnimCurveNode : FbxObject
     {
-        public AnimationCurveNode(String name="")
+        public AnimCurveNode(String name="")
             : base(name)
         {
         }
@@ -26,7 +26,7 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public AnimationCurveNode Find(string pName)
+        public AnimCurveNode Find(string pName)
         {
             throw new NotImplementedException();
         }
@@ -76,7 +76,7 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public static AnimationCurveNode CreateTypedCurveNode(Property pProperty, Scene pScene)
+        public static AnimCurveNode CreateTypedCurveNode(Property pProperty, Scene pScene)
         {
             throw new NotImplementedException();
         }
@@ -85,27 +85,27 @@ namespace FbxSharp
 
         #region Animation Curve Management
 
-        public bool DisconnectFromChannel(AnimationCurve pCurve, uint pChnlId)
+        public bool DisconnectFromChannel(AnimCurve pCurve, uint pChnlId)
         {
             throw new NotImplementedException();
         }
 
-        public bool ConnectToChannel(AnimationCurve pCurve, string pChnl, bool pInFront=false)
+        public bool ConnectToChannel(AnimCurve pCurve, string pChnl, bool pInFront=false)
         {
             throw new NotImplementedException();
         }
 
-        public bool ConnectToChannel(AnimationCurve pCurve, uint pChnlId, bool pInFront=false)
+        public bool ConnectToChannel(AnimCurve pCurve, uint pChnlId, bool pInFront=false)
         {
             throw new NotImplementedException();
         }
 
-        public AnimationCurve CreateCurve(string pCurveNodeName, string pChannel)
+        public AnimCurve CreateCurve(string pCurveNodeName, string pChannel)
         {
             throw new NotImplementedException();
         }
 
-        public AnimationCurve CreateCurve(string pCurveNodeName, uint pChannelId=0)
+        public AnimCurve CreateCurve(string pCurveNodeName, uint pChannelId=0)
         {
             throw new NotImplementedException();
         }
@@ -115,7 +115,7 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public AnimationCurve GetCurve(uint pChannelId, uint pId=0, string pCurveNodeName=null)
+        public AnimCurve GetCurve(uint pChannelId, uint pId=0, string pCurveNodeName=null)
         {
             throw new NotImplementedException();
         }

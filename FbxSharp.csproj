@@ -80,11 +80,6 @@
     <Compile Include="Cluster.cs" />
     <Compile Include="Video.cs" />
     <Compile Include="Texture.cs" />
-    <Compile Include="AnimationStack.cs" />
-    <Compile Include="AnimationLayer.cs" />
-    <Compile Include="AnimationCurveNode.cs" />
-    <Compile Include="AnimationCurve.cs" />
-    <Compile Include="AnimationCurveKey.cs" />
     <Compile Include="Time.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="Importer.cs" />
@@ -118,13 +113,18 @@
     <Compile Include="PropertyDstObjectCollection.cs" />
     <Compile Include="ObjectDstPropertyCollection.cs" />
     <Compile Include="PropertySrcObjectCollection.cs" />
-    <Compile Include="AnimationCurveBase.cs" />
     <Compile Include="FbxTime.cs" />
     <Compile Include="FbxTimeSpan.cs" />
-    <Compile Include="AnimationCurveKeyBase.cs" />
-    <Compile Include="AnimationCurveDef.cs" />
     <Compile Include="AnimEvalClassic.cs" />
     <Compile Include="FbxEuler.cs" />
+    <Compile Include="AnimCurve.cs" />
+    <Compile Include="AnimCurveDef.cs" />
+    <Compile Include="AnimCurveBase.cs" />
+    <Compile Include="AnimCurveKeyBase.cs" />
+    <Compile Include="AnimLayer.cs" />
+    <Compile Include="AnimCurveKey.cs" />
+    <Compile Include="AnimCurveNode.cs" />
+    <Compile Include="AnimStack.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
