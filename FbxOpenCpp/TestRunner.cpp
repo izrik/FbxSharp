@@ -123,6 +123,10 @@ void RunTests()
     tests.push_back(new SkinTest());
     tests.push_back(new ClusterTest());
     tests.push_back(new FbxTimeTest());
+    tests.push_back(new AnimCurveNodeTest());
+    tests.push_back(new AnimCurveTest());
+    tests.push_back(new AnimLayerTest());
+    tests.push_back(new AnimStackTest());
 
     cout << "Running tests..." << endl;
 

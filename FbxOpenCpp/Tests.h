@@ -61,5 +61,9 @@ TestClass(SubDeformerTest);
 TestClass(SkinTest);
 TestClass(ClusterTest);
 TestClass(FbxTimeTest);
+TestClass(AnimCurveNodeTest);
+TestClass(AnimCurveTest);
+TestClass(AnimLayerTest);
+TestClass(AnimStackTest);
 
 #endif // __FBXOPENCPP_TESTS_H

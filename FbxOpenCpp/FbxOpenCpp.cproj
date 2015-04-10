@@ -69,6 +69,10 @@
     <Compile Include="ClusterTest.cpp" />
     <Compile Include="Collector.cpp" />
     <Compile Include="FbxTimeTest.cpp" />
+    <Compile Include="AnimCurveNodeTest.cpp" />
+    <Compile Include="AnimCurveTest.cpp" />
+    <Compile Include="AnimLayerTest.cpp" />
+    <Compile Include="AnimStackTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.h" />

@@ -61,6 +61,10 @@
     <Compile Include="SubDeformerTest.cs" />
     <Compile Include="ClusterTest.cs" />
     <Compile Include="FbxTimeTest.cs" />
+    <Compile Include="AnimCurveNodeTest.cs" />
+    <Compile Include="AnimCurveTest.cs" />
+    <Compile Include="AnimLayerTest.cs" />
+    <Compile Include="AnimStackTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
