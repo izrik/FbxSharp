@@ -13,11 +13,41 @@ using namespace std;
 #include "common.h"
 #include "Tests.h"
 
+void LoadAndPrint(const char* filename);
+
 int main (int argc, char *argv[])
 {
-    RunTests();
+    int n = 0;
+
+    const char* filename = "model.fbx";
+
+    switch (n)
+    {
+        case 0: RunTests(); break;
+        case 2: LoadAndPrint(filename); break;
+    }
 
     return 0;
+}
+
+void LoadAndPrint(const char* filename)
+{
+    FbxScene* scene = Load(filename);
+
+    PrintObjectGraph(scene);
+}
+
+void Save(const char* filename, FbxScene* scene)
+{
+    FbxManager* manager = scene->GetFbxManager();
+
+    FbxIOSettings* ios = FbxIOSettings::Create(manager, IOSROOT);
+
+    FbxExporter * ex = FbxExporter::Create(manager, "");
+
+    ex->Initialize(filename, -1, ios);
+    ex->Export(scene);
+
 }
 
 FbxScene* Load(const char* filename, FbxManager* manager)
@@ -63,7 +93,7 @@ FbxScene* Load(const char* filename, FbxManager* manager)
 
     lImporter->Import(pScene);
 
-    printf("file version info: %i.%i.%i\n", lFileMajor, lFileMinor, lFileRevision);
+//    printf("file version info: %i.%i.%i\n", lFileMajor, lFileMinor, lFileRevision);
 
     return pScene;
 }

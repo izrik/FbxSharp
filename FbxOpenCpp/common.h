@@ -59,6 +59,7 @@ std::ostream& operator<<(std::ostream& os, const FbxMatrix& value);
 std::ostream& operator<<(std::ostream& os, const FbxAMatrix& value);
 
 FbxScene* Load(const char* filename, FbxManager* manager=NULL);
+void Save(const char* filename, FbxScene* scene);
 
 std::string quote(const char* s);
 
