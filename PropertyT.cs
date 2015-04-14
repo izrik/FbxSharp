@@ -8,6 +8,11 @@ namespace FbxSharp
             : base(name)
         {
         }
+        public PropertyT(string name, T initialValue)
+            : base(name)
+        {
+            Value = initialValue;
+        }
 
         public override Type PropertyDataType { get { return typeof(T); } }
 
@@ -43,16 +48,25 @@ namespace FbxSharp
         {
             // if U can be assigned to a prop/field of type T,
             //  then do so
+            // else if there is a converter available
+            //  then use that
             // else
             //  throw
-            if (!(typeof(U).IsAssignableFrom(typeof(T)))) // is this reversed? i can never remember 
+            if ((typeof(U).IsAssignableFrom(typeof(T))))
             {
-                throw new InvalidCastException(); // maybe find a better exception to throw
+                Value = (T)(object)value;
+                return true;
             }
 
-            Value = (T)(object)value;
+            var tuple = new Tuple<Type, Type>(typeof(U), typeof(T));
+            if (Converters.ContainsKey(tuple))
+            {
+                var converter = Converters[tuple];
+                Value = (T)converter(value);
+                return true;
+            }
 
-            return true;
+            throw new InvalidCastException(); // maybe find a better exception to throw
         }
 
         public override bool Set(object value)

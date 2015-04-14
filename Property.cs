@@ -6,6 +6,11 @@ namespace FbxSharp
 {
     public abstract class Property
     {
+        static Property()
+        {
+            AddConverter(typeof(Vector4), typeof(Vector3), (v4) => ((Vector4)v4).ToVector3());
+        }
+
         protected Property(string name)
         {
             Name = name;
@@ -51,6 +56,12 @@ namespace FbxSharp
         #endregion
 
         #region Value Management
+
+        public static readonly Dictionary<Tuple<Type,Type>, Func<object, object>> Converters = new Dictionary<Tuple<Type, Type>, Func<object, object>>();
+        public static void AddConverter(Type from, Type to, Func<object, object> converter)
+        {
+            Converters.Add(new Tuple<Type, Type>(from, to), converter);
+        }
 
         public static bool HasDefaultValue(Property pProperty)
         {

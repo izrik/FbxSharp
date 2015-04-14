@@ -247,7 +247,10 @@ namespace FbxSharp
 
         public AnimEvaluator GetAnimationEvaluator()
         {
-            throw new NotImplementedException();
+            if (Scene != null)
+                return Scene.GetAnimationEvaluator();
+
+            return AnimEvaluator.Default;
         }
 
         public Matrix EvaluateGlobalTransform()
@@ -256,7 +259,7 @@ namespace FbxSharp
         }
         public Matrix EvaluateGlobalTransform(FbxTime pTime, Node.EPivotSet pPivotSet=Node.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
         {
-            throw new NotImplementedException();
+            return GetAnimationEvaluator().GetNodeGlobalTransform(this, pTime, pPivotSet, pApplyTarget, pForceEval);
         }
 
         public Matrix EvaluateLocalTransform()
@@ -351,7 +354,7 @@ namespace FbxSharp
 
         public PropertyT<Vector3>                       LclTranslation              = new PropertyT<Vector3>("Lcl Translation");
         public PropertyT<Vector3>                       LclRotation                 = new PropertyT<Vector3>("Lcl Rotation");
-        public PropertyT<Vector3>                       LclScaling                  = new PropertyT<Vector3>("Lcl Scaling");
+        public PropertyT<Vector3>                       LclScaling                  = new PropertyT<Vector3>("Lcl Scaling", Vector3.One);
         public PropertyT<double>                        Visibility                  = new PropertyT<double>("Visibility");
         public PropertyT<bool>                          VisibilityInheritance       = new PropertyT<bool>("Visibility Inheritance");
         public PropertyT<EQuatInterpMode>               QuaternionInterpolate       = new PropertyT<EQuatInterpMode>("QuaternionInterpolate");

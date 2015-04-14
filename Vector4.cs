@@ -37,6 +37,11 @@ namespace FbxSharp
         {
             return string.Format("{{X:{0} Y:{1} Z:{2} W:{3}}}", X, Y, Z, W);
         }
+
+        public Vector3 ToVector3()
+        {
+            return new Vector3(X, Y, Z);
+        }
     }
 }
 

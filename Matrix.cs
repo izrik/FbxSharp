@@ -32,7 +32,7 @@ namespace FbxSharp
         //{
         //    throw new NotImplementedException();
         //}
-        public Matrix(Vector4 pT, Vector4 pR, Vector4 pS, int n=0)
+        public Matrix(Vector4 pT, Vector4 pR, Vector4 pS)
         {
             var s = CreateScale(pS);
             var x = Matrix.CreateRotationX(pR.X);

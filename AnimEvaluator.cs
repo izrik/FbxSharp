@@ -4,13 +4,18 @@ namespace FbxSharp
 {
     public class AnimEvaluator : FbxObject
     {
+        public static readonly AnimEvaluator Default = new AnimEvalClassic();
+
         public Matrix GetNodeGlobalTransform(Node pNode)
         {
             return GetNodeGlobalTransform(pNode, FbxTime.Infinite);
         }
         public Matrix GetNodeGlobalTransform(Node pNode, FbxTime pTime, Node.EPivotSet pPivotSet=Node.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
         {
-            throw new NotImplementedException();
+            var translation = pNode.LclTranslation.Get().ToVector4();
+            var rotation = pNode.LclRotation.Get().ToVector4();
+            var scaling = pNode.LclScaling.Get().ToVector4();
+            return new Matrix(translation, rotation, scaling);
         }
 
         public Matrix GetNodeLocalTransform(Node pNode)
