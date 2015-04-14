@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class AnimCurve : FbxObject
+    public class AnimCurve : AnimCurveBase
     {
         #region Animation curve creation.
 
@@ -35,17 +35,17 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public virtual void KeyClear()
+        public override void KeyClear()
         {
             throw new NotImplementedException();
         }
 
-        public virtual int KeyGetCount()
+        public override int KeyGetCount()
         {
             throw new NotImplementedException();
         }
 
-        public virtual int KeyAdd(FbxTime pTime, AnimCurveKeyBase pKey/*, int *pLast=NULL*/)
+        public override int KeyAdd(FbxTime pTime, AnimCurveKeyBase pKey/*, int *pLast=NULL*/)
         {
             if (keys.ContainsKey(pTime.Value))
             {
@@ -64,17 +64,17 @@ namespace FbxSharp
             return KeyAdd(pTime, new AnimCurveKey(pTime));
         }
 
-        public virtual bool KeySet(int pIndex, AnimCurveKeyBase pKey)
+        public override bool KeySet(int pIndex, AnimCurveKeyBase pKey)
         {
             throw new NotImplementedException();
         }
 
-        public virtual bool KeyRemove(int pIndex)
+        public override bool KeyRemove(int pIndex)
         {
             throw new NotImplementedException();
         }
 
-        public virtual bool KeyRemove(int pStartIndex, int pEndIndex)
+        public override bool KeyRemove(int pStartIndex, int pEndIndex)
         {
             throw new NotImplementedException();
         }
@@ -99,9 +99,23 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-
         #endregion
 
+        #region implemented abstract members of AnimCurveBase
+
+        public override void KeySetTime(int pKeyIndex, FbxTime pTime)
+        {
+            throw new NotImplementedException();
+        }
+        public override float Evaluate(FbxTime pTime)
+        {
+            throw new NotImplementedException();
+        }
+        public override float EvaluateIndex(double pIndex)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }
 
