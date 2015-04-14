@@ -55,6 +55,8 @@ std::ostream& operator<<(std::ostream& os, const FbxDataType& value);
 std::ostream& operator<<(std::ostream& os, const EFbxType& value);
 std::ostream& operator<<(std::ostream& os, const FbxTime& value);
 std::ostream& operator<<(std::ostream& os, const FbxTimeSpan& value);
+std::ostream& operator<<(std::ostream& os, const FbxMatrix& value);
+std::ostream& operator<<(std::ostream& os, const FbxAMatrix& value);
 
 FbxScene* Load(const char* filename, FbxManager* manager=NULL);
 

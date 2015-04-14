@@ -128,6 +128,7 @@ void RunTests()
     tests.push_back(new AnimLayerTest());
     tests.push_back(new AnimStackTest());
     tests.push_back(new NodeTransformsTest());
+    tests.push_back(new MatrixTest());
 
     cout << "Running tests..." << endl;
 

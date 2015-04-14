@@ -352,7 +352,10 @@ namespace TestCaseGenerator
 
                                 if (type == "FbxTime" ||
                                     type == "FbxMatrix" ||
-                                    type == "FbxAMatrix")
+                                    type == "FbxAMatrix" ||
+                                    type == "FbxVector2" ||
+                                    type == "FbxVector3" ||
+                                    type == "FbxVector4")
                                 {
                                     if (isStackValue)
                                     {

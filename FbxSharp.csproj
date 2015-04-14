@@ -157,6 +157,7 @@
     <None Include="test-cases\AnimCurveTest.tc" />
     <None Include="test-cases\AnimCurveNodeTest.tc" />
     <None Include="test-cases\NodeTransformsTest.tc" />
+    <None Include="test-cases\MatrixTest.tc" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="test-cases\" />

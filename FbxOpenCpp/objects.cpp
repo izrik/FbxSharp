@@ -954,3 +954,47 @@ std::ostream& operator<<(std::ostream& os, const FbxTimeSpan& value)
     os << "(start: " << value.GetStart() << ", stop: " << value.GetStop() << ")";
     return os;
 }
+
+std::ostream& operator<<(std::ostream& os, const FbxMatrix& value)
+{
+    os << "[ "
+        << value.Get(0, 0) << ", "
+        << value.Get(0, 1) << ", "
+        << value.Get(0, 2) << ", "
+        << value.Get(0, 3) << ", "
+        << value.Get(1, 0) << ", "
+        << value.Get(1, 1) << ", "
+        << value.Get(1, 2) << ", "
+        << value.Get(1, 3) << ", "
+        << value.Get(2, 0) << ", "
+        << value.Get(2, 1) << ", "
+        << value.Get(2, 2) << ", "
+        << value.Get(2, 3) << ", "
+        << value.Get(3, 0) << ", "
+        << value.Get(3, 1) << ", "
+        << value.Get(3, 2) << ", "
+        << value.Get(3, 3) << " ]";
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const FbxAMatrix& value)
+{
+    os << "[ "
+        << value.Get(0, 0) << ", "
+        << value.Get(0, 1) << ", "
+        << value.Get(0, 2) << ", "
+        << value.Get(0, 3) << ", "
+        << value.Get(1, 0) << ", "
+        << value.Get(1, 1) << ", "
+        << value.Get(1, 2) << ", "
+        << value.Get(1, 3) << ", "
+        << value.Get(2, 0) << ", "
+        << value.Get(2, 1) << ", "
+        << value.Get(2, 2) << ", "
+        << value.Get(2, 3) << ", "
+        << value.Get(3, 0) << ", "
+        << value.Get(3, 1) << ", "
+        << value.Get(3, 2) << ", "
+        << value.Get(3, 3) << " ]";
+    return os;
+}

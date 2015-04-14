@@ -32,10 +32,34 @@ namespace FbxSharp
         //{
         //    throw new NotImplementedException();
         //}
-        //public Matrix(Vector4 pT, Vector4 pR, Vector4 pS)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public Matrix(Vector4 pT, Vector4 pR, Vector4 pS, int n=0)
+        {
+            var s = CreateScale(pS);
+            var x = Matrix.CreateRotationX(pR.X);
+            var y = Matrix.CreateRotationY(pR.Y);
+            var z = Matrix.CreateRotationZ(pR.Z);
+            var t = Matrix.CreateTranslation(pT);
+
+            var r = Multiply(z,Multiply(x,y));
+            var m = Multiply(t, Multiply(s, r));
+
+            M00 = m.M00;
+            M10 = m.M10;
+            M20 = m.M20;
+            M30 = m.M30;
+            M01 = m.M01;
+            M11 = m.M11;
+            M21 = m.M21;
+            M31 = m.M31;
+            M02 = m.M02;
+            M12 = m.M12;
+            M22 = m.M22;
+            M32 = m.M32;
+            M03 = m.M03;
+            M13 = m.M13;
+            M23 = m.M23;
+            M33 = m.M33;
+        }
         //public Matrix(Vector4 pT, Quaternion pQ, Vector4 pS)
         //{
         //    throw new NotImplementedException();
@@ -140,6 +164,153 @@ namespace FbxSharp
         public static bool operator != (Matrix a, Matrix b)
         {
             return !a.Equals(b);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[" +
+                "{{M00 = {0}, M01 = {0}, M02 = {1}, M03 = {2}}} " +
+                "{{M10 = {3}, M11 = {5}, M12 = {6}, M13 = {7}}} " +
+                "{{M20 = {8}, M21 = {9}, M22 = {00}, M23 = {00}}} " +
+                "{{M30 = {01}, M31 = {02}, M32 = {03}, M33 = {05}}}]", 
+                M00, M01, M02, M03,
+                M10, M11, M12, M13,
+                M20, M21, M22, M23,
+                M30, M31, M32, M33);
+        }
+
+        public double Get(int pY, int pX)
+        {
+            if (pY < 0 || pY > 3) throw new ArgumentOutOfRangeException("pY");
+            if (pX < 0 || pX > 3) throw new ArgumentOutOfRangeException("pX");
+
+            switch (pY)
+            {
+            case 0:
+                if (pX == 0) return M00;
+                if (pX == 1) return M01;
+                if (pX == 2) return M02;
+                if (pX == 3) return M03;
+                break;
+            case 1:
+                if (pX == 0) return M10;
+                if (pX == 1) return M11;
+                if (pX == 2) return M12;
+                if (pX == 3) return M13;
+                break;
+            case 2:
+                if (pX == 0) return M20;
+                if (pX == 1) return M21;
+                if (pX == 2) return M22;
+                if (pX == 3) return M23;
+                break;
+            case 3:
+                if (pX == 0) return M30;
+                if (pX == 1) return M31;
+                if (pX == 2) return M32;
+                if (pX == 3) return M33;
+                break;
+            }
+
+            throw new ArgumentOutOfRangeException("pY, pX");
+        }
+
+        public static Matrix CreateTranslation(Vector3 t)
+        {
+            return CreateTranslation(t.X, t.Y, t.Z);
+        }
+        public static Matrix CreateTranslation(Vector4 t)
+        {
+            return CreateTranslation(t.X, t.Y, t.Z);
+        }
+        public static Matrix CreateTranslation(double x, double y, double z)
+        {
+            return new Matrix(1, 0, 0, 0,
+                              0, 1, 0, 0,
+                              0, 0, 1, 0,
+                              x, y, z, 1);
+        }
+
+        public static Matrix CreateRotationX(double degrees)
+        {
+            double radians = Math.PI * degrees / 180.0;
+            double c = Math.Cos(radians);
+            double s = Math.Sin(radians);
+            return new Matrix(
+                1, 0, 0, 0,
+                0, c, -s, 0,
+                0, s, c, 0,
+                0, 0, 0, 1);
+        }
+
+        public static Matrix CreateRotationY(double degrees)
+        {
+            double radians = Math.PI * degrees / 180.0;
+            double c = Math.Cos(radians);
+            double s = Math.Sin(radians);
+            return new Matrix(
+                c, 0, s, 0,
+                0, 1, 0, 0,
+                -s, 0, c, 0,
+                0, 0, 0, 1);
+        }
+
+        public static Matrix CreateRotationZ(double degrees)
+        {
+            double radians = Math.PI * degrees / 180.0;
+            double c = Math.Cos(radians);
+            double s = Math.Sin(radians);
+            return new Matrix(
+                c, s, 0, 0,
+                -s, c, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1);
+        }
+
+        public static Matrix CreateScale(double s)
+        {
+            return CreateScale(s, s, s);
+        }
+        public static Matrix CreateScale(Vector3 s)
+        {
+            return CreateScale(s.X, s.Y, s.Z);
+        }
+        public static Matrix CreateScale(Vector4 s)
+        {
+            return CreateScale(s.X, s.Y, s.Z);
+        }
+        public static Matrix CreateScale(double x, double y, double z)
+        {
+            return new Matrix(
+                x, 0, 0, 0,
+                0, y, 0, 0,
+                0, 0, z, 0,
+                0, 0, 0, 1);
+        }
+
+        public static Matrix operator * (Matrix a, Matrix b)
+        {
+            return Multiply(a, b);
+        }
+        public static Matrix Multiply(Matrix a, Matrix b)
+        {
+            return new Matrix(
+                a.M00 * b.M00 + a.M01 * b.M10 + a.M02 * b.M20 + a.M03 * b.M30,
+                a.M00 * b.M01 + a.M01 * b.M11 + a.M02 * b.M21 + a.M03 * b.M31,
+                a.M00 * b.M02 + a.M01 * b.M12 + a.M02 * b.M22 + a.M03 * b.M32,
+                a.M00 * b.M03 + a.M01 * b.M13 + a.M02 * b.M23 + a.M03 * b.M33,
+                a.M10 * b.M00 + a.M11 * b.M10 + a.M12 * b.M20 + a.M13 * b.M30,
+                a.M10 * b.M01 + a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31,
+                a.M10 * b.M02 + a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32,
+                a.M10 * b.M03 + a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33,
+                a.M20 * b.M00 + a.M21 * b.M10 + a.M22 * b.M20 + a.M23 * b.M30,
+                a.M20 * b.M01 + a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31,
+                a.M20 * b.M02 + a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32,
+                a.M20 * b.M03 + a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33,
+                a.M30 * b.M00 + a.M31 * b.M10 + a.M32 * b.M20 + a.M33 * b.M30,
+                a.M30 * b.M01 + a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31,
+                a.M30 * b.M02 + a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32,
+                a.M30 * b.M03 + a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33);
         }
     }
 }
