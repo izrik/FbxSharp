@@ -1,13 +1,59 @@
 ﻿fixture NodeTransformsTest
-test Node_CalcTransformFromCreatedState_ReturnsIdentity
-	given
-	Node node = new("")
-	AMatrix! expected = new()
-		//1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1)
-	AMatrix! actual
+test Node_CalcGlobalTransformFromCreatedState_ReturnsIdentity
+    given
+    Node node = new("")
+    Vector4! t = Vector4(0, 0, 0)
+    Vector4! r = Vector4(0, 0, 0)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! expected = new(t, r, s)
 
-	when
-	actual = node.EvaluateGlobalTransform()
+    when
+    AMatrix! actual = node.EvaluateGlobalTransform()
 
-	then
-	AssertEqual(expected, actual)
+    then
+    AssertEqual(expected, actual)
+
+test Node_CalcGlobalTransformWithTranslation_ReturnsTranslation
+    given
+    Node node = new("")
+    Vector4! t = Vector4(2, 3, 4)
+    Vector4! r = Vector4(0, 0, 0)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! expected = new(t, r, s)
+    node.LclTranslation&.Set(t)
+
+    when
+    AMatrix! actual = node.EvaluateGlobalTransform()
+
+    then
+    AssertEqual(expected, actual)
+
+test Node_CalcGlobalTransformWithRotation_ReturnsRotation
+    given
+    Node node = new("")
+    Vector4! t = Vector4(0, 0, 0)
+    Vector4! r = Vector4(22, 33, 44)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! expected = new(t, r, s)
+    node.LclRotation&.Set(r)
+
+    when
+    AMatrix! actual = node.EvaluateGlobalTransform()
+
+    then
+    AssertEqual(expected, actual)
+
+test Node_CalcGlobalTransformWithScale_ReturnsScale
+    given
+    Node node = new("")
+    Vector4! t = Vector4(0, 0, 0)
+    Vector4! r = Vector4(0, 0, 0)
+    Vector4! s = Vector4(5, 6, 7)
+    Matrix! expected = new(t, r, s)
+    node.LclScaling&.Set(s)
+
+    when
+    AMatrix! actual = node.EvaluateGlobalTransform()
+
+    then
+    AssertEqual(expected, actual)
