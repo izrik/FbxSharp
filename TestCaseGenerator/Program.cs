@@ -211,6 +211,7 @@ namespace TestCaseGenerator
                             outline = Regex.Replace(outline, @"Assert(\w)", m => "Assert." + m.Groups[1].Value);
 
                             outline = outline.Replace("&", "");
+                            outline = outline.Replace("!", "");
 
                             if (Regex.IsMatch(outline, @"^\w+\s*\*\s*\w+$"))
                             {
@@ -219,7 +220,7 @@ namespace TestCaseGenerator
 
                             if (Regex.IsMatch(outline, @"\bnew\b"))
                             {
-                                parts = outline.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries).ToList();
+                                parts = outline.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                                 var targetTypeName = parts[0];
                                 if (targetTypeName == "LayerContainer" ||
                                     targetTypeName == "GeometryBase" ||
@@ -227,13 +228,32 @@ namespace TestCaseGenerator
                                 {
                                     targetTypeName = "Mesh";
                                 }
+                                if (targetTypeName == "AMatrix" ||
+                                    targetTypeName == "FbxMatrix" ||
+                                    targetTypeName == "FbxAMatrix")
+                                {
+                                    targetTypeName = "Matrix";
+                                }
 
                                 parts[3] = parts[3].Replace("new", "new " + targetTypeName);
                                 outline = string.Join(" ", parts);
                             }
 
-                            parts = outline.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries).ToList();
-                            if (parts.Count > 3 && parts[2] == "=")
+                            parts = outline.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                            if (parts.Count == 2)
+                            {
+                                var targetTypeName = parts[0];
+                                if (targetTypeName == "AMatrix" ||
+                                    targetTypeName == "FbxMatrix" ||
+                                    targetTypeName == "FbxAMatrix")
+                                {
+                                    targetTypeName = "Matrix";
+                                }
+
+                                parts[0] = targetTypeName;
+                                outline = string.Join(" ", parts);
+                            }
+                            else if (parts.Count > 3 && parts[2] == "=")
                             {
                                 parts[0] = "var";
                                 outline = string.Join(" ", parts);
@@ -326,11 +346,22 @@ namespace TestCaseGenerator
 
                             if (Regex.IsMatch(outline, @"\bnew\b"))
                             {
-                                parts = outline.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries).ToList();
-                                var type = parts[0];
-                                if (type == "FbxTime")
+                                parts = outline.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                                var isStackValue = parts[0].EndsWith("!");
+                                var type = parts[0].Replace("!", "");
+
+                                if (type == "FbxTime" ||
+                                    type == "FbxMatrix" ||
+                                    type == "FbxAMatrix")
                                 {
-                                    parts[3] = parts[3].Replace("new(", "new " + type + "(");
+                                    if (isStackValue)
+                                    {
+                                        parts[3] = parts[3].Replace("new(", type + "(");
+                                    }
+                                    else
+                                    {
+                                        parts[3] = parts[3].Replace("new(", "new " + type + "(");
+                                    }
                                 }
                                 else
                                 {
@@ -340,7 +371,23 @@ namespace TestCaseGenerator
                             }
 
                             parts = outline.Split(' ').ToList();
-                            if (parts.Count > 3 && parts[2] == "=")
+                            if (parts.Count == 2)
+                            {
+                                if (parts[0].EndsWith("!"))
+                                {
+                                    parts[0] = parts[0].Replace("!", "");
+                                }
+
+                                if (Regex.IsMatch(parts[0], "^\\w+$") &&
+                                    !parts[0].StartsWith("Fbx") &&
+                                    char.IsUpper(parts[0][0]))
+                                {
+                                    parts[0] = "Fbx" + parts[0];
+                                }
+
+                                outline = string.Join(" ", parts);
+                            }
+                            else if (parts.Count > 3 && parts[2] == "=")
                             {
                                 if (char.IsLower(parts[0][0]) || parts[0].EndsWith("!"))
                                 {

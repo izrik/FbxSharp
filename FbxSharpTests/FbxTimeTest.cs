@@ -11,7 +11,7 @@ namespace FbxSharpTests
         public void FbxTime_CreateLongLong_HasSeconds()
         {
             // given:
-            FbxTime  time;
+            FbxTime time;
 
             // when:
             time = new FbxTime(0);

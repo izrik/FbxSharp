@@ -65,6 +65,7 @@
     <Compile Include="AnimCurveTest.cs" />
     <Compile Include="AnimLayerTest.cs" />
     <Compile Include="AnimStackTest.cs" />
+    <Compile Include="NodeTransformsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

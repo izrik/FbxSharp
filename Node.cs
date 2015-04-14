@@ -243,6 +243,70 @@ namespace FbxSharp
 
         #endregion
 
+        #region Node Evaluation Functions
+
+        public AnimEvaluator GetAnimationEvaluator()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Matrix EvaluateGlobalTransform()
+        {
+            return EvaluateGlobalTransform(FbxTime.Infinite);
+        }
+        public Matrix EvaluateGlobalTransform(FbxTime pTime, Node.EPivotSet pPivotSet=Node.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Matrix EvaluateLocalTransform()
+        {
+            return EvaluateLocalTransform(FbxTime.Infinite);
+        }
+        public Matrix EvaluateLocalTransform(FbxTime pTime, Node.EPivotSet pPivotSet=Node.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Vector4 EvaluateLocalTranslation()
+        {
+            return EvaluateLocalTranslation(FbxTime.Infinite);
+        }
+        public Vector4 EvaluateLocalTranslation(FbxTime pTime, Node.EPivotSet pPivotSet=Node.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Vector4 EvaluateLocalRotation()
+        {
+            return EvaluateLocalRotation(FbxTime.Infinite);
+        }
+        public Vector4 EvaluateLocalRotation(FbxTime pTime, Node.EPivotSet pPivotSet=Node.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Vector4 EvaluateLocalScaling()
+        {
+            return EvaluateLocalScaling(FbxTime.Infinite);
+        }
+        public Vector4 EvaluateLocalScaling(FbxTime pTime, Node.EPivotSet pPivotSet=Node.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
+        {
+            throw new NotImplementedException();
+        }
+
+        //public bool EvaluateGlobalBoundingBoxMinMaxCenter(out Vector4 pBBoxMin, out Vector4 pBBoxMax, out Vector4 pBBoxCenter,  FbxTime pTime=FBXSDK_TIME_INFINITE)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public bool EvaluateRayIntersectionPoint(out Vector4 pOut,  Vector4 pRayOrigin,  Vector4 pRayDir, bool pCulling=false,  FbxTime pTime=FBXSDK_TIME_INFINITE)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        #endregion
+
         #region Material Management
 
         public readonly CollectionView<SurfaceMaterial> Materials;

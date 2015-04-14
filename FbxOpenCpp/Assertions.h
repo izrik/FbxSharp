@@ -10,6 +10,8 @@ void _AssertEqual(const char* expected, const char* actual, const char* filename
 void _AssertEqual(const char* expected, FbxString& actual, const char* filename, int line);
 void _AssertEqual(FbxVector4 expected, FbxVector4 actual, const char* filename, int line);
 void _AssertEqual(double expected, double actual, const char* filename, int line, double epsilon=0);
+void _AssertEqual(FbxMatrix expected, FbxMatrix actual, const char* filename, int line, double epsilon=0);
+void _AssertEqual(FbxAMatrix expected, FbxAMatrix actual, const char* filename, int line, double epsilon=0);
 void _AssertNotEqual(void* expected, void* actual, const char* filename, int line);
 void _AssertNull(void* actual, const char* filename, int line);
 void _AssertNotNull(void* actual, const char* filename, int line);

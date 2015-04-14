@@ -65,5 +65,6 @@ TestClass(AnimCurveNodeTest);
 TestClass(AnimCurveTest);
 TestClass(AnimLayerTest);
 TestClass(AnimStackTest);
+TestClass(NodeTransformsTest);
 
 #endif // __FBXOPENCPP_TESTS_H

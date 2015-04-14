@@ -1,0 +1,13 @@
+﻿fixture NodeTransformsTest
+test Node_CalcTransformFromCreatedState_ReturnsIdentity
+	given
+	Node node = new("")
+	AMatrix! expected = new()
+		//1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1)
+	AMatrix! actual
+
+	when
+	actual = node.EvaluateGlobalTransform()
+
+	then
+	AssertEqual(expected, actual)
