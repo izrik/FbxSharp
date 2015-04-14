@@ -11,6 +11,7 @@
 void PrintObjectGraph(FbxObject* obj);
 
 void PrintObjectID(FbxObject* obj);
+std::string id(FbxObject* obj);
 void PrintPropertyID(FbxProperty* prop);
 
 void PrintObject(FbxObject* obj);

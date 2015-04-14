@@ -55,6 +55,18 @@ void PrintObjectID(FbxObject* obj)
             quote(obj->GetName());
 }
 
+std::string id(FbxObject* obj)
+{
+    if (obj == NULL) return "<<null>>";
+
+    std::stringstream ss;
+    ss <<   "$" << obj->GetUniqueID() << ", " <<
+            obj->GetRuntimeClassId().GetName() << ", " <<
+            quote(obj->GetName());
+
+    return ss.str();
+}
+
 void PrintPropertyID(FbxProperty* prop)
 {
     if (prop == NULL)

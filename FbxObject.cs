@@ -54,6 +54,11 @@ namespace FbxSharp
         public virtual void ConnectSrcObject(FbxObject fbxObject/*, Connection.EType type = Connection.EType.None*/)
         {
             SrcObjects.Add(fbxObject);
+
+            if (Scene != null)
+            {
+                Scene.ConnectSrcObject(fbxObject);
+            }
         }
 
         public bool IsConnectedSrcObject(FbxObject pObject)

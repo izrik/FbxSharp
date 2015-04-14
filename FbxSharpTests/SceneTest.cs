@@ -272,5 +272,129 @@ namespace FbxSharpTests
             Assert.AreEqual("ActiveAnimStackName", doc.ActiveAnimStackName.GetName());
             Assert.AreSame(prop, doc.ActiveAnimStackName);
         }
+
+        [Test]
+        public void Scene_AddObjectWithSrcObjects_AddsAllSrcObjects()
+        {
+            // given:
+            var scene = new Scene("s");
+            var node = new Node("n");
+            var m1 = new Mesh("m1");
+            var m2 = new Mesh("m2");
+            var v = new Video("v");
+            var c = new Cluster("c");
+            var n2 = new Node("n2");
+            var c2 = new Cluster("c2");
+
+            node.ConnectSrcObject(m1);
+            node.ConnectSrcObject(m2);
+            node.ConnectSrcObject(v);
+            node.ConnectSrcObject(c);
+            c.ConnectSrcObject(n2);;
+            n2.ConnectSrcObject(c2);
+
+            // require:
+            Assert.AreEqual(3, scene.GetSrcObjectCount());
+
+            Assert.AreEqual(4, node.GetSrcObjectCount());
+            Assert.AreSame(m1, node.GetSrcObject(0));
+            Assert.AreSame(m2, node.GetSrcObject(1));
+            Assert.AreSame(v, node.GetSrcObject(2));
+            Assert.AreSame(c, node.GetSrcObject(3));
+            Assert.AreEqual(0, node.GetDstObjectCount());
+            Assert.Null(node.GetScene());
+
+            Assert.AreEqual(0, m1.GetSrcObjectCount());
+            Assert.AreEqual(1, m1.GetDstObjectCount());
+            Assert.AreSame(node, m1.GetDstObject(0));
+            Assert.Null(m1.GetScene());
+
+            Assert.AreEqual(0, m2.GetSrcObjectCount());
+            Assert.AreEqual(1, m2.GetDstObjectCount());
+            Assert.AreSame(node, m2.GetDstObject(0));
+            Assert.Null(m2.GetScene());
+
+            Assert.AreEqual(0, v.GetSrcObjectCount());
+            Assert.AreEqual(1, v.GetDstObjectCount());
+            Assert.AreSame(node, v.GetDstObject(0));
+            Assert.Null(v.GetScene());
+
+            Assert.AreEqual(1, c.GetSrcObjectCount());
+            Assert.AreSame(n2, c.GetSrcObject());;
+            Assert.AreEqual(1, c.GetDstObjectCount());
+            Assert.AreSame(node, c.GetDstObject(0));
+            Assert.Null(c.GetScene());
+
+            Assert.AreEqual(1, n2.GetSrcObjectCount());
+            Assert.AreSame(c2, n2.GetSrcObject());;
+            Assert.AreEqual(1, n2.GetDstObjectCount());
+            Assert.AreSame(c, n2.GetDstObject(0));
+            Assert.Null(n2.GetScene());
+
+            Assert.AreEqual(0, c2.GetSrcObjectCount());
+            Assert.AreEqual(1, c2.GetDstObjectCount());
+            Assert.AreSame(n2, c2.GetDstObject(0));
+            Assert.Null(c2.GetScene());
+
+            // when:
+            scene.ConnectSrcObject(node);
+
+            // then:
+            Assert.AreEqual(10, scene.GetSrcObjectCount());
+            Assert.AreSame(node, scene.GetSrcObject(3));
+            Assert.AreSame(m1, scene.GetSrcObject(4));
+            Assert.AreSame(m2, scene.GetSrcObject(5));
+            Assert.AreSame(v, scene.GetSrcObject(6));
+            Assert.AreSame(c, scene.GetSrcObject(7));
+            Assert.AreSame(n2, scene.GetSrcObject(8));
+            Assert.AreSame(c2, scene.GetSrcObject(9));
+
+            Assert.AreEqual(4, node.GetSrcObjectCount());
+            Assert.AreSame(m1, node.GetSrcObject(0));
+            Assert.AreSame(m2, node.GetSrcObject(1));
+            Assert.AreSame(v, node.GetSrcObject(2));
+            Assert.AreSame(c, node.GetSrcObject(3));
+            Assert.AreEqual(1, node.GetDstObjectCount());
+            Assert.AreSame(scene, node.GetDstObject(0));
+            Assert.AreSame(scene, node.GetScene());
+
+            Assert.AreEqual(0, m1.GetSrcObjectCount());
+            Assert.AreEqual(2, m1.GetDstObjectCount());
+            Assert.AreSame(node, m1.GetDstObject(0));
+            Assert.AreSame(scene, m1.GetDstObject(1));
+            Assert.AreSame(scene, m1.GetScene());
+
+            Assert.AreEqual(0, m2.GetSrcObjectCount());
+            Assert.AreEqual(2, m2.GetDstObjectCount());
+            Assert.AreSame(node, m2.GetDstObject(0));
+            Assert.AreSame(scene, m2.GetDstObject(1));
+            Assert.AreSame(scene, m2.GetScene());
+
+            Assert.AreEqual(0, v.GetSrcObjectCount());
+            Assert.AreEqual(2, v.GetDstObjectCount());
+            Assert.AreSame(node, v.GetDstObject(0));
+            Assert.AreSame(scene, v.GetDstObject(1));
+            Assert.AreSame(scene, v.GetScene());
+
+            Assert.AreEqual(1, c.GetSrcObjectCount());
+            Assert.AreSame(n2, c.GetSrcObject(0));
+            Assert.AreEqual(2, c.GetDstObjectCount());
+            Assert.AreSame(node, c.GetDstObject(0));
+            Assert.AreSame(scene, c.GetDstObject(1));
+            Assert.AreSame(scene, c.GetScene());
+
+            Assert.AreEqual(1, n2.GetSrcObjectCount());
+            Assert.AreSame(c2, n2.GetSrcObject());;
+            Assert.AreEqual(2, n2.GetDstObjectCount());
+            Assert.AreSame(c, n2.GetDstObject(0));
+            Assert.AreSame(scene, n2.GetDstObject(1));
+            Assert.AreSame(scene, n2.GetScene());
+
+            Assert.AreEqual(0, c2.GetSrcObjectCount());
+            Assert.AreEqual(2, c2.GetDstObjectCount());
+            Assert.AreSame(n2, c2.GetDstObject(0));
+            Assert.AreSame(scene, c2.GetDstObject(1));
+            Assert.AreSame(scene, c2.GetScene());
+        }
     }
 }

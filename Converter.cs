@@ -84,8 +84,16 @@ namespace FbxSharp
                 }
             }
 
+            // connect animation stacks
+            foreach (var stack in fbxObjects)
+            {
+                scene.ConnectSrcObject(stack);
+            }
+
             var takes = parsed.FindPropertyByName("Takes");
             CheckTakes(takes);
+
+//            var notConnected = fbxObjects.Except(scene.SrcObjects).ToList();
 
             return scene;
         }

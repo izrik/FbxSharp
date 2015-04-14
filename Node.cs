@@ -112,13 +112,6 @@ namespace FbxSharp
             return true;
         }
 
-        public override void ConnectSrcObject(FbxObject fbxObject/*, Connection.EType type = Connection.EType.None*/)
-        {
-            base.ConnectSrcObject(fbxObject/*, type*/);
-
-            ConnectScene(fbxObject);
-        }
-
         void ConnectScene(FbxObject obj)
         {
             if (obj.Scene != this.Scene)

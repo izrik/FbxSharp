@@ -20,6 +20,32 @@ namespace FbxSharp
             SetAnimationEvaluator(new AnimEvaluator());
         }
 
+        public override void ConnectSrcObject(FbxObject fbxObject/*, Connection.EType type = Connection.EType.None*/)
+        {
+            base.ConnectSrcObject(fbxObject/*, type*/);
+
+            if (fbxObject is AnimStack && this.GetCurrentAnimationStack() == null)
+            {
+                this.SetCurrentAnimationStack((AnimStack)fbxObject);
+            }
+
+            foreach (var srcobj in fbxObject.SrcObjects)
+            {
+                if (!SrcObjects.Contains(srcobj))
+                    this.ConnectSrcObject(srcobj);
+            }
+
+            foreach (Property prop in fbxObject.Properties)
+            {
+                foreach (var srcobj in prop.SrcObjects)
+                {
+                    if (!SrcObjects.Contains(srcobj))
+                        this.ConnectSrcObject(srcobj);
+                }
+            }
+        }
+
+
         #region Pose Management
 
         public readonly CollectionView<Pose> Poses;
