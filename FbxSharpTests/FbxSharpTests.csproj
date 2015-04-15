@@ -67,6 +67,7 @@
     <Compile Include="AnimStackTest.cs" />
     <Compile Include="NodeTransformsTest.cs" />
     <Compile Include="MatrixTest.cs" />
+    <Compile Include="IListHelperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

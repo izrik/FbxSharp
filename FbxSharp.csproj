@@ -125,6 +125,8 @@
     <Compile Include="AnimCurveKey.cs" />
     <Compile Include="AnimCurveNode.cs" />
     <Compile Include="AnimStack.cs" />
+    <Compile Include="IListHelper.cs" />
+    <Compile Include="SortedListHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

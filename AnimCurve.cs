@@ -5,6 +5,11 @@ namespace FbxSharp
 {
     public class AnimCurve : AnimCurveBase
     {
+        public AnimCurve(string name="")
+            : base(name)
+        {
+        }
+
         #region Animation curve creation.
 
         public static AnimCurve Create(Scene pContainer, string pName)
@@ -109,7 +114,16 @@ namespace FbxSharp
         }
         public override float Evaluate(FbxTime pTime)
         {
-            throw new NotImplementedException();
+            if (keys.Count == 0) return 0;
+
+            var index = keys.IndexOfOrBeforeKey(pTime.Value);
+
+            if (index < 0)
+            {
+                throw new NotImplementedException();
+            }
+
+            return (keys[index] as AnimCurveKey).GetValue();
         }
         public override float EvaluateIndex(double pIndex)
         {

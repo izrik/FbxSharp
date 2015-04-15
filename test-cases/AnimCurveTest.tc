@@ -1,1 +1,34 @@
 ﻿fixture AnimCurveTest
+test AnimCurve_Create_AllZero
+    given
+    AnimCurve ac = new("")
+    FbxTime* time
+    double value
+
+    when
+    time = new FbxTime(0)
+    value = ac.Evaluate(*time)
+
+    then
+    AssertEqual(0.0, value)
+
+    when
+    time = new FbxTime(100)
+    value = ac.Evaluate(*time)
+
+    then
+    AssertEqual(0.0, value)
+
+    when
+    time = new FbxTime(-100)
+    value = ac.Evaluate(*time)
+
+    then
+    AssertEqual(0.0, value)
+
+    when
+    time = new FbxTime(10000000L)
+    value = ac.Evaluate(*time)
+
+    then
+    AssertEqual(0.0, value)
