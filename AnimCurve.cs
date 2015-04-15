@@ -120,10 +120,10 @@ namespace FbxSharp
 
             if (index < 0)
             {
-                throw new NotImplementedException();
+                return (keys[keys.Keys[0]] as AnimCurveKey).GetValue();
             }
 
-            return (keys[index] as AnimCurveKey).GetValue();
+            return (keys[keys.Keys[index]] as AnimCurveKey).GetValue();
         }
         public override float EvaluateIndex(double pIndex)
         {

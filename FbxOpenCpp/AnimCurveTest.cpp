@@ -40,8 +40,42 @@ void AnimCurve_Create_AllZero()
     AssertEqual(0.0, value);
 }
 
+void AnimCurve_SingleKey_AllResultsSame()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxAnimCurve* ac = FbxAnimCurve::Create(manager, "");
+    FbxTime* time;
+    time = new FbxTime(100);
+    FbxAnimCurveKey key = FbxAnimCurveKey(*time, 1.5f);
+    ac->KeyAdd(*time, key);
+    double value;
+
+    // when:
+    time = new FbxTime(0);
+    value = ac->Evaluate(*time);
+
+    // then:
+    AssertEqual(1.5, value);
+
+    // when:
+    time = new FbxTime(100);
+    value = ac->Evaluate(*time);
+
+    // then:
+    AssertEqual(1.5, value);
+
+    // when:
+    time = new FbxTime(200);
+    value = ac->Evaluate(*time);
+
+    // then:
+    AssertEqual(1.5, value);
+}
+
 void AnimCurveTest::RegisterTestCases()
 {
     AddTestCase(AnimCurve_Create_AllZero);
+    AddTestCase(AnimCurve_SingleKey_AllResultsSame);
 }
 
