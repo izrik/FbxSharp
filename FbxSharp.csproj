@@ -160,6 +160,7 @@
     <None Include="test-cases\AnimCurveNodeTest.tc" />
     <None Include="test-cases\NodeTransformsTest.tc" />
     <None Include="test-cases\MatrixTest.tc" />
+    <None Include="test-cases\AnimCurveKeyTest.tc" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="test-cases\" />

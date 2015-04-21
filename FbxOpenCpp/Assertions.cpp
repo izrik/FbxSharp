@@ -141,6 +141,16 @@ void _AssertEqual(FbxMatrix expected, FbxMatrix actual, const char* filename, in
     }
 }
 
+void _AssertEqual(FbxLongLong expected, FbxLongLong actual, const char* filename, int line)
+{
+    if (expected != actual)
+    {
+        stringstream ss;
+        ss << "Expected " << expected << " but got " << actual << ", at " << filename << ":" << line;
+        throw new string(ss.str());
+    }
+}
+
 void _AssertNotEqual(void* expected, void* actual, const char* filename, int line)
 {
     if (expected == actual)

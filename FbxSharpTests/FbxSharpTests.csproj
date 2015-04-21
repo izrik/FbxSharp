@@ -68,6 +68,7 @@
     <Compile Include="NodeTransformsTest.cs" />
     <Compile Include="MatrixTest.cs" />
     <Compile Include="IListHelperTest.cs" />
+    <Compile Include="AnimCurveKeyTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,0 +1,35 @@
+﻿fixture AnimCurveKeyTest
+test AnimCurveKey_Create_HasDefaultValues
+    when
+    AnimCurveKey key = new()
+
+    then
+    AssertEqual(0L, key.GetTime()&.Get())
+    AssertEqual(0.0, key.GetValue())
+    AssertEqual(AnimCurveDef.ETangentMode.eTangentAuto, key.GetTangentMode())
+    AssertEqual(AnimCurveDef.EInterpolationType.eInterpolationCubic, key.GetInterpolation())
+    AssertEqual(AnimCurveDef.EWeightedMode.eWeightedNone, key.GetTangentWeightMode())
+    AssertEqual(AnimCurveDef.EConstantMode.eConstantNext, key.GetConstantMode())
+    AssertEqual(AnimCurveDef.EVelocityMode.eVelocityNone, key.GetTangentVelocityMode())
+    AssertEqual(AnimCurveDef.ETangentVisibility.eTangentShowNone, key.GetTangentVisibility())
+    AssertTrue(!key.GetBreak())
+
+test AnimCurve_SetWeightLeftThenRight_WeightIsAll
+    given
+    AnimCurveKey key = new()
+
+    require
+    AssertEqual(AnimCurveDef.EWeightedMode.eWeightedNone, key.GetTangentWeightMode())
+
+    when
+    key.SetTangentWeightMode(AnimCurveDef.EWeightedMode.eWeightedNextLeft)
+
+    then
+    AssertEqual(AnimCurveDef.EWeightedMode.eWeightedNextLeft, key.GetTangentWeightMode())
+    
+    when
+    key.SetTangentWeightMode(AnimCurveDef.EWeightedMode.eWeightedRight, AnimCurveDef.EWeightedMode.eWeightedRight)
+
+    then
+    AssertEqual(AnimCurveDef.EWeightedMode.eWeightedAll, key.GetTangentWeightMode())
+    

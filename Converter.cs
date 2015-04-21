@@ -1201,6 +1201,9 @@ namespace FbxSharp
 
             long[] keyTimes = null;
             double[] keyValues = null;
+            long[] attrFlags = null;
+            long[] attrData = null;
+            long[] attrRefCounts = null;
 
             foreach (var prop in obj.Properties)
             {
@@ -1220,25 +1223,68 @@ namespace FbxSharp
                     keyValues = prop.Properties[0].Values.Select(n => ((Number)n).AsDouble.Value).ToArray();
                     break;
                 case "KeyAttrFlags":
-                    var attrFlags = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
+                    attrFlags = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
                     break;
                 case "KeyAttrDataFloat":
-                    var attrData = prop.Properties[0].Values.Select(n => ((Number)n).AsDouble.Value).ToArray();
+                    attrData = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
                     break;
                 case "KeyAttrRefCount":
-                    var attrRefCount = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
+                    attrRefCounts = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
                     break;
                 default:
                     throw new NotImplementedException();
                 }
             }
 
+            var keys = new AnimCurveKey[Math.Min(keyTimes.Length, keyValues.Length)];
             int i;
             for (i = 0; i < Math.Min(keyTimes.Length, keyValues.Length); i++)
             {
                 var time = new FbxTime(keyTimes[i]);
-                var key = new AnimCurveKey(time, (float)keyValues[i]);
-                curve.KeyAdd(time, key);
+                keys[i] = new AnimCurveKey(time, (float)keyValues[i]);
+            }
+
+
+            int k = 0;
+            int m = 0;
+            foreach (var attrCount in attrRefCounts)
+            {
+                long data0 = attrData[4 * m + 0];
+                long data1 = attrData[4 * m + 1];
+                long data2 = attrData[4 * m + 2];
+                long data3 = attrData[4 * m + 3];
+                long flags = attrFlags[m];
+
+                var tangentMode = (AnimCurveDef.ETangentMode)(flags & 0x00007f00);
+                var interpolation = (AnimCurveDef.EInterpolationType)(flags & 0x0000000e);
+                var weight = (AnimCurveDef.EWeightedMode)(flags & 0x03000000);
+                var constant = (AnimCurveDef.EConstantMode)(flags & 0x00000100);
+                var velocity = (AnimCurveDef.EVelocityMode)(flags & 0x30000000);
+                var visibility = (AnimCurveDef.ETangentVisibility)(flags & 0x00300000);
+
+                for (i = 0; i < attrCount; i++, k++)
+                {
+                    var key = keys[k];
+                    key.SetTangentMode(tangentMode);
+                    key.SetInterpolation(interpolation);
+                    key.SetTangentWeightMode(weight);
+                    key.SetConstantMode(constant);
+                    key.SetTangentVelocityMode(velocity);
+                    key.SetTangentVisibility(visibility);
+                    key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eRightWeight, (data3 & 0x0000ffff) / 9999.0);
+                    key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eNextLeftWeight, ((data3 >> 16) & 0xffff) / 9999.0);
+//                    key.SetDataFloat(AnimCurveDef.EDataIndex.eRightSlope, data0);
+//                    key.SetDataFloat(AnimCurveDef.EDataIndex.eRightSlope, data1);
+//                    key.SetDataFloat(AnimCurveDef.EDataIndex.eRightSlope, data2);
+//                    key.SetDataFloat(AnimCurveDef.EDataIndex.eRightSlope, data3);
+                }
+
+                m++;
+            }
+
+            foreach (var key in keys)
+            {
+                curve.KeyAdd(key.GetTime(), key);
             }
 
             return curve;

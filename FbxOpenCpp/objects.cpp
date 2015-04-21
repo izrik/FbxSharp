@@ -260,15 +260,146 @@ void PrintAnimStack(FbxAnimStack* animStack)
     cout << "    GetReferenceTimeSpan() = " << animStack->GetReferenceTimeSpan() << endl;
 }
 
+std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentMode& value)
+{
+    switch (value)
+    {
+    case FbxAnimCurveDef::eTangentAuto: os << "eTangentAuto"; break;
+    case FbxAnimCurveDef::eTangentTCB: os << "eTangentTCB"; break;
+    case FbxAnimCurveDef::eTangentUser: os << "eTangentUser"; break;
+    case FbxAnimCurveDef::eTangentGenericBreak: os << "eTangentGenericBreak"; break;
+    case FbxAnimCurveDef::eTangentBreak: os << "eTangentBreak"; break;
+    case FbxAnimCurveDef::eTangentAutoBreak: os << "eTangentAutoBreak"; break;
+    case FbxAnimCurveDef::eTangentGenericClamp: os << "eTangentGenericClamp"; break;
+    case FbxAnimCurveDef::eTangentGenericTimeIndependent: os << "eTangentGenericTimeIndependent"; break;
+    case FbxAnimCurveDef::eTangentGenericClampProgressive: os << "eTangentGenericClampProgressive"; break;
+    default: os << (int)value; break;
+    }
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EInterpolationType& value)
+{
+    switch (value)
+    {
+    case FbxAnimCurveDef::eInterpolationConstant: os << "eInterpolationConstant"; break;
+    case FbxAnimCurveDef::eInterpolationLinear: os << "eInterpolationLinear"; break;
+    case FbxAnimCurveDef::eInterpolationCubic: os << "eInterpolationCubic"; break;
+    default: os << (int)value; break;
+    }
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EWeightedMode& value)
+{
+    switch (value)
+    {
+    case FbxAnimCurveDef::eWeightedNone: os << "eWeightedNone"; break;
+    case FbxAnimCurveDef::eWeightedRight: os << "eWeightedRight"; break;
+    case FbxAnimCurveDef::eWeightedNextLeft: os << "eWeightedNextLeft"; break;
+    case FbxAnimCurveDef::eWeightedAll: os << "eWeightedAll"; break; 
+    default: os << (int)value; break;
+    }
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EConstantMode& value)
+{
+    switch (value)
+    {
+    case FbxAnimCurveDef::eConstantStandard: os << "eConstantStandard"; break; 
+    case FbxAnimCurveDef::eConstantNext: os << "eConstantNext"; break;
+    default: os << (int)value; break;
+    }
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EVelocityMode& value)
+{
+    switch (value)
+    {
+    case FbxAnimCurveDef::eVelocityNone: os << "eVelocityNone"; break;
+    case FbxAnimCurveDef::eVelocityRight: os << "eVelocityRight"; break;
+    case FbxAnimCurveDef::eVelocityNextLeft: os << "eVelocityNextLeft"; break;
+    case FbxAnimCurveDef::eVelocityAll: os << "eVelocityAll"; break; 
+    default: os << (int)value; break;
+    }
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentVisibility& value)
+{
+    switch (value)
+    {
+    case FbxAnimCurveDef::eTangentShowNone: os << "eTangentShowNone"; break;
+    case FbxAnimCurveDef::eTangentShowLeft: os << "eTangentShowLeft"; break;
+    case FbxAnimCurveDef::eTangentShowRight: os << "eTangentShowRight"; break;
+    case FbxAnimCurveDef::eTangentShowBoth: os << "eTangentShowBoth"; break;
+    default: os << (int)value; break;
+    }
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EDataIndex& value)
+{
+    switch (value)
+    {
+    case FbxAnimCurveDef::eRightSlope: os << "eRightSlope"; break;
+    case FbxAnimCurveDef::eNextLeftSlope: os << "eNextLeftSlope"; break;
+    case FbxAnimCurveDef::eWeights: os << "eWeights"; break;
+    //case FbxAnimCurveDef::eRightWeight: os << "eRightWeight"; break;
+    case FbxAnimCurveDef::eNextLeftWeight: os << "eNextLeftWeight"; break;
+    case FbxAnimCurveDef::eVelocity: os << "eVelocity"; break;
+    //case FbxAnimCurveDef::eRightVelocity: os << "eRightVelocity"; break;
+    case FbxAnimCurveDef::eNextLeftVelocity: os << "eNextLeftVelocity"; break;
+    //case FbxAnimCurveDef::eTCBTension: os << "eTCBTension"; break;
+    //case FbxAnimCurveDef::eTCBContinuity: os << "eTCBContinuity"; break;
+    //case FbxAnimCurveDef::eTCBBias: os << "eTCBBias"; break;
+    default: os << (int)value; break;
+    }
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, FbxAnimCurveKey& value)
+{
+    os << value.GetValue() << ", "
+        << value.GetInterpolation() << ", "
+        << value.GetTangentMode() << ", "
+        << value.GetTangentWeightMode() << ", "
+        << value.GetTangentVelocityMode() << ", "
+        << value.GetConstantMode() << ", "
+        << value.GetTangentVisibility() << ", "
+        << "Break: " << value.GetBreak() << ", "
+        << "DataFloat: "
+            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)0) << ","
+            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)1) << ","
+            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)2) << ","
+            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)3) << ","
+            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)4) << ","
+            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)5);
+    return os;
+}
+
+void PrintAnimCurveKey(int i, FbxTime time, FbxAnimCurveKey key)
+{
+    cout << "        #" << i << ": " << time << ", " << key << endl;
+    if (time != key.GetTime())
+    {
+        cout << "-------- times don't match: " << time << " != " << key.GetTime() << endl;
+    }
+}
+
+bool PrintAllCurveKeys = false;
+
 void PrintAnimCurve(FbxAnimCurve* animCurve)
 {
     cout << "    KeyGetCount() = " << animCurve->KeyGetCount() << endl;
-    if (animCurve->KeyGetCount() <= 6)
+    if (animCurve->KeyGetCount() <= 6 || PrintAllCurveKeys)
     {
         int i;
         for (i = 0; i < animCurve->KeyGetCount(); i++)
         {
-            cout << "        #" << i << ": " << animCurve->KeyGetTime(i) << ", " << animCurve->KeyGetValue(i) << endl;
+            PrintAnimCurveKey(i, animCurve->KeyGetTime(i), animCurve->KeyGet(i));
         }
     }
     else
@@ -276,12 +407,12 @@ void PrintAnimCurve(FbxAnimCurve* animCurve)
         int i;
         for (i = 0; i < 3; i++)
         {
-            cout << "        #" << i << ": " << animCurve->KeyGetTime(i) << ", " << animCurve->KeyGetValue(i) << endl;
+            PrintAnimCurveKey(i, animCurve->KeyGetTime(i), animCurve->KeyGet(i));
         }
         cout << "        ..." << endl;
         for (i = animCurve->KeyGetCount() - 3; i < animCurve->KeyGetCount(); i++)
         {
-            cout << "        #" << i << ": " << animCurve->KeyGetTime(i) << ", " << animCurve->KeyGetValue(i) << endl;
+            PrintAnimCurveKey(i, animCurve->KeyGetTime(i), animCurve->KeyGet(i));
         }
     }
 }

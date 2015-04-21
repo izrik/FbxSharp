@@ -14,7 +14,7 @@ namespace FbxSharp
             }
             else
             {
-                throw new NotImplementedException();
+                Time = new FbxTime(0);
             }
 
             Value = pVal;
@@ -23,6 +23,12 @@ namespace FbxSharp
         public FbxTime Time;
         public float Value;
         public bool Break;
+        public AnimCurveDef.ETangentMode TangentMode = AnimCurveDef.ETangentMode.eTangentAuto;
+        public AnimCurveDef.EInterpolationType Interpolation = AnimCurveDef.EInterpolationType.eInterpolationCubic;
+        public AnimCurveDef.EWeightedMode TangentWeightMode = AnimCurveDef.EWeightedMode.eWeightedNone;
+        public AnimCurveDef.EConstantMode ConstantMode = AnimCurveDef.EConstantMode.eConstantNext;
+        public AnimCurveDef.EVelocityMode TangentVelocityMode = AnimCurveDef.EVelocityMode.eVelocityNone;
+        public AnimCurveDef.ETangentVisibility TangentVisibility = AnimCurveDef.ETangentVisibility.eTangentShowNone;
 
         public override FbxTime GetTime()
         {
@@ -57,32 +63,32 @@ namespace FbxSharp
 
         public AnimCurveDef.EInterpolationType GetInterpolation()
         {
-            throw new NotImplementedException();
+            return Interpolation;
         }
 
         public void SetInterpolation(AnimCurveDef.EInterpolationType pInterpolation)
         {
-            throw new NotImplementedException();
+            Interpolation = pInterpolation;
         }
 
         public AnimCurveDef.ETangentMode GetTangentMode(bool pIncludeOverrides=false)
         {
-            throw new NotImplementedException();
+            return TangentMode;
         }
 
         public void SetTangentMode(AnimCurveDef.ETangentMode pTangentMode)
         {
-            throw new NotImplementedException();
+            TangentMode = pTangentMode;
         }
 
         public AnimCurveDef.EWeightedMode GetTangentWeightMode()
         {
-            throw new NotImplementedException();
+            return TangentWeightMode;
         }
 
         public void SetTangentWeightMode(AnimCurveDef.EWeightedMode pTangentWeightMode, AnimCurveDef.EWeightedMode pMask=AnimCurveDef.EWeightedMode.eWeightedAll)
         {
-            throw new NotImplementedException();
+            TangentWeightMode = (TangentWeightMode & ~(pMask & AnimCurveDef.EWeightedMode.eWeightedAll)) | pTangentWeightMode;
         }
 
         public void SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex pIndex, double pWeight)
@@ -92,22 +98,22 @@ namespace FbxSharp
 
         public AnimCurveDef.EVelocityMode GetTangentVelocityMode()
         {
-            throw new NotImplementedException();
+            return TangentVelocityMode;
         }
 
         public void SetTangentVelocityMode(AnimCurveDef.EVelocityMode pTangentVelocityMode, AnimCurveDef.EVelocityMode pMask=AnimCurveDef.EVelocityMode.eVelocityAll)
         {
-            throw new NotImplementedException();
+            TangentVelocityMode = pTangentVelocityMode;
         }
 
         public AnimCurveDef.EConstantMode GetConstantMode()
         {
-            throw new NotImplementedException();
+            return ConstantMode;
         }
 
         public void SetConstantMode(AnimCurveDef.EConstantMode pMode)
         {
-            throw new NotImplementedException();
+            ConstantMode = pMode;
         }
 
         public float GetDataFloat(AnimCurveDef.EDataIndex pIndex)
@@ -122,12 +128,12 @@ namespace FbxSharp
 
         public void SetTangentVisibility(AnimCurveDef.ETangentVisibility pVisibility)
         {
-            throw new NotImplementedException();
+            TangentVisibility = pVisibility;
         }
 
         public AnimCurveDef.ETangentVisibility GetTangentVisibility()
         {
-            throw new NotImplementedException();
+            return TangentVisibility;
         }
 
         public void SetBreak(bool pVal)

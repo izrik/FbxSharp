@@ -211,7 +211,6 @@ namespace TestCaseGenerator
                             outline = Regex.Replace(outline, @"Assert(\w)", m => "Assert." + m.Groups[1].Value);
 
                             outline = outline.Replace("&", "");
-                            outline = outline.Replace("!", "");
                             outline = outline.Replace("*", "");
 
                             if (Regex.IsMatch(outline, @"^\w+\s*\*\s*\w+$"))
@@ -222,6 +221,7 @@ namespace TestCaseGenerator
                             if (Regex.IsMatch(outline, @"\bnew\b"))
                             {
                                 parts = outline.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                                parts[0] = parts[0].Replace("!", "");
                                 var targetTypeName = parts[0];
                                 if (targetTypeName == "LayerContainer" ||
                                     targetTypeName == "GeometryBase" ||
@@ -374,6 +374,8 @@ namespace TestCaseGenerator
                                 }
                                 outline = string.Join(" ", parts);
                             }
+
+                            outline = Regex.Replace(outline, @"AnimCurveDef\.(\w+)\.", "FbxAnimCurveDef::");
 
                             parts = outline.Split(' ').ToList();
                             if (parts.Count == 2)

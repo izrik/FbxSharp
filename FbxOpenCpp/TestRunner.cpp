@@ -129,6 +129,7 @@ void RunTests()
     tests.push_back(new AnimStackTest());
     tests.push_back(new NodeTransformsTest());
     tests.push_back(new MatrixTest());
+    tests.push_back(new AnimCurveKeyTest());
 
     cout << "Running tests..." << endl;
 

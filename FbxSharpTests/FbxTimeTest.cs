@@ -18,14 +18,14 @@ namespace FbxSharpTests
 
             // then:
             Assert.AreEqual(0.0, time.GetSecondDouble());
-            Assert.AreEqual(0, time.GetFrameCount());
+            Assert.AreEqual(0L, time.GetFrameCount());
 
             // when:
             time = new FbxTime(-7697693000LL);
 
             // then:
             Assert.AreEqual(-5/30.0, time.GetSecondDouble());
-            Assert.AreEqual(-5, time.GetFrameCount());
+            Assert.AreEqual(-5L, time.GetFrameCount());
         }
     }
 }

@@ -13,6 +13,11 @@ namespace FbxSharp
 
         public long Value;
 
+        public long Get()
+        {
+            return Value;
+        }
+
         public double GetSecondDouble()
         {
             return Value / 46186158000.0;

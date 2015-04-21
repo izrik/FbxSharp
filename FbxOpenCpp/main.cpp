@@ -42,12 +42,12 @@ void Save(const char* filename, FbxScene* scene)
     FbxManager* manager = scene->GetFbxManager();
 
     FbxIOSettings* ios = FbxIOSettings::Create(manager, IOSROOT);
+    ios->SetEnumProp(EXP_ASCIIFBX, 1);
 
     FbxExporter * ex = FbxExporter::Create(manager, "");
 
     ex->Initialize(filename, -1, ios);
     ex->Export(scene);
-
 }
 
 FbxScene* Load(const char* filename, FbxManager* manager)
