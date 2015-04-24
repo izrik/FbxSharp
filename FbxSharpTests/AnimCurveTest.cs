@@ -8,6 +8,16 @@ namespace FbxSharpTests
     public class AnimCurveTest : TestBase
     {
         [Test]
+        public void AnimCurveDef_Defaults()
+        {
+            // require:
+            Assert.AreEqual(1/3.0f, AnimCurveDef.sDEFAULT_WEIGHT);
+            Assert.AreEqual(0.000099999997f, AnimCurveDef.sMIN_WEIGHT);
+            Assert.AreEqual(0.99f, AnimCurveDef.sMAX_WEIGHT);
+            Assert.AreEqual(0.0f, AnimCurveDef.sDEFAULT_VELOCITY);
+        }
+
+        [Test]
         public void AnimCurve_Create_AllZero()
         {
             // given:

@@ -119,8 +119,6 @@ void PrintObject(FbxObject* obj)
     n = 0;
     while (prop.IsValid())
     {
-        char nn[1024];
-        sprintf(nn, "        ");
         cout << "        #" << n << " ";
         PrintPropertyID(&prop); cout << endl;
         PrintProperty(&prop, true);

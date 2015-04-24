@@ -3,6 +3,15 @@
 
 using namespace std;
 
+void AnimCurveDef_Defaults()
+{
+    // require:
+    AssertEqual(1/3.0f, FbxAnimCurveDef::sDEFAULT_WEIGHT);
+    AssertEqual(0.000099999997f, FbxAnimCurveDef::sMIN_WEIGHT);
+    AssertEqual(0.99f, FbxAnimCurveDef::sMAX_WEIGHT);
+    AssertEqual(0.0f, FbxAnimCurveDef::sDEFAULT_VELOCITY);
+}
+
 void AnimCurve_Create_AllZero()
 {
     // given:
@@ -75,6 +84,7 @@ void AnimCurve_SingleKey_AllResultsSame()
 
 void AnimCurveTest::RegisterTestCases()
 {
+    AddTestCase(AnimCurveDef_Defaults);
     AddTestCase(AnimCurve_Create_AllZero);
     AddTestCase(AnimCurve_SingleKey_AllResultsSame);
 }

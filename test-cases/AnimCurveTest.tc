@@ -1,4 +1,11 @@
 ﻿fixture AnimCurveTest
+test AnimCurveDef_Defaults
+    require
+    AssertEqual(1/3.0f, AnimCurveDef.sDEFAULT_WEIGHT)
+    AssertEqual(0.000099999997f, AnimCurveDef.sMIN_WEIGHT)
+    AssertEqual(0.99f, AnimCurveDef.sMAX_WEIGHT)
+    AssertEqual(0.0f, AnimCurveDef.sDEFAULT_VELOCITY)
+
 test AnimCurve_Create_AllZero
     given
     AnimCurve ac = new("")

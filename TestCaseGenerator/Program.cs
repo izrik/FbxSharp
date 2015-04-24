@@ -375,7 +375,8 @@ namespace TestCaseGenerator
                                 outline = string.Join(" ", parts);
                             }
 
-                            outline = Regex.Replace(outline, @"AnimCurveDef\.(\w+)\.", "FbxAnimCurveDef::");
+                            outline = Regex.Replace(outline, @"\bAnimCurveDef\.(\w+)\.", "FbxAnimCurveDef::");
+                            outline = Regex.Replace(outline, @"\bAnimCurveDef\.s", "FbxAnimCurveDef::s");
 
                             parts = outline.Split(' ').ToList();
                             if (parts.Count == 2)

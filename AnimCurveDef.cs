@@ -4,6 +4,11 @@ namespace FbxSharp
 {
     public static class AnimCurveDef
     {
+        public const float  sDEFAULT_WEIGHT = 1/3.0f;
+        public const float  sMIN_WEIGHT = 0.000099999997f;
+        public const float  sMAX_WEIGHT = 0.99f;
+        public const float  sDEFAULT_VELOCITY = 0;
+
         [Flags]
         public enum ETangentMode
         {
