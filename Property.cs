@@ -24,6 +24,10 @@ namespace FbxSharp
         public string Name { get; protected set; }
 
         public abstract Type PropertyDataType { get; }
+        public Type GetPropertyDataType()
+        {
+            return PropertyDataType;
+        }
         //public Object FbxObject { get; protected set; }
 
         //FbxDataType GetPropertyDataType()

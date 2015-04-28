@@ -283,9 +283,17 @@ namespace FbxSharp
         #region Object Name Management
 
         public string Name { get; set; }
+        public string GetName()
+        {
+            return Name;
+        }
 
         //Returns the unique ID of this object.
         public ulong UniqueId { get; set; } //protected set; }
+        public ulong GetUniqueID()
+        {
+            return UniqueId;
+        }
 
         #endregion
     }
