@@ -30,6 +30,15 @@ namespace FbxSharp
         public AnimCurveDef.EVelocityMode TangentVelocityMode = AnimCurveDef.EVelocityMode.eVelocityNone;
         public AnimCurveDef.ETangentVisibility TangentVisibility = AnimCurveDef.ETangentVisibility.eTangentShowNone;
 
+        float[] DataFloat = {
+            0,                              // eRightSlope, eTCBTension
+            0,                              // eNextLeftSlope, eTCBContinuity
+            AnimCurveDef.sDEFAULT_WEIGHT,   // eRightWeight, eTCBBias
+            AnimCurveDef.sDEFAULT_WEIGHT,   // eNextLeftWeight
+            AnimCurveDef.sDEFAULT_VELOCITY, // eRightVelocity
+            AnimCurveDef.sDEFAULT_VELOCITY, // eNextLeftVelocity
+        };
+
         public override FbxTime GetTime()
         {
             return Time;
@@ -93,7 +102,7 @@ namespace FbxSharp
 
         public void SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex pIndex, double pWeight)
         {
-            throw new NotImplementedException();
+            SetDataFloat(pIndex, (float)pWeight);
         }
 
         public AnimCurveDef.EVelocityMode GetTangentVelocityMode()
@@ -118,12 +127,12 @@ namespace FbxSharp
 
         public float GetDataFloat(AnimCurveDef.EDataIndex pIndex)
         {
-            throw new NotImplementedException();
+            return DataFloat[(int)pIndex];
         }
 
         public void SetDataFloat(AnimCurveDef.EDataIndex pIndex, float pValue)
         {
-            throw new NotImplementedException();
+            DataFloat[(int)pIndex] = pValue;
         }
 
         public void SetTangentVisibility(AnimCurveDef.ETangentVisibility pVisibility)
