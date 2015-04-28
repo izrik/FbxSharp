@@ -1285,8 +1285,8 @@ namespace FbxSharp
                     key.SetConstantMode(constant);
                     key.SetTangentVelocityMode(velocity);
                     key.SetTangentVisibility(visibility);
-                    key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eRightWeight, (data3 & 0x0000ffff) / 9999.0);
-                    key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eNextLeftWeight, ((data3 >> 16) & 0xffff) / 9999.0);
+                    key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eRightWeight, (data2 & 0x0000ffff) / 9999.0);
+                    key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eNextLeftWeight, ((data2 >> 16) & 0xffff) / 9999.0);
 //                    key.SetDataFloat(AnimCurveDef.EDataIndex.eRightSlope, data0);
 //                    key.SetDataFloat(AnimCurveDef.EDataIndex.eRightSlope, data1);
 //                    key.SetDataFloat(AnimCurveDef.EDataIndex.eRightSlope, data2);
