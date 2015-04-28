@@ -14,7 +14,7 @@ test AnimCurveKey_Create_HasDefaultValues
     AssertEqual(AnimCurveDef.ETangentVisibility.eTangentShowNone, key.GetTangentVisibility())
     AssertTrue(!key.GetBreak())
 
-test AnimCurve_SetWeightLeftThenRight_WeightIsAll
+test AnimCurveKey_SetWeightLeftThenRight_WeightIsAll
     given
     AnimCurveKey key = new()
 
@@ -32,4 +32,28 @@ test AnimCurve_SetWeightLeftThenRight_WeightIsAll
 
     then
     AssertEqual(AnimCurveDef.EWeightedMode.eWeightedAll, key.GetTangentWeightMode())
-    
+
+test AnimCurveKey_SetTangentWeights_TangentWeightsGetSet
+    given
+    AnimCurveKey key = new()
+    key.SetTangentWeightMode(AnimCurveDef.EWeightedMode.eWeightedAll)
+
+    require
+    AssertEqual(AnimCurveDef.EWeightedMode.eWeightedAll, key.GetTangentWeightMode())
+    AssertEqual(AnimCurveDef.sDEFAULT_WEIGHT, key.GetDataFloat(AnimCurveDef.EDataIndex.eRightWeight))
+    AssertEqual(AnimCurveDef.sDEFAULT_WEIGHT, key.GetDataFloat(AnimCurveDef.EDataIndex.eNextLeftWeight))
+
+    when
+    key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eRightWeight, 0.234f)
+
+    then
+    AssertEqual(0.234f, key.GetDataFloat(AnimCurveDef.EDataIndex.eRightWeight), 0.0001f)
+    AssertEqual(AnimCurveDef.sDEFAULT_WEIGHT, key.GetDataFloat(AnimCurveDef.EDataIndex.eNextLeftWeight))
+
+    when
+    key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eNextLeftWeight, 0.567f)
+
+    then
+    AssertEqual(0.234f, key.GetDataFloat(AnimCurveDef.EDataIndex.eRightWeight), 0.0001f)
+    AssertEqual(0.567f, key.GetDataFloat(AnimCurveDef.EDataIndex.eNextLeftWeight), 0.0001f)
+

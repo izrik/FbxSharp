@@ -26,7 +26,7 @@ namespace FbxSharpTests
         }
 
         [Test]
-        public void AnimCurve_SetWeightLeftThenRight_WeightIsAll()
+        public void AnimCurveKey_SetWeightLeftThenRight_WeightIsAll()
         {
             // given:
             var key = new AnimCurveKey();
@@ -45,6 +45,33 @@ namespace FbxSharpTests
 
             // then:
             Assert.AreEqual(AnimCurveDef.EWeightedMode.eWeightedAll, key.GetTangentWeightMode());
+        }
+
+        [Test]
+        public void AnimCurveKey_SetTangentWeights_TangentWeightsGetSet()
+        {
+            // given:
+            var key = new AnimCurveKey();
+            key.SetTangentWeightMode(AnimCurveDef.EWeightedMode.eWeightedAll);
+
+            // require:
+            Assert.AreEqual(AnimCurveDef.EWeightedMode.eWeightedAll, key.GetTangentWeightMode());
+            Assert.AreEqual(AnimCurveDef.sDEFAULT_WEIGHT, key.GetDataFloat(AnimCurveDef.EDataIndex.eRightWeight));
+            Assert.AreEqual(AnimCurveDef.sDEFAULT_WEIGHT, key.GetDataFloat(AnimCurveDef.EDataIndex.eNextLeftWeight));
+
+            // when:
+            key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eRightWeight, 0.234f);
+
+            // then:
+            Assert.AreEqual(0.234f, key.GetDataFloat(AnimCurveDef.EDataIndex.eRightWeight), 0.0001f);
+            Assert.AreEqual(AnimCurveDef.sDEFAULT_WEIGHT, key.GetDataFloat(AnimCurveDef.EDataIndex.eNextLeftWeight));
+
+            // when:
+            key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eNextLeftWeight, 0.567f);
+
+            // then:
+            Assert.AreEqual(0.234f, key.GetDataFloat(AnimCurveDef.EDataIndex.eRightWeight), 0.0001f);
+            Assert.AreEqual(0.567f, key.GetDataFloat(AnimCurveDef.EDataIndex.eNextLeftWeight), 0.0001f);
         }
     }
 }
