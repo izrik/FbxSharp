@@ -31,9 +31,10 @@ namespace FbxSharp
             var objs = parsed.FindPropertyByName("Objects");
             var fbxObjects = new List<FbxObject>();
             var fbxObjectsById = new Dictionary<ulong, FbxObject>();
+            var actualIdsByInFileIds = new Dictionary<ulong, ulong>();
             foreach (var obj in objs.Properties)
             {
-                var fobj = ConvertObject(obj, fbxObjectsById);
+                var fobj = ConvertObject(obj, fbxObjectsById, actualIdsByInFileIds);
                 fbxObjects.Add(fobj);
                 fbxObjectsById[fobj.UniqueId] = fobj;
             }
@@ -45,8 +46,10 @@ namespace FbxSharp
             {
                 CheckConnection(conn);
                 var connType = ((string)conn.Values[0]);
-                var srcId = (ulong)((Number)conn.Values[1]).AsLong.Value;
-                var dstId = (ulong)((Number)conn.Values[2]).AsLong.Value;
+                var inFileSrcId = (ulong)((Number)conn.Values[1]).AsLong.Value;
+                var srcId = actualIdsByInFileIds[inFileSrcId];
+                var inFileDstId = (ulong)((Number)conn.Values[2]).AsLong.Value;
+                var dstId = (inFileDstId == 0 ? 0 : actualIdsByInFileIds[inFileDstId]);
                 FbxObject dstObj;
                 switch (connType)
                 {
@@ -146,16 +149,33 @@ namespace FbxSharp
                 { "AnimationCurve", ConvertAnimationCurve },
             };
 
-        public FbxObject ConvertObject(ParseObject obj, Dictionary<ulong, FbxObject> fbxObjectsById)
+        public FbxObject ConvertObject(
+            ParseObject obj,
+            Dictionary<ulong, FbxObject> fbxObjectsById,
+            Dictionary<ulong, ulong> actualIdsByInFileIds)
         {
             if (ConvertersByObjectName.ContainsKey(obj.Name))
             {
-                return ConvertersByObjectName[obj.Name](obj);
+                var fbxobj = ConvertersByObjectName[obj.Name](obj);
+                if (obj != null &&
+                    obj.Values.Count > 0)
+                {
+                    var inFileId = (ulong)((Number)obj.Values[0]).AsLong.Value;
+                    actualIdsByInFileIds[inFileId] = fbxobj.GetUniqueID();
+                }
+                return fbxobj;
             }
 
             if (obj.Name == "Pose")
             {
-                return ConvertPose(obj, fbxObjectsById);
+                var fbxobj = ConvertPose(obj, fbxObjectsById, actualIdsByInFileIds);
+                if (obj != null &&
+                    obj.Values.Count > 0)
+                {
+                    var inFileId = (ulong)((Number)obj.Values[0]).AsLong.Value;
+                    actualIdsByInFileIds[inFileId] = fbxobj.GetUniqueID();
+                }
+                return fbxobj;
             }
 
             throw new InvalidOperationException(
@@ -187,7 +207,6 @@ namespace FbxSharp
         public static Skeleton ConvertSkeleton(ParseObject obj)
         {
             var skeleton = new Skeleton();
-            skeleton.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
             skeleton.Name = ((string)obj.Values[1]);
             skeleton.SkeletonType = (Skeleton.EType)Enum.Parse(typeof(Skeleton.EType), ((string)obj.Values[2]));
 
@@ -231,7 +250,6 @@ namespace FbxSharp
         public static Null ConvertNull(ParseObject obj)
         {
             var n = new Null();
-            n.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
             n.Name = ((string)obj.Values[1]);
 
             return n;
@@ -267,7 +285,6 @@ namespace FbxSharp
             var materials = new List<LayerElementMaterial>();
 
             var mesh = new Mesh();
-            mesh.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
             mesh.Name = ((string)obj.Values[1]);
 
             foreach (var prop in obj.Properties)
@@ -683,7 +700,6 @@ namespace FbxSharp
                 throw new InvalidOperationException();
             if (obj.Values.Count > 3)
                 throw new NotImplementedException();
-            node.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
             node.Name = ((string)obj.Values[1]);
             var type = ((string)obj.Values[2]);
 
@@ -741,7 +757,10 @@ namespace FbxSharp
             }
         }
 
-        public static Pose ConvertPose(ParseObject obj, Dictionary<ulong, FbxObject> fbxObjectsById)
+        public static Pose ConvertPose(
+            ParseObject obj,
+            Dictionary<ulong, FbxObject> fbxObjectsById,
+            Dictionary<ulong, ulong> actualIdsByInFileIds)
         {
             var pose = new Pose();
 
@@ -749,7 +768,6 @@ namespace FbxSharp
                 throw new InvalidOperationException();
             if (obj.Values.Count > 3)
                 throw new NotImplementedException();
-            pose.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
             pose.Name = ((string)obj.Values[1]);
             var type = ((string)obj.Values[2]);
 
@@ -777,7 +795,7 @@ namespace FbxSharp
                     numPoseNodes = ((Number)prop.Values[0]).AsLong.Value;
                     break;
                 case "PoseNode":
-                    var posenode = ConvertPoseNode(prop, fbxObjectsById);
+                    var posenode = ConvertPoseNode(prop, fbxObjectsById, actualIdsByInFileIds);
                     pose.Add(posenode.Item1, posenode.Item2, posenode.Item3);
                     break;
                 default:
@@ -791,7 +809,10 @@ namespace FbxSharp
             return pose;
         }
 
-        public static Tuple<Node, Matrix, bool> ConvertPoseNode(ParseObject obj, Dictionary<ulong, FbxObject> fbxObjectsById)
+        public static Tuple<Node, Matrix, bool> ConvertPoseNode(
+            ParseObject obj,
+            Dictionary<ulong, FbxObject> fbxObjectsById,
+            Dictionary<ulong, ulong> actualIdsByInFileIds)
         {
             if (obj.Properties.Count != 2)
                 throw new NotImplementedException();
@@ -799,7 +820,8 @@ namespace FbxSharp
             var nodeIdProp = obj.FindPropertyByName("Node");
             if (nodeIdProp == null)
                 throw new InvalidOperationException();
-            var nodeId = ((Number)nodeIdProp.Values[0]).AsLong.Value;
+            var inFileNodeId = (ulong)((Number)nodeIdProp.Values[0]).AsLong.Value;
+            var nodeId = actualIdsByInFileIds[inFileNodeId];
             var node = (Node)fbxObjectsById[(ulong)nodeId];
 
             var matrixProp = obj.FindPropertyByName("Matrix");
@@ -849,7 +871,6 @@ namespace FbxSharp
                 throw new InvalidOperationException();
             if (obj.Values.Count > 3)
                 throw new NotImplementedException();
-            material.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
             material.Name = ((string)obj.Values[1]);
             var type = ((string)obj.Values[2]);
 
@@ -905,7 +926,6 @@ namespace FbxSharp
                 throw new InvalidOperationException();
             if (obj.Values.Count > 3)
                 throw new NotImplementedException();
-            skin.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
             skin.Name = ((string)obj.Values[1]);
 
             foreach (var prop in obj.Properties)
@@ -936,7 +956,6 @@ namespace FbxSharp
                 throw new InvalidOperationException();
             if (obj.Values.Count > 3)
                 throw new NotImplementedException();
-            cluster.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
             cluster.Name = ((string)obj.Values[1]);
 
             bool hasIndexes = false;
@@ -996,7 +1015,6 @@ namespace FbxSharp
                 throw new InvalidOperationException();
             if (obj.Values.Count > 3)
                 throw new NotImplementedException();
-            video.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
             video.Name = ((string)obj.Values[1]);
             var type = ((string)obj.Values[2]);
 
@@ -1035,7 +1053,6 @@ namespace FbxSharp
                 throw new InvalidOperationException();
             if (obj.Values.Count > 3)
                 throw new NotImplementedException();
-            texture.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
             texture.Name = ((string)obj.Values[1]);
             var type = ((string)obj.Values[2]);
 
@@ -1123,7 +1140,6 @@ namespace FbxSharp
                 throw new InvalidOperationException();
             if (obj.Values.Count > 3)
                 throw new NotImplementedException();
-            animstack.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
             animstack.Name = ((string)obj.Values[1]);
             var type = ((string)obj.Values[2]);
 
@@ -1150,7 +1166,6 @@ namespace FbxSharp
                 throw new InvalidOperationException();
             if (obj.Values.Count > 3)
                 throw new NotImplementedException();
-            animlayer.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
             animlayer.Name = ((string)obj.Values[1]);
             var type = ((string)obj.Values[2]);
 
@@ -1168,7 +1183,6 @@ namespace FbxSharp
                 throw new InvalidOperationException();
             if (obj.Values.Count > 3)
                 throw new NotImplementedException();
-            animCurveNode.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
             animCurveNode.Name = ((string)obj.Values[1]);
             var type = ((string)obj.Values[2]);
 
@@ -1195,7 +1209,6 @@ namespace FbxSharp
                 throw new InvalidOperationException();
             if (obj.Values.Count > 3)
                 throw new NotImplementedException();
-            curve.UniqueId = (ulong)((Number)obj.Values[0]).AsLong.Value;
             curve.Name = ((string)obj.Values[1]);
             var type = ((string)obj.Values[2]);
 
