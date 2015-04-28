@@ -57,6 +57,7 @@ std::ostream& operator<<(std::ostream& os, const FbxTime& value);
 std::ostream& operator<<(std::ostream& os, const FbxTimeSpan& value);
 std::ostream& operator<<(std::ostream& os, const FbxMatrix& value);
 std::ostream& operator<<(std::ostream& os, const FbxAMatrix& value);
+std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentMode& value);
 
 FbxScene* Load(const char* filename, FbxManager* manager=NULL);
 void Save(const char* filename, FbxScene* scene);

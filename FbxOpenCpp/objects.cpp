@@ -260,101 +260,92 @@ void PrintAnimStack(FbxAnimStack* animStack)
 
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentMode& value)
 {
-    switch (value)
-    {
-    case FbxAnimCurveDef::eTangentAuto: os << "eTangentAuto"; break;
-    case FbxAnimCurveDef::eTangentTCB: os << "eTangentTCB"; break;
-    case FbxAnimCurveDef::eTangentUser: os << "eTangentUser"; break;
-    case FbxAnimCurveDef::eTangentGenericBreak: os << "eTangentGenericBreak"; break;
-    case FbxAnimCurveDef::eTangentBreak: os << "eTangentBreak"; break;
-    case FbxAnimCurveDef::eTangentAutoBreak: os << "eTangentAutoBreak"; break;
-    case FbxAnimCurveDef::eTangentGenericClamp: os << "eTangentGenericClamp"; break;
-    case FbxAnimCurveDef::eTangentGenericTimeIndependent: os << "eTangentGenericTimeIndependent"; break;
-    case FbxAnimCurveDef::eTangentGenericClampProgressive: os << "eTangentGenericClampProgressive"; break;
-    default: os << (int)value; break;
-    }
+    os << (int)value << ":";
+    if ((value & FbxAnimCurveDef::eTangentAuto) == FbxAnimCurveDef::eTangentAuto) os << "eTangentAuto";
+    if ((value & FbxAnimCurveDef::eTangentTCB) == FbxAnimCurveDef::eTangentTCB) os << "eTangentTCB";
+    if ((value & FbxAnimCurveDef::eTangentUser) == FbxAnimCurveDef::eTangentUser) os << "eTangentUser";
+    if ((value & FbxAnimCurveDef::eTangentGenericBreak) == FbxAnimCurveDef::eTangentGenericBreak) os << "eTangentGenericBreak";
+    if ((value & FbxAnimCurveDef::eTangentBreak) == FbxAnimCurveDef::eTangentBreak) os << "eTangentBreak";
+    if ((value & FbxAnimCurveDef::eTangentAutoBreak) == FbxAnimCurveDef::eTangentAutoBreak) os << "eTangentAutoBreak";
+    if ((value & FbxAnimCurveDef::eTangentGenericClamp) == FbxAnimCurveDef::eTangentGenericClamp) os << "eTangentGenericClamp";
+    if ((value & FbxAnimCurveDef::eTangentGenericTimeIndependent) == FbxAnimCurveDef::eTangentGenericTimeIndependent) os << "eTangentGenericTimeIndependent";
+    if ((value & FbxAnimCurveDef::eTangentGenericClampProgressive) == FbxAnimCurveDef::eTangentGenericClampProgressive) os << "eTangentGenericClampProgressive";
     return os;
 }
 
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EInterpolationType& value)
 {
-    switch (value)
-    {
-    case FbxAnimCurveDef::eInterpolationConstant: os << "eInterpolationConstant"; break;
-    case FbxAnimCurveDef::eInterpolationLinear: os << "eInterpolationLinear"; break;
-    case FbxAnimCurveDef::eInterpolationCubic: os << "eInterpolationCubic"; break;
-    default: os << (int)value; break;
-    }
+    os << (int)value << ":";
+    if ((value & FbxAnimCurveDef::eInterpolationConstant) == FbxAnimCurveDef::eInterpolationConstant) os << "eInterpolationConstant";
+    if ((value & FbxAnimCurveDef::eInterpolationLinear) == FbxAnimCurveDef::eInterpolationLinear) os << "eInterpolationLinear";
+    if ((value & FbxAnimCurveDef::eInterpolationCubic) == FbxAnimCurveDef::eInterpolationCubic) os << "eInterpolationCubic";
     return os;
 }
 
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EWeightedMode& value)
 {
-    switch (value)
+    os << (int)value << ":";
+    if ((value & FbxAnimCurveDef::eWeightedAll) == FbxAnimCurveDef::eWeightedAll)
     {
-    case FbxAnimCurveDef::eWeightedNone: os << "eWeightedNone"; break;
-    case FbxAnimCurveDef::eWeightedRight: os << "eWeightedRight"; break;
-    case FbxAnimCurveDef::eWeightedNextLeft: os << "eWeightedNextLeft"; break;
-    case FbxAnimCurveDef::eWeightedAll: os << "eWeightedAll"; break; 
-    default: os << (int)value; break;
+        os << "eWeightedAll";
+    }
+    else if ((value & FbxAnimCurveDef::eWeightedRight) == FbxAnimCurveDef::eWeightedRight)
+    {
+        os << "eWeightedRight";
+    }
+    else if ((value & FbxAnimCurveDef::eWeightedNextLeft) == FbxAnimCurveDef::eWeightedNextLeft)
+    {
+        os << "eWeightedNextLeft";
+    }
+    else
+    {
+        os << "eWeightedNone";
     }
     return os;
 }
 
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EConstantMode& value)
 {
-    switch (value)
-    {
-    case FbxAnimCurveDef::eConstantStandard: os << "eConstantStandard"; break; 
-    case FbxAnimCurveDef::eConstantNext: os << "eConstantNext"; break;
-    default: os << (int)value; break;
-    }
+    os << (int)value << ":";
+    if ((value & FbxAnimCurveDef::eConstantNext) == FbxAnimCurveDef::eConstantNext) os << "eConstantNext";
+    else os << "eConstantStandard";
     return os;
 }
 
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EVelocityMode& value)
 {
-    switch (value)
-    {
-    case FbxAnimCurveDef::eVelocityNone: os << "eVelocityNone"; break;
-    case FbxAnimCurveDef::eVelocityRight: os << "eVelocityRight"; break;
-    case FbxAnimCurveDef::eVelocityNextLeft: os << "eVelocityNextLeft"; break;
-    case FbxAnimCurveDef::eVelocityAll: os << "eVelocityAll"; break; 
-    default: os << (int)value; break;
-    }
+    os << (int)value << ":";
+    if ((value & FbxAnimCurveDef::eVelocityAll) == FbxAnimCurveDef::eVelocityAll) os << "eVelocityAll";
+    else if ((value & FbxAnimCurveDef::eVelocityRight) == FbxAnimCurveDef::eVelocityRight) os << "eVelocityRight";
+    else if ((value & FbxAnimCurveDef::eVelocityNextLeft) == FbxAnimCurveDef::eVelocityNextLeft) os << "eVelocityNextLeft";
+    else os << "eVelocityNone";
     return os;
 }
 
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentVisibility& value)
 {
-    switch (value)
-    {
-    case FbxAnimCurveDef::eTangentShowNone: os << "eTangentShowNone"; break;
-    case FbxAnimCurveDef::eTangentShowLeft: os << "eTangentShowLeft"; break;
-    case FbxAnimCurveDef::eTangentShowRight: os << "eTangentShowRight"; break;
-    case FbxAnimCurveDef::eTangentShowBoth: os << "eTangentShowBoth"; break;
-    default: os << (int)value; break;
-    }
+    os << (int)value << ":";
+    if ((value & FbxAnimCurveDef::eTangentShowBoth) == FbxAnimCurveDef::eTangentShowBoth) os << "eTangentShowBoth";
+    else if ((value & FbxAnimCurveDef::eTangentShowLeft) == FbxAnimCurveDef::eTangentShowLeft) os << "eTangentShowLeft";
+    else if ((value & FbxAnimCurveDef::eTangentShowRight) == FbxAnimCurveDef::eTangentShowRight) os << "eTangentShowRight";
+    else os << "eTangentShowNone";
     return os;
 }
 
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EDataIndex& value)
 {
-    switch (value)
-    {
-    case FbxAnimCurveDef::eRightSlope: os << "eRightSlope"; break;
-    case FbxAnimCurveDef::eNextLeftSlope: os << "eNextLeftSlope"; break;
-    case FbxAnimCurveDef::eWeights: os << "eWeights"; break;
-    //case FbxAnimCurveDef::eRightWeight: os << "eRightWeight"; break;
-    case FbxAnimCurveDef::eNextLeftWeight: os << "eNextLeftWeight"; break;
-    case FbxAnimCurveDef::eVelocity: os << "eVelocity"; break;
-    //case FbxAnimCurveDef::eRightVelocity: os << "eRightVelocity"; break;
-    case FbxAnimCurveDef::eNextLeftVelocity: os << "eNextLeftVelocity"; break;
-    //case FbxAnimCurveDef::eTCBTension: os << "eTCBTension"; break;
-    //case FbxAnimCurveDef::eTCBContinuity: os << "eTCBContinuity"; break;
-    //case FbxAnimCurveDef::eTCBBias: os << "eTCBBias"; break;
-    default: os << (int)value; break;
-    }
+    os << (int)value << ":";
+    if ((value & FbxAnimCurveDef::eRightSlope) == FbxAnimCurveDef::eRightSlope) os << "eRightSlope";
+    if ((value & FbxAnimCurveDef::eNextLeftSlope) == FbxAnimCurveDef::eNextLeftSlope) os << "eNextLeftSlope";
+    if ((value & FbxAnimCurveDef::eWeights) == FbxAnimCurveDef::eWeights) os << "eWeights";
+    //if ((value & FbxAnimCurveDef::eRightWeight) == FbxAnimCurveDef::eRightWeight) os << "eRightWeight";
+    if ((value & FbxAnimCurveDef::eNextLeftWeight) == FbxAnimCurveDef::eNextLeftWeight) os << "eNextLeftWeight";
+    if ((value & FbxAnimCurveDef::eVelocity) == FbxAnimCurveDef::eVelocity) os << "eVelocity";
+    //if ((value & FbxAnimCurveDef::eRightVelocity) == FbxAnimCurveDef::eRightVelocity) os << "eRightVelocity";
+    if ((value & FbxAnimCurveDef::eNextLeftVelocity) == FbxAnimCurveDef::eNextLeftVelocity) os << "eNextLeftVelocity";
+    //if ((value & FbxAnimCurveDef::eTCBTension) == FbxAnimCurveDef::eTCBTension) os << "eTCBTension";
+    //if ((value & FbxAnimCurveDef::eTCBContinuity) == FbxAnimCurveDef::eTCBContinuity) os << "eTCBContinuity";
+    //if ((value & FbxAnimCurveDef::eTCBBias) == FbxAnimCurveDef::eTCBBias) os << "eTCBBias";
     return os;
 }
 
@@ -369,11 +360,11 @@ std::ostream& operator<<(std::ostream& os, FbxAnimCurveKey& value)
         << value.GetTangentVisibility() << ", "
         << "Break: " << value.GetBreak() << ", "
         << "DataFloat: "
-            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)0) << ","
-            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)1) << ","
-            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)2) << ","
-            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)3) << ","
-            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)4) << ","
+            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)0) << ", "
+            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)1) << ", "
+            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)2) << ", "
+            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)3) << ", "
+            << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)4) << ", "
             << value.GetDataFloat((FbxAnimCurveDef::EDataIndex)5);
     return os;
 }
@@ -1071,9 +1062,9 @@ std::ostream& operator<<(std::ostream& os, const FbxTime::EMode& value)
 
 std::ostream& operator<<(std::ostream& os, const FbxTime& value)
 {
-    os << "[" << value.GetSecondDouble() << "s;" <<
-                 value.GetSecondCount() << "s;" <<
-                 value.GetFrameCount() << "f;" <<
+    os << "[" << value.GetSecondDouble() << "s; " <<
+                 value.GetSecondCount() << "s; " <<
+                 value.GetFrameCount() << "f; " <<
                  FbxTime::GetGlobalTimeMode() << "tm]";
     return os;
 }
