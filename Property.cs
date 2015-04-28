@@ -48,9 +48,31 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
+        private FbxObject _parentFbxObject;
+        public FbxObject ParentFbxObject
+        {
+            get { return _parentFbxObject; }
+            set
+            {
+                if (value != _parentFbxObject)
+                {
+                    if (_parentFbxObject != null)
+                    {
+                        _parentFbxObject.Properties.Remove(this);
+                    }
+
+                    _parentFbxObject = value;
+
+                    if (_parentFbxObject != null)
+                    {
+                        _parentFbxObject.Properties.Add(this);
+                    }
+                }
+            }
+        }
         public FbxObject GetFbxObject()
         {
-            throw new NotImplementedException();
+            return ParentFbxObject;
         }
 
         #endregion

@@ -12,6 +12,7 @@ namespace FbxSharp
         {
             Name = name ?? "";
 
+            Properties = new FbxObjectPropertyCollection(this);
             SrcObjects = new ObjectSrcObjectCollection(this);
             DstObjects = new ObjectDstObjectCollection(this);
 
@@ -131,19 +132,27 @@ namespace FbxSharp
 
         #region Property Management
 
-        public readonly List<Property> Properties = new List<Property>();
+        public readonly FbxObjectPropertyCollection Properties;
 
         public readonly ObjectSrcPropertyCollection SrcProperties;
         public readonly ObjectDstPropertyCollection DstProperties;
 
         public Property GetFirstProperty()
         {
-            throw new NotImplementedException();
+            if (Properties.Count == 0) return null;
+
+            return Properties[0];
         }
 
         public Property GetNextProperty(Property pProperty)
         {
-            throw new NotImplementedException();
+            if (!Properties.Contains(pProperty)) return null;
+
+            var index = Properties.IndexOf(pProperty);
+            if (index + 1 >= Properties.Count) return null;
+            if (index < 0) return null;
+
+            return Properties[index + 1];
         }
 
         public Property FindProperty(string pName, bool pCaseSensitive=true)
