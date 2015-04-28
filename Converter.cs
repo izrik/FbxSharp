@@ -1269,6 +1269,7 @@ namespace FbxSharp
                 long flags = attrFlags[m];
 
                 var tangentMode = (AnimCurveDef.ETangentMode)(flags & 0x00007f00);
+                tangentMode = tangentMode & ~AnimCurveDef.ETangentMode.eTangentGenericTimeIndependent;
                 var interpolation = (AnimCurveDef.EInterpolationType)(flags & 0x0000000e);
                 var weight = (AnimCurveDef.EWeightedMode)(flags & 0x03000000);
                 var constant = (AnimCurveDef.EConstantMode)(flags & 0x00000100);
