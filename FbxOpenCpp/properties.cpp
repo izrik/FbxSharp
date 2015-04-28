@@ -137,11 +137,11 @@ void PrintProperty(FbxProperty* prop, bool indent)
             break;
         case eFbxDouble3:
             v3 = prop->Get<FbxDouble3>();
-            sprintf(n, "%lf, %lf, %lf", v3[0], v3[1], v3[1]);
+            sprintf(n, "%lf, %lf, %lf", v3[0], v3[1], v3[2]);
             break;
         case eFbxDouble4:
             v4 = prop->Get<FbxDouble4>();
-            sprintf(n, "%lf, %lf, %lf, %lf", v4[0], v4[1], v4[1], v4[1]);
+            sprintf(n, "%lf, %lf, %lf, %lf", v4[0], v4[1], v4[2], v4[3]);
             break;
         case eFbxDouble4x4:
         case eFbxEnum:
