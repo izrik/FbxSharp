@@ -23,8 +23,8 @@ int main (int argc, char *argv[])
 
     switch (n)
     {
-        case 0: RunTests(); break;
-        case 2: LoadAndPrint(filename); break;
+        case 0: RunTests(); return 0;
+        case 2: LoadAndPrint(filename); return 0;
     }
 
     return 0;
