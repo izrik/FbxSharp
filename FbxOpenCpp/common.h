@@ -58,6 +58,13 @@ std::ostream& operator<<(std::ostream& os, const FbxTimeSpan& value);
 std::ostream& operator<<(std::ostream& os, const FbxMatrix& value);
 std::ostream& operator<<(std::ostream& os, const FbxAMatrix& value);
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentMode& value);
+std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EInterpolationType& value);
+std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EWeightedMode& value);
+std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EConstantMode& value);
+std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EVelocityMode& value);
+std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentVisibility& value);
+std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EDataIndex& value);
+
 
 FbxScene* Load(const char* filename, FbxManager* manager=NULL);
 void Save(const char* filename, FbxScene* scene);

@@ -7,6 +7,7 @@
 //#include "assimp/cimport.h"
 
 #include <fbxsdk.h>
+#include <iomanip>
 
 using namespace std;
 
@@ -14,6 +15,9 @@ using namespace std;
 #include "Tests.h"
 
 void LoadAndPrint(const char* filename);
+
+template <typename T, size_t N>
+size_t len(T(&arr)[N]) { return N; }
 
 int main (int argc, char *argv[])
 {

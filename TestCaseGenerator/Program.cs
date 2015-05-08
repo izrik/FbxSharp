@@ -213,6 +213,8 @@ namespace TestCaseGenerator
                             outline = outline.Replace("&", "");
                             outline = outline.Replace("*", "");
 
+                            outline = Regex.Replace(outline, @"\bFbx\$", "");
+
                             if (Regex.IsMatch(outline, @"^\w+\s*\*\s*\w+$"))
                             {
                                 outline = outline.Replace('*', ' ');
@@ -349,7 +351,29 @@ namespace TestCaseGenerator
                             {
                                 parts = outline.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                                 var isStackValue = parts[0].EndsWith("!");
-                                var type = parts[0].Replace("!", "");
+                                var equalsIndex = parts.IndexOf("=");
+                                string type;
+                                if (equalsIndex == 1)
+                                {
+                                    // var = new...
+                                    var m = Regex.Match(parts[3], @"^(\w+)");
+                                    type = m.Captures[0].Value;
+                                }
+                                else if (equalsIndex == 2)
+                                {
+                                    // Type var = new...
+                                    type = parts[0].Replace("!", "");
+                                }
+                                else
+                                {
+                                    type = "";
+                                }
+
+
+                                if (type == "AnimCurveKey")
+                                {
+                                    type = "Fbx" + type;
+                                }
 
                                 if (type == "FbxTime" ||
                                     type == "FbxMatrix" ||
@@ -377,6 +401,8 @@ namespace TestCaseGenerator
 
                             outline = Regex.Replace(outline, @"\bAnimCurveDef\.(\w+)\.", "FbxAnimCurveDef::");
                             outline = Regex.Replace(outline, @"\bAnimCurveDef\.s", "FbxAnimCurveDef::s");
+
+                            outline = Regex.Replace(outline, @"\bFbx\$", "Fbx");
 
                             parts = outline.Split(' ').ToList();
                             if (parts.Count == 2)

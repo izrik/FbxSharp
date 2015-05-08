@@ -260,7 +260,7 @@ void PrintAnimStack(FbxAnimStack* animStack)
 
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentMode& value)
 {
-    os << (int)value << ":";
+//    os << (int)value << ":";
     if ((value & FbxAnimCurveDef::eTangentAuto) == FbxAnimCurveDef::eTangentAuto) os << "eTangentAuto";
     if ((value & FbxAnimCurveDef::eTangentTCB) == FbxAnimCurveDef::eTangentTCB) os << "eTangentTCB";
     if ((value & FbxAnimCurveDef::eTangentUser) == FbxAnimCurveDef::eTangentUser) os << "eTangentUser";
@@ -275,7 +275,7 @@ std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentMode& 
 
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EInterpolationType& value)
 {
-    os << (int)value << ":";
+//    os << (int)value << ":";
     if ((value & FbxAnimCurveDef::eInterpolationConstant) == FbxAnimCurveDef::eInterpolationConstant) os << "eInterpolationConstant";
     if ((value & FbxAnimCurveDef::eInterpolationLinear) == FbxAnimCurveDef::eInterpolationLinear) os << "eInterpolationLinear";
     if ((value & FbxAnimCurveDef::eInterpolationCubic) == FbxAnimCurveDef::eInterpolationCubic) os << "eInterpolationCubic";
@@ -284,7 +284,7 @@ std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EInterpolation
 
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EWeightedMode& value)
 {
-    os << (int)value << ":";
+//    os << (int)value << ":";
     if ((value & FbxAnimCurveDef::eWeightedAll) == FbxAnimCurveDef::eWeightedAll)
     {
         os << "eWeightedAll";
@@ -306,7 +306,7 @@ std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EWeightedMode&
 
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EConstantMode& value)
 {
-    os << (int)value << ":";
+//    os << (int)value << ":";
     if ((value & FbxAnimCurveDef::eConstantNext) == FbxAnimCurveDef::eConstantNext) os << "eConstantNext";
     else os << "eConstantStandard";
     return os;
@@ -314,7 +314,7 @@ std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EConstantMode&
 
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EVelocityMode& value)
 {
-    os << (int)value << ":";
+//    os << (int)value << ":";
     if ((value & FbxAnimCurveDef::eVelocityAll) == FbxAnimCurveDef::eVelocityAll) os << "eVelocityAll";
     else if ((value & FbxAnimCurveDef::eVelocityRight) == FbxAnimCurveDef::eVelocityRight) os << "eVelocityRight";
     else if ((value & FbxAnimCurveDef::eVelocityNextLeft) == FbxAnimCurveDef::eVelocityNextLeft) os << "eVelocityNextLeft";
@@ -324,7 +324,7 @@ std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EVelocityMode&
 
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentVisibility& value)
 {
-    os << (int)value << ":";
+//    os << (int)value << ":";
     if ((value & FbxAnimCurveDef::eTangentShowBoth) == FbxAnimCurveDef::eTangentShowBoth) os << "eTangentShowBoth";
     else if ((value & FbxAnimCurveDef::eTangentShowLeft) == FbxAnimCurveDef::eTangentShowLeft) os << "eTangentShowLeft";
     else if ((value & FbxAnimCurveDef::eTangentShowRight) == FbxAnimCurveDef::eTangentShowRight) os << "eTangentShowRight";
@@ -334,7 +334,7 @@ std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentVisibi
 
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EDataIndex& value)
 {
-    os << (int)value << ":";
+//    os << (int)value << ":";
     if ((value & FbxAnimCurveDef::eRightSlope) == FbxAnimCurveDef::eRightSlope) os << "eRightSlope";
     if ((value & FbxAnimCurveDef::eNextLeftSlope) == FbxAnimCurveDef::eNextLeftSlope) os << "eNextLeftSlope";
     if ((value & FbxAnimCurveDef::eWeights) == FbxAnimCurveDef::eWeights) os << "eWeights";

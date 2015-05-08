@@ -47,7 +47,7 @@ namespace FbxSharp
 
         public override int KeyGetCount()
         {
-            throw new NotImplementedException();
+            return keys.Count;
         }
 
         public override int KeyAdd(FbxTime pTime, AnimCurveKeyBase pKey/*, int *pLast=NULL*/)
@@ -273,32 +273,38 @@ namespace FbxSharp
 
         public virtual float KeyGetLeftTangentWeight(int pIndex)
         {
-            throw new NotImplementedException();
+            var key = keys[keys.Keys[pIndex]] as AnimCurveKey;
+            return key.GetDataFloat(AnimCurveDef.EDataIndex.eNextLeftWeight);
         }
 
         public virtual float KeyGetRightTangentWeight(int pIndex)
         {
-            throw new NotImplementedException();
+            var key = keys[keys.Keys[pIndex]] as AnimCurveKey;
+            return key.GetDataFloat(AnimCurveDef.EDataIndex.eRightWeight);
         }
 
         public virtual void KeySetLeftTangentWeight(int pIndex, float pWeight, bool pAdjustTan=false)
         {
-            throw new NotImplementedException();
+            var key = keys[keys.Keys[pIndex]] as AnimCurveKey;
+            key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eNextLeftWeight, pWeight);
         }
 
         public virtual void KeySetRightTangentWeight(int pIndex, float pWeight, bool pAdjustTan=false)
         {
-            throw new NotImplementedException();
+            var key = keys[keys.Keys[pIndex]] as AnimCurveKey;
+            key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eRightWeight, pWeight);
         }
 
         public virtual float KeyGetLeftTangentVelocity(int pIndex)
         {
-            throw new NotImplementedException();
+            var key = keys[keys.Keys[pIndex]] as AnimCurveKey;
+            return key.GetDataFloat(AnimCurveDef.EDataIndex.eNextLeftVelocity);
         }
 
         public virtual float KeyGetRightTangentVelocity(int pIndex)
         {
-            throw new NotImplementedException();
+            var key = keys[keys.Keys[pIndex]] as AnimCurveKey;
+            return key.GetDataFloat(AnimCurveDef.EDataIndex.eRightVelocity);
         }
         #endregion
 
@@ -315,7 +321,70 @@ namespace FbxSharp
                 return (keys[keys.Keys[0]] as AnimCurveKey).GetValue();
             }
 
-            return (keys[keys.Keys[index]] as AnimCurveKey).GetValue();
+            var pre = (keys[keys.Keys[index]] as AnimCurveKey);
+
+            if (index >= keys.Count - 1)
+            {
+                return pre.GetValue();
+            }
+
+            if (pre.GetTime().Get() == pTime.Get())
+            {
+                return pre.GetValue();
+            }
+
+            var post = (keys[keys.Keys[index+1]] as AnimCurveKey);
+
+            double p0, p1, p2, p3;
+            double s0, s1, s2, s3;
+            double t0, t1, t2, t3;
+
+            p1 = pre.GetValue();
+            t1 = pre.GetTime().Get();
+            p2 = post.GetValue();
+            t2 = post.GetTime().Get();
+            if (index > 0)
+            {
+                var prepre = (keys[keys.Keys[index-1]] as AnimCurveKey);
+                p0 = prepre.GetValue();
+                t0 = prepre.GetTime().Get();
+            }
+            else
+            {
+                p0 = p1 - (p2 - p1);
+                t0 = t1 - (t2 - t1);
+            }
+            if (index < keys.Count - 2)
+            {
+                var postpost = (keys[keys.Keys[index + 2]] as AnimCurveKey);
+                p3 = postpost.GetValue();
+                t3 = postpost.GetTime().Get();
+            }
+            else
+            {
+                p3 = p2 + (p2 - p1);
+                t3 = t2 + (t2 - t1);
+            }
+
+            s0 = (t0 - t1) / (t2 - t1);
+            s1 = (t1 - t1) / (t2 - t1);
+            s2 = (t2 - t1) / (t2 - t1);
+            s3 = (t3 - t1) / (t2 - t1);
+
+            double t = pTime.Get();
+            double s = (t - t1) / (t2 - t1);
+
+            double ss = s*s;
+            double sss = ss*s;
+            double m1 = (p2 - p0) / (s2 - s0);
+            double m2 = (p3 - p1) / (s3 - s1);
+            double x =
+                (2 * sss - 3 * ss + 1) * p1 +
+                (sss - 2 * ss + s) * m1 +
+                (-2 * sss + 3 * ss) * p2 +
+                (sss - ss) * m2;
+
+            return (float)x;
         }
 
         public override float EvaluateIndex(double pIndex)
