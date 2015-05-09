@@ -4,6 +4,16 @@ namespace FbxSharp
 {
     public class AnimStack : Collection
     {
+        public AnimStack(String name="")
+            : base(name)
+        {
+            Properties.Add(Description);
+            Properties.Add(LocalStart);
+            Properties.Add(LocalStop);
+            Properties.Add(ReferenceStart);
+            Properties.Add(ReferenceStop);
+        }
+
         #region Public Attributes
 
         public readonly PropertyT<string>   Description     = new PropertyT<string>( "Description");
