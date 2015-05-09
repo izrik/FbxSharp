@@ -180,3 +180,8 @@ void _AssertTrue(bool condition, const char* filename, int line)
         throw new string(ss.str());
     }
 }
+
+void _AssertFalse(bool condition, const char* filename, int line)
+{
+    _AssertTrue(!condition, filename, line);
+}

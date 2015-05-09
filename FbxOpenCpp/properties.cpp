@@ -208,4 +208,6 @@ void PrintProperty(FbxProperty* prop, bool indent)
         PrintPropertyID(&prop2);
         cout << endl;
     }
+
+    cout << prefix << "IsAnimated() = " << prop->IsAnimated() << endl;
 }

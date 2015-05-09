@@ -17,11 +17,13 @@ void _AssertNotEqual(void* expected, void* actual, const char* filename, int lin
 void _AssertNull(void* actual, const char* filename, int line);
 void _AssertNotNull(void* actual, const char* filename, int line);
 void _AssertTrue(bool condition, const char* filename, int line);
+void _AssertFalse(bool condition, const char* filename, int line);
 
 #define AssertEqual(expected, actual, ...) _AssertEqual((expected), (actual), __FILE__, __LINE__ , ## __VA_ARGS__)
 #define AssertNotEqual(expected, actual) _AssertNotEqual((expected), (actual), __FILE__, __LINE__)
 #define AssertNull(actual) _AssertNull((actual), __FILE__, __LINE__)
 #define AssertNotNull(actual) _AssertNotNull((actual), __FILE__, __LINE__)
 #define AssertTrue(condition) _AssertTrue((condition), __FILE__, __LINE__)
+#define AssertFalse(condition) _AssertFalse((condition), __FILE__, __LINE__)
 
 #endif // __FBXOPENCPP_ASSERTIONS_H

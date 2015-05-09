@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FbxSharp
 {
@@ -7,9 +8,26 @@ namespace FbxSharp
         public AnimCurveNode(String name="")
             : base(name)
         {
+            Properties.Add(channelRootProperty);
         }
 
         #region Utility Functions
+
+        protected readonly PropertyT<float> channelRootProperty = new PropertyT<float>("d");
+
+        protected class Channel
+        {
+            public Channel(Property prop)
+            {
+                Property = prop;
+                Curves = prop.SrcObjects.CreateCollectionView<AnimCurve>();
+            }
+
+            public string Name { get { return Property.Name; } }
+            public readonly Property Property;
+            public readonly CollectionView<AnimCurve> Curves;
+        }
+        protected readonly List<Channel> channels = new List<Channel>();
 
         public bool IsAnimated(bool pRecurse=false)
         {
@@ -33,17 +51,17 @@ namespace FbxSharp
 
         public uint GetChannelsCount()
         {
-            throw new NotImplementedException();
+            return (uint)channels.Count;
         }
 
         public int GetChannelIndex(string pChannelName)
         {
-            throw new NotImplementedException();
+            return channels.FindIndex(c => c.Name == pChannelName);
         }
 
         public string GetChannelName(int pChannelId)
         {
-            throw new NotImplementedException();
+            return channels[pChannelId].Name;
         }
 
         public void ResetChannels()
@@ -53,17 +71,21 @@ namespace FbxSharp
 
         public bool AddChannel<T>(string pChnlName, T pValue)
         {
-            throw new NotImplementedException();
+            var prop = new PropertyT<T>(pChnlName, pValue);
+            var ch = new Channel(prop);
+            Properties.Add(prop);
+            channels.Add(ch);
+            return true;
         }
 
         public void SetChannelValue<T>(string pChnlName, T pValue)
         {
-            throw new NotImplementedException();
+            channels[GetChannelIndex(pChnlName)].Property.Set(pValue);
         }
 
         public void SetChannelValue<T>(uint pChnlId, T pValue)
         {
-            throw new NotImplementedException();
+            channels[(int)pChnlId].Property.Set(pValue);
         }
 
         public T GetChannelValue<T>(string pChnlName, T pInitVal)
@@ -92,12 +114,14 @@ namespace FbxSharp
 
         public bool ConnectToChannel(AnimCurve pCurve, string pChnl, bool pInFront=false)
         {
-            throw new NotImplementedException();
+            channels[GetChannelIndex(pChnl)].Property.ConnectSrcObject(pCurve);
+            return true;
         }
 
         public bool ConnectToChannel(AnimCurve pCurve, uint pChnlId, bool pInFront=false)
         {
-            throw new NotImplementedException();
+            channels[(int)pChnlId].Property.ConnectSrcObject(pCurve);
+            return true;
         }
 
         public AnimCurve CreateCurve(string pCurveNodeName, string pChannel)
@@ -112,12 +136,12 @@ namespace FbxSharp
 
         public int GetCurveCount(uint pChannelId, string pCurveNodeName=null)
         {
-            throw new NotImplementedException();
+            return channels[(int)pChannelId].Curves.Count;
         }
 
         public AnimCurve GetCurve(uint pChannelId, uint pId=0, string pCurveNodeName=null)
         {
-            throw new NotImplementedException();
+            return channels[(int)pChannelId].Curves[(int)pId];
         }
 
 

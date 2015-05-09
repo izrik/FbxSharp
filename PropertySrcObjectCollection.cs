@@ -46,6 +46,7 @@ namespace FbxSharp
             if (!Contains(item))
             {
                 _list.Add(item);
+                OnCollectionChanged();
                 item.DstProperties.Add(_container);
             }
         }
@@ -60,6 +61,7 @@ namespace FbxSharp
             if (Contains(item))
             {
                 bool ret = _list.Remove(item);
+                OnCollectionChanged();
                 item.DstProperties.Remove(_container);
                 return ret;
             }
@@ -79,6 +81,7 @@ namespace FbxSharp
             }
 
             _list.Clear();
+            OnCollectionChanged();
         }
 
         public virtual void CopyTo(FbxObject[] array, int arrayIndex)
@@ -111,6 +114,7 @@ namespace FbxSharp
 
             item.DstProperties.Remove(_container);
             _list.Insert(index, item);
+            OnCollectionChanged();
             item.DstProperties.Add(_container);
         }
 
@@ -146,7 +150,29 @@ namespace FbxSharp
             }
         }
 
-        private Property _container;
-        private List<FbxObject> _list = new List<FbxObject>();
+        readonly Property _container;
+        readonly List<FbxObject> _list = new List<FbxObject>();
+
+        public event EventHandler CollectionChanged;
+
+        protected void OnCollectionChanged()
+        {
+            if (CollectionChanged != null)
+            {
+                CollectionChanged(this, EventArgs.Empty);
+            }
+        }
+
+        public ObjectView<T> CreateObjectView<T>()
+            where T : FbxObject
+        {
+            return new ObjectView<T>(this, eh => this.CollectionChanged += eh);
+        }
+
+        public CollectionView<T> CreateCollectionView<T>()
+            where T : FbxObject
+        {
+            return new CollectionView<T>(this, eh => this.CollectionChanged += eh);
+        }
     }
 }

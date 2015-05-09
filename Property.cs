@@ -19,6 +19,11 @@ namespace FbxSharp
             DstObjects = new PropertyDstObjectCollection(this);
         }
 
+        public override string ToString()
+        {
+            return string.Format("{0}: {1}", Name, GetValue());
+        }
+
         #region Property Identification
 
         public string Name { get; protected set; }
@@ -136,10 +141,72 @@ namespace FbxSharp
 
         #endregion
 
-        public override string ToString()
+        #region Animation Curve Management
+
+        public AnimEvaluator GetAnimationEvaluator()
         {
-            return string.Format("{0}: {1}", Name, GetValue());
+            throw new NotImplementedException();
         }
+
+        public bool IsAnimated(AnimLayer pAnimLayer=null)
+        {
+            return (GetCurveNode() != null);
+        }
+
+        public T EvaluateValue<T>()
+        {
+            return EvaluateValue<T>(FbxTime.Infinite);
+        }
+        public T EvaluateValue<T>(FbxTime pTime, bool pForceEval=false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public /*FbxPropertyValue*/object EvaluateValue()
+        {
+            return EvaluateValue(FbxTime.Infinite);
+        }
+        public /*FbxPropertyValue*/object EvaluateValue(FbxTime pTime, bool pForceEval=false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AnimCurveNode CreateCurveNode(AnimLayer pAnimLayer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AnimCurveNode GetCurveNode(bool pCreate=false)
+        {
+            return (AnimCurveNode)SrcObjects.FirstOrDefault(x => x is AnimCurveNode);
+        }
+
+        public AnimCurveNode GetCurveNode(AnimStack pAnimStack, bool pCreate=false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AnimCurveNode GetCurveNode(AnimLayer pAnimLayer, bool pCreate=false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AnimCurve GetCurve(AnimLayer pAnimLayer, bool pCreate=false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AnimCurve GetCurve(AnimLayer pAnimLayer, string pChannel, bool pCreate=false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AnimCurve GetCurve(AnimLayer pAnimLayer, string pName, string pChannel, bool pCreate)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
 
         #region General Object Connection and Relationship Management
 
