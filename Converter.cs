@@ -628,8 +628,8 @@ namespace FbxSharp
                     propValue = ((Number)p.Values[4]).AsDouble.Value;
                     break;
                 case "KTime":
-                    propType = typeof(long);
-                    propValue = ((Number)p.Values[4]).AsLong.Value;
+                    propType = typeof(FbxTime);
+                    propValue = new FbxTime(((Number)p.Values[4]).AsLong.Value);
                     break;
                 case "Compound":
                     propType = typeof(string);
