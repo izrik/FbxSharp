@@ -4,6 +4,11 @@ namespace FbxSharp
 {
     public class AnimLayer : Collection
     {
+        public AnimLayer(string name="")
+            : base(name)
+        {
+        }
+
         #region Public Types
 
         public enum EBlendMode

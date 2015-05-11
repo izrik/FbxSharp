@@ -48,3 +48,38 @@ test SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsDstProperty
 #cs AssertNotNull(&prop)
 	AssertTrue(prop&.IsValid())
 	AssertEqual("DiffuseColor", prop&.GetName())
+
+test Property_AttachCurveNode_IsAnimated
+    given
+    Node node = new("node")
+    AnimCurveNode acn = new("acn")
+    AnimCurve x = new("x")
+    Scene scene = new("scene")
+    AnimLayer layer = new("layer")
+    AnimStack stack = new("stack")
+
+    FbxTime! time = new(0)
+    AnimCurveKey! key = new(time, 1.0f)
+    x.KeyAdd(time, key)
+
+    scene.ConnectSrcObject(node)
+    scene.ConnectSrcObject(acn)
+    scene.ConnectSrcObject(x)
+    scene.ConnectSrcObject(layer)
+    scene.ConnectSrcObject(stack)
+
+    layer.ConnectSrcObject(acn)
+
+    stack.ConnectSrcObject(layer)
+
+    acn.AddChannel<double>("x", 1.0)
+    acn.ConnectToChannel(x, 0U)
+
+    require
+    AssertFalse(node.LclTranslation&.IsAnimated())
+
+    when
+    node.LclTranslation&.ConnectSrcObject(acn)
+
+    then
+    AssertTrue(node.LclTranslation&.IsAnimated())

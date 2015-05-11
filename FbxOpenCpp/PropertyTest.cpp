@@ -52,10 +52,49 @@ void SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsDstProperty()
     AssertEqual("DiffuseColor", prop.GetName());
 }
 
+void Property_AttachCurveNode_IsAnimated()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxNode* node = FbxNode::Create(manager, "node");
+    FbxAnimCurveNode* acn = FbxAnimCurveNode::Create(manager, "acn");
+    FbxAnimCurve* x = FbxAnimCurve::Create(manager, "x");
+    FbxScene* scene = FbxScene::Create(manager, "scene");
+    FbxAnimLayer* layer = FbxAnimLayer::Create(manager, "layer");
+    FbxAnimStack* stack = FbxAnimStack::Create(manager, "stack");
+
+    FbxTime time = FbxTime(0);
+    FbxAnimCurveKey key = FbxAnimCurveKey(time, 1.0f);
+    x->KeyAdd(time, key);
+
+    scene->ConnectSrcObject(node);
+    scene->ConnectSrcObject(acn);
+    scene->ConnectSrcObject(x);
+    scene->ConnectSrcObject(layer);
+    scene->ConnectSrcObject(stack);
+
+    layer->ConnectSrcObject(acn);
+
+    stack->ConnectSrcObject(layer);
+
+    acn->AddChannel<double>("x", 1.0);
+    acn->ConnectToChannel(x, 0U);
+
+    // require:
+    AssertFalse(node->LclTranslation.IsAnimated());
+
+    // when:
+    node->LclTranslation.ConnectSrcObject(acn);
+
+    // then:
+    AssertTrue(node->LclTranslation.IsAnimated());
+}
+
 void PropertyTest::RegisterTestCases()
 {
     AddTestCase(SurfacePhong_FindProperty_FindsProperty);
     AddTestCase(SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsSrcObject);
     AddTestCase(SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsDstProperty);
+    AddTestCase(Property_AttachCurveNode_IsAnimated);
 }
 

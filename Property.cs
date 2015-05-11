@@ -150,6 +150,9 @@ namespace FbxSharp
 
         public bool IsAnimated(AnimLayer pAnimLayer=null)
         {
+            // TODO: curve node shouold have channels and curves attached
+            // TODO: curve node should be attached to scene, stack, and layer
+            // TODO: pAnimLayer parameter
             return (GetCurveNode() != null);
         }
 

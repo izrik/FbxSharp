@@ -370,9 +370,25 @@ namespace TestCaseGenerator
                                 }
 
 
-                                if (type == "AnimCurveKey")
+                                if (type == "AnimCurveKey" ||
+                                    type == "Vector2" ||
+                                    type == "Vector3" ||
+                                    type == "Vector4" ||
+                                    type == "Double2" ||
+                                    type == "Double3" ||
+                                    type == "Double4")
                                 {
                                     type = "Fbx" + type;
+                                }
+
+                                if (type == "FbxVector3")
+                                {
+                                    type = "FbxDouble3";
+                                }
+
+                                if (equalsIndex == 2)
+                                {
+                                    parts[0] = type + (isStackValue ? "!" : "");
                                 }
 
                                 if (type == "FbxTime" ||
@@ -381,6 +397,9 @@ namespace TestCaseGenerator
                                     type == "FbxVector2" ||
                                     type == "FbxVector3" ||
                                     type == "FbxVector4" ||
+                                    type == "FbxDouble2" ||
+                                    type == "FbxDouble3" ||
+                                    type == "FbxDouble4" ||
                                     type == "FbxAnimCurveKey")
                                 {
                                     if (isStackValue)

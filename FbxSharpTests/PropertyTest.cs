@@ -57,5 +57,43 @@ namespace FbxSharpTests
             Assert.True(prop.IsValid());
             Assert.AreEqual("DiffuseColor", prop.GetName());
         }
+
+        [Test]
+        public void Property_AttachCurveNode_IsAnimated()
+        {
+            // given:
+            var node = new Node("node");
+            var acn = new AnimCurveNode("acn");
+            var x = new AnimCurve("x");
+            var scene = new Scene("scene");
+            var layer = new AnimLayer("layer");
+            var stack = new AnimStack("stack");
+
+            var time = new FbxTime(0);
+            var key = new AnimCurveKey(time, 1.0f);
+            x.KeyAdd(time, key);
+
+            scene.ConnectSrcObject(node);
+            scene.ConnectSrcObject(acn);
+            scene.ConnectSrcObject(x);
+            scene.ConnectSrcObject(layer);
+            scene.ConnectSrcObject(stack);
+
+            layer.ConnectSrcObject(acn);
+
+            stack.ConnectSrcObject(layer);
+
+            acn.AddChannel<double>("x", 1.0);
+            acn.ConnectToChannel(x, 0U);
+
+            // require:
+            Assert.False(node.LclTranslation.IsAnimated());
+
+            // when:
+            node.LclTranslation.ConnectSrcObject(acn);
+
+            // then:
+            Assert.True(node.LclTranslation.IsAnimated());
+        }
     }
 }
