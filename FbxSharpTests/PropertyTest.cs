@@ -95,5 +95,12 @@ namespace FbxSharpTests
             // then:
             Assert.True(node.LclTranslation.IsAnimated());
         }
+
+        [Test]
+        public void FbxProperty_HierarchicalSeparator()
+        {
+            // require:
+            Assert.AreEqual("|", Property.sHierarchicalSeparator);
+        }
     }
 }

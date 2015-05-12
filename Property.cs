@@ -24,6 +24,12 @@ namespace FbxSharp
             return string.Format("{0}: {1}", Name, GetValue());
         }
 
+        #region Static Public Attributes
+
+        public static string sHierarchicalSeparator = "|";
+
+        #endregion
+
         #region Property Identification
 
         public string Name { get; protected set; }

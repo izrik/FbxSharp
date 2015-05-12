@@ -212,6 +212,7 @@ namespace TestCaseGenerator
 
                             outline = outline.Replace("&", "");
                             outline = outline.Replace("*", "");
+                            outline = outline.Replace("::", ".");
 
                             outline = Regex.Replace(outline, @"\bFbx\$", "");
 

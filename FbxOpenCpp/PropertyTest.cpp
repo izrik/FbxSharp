@@ -90,11 +90,18 @@ void Property_AttachCurveNode_IsAnimated()
     AssertTrue(node->LclTranslation.IsAnimated());
 }
 
+void FbxProperty_HierarchicalSeparator()
+{
+    // require:
+    AssertEqual("|", FbxProperty::sHierarchicalSeparator);
+}
+
 void PropertyTest::RegisterTestCases()
 {
     AddTestCase(SurfacePhong_FindProperty_FindsProperty);
     AddTestCase(SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsSrcObject);
     AddTestCase(SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsDstProperty);
     AddTestCase(Property_AttachCurveNode_IsAnimated);
+    AddTestCase(FbxProperty_HierarchicalSeparator);
 }
 

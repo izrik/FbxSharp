@@ -18,36 +18,36 @@ test SurfacePhong_FindProperty_FindsProperty
 //test SurfacePhong_AddNewPropertyWithconflictingName_AddsNewProperty
 
 test SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsSrcObject
-	given
-	SurfacePhong surf = new("")
-	Texture tex = new("")
+    given
+    SurfacePhong surf = new("")
+    Texture tex = new("")
 
-	when
-	bool result = surf.Diffuse&.ConnectSrcObject(tex)
+    when
+    bool result = surf.Diffuse&.ConnectSrcObject(tex)
 
-	then
-	AssertTrue(result)
-	AssertEqual(1, surf.Diffuse&.GetSrcObjectCount())
-	FbxObject obj = surf.Diffuse&.GetSrcObject(0)
-	AssertNotNull(obj)
+    then
+    AssertTrue(result)
+    AssertEqual(1, surf.Diffuse&.GetSrcObjectCount())
+    FbxObject obj = surf.Diffuse&.GetSrcObject(0)
+    AssertNotNull(obj)
 #cs AssertAreSame(tex, obj)
 #cpp AssertEqual(tex, obj)
 
 test SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsDstProperty
-	given
-	SurfacePhong surf = new("")
-	Texture tex = new("")
+    given
+    SurfacePhong surf = new("")
+    Texture tex = new("")
 
-	when
-	bool result = surf.Diffuse&.ConnectSrcObject(tex)
+    when
+    bool result = surf.Diffuse&.ConnectSrcObject(tex)
 
-	then
-	AssertTrue(result)
-	AssertEqual(1, tex.GetDstPropertyCount())
-	Property! prop = tex.GetDstProperty(0)
+    then
+    AssertTrue(result)
+    AssertEqual(1, tex.GetDstPropertyCount())
+    Property! prop = tex.GetDstProperty(0)
 #cs AssertNotNull(&prop)
-	AssertTrue(prop&.IsValid())
-	AssertEqual("DiffuseColor", prop&.GetName())
+    AssertTrue(prop&.IsValid())
+    AssertEqual("DiffuseColor", prop&.GetName())
 
 test Property_AttachCurveNode_IsAnimated
     given
@@ -83,3 +83,7 @@ test Property_AttachCurveNode_IsAnimated
 
     then
     AssertTrue(node.LclTranslation&.IsAnimated())
+
+test FbxProperty_HierarchicalSeparator
+    require
+    AssertEqual("|", Fbx$Property::sHierarchicalSeparator)
