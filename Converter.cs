@@ -1191,7 +1191,28 @@ namespace FbxSharp
                 switch (prop.Name)
                 {
                 case "Properties70":
-                    ImportProperties(animCurveNode, ConvertProperties70(prop));
+                    var propinfos = ConvertProperties70(prop);
+                    foreach (var propinfo in propinfos)
+                    {
+                        var pname = propinfo.Item1;
+                        var ptype = propinfo.Item2;
+                        var pvalue = propinfo.Item3;
+
+                        if (pname == "d")
+                        {
+                        }
+                        else if (pname.StartsWith("d|"))
+                        {
+                            var genMethod = typeof(AnimCurveNode).GetMethod("AddChannel");
+                            var typedMethod = genMethod.MakeGenericMethod(ptype);
+                            typedMethod.Invoke(animCurveNode, new object[]{pname, pvalue});
+                            //animCurveNode.AddChannel<ptype>(pname, pvalue)
+                        }
+                        else
+                        {
+                            ImportProperty(animCurveNode, pname, ptype, pvalue);
+                        }
+                    }
                     break;
                 default:
                     throw new NotImplementedException();
