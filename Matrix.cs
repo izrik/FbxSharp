@@ -40,8 +40,8 @@ namespace FbxSharp
             var z = Matrix.CreateRotationZ(pR.Z);
             var t = Matrix.CreateTranslation(pT);
 
-            var r = Multiply(z,Multiply(x,y));
-            var m = Multiply(t, Multiply(s, r));
+            var r = z * y * x;
+            var m = t * r * s;
 
             M00 = m.M00;
             M10 = m.M10;
@@ -184,31 +184,31 @@ namespace FbxSharp
             if (pY < 0 || pY > 3) throw new ArgumentOutOfRangeException("pY");
             if (pX < 0 || pX > 3) throw new ArgumentOutOfRangeException("pX");
 
-            switch (pY)
+            switch (pX)
             {
             case 0:
-                if (pX == 0) return M00;
-                if (pX == 1) return M01;
-                if (pX == 2) return M02;
-                if (pX == 3) return M03;
+                if (pY == 0) return M00;
+                if (pY == 1) return M01;
+                if (pY == 2) return M02;
+                if (pY == 3) return M03;
                 break;
             case 1:
-                if (pX == 0) return M10;
-                if (pX == 1) return M11;
-                if (pX == 2) return M12;
-                if (pX == 3) return M13;
+                if (pY == 0) return M10;
+                if (pY == 1) return M11;
+                if (pY == 2) return M12;
+                if (pY == 3) return M13;
                 break;
             case 2:
-                if (pX == 0) return M20;
-                if (pX == 1) return M21;
-                if (pX == 2) return M22;
-                if (pX == 3) return M23;
+                if (pY == 0) return M20;
+                if (pY == 1) return M21;
+                if (pY == 2) return M22;
+                if (pY == 3) return M23;
                 break;
             case 3:
-                if (pX == 0) return M30;
-                if (pX == 1) return M31;
-                if (pX == 2) return M32;
-                if (pX == 3) return M33;
+                if (pY == 0) return M30;
+                if (pY == 1) return M31;
+                if (pY == 2) return M32;
+                if (pY == 3) return M33;
                 break;
             }
 
@@ -238,8 +238,8 @@ namespace FbxSharp
             double s = Math.Sin(radians);
             return new Matrix(
                 1, 0, 0, 0,
-                0, c, -s, 0,
-                0, s, c, 0,
+                0, c, s, 0,
+                0, -s, c, 0,
                 0, 0, 0, 1);
         }
 
@@ -249,9 +249,9 @@ namespace FbxSharp
             double c = Math.Cos(radians);
             double s = Math.Sin(radians);
             return new Matrix(
-                c, 0, s, 0,
+                c, 0, -s, 0,
                 0, 1, 0, 0,
-                -s, 0, c, 0,
+                s, 0, c, 0,
                 0, 0, 0, 1);
         }
 
@@ -296,20 +296,23 @@ namespace FbxSharp
         {
             return new Matrix(
                 a.M00 * b.M00 + a.M01 * b.M10 + a.M02 * b.M20 + a.M03 * b.M30,
-                a.M00 * b.M01 + a.M01 * b.M11 + a.M02 * b.M21 + a.M03 * b.M31,
-                a.M00 * b.M02 + a.M01 * b.M12 + a.M02 * b.M22 + a.M03 * b.M32,
-                a.M00 * b.M03 + a.M01 * b.M13 + a.M02 * b.M23 + a.M03 * b.M33,
                 a.M10 * b.M00 + a.M11 * b.M10 + a.M12 * b.M20 + a.M13 * b.M30,
-                a.M10 * b.M01 + a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31,
-                a.M10 * b.M02 + a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32,
-                a.M10 * b.M03 + a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33,
                 a.M20 * b.M00 + a.M21 * b.M10 + a.M22 * b.M20 + a.M23 * b.M30,
-                a.M20 * b.M01 + a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31,
-                a.M20 * b.M02 + a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32,
-                a.M20 * b.M03 + a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33,
                 a.M30 * b.M00 + a.M31 * b.M10 + a.M32 * b.M20 + a.M33 * b.M30,
+
+                a.M00 * b.M01 + a.M01 * b.M11 + a.M02 * b.M21 + a.M03 * b.M31,
+                a.M10 * b.M01 + a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31,
+                a.M20 * b.M01 + a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31,
                 a.M30 * b.M01 + a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31,
+
+                a.M00 * b.M02 + a.M01 * b.M12 + a.M02 * b.M22 + a.M03 * b.M32,
+                a.M10 * b.M02 + a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32,
+                a.M20 * b.M02 + a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32,
                 a.M30 * b.M02 + a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32,
+
+                a.M00 * b.M03 + a.M01 * b.M13 + a.M02 * b.M23 + a.M03 * b.M33,
+                a.M10 * b.M03 + a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33,
+                a.M20 * b.M03 + a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33,
                 a.M30 * b.M03 + a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33);
         }
     }
