@@ -268,7 +268,7 @@ namespace FbxSharp
         }
         public Matrix EvaluateLocalTransform(FbxTime pTime, Node.EPivotSet pPivotSet=Node.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
         {
-            throw new NotImplementedException();
+            return GetAnimationEvaluator().GetNodeLocalTransform(this, pTime, pPivotSet, pApplyTarget, pForceEval);
         }
 
         public Vector4 EvaluateLocalTranslation()

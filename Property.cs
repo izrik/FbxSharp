@@ -281,7 +281,37 @@ namespace FbxSharp
         }
         public T EvaluateValue<T>(FbxTime pTime, bool pForceEval=false)
         {
-            throw new NotImplementedException();
+            if (IsAnimated())
+            {
+                var acn = GetCurveNode();
+                float[] values = new float[4]{0,0,0,0};
+                uint i;
+                for (i = 0; i < Math.Min(4, acn.GetChannelsCount()); i++)
+                {
+                    if (acn.GetCurveCount(i) < 1) throw new NotImplementedException();
+                    var curve = acn.GetCurve(i);
+                    values[i] = curve.Evaluate(pTime);
+                }
+
+                var type = typeof(T);
+
+                if (type == typeof(float))
+                    return (T)(object)values[0];
+                if (type ==  typeof(double))
+                    return (T)(object)(double)values[0];
+                if (type ==  typeof(Vector2))
+                    return (T)(object)(new Vector2(values[0], values[1]));
+                if (type ==  typeof(Vector3))
+                    return (T)(object)(new Vector3(values[0], values[1], values[2]));
+                if (type ==  typeof(Vector4))
+                    return (T)(object)(new Vector4(values[0], values[1], values[2], values[3]));
+
+                throw new NotImplementedException();
+            }
+            else
+            {
+                return Get<T>();
+            }
         }
 
         public /*FbxPropertyValue*/object EvaluateValue()
