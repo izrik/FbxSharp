@@ -400,6 +400,141 @@ void Matrix_Multiply_2()
     AssertEqual(1.000000f, m.Get(3, 3), 0.000001f);
 }
 
+void Matrix_Multiply_3()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxMatrix r = FbxMatrix(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1);
+    FbxMatrix t = FbxMatrix(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
+    FbxMatrix s = FbxMatrix(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1);
+
+    // when:
+    FbxMatrix m = r * t * s;
+
+    // then:
+    AssertEqual(0.0f, m.Get(0, 0), 0.000001f);
+    AssertEqual(5.0f, m.Get(0, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 3), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 1), 0.000001f);
+    AssertEqual(6.0f, m.Get(1, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 3), 0.000001f);
+    AssertEqual(7.0f, m.Get(2, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 3), 0.000001f);
+    AssertEqual(4.0f, m.Get(3, 0), 0.000001f);
+    AssertEqual(2.0f, m.Get(3, 1), 0.000001f);
+    AssertEqual(3.0f, m.Get(3, 2), 0.000001f);
+    AssertEqual(1.0f, m.Get(3, 3), 0.000001f);
+
+    // when:
+    m = r * s * t;
+
+    // then:
+    AssertEqual(0.0f, m.Get(0, 0), 0.000001f);
+    AssertEqual(5.0f, m.Get(0, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 3), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 1), 0.000001f);
+    AssertEqual(6.0f, m.Get(1, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 3), 0.000001f);
+    AssertEqual(7.0f, m.Get(2, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 3), 0.000001f);
+    AssertEqual(28.0f, m.Get(3, 0), 0.000001f);
+    AssertEqual(10.0f, m.Get(3, 1), 0.000001f);
+    AssertEqual(18.0f, m.Get(3, 2), 0.000001f);
+    AssertEqual(1.0f, m.Get(3, 3), 0.000001f);
+
+    // when:
+    m = t * r * s;
+
+    // then:
+    AssertEqual(0.0f, m.Get(0, 0), 0.000001f);
+    AssertEqual(5.0f, m.Get(0, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 3), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 1), 0.000001f);
+    AssertEqual(6.0f, m.Get(1, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 3), 0.000001f);
+    AssertEqual(7.0f, m.Get(2, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 3), 0.000001f);
+    AssertEqual(2.0f, m.Get(3, 0), 0.000001f);
+    AssertEqual(3.0f, m.Get(3, 1), 0.000001f);
+    AssertEqual(4.0f, m.Get(3, 2), 0.000001f);
+    AssertEqual(1.0f, m.Get(3, 3), 0.000001f);
+
+    // when:
+    m = t * s * r;
+
+    // then:
+    AssertEqual(0.0f, m.Get(0, 0), 0.000001f);
+    AssertEqual(6.0f, m.Get(0, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 3), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 1), 0.000001f);
+    AssertEqual(7.0f, m.Get(1, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 3), 0.000001f);
+    AssertEqual(5.0f, m.Get(2, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 3), 0.000001f);
+    AssertEqual(2.0f, m.Get(3, 0), 0.000001f);
+    AssertEqual(3.0f, m.Get(3, 1), 0.000001f);
+    AssertEqual(4.0f, m.Get(3, 2), 0.000001f);
+    AssertEqual(1.0f, m.Get(3, 3), 0.000001f);
+
+    // when:
+    m = s * t * r;
+
+    // then:
+    AssertEqual(0.0f, m.Get(0, 0), 0.000001f);
+    AssertEqual(6.0f, m.Get(0, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 3), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 1), 0.000001f);
+    AssertEqual(7.0f, m.Get(1, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 3), 0.000001f);
+    AssertEqual(5.0f, m.Get(2, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 3), 0.000001f);
+    AssertEqual(10.0f, m.Get(3, 0), 0.000001f);
+    AssertEqual(18.0f, m.Get(3, 1), 0.000001f);
+    AssertEqual(28.0f, m.Get(3, 2), 0.000001f);
+    AssertEqual(1.0f, m.Get(3, 3), 0.000001f);
+
+    // when:
+    m = s * r * t;
+
+    // then:
+    AssertEqual(0.0f, m.Get(0, 0), 0.000001f);
+    AssertEqual(6.0f, m.Get(0, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 3), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 1), 0.000001f);
+    AssertEqual(7.0f, m.Get(1, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 3), 0.000001f);
+    AssertEqual(5.0f, m.Get(2, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 3), 0.000001f);
+    AssertEqual(20.0f, m.Get(3, 0), 0.000001f);
+    AssertEqual(12.0f, m.Get(3, 1), 0.000001f);
+    AssertEqual(21.0f, m.Get(3, 2), 0.000001f);
+    AssertEqual(1.0f, m.Get(3, 3), 0.000001f);
+}
+
 void MatrixTest::RegisterTestCases()
 {
     AddTestCase(Matrix_TrsConstructorNoTransforms_CreatesIdentity);
@@ -415,5 +550,6 @@ void MatrixTest::RegisterTestCases()
     AddTestCase(Matrix_TrsConstructorEverything_CreatesMatrix);
     AddTestCase(Matrix_Multiply);
     AddTestCase(Matrix_Multiply_2);
+    AddTestCase(Matrix_Multiply_3);
 }
 

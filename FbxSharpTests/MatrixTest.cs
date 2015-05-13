@@ -414,5 +414,140 @@ namespace FbxSharpTests
             Assert.AreEqual(4.000000f, m.Get(3, 2), 0.000001f);
             Assert.AreEqual(1.000000f, m.Get(3, 3), 0.000001f);
         }
+
+        [Test]
+        public void Matrix_Multiply_3()
+        {
+            // given:
+            var r = new Matrix(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1);
+            var t = new Matrix(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
+            var s = new Matrix(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1);
+
+            // when:
+            var m = r * t * s;
+
+            // then:
+            Assert.AreEqual(0.0f, m.Get(0, 0), 0.000001f);
+            Assert.AreEqual(5.0f, m.Get(0, 1), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(0, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(0, 3), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 0), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 1), 0.000001f);
+            Assert.AreEqual(6.0f, m.Get(1, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 3), 0.000001f);
+            Assert.AreEqual(7.0f, m.Get(2, 0), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 1), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 3), 0.000001f);
+            Assert.AreEqual(4.0f, m.Get(3, 0), 0.000001f);
+            Assert.AreEqual(2.0f, m.Get(3, 1), 0.000001f);
+            Assert.AreEqual(3.0f, m.Get(3, 2), 0.000001f);
+            Assert.AreEqual(1.0f, m.Get(3, 3), 0.000001f);
+
+            // when:
+            m = r * s * t;
+
+            // then:
+            Assert.AreEqual(0.0f, m.Get(0, 0), 0.000001f);
+            Assert.AreEqual(5.0f, m.Get(0, 1), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(0, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(0, 3), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 0), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 1), 0.000001f);
+            Assert.AreEqual(6.0f, m.Get(1, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 3), 0.000001f);
+            Assert.AreEqual(7.0f, m.Get(2, 0), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 1), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 3), 0.000001f);
+            Assert.AreEqual(28.0f, m.Get(3, 0), 0.000001f);
+            Assert.AreEqual(10.0f, m.Get(3, 1), 0.000001f);
+            Assert.AreEqual(18.0f, m.Get(3, 2), 0.000001f);
+            Assert.AreEqual(1.0f, m.Get(3, 3), 0.000001f);
+
+            // when:
+            m = t * r * s;
+
+            // then:
+            Assert.AreEqual(0.0f, m.Get(0, 0), 0.000001f);
+            Assert.AreEqual(5.0f, m.Get(0, 1), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(0, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(0, 3), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 0), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 1), 0.000001f);
+            Assert.AreEqual(6.0f, m.Get(1, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 3), 0.000001f);
+            Assert.AreEqual(7.0f, m.Get(2, 0), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 1), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 3), 0.000001f);
+            Assert.AreEqual(2.0f, m.Get(3, 0), 0.000001f);
+            Assert.AreEqual(3.0f, m.Get(3, 1), 0.000001f);
+            Assert.AreEqual(4.0f, m.Get(3, 2), 0.000001f);
+            Assert.AreEqual(1.0f, m.Get(3, 3), 0.000001f);
+
+            // when:
+            m = t * s * r;
+
+            // then:
+            Assert.AreEqual(0.0f, m.Get(0, 0), 0.000001f);
+            Assert.AreEqual(6.0f, m.Get(0, 1), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(0, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(0, 3), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 0), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 1), 0.000001f);
+            Assert.AreEqual(7.0f, m.Get(1, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 3), 0.000001f);
+            Assert.AreEqual(5.0f, m.Get(2, 0), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 1), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 3), 0.000001f);
+            Assert.AreEqual(2.0f, m.Get(3, 0), 0.000001f);
+            Assert.AreEqual(3.0f, m.Get(3, 1), 0.000001f);
+            Assert.AreEqual(4.0f, m.Get(3, 2), 0.000001f);
+            Assert.AreEqual(1.0f, m.Get(3, 3), 0.000001f);
+
+            // when:
+            m = s * t * r;
+
+            // then:
+            Assert.AreEqual(0.0f, m.Get(0, 0), 0.000001f);
+            Assert.AreEqual(6.0f, m.Get(0, 1), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(0, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(0, 3), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 0), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 1), 0.000001f);
+            Assert.AreEqual(7.0f, m.Get(1, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 3), 0.000001f);
+            Assert.AreEqual(5.0f, m.Get(2, 0), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 1), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 3), 0.000001f);
+            Assert.AreEqual(10.0f, m.Get(3, 0), 0.000001f);
+            Assert.AreEqual(18.0f, m.Get(3, 1), 0.000001f);
+            Assert.AreEqual(28.0f, m.Get(3, 2), 0.000001f);
+            Assert.AreEqual(1.0f, m.Get(3, 3), 0.000001f);
+
+            // when:
+            m = s * r * t;
+
+            // then:
+            Assert.AreEqual(0.0f, m.Get(0, 0), 0.000001f);
+            Assert.AreEqual(6.0f, m.Get(0, 1), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(0, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(0, 3), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 0), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 1), 0.000001f);
+            Assert.AreEqual(7.0f, m.Get(1, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(1, 3), 0.000001f);
+            Assert.AreEqual(5.0f, m.Get(2, 0), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 1), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 2), 0.000001f);
+            Assert.AreEqual(0.0f, m.Get(2, 3), 0.000001f);
+            Assert.AreEqual(20.0f, m.Get(3, 0), 0.000001f);
+            Assert.AreEqual(12.0f, m.Get(3, 1), 0.000001f);
+            Assert.AreEqual(21.0f, m.Get(3, 2), 0.000001f);
+            Assert.AreEqual(1.0f, m.Get(3, 3), 0.000001f);
+        }
     }
 }
