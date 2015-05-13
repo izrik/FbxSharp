@@ -9,6 +9,7 @@ namespace FbxSharp
         static Property()
         {
             AddConverter(typeof(Vector4), typeof(Vector3), (v4) => ((Vector4)v4).ToVector3());
+            AddConverter(typeof(Vector3), typeof(Vector4), (v3) => ((Vector3)v3).ToVector4());
         }
 
         protected Property(string name)

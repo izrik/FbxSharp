@@ -33,6 +33,13 @@ namespace FbxSharp
         {
             if (!(Value is U))
             {
+                var tuple = new Tuple<Type, Type>(typeof(T), typeof(U));
+                if (Converters.ContainsKey(tuple))
+                {
+                    var converter = Converters[tuple];
+                    return (U)converter(Value);
+                }
+
                 throw new InvalidCastException(); // maybe find a better exception to throw
             }
 
