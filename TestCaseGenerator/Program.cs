@@ -211,7 +211,21 @@ namespace TestCaseGenerator
                             outline = Regex.Replace(outline, @"Assert(\w)", m => "Assert." + m.Groups[1].Value);
 
                             outline = outline.Replace("&", "");
-                            outline = outline.Replace("*", "");
+                            outline =
+                                Regex.Replace(
+                                    outline,
+                                    @"(\S)\*(\s)",
+                                    m => m.Groups[1].Value + m.Groups[2].Value);
+                            outline =
+                                Regex.Replace(
+                                    outline,
+                                    @"(\s)\*(\S)",
+                                    m => m.Groups[1].Value + m.Groups[2].Value);
+                            outline =
+                                Regex.Replace(
+                                    outline,
+                                    @"(\S)\*(\S)",
+                                    m => m.Groups[1].Value + m.Groups[2].Value);
                             outline = outline.Replace("::", ".");
 
                             outline = Regex.Replace(outline, @"\bFbx\$", "");

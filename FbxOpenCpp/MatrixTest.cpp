@@ -300,6 +300,106 @@ void Matrix_TrsConstructorEverything_CreatesMatrix()
     AssertEqual(1.0,       m.Get(3, 3), 0.00001);
 }
 
+void Matrix_Multiply()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxMatrix a = FbxMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
+    FbxMatrix b = FbxMatrix(0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1);
+
+    // when:
+    FbxMatrix m = a * b;
+
+    // then:
+    AssertEqual(0.0f, m.Get(0, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 1), 0.000001f);
+    AssertEqual(1.0f, m.Get(0, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 3), 0.000001f);
+    AssertEqual(1.0f, m.Get(1, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 3), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 0), 0.000001f);
+    AssertEqual(1.0f, m.Get(2, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 3), 0.000001f);
+    AssertEqual(2.0f, m.Get(3, 0), 0.000001f);
+    AssertEqual(3.0f, m.Get(3, 1), 0.000001f);
+    AssertEqual(4.0f, m.Get(3, 2), 0.000001f);
+    AssertEqual(1.0f, m.Get(3, 3), 0.000001f);
+
+    // when:
+    m = b * a;
+
+    // then:
+    AssertEqual(0.0f, m.Get(0, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 1), 0.000001f);
+    AssertEqual(1.0f, m.Get(0, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(0, 3), 0.000001f);
+    AssertEqual(1.0f, m.Get(1, 0), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(1, 3), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 0), 0.000001f);
+    AssertEqual(1.0f, m.Get(2, 1), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 2), 0.000001f);
+    AssertEqual(0.0f, m.Get(2, 3), 0.000001f);
+    AssertEqual(3.0f, m.Get(3, 0), 0.000001f);
+    AssertEqual(4.0f, m.Get(3, 1), 0.000001f);
+    AssertEqual(2.0f, m.Get(3, 2), 0.000001f);
+    AssertEqual(1.0f, m.Get(3, 3), 0.000001f);
+}
+
+void Matrix_Multiply_2()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxMatrix a = FbxMatrix(1, 0, -0, 0, 0, 0.707107, 0.707107, 0, 0, -0.707107, 0.707107, 0, 0, 0, 0, 1); // 45 degrees around x;
+    FbxMatrix b = FbxMatrix(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
+
+    // when:
+    FbxMatrix m = a * b;
+
+    // then:
+    AssertEqual(1.000000f, m.Get(0, 0), 0.000001f);
+    AssertEqual(0.000000f, m.Get(0, 1), 0.000001f);
+    AssertEqual(0.000000f, m.Get(0, 2), 0.000001f);
+    AssertEqual(0.000000f, m.Get(0, 3), 0.000001f);
+    AssertEqual(0.000000f, m.Get(1, 0), 0.000001f);
+    AssertEqual(0.707107f, m.Get(1, 1), 0.000001f);
+    AssertEqual(0.707107f, m.Get(1, 2), 0.000001f);
+    AssertEqual(0.000000f, m.Get(1, 3), 0.000001f);
+    AssertEqual(0.000000f, m.Get(2, 0), 0.000001f);
+    AssertEqual(-.707107f, m.Get(2, 1), 0.000001f);
+    AssertEqual(0.707107f, m.Get(2, 2), 0.000001f);
+    AssertEqual(0.000000f, m.Get(2, 3), 0.000001f);
+    AssertEqual(2.000000f, m.Get(3, 0), 0.000001f);
+    AssertEqual(-.707107f, m.Get(3, 1), 0.000001f);
+    AssertEqual(4.949748f, m.Get(3, 2), 0.000001f);
+    AssertEqual(1.000000f, m.Get(3, 3), 0.000001f);
+
+    // when:
+    m = b * a;
+
+    // then:
+    AssertEqual(1.000000f, m.Get(0, 0), 0.000001f);
+    AssertEqual(0.000000f, m.Get(0, 1), 0.000001f);
+    AssertEqual(0.000000f, m.Get(0, 2), 0.000001f);
+    AssertEqual(0.000000f, m.Get(0, 3), 0.000001f);
+    AssertEqual(0.000000f, m.Get(1, 0), 0.000001f);
+    AssertEqual(0.707107f, m.Get(1, 1), 0.000001f);
+    AssertEqual(0.707107f, m.Get(1, 2), 0.000001f);
+    AssertEqual(0.000000f, m.Get(1, 3), 0.000001f);
+    AssertEqual(0.000000f, m.Get(2, 0), 0.000001f);
+    AssertEqual(-.707107f, m.Get(2, 1), 0.000001f);
+    AssertEqual(0.707107f, m.Get(2, 2), 0.000001f);
+    AssertEqual(0.000000f, m.Get(2, 3), 0.000001f);
+    AssertEqual(2.000000f, m.Get(3, 0), 0.000001f);
+    AssertEqual(3.000000f, m.Get(3, 1), 0.000001f);
+    AssertEqual(4.000000f, m.Get(3, 2), 0.000001f);
+    AssertEqual(1.000000f, m.Get(3, 3), 0.000001f);
+}
+
 void MatrixTest::RegisterTestCases()
 {
     AddTestCase(Matrix_TrsConstructorNoTransforms_CreatesIdentity);
@@ -313,5 +413,7 @@ void MatrixTest::RegisterTestCases()
     AddTestCase(Matrix_TrsConstructorRotationXYZ_CreatesWithRotationXYZ);
     AddTestCase(Matrix_TrsConstructorScale_CreatesWithScale);
     AddTestCase(Matrix_TrsConstructorEverything_CreatesMatrix);
+    AddTestCase(Matrix_Multiply);
+    AddTestCase(Matrix_Multiply_2);
 }
 
