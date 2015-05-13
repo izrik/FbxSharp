@@ -260,6 +260,15 @@ namespace FbxSharp
             return false;
         }
 
+        public int GetCurveOnSurfaceCount()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Node FindNodeByName(string pName)
+        {
+            return Nodes.FirstOrDefault(n => n.Name == pName);
+        }
 
         #endregion
     }
