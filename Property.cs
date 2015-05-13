@@ -15,6 +15,7 @@ namespace FbxSharp
         {
             Name = name;
 
+            Children = new PropertyChildrenCollection(this);
             SrcObjects = new PropertySrcObjectCollection(this);
             DstObjects = new PropertyDstObjectCollection(this);
         }
@@ -144,6 +145,117 @@ namespace FbxSharp
         {
             throw new NotImplementedException();
         }
+
+        #endregion
+
+        #region Hierarchical Properties
+
+        private Property _parentProperty;
+        public Property ParentProperty
+        {
+            get { return _parentProperty; }
+            set
+            {
+                if (value != _parentProperty)
+                {
+                    if (_parentProperty != null)
+                    {
+                        _parentProperty.Children.Remove(this);
+                    }
+
+                    _parentProperty = value;
+
+                    if (_parentProperty != null)
+                    {
+                        _parentProperty.Children.Add(this);
+                    }
+                }
+            }
+        }
+
+        public readonly PropertyChildrenCollection Children;
+
+        public bool IsRoot()
+        {
+            return (ParentProperty == null);
+        }
+
+        public bool IsChildOf(Property pParent)
+        {
+            return (ParentProperty == pParent);
+        }
+
+        public bool IsDescendentOf(Property pAncestor)
+        {
+            var c = ParentProperty;
+            while (c != null)
+            {
+                if (c == pAncestor) return true;
+
+                c = c.GetParent();
+            }
+
+            return false;
+        }
+
+        public Property GetParent()
+        {
+            return ParentProperty;
+        }
+
+        public /*FBX_DEPRECATED*/ bool SetParent(Property pOther)
+        {
+            //throw new NotImplementedException();
+            //ParentProperty = pOther;
+            return false;
+        }
+
+        public Property GetChild()
+        {
+            return Children.FirstOrDefault();
+        }
+
+        public Property GetSibling()
+        {
+            if (GetParent() == null) return null;
+
+            return GetParent().GetNextDescendent(this);
+        }
+
+        public Property GetFirstDescendent()
+        {
+            return Children.FirstOrDefault();
+        }
+
+        public Property GetNextDescendent(Property pProperty)
+        {
+            if (pProperty.ParentProperty != this) return null;
+
+            var index = Children.IndexOf(pProperty);
+            if (index + 1 >= Children.Count) return null;
+
+            return Children[index + 1];
+        }
+
+        public Property Find(string pName, bool pCaseSensitive = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        //public Property Find(string pName, FbxDataType &pDataType, bool pCaseSensitive=true)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public Property FindHierarchical(string pName, bool pCaseSensitive = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        //public Property FindHierarchical(string pName, FbxDataType &pDataType, bool pCaseSensitive=true)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         #endregion
 

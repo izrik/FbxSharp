@@ -210,4 +210,51 @@ void PrintProperty(FbxProperty* prop, bool indent)
     }
 
     cout << prefix << "IsAnimated() = " << prop->IsAnimated() << endl;
+    cout << prefix << "IsRoot() = " << prop->IsRoot() << endl;
+
+    cout << prefix << "GetParent() = ";
+    FbxProperty parentProp = prop->GetParent();
+    PrintPropertyID(&parentProp);
+    cout << endl;
+
+    cout << prefix << "GetChild() = ";
+    FbxProperty childProp = prop->GetChild();
+    PrintPropertyID(&childProp);
+    cout << endl;
+
+    cout << prefix << "GetSibling() = ";
+    FbxProperty nextProp = prop->GetSibling();
+    PrintPropertyID(&nextProp);
+    cout << endl;
+
+    i = 0;
+    FbxProperty descendent = prop->GetFirstDescendent();
+    while (descendent.IsValid())
+    {
+        i++;
+        FbxProperty descendent2 = prop->GetNextDescendent(descendent);
+        descendent = descendent2;
+    }
+
+    cout << prefix << "Descendents: " << i << endl;
+    if (i > 0)
+    {
+        cout << prefix << "GetFirstDescendent() = ";
+        descendent = prop->GetFirstDescendent();
+        PrintPropertyID(&parentProp);
+        cout << endl;
+
+        while (descendent.IsValid())
+        {
+            FbxProperty descendent2 = prop->GetNextDescendent(descendent);
+            descendent = descendent2;
+
+            if (descendent.IsValid())
+            {
+                cout << prefix << "GetNextDescendent() = ";
+                PrintPropertyID(&parentProp);
+                cout << endl;
+            }
+        }
+    }
 }

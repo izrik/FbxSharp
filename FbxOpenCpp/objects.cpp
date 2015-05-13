@@ -71,6 +71,10 @@ void PrintPropertyID(FbxProperty* prop)
 {
     if (prop == NULL)
         cout << "<<null>>";
+    else if (!prop->IsValid())
+    {
+        cout << "<<invalid>>";
+    }
     else
     {
         FbxObject* pobj = prop->GetFbxObject();
