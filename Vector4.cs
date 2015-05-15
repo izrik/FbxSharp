@@ -42,6 +42,34 @@ namespace FbxSharp
         {
             return new Vector3(X, Y, Z);
         }
+
+        public double this [ int index ]
+        {
+            get
+            {
+                switch (index)
+                {
+                case 0: return X;
+                case 1: return Y;
+                case 2: return Z;
+                case 3: return W;
+                }
+
+                throw new ArgumentOutOfRangeException("index", "index must be 0, 1, 2, or 3");
+            }
+            //set
+            //{
+            //    switch (index)
+            //    {
+            //    case 0: X = value; return;
+            //    case 1: Y = value; return;
+            //    case 2: Z = value; return;
+            //    case 3: W = value; return;
+            //    }
+            //
+            //    throw new ArgumentOutOfRangeException("index", "index must be 0, 1, 2, or 3");
+            //}
+        }
     }
 }
 

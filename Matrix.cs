@@ -315,6 +315,15 @@ namespace FbxSharp
                 a.M20 * b.M03 + a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33,
                 a.M30 * b.M03 + a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33);
         }
+
+        public Vector4 MultNormalize(Vector4 pVector)
+        {
+            return new Vector4(
+                this.M00 * pVector.X + this.M01 * pVector.Y + this.M02 * pVector.Z + this.M03 * pVector.W,
+                this.M10 * pVector.X + this.M11 * pVector.Y + this.M12 * pVector.Z + this.M13 * pVector.W,
+                this.M20 * pVector.X + this.M21 * pVector.Y + this.M22 * pVector.Z + this.M23 * pVector.W,
+                this.M30 * pVector.X + this.M31 * pVector.Y + this.M32 * pVector.Z + this.M33 * pVector.W);
+        }
     }
 }
 

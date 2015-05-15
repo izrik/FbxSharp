@@ -2107,5 +2107,203 @@ namespace FbxSharpTests
             Assert.AreEqual(0, m.Get(3, 2), 0.000001f);
             Assert.AreEqual(279, m.Get(3, 3), 0.000001f);
         }
+
+        [Test]
+        public void MatrixRotationIsCounterClockwiseX()
+        {
+            // given:
+            var t = new Vector4(0, 0, 0);
+            var r = new Vector4(90, 0, 0);
+            var s = new Vector4(1, 1, 1);
+            var m = new Matrix(t, r, s);
+            var v = new Vector4();
+            var u = new Vector4();
+
+            // require:
+            Assert.AreEqual(1.0, m.Get(0, 0), 0.00001);
+            Assert.AreEqual(0.0, m.Get(0, 1), 0.00001);
+            Assert.AreEqual(0.0, m.Get(0, 2), 0.00001);
+            Assert.AreEqual(0.0, m.Get(0, 3), 0.00001);
+            Assert.AreEqual(0.0, m.Get(1, 0), 0.00001);
+            Assert.AreEqual(0.0, m.Get(1, 1), 0.00001);
+            Assert.AreEqual(1.0, m.Get(1, 2), 0.00001);
+            Assert.AreEqual(0.0, m.Get(1, 3), 0.00001);
+            Assert.AreEqual(0.0, m.Get(2, 0), 0.00001);
+            Assert.AreEqual(-1.0,m.Get(2, 1), 0.00001);
+            Assert.AreEqual(0.0, m.Get(2, 2), 0.00001);
+            Assert.AreEqual(0.0, m.Get(2, 3), 0.00001);
+            Assert.AreEqual(0.0, m.Get(3, 0), 0.00001);
+            Assert.AreEqual(0.0, m.Get(3, 1), 0.00001);
+            Assert.AreEqual(0.0, m.Get(3, 2), 0.00001);
+            Assert.AreEqual(1.0, m.Get(3, 3), 0.00001);
+
+            // when:
+            v = new Vector4(0, 0, 1, 1);
+            u = m.MultNormalize(v);
+
+            // then:
+            Assert.AreEqual( 0, u[0], 0.000001f);
+            Assert.AreEqual(-1, u[1], 0.000001f);
+            Assert.AreEqual( 0, u[2], 0.000001f);
+
+            // when:
+            v = new Vector4(0, 1, 0, 1);
+            u = m.MultNormalize(v);
+
+            // then:
+            Assert.AreEqual( 0, u[0], 0.000001f);
+            Assert.AreEqual( 0, u[1], 0.000001f);
+            Assert.AreEqual( 1, u[2], 0.000001f);
+
+            // when:
+            v = new Vector4(0, 0, -1, 1);
+            u = m.MultNormalize(v);
+
+            // then:
+            Assert.AreEqual( 0, u[0], 0.000001f);
+            Assert.AreEqual( 1, u[1], 0.000001f);
+            Assert.AreEqual( 0, u[2], 0.000001f);
+
+            // when:
+            v = new Vector4(0, -1, 0, 1);
+            u = m.MultNormalize(v);
+
+            // then:
+            Assert.AreEqual( 0, u[0], 0.000001f);
+            Assert.AreEqual( 0, u[1], 0.000001f);
+            Assert.AreEqual(-1, u[2], 0.000001f);
+        }
+
+        [Test]
+        public void MatrixRotationIsCounterClockwiseY()
+        {
+            // given:
+            var t = new Vector4(0, 0, 0);
+            var r = new Vector4(0, 90, 0);
+            var s = new Vector4(1, 1, 1);
+            var m = new Matrix(t, r, s);
+            var v = new Vector4();
+            var u = new Vector4();
+
+            // require:
+            Assert.AreEqual(0.0, m.Get(0, 0), 0.00001);
+            Assert.AreEqual(0.0, m.Get(0, 1), 0.00001);
+            Assert.AreEqual(-1.0,m.Get(0, 2), 0.00001);
+            Assert.AreEqual(0.0, m.Get(0, 3), 0.00001);
+            Assert.AreEqual(0.0, m.Get(1, 0), 0.00001);
+            Assert.AreEqual(1.0, m.Get(1, 1), 0.00001);
+            Assert.AreEqual(0.0, m.Get(1, 2), 0.00001);
+            Assert.AreEqual(0.0, m.Get(1, 3), 0.00001);
+            Assert.AreEqual(1.0, m.Get(2, 0), 0.00001);
+            Assert.AreEqual(0.0, m.Get(2, 1), 0.00001);
+            Assert.AreEqual(0.0, m.Get(2, 2), 0.00001);
+            Assert.AreEqual(0.0, m.Get(2, 3), 0.00001);
+            Assert.AreEqual(0.0, m.Get(3, 0), 0.00001);
+            Assert.AreEqual(0.0, m.Get(3, 1), 0.00001);
+            Assert.AreEqual(0.0, m.Get(3, 2), 0.00001);
+            Assert.AreEqual(1.0, m.Get(3, 3), 0.00001);
+
+            // when:
+            v = new Vector4(0, 0, 1, 1);
+            u = m.MultNormalize(v);
+
+            // then:
+            Assert.AreEqual( 1, u[0], 0.000001f);
+            Assert.AreEqual( 0, u[1], 0.000001f);
+            Assert.AreEqual( 0, u[2], 0.000001f);
+
+            // when:
+            v = new Vector4(1, 0, 0, 1);
+            u = m.MultNormalize(v);
+
+            // then:
+            Assert.AreEqual( 0, u[0], 0.000001f);
+            Assert.AreEqual( 0, u[1], 0.000001f);
+            Assert.AreEqual(-1, u[2], 0.000001f);
+
+            // when:
+            v = new Vector4(0, 0, -1, 1);
+            u = m.MultNormalize(v);
+
+            // then:
+            Assert.AreEqual(-1, u[0], 0.000001f);
+            Assert.AreEqual( 0, u[1], 0.000001f);
+            Assert.AreEqual( 0, u[2], 0.000001f);
+
+            // when:
+            v = new Vector4(-1, 0, 0, 1);
+            u = m.MultNormalize(v);
+
+            // then:
+            Assert.AreEqual( 0, u[0], 0.000001f);
+            Assert.AreEqual( 0, u[1], 0.000001f);
+            Assert.AreEqual( 1, u[2], 0.000001f);
+        }
+
+        [Test]
+        public void MatrixRotationIsCounterClockwiseZ()
+        {
+            // given:
+            var t = new Vector4(0, 0, 0);
+            var r = new Vector4(0, 0, 90);
+            var s = new Vector4(1, 1, 1);
+            var m = new Matrix(t, r, s);
+            var v = new Vector4();
+            var u = new Vector4();
+
+            // require:
+            Assert.AreEqual(0.0, m.Get(0, 0), 0.00001);
+            Assert.AreEqual(1.0, m.Get(0, 1), 0.00001);
+            Assert.AreEqual(0.0, m.Get(0, 2), 0.00001);
+            Assert.AreEqual(0.0, m.Get(0, 3), 0.00001);
+            Assert.AreEqual(-1.0,m.Get(1, 0), 0.00001);
+            Assert.AreEqual(0.0, m.Get(1, 1), 0.00001);
+            Assert.AreEqual(0.0, m.Get(1, 2), 0.00001);
+            Assert.AreEqual(0.0, m.Get(1, 3), 0.00001);
+            Assert.AreEqual(0.0, m.Get(2, 0), 0.00001);
+            Assert.AreEqual(0.0, m.Get(2, 1), 0.00001);
+            Assert.AreEqual(1.0, m.Get(2, 2), 0.00001);
+            Assert.AreEqual(0.0, m.Get(2, 3), 0.00001);
+            Assert.AreEqual(0.0, m.Get(3, 0), 0.00001);
+            Assert.AreEqual(0.0, m.Get(3, 1), 0.00001);
+            Assert.AreEqual(0.0, m.Get(3, 2), 0.00001);
+            Assert.AreEqual(1.0, m.Get(3, 3), 0.00001);
+
+            // when:
+            v = new Vector4(1, 0, 0, 1);
+            u = m.MultNormalize(v);
+
+            // then:
+            Assert.AreEqual( 0, u[0], 0.000001f);
+            Assert.AreEqual( 1, u[1], 0.000001f);
+            Assert.AreEqual( 0, u[2], 0.000001f);
+
+            // when:
+            v = new Vector4(0, 1, 0, 1);
+            u = m.MultNormalize(v);
+
+            // then:
+            Assert.AreEqual(-1, u[0], 0.000001f);
+            Assert.AreEqual( 0, u[1], 0.000001f);
+            Assert.AreEqual( 0, u[2], 0.000001f);
+
+            // when:
+            v = new Vector4(-1, 0, 0, 1);
+            u = m.MultNormalize(v);
+
+            // then:
+            Assert.AreEqual( 0, u[0], 0.000001f);
+            Assert.AreEqual(-1, u[1], 0.000001f);
+            Assert.AreEqual( 0, u[2], 0.000001f);
+
+            // when:
+            v = new Vector4(0, -1, 0, 1);
+            u = m.MultNormalize(v);
+
+            // then:
+            Assert.AreEqual( 1, u[0], 0.000001f);
+            Assert.AreEqual( 0, u[1], 0.000001f);
+            Assert.AreEqual( 0, u[2], 0.000001f);
+        }
     }
 }
