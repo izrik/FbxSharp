@@ -2305,5 +2305,123 @@ namespace FbxSharpTests
             Assert.AreEqual( 0, u[1], 0.000001f);
             Assert.AreEqual( 0, u[2], 0.000001f);
         }
+
+        [Test]
+        public void MatrixMultiplyTransformOrder_TransformationsOccurRightToLeft()
+        {
+
+            /*;
+            transforming v by (m1 * m2) is equivalent to transforming v by m2, and;
+            // then:
+            */;
+
+            // given:
+            var t1 = new Vector4(1, 0, 0);
+            var t2 = new Vector4(0, 0, 0);
+            var r1 = new Vector4(0, 0, 0);
+            var r2 = new Vector4(0, 90, 0);
+            var s = new Vector4(1, 1, 1);
+            var m1 = new Matrix(t1, r1, s);
+            var m2 = new Matrix(t2, r2, s);
+            var u = new Vector4();
+            var zero = new Vector4(0, 0, 0, 1);
+            var one = new Vector4(1, 1, 1, 1);
+            var x = new Vector4(1, 0, 0, 1);
+            var y = new Vector4(0, 1, 0, 1);
+            var z = new Vector4(0, 0, 1, 1);
+
+            // require:
+            u = m1.MultNormalize(zero);
+            Assert.AreEqual(1, u[0], 0.000001f);
+            Assert.AreEqual(0, u[1], 0.000001f);
+            Assert.AreEqual(0, u[2], 0.000001f);
+            u = m1.MultNormalize(x);
+            Assert.AreEqual(2, u[0], 0.000001f);
+            Assert.AreEqual(0, u[1], 0.000001f);
+            Assert.AreEqual(0, u[2], 0.000001f);
+            u = m1.MultNormalize(y);
+            Assert.AreEqual(1, u[0], 0.000001f);
+            Assert.AreEqual(1, u[1], 0.000001f);
+            Assert.AreEqual(0, u[2], 0.000001f);
+            u = m1.MultNormalize(z);
+            Assert.AreEqual(1, u[0], 0.000001f);
+            Assert.AreEqual(0, u[1], 0.000001f);
+            Assert.AreEqual(1, u[2], 0.000001f);
+            u = m1.MultNormalize(one);
+            Assert.AreEqual(2, u[0], 0.000001f);
+            Assert.AreEqual(1, u[1], 0.000001f);
+            Assert.AreEqual(1, u[2], 0.000001f);
+
+            u = m2.MultNormalize(zero);
+            Assert.AreEqual(0, u[0], 0.000001f);
+            Assert.AreEqual(0, u[1], 0.000001f);
+            Assert.AreEqual(0, u[2], 0.000001f);
+            u = m2.MultNormalize(x);
+            Assert.AreEqual(0, u[0], 0.000001f);
+            Assert.AreEqual(0, u[1], 0.000001f);
+            Assert.AreEqual(-1,u[2], 0.000001f);
+            u = m2.MultNormalize(y);
+            Assert.AreEqual(0, u[0], 0.000001f);
+            Assert.AreEqual(1, u[1], 0.000001f);
+            Assert.AreEqual(0, u[2], 0.000001f);
+            u = m2.MultNormalize(z);
+            Assert.AreEqual(1, u[0], 0.000001f);
+            Assert.AreEqual(0, u[1], 0.000001f);
+            Assert.AreEqual(0, u[2], 0.000001f);
+            u = m2.MultNormalize(one);
+            Assert.AreEqual(1, u[0], 0.000001f);
+            Assert.AreEqual(1, u[1], 0.000001f);
+            Assert.AreEqual(-1,u[2], 0.000001f);
+
+            // when:
+            var m = m1 * m2;
+
+            // then:
+            u = m.MultNormalize(zero);
+            Assert.AreEqual(1, u[0], 0.000001f);
+            Assert.AreEqual(0, u[1], 0.000001f);
+            Assert.AreEqual(0, u[2], 0.000001f);
+            u = m.MultNormalize(x);
+            Assert.AreEqual(1, u[0], 0.000001f);
+            Assert.AreEqual(0, u[1], 0.000001f);
+            Assert.AreEqual(-1,u[2], 0.000001f);
+            u = m.MultNormalize(y);
+            Assert.AreEqual(1, u[0], 0.000001f);
+            Assert.AreEqual(1, u[1], 0.000001f);
+            Assert.AreEqual(0, u[2], 0.000001f);
+            u = m.MultNormalize(z);
+            Assert.AreEqual(2, u[0], 0.000001f);
+            Assert.AreEqual(0, u[1], 0.000001f);
+            Assert.AreEqual(0, u[2], 0.000001f);
+            u = m.MultNormalize(one);
+            Assert.AreEqual(2, u[0], 0.000001f);
+            Assert.AreEqual(1, u[1], 0.000001f);
+            Assert.AreEqual(-1,u[2], 0.000001f);
+
+            // when:
+            m = m2 * m1;
+
+            // then:
+            u = m.MultNormalize(zero);
+            Assert.AreEqual(0, u[0], 0.000001f);
+            Assert.AreEqual(0, u[1], 0.000001f);
+            Assert.AreEqual(-1,u[2], 0.000001f);
+            u = m.MultNormalize(x);
+            Assert.AreEqual(0, u[0], 0.000001f);
+            Assert.AreEqual(0, u[1], 0.000001f);
+            Assert.AreEqual(-2,u[2], 0.000001f);
+            u = m.MultNormalize(y);
+            Assert.AreEqual(0, u[0], 0.000001f);
+            Assert.AreEqual(1, u[1], 0.000001f);
+            Assert.AreEqual(-1,u[2], 0.000001f);
+            u = m.MultNormalize(z);
+            Assert.AreEqual(1, u[0], 0.000001f);
+            Assert.AreEqual(0, u[1], 0.000001f);
+            Assert.AreEqual(-1,u[2], 0.000001f);
+            u = m.MultNormalize(one);
+            Assert.AreEqual(1, u[0], 0.000001f);
+            Assert.AreEqual(1, u[1], 0.000001f);
+            Assert.AreEqual(-2,u[2], 0.000001f);
+        }
     }
 }

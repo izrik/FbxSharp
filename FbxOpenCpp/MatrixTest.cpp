@@ -2290,6 +2290,124 @@ void MatrixRotationIsCounterClockwiseZ()
     AssertEqual( 0, u[2], 0.000001f);
 }
 
+void MatrixMultiplyTransformOrder_TransformationsOccurRightToLeft()
+{
+
+    /*;
+    transforming v by (m1 * m2) is equivalent to transforming v by m2, and;
+    // then:
+    */;
+
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxVector4 t1 = FbxVector4(1, 0, 0);
+    FbxVector4 t2 = FbxVector4(0, 0, 0);
+    FbxVector4 r1 = FbxVector4(0, 0, 0);
+    FbxVector4 r2 = FbxVector4(0, 90, 0);
+    FbxVector4 s = FbxVector4(1, 1, 1);
+    FbxMatrix m1 = FbxMatrix(t1, r1, s);
+    FbxMatrix m2 = FbxMatrix(t2, r2, s);
+    FbxVector4 u = FbxVector4();
+    FbxVector4 zero = FbxVector4(0, 0, 0, 1);
+    FbxVector4 one = FbxVector4(1, 1, 1, 1);
+    FbxVector4 x = FbxVector4(1, 0, 0, 1);
+    FbxVector4 y = FbxVector4(0, 1, 0, 1);
+    FbxVector4 z = FbxVector4(0, 0, 1, 1);
+
+    // require:
+    u = m1.MultNormalize(zero);
+    AssertEqual(1, u[0], 0.000001f);
+    AssertEqual(0, u[1], 0.000001f);
+    AssertEqual(0, u[2], 0.000001f);
+    u = m1.MultNormalize(x);
+    AssertEqual(2, u[0], 0.000001f);
+    AssertEqual(0, u[1], 0.000001f);
+    AssertEqual(0, u[2], 0.000001f);
+    u = m1.MultNormalize(y);
+    AssertEqual(1, u[0], 0.000001f);
+    AssertEqual(1, u[1], 0.000001f);
+    AssertEqual(0, u[2], 0.000001f);
+    u = m1.MultNormalize(z);
+    AssertEqual(1, u[0], 0.000001f);
+    AssertEqual(0, u[1], 0.000001f);
+    AssertEqual(1, u[2], 0.000001f);
+    u = m1.MultNormalize(one);
+    AssertEqual(2, u[0], 0.000001f);
+    AssertEqual(1, u[1], 0.000001f);
+    AssertEqual(1, u[2], 0.000001f);
+
+    u = m2.MultNormalize(zero);
+    AssertEqual(0, u[0], 0.000001f);
+    AssertEqual(0, u[1], 0.000001f);
+    AssertEqual(0, u[2], 0.000001f);
+    u = m2.MultNormalize(x);
+    AssertEqual(0, u[0], 0.000001f);
+    AssertEqual(0, u[1], 0.000001f);
+    AssertEqual(-1,u[2], 0.000001f);
+    u = m2.MultNormalize(y);
+    AssertEqual(0, u[0], 0.000001f);
+    AssertEqual(1, u[1], 0.000001f);
+    AssertEqual(0, u[2], 0.000001f);
+    u = m2.MultNormalize(z);
+    AssertEqual(1, u[0], 0.000001f);
+    AssertEqual(0, u[1], 0.000001f);
+    AssertEqual(0, u[2], 0.000001f);
+    u = m2.MultNormalize(one);
+    AssertEqual(1, u[0], 0.000001f);
+    AssertEqual(1, u[1], 0.000001f);
+    AssertEqual(-1,u[2], 0.000001f);
+
+    // when:
+    FbxMatrix m = m1 * m2;
+
+    // then:
+    u = m.MultNormalize(zero);
+    AssertEqual(1, u[0], 0.000001f);
+    AssertEqual(0, u[1], 0.000001f);
+    AssertEqual(0, u[2], 0.000001f);
+    u = m.MultNormalize(x);
+    AssertEqual(1, u[0], 0.000001f);
+    AssertEqual(0, u[1], 0.000001f);
+    AssertEqual(-1,u[2], 0.000001f);
+    u = m.MultNormalize(y);
+    AssertEqual(1, u[0], 0.000001f);
+    AssertEqual(1, u[1], 0.000001f);
+    AssertEqual(0, u[2], 0.000001f);
+    u = m.MultNormalize(z);
+    AssertEqual(2, u[0], 0.000001f);
+    AssertEqual(0, u[1], 0.000001f);
+    AssertEqual(0, u[2], 0.000001f);
+    u = m.MultNormalize(one);
+    AssertEqual(2, u[0], 0.000001f);
+    AssertEqual(1, u[1], 0.000001f);
+    AssertEqual(-1,u[2], 0.000001f);
+
+    // when:
+    m = m2 * m1;
+
+    // then:
+    u = m.MultNormalize(zero);
+    AssertEqual(0, u[0], 0.000001f);
+    AssertEqual(0, u[1], 0.000001f);
+    AssertEqual(-1,u[2], 0.000001f);
+    u = m.MultNormalize(x);
+    AssertEqual(0, u[0], 0.000001f);
+    AssertEqual(0, u[1], 0.000001f);
+    AssertEqual(-2,u[2], 0.000001f);
+    u = m.MultNormalize(y);
+    AssertEqual(0, u[0], 0.000001f);
+    AssertEqual(1, u[1], 0.000001f);
+    AssertEqual(-1,u[2], 0.000001f);
+    u = m.MultNormalize(z);
+    AssertEqual(1, u[0], 0.000001f);
+    AssertEqual(0, u[1], 0.000001f);
+    AssertEqual(-1,u[2], 0.000001f);
+    u = m.MultNormalize(one);
+    AssertEqual(1, u[0], 0.000001f);
+    AssertEqual(1, u[1], 0.000001f);
+    AssertEqual(-2,u[2], 0.000001f);
+}
+
 void MatrixTest::RegisterTestCases()
 {
     AddTestCase(Matrix_TrsConstructorNoTransforms_CreatesIdentity);
@@ -2359,5 +2477,6 @@ void MatrixTest::RegisterTestCases()
     AddTestCase(MatrixRotationIsCounterClockwiseX);
     AddTestCase(MatrixRotationIsCounterClockwiseY);
     AddTestCase(MatrixRotationIsCounterClockwiseZ);
+    AddTestCase(MatrixMultiplyTransformOrder_TransformationsOccurRightToLeft);
 }
 
