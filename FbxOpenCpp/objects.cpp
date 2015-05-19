@@ -816,8 +816,38 @@ void PrintLayer(FbxLayer* layer)
     PrintLayerTextures(layer->GetTextures(FbxLayerElement::eTextureDisplacement), "eTextureDisplacement");
 }
 
+bool PrintAllControlPoints = false;
+
 void PrintGeometryBase(FbxGeometryBase* geometryBase)
 {
+    int count = geometryBase->GetControlPointsCount();
+    cout << "    GetControlPointsCount() = " << count << endl;
+
+    if (count <= 6 || PrintAllControlPoints)
+    {
+        int i;
+        for (i = 0; i < count; i++)
+        {
+            FbxVector4 cp = geometryBase->GetControlPointAt(i);
+            cout << "                #" << i << ": " << cp << endl;
+        }
+    }
+    else
+    {
+        int i;
+        for (i = 0; i < 3; i++)
+        {
+            FbxVector4 cp = geometryBase->GetControlPointAt(i);
+            cout << "        #" << i << ": " << cp << endl;
+        }
+        cout << "        ..." << endl;
+        for (i = count - 3; i < count; i++)
+        {
+            FbxVector4 cp = geometryBase->GetControlPointAt(i);
+            cout << "        #" << i << ": " << cp << endl;
+        }
+    }
+
     if (geometryBase->Is<FbxGeometry>())
         PrintGeometry(dynamic_cast<FbxGeometry*>(geometryBase));
     else
