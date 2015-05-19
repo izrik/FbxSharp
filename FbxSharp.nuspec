@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>FbxSharp</id>
+    <version>$version$</version>
+    <title>FbxSharp</title>
+    <authors>izrik,metaindu</authors>
+    <owners>izrik,metaindu</owners>
+    <licenseUrl>https://github.com/izrik/FbxSharp/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/izrik/FbxSharp</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/izrik/FbxSharp/master/FbxSharp.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A pure C# library for loading FBX files</description>
+    <releaseNotes>Initial release</releaseNotes>
+    <copyright>Copyright 2015 izrik and Metaphysics Industries, Inc.</copyright>
+    <tags>fbx 3d model files</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System" targetFramework="" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="bin/Debug/FbxSharp.dll" target="lib/net40" />
+  </files>
+</package>

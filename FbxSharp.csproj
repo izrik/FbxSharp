@@ -10,8 +10,6 @@
     <AssemblyName>FbxSharp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,16 +30,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TokenType.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="Tokenizer.cs" />
     <Compile Include="Parser.cs" />
@@ -129,6 +120,7 @@
     <Compile Include="SortedListHelper.cs" />
     <Compile Include="FbxObjectPropertyCollection.cs" />
     <Compile Include="PropertyChildrenCollection.cs" />
+    <Compile Include="AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -163,6 +155,7 @@
     <None Include="test-cases\NodeTransformsTest.tc" />
     <None Include="test-cases\MatrixTest.tc" />
     <None Include="test-cases\AnimCurveKeyTest.tc" />
+    <None Include="FbxSharp.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="test-cases\" />
