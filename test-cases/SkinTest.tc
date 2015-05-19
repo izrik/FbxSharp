@@ -1,0 +1,54 @@
+﻿fixture SkinTest
+test Skin_SetGeometry_SetsGeometry
+	given
+	Skin skin = new("")
+	Mesh mesh = new("")
+
+	require
+    AssertEqual(0, skin.GetSrcObjectCount())
+    AssertEqual(0, skin.GetDstObjectCount())
+    AssertEqual(null, skin.GetGeometry())
+
+    AssertEqual(0, mesh.GetSrcObjectCount())
+    AssertEqual(0, mesh.GetDstObjectCount())
+    AssertEqual(0, mesh.GetDeformerCount())
+
+    when
+    skin.SetGeometry(mesh)
+
+    then
+    AssertEqual(0, skin.GetSrcObjectCount())
+    AssertEqual(1, skin.GetDstObjectCount())
+    AssertSame(mesh, skin.GetGeometry())
+
+    AssertEqual(1, mesh.GetSrcObjectCount())
+    AssertEqual(0, mesh.GetDstObjectCount())
+    AssertEqual(1, mesh.GetDeformerCount())
+    AssertSame(skin, mesh.GetDeformer(0))
+
+test Skin_AddCluster_AddsCluster
+	given
+	Skin s = new("")
+	Cluster c = new("")
+
+	require
+    AssertEqual(0, s.GetSrcObjectCount())
+    AssertEqual(0, s.GetDstObjectCount())
+    AssertEqual(0, s.GetClusterCount())
+
+    AssertEqual(0, c.GetSrcObjectCount())
+    AssertEqual(0, c.GetDstObjectCount())
+
+    when
+    s.AddCluster(c)
+
+    then
+    AssertEqual(1, s.GetSrcObjectCount())
+    AssertSame(c, s.GetSrcObject(0))
+    AssertEqual(0, s.GetDstObjectCount())
+    AssertEqual(1, s.GetClusterCount())
+    AssertSame(c, s.GetCluster(0))
+
+    AssertEqual(0, c.GetSrcObjectCount())
+    AssertEqual(1, c.GetDstObjectCount())
+    AssertSame(s, c.GetDstObject(0))

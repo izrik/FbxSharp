@@ -1,0 +1,47 @@
+﻿fixture GeometryBaseTest
+test GeometryBase_InitControlPoints_InitsControlPoints
+	given
+	GeometryBase gb = new("")
+
+	require
+	AssertEqual(0, gb.GetControlPointsCount())
+
+	when
+	gb.InitControlPoints(4)
+
+	then
+	AssertEqual(4, gb.GetControlPointsCount())
+
+	when
+	gb.InitControlPoints(20)
+
+	then
+	AssertEqual(20, gb.GetControlPointsCount())
+
+	when
+	gb.InitControlPoints(3)
+
+	then
+	AssertEqual(3, gb.GetControlPointsCount())
+
+
+test GeometryBase_SetControlPointAt_SetsControlPoint
+    given
+    GeometryBase gb = new("")
+    gb.InitControlPoints(4)
+
+    require
+    AssertEqual(4, gb.GetControlPointsCount())
+    AssertEqual(Vector4(0, 0, 0, 0), gb.GetControlPointAt(0))
+    AssertEqual(Vector4(0, 0, 0, 0), gb.GetControlPointAt(1))
+    AssertEqual(Vector4(0, 0, 0, 0), gb.GetControlPointAt(2))
+    AssertEqual(Vector4(0, 0, 0, 0), gb.GetControlPointAt(3))
+
+    when
+    gb.SetControlPointAt(Vector4(1.2, 3.4, 5.6, 7.8), 2)
+
+    then
+    AssertEqual(Vector4(0, 0, 0, 0), gb.GetControlPointAt(0))
+    AssertEqual(Vector4(0, 0, 0, 0), gb.GetControlPointAt(1))
+    AssertEqual(Vector4(1.2, 3.4, 5.6, 7.8), gb.GetControlPointAt(2))
+    AssertEqual(Vector4(0, 0, 0, 0), gb.GetControlPointAt(3))

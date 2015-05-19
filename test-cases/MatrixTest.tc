@@ -1,0 +1,2214 @@
+﻿fixture MatrixTest
+test Matrix_TrsConstructorNoTransforms_CreatesIdentity
+    when
+    Vector4! t = Vector4(0, 0, 0)
+    Vector4! r = Vector4(0, 0, 0)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! m = new(t, r, s)
+
+    then
+    AssertEqual(1.0, m&.Get(0, 0))
+    AssertEqual(0.0, m&.Get(0, 1))
+    AssertEqual(0.0, m&.Get(0, 2))
+    AssertEqual(0.0, m&.Get(0, 3))
+    AssertEqual(0.0, m&.Get(1, 0))
+    AssertEqual(1.0, m&.Get(1, 1))
+    AssertEqual(0.0, m&.Get(1, 2))
+    AssertEqual(0.0, m&.Get(1, 3))
+    AssertEqual(0.0, m&.Get(2, 0))
+    AssertEqual(0.0, m&.Get(2, 1))
+    AssertEqual(1.0, m&.Get(2, 2))
+    AssertEqual(0.0, m&.Get(2, 3))
+    AssertEqual(0.0, m&.Get(3, 0))
+    AssertEqual(0.0, m&.Get(3, 1))
+    AssertEqual(0.0, m&.Get(3, 2))
+    AssertEqual(1.0, m&.Get(3, 3))
+
+test Matrix_TrsConstructorTranslation_CreatesWithTranslation
+    when
+    Vector4! t = Vector4(2, 3, 4)
+    Vector4! r = Vector4(0, 0, 0)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! m = new(t, r, s)
+
+    then
+    AssertEqual(1.0, m&.Get(0, 0), 0.00001)
+    AssertEqual(0.0, m&.Get(0, 1), 0.00001)
+    AssertEqual(0.0, m&.Get(0, 2), 0.00001)
+    AssertEqual(0.0, m&.Get(0, 3), 0.00001)
+    AssertEqual(0.0, m&.Get(1, 0), 0.00001)
+    AssertEqual(1.0, m&.Get(1, 1), 0.00001)
+    AssertEqual(0.0, m&.Get(1, 2), 0.00001)
+    AssertEqual(0.0, m&.Get(1, 3), 0.00001)
+    AssertEqual(0.0, m&.Get(2, 0), 0.00001)
+    AssertEqual(0.0, m&.Get(2, 1), 0.00001)
+    AssertEqual(1.0, m&.Get(2, 2), 0.00001)
+    AssertEqual(0.0, m&.Get(2, 3), 0.00001)
+    AssertEqual(2.0, m&.Get(3, 0), 0.00001)
+    AssertEqual(3.0, m&.Get(3, 1), 0.00001)
+    AssertEqual(4.0, m&.Get(3, 2), 0.00001)
+    AssertEqual(1.0, m&.Get(3, 3), 0.00001)
+
+test Matrix_TrsConstructorRotationX_CreatesWithRotationX
+    when
+    Vector4! t = Vector4(0, 0, 0)
+    Vector4! r = Vector4(22.5, 0, 0)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! m = new(t, r, s)
+
+    then
+    AssertEqual(1.0,       m&.Get(0, 0), 0.00001)
+    AssertEqual(0.0,       m&.Get(0, 1), 0.00001)
+    AssertEqual(0.0,       m&.Get(0, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(0, 3), 0.00001)
+    AssertEqual(0.0,       m&.Get(1, 0), 0.00001)
+    AssertEqual(0.92388,   m&.Get(1, 1), 0.00001)
+    AssertEqual(0.382683,  m&.Get(1, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(1, 3), 0.00001)
+    AssertEqual(0.0,       m&.Get(2, 0), 0.00001)
+    AssertEqual(-0.382683, m&.Get(2, 1), 0.00001)
+    AssertEqual(0.92388,   m&.Get(2, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(2, 3), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 0), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 1), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 2), 0.00001)
+    AssertEqual(1.0,       m&.Get(3, 3), 0.00001)
+
+test Matrix_TrsConstructorRotationY_CreatesWithRotationY
+    when
+    Vector4! t = Vector4(0, 0, 0)
+    Vector4! r = Vector4(0, 35, 0)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! m = new(t, r, s)
+
+    then
+    AssertEqual(0.819152,  m&.Get(0, 0), 0.00001)
+    AssertEqual(0.0,       m&.Get(0, 1), 0.00001)
+    AssertEqual(-0.573576, m&.Get(0, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(0, 3), 0.00001)
+    AssertEqual(0.0,       m&.Get(1, 0), 0.00001)
+    AssertEqual(1.0,       m&.Get(1, 1), 0.00001)
+    AssertEqual(0.0,       m&.Get(1, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(1, 3), 0.00001)
+    AssertEqual(0.573576,  m&.Get(2, 0), 0.00001)
+    AssertEqual(0.0,       m&.Get(2, 1), 0.00001)
+    AssertEqual(0.819152,  m&.Get(2, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(2, 3), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 0), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 1), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 2), 0.00001)
+    AssertEqual(1.0,       m&.Get(3, 3), 0.00001)
+
+test Matrix_TrsConstructorRotationZ_CreatesWithRotationZ
+    when
+    Vector4! t = Vector4(0, 0, 0)
+    Vector4! r = Vector4(0, 0, 55)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! m = new(t, r, s)
+
+    then
+    AssertEqual(0.573576,  m&.Get(0, 0), 0.00001)
+    AssertEqual(0.819152,  m&.Get(0, 1), 0.00001)
+    AssertEqual(0.0,       m&.Get(0, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(0, 3), 0.00001)
+    AssertEqual(-0.819152, m&.Get(1, 0), 0.00001)
+    AssertEqual(0.573576,  m&.Get(1, 1), 0.00001)
+    AssertEqual(0.0,       m&.Get(1, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(1, 3), 0.00001)
+    AssertEqual(0.0,       m&.Get(2, 0), 0.00001)
+    AssertEqual(0.0,       m&.Get(2, 1), 0.00001)
+    AssertEqual(1.0,       m&.Get(2, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(2, 3), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 0), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 1), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 2), 0.00001)
+    AssertEqual(1.0,       m&.Get(3, 3), 0.00001)
+
+test Matrix_TrsConstructorRotationXY_CreatesWithRotationXY
+    when
+    Vector4! t = Vector4(0, 0, 0)
+    Vector4! r = Vector4(22.5, 35, 0)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! m = new(t, r, s)
+
+    then
+    AssertEqual(0.819152,  m&.Get(0, 0), 0.00001)
+    AssertEqual(0.0,       m&.Get(0, 1), 0.00001)
+    AssertEqual(-0.573576, m&.Get(0, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(0, 3), 0.00001)
+    AssertEqual(0.219498,  m&.Get(1, 0), 0.00001)
+    AssertEqual(0.92388,   m&.Get(1, 1), 0.00001)
+    AssertEqual(0.313476,  m&.Get(1, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(1, 3), 0.00001)
+    AssertEqual(0.529916,  m&.Get(2, 0), 0.00001)
+    AssertEqual(-0.382683, m&.Get(2, 1), 0.00001)
+    AssertEqual(0.756798,  m&.Get(2, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(2, 3), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 0), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 1), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 2), 0.00001)
+    AssertEqual(1.0,       m&.Get(3, 3), 0.00001)
+
+test Matrix_TrsConstructorRotationYZ_CreatesWithRotationYZ
+    when
+    Vector4! t = Vector4(0, 0, 0)
+    Vector4! r = Vector4(0, 35, 55)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! m = new(t, r, s)
+
+    then
+    AssertEqual(0.469846,  m&.Get(0, 0), 0.00001)
+    AssertEqual(0.67101,   m&.Get(0, 1), 0.00001)
+    AssertEqual(-0.573576, m&.Get(0, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(0, 3), 0.00001)
+    AssertEqual(-0.819152, m&.Get(1, 0), 0.00001)
+    AssertEqual(0.573576,  m&.Get(1, 1), 0.00001)
+    AssertEqual(0.0,       m&.Get(1, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(1, 3), 0.00001)
+    AssertEqual(0.32899,   m&.Get(2, 0), 0.00001)
+    AssertEqual(0.469846,  m&.Get(2, 1), 0.00001)
+    AssertEqual(0.819152,  m&.Get(2, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(2, 3), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 0), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 1), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 2), 0.00001)
+    AssertEqual(1.0,       m&.Get(3, 3), 0.00001)
+
+test Matrix_TrsConstructorRotationXZ_CreatesWithRotationXZ
+    when
+    Vector4! t = Vector4(0, 0, 0)
+    Vector4! r = Vector4(22.5, 0, 55)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! m = new(t, r, s)
+
+    then
+    AssertEqual(0.573576,  m&.Get(0, 0), 0.00001)
+    AssertEqual(0.819152,  m&.Get(0, 1), 0.00001)
+    AssertEqual(0.0,       m&.Get(0, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(0, 3), 0.00001)
+    AssertEqual(-0.756798, m&.Get(1, 0), 0.00001)
+    AssertEqual(0.529916,  m&.Get(1, 1), 0.00001)
+    AssertEqual(0.382683,  m&.Get(1, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(1, 3), 0.00001)
+    AssertEqual(0.313476,  m&.Get(2, 0), 0.00001)
+    AssertEqual(-0.219498, m&.Get(2, 1), 0.00001)
+    AssertEqual(0.92388,   m&.Get(2, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(2, 3), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 0), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 1), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 2), 0.00001)
+    AssertEqual(1.0,       m&.Get(3, 3), 0.00001)
+
+test Matrix_TrsConstructorRotationXYZ_CreatesWithRotationXYZ
+    when
+    Vector4! t = Vector4(0, 0, 0)
+    Vector4! r = Vector4(22.5, 35, 55)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! m = new(t, r, s)
+
+    then
+    AssertEqual(0.469846,  m&.Get(0, 0), 0.00001)
+    AssertEqual(0.67101,   m&.Get(0, 1), 0.00001)
+    AssertEqual(-0.573576, m&.Get(0, 2), 0.00001)
+    AssertEqual(0,         m&.Get(0, 3), 0.00001)
+    AssertEqual(-0.630899, m&.Get(1, 0), 0.00001)
+    AssertEqual(0.709718,  m&.Get(1, 1), 0.00001)
+    AssertEqual(0.313476,  m&.Get(1, 2), 0.00001)
+    AssertEqual(0,         m&.Get(1, 3), 0.00001)
+    AssertEqual(0.617423,  m&.Get(2, 0), 0.00001)
+    AssertEqual(0.214583,  m&.Get(2, 1), 0.00001)
+    AssertEqual(0.756798,  m&.Get(2, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(2, 3), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 0), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 1), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 2), 0.00001)
+    AssertEqual(1.0,       m&.Get(3, 3), 0.00001)
+    
+test Matrix_TrsConstructorScale_CreatesWithScale
+    when
+    Vector4! t = Vector4(0, 0, 0)
+    Vector4! r = Vector4(0, 0, 0)
+    Vector4! s = Vector4(2, 3, 4)
+    Matrix! m = new(t, r, s)
+
+    then
+    AssertEqual(2.0, m&.Get(0, 0), 0.00001)
+    AssertEqual(0.0, m&.Get(0, 1), 0.00001)
+    AssertEqual(0.0, m&.Get(0, 2), 0.00001)
+    AssertEqual(0.0, m&.Get(0, 3), 0.00001)
+    AssertEqual(0.0, m&.Get(1, 0), 0.00001)
+    AssertEqual(3.0, m&.Get(1, 1), 0.00001)
+    AssertEqual(0.0, m&.Get(1, 2), 0.00001)
+    AssertEqual(0.0, m&.Get(1, 3), 0.00001)
+    AssertEqual(0.0, m&.Get(2, 0), 0.00001)
+    AssertEqual(0.0, m&.Get(2, 1), 0.00001)
+    AssertEqual(4.0, m&.Get(2, 2), 0.00001)
+    AssertEqual(0.0, m&.Get(2, 3), 0.00001)
+    AssertEqual(0.0, m&.Get(3, 0), 0.00001)
+    AssertEqual(0.0, m&.Get(3, 1), 0.00001)
+    AssertEqual(0.0, m&.Get(3, 2), 0.00001)
+    AssertEqual(1.0, m&.Get(3, 3), 0.00001)
+
+test Matrix_TrsConstructorEverything_CreatesMatrix
+    when
+    Vector4! t = Vector4(1, 0, 0)
+    Vector4! r = Vector4(22.5, 45, 135)
+    Vector4! s = Vector4(1, 2, 3)
+    Matrix! m = new(t, r, s)
+
+    then
+    AssertEqual(-0.5,      m&.Get(0, 0), 0.00001)
+    AssertEqual(0.5,       m&.Get(0, 1), 0.00001)
+    AssertEqual(-0.707107, m&.Get(0, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(0, 3), 0.00001)
+    AssertEqual(-1.68925,  m&.Get(1, 0), 0.00001)
+    AssertEqual(-0.92388,  m&.Get(1, 1), 0.00001)
+    AssertEqual(0.541196,  m&.Get(1, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(1, 3), 0.00001)
+    AssertEqual(-0.574025, m&.Get(2, 0), 0.00001)
+    AssertEqual(2.19761,   m&.Get(2, 1), 0.00001)
+    AssertEqual(1.95984,   m&.Get(2, 2), 0.00001)
+    AssertEqual(0.0,       m&.Get(2, 3), 0.00001)
+    AssertEqual(1.0,       m&.Get(3, 0), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 1), 0.00001)
+    AssertEqual(0.0,       m&.Get(3, 2), 0.00001)
+    AssertEqual(1.0,       m&.Get(3, 3), 0.00001)
+
+test Matrix_Multiply
+    given
+    Matrix! a = new(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1)
+    Matrix! b = new(0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0.0f, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 1), 0.000001f)
+    AssertEqual(1.0f, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 3), 0.000001f)
+    AssertEqual(1.0f, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 0), 0.000001f)
+    AssertEqual(1.0f, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 3), 0.000001f)
+    AssertEqual(2.0f, m&.Get(3, 0), 0.000001f)
+    AssertEqual(3.0f, m&.Get(3, 1), 0.000001f)
+    AssertEqual(4.0f, m&.Get(3, 2), 0.000001f)
+    AssertEqual(1.0f, m&.Get(3, 3), 0.000001f)
+
+    when
+    m = b * a
+
+    then
+    AssertEqual(0.0f, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 1), 0.000001f)
+    AssertEqual(1.0f, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 3), 0.000001f)
+    AssertEqual(1.0f, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 0), 0.000001f)
+    AssertEqual(1.0f, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 3), 0.000001f)
+    AssertEqual(3.0f, m&.Get(3, 0), 0.000001f)
+    AssertEqual(4.0f, m&.Get(3, 1), 0.000001f)
+    AssertEqual(2.0f, m&.Get(3, 2), 0.000001f)
+    AssertEqual(1.0f, m&.Get(3, 3), 0.000001f)
+
+test Matrix_Multiply_2
+    given
+    Matrix! a = new(1, 0, -0, 0, 0, 0.707107, 0.707107, 0, 0, -0.707107, 0.707107, 0, 0, 0, 0, 1); // 45 degrees around x
+    Matrix! b = new(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual(1.000000f, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0.000000f, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0.000000f, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0.000000f, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0.000000f, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0.707107f, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0.707107f, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0.000000f, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0.000000f, m&.Get(2, 0), 0.000001f)
+    AssertEqual(-.707107f, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0.707107f, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0.000000f, m&.Get(2, 3), 0.000001f)
+    AssertEqual(2.000000f, m&.Get(3, 0), 0.000001f)
+    AssertEqual(-.707107f, m&.Get(3, 1), 0.000001f)
+    AssertEqual(4.949748f, m&.Get(3, 2), 0.000001f)
+    AssertEqual(1.000000f, m&.Get(3, 3), 0.000001f)
+
+    when
+    m = b * a
+
+    then
+    AssertEqual(1.000000f, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0.000000f, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0.000000f, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0.000000f, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0.000000f, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0.707107f, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0.707107f, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0.000000f, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0.000000f, m&.Get(2, 0), 0.000001f)
+    AssertEqual(-.707107f, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0.707107f, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0.000000f, m&.Get(2, 3), 0.000001f)
+    AssertEqual(2.000000f, m&.Get(3, 0), 0.000001f)
+    AssertEqual(3.000000f, m&.Get(3, 1), 0.000001f)
+    AssertEqual(4.000000f, m&.Get(3, 2), 0.000001f)
+    AssertEqual(1.000000f, m&.Get(3, 3), 0.000001f)
+
+test Matrix_Multiply_3
+    given
+    Matrix! r = new(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1)
+    Matrix! t = new(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1)
+    Matrix! s = new(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1)
+
+    when
+    Matrix! m = r * t * s
+
+    then
+    AssertEqual(0.0f, m&.Get(0, 0), 0.000001f)
+    AssertEqual(5.0f, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 1), 0.000001f)
+    AssertEqual(6.0f, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 3), 0.000001f)
+    AssertEqual(7.0f, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 3), 0.000001f)
+    AssertEqual(4.0f, m&.Get(3, 0), 0.000001f)
+    AssertEqual(2.0f, m&.Get(3, 1), 0.000001f)
+    AssertEqual(3.0f, m&.Get(3, 2), 0.000001f)
+    AssertEqual(1.0f, m&.Get(3, 3), 0.000001f)
+
+    when
+    m = r * s * t
+
+    then
+    AssertEqual(0.0f, m&.Get(0, 0), 0.000001f)
+    AssertEqual(5.0f, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 1), 0.000001f)
+    AssertEqual(6.0f, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 3), 0.000001f)
+    AssertEqual(7.0f, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 3), 0.000001f)
+    AssertEqual(28.0f, m&.Get(3, 0), 0.000001f)
+    AssertEqual(10.0f, m&.Get(3, 1), 0.000001f)
+    AssertEqual(18.0f, m&.Get(3, 2), 0.000001f)
+    AssertEqual(1.0f, m&.Get(3, 3), 0.000001f)
+
+    when
+    m = t * r * s
+
+    then
+    AssertEqual(0.0f, m&.Get(0, 0), 0.000001f)
+    AssertEqual(5.0f, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 1), 0.000001f)
+    AssertEqual(6.0f, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 3), 0.000001f)
+    AssertEqual(7.0f, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 3), 0.000001f)
+    AssertEqual(2.0f, m&.Get(3, 0), 0.000001f)
+    AssertEqual(3.0f, m&.Get(3, 1), 0.000001f)
+    AssertEqual(4.0f, m&.Get(3, 2), 0.000001f)
+    AssertEqual(1.0f, m&.Get(3, 3), 0.000001f)
+
+    when
+    m = t * s * r
+
+    then
+    AssertEqual(0.0f, m&.Get(0, 0), 0.000001f)
+    AssertEqual(6.0f, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 1), 0.000001f)
+    AssertEqual(7.0f, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 3), 0.000001f)
+    AssertEqual(5.0f, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 3), 0.000001f)
+    AssertEqual(2.0f, m&.Get(3, 0), 0.000001f)
+    AssertEqual(3.0f, m&.Get(3, 1), 0.000001f)
+    AssertEqual(4.0f, m&.Get(3, 2), 0.000001f)
+    AssertEqual(1.0f, m&.Get(3, 3), 0.000001f)
+
+    when
+    m = s * t * r
+
+    then
+    AssertEqual(0.0f, m&.Get(0, 0), 0.000001f)
+    AssertEqual(6.0f, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 1), 0.000001f)
+    AssertEqual(7.0f, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 3), 0.000001f)
+    AssertEqual(5.0f, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 3), 0.000001f)
+    AssertEqual(10.0f, m&.Get(3, 0), 0.000001f)
+    AssertEqual(18.0f, m&.Get(3, 1), 0.000001f)
+    AssertEqual(28.0f, m&.Get(3, 2), 0.000001f)
+    AssertEqual(1.0f, m&.Get(3, 3), 0.000001f)
+
+    when
+    m = s * r * t
+
+    then
+    AssertEqual(0.0f, m&.Get(0, 0), 0.000001f)
+    AssertEqual(6.0f, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 1), 0.000001f)
+    AssertEqual(7.0f, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(1, 3), 0.000001f)
+    AssertEqual(5.0f, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0.0f, m&.Get(2, 3), 0.000001f)
+    AssertEqual(20.0f, m&.Get(3, 0), 0.000001f)
+    AssertEqual(12.0f, m&.Get(3, 1), 0.000001f)
+    AssertEqual(21.0f, m&.Get(3, 2), 0.000001f)
+    AssertEqual(1.0f, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplicationIsAssociative
+    given
+    Matrix! r = new(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1)
+    Matrix! t = new(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1)
+    Matrix! s = new(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1)
+
+    when
+    Matrix! m1 = (r * t) * s
+    Matrix! m2 = r * (t * s)
+
+    then
+    AssertEqual(m1&.Get(0, 0), m2&.Get(0, 0), 0.000001f)
+    AssertEqual(m1&.Get(0, 1), m2&.Get(0, 1), 0.000001f)
+    AssertEqual(m1&.Get(0, 2), m2&.Get(0, 2), 0.000001f)
+    AssertEqual(m1&.Get(0, 3), m2&.Get(0, 3), 0.000001f)
+    AssertEqual(m1&.Get(1, 0), m2&.Get(1, 0), 0.000001f)
+    AssertEqual(m1&.Get(1, 1), m2&.Get(1, 1), 0.000001f)
+    AssertEqual(m1&.Get(1, 2), m2&.Get(1, 2), 0.000001f)
+    AssertEqual(m1&.Get(1, 3), m2&.Get(1, 3), 0.000001f)
+    AssertEqual(m1&.Get(2, 0), m2&.Get(2, 0), 0.000001f)
+    AssertEqual(m1&.Get(2, 1), m2&.Get(2, 1), 0.000001f)
+    AssertEqual(m1&.Get(2, 2), m2&.Get(2, 2), 0.000001f)
+    AssertEqual(m1&.Get(2, 3), m2&.Get(2, 3), 0.000001f)
+    AssertEqual(m1&.Get(3, 0), m2&.Get(3, 0), 0.000001f)
+    AssertEqual(m1&.Get(3, 1), m2&.Get(3, 1), 0.000001f)
+    AssertEqual(m1&.Get(3, 2), m2&.Get(3, 2), 0.000001f)
+    AssertEqual(m1&.Get(3, 3), m2&.Get(3, 3), 0.000001f)
+
+    when
+    m1 = (r * s) * t
+    m2 = r * (s * t)
+
+    then
+    AssertEqual(m1&.Get(0, 0), m2&.Get(0, 0), 0.000001f)
+    AssertEqual(m1&.Get(0, 1), m2&.Get(0, 1), 0.000001f)
+    AssertEqual(m1&.Get(0, 2), m2&.Get(0, 2), 0.000001f)
+    AssertEqual(m1&.Get(0, 3), m2&.Get(0, 3), 0.000001f)
+    AssertEqual(m1&.Get(1, 0), m2&.Get(1, 0), 0.000001f)
+    AssertEqual(m1&.Get(1, 1), m2&.Get(1, 1), 0.000001f)
+    AssertEqual(m1&.Get(1, 2), m2&.Get(1, 2), 0.000001f)
+    AssertEqual(m1&.Get(1, 3), m2&.Get(1, 3), 0.000001f)
+    AssertEqual(m1&.Get(2, 0), m2&.Get(2, 0), 0.000001f)
+    AssertEqual(m1&.Get(2, 1), m2&.Get(2, 1), 0.000001f)
+    AssertEqual(m1&.Get(2, 2), m2&.Get(2, 2), 0.000001f)
+    AssertEqual(m1&.Get(2, 3), m2&.Get(2, 3), 0.000001f)
+    AssertEqual(m1&.Get(3, 0), m2&.Get(3, 0), 0.000001f)
+    AssertEqual(m1&.Get(3, 1), m2&.Get(3, 1), 0.000001f)
+    AssertEqual(m1&.Get(3, 2), m2&.Get(3, 2), 0.000001f)
+    AssertEqual(m1&.Get(3, 3), m2&.Get(3, 3), 0.000001f)
+
+    when
+    m1 = (s * r) * t
+    m2 = s * (r * t)
+
+    then
+    AssertEqual(m1&.Get(0, 0), m2&.Get(0, 0), 0.000001f)
+    AssertEqual(m1&.Get(0, 1), m2&.Get(0, 1), 0.000001f)
+    AssertEqual(m1&.Get(0, 2), m2&.Get(0, 2), 0.000001f)
+    AssertEqual(m1&.Get(0, 3), m2&.Get(0, 3), 0.000001f)
+    AssertEqual(m1&.Get(1, 0), m2&.Get(1, 0), 0.000001f)
+    AssertEqual(m1&.Get(1, 1), m2&.Get(1, 1), 0.000001f)
+    AssertEqual(m1&.Get(1, 2), m2&.Get(1, 2), 0.000001f)
+    AssertEqual(m1&.Get(1, 3), m2&.Get(1, 3), 0.000001f)
+    AssertEqual(m1&.Get(2, 0), m2&.Get(2, 0), 0.000001f)
+    AssertEqual(m1&.Get(2, 1), m2&.Get(2, 1), 0.000001f)
+    AssertEqual(m1&.Get(2, 2), m2&.Get(2, 2), 0.000001f)
+    AssertEqual(m1&.Get(2, 3), m2&.Get(2, 3), 0.000001f)
+    AssertEqual(m1&.Get(3, 0), m2&.Get(3, 0), 0.000001f)
+    AssertEqual(m1&.Get(3, 1), m2&.Get(3, 1), 0.000001f)
+    AssertEqual(m1&.Get(3, 2), m2&.Get(3, 2), 0.000001f)
+    AssertEqual(m1&.Get(3, 3), m2&.Get(3, 3), 0.000001f)
+
+    when
+    m1 = (s * t) * r
+    m2 = s * (t * r)
+
+    then
+    AssertEqual(m1&.Get(0, 0), m2&.Get(0, 0), 0.000001f)
+    AssertEqual(m1&.Get(0, 1), m2&.Get(0, 1), 0.000001f)
+    AssertEqual(m1&.Get(0, 2), m2&.Get(0, 2), 0.000001f)
+    AssertEqual(m1&.Get(0, 3), m2&.Get(0, 3), 0.000001f)
+    AssertEqual(m1&.Get(1, 0), m2&.Get(1, 0), 0.000001f)
+    AssertEqual(m1&.Get(1, 1), m2&.Get(1, 1), 0.000001f)
+    AssertEqual(m1&.Get(1, 2), m2&.Get(1, 2), 0.000001f)
+    AssertEqual(m1&.Get(1, 3), m2&.Get(1, 3), 0.000001f)
+    AssertEqual(m1&.Get(2, 0), m2&.Get(2, 0), 0.000001f)
+    AssertEqual(m1&.Get(2, 1), m2&.Get(2, 1), 0.000001f)
+    AssertEqual(m1&.Get(2, 2), m2&.Get(2, 2), 0.000001f)
+    AssertEqual(m1&.Get(2, 3), m2&.Get(2, 3), 0.000001f)
+    AssertEqual(m1&.Get(3, 0), m2&.Get(3, 0), 0.000001f)
+    AssertEqual(m1&.Get(3, 1), m2&.Get(3, 1), 0.000001f)
+    AssertEqual(m1&.Get(3, 2), m2&.Get(3, 2), 0.000001f)
+    AssertEqual(m1&.Get(3, 3), m2&.Get(3, 3), 0.000001f)
+
+    when
+    m1 = (t * s) * r
+    m2 = t * (s * r)
+
+    then
+    AssertEqual(m1&.Get(0, 0), m2&.Get(0, 0), 0.000001f)
+    AssertEqual(m1&.Get(0, 1), m2&.Get(0, 1), 0.000001f)
+    AssertEqual(m1&.Get(0, 2), m2&.Get(0, 2), 0.000001f)
+    AssertEqual(m1&.Get(0, 3), m2&.Get(0, 3), 0.000001f)
+    AssertEqual(m1&.Get(1, 0), m2&.Get(1, 0), 0.000001f)
+    AssertEqual(m1&.Get(1, 1), m2&.Get(1, 1), 0.000001f)
+    AssertEqual(m1&.Get(1, 2), m2&.Get(1, 2), 0.000001f)
+    AssertEqual(m1&.Get(1, 3), m2&.Get(1, 3), 0.000001f)
+    AssertEqual(m1&.Get(2, 0), m2&.Get(2, 0), 0.000001f)
+    AssertEqual(m1&.Get(2, 1), m2&.Get(2, 1), 0.000001f)
+    AssertEqual(m1&.Get(2, 2), m2&.Get(2, 2), 0.000001f)
+    AssertEqual(m1&.Get(2, 3), m2&.Get(2, 3), 0.000001f)
+    AssertEqual(m1&.Get(3, 0), m2&.Get(3, 0), 0.000001f)
+    AssertEqual(m1&.Get(3, 1), m2&.Get(3, 1), 0.000001f)
+    AssertEqual(m1&.Get(3, 2), m2&.Get(3, 2), 0.000001f)
+    AssertEqual(m1&.Get(3, 3), m2&.Get(3, 3), 0.000001f)
+
+    when
+    m1 = (t * r) * s
+    m2 = t * (r * s)
+
+    then
+    AssertEqual(m1&.Get(0, 0), m2&.Get(0, 0), 0.000001f)
+    AssertEqual(m1&.Get(0, 1), m2&.Get(0, 1), 0.000001f)
+    AssertEqual(m1&.Get(0, 2), m2&.Get(0, 2), 0.000001f)
+    AssertEqual(m1&.Get(0, 3), m2&.Get(0, 3), 0.000001f)
+    AssertEqual(m1&.Get(1, 0), m2&.Get(1, 0), 0.000001f)
+    AssertEqual(m1&.Get(1, 1), m2&.Get(1, 1), 0.000001f)
+    AssertEqual(m1&.Get(1, 2), m2&.Get(1, 2), 0.000001f)
+    AssertEqual(m1&.Get(1, 3), m2&.Get(1, 3), 0.000001f)
+    AssertEqual(m1&.Get(2, 0), m2&.Get(2, 0), 0.000001f)
+    AssertEqual(m1&.Get(2, 1), m2&.Get(2, 1), 0.000001f)
+    AssertEqual(m1&.Get(2, 2), m2&.Get(2, 2), 0.000001f)
+    AssertEqual(m1&.Get(2, 3), m2&.Get(2, 3), 0.000001f)
+    AssertEqual(m1&.Get(3, 0), m2&.Get(3, 0), 0.000001f)
+    AssertEqual(m1&.Get(3, 1), m2&.Get(3, 1), 0.000001f)
+    AssertEqual(m1&.Get(3, 2), m2&.Get(3, 2), 0.000001f)
+    AssertEqual(m1&.Get(3, 3), m2&.Get(3, 3), 0.000001f)
+
+test MatrixMultiplication_IndividualElements_00
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(118, m&.Get(0, 0), 0.000001f)
+    AssertEqual(177, m&.Get(0, 1), 0.000001f)
+    AssertEqual(295, m&.Get(0, 2), 0.000001f)
+    AssertEqual(413, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0,   m&.Get(1, 0), 0.000001f)
+    AssertEqual(0,   m&.Get(1, 1), 0.000001f)
+    AssertEqual(0,   m&.Get(1, 2), 0.000001f)
+    AssertEqual(0,   m&.Get(1, 3), 0.000001f)
+    AssertEqual(0,   m&.Get(2, 0), 0.000001f)
+    AssertEqual(0,   m&.Get(2, 1), 0.000001f)
+    AssertEqual(0,   m&.Get(2, 2), 0.000001f)
+    AssertEqual(0,   m&.Get(2, 3), 0.000001f)
+    AssertEqual(0,   m&.Get(3, 0), 0.000001f)
+    AssertEqual(0,   m&.Get(3, 1), 0.000001f)
+    AssertEqual(0,   m&.Get(3, 2), 0.000001f)
+    AssertEqual(0,   m&.Get(3, 3), 0.000001f)
+    
+test MatrixMultiplication_IndividualElements_01
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(649,  m&.Get(0, 0), 0.000001f)
+    AssertEqual(767,  m&.Get(0, 1), 0.000001f)
+    AssertEqual(1003, m&.Get(0, 2), 0.000001f)
+    AssertEqual(1121, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 3), 0.000001f)
+
+test MatrixMultiplication_IndividualElements_02
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(1357, m&.Get(0, 0), 0.000001f)
+    AssertEqual(1711, m&.Get(0, 1), 0.000001f)
+    AssertEqual(1829, m&.Get(0, 2), 0.000001f)
+    AssertEqual(2183, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 3), 0.000001f)
+
+test MatrixMultiplication_IndividualElements_03
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(2419, m&.Get(0, 0), 0.000001f)
+    AssertEqual(2537, m&.Get(0, 1), 0.000001f)
+    AssertEqual(2773, m&.Get(0, 2), 0.000001f)
+    AssertEqual(3127, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 3), 0.000001f)
+
+test MatrixMultiplication_IndividualElements_04
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0,   m&.Get(0, 0), 0.000001f)
+    AssertEqual(0,   m&.Get(0, 1), 0.000001f)
+    AssertEqual(0,   m&.Get(0, 2), 0.000001f)
+    AssertEqual(0,   m&.Get(0, 3), 0.000001f)
+    AssertEqual(118, m&.Get(1, 0), 0.000001f)
+    AssertEqual(177, m&.Get(1, 1), 0.000001f)
+    AssertEqual(295, m&.Get(1, 2), 0.000001f)
+    AssertEqual(413, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0,   m&.Get(2, 0), 0.000001f)
+    AssertEqual(0,   m&.Get(2, 1), 0.000001f)
+    AssertEqual(0,   m&.Get(2, 2), 0.000001f)
+    AssertEqual(0,   m&.Get(2, 3), 0.000001f)
+    AssertEqual(0,   m&.Get(3, 0), 0.000001f)
+    AssertEqual(0,   m&.Get(3, 1), 0.000001f)
+    AssertEqual(0,   m&.Get(3, 2), 0.000001f)
+    AssertEqual(0,   m&.Get(3, 3), 0.000001f)
+
+test MatrixMultiplication_IndividualElements_05
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0,    m&.Get(0, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 3), 0.000001f)
+    AssertEqual(649,  m&.Get(1, 0), 0.000001f)
+    AssertEqual(767,  m&.Get(1, 1), 0.000001f)
+    AssertEqual(1003, m&.Get(1, 2), 0.000001f)
+    AssertEqual(1121, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 3), 0.000001f)
+
+test MatrixMultiplication_IndividualElements_06
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0,    m&.Get(0, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 3), 0.000001f)
+    AssertEqual(1357, m&.Get(1, 0), 0.000001f)
+    AssertEqual(1711, m&.Get(1, 1), 0.000001f)
+    AssertEqual(1829, m&.Get(1, 2), 0.000001f)
+    AssertEqual(2183, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 3), 0.000001f)
+
+test MatrixMultiplication_IndividualElements_07
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0,    m&.Get(0, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 3), 0.000001f)
+    AssertEqual(2419, m&.Get(1, 0), 0.000001f)
+    AssertEqual(2537, m&.Get(1, 1), 0.000001f)
+    AssertEqual(2773, m&.Get(1, 2), 0.000001f)
+    AssertEqual(3127, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 3), 0.000001f)
+
+test MatrixMultiplication_IndividualElements_08
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0,   m&.Get(0, 0), 0.000001f)
+    AssertEqual(0,   m&.Get(0, 1), 0.000001f)
+    AssertEqual(0,   m&.Get(0, 2), 0.000001f)
+    AssertEqual(0,   m&.Get(0, 3), 0.000001f)
+    AssertEqual(0,   m&.Get(1, 0), 0.000001f)
+    AssertEqual(0,   m&.Get(1, 1), 0.000001f)
+    AssertEqual(0,   m&.Get(1, 2), 0.000001f)
+    AssertEqual(0,   m&.Get(1, 3), 0.000001f)
+    AssertEqual(118, m&.Get(2, 0), 0.000001f)
+    AssertEqual(177, m&.Get(2, 1), 0.000001f)
+    AssertEqual(295, m&.Get(2, 2), 0.000001f)
+    AssertEqual(413, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0,   m&.Get(3, 0), 0.000001f)
+    AssertEqual(0,   m&.Get(3, 1), 0.000001f)
+    AssertEqual(0,   m&.Get(3, 2), 0.000001f)
+    AssertEqual(0,   m&.Get(3, 3), 0.000001f)
+
+test MatrixMultiplication_IndividualElements_09
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0,    m&.Get(0, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 3), 0.000001f)
+    AssertEqual(649,  m&.Get(2, 0), 0.000001f)
+    AssertEqual(767,  m&.Get(2, 1), 0.000001f)
+    AssertEqual(1003, m&.Get(2, 2), 0.000001f)
+    AssertEqual(1121, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 3), 0.000001f)
+
+test MatrixMultiplication_IndividualElements_10
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0,    m&.Get(0, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 3), 0.000001f)
+    AssertEqual(1357, m&.Get(2, 0), 0.000001f)
+    AssertEqual(1711, m&.Get(2, 1), 0.000001f)
+    AssertEqual(1829, m&.Get(2, 2), 0.000001f)
+    AssertEqual(2183, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 3), 0.000001f)
+
+test MatrixMultiplication_IndividualElements_11
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0,    m&.Get(0, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 3), 0.000001f)
+    AssertEqual(2419, m&.Get(2, 0), 0.000001f)
+    AssertEqual(2537, m&.Get(2, 1), 0.000001f)
+    AssertEqual(2773, m&.Get(2, 2), 0.000001f)
+    AssertEqual(3127, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(3, 3), 0.000001f)
+
+test MatrixMultiplication_IndividualElements_12
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0,   m&.Get(0, 0), 0.000001f)
+    AssertEqual(0,   m&.Get(0, 1), 0.000001f)
+    AssertEqual(0,   m&.Get(0, 2), 0.000001f)
+    AssertEqual(0,   m&.Get(0, 3), 0.000001f)
+    AssertEqual(0,   m&.Get(1, 0), 0.000001f)
+    AssertEqual(0,   m&.Get(1, 1), 0.000001f)
+    AssertEqual(0,   m&.Get(1, 2), 0.000001f)
+    AssertEqual(0,   m&.Get(1, 3), 0.000001f)
+    AssertEqual(0,   m&.Get(2, 0), 0.000001f)
+    AssertEqual(0,   m&.Get(2, 1), 0.000001f)
+    AssertEqual(0,   m&.Get(2, 2), 0.000001f)
+    AssertEqual(0,   m&.Get(2, 3), 0.000001f)
+    AssertEqual(118, m&.Get(3, 0), 0.000001f)
+    AssertEqual(177, m&.Get(3, 1), 0.000001f)
+    AssertEqual(295, m&.Get(3, 2), 0.000001f)
+    AssertEqual(413, m&.Get(3, 3), 0.000001f)
+
+test MatrixMultiplication_IndividualElements_13
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0,    m&.Get(0, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 3), 0.000001f)
+    AssertEqual(649,  m&.Get(3, 0), 0.000001f)
+    AssertEqual(767,  m&.Get(3, 1), 0.000001f)
+    AssertEqual(1003, m&.Get(3, 2), 0.000001f)
+    AssertEqual(1121, m&.Get(3, 3), 0.000001f)
+
+test MatrixMultiplication_IndividualElements_14
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0,    m&.Get(0, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 3), 0.000001f)
+    AssertEqual(1357, m&.Get(3, 0), 0.000001f)
+    AssertEqual(1711, m&.Get(3, 1), 0.000001f)
+    AssertEqual(1829, m&.Get(3, 2), 0.000001f)
+    AssertEqual(2183, m&.Get(3, 3), 0.000001f)
+
+test MatrixMultiplication_IndividualElements_15
+    given
+    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+
+    when
+    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59)
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0,    m&.Get(0, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(0, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(1, 3), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 0), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 1), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 2), 0.000001f)
+    AssertEqual(0,    m&.Get(2, 3), 0.000001f)
+    AssertEqual(2419, m&.Get(3, 0), 0.000001f)
+    AssertEqual(2537, m&.Get(3, 1), 0.000001f)
+    AssertEqual(2773, m&.Get(3, 2), 0.000001f)
+    AssertEqual(3127, m&.Get(3, 3), 0.000001f)
+
+test Matrix_ConstructorElements_GetMethodGetsCorrectElements
+    when
+    Matrix! m = new(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)
+
+    then
+    AssertEqual( 1, m&.Get(0, 0), 0.000001f)
+    AssertEqual( 2, m&.Get(0, 1), 0.000001f)
+    AssertEqual( 3, m&.Get(0, 2), 0.000001f)
+    AssertEqual( 4, m&.Get(0, 3), 0.000001f)
+    AssertEqual( 5, m&.Get(1, 0), 0.000001f)
+    AssertEqual( 6, m&.Get(1, 1), 0.000001f)
+    AssertEqual( 7, m&.Get(1, 2), 0.000001f)
+    AssertEqual( 8, m&.Get(1, 3), 0.000001f)
+    AssertEqual( 9, m&.Get(2, 0), 0.000001f)
+    AssertEqual(10, m&.Get(2, 1), 0.000001f)
+    AssertEqual(11, m&.Get(2, 2), 0.000001f)
+    AssertEqual(12, m&.Get(2, 3), 0.000001f)
+    AssertEqual(13, m&.Get(3, 0), 0.000001f)
+    AssertEqual(14, m&.Get(3, 1), 0.000001f)
+    AssertEqual(15, m&.Get(3, 2), 0.000001f)
+    AssertEqual(16, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_00
+    given
+    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual( 22, m&.Get(0, 0), 0.000001f)
+    AssertEqual( 33, m&.Get(0, 1), 0.000001f)
+    AssertEqual( 55, m&.Get(0, 2), 0.000001f)
+    AssertEqual( 77, m&.Get(0, 3), 0.000001f)
+    AssertEqual( 26, m&.Get(1, 0), 0.000001f)
+    AssertEqual( 39, m&.Get(1, 1), 0.000001f)
+    AssertEqual( 65, m&.Get(1, 2), 0.000001f)
+    AssertEqual( 91, m&.Get(1, 3), 0.000001f)
+    AssertEqual( 34, m&.Get(2, 0), 0.000001f)
+    AssertEqual( 51, m&.Get(2, 1), 0.000001f)
+    AssertEqual( 85, m&.Get(2, 2), 0.000001f)
+    AssertEqual(119, m&.Get(2, 3), 0.000001f)
+    AssertEqual( 38, m&.Get(3, 0), 0.000001f)
+    AssertEqual( 57, m&.Get(3, 1), 0.000001f)
+    AssertEqual( 95, m&.Get(3, 2), 0.000001f)
+    AssertEqual(133, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_00
+    given
+    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(279, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_01
+    given
+    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_01
+    given
+    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(279, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_02
+    given
+    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_02
+    given
+    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(279, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_03
+    given
+    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_03
+    given
+    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(279, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_10
+    given
+    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_10
+    given
+    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(279, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_11
+    given
+    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual( 22, m&.Get(0, 0), 0.000001f)
+    AssertEqual( 33, m&.Get(0, 1), 0.000001f)
+    AssertEqual( 55, m&.Get(0, 2), 0.000001f)
+    AssertEqual( 77, m&.Get(0, 3), 0.000001f)
+    AssertEqual( 26, m&.Get(1, 0), 0.000001f)
+    AssertEqual( 39, m&.Get(1, 1), 0.000001f)
+    AssertEqual( 65, m&.Get(1, 2), 0.000001f)
+    AssertEqual( 91, m&.Get(1, 3), 0.000001f)
+    AssertEqual( 34, m&.Get(2, 0), 0.000001f)
+    AssertEqual( 51, m&.Get(2, 1), 0.000001f)
+    AssertEqual( 85, m&.Get(2, 2), 0.000001f)
+    AssertEqual(119, m&.Get(2, 3), 0.000001f)
+    AssertEqual( 38, m&.Get(3, 0), 0.000001f)
+    AssertEqual( 57, m&.Get(3, 1), 0.000001f)
+    AssertEqual( 95, m&.Get(3, 2), 0.000001f)
+    AssertEqual(133, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_11
+    given
+    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(279, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_12
+    given
+    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_12
+    given
+    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(279, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_13
+    given
+    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_13
+    given
+    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(279, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_20
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_20
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(279, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_21
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_21
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(279, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_22
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual( 22, m&.Get(0, 0), 0.000001f)
+    AssertEqual( 33, m&.Get(0, 1), 0.000001f)
+    AssertEqual( 55, m&.Get(0, 2), 0.000001f)
+    AssertEqual( 77, m&.Get(0, 3), 0.000001f)
+    AssertEqual( 26, m&.Get(1, 0), 0.000001f)
+    AssertEqual( 39, m&.Get(1, 1), 0.000001f)
+    AssertEqual( 65, m&.Get(1, 2), 0.000001f)
+    AssertEqual( 91, m&.Get(1, 3), 0.000001f)
+    AssertEqual( 34, m&.Get(2, 0), 0.000001f)
+    AssertEqual( 51, m&.Get(2, 1), 0.000001f)
+    AssertEqual( 85, m&.Get(2, 2), 0.000001f)
+    AssertEqual(119, m&.Get(2, 3), 0.000001f)
+    AssertEqual( 38, m&.Get(3, 0), 0.000001f)
+    AssertEqual( 57, m&.Get(3, 1), 0.000001f)
+    AssertEqual( 95, m&.Get(3, 2), 0.000001f)
+    AssertEqual(133, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_22
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(279, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_23
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_23
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(279, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_30
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_30
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(279, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_31
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_31
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(279, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_32
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_32
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(279, m&.Get(3, 2), 0.000001f)
+    AssertEqual(0, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyRowsAndColumns_33
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+
+    when
+    Matrix! m = a * b
+
+    then
+    AssertEqual( 22, m&.Get(0, 0), 0.000001f)
+    AssertEqual( 33, m&.Get(0, 1), 0.000001f)
+    AssertEqual( 55, m&.Get(0, 2), 0.000001f)
+    AssertEqual( 77, m&.Get(0, 3), 0.000001f)
+    AssertEqual( 26, m&.Get(1, 0), 0.000001f)
+    AssertEqual( 39, m&.Get(1, 1), 0.000001f)
+    AssertEqual( 65, m&.Get(1, 2), 0.000001f)
+    AssertEqual( 91, m&.Get(1, 3), 0.000001f)
+    AssertEqual( 34, m&.Get(2, 0), 0.000001f)
+    AssertEqual( 51, m&.Get(2, 1), 0.000001f)
+    AssertEqual( 85, m&.Get(2, 2), 0.000001f)
+    AssertEqual(119, m&.Get(2, 3), 0.000001f)
+    AssertEqual( 38, m&.Get(3, 0), 0.000001f)
+    AssertEqual( 57, m&.Get(3, 1), 0.000001f)
+    AssertEqual( 95, m&.Get(3, 2), 0.000001f)
+    AssertEqual(133, m&.Get(3, 3), 0.000001f)
+
+test Matrix_MultiplyColumnsAndRows_33
+    given
+    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+
+    when
+    Matrix! m = b * a
+
+    then
+    AssertEqual(0, m&.Get(0, 0), 0.000001f)
+    AssertEqual(0, m&.Get(0, 1), 0.000001f)
+    AssertEqual(0, m&.Get(0, 2), 0.000001f)
+    AssertEqual(0, m&.Get(0, 3), 0.000001f)
+    AssertEqual(0, m&.Get(1, 0), 0.000001f)
+    AssertEqual(0, m&.Get(1, 1), 0.000001f)
+    AssertEqual(0, m&.Get(1, 2), 0.000001f)
+    AssertEqual(0, m&.Get(1, 3), 0.000001f)
+    AssertEqual(0, m&.Get(2, 0), 0.000001f)
+    AssertEqual(0, m&.Get(2, 1), 0.000001f)
+    AssertEqual(0, m&.Get(2, 2), 0.000001f)
+    AssertEqual(0, m&.Get(2, 3), 0.000001f)
+    AssertEqual(0, m&.Get(3, 0), 0.000001f)
+    AssertEqual(0, m&.Get(3, 1), 0.000001f)
+    AssertEqual(0, m&.Get(3, 2), 0.000001f)
+    AssertEqual(279, m&.Get(3, 3), 0.000001f)
+
+
+test MatrixRotationIsCounterClockwiseX
+    given
+    Vector4! t = Vector4(0, 0, 0)
+    Vector4! r = Vector4(90, 0, 0)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! m = new(t, r, s)
+    Vector4! v = Vector4()
+    Vector4! u = Vector4()
+
+    require
+    AssertEqual(1.0, m&.Get(0, 0), 0.00001)
+    AssertEqual(0.0, m&.Get(0, 1), 0.00001)
+    AssertEqual(0.0, m&.Get(0, 2), 0.00001)
+    AssertEqual(0.0, m&.Get(0, 3), 0.00001)
+    AssertEqual(0.0, m&.Get(1, 0), 0.00001)
+    AssertEqual(0.0, m&.Get(1, 1), 0.00001)
+    AssertEqual(1.0, m&.Get(1, 2), 0.00001)
+    AssertEqual(0.0, m&.Get(1, 3), 0.00001)
+    AssertEqual(0.0, m&.Get(2, 0), 0.00001)
+    AssertEqual(-1.0,m&.Get(2, 1), 0.00001)
+    AssertEqual(0.0, m&.Get(2, 2), 0.00001)
+    AssertEqual(0.0, m&.Get(2, 3), 0.00001)
+    AssertEqual(0.0, m&.Get(3, 0), 0.00001)
+    AssertEqual(0.0, m&.Get(3, 1), 0.00001)
+    AssertEqual(0.0, m&.Get(3, 2), 0.00001)
+    AssertEqual(1.0, m&.Get(3, 3), 0.00001)
+
+    when
+    v = Fbx$Vector4(0, 0, 1, 1)
+    u = m&.MultNormalize(v)
+
+    then
+    AssertEqual( 0, u[0], 0.000001f)
+    AssertEqual(-1, u[1], 0.000001f)
+    AssertEqual( 0, u[2], 0.000001f)
+
+    when
+    v = Fbx$Vector4(0, 1, 0, 1)
+    u = m&.MultNormalize(v)
+
+    then
+    AssertEqual( 0, u[0], 0.000001f)
+    AssertEqual( 0, u[1], 0.000001f)
+    AssertEqual( 1, u[2], 0.000001f)
+
+    when
+    v = Fbx$Vector4(0, 0, -1, 1)
+    u = m&.MultNormalize(v)
+
+    then
+    AssertEqual( 0, u[0], 0.000001f)
+    AssertEqual( 1, u[1], 0.000001f)
+    AssertEqual( 0, u[2], 0.000001f)
+
+    when
+    v = Fbx$Vector4(0, -1, 0, 1)
+    u = m&.MultNormalize(v)
+
+    then
+    AssertEqual( 0, u[0], 0.000001f)
+    AssertEqual( 0, u[1], 0.000001f)
+    AssertEqual(-1, u[2], 0.000001f)
+
+test MatrixRotationIsCounterClockwiseY
+    given
+    Vector4! t = Vector4(0, 0, 0)
+    Vector4! r = Vector4(0, 90, 0)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! m = new(t, r, s)
+    Vector4! v = Vector4()
+    Vector4! u = Vector4()
+
+    require
+    AssertEqual(0.0, m&.Get(0, 0), 0.00001)
+    AssertEqual(0.0, m&.Get(0, 1), 0.00001)
+    AssertEqual(-1.0,m&.Get(0, 2), 0.00001)
+    AssertEqual(0.0, m&.Get(0, 3), 0.00001)
+    AssertEqual(0.0, m&.Get(1, 0), 0.00001)
+    AssertEqual(1.0, m&.Get(1, 1), 0.00001)
+    AssertEqual(0.0, m&.Get(1, 2), 0.00001)
+    AssertEqual(0.0, m&.Get(1, 3), 0.00001)
+    AssertEqual(1.0, m&.Get(2, 0), 0.00001)
+    AssertEqual(0.0, m&.Get(2, 1), 0.00001)
+    AssertEqual(0.0, m&.Get(2, 2), 0.00001)
+    AssertEqual(0.0, m&.Get(2, 3), 0.00001)
+    AssertEqual(0.0, m&.Get(3, 0), 0.00001)
+    AssertEqual(0.0, m&.Get(3, 1), 0.00001)
+    AssertEqual(0.0, m&.Get(3, 2), 0.00001)
+    AssertEqual(1.0, m&.Get(3, 3), 0.00001)
+
+    when
+    v = Fbx$Vector4(0, 0, 1, 1)
+    u = m&.MultNormalize(v)
+
+    then
+    AssertEqual( 1, u[0], 0.000001f)
+    AssertEqual( 0, u[1], 0.000001f)
+    AssertEqual( 0, u[2], 0.000001f)
+
+    when
+    v = Fbx$Vector4(1, 0, 0, 1)
+    u = m&.MultNormalize(v)
+
+    then
+    AssertEqual( 0, u[0], 0.000001f)
+    AssertEqual( 0, u[1], 0.000001f)
+    AssertEqual(-1, u[2], 0.000001f)
+
+    when
+    v = Fbx$Vector4(0, 0, -1, 1)
+    u = m&.MultNormalize(v)
+
+    then
+    AssertEqual(-1, u[0], 0.000001f)
+    AssertEqual( 0, u[1], 0.000001f)
+    AssertEqual( 0, u[2], 0.000001f)
+
+    when
+    v = Fbx$Vector4(-1, 0, 0, 1)
+    u = m&.MultNormalize(v)
+
+    then
+    AssertEqual( 0, u[0], 0.000001f)
+    AssertEqual( 0, u[1], 0.000001f)
+    AssertEqual( 1, u[2], 0.000001f)
+
+test MatrixRotationIsCounterClockwiseZ
+    given
+    Vector4! t = Vector4(0, 0, 0)
+    Vector4! r = Vector4(0, 0, 90)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! m = new(t, r, s)
+    Vector4! v = Vector4()
+    Vector4! u = Vector4()
+
+    require
+    AssertEqual(0.0, m&.Get(0, 0), 0.00001)
+    AssertEqual(1.0, m&.Get(0, 1), 0.00001)
+    AssertEqual(0.0, m&.Get(0, 2), 0.00001)
+    AssertEqual(0.0, m&.Get(0, 3), 0.00001)
+    AssertEqual(-1.0,m&.Get(1, 0), 0.00001)
+    AssertEqual(0.0, m&.Get(1, 1), 0.00001)
+    AssertEqual(0.0, m&.Get(1, 2), 0.00001)
+    AssertEqual(0.0, m&.Get(1, 3), 0.00001)
+    AssertEqual(0.0, m&.Get(2, 0), 0.00001)
+    AssertEqual(0.0, m&.Get(2, 1), 0.00001)
+    AssertEqual(1.0, m&.Get(2, 2), 0.00001)
+    AssertEqual(0.0, m&.Get(2, 3), 0.00001)
+    AssertEqual(0.0, m&.Get(3, 0), 0.00001)
+    AssertEqual(0.0, m&.Get(3, 1), 0.00001)
+    AssertEqual(0.0, m&.Get(3, 2), 0.00001)
+    AssertEqual(1.0, m&.Get(3, 3), 0.00001)
+
+    when
+    v = Fbx$Vector4(1, 0, 0, 1)
+    u = m&.MultNormalize(v)
+
+    then
+    AssertEqual( 0, u[0], 0.000001f)
+    AssertEqual( 1, u[1], 0.000001f)
+    AssertEqual( 0, u[2], 0.000001f)
+
+    when
+    v = Fbx$Vector4(0, 1, 0, 1)
+    u = m&.MultNormalize(v)
+
+    then
+    AssertEqual(-1, u[0], 0.000001f)
+    AssertEqual( 0, u[1], 0.000001f)
+    AssertEqual( 0, u[2], 0.000001f)
+
+    when
+    v = Fbx$Vector4(-1, 0, 0, 1)
+    u = m&.MultNormalize(v)
+
+    then
+    AssertEqual( 0, u[0], 0.000001f)
+    AssertEqual(-1, u[1], 0.000001f)
+    AssertEqual( 0, u[2], 0.000001f)
+
+    when
+    v = Fbx$Vector4(0, -1, 0, 1)
+    u = m&.MultNormalize(v)
+
+    then
+    AssertEqual( 1, u[0], 0.000001f)
+    AssertEqual( 0, u[1], 0.000001f)
+    AssertEqual( 0, u[2], 0.000001f)
+
+test MatrixMultiplyTransformOrder_TransformationsOccurRightToLeft
+
+    /*
+      transforming v by (m1 * m2) is equivalent to transforming v by m2, and
+      then transforming the result by m1.
+    */
+
+    given
+    Vector4! t1 = Vector4(1, 0, 0)
+    Vector4! t2 = Vector4(0, 0, 0)
+    Vector4! r1 = Vector4(0, 0, 0)
+    Vector4! r2 = Vector4(0, 90, 0)
+    Vector4! s = Vector4(1, 1, 1)
+    Matrix! m1 = new(t1, r1, s)
+    Matrix! m2 = new(t2, r2, s)
+    Vector4! u = Vector4()
+    Vector4! zero = Vector4(0, 0, 0, 1)
+    Vector4! one = Vector4(1, 1, 1, 1)
+    Vector4! x = Vector4(1, 0, 0, 1)
+    Vector4! y = Vector4(0, 1, 0, 1)
+    Vector4! z = Vector4(0, 0, 1, 1)
+
+    require
+    u = m1&.MultNormalize(zero)
+    AssertEqual(1, u[0], 0.000001f)
+    AssertEqual(0, u[1], 0.000001f)
+    AssertEqual(0, u[2], 0.000001f)
+    u = m1&.MultNormalize(x)
+    AssertEqual(2, u[0], 0.000001f)
+    AssertEqual(0, u[1], 0.000001f)
+    AssertEqual(0, u[2], 0.000001f)
+    u = m1&.MultNormalize(y)
+    AssertEqual(1, u[0], 0.000001f)
+    AssertEqual(1, u[1], 0.000001f)
+    AssertEqual(0, u[2], 0.000001f)
+    u = m1&.MultNormalize(z)
+    AssertEqual(1, u[0], 0.000001f)
+    AssertEqual(0, u[1], 0.000001f)
+    AssertEqual(1, u[2], 0.000001f)
+    u = m1&.MultNormalize(one)
+    AssertEqual(2, u[0], 0.000001f)
+    AssertEqual(1, u[1], 0.000001f)
+    AssertEqual(1, u[2], 0.000001f)
+
+    u = m2&.MultNormalize(zero)
+    AssertEqual(0, u[0], 0.000001f)
+    AssertEqual(0, u[1], 0.000001f)
+    AssertEqual(0, u[2], 0.000001f)
+    u = m2&.MultNormalize(x)
+    AssertEqual(0, u[0], 0.000001f)
+    AssertEqual(0, u[1], 0.000001f)
+    AssertEqual(-1,u[2], 0.000001f)
+    u = m2&.MultNormalize(y)
+    AssertEqual(0, u[0], 0.000001f)
+    AssertEqual(1, u[1], 0.000001f)
+    AssertEqual(0, u[2], 0.000001f)
+    u = m2&.MultNormalize(z)
+    AssertEqual(1, u[0], 0.000001f)
+    AssertEqual(0, u[1], 0.000001f)
+    AssertEqual(0, u[2], 0.000001f)
+    u = m2&.MultNormalize(one)
+    AssertEqual(1, u[0], 0.000001f)
+    AssertEqual(1, u[1], 0.000001f)
+    AssertEqual(-1,u[2], 0.000001f)
+
+    when
+    Matrix! m = m1 * m2
+
+    then
+    u = m&.MultNormalize(zero)
+    AssertEqual(1, u[0], 0.000001f)
+    AssertEqual(0, u[1], 0.000001f)
+    AssertEqual(0, u[2], 0.000001f)
+    u = m&.MultNormalize(x)
+    AssertEqual(1, u[0], 0.000001f)
+    AssertEqual(0, u[1], 0.000001f)
+    AssertEqual(-1,u[2], 0.000001f)
+    u = m&.MultNormalize(y)
+    AssertEqual(1, u[0], 0.000001f)
+    AssertEqual(1, u[1], 0.000001f)
+    AssertEqual(0, u[2], 0.000001f)
+    u = m&.MultNormalize(z)
+    AssertEqual(2, u[0], 0.000001f)
+    AssertEqual(0, u[1], 0.000001f)
+    AssertEqual(0, u[2], 0.000001f)
+    u = m&.MultNormalize(one)
+    AssertEqual(2, u[0], 0.000001f)
+    AssertEqual(1, u[1], 0.000001f)
+    AssertEqual(-1,u[2], 0.000001f)
+
+    when
+    m = m2 * m1
+
+    then
+    u = m&.MultNormalize(zero)
+    AssertEqual(0, u[0], 0.000001f)
+    AssertEqual(0, u[1], 0.000001f)
+    AssertEqual(-1,u[2], 0.000001f)
+    u = m&.MultNormalize(x)
+    AssertEqual(0, u[0], 0.000001f)
+    AssertEqual(0, u[1], 0.000001f)
+    AssertEqual(-2,u[2], 0.000001f)
+    u = m&.MultNormalize(y)
+    AssertEqual(0, u[0], 0.000001f)
+    AssertEqual(1, u[1], 0.000001f)
+    AssertEqual(-1,u[2], 0.000001f)
+    u = m&.MultNormalize(z)
+    AssertEqual(1, u[0], 0.000001f)
+    AssertEqual(0, u[1], 0.000001f)
+    AssertEqual(-1,u[2], 0.000001f)
+    u = m&.MultNormalize(one)
+    AssertEqual(1, u[0], 0.000001f)
+    AssertEqual(1, u[1], 0.000001f)
+    AssertEqual(-2,u[2], 0.000001f)

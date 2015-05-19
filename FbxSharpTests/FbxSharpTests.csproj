@@ -10,6 +10,8 @@
     <AssemblyName>FbxSharpTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +46,31 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TokenizerTest.cs" />
     <Compile Include="ParserTest.cs" />
+    <Compile Include="NodeTest.cs" />
+    <Compile Include="SceneTest.cs" />
+    <Compile Include="GeometryBaseTest.cs" />
+    <Compile Include="GeometryTest.cs" />
+    <Compile Include="LayerContainerTest.cs" />
+    <Compile Include="MeshTest.cs" />
+    <Compile Include="TestBase.cs" />
+    <Compile Include="SurfacePhongTest.cs" />
+    <Compile Include="FbxObjectTest.cs" />
+    <Compile Include="PropertyTest.cs" />
+    <Compile Include="DeformerTest.cs" />
+    <Compile Include="SkinTest.cs" />
+    <Compile Include="SubDeformerTest.cs" />
+    <Compile Include="ClusterTest.cs" />
+    <Compile Include="FbxTimeTest.cs" />
+    <Compile Include="AnimCurveNodeTest.cs" />
+    <Compile Include="AnimCurveTest.cs" />
+    <Compile Include="AnimLayerTest.cs" />
+    <Compile Include="AnimStackTest.cs" />
+    <Compile Include="NodeTransformsTest.cs" />
+    <Compile Include="MatrixTest.cs" />
+    <Compile Include="IListHelperTest.cs" />
+    <Compile Include="AnimCurveKeyTest.cs" />
+    <Compile Include="MatrixMultiplyOrderTest.cs" />
+    <Compile Include="MatrixTest2.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

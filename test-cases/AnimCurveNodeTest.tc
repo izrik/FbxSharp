@@ -1,0 +1,64 @@
+﻿fixture AnimCurveNodeTest
+test AnimCurveNodeTest_Create_NoChannels
+    given
+
+    when
+    AnimCurveNode acn = new("")
+
+    then
+    AssertEqual(0, acn.GetChannelsCount())
+    AssertEqual(1, CountProperties(acn))
+    //AssertFalse(acn.IsAnimated())
+    //AssertFalse(acn.IsAnimated(false))
+    //AssertFalse(acn.IsAnimated(true))
+    //AssertFalse(acn.IsComposite())
+
+test AnimCurveNodeTest_AddChannel_TwoPropertiesOneChannel
+    given
+    AnimCurveNode acn = new("")
+
+    require
+    AssertEqual(0, acn.GetChannelsCount())
+    AssertEqual(1, CountProperties(acn))
+
+    when
+    acn.AddChannel<float>("channel1", 0.0f)
+
+    then
+    AssertEqual(2, CountProperties(acn))
+    AssertEqual(1, acn.GetChannelsCount())
+    AssertEqual(0, acn.GetCurveCount(0))
+
+    Property! prop = acn.GetFirstProperty()
+    AssertTrue(prop&.IsValid())
+    prop = acn.GetNextProperty(prop)
+    AssertTrue(prop&.IsValid())
+    AssertEqual("channel1", prop&.GetName())
+
+
+test AnimCurveNodeTest_ConnectToChannel_AddsSrcConnection
+    given
+    AnimCurveNode acn = new("acn")
+    AnimCurve ac = new("ac")
+    acn.AddChannel<float>("channel1", 0.0f)
+
+    require
+    AssertEqual(2, CountProperties(acn))
+    AssertEqual(1, acn.GetChannelsCount())
+    AssertEqual(0, acn.GetCurveCount(0))
+
+    when
+    acn.ConnectToChannel(ac, 0U)
+
+    then
+    AssertEqual(2, CountProperties(acn))
+    AssertEqual(1, acn.GetChannelsCount())
+    AssertEqual(1, acn.GetCurveCount(0))
+    AssertEqual(1, ac.GetDstPropertyCount())
+    AssertEqual("channel1", ac.GetDstProperty(0)&.GetName())
+    Property! prop = acn.GetFirstProperty()
+    AssertTrue(prop&.IsValid())
+    prop = acn.GetNextProperty(prop)
+    AssertTrue(prop&.IsValid())
+    AssertEqual(1, prop&.GetSrcObjectCount())
+    AssertSame(ac, prop&.GetSrcObject(0))

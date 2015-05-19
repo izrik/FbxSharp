@@ -50,7 +50,6 @@ namespace FbxSharp
             ByEdge,
             AllSame,
         }
-        public EMappingMode MappingMode;
 
         public enum EReferenceMode
         {
@@ -58,9 +57,74 @@ namespace FbxSharp
             Index,
             IndexToDirect,
         }
-        public EReferenceMode ReferenceMode;
 
         public string Name;
+        public EMappingMode MappingMode;
+        public EReferenceMode ReferenceMode;
+
+        public string GetName()
+        {
+            return Name;
+        }
+        public void SetName(string pName)
+        {
+            Name = pName;
+        }
+
+        public EMappingMode GetMappingMode()
+        {
+            return MappingMode;
+        }
+        public void SetMappingMode(EMappingMode pMappingMode)
+        {
+            MappingMode = pMappingMode;
+        }
+
+        public EReferenceMode GetReferenceMode()
+        {
+            return ReferenceMode;
+        }
+        public void SetReferenceMode(EReferenceMode pReferenceMode)
+        {
+            ReferenceMode = pReferenceMode;
+        }
+
+        public void Destroy()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool Clear()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class LayerElementT<T> : LayerElement
+    {
+        readonly LayerElementArrayT<T> direct = new LayerElementArrayT<T>();
+        public LayerElementArrayT<T> GetDirectArray()
+        {
+            return direct;
+        }
+
+        readonly LayerElementArrayT<int> indexes = new LayerElementArrayT<int>();
+        public LayerElementArrayT<int> GetIndexArray()
+        {
+            return indexes;
+        }
+
+        public override bool Clear()
+        {
+            direct.List.Clear();
+            indexes.List.Clear();
+            return true;
+        }
+
+        public int RemapIndexTo(LayerElement.EMappingMode pNewMapping)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

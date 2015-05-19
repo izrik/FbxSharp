@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class LayerElementUV : LayerElementT<double>
+    public class LayerElementUV : LayerElementT<Vector2>
     {
-        public List<long> UVIndex = new List<long>();
     }
 }
 

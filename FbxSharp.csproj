@@ -10,6 +10,8 @@
     <AssemblyName>FbxSharp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,9 +38,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="ChamberLib">
-      <HintPath>packages\ChamberLib.0.1.1\lib\ChamberLib.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TokenType.cs" />
@@ -70,7 +69,6 @@
     <Compile Include="LayerElementUV.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="LayerElementVisibility.cs" />
-    <Compile Include="LayerElementT.cs" />
     <Compile Include="LayerElementMaterial.cs" />
     <Compile Include="SurfaceMaterial.cs" />
     <Compile Include="Pose.cs" />
@@ -82,13 +80,55 @@
     <Compile Include="Cluster.cs" />
     <Compile Include="Video.cs" />
     <Compile Include="Texture.cs" />
-    <Compile Include="AnimationStack.cs" />
-    <Compile Include="AnimationLayer.cs" />
-    <Compile Include="AnimationCurveNode.cs" />
-    <Compile Include="AnimationCurve.cs" />
-    <Compile Include="AnimationCurveKey.cs" />
     <Compile Include="Time.cs" />
     <Compile Include="Connection.cs" />
+    <Compile Include="Importer.cs" />
+    <Compile Include="AnimEvaluator.cs" />
+    <Compile Include="GlobalSettings.cs" />
+    <Compile Include="CollectionView.cs" />
+    <Compile Include="ObjectView.cs" />
+    <Compile Include="Vector4.cs" />
+    <Compile Include="Color.cs" />
+    <Compile Include="Vector3.cs" />
+    <Compile Include="Vector2.cs" />
+    <Compile Include="Matrix.cs" />
+    <Compile Include="ChangeNotifyList.cs" />
+    <Compile Include="LayerElementArray.cs" />
+    <Compile Include="LayerElementTangent.cs" />
+    <Compile Include="LayerElementBinormal.cs" />
+    <Compile Include="LayerElementPolygonGroup.cs" />
+    <Compile Include="LayerElementVertexColor.cs" />
+    <Compile Include="LayerElementSmoothing.cs" />
+    <Compile Include="LayerElementCrease.cs" />
+    <Compile Include="LayerElementHole.cs" />
+    <Compile Include="LayerElementUserData.cs" />
+    <Compile Include="LayerElementTexture.cs" />
+    <Compile Include="VectorHelper.cs" />
+    <Compile Include="PropertyFlags.cs" />
+    <Compile Include="Transform.cs" />
+    <Compile Include="EQuatInterpMode.cs" />
+    <Compile Include="ObjectDstObjectCollection.cs" />
+    <Compile Include="ObjectSrcObjectCollection.cs" />
+    <Compile Include="ObjectSrcPropertyCollection.cs" />
+    <Compile Include="PropertyDstObjectCollection.cs" />
+    <Compile Include="ObjectDstPropertyCollection.cs" />
+    <Compile Include="PropertySrcObjectCollection.cs" />
+    <Compile Include="FbxTime.cs" />
+    <Compile Include="FbxTimeSpan.cs" />
+    <Compile Include="AnimEvalClassic.cs" />
+    <Compile Include="FbxEuler.cs" />
+    <Compile Include="AnimCurve.cs" />
+    <Compile Include="AnimCurveDef.cs" />
+    <Compile Include="AnimCurveBase.cs" />
+    <Compile Include="AnimCurveKeyBase.cs" />
+    <Compile Include="AnimLayer.cs" />
+    <Compile Include="AnimCurveKey.cs" />
+    <Compile Include="AnimCurveNode.cs" />
+    <Compile Include="AnimStack.cs" />
+    <Compile Include="IListHelper.cs" />
+    <Compile Include="SortedListHelper.cs" />
+    <Compile Include="FbxObjectPropertyCollection.cs" />
+    <Compile Include="PropertyChildrenCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -99,7 +139,32 @@
   </Target>
   -->
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="FbxSharp.png" />
+    <None Include="LICENSE" />
+    <None Include="README.md" />
+    <None Include="test-cases\DeformerTest.tc" />
+    <None Include="test-cases\FbxObjectTest.tc" />
+    <None Include="test-cases\GeometryBaseTest.tc" />
+    <None Include="test-cases\GeometryTest.tc" />
+    <None Include="test-cases\LayerContainerTest.tc" />
+    <None Include="test-cases\MeshTest.tc" />
+    <None Include="test-cases\NodeTest.tc" />
+    <None Include="test-cases\PropertyTest.tc" />
+    <None Include="test-cases\SceneTest.tc" />
+    <None Include="test-cases\SkinTest.tc" />
+    <None Include="test-cases\SubDeformerTest.tc" />
+    <None Include="test-cases\SurfacePhongTest.tc" />
+    <None Include="test-cases\ClusterTest.tc" />
+    <None Include="test-cases\FbxTimeTest.tc" />
+    <None Include="test-cases\AnimStackTest.tc" />
+    <None Include="test-cases\AnimLayerTest.tc" />
+    <None Include="test-cases\AnimCurveTest.tc" />
+    <None Include="test-cases\AnimCurveNodeTest.tc" />
+    <None Include="test-cases\NodeTransformsTest.tc" />
+    <None Include="test-cases\MatrixTest.tc" />
+    <None Include="test-cases\AnimCurveKeyTest.tc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="test-cases\" />
   </ItemGroup>
 </Project>

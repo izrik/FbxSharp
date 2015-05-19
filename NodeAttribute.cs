@@ -4,7 +4,12 @@ namespace FbxSharp
 {
     public abstract class NodeAttribute : FbxObject
     {
-
+        protected NodeAttribute(string name="")
+            : base(name)
+        {
+            this.Properties.Add(Color);
+            nodes = DstObjects.CreateCollectionView<Node>();
+        }
 
         public enum EAttributeType
         {
@@ -35,6 +40,31 @@ namespace FbxSharp
 
         public abstract EAttributeType AttributeType { get; }
 
+        #region Public Member Functions
+
+        public EAttributeType GetAttributeType()
+        {
+            return AttributeType;
+        }
+
+        readonly CollectionView<Node> nodes;
+        public int GetNodeCount()
+        {
+            return nodes.Count;
+        }
+
+        public Node GetNode(int pIndex=0)
+        {
+            return nodes[pIndex];
+        }
+
+        #endregion
+
+        #region Public Attributes
+
+        public readonly PropertyT<Vector3> Color = new PropertyT<Vector3>("Color");
+
+        #endregion
     }
 }
 

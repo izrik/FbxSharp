@@ -1,0 +1,89 @@
+fixture PropertyTest
+test SurfacePhong_FindProperty_FindsProperty
+    given
+    SurfacePhong surf = new("")
+
+    when
+    Property! prop = surf.FindProperty("SpecularColor")
+
+    then
+#cs AssertNotNull(&prop)
+    AssertTrue(prop&.IsValid())
+
+//test SurfacePhong_SearchForPropertyWithWrongType_DoesntFindProperty
+//test SurfacePhong_SearchForMissingProperty_DoesntFindProperty
+//    given
+//test SurfacePhong_AddNewProperty_AddsNewProperty
+//    given
+//test SurfacePhong_AddNewPropertyWithconflictingName_AddsNewProperty
+
+test SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsSrcObject
+    given
+    SurfacePhong surf = new("")
+    Texture tex = new("")
+
+    when
+    bool result = surf.Diffuse&.ConnectSrcObject(tex)
+
+    then
+    AssertTrue(result)
+    AssertEqual(1, surf.Diffuse&.GetSrcObjectCount())
+    FbxObject obj = surf.Diffuse&.GetSrcObject(0)
+    AssertNotNull(obj)
+#cs AssertAreSame(tex, obj)
+#cpp AssertEqual(tex, obj)
+
+test SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsDstProperty
+    given
+    SurfacePhong surf = new("")
+    Texture tex = new("")
+
+    when
+    bool result = surf.Diffuse&.ConnectSrcObject(tex)
+
+    then
+    AssertTrue(result)
+    AssertEqual(1, tex.GetDstPropertyCount())
+    Property! prop = tex.GetDstProperty(0)
+#cs AssertNotNull(&prop)
+    AssertTrue(prop&.IsValid())
+    AssertEqual("DiffuseColor", prop&.GetName())
+
+test Property_AttachCurveNode_IsAnimated
+    given
+    Node node = new("node")
+    AnimCurveNode acn = new("acn")
+    AnimCurve x = new("x")
+    Scene scene = new("scene")
+    AnimLayer layer = new("layer")
+    AnimStack stack = new("stack")
+
+    FbxTime! time = new(0)
+    AnimCurveKey! key = new(time, 1.0f)
+    x.KeyAdd(time, key)
+
+    scene.ConnectSrcObject(node)
+    scene.ConnectSrcObject(acn)
+    scene.ConnectSrcObject(x)
+    scene.ConnectSrcObject(layer)
+    scene.ConnectSrcObject(stack)
+
+    layer.ConnectSrcObject(acn)
+
+    stack.ConnectSrcObject(layer)
+
+    acn.AddChannel<double>("x", 1.0)
+    acn.ConnectToChannel(x, 0U)
+
+    require
+    AssertFalse(node.LclTranslation&.IsAnimated())
+
+    when
+    node.LclTranslation&.ConnectSrcObject(acn)
+
+    then
+    AssertTrue(node.LclTranslation&.IsAnimated())
+
+test FbxProperty_HierarchicalSeparator
+    require
+    AssertEqual("|", Fbx$Property::sHierarchicalSeparator)
