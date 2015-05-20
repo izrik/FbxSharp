@@ -76,6 +76,7 @@
     <Compile Include="NodeTransformsTest.cpp" />
     <Compile Include="MatrixTest.cpp" />
     <Compile Include="AnimCurveKeyTest.cpp" />
+    <Compile Include="LightTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.h" />

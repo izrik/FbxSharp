@@ -71,6 +71,7 @@
     <Compile Include="AnimCurveKeyTest.cs" />
     <Compile Include="MatrixMultiplyOrderTest.cs" />
     <Compile Include="MatrixTest2.cs" />
+    <Compile Include="LightTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

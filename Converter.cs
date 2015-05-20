@@ -201,6 +201,11 @@ namespace FbxSharp
                 return ConvertNull(obj);
             }
 
+            if (typeFlags.Contains("Light"))
+            {
+                return ConvertLight(obj);
+            }
+
             throw new NotImplementedException();
         }
 
@@ -253,6 +258,35 @@ namespace FbxSharp
             n.Name = ((string)obj.Values[1]);
 
             return n;
+        }
+
+        public static Light ConvertLight(ParseObject obj)
+        {
+            var name = ((string)obj.Values[1]);
+            var light = new Light(name);
+
+            return light;
+
+            foreach (var prop in obj.Properties)
+            {
+                int index;
+                switch (prop.Name)
+                {
+                case "Properties70":
+                    ImportProperties(light, ConvertProperties70(prop));
+                    break;
+                case "TypeFlags":
+                    if (((string)prop.Values[0]) != "Light")
+                        throw new NotImplementedException();
+                    break;
+                case "GeometryVersion":
+                    if (((Number)prop.Values[0]).AsLong.Value != 124)
+                        throw new NotImplementedException();
+                    break;
+                default:
+                    throw new NotImplementedException();
+                }
+            }
         }
 
         public static Geometry ConvertGeometry(ParseObject obj)
