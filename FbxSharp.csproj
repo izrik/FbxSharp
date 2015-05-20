@@ -121,6 +121,7 @@
     <Compile Include="FbxObjectPropertyCollection.cs" />
     <Compile Include="PropertyChildrenCollection.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Light.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -156,6 +157,7 @@
     <None Include="test-cases\MatrixTest.tc" />
     <None Include="test-cases\AnimCurveKeyTest.tc" />
     <None Include="FbxSharp.nuspec" />
+    <None Include="test-cases\LightTest.tc" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="test-cases\" />
