@@ -15,11 +15,6 @@ void Light_Create_HasProperties()
     AssertEqual(0, light->GetSrcPropertyCount());
     AssertEqual(0, light->GetDstPropertyCount());
 
-    prop = light->FindProperty("Color");
-    AssertTrue(prop.IsValid());
-    AssertTrue(light->Color.IsValid());
-    AssertEqual("Color", light->Color.GetName());
-
     prop = light->FindProperty("LightType");
     AssertTrue(prop.IsValid());
     AssertTrue(light->LightType.IsValid());

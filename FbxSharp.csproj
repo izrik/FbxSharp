@@ -159,6 +159,7 @@
     <None Include="test-cases\AnimCurveKeyTest.tc" />
     <None Include="FbxSharp.nuspec" />
     <None Include="test-cases\LightTest.tc" />
+    <None Include="test-cases\CameraTest.tc" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="test-cases\" />

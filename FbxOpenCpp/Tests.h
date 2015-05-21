@@ -69,5 +69,6 @@ TestClass(NodeTransformsTest);
 TestClass(MatrixTest);
 TestClass(AnimCurveKeyTest);
 TestClass(LightTest);
+TestClass(CameraTest);
 
 #endif // __FBXOPENCPP_TESTS_H
