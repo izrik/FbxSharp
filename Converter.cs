@@ -206,6 +206,11 @@ namespace FbxSharp
                 return ConvertLight(obj);
             }
 
+            if (typeFlags.Contains("Camera"))
+            {
+                return ConvertCamera(obj);
+            }
+
             throw new NotImplementedException();
         }
 
@@ -265,11 +270,8 @@ namespace FbxSharp
             var name = ((string)obj.Values[1]);
             var light = new Light(name);
 
-            return light;
-
             foreach (var prop in obj.Properties)
             {
-                int index;
                 switch (prop.Name)
                 {
                 case "Properties70":
@@ -287,6 +289,77 @@ namespace FbxSharp
                     throw new NotImplementedException();
                 }
             }
+
+            return light;
+        }
+
+        public static Camera ConvertCamera(ParseObject obj)
+        {
+            var name = ((string)obj.Values[1]);
+            var camera = new Camera(name);
+
+            Vector3 position;
+            Vector3 up;
+            Vector3 lookAt;
+            bool showInfoOnMoving;
+            bool showAudio;
+            Vector3 audioColor;
+            double cameraOrthoZoom;
+
+            foreach (var prop in obj.Properties)
+            {
+                switch (prop.Name)
+                {
+                case "Properties70":
+                    ImportProperties(camera, ConvertProperties70(prop));
+                    break;
+                case "TypeFlags":
+                    if (((string)prop.Values[0]) != "Camera")
+                        throw new NotImplementedException();
+                    break;
+                case "GeometryVersion":
+                    if (((Number)prop.Values[0]).AsLong.Value != 124)
+                        throw new NotImplementedException();
+                    break;
+                case "Position":
+                    position = new Vector3(
+                        ((Number)prop.Values[0]).AsDouble.Value,
+                        ((Number)prop.Values[1]).AsDouble.Value,
+                        ((Number)prop.Values[2]).AsDouble.Value);
+                    break;
+                case "Up":
+                    up = new Vector3(
+                        ((Number)prop.Values[0]).AsDouble.Value,
+                        ((Number)prop.Values[1]).AsDouble.Value,
+                        ((Number)prop.Values[2]).AsDouble.Value);
+                    break;
+                case "LookAt":
+                    lookAt = new Vector3(
+                        ((Number)prop.Values[0]).AsDouble.Value,
+                        ((Number)prop.Values[1]).AsDouble.Value,
+                        ((Number)prop.Values[2]).AsDouble.Value);
+                    break;
+                case "ShowInfoOnMoving":
+                    showInfoOnMoving = (((Number)prop.Values[0]).AsLong.Value != 0);
+                    break;
+                case "ShowAudio":
+                    showAudio = (((Number)prop.Values[0]).AsLong.Value != 0);
+                    break;
+                case "AudioColor":
+                    audioColor = new Vector3(
+                        ((Number)prop.Values[0]).AsDouble.Value,
+                        ((Number)prop.Values[1]).AsDouble.Value,
+                        ((Number)prop.Values[2]).AsDouble.Value);
+                    break;
+                case "CameraOrthoZoom":
+                    cameraOrthoZoom = ((Number)prop.Values[0]).AsDouble.Value;
+                    break;
+                default:
+                    throw new NotImplementedException();
+                }
+            }
+
+            return camera;
         }
 
         public static Geometry ConvertGeometry(ParseObject obj)
@@ -297,7 +370,6 @@ namespace FbxSharp
             {
             case "Mesh":
                 return ConvertMesh(obj);
-                break;
             default:
                 throw new NotImplementedException();
             }
@@ -631,6 +703,8 @@ namespace FbxSharp
                     propType = typeof(long);
                     propValue = ((Number)p.Values[4]).AsLong.Value;
                     break;
+                case "Vector":
+                case "Vector3":
                 case "Vector3D":
                     propType = typeof(Vector3);
                     var x = ((Number)p.Values[4]).AsDouble.Value;
@@ -657,6 +731,9 @@ namespace FbxSharp
                     propType = typeof(string);
                     propValue = (string)p.Values[4];
                     break;
+                case "FieldOfView":
+                case "FieldOfViewX":
+                case "FieldOfViewY":
                 case "double":
                     propType = typeof(double);
                     propValue = ((Number)p.Values[4]).AsDouble.Value;

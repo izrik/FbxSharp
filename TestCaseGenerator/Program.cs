@@ -468,21 +468,21 @@ namespace TestCaseGenerator
                                 outline = string.Join(" ", parts);
                             }
 
-                            if (Regex.IsMatch(outline, @"[\w)]\.[a-zA-Z]"))
+                            if (Regex.IsMatch(outline, @"[\w)]\.[a-zA-Z_]"))
                             {
                                 outline = 
                                     Regex.Replace(
                                         outline,
-                                        @"([\w\)])\.([a-zA-Z])",
+                                        @"([\w\)])\.([a-zA-Z_])",
                                         m => m.Groups[1].Value + "->" + m.Groups[2].Value);
                             }
 
-                            if (Regex.IsMatch(outline, @"[\w)]&\.[a-zA-Z]"))
+                            if (Regex.IsMatch(outline, @"[\w)]&\.[a-zA-Z_]"))
                             {
                                 outline =
                                     Regex.Replace(
                                         outline,
-                                        @"([\w\)])&\.([a-zA-Z])",
+                                        @"([\w\)])&\.([a-zA-Z_])",
                                         m => m.Groups[1].Value + "." + m.Groups[2].Value);
                             }
 
