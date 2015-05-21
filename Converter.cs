@@ -265,8 +265,6 @@ namespace FbxSharp
             var name = ((string)obj.Values[1]);
             var light = new Light(name);
 
-            return light;
-
             foreach (var prop in obj.Properties)
             {
                 int index;
@@ -287,6 +285,8 @@ namespace FbxSharp
                     throw new NotImplementedException();
                 }
             }
+
+            return light;
         }
 
         public static Geometry ConvertGeometry(ParseObject obj)
