@@ -6,6 +6,7 @@ install:
   - sudo apt-get install nunit-console
 
 script:
+  - nuget restore
   - xbuild /p:Configuration=Debug FbxSharp.sln 
   - nunit-console ./FbxSharpTests/bin/Debug/FbxSharpTests.dll
 
