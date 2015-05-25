@@ -1,0 +1,14 @@
+﻿
+language: csharp
+
+install:
+  - sudo apt-get install nunit-console
+
+script:
+  - xbuild /p:Configuration=Debug FbxSharp.sln 
+  - nunit-console ./FbxSharpTests/bin/Debug/FbxSharpTests.dll
+
+branches:
+  only:
+    - master
+
