@@ -1,5 +1,6 @@
 ﻿
 language: csharp
+solution: FbxSharp.sln
 
 install:
   - sudo apt-get install nunit-console
