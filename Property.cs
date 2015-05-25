@@ -288,7 +288,12 @@ namespace FbxSharp
                 uint i;
                 for (i = 0; i < Math.Min(4, acn.GetChannelsCount()); i++)
                 {
-                    if (acn.GetCurveCount(i) < 1) throw new NotImplementedException();
+                    if (acn.GetCurveCount(i) < 1)
+                        //throw new NotImplementedException(
+                        //    string.Format(
+                        //        "The AnimCurveNode channel #{0} doesn't have any curves attached", i));
+                        continue;
+
                     var curve = acn.GetCurve(i);
                     values[i] = curve.Evaluate(pTime);
                 }
