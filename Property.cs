@@ -311,7 +311,11 @@ namespace FbxSharp
                 if (type ==  typeof(Vector4))
                     return (T)(object)(new Vector4(values[0], values[1], values[2], values[3]));
 
-                throw new NotImplementedException();
+                throw new NotImplementedException(
+                    string.Format(
+                        "The property \"{0}\" cannot be evaluated because " +
+                            "the type is not a float, double, or vector",
+                        this.Name));
             }
             else
             {
