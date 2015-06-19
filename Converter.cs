@@ -1107,14 +1107,6 @@ namespace FbxSharp
                 }
             }
 
-            if (!hasIndexes ||
-                !hasWeights ||
-                !hasTransform ||
-                !hasTransformLink)
-            {
-                throw new InvalidOperationException();
-            }
-
             return cluster;
         }
 
