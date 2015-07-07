@@ -754,7 +754,7 @@ namespace FbxSharp
                     propValue = ((Number)p.Values[4]).AsDouble.Value;
                     break;
                 default:
-                    throw new NotImplementedException();
+                    throw new NotImplementedException("Unknown property type: " + type1);
                 }
 
                 propNamesTypesValues.Add(
