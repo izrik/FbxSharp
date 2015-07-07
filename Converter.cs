@@ -695,6 +695,7 @@ namespace FbxSharp
                     propType = typeof(Color);
                     propValue = new Color(r, g, b);
                     break;
+                case "Visibility":
                 case "bool":
                     propType = typeof(bool);
                     propValue = (((Number)p.Values[4]).AsLong.Value != 0);
