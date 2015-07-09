@@ -695,6 +695,7 @@ namespace FbxSharp
                     propType = typeof(Color);
                     propValue = new Color(r, g, b);
                     break;
+                case "Visibility":
                 case "bool":
                     propType = typeof(bool);
                     propValue = (((Number)p.Values[4]).AsLong.Value != 0);
@@ -753,7 +754,7 @@ namespace FbxSharp
                     propValue = ((Number)p.Values[4]).AsDouble.Value;
                     break;
                 default:
-                    throw new NotImplementedException();
+                    throw new NotImplementedException("Unknown property type: " + type1);
                 }
 
                 propNamesTypesValues.Add(
