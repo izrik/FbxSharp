@@ -2,8 +2,12 @@
 language: csharp
 solution: FbxSharpBuild.sln
 
-install:
-  - sudo apt-get install nunit-console
+sudo: false
+
+addons:
+  apt:
+    packages:
+      - nunit-console
 
 script:
   - nuget restore FbxSharpBuild.sln
