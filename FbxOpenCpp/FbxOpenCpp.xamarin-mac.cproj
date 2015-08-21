@@ -9,8 +9,6 @@
     </Compiler>
     <Language>CPP</Language>
     <Target>Bin</Target>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -83,10 +81,10 @@
     <None Include="common.h" />
     <None Include="Assertions.h" />
     <None Include="Tests.h" />
+    <None Include="Collector.h" />
     <None Include="\Applications\Autodesk\FBX SDK\2015.1\lib\clang\debug\libfbxsdk.dylib">
       <Link>libfbxsdk.dylib</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Collector.h" />
   </ItemGroup>
 </Project>

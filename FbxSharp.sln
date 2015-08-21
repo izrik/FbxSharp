@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxSharpTests", "FbxSharpTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCaseGenerator", "TestCaseGenerator\TestCaseGenerator.csproj", "{1A005A50-C3A6-4AC9-98F1-BF6C149DEF80}"
 EndProject
-Project("{2857B73E-F847-4B02-9238-064979017E93}") = "FbxOpenCpp", "FbxOpenCpp\FbxOpenCpp.cproj", "{44E660AC-1A21-498E-B270-15E37C551BB4}"
+Project("{2857B73E-F847-4B02-9238-064979017E93}") = "FbxOpenCpp.xamarin-mac", "FbxOpenCpp\FbxOpenCpp.xamarin-mac.cproj", "{44E660AC-1A21-498E-B270-15E37C551BB4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectPrinter", "ObjectPrinter\ObjectPrinter.csproj", "{520853BD-16B0-4839-AC15-7AE68124BAEA}"
 EndProject
