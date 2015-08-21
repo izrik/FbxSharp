@@ -11,7 +11,8 @@ test FbxTime_CreateLongLong_HasSeconds
     AssertEqual(0L, time.GetFrameCount())
 
     when
-    time = new FbxTime(-7697693000LL)
+#cs time = new FbxTime(-7697693000L)
+#cpp time = new FbxTime(-7697693000LL)
 
     then
     AssertEqual(-5/30.0, time.GetSecondDouble())
