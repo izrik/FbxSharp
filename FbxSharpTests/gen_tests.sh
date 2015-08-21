@@ -2,7 +2,7 @@
 
 for f in ../test-cases/*.tc
 do
-  g=`basename -s.tc $f`
+  g=`basename $f .tc`
   fbxtest cs $f $g.cs
 done
 
