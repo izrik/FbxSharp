@@ -4,7 +4,8 @@ test AnimCurveKey_Create_HasDefaultValues
     AnimCurveKey key = new()
 
     then
-    AssertEqual(0L, key.GetTime()&.Get())
+#cs AssertEqual(0L, key.GetTime()&.Get())
+#cpp AssertEqual(0LL, key.GetTime()&.Get())
     AssertEqual(0.0, key.GetValue())
     AssertEqual(AnimCurveDef.ETangentMode.eTangentAuto, key.GetTangentMode())
     AssertEqual(AnimCurveDef.EInterpolationType.eInterpolationCubic, key.GetInterpolation())

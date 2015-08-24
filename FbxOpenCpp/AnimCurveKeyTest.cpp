@@ -9,7 +9,7 @@ void AnimCurveKey_Create_HasDefaultValues()
     FbxAnimCurveKey* key = new FbxAnimCurveKey();
 
     // then:
-    AssertEqual(0L, key->GetTime().Get());
+    AssertEqual(0LL, key->GetTime().Get());
     AssertEqual(0.0, key->GetValue());
     AssertEqual(FbxAnimCurveDef::eTangentAuto, key->GetTangentMode());
     AssertEqual(FbxAnimCurveDef::eInterpolationCubic, key->GetInterpolation());

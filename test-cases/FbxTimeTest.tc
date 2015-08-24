@@ -8,7 +8,8 @@ test FbxTime_CreateLongLong_HasSeconds
 
     then
     AssertEqual(0.0, time.GetSecondDouble())
-    AssertEqual(0L, time.GetFrameCount())
+#cs AssertEqual(0L, time.GetFrameCount())
+#cpp AssertEqual(0LL, time.GetFrameCount())
 
     when
 #cs time = new FbxTime(-7697693000L)
@@ -16,4 +17,5 @@ test FbxTime_CreateLongLong_HasSeconds
 
     then
     AssertEqual(-5/30.0, time.GetSecondDouble())
-    AssertEqual(-5L, time.GetFrameCount())
+#cs AssertEqual(-5L, time.GetFrameCount())
+#cpp AssertEqual(-5LL, time.GetFrameCount())
