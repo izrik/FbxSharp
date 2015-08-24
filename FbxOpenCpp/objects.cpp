@@ -155,27 +155,27 @@ void PrintObject(FbxObject* obj)
     }
     
     if (obj->Is<FbxCollection>())
-        PrintCollection(dynamic_cast<FbxCollection*>(obj));
+        PrintCollection(FbxCast<FbxCollection>(obj));
     else if (obj->Is<FbxAnimCurve>())
-        PrintAnimCurve(dynamic_cast<FbxAnimCurve*>(obj));
+        PrintAnimCurve(FbxCast<FbxAnimCurve>(obj));
     else if (obj->Is<FbxAnimCurveNode>())
-        PrintAnimCurveNode(dynamic_cast<FbxAnimCurveNode*>(obj));
+        PrintAnimCurveNode(FbxCast<FbxAnimCurveNode>(obj));
     else if (obj->Is<FbxDeformer>())
-        PrintDeformer(dynamic_cast<FbxDeformer*>(obj));
+        PrintDeformer(FbxCast<FbxDeformer>(obj));
     else if (obj->Is<FbxNode>())
-        PrintNode(dynamic_cast<FbxNode*>(obj));
+        PrintNode(FbxCast<FbxNode>(obj));
     else if (obj->Is<FbxNodeAttribute>())
-        PrintNodeAttribute(dynamic_cast<FbxNodeAttribute*>(obj));
+        PrintNodeAttribute(FbxCast<FbxNodeAttribute>(obj));
     else if (obj->Is<FbxPose>())
-        PrintPose(dynamic_cast<FbxPose*>(obj));
+        PrintPose(FbxCast<FbxPose>(obj));
     else if (obj->Is<FbxSubDeformer>())
-        PrintSubDeformer(dynamic_cast<FbxSubDeformer*>(obj));
+        PrintSubDeformer(FbxCast<FbxSubDeformer>(obj));
     else if (obj->Is<FbxSurfaceMaterial>())
-        PrintSurfaceMaterial(dynamic_cast<FbxSurfaceMaterial*>(obj));
+        PrintSurfaceMaterial(FbxCast<FbxSurfaceMaterial>(obj));
     else if (obj->Is<FbxTexture>())
-        PrintTexture(dynamic_cast<FbxTexture*>(obj));
+        PrintTexture(FbxCast<FbxTexture>(obj));
     else if (obj->Is<FbxVideo>())
-        PrintVideo(dynamic_cast<FbxVideo*>(obj));
+        PrintVideo(FbxCast<FbxVideo>(obj));
     else
         cout << "Unknown object class: " << obj->GetRuntimeClassId().GetName() << endl;
 
@@ -662,15 +662,15 @@ void PrintNode(FbxNode* node)
 void PrintNodeAttribute(FbxNodeAttribute* obj)
 {
     if (obj->Is<FbxCamera>())
-        PrintCamera(dynamic_cast<FbxCamera*>(obj));
+        PrintCamera(FbxCast<FbxCamera>(obj));
     else if (obj->Is<FbxLight>())
-        PrintLight(dynamic_cast<FbxLight*>(obj));
+        PrintLight(FbxCast<FbxLight>(obj));
     else if (obj->Is<FbxLayerContainer>())
-        PrintLayerContainer(dynamic_cast<FbxLayerContainer*>(obj));
+        PrintLayerContainer(FbxCast<FbxLayerContainer>(obj));
     else if (obj->Is<FbxNull>())
-        PrintNull(dynamic_cast<FbxNull*>(obj));
+        PrintNull(FbxCast<FbxNull>(obj));
     else if (obj->Is<FbxSkeleton>())
-        PrintSkeleton(dynamic_cast<FbxSkeleton*>(obj));
+        PrintSkeleton(FbxCast<FbxSkeleton>(obj));
     else
         cout << "Unknown node attribute class: " << obj->GetRuntimeClassId().GetName() << endl;
 }
@@ -696,7 +696,7 @@ void PrintLayerContainer(FbxLayerContainer* layerContainer)
     }
 
     if (layerContainer->Is<FbxGeometryBase>())
-        PrintGeometryBase(dynamic_cast<FbxGeometryBase*>(layerContainer));
+        PrintGeometryBase(FbxCast<FbxGeometryBase>(layerContainer));
     else
         cout << "Unknown node attribute class: " << layerContainer->GetRuntimeClassId().GetName() << endl;
 }
@@ -850,7 +850,7 @@ void PrintGeometryBase(FbxGeometryBase* geometryBase)
     }
 
     if (geometryBase->Is<FbxGeometry>())
-        PrintGeometry(dynamic_cast<FbxGeometry*>(geometryBase));
+        PrintGeometry(FbxCast<FbxGeometry>(geometryBase));
     else
         cout << "Unknown node attribute class: " << geometryBase->GetRuntimeClassId().GetName() << endl;
 }
@@ -858,7 +858,7 @@ void PrintGeometryBase(FbxGeometryBase* geometryBase)
 void PrintGeometry(FbxGeometry* geometry)
 {
     if (geometry->Is<FbxMesh>())
-        PrintMesh(dynamic_cast<FbxMesh*>(geometry));
+        PrintMesh(FbxCast<FbxMesh>(geometry));
     else
         cout << "Unknown node attribute class: " << geometry->GetRuntimeClassId().GetName() << endl;
 }
@@ -917,7 +917,7 @@ void PrintSurfaceMaterial(FbxSurfaceMaterial* obj)
     cout << "    MultiLayer = " << obj->MultiLayer.Get() << endl;
     
     if (obj->Is<FbxSurfaceLambert>())
-        PrintSurfaceLambert(dynamic_cast<FbxSurfaceLambert*>(obj));
+        PrintSurfaceLambert(FbxCast<FbxSurfaceLambert>(obj));
     else
         cout << "Unknown surface material class: " << obj->GetRuntimeClassId().GetName() << endl;
 }
@@ -951,7 +951,7 @@ void PrintSurfaceLambert(FbxSurfaceLambert* obj)
     cout << "    VectorDisplacementFactor = " << obj->VectorDisplacementFactor.Get() << endl;
 
     if (obj->Is<FbxSurfacePhong>())
-        PrintSurfacePhong(dynamic_cast<FbxSurfacePhong*>(obj));
+        PrintSurfacePhong(FbxCast<FbxSurfacePhong>(obj));
     else
         cout << "Unknown surface lambert class: " << obj->GetRuntimeClassId().GetName() << endl;
 }
@@ -989,11 +989,11 @@ void PrintCollection(FbxCollection* col)
     }
 
     if (col->Is<FbxAnimStack>())
-        PrintAnimStack(dynamic_cast<FbxAnimStack*>(col));
+        PrintAnimStack(FbxCast<FbxAnimStack>(col));
     else if (col->Is<FbxAnimLayer>())
-        PrintAnimLayer(dynamic_cast<FbxAnimLayer*>(col));
+        PrintAnimLayer(FbxCast<FbxAnimLayer>(col));
     else if (col->Is<FbxDocument>())
-        PrintDocument(dynamic_cast<FbxDocument*>(col));
+        PrintDocument(FbxCast<FbxDocument>(col));
     else
         cout << "Unknown surface lambert class: " << col->GetRuntimeClassId().GetName() << endl;
 }
@@ -1012,7 +1012,7 @@ void PrintDocument(FbxDocument* doc)
     // obj->GetDocumentInfo()
 
     if (doc->Is<FbxScene>())
-        PrintScene(dynamic_cast<FbxScene*>(doc));
+        PrintScene(FbxCast<FbxScene>(doc));
     else
         cout << "Unknown surface lambert class: " << doc->GetRuntimeClassId().GetName() << endl;
 

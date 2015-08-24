@@ -88,27 +88,27 @@ void Collector::Visit(FbxObject* obj)
 //    cout << "branching object "; PrintObjectID(obj); cout << endl;
 
     if (obj->Is<FbxCollection>())
-        VisitCollection(dynamic_cast<FbxCollection*>(obj));
+        VisitCollection(FbxCast<FbxCollection>(obj));
     else if (obj->Is<FbxAnimCurve>())
-        VisitAnimCurve(dynamic_cast<FbxAnimCurve*>(obj));
+        VisitAnimCurve(FbxCast<FbxAnimCurve>(obj));
     else if (obj->Is<FbxAnimCurveNode>())
-        VisitAnimCurveNode(dynamic_cast<FbxAnimCurveNode*>(obj));
+        VisitAnimCurveNode(FbxCast<FbxAnimCurveNode>(obj));
     else if (obj->Is<FbxDeformer>())
-        VisitDeformer(dynamic_cast<FbxDeformer*>(obj));
+        VisitDeformer(FbxCast<FbxDeformer>(obj));
     else if (obj->Is<FbxNode>())
-        VisitNode(dynamic_cast<FbxNode*>(obj));
+        VisitNode(FbxCast<FbxNode>(obj));
     else if (obj->Is<FbxNodeAttribute>())
-        VisitNodeAttribute(dynamic_cast<FbxNodeAttribute*>(obj));
+        VisitNodeAttribute(FbxCast<FbxNodeAttribute>(obj));
     else if (obj->Is<FbxPose>())
-        VisitPose(dynamic_cast<FbxPose*>(obj));
+        VisitPose(FbxCast<FbxPose>(obj));
     else if (obj->Is<FbxSubDeformer>())
-        VisitSubDeformer(dynamic_cast<FbxSubDeformer*>(obj));
+        VisitSubDeformer(FbxCast<FbxSubDeformer>(obj));
     else if (obj->Is<FbxSurfaceMaterial>())
-        VisitSurfaceMaterial(dynamic_cast<FbxSurfaceMaterial*>(obj));
+        VisitSurfaceMaterial(FbxCast<FbxSurfaceMaterial>(obj));
     else if (obj->Is<FbxTexture>())
-        VisitTexture(dynamic_cast<FbxTexture*>(obj));
+        VisitTexture(FbxCast<FbxTexture>(obj));
     else if (obj->Is<FbxVideo>())
-        VisitVideo(dynamic_cast<FbxVideo*>(obj));
+        VisitVideo(FbxCast<FbxVideo>(obj));
 
 //    cout << "added object "; PrintObjectID(obj); cout << endl;
 }
@@ -188,15 +188,15 @@ void Collector::VisitNodeAttribute(FbxNodeAttribute* obj)
     Visit(obj->GetNode());
 
     if (obj->Is<FbxCamera>())
-        VisitCamera(dynamic_cast<FbxCamera*>(obj));
+        VisitCamera(FbxCast<FbxCamera>(obj));
     else if (obj->Is<FbxLight>())
-        VisitLight(dynamic_cast<FbxLight*>(obj));
+        VisitLight(FbxCast<FbxLight>(obj));
     else if (obj->Is<FbxLayerContainer>())
-        VisitLayerContainer(dynamic_cast<FbxLayerContainer*>(obj));
+        VisitLayerContainer(FbxCast<FbxLayerContainer>(obj));
     else if (obj->Is<FbxNull>())
-        VisitNull(dynamic_cast<FbxNull*>(obj));
+        VisitNull(FbxCast<FbxNull>(obj));
     else if (obj->Is<FbxSkeleton>())
-        VisitSkeleton(dynamic_cast<FbxSkeleton*>(obj));
+        VisitSkeleton(FbxCast<FbxSkeleton>(obj));
 }
 
 void Collector::VisitSurfaceMaterial(FbxSurfaceMaterial* obj)
@@ -232,7 +232,7 @@ void Collector::VisitGeometry(FbxGeometry* obj)
     // shape
 
     if (obj->Is<FbxMesh>())
-        VisitMesh(dynamic_cast<FbxMesh*>(obj));
+        VisitMesh(FbxCast<FbxMesh>(obj));
 }
 
 void Collector::VisitGeometryBase(FbxGeometryBase* obj)
@@ -240,7 +240,7 @@ void Collector::VisitGeometryBase(FbxGeometryBase* obj)
     // TODO: geometry elements
 
     if (obj->Is<FbxGeometry>())
-        VisitGeometry(dynamic_cast<FbxGeometry*>(obj));
+        VisitGeometry(FbxCast<FbxGeometry>(obj));
 }
 
 void VisitLayerElementTexture(Collector* c, FbxLayerElementTexture* tex)
@@ -293,7 +293,7 @@ void Collector::VisitLayerContainer(FbxLayerContainer* layerContainer)
     }
 
     if (layerContainer->Is<FbxGeometryBase>())
-        VisitGeometryBase(dynamic_cast<FbxGeometryBase*>(layerContainer));
+        VisitGeometryBase(FbxCast<FbxGeometryBase>(layerContainer));
 }
 
 void Collector::VisitDocument(FbxDocument* obj)
@@ -310,7 +310,7 @@ void Collector::VisitDocument(FbxDocument* obj)
     }
 
     if (obj->Is<FbxScene>())
-        VisitScene(dynamic_cast<FbxScene*>(obj));
+        VisitScene(FbxCast<FbxScene>(obj));
 }
 
 void Collector::VisitCollection(FbxCollection* obj)
@@ -323,11 +323,11 @@ void Collector::VisitCollection(FbxCollection* obj)
 
 
     if (obj->Is<FbxDocument>())
-        VisitDocument(dynamic_cast<FbxDocument*>(obj));
+        VisitDocument(FbxCast<FbxDocument>(obj));
     else if (obj->Is<FbxAnimStack>())
-        VisitAnimStack(dynamic_cast<FbxAnimStack*>(obj));
+        VisitAnimStack(FbxCast<FbxAnimStack>(obj));
     else if (obj->Is<FbxAnimLayer>())
-        VisitAnimLayer(dynamic_cast<FbxAnimLayer*>(obj));
+        VisitAnimLayer(FbxCast<FbxAnimLayer>(obj));
 }
 
 void Collector::VisitAnimLayer(FbxAnimLayer* obj)
