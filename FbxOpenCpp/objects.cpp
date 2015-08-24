@@ -5,6 +5,7 @@
 #include <set>
 #include <iomanip>
 #include "Collector.h"
+#include <algorithm>
 
 using namespace std;
 

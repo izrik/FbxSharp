@@ -1,6 +1,7 @@
 ﻿
 #include "Collector.h"
 #include "common.h"
+#include <algorithm>
 
 using namespace std;
 

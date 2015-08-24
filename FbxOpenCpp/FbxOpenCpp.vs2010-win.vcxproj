@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5CF9CF6D-8963-4BA7-AA01-6E4AA03D5BC3}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>FbxOpenCppvs2010win</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;FBXSDK_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\Autodesk\FBX\FBX SDK\2015.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Program Files\Autodesk\FBX\FBX SDK\2015.1\lib\vs2010\x86\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "C:\Program Files\Autodesk\FBX\FBX SDK\2015.1\lib\vs2010\x86\debug\libfbxsdk.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AnimCurveKeyTest.cpp" />
+    <ClCompile Include="AnimCurveNodeTest.cpp" />
+    <ClCompile Include="AnimCurveTest.cpp" />
+    <ClCompile Include="AnimLayerTest.cpp" />
+    <ClCompile Include="AnimStackTest.cpp" />
+    <ClCompile Include="Assertions.cpp" />
+    <ClCompile Include="basic_types.cpp" />
+    <ClCompile Include="CameraTest.cpp" />
+    <ClCompile Include="ClusterTest.cpp" />
+    <ClCompile Include="Collector.cpp" />
+    <ClCompile Include="DeformerTest.cpp" />
+    <ClCompile Include="FbxObjectTest.cpp" />
+    <ClCompile Include="FbxTimeTest.cpp" />
+    <ClCompile Include="GeometryBaseTest.cpp" />
+    <ClCompile Include="GeometryTest.cpp" />
+    <ClCompile Include="LayerContainerTest.cpp" />
+    <ClCompile Include="LightTest.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MatrixTest.cpp" />
+    <ClCompile Include="MeshTest.cpp" />
+    <ClCompile Include="NodeTest.cpp" />
+    <ClCompile Include="NodeTransformsTest.cpp" />
+    <ClCompile Include="objects.cpp" />
+    <ClCompile Include="properties.cpp" />
+    <ClCompile Include="PropertyTest.cpp" />
+    <ClCompile Include="SceneTest.cpp" />
+    <ClCompile Include="SkinTest.cpp" />
+    <ClCompile Include="SubDeformerTest.cpp" />
+    <ClCompile Include="SurfacePhongTest.cpp" />
+    <ClCompile Include="TestFixture.cpp" />
+    <ClCompile Include="TestRunner.cpp" />
+    <ClCompile Include="textures.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Assertions.h" />
+    <ClInclude Include="Collector.h" />
+    <ClInclude Include="common.h" />
+    <ClInclude Include="Tests.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="gen_tests.sh" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
