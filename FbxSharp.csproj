@@ -162,7 +162,5 @@
     <None Include="test-cases\CameraTest.tc" />
     <None Include=".travis.yml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="test-cases\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

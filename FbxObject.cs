@@ -283,16 +283,76 @@ namespace FbxSharp
         #region Object Name Management
 
         public string Name { get; set; }
+        public ulong UniqueId { get; set; }
+
+        public void SetName(string pName)
+        {
+            Name = pName;
+        }
+
         public string GetName()
         {
             return Name;
         }
 
-        //Returns the unique ID of this object.
-        public ulong UniqueId { get; set; } //protected set; }
+        public string GetNameWithoutNameSpacePrefix()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetNameWithNameSpacePrefix()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetInitialName(string pName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetInitialName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetNameSpaceOnly()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetNameSpace(string pNameSpace)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string[] GetNameSpaceArray(char identifier)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetNameOnly()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetNameSpacePrefix()
+        {
+            throw new NotImplementedException();
+        }
+
         public ulong GetUniqueID()
         {
             return UniqueId;
+        }
+
+        public static string RemovePrefix(string pName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static string StripPrefix(string lName)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
