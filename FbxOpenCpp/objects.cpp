@@ -88,13 +88,26 @@ void PrintObject(FbxObject* obj)
 {
     cout << "$"; PrintObjectID(obj); cout << endl;  // extra $ for easy text search
     cout << "    Name = " << quote(obj->GetName()) << endl;
+    cout << "      GetNameWithoutNameSpacePrefix = " << quote(obj->GetNameWithoutNameSpacePrefix()) << endl;
+    cout << "      GetNameWithNameSpacePrefix = " << quote(obj->GetNameWithNameSpacePrefix()) << endl;
+    cout << "      GetInitialName = " << quote(obj->GetInitialName()) << endl;
+    cout << "      GetNameSpaceOnly = " << quote(obj->GetNameSpaceOnly()) << endl;
+    FbxArray<FbxString*> namespaces = obj->GetNameSpaceArray('n');
+    cout << "      GetNameSpaceArray (" << namespaces.GetCount() << ")" << endl;
+    int i;
+    for (i = 0; i < namespaces.GetCount(); i++)
+    {
+        FbxString* ns = namespaces.GetAt(i);
+        cout << "        # " << i << " " << quote(*ns) << endl;
+    }
+    cout << "      GetNameOnly = " << quote(obj->GetNameOnly()) << endl;
+    cout << "      GetNameSpacePrefix = " << quote(obj->GetNameSpacePrefix()) << endl;
     cout << "    ClassId = " << obj->GetRuntimeClassId().GetName() << endl;
     cout << "    UniqueId = " << obj->GetUniqueID() << endl;
     cout << "    GetScene() = "; PrintObjectID(obj->GetScene()); cout << endl;
     cout << "    GetDocument() = "; PrintObjectID(obj->GetDocument()); cout << endl;
     cout << "    GetRootDocument() = "; PrintObjectID(obj->GetRootDocument()); cout << endl;
     cout << "    SrcObjectCount = " << obj->GetSrcObjectCount() << endl;
-    int i;
     for (i = 0; i < obj->GetSrcObjectCount(); i++)
     {
         FbxObject* srcObj = obj->GetSrcObject(i);
