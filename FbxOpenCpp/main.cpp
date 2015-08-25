@@ -9,6 +9,15 @@
 #include <fbxsdk.h>
 #include <iomanip>
 
+#include <stdio.h>  /* defines FILENAME_MAX */
+#ifdef WIN32
+    #include <direct.h>
+    #define __getcwd _getcwd
+#else
+    #include <unistd.h>
+    #define __getcwd getcwd
+ #endif
+
 using namespace std;
 
 #include "common.h"
@@ -63,6 +72,10 @@ FbxScene* Load(const char* filename, FbxManager* manager)
     {
         manager = FbxManager::Create();
     }
+
+    char cwd[1024];
+    __getcwd(cwd, 1024);
+    cout << "Loading file " << quote(filename) << " from cwd " << quote(cwd) << "." << endl;
 
     FbxScene* pScene = FbxScene::Create(manager, "My Scene");
 
