@@ -41,5 +41,28 @@ namespace FbxSharpTests
             Assert.NotNull(obj.GetClassRootProperty());
             Assert.True(obj.GetClassRootProperty().IsValid());
         }
+
+        [Test]
+        public void FbxObject_GetName_GetsName()
+        {
+            // given:
+            var obj = new FbxObject("asdf");
+
+            // then:
+            Assert.AreEqual("asdf", obj.GetName());
+        }
+
+        [Test]
+        public void FbxObject_SetName_SetsName()
+        {
+            // given:
+            var obj = new FbxObject("asdf");
+
+            // when:
+            obj.SetName("qwer");
+
+            // then:
+            Assert.AreEqual("qwer", obj.GetName());
+        }
     }
 }

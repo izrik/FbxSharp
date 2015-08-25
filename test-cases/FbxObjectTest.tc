@@ -27,3 +27,21 @@ test FbxObject_Create_HasClassRootProperty
 
 // what do class root properties do in the case of inheritance?
 // does FbxSurfacePhong have its own class root property and FbxSurfaceLambert another?
+
+test FbxObject_GetName_GetsName
+    given
+    FbxObject obj = new("asdf")
+
+    then
+    AssertEqual("asdf", obj.GetName())
+
+test FbxObject_SetName_SetsName
+    given
+    FbxObject obj = new("asdf")
+
+    when
+    obj.SetName("qwer")
+
+    then
+    AssertEqual("qwer", obj.GetName())
+
