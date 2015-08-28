@@ -16,7 +16,9 @@
 #else
     #include <unistd.h>
     #define __getcwd getcwd
- #endif
+#endif
+
+#include "OutputDebugStringBuf.h"
 
 using namespace std;
 
@@ -30,6 +32,20 @@ size_t len(T(&arr)[N]) { return N; }
 
 int main (int argc, char *argv[])
 {
+     #ifndef NDEBUG
+        #ifdef _WIN32
+            static OutputDebugStringBuf<char> charDebugOutput;
+            std::cout.rdbuf(&charDebugOutput);
+            std::cerr.rdbuf(&charDebugOutput);
+            std::clog.rdbuf(&charDebugOutput);
+
+            static OutputDebugStringBuf<wchar_t> wcharDebugOutput;
+            std::wcout.rdbuf(&wcharDebugOutput);
+            std::wcerr.rdbuf(&wcharDebugOutput);
+            std::wclog.rdbuf(&wcharDebugOutput);
+        #endif
+    #endif
+
     int n = 0;
 
     const char* filename = "model.fbx";
@@ -39,9 +55,6 @@ int main (int argc, char *argv[])
         case 0: RunTests(); break;
         case 2: LoadAndPrint(filename); break;
     }
-
-    cout << "Press any key to continue." << endl;
-    cin.get();
 
     return 0;
 }
