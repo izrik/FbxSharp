@@ -46,14 +46,13 @@ int main (int argc, char *argv[])
         #endif
     #endif
 
-    int n = 0;
-
-    const char* filename = "model.fbx";
-
-    switch (n)
+    if (argc > 1)
     {
-        case 0: RunTests(); break;
-        case 2: LoadAndPrint(filename); break;
+        LoadAndPrint(argv[1]);
+    }
+    else
+    {
+        RunTests();
     }
 
     return 0;
