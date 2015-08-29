@@ -14,7 +14,7 @@ void PrintObjectID(FbxObject* obj);
 std::string id(FbxObject* obj);
 void PrintPropertyID(FbxProperty* prop);
 
-void PrintObject(FbxObject* obj);
+void PrintObject(FbxObject* obj, bool branch=true, bool printProperties=true);
 
 void PrintScene(FbxScene* obj);
 

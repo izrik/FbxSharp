@@ -84,7 +84,7 @@ void PrintPropertyID(FbxProperty* prop)
     }
 }
 
-void PrintObject(FbxObject* obj)
+void PrintObject(FbxObject* obj, bool branch, bool printProperties)
 {
     cout << "$"; PrintObjectID(obj); cout << endl;  // extra $ for easy text search
     cout << "    Name = " << quote(obj->GetName()) << endl;
@@ -107,90 +107,97 @@ void PrintObject(FbxObject* obj)
     cout << "    GetScene() = "; PrintObjectID(obj->GetScene()); cout << endl;
     cout << "    GetDocument() = "; PrintObjectID(obj->GetDocument()); cout << endl;
     cout << "    GetRootDocument() = "; PrintObjectID(obj->GetRootDocument()); cout << endl;
-    cout << "    SrcObjectCount = " << obj->GetSrcObjectCount() << endl;
-    for (i = 0; i < obj->GetSrcObjectCount(); i++)
+
+    if (printProperties)
     {
-        FbxObject* srcObj = obj->GetSrcObject(i);
-        cout << "        #" << i << " ";
-        PrintObjectID(srcObj);
-        cout << endl;
-    }
-    cout << "    DstObjectCount = " << obj->GetDstObjectCount() << endl;
-    for (i = 0; i < obj->GetDstObjectCount(); i++)
-    {
-        FbxObject* dstObj = obj->GetDstObject(i);
-        cout << "        #" << i << " ";
-        PrintObjectID(dstObj);
-        cout << endl;
+        cout << "    SrcObjectCount = " << obj->GetSrcObjectCount() << endl;
+        for (i = 0; i < obj->GetSrcObjectCount(); i++)
+        {
+            FbxObject* srcObj = obj->GetSrcObject(i);
+            cout << "        #" << i << " ";
+            PrintObjectID(srcObj);
+            cout << endl;
+        }
+        cout << "    DstObjectCount = " << obj->GetDstObjectCount() << endl;
+        for (i = 0; i < obj->GetDstObjectCount(); i++)
+        {
+            FbxObject* dstObj = obj->GetDstObject(i);
+            cout << "        #" << i << " ";
+            PrintObjectID(dstObj);
+            cout << endl;
+        }
+
+        FbxProperty prop = obj->GetFirstProperty();
+        int n = 0;
+        while (prop.IsValid())
+        {
+            n++;
+            prop = obj->GetNextProperty(prop);
+        }
+        cout << "    Properties " << n << endl;
+
+        prop = obj->GetFirstProperty();
+        n = 0;
+        while (prop.IsValid())
+        {
+            cout << "        #" << n << " ";
+            PrintPropertyID(&prop); cout << endl;
+            PrintProperty(&prop, true);
+            n++;
+            prop = obj->GetNextProperty(prop);
+        }
+
+        cout << "    SrcPropertyCount = " << obj->GetSrcPropertyCount() << endl;
+        for (i = 0; i < obj->GetSrcPropertyCount(); i++)
+        {
+            FbxProperty prop = obj->GetSrcProperty(i);
+            cout << "        #" << i << " ";
+            PrintPropertyID(&prop);
+            cout << endl;
+        }
+        cout << "    DstPropertyCount = " << obj->GetDstPropertyCount() << endl;
+        for (i = 0; i < obj->GetDstPropertyCount(); i++)
+        {
+            FbxProperty prop = obj->GetDstProperty(i);
+            cout << "        #" << i << " ";
+            PrintPropertyID(&prop);
+            cout << endl;
+        }
+        if (obj->RootProperty.IsValid())
+        {
+            cout << "    RootProperty ";
+            PrintPropertyID(&obj->RootProperty); cout << endl; 
+            PrintProperty(&obj->RootProperty);
+        }
     }
 
-    FbxProperty prop = obj->GetFirstProperty();
-    int n = 0;
-    while (prop.IsValid())
+    if (branch)
     {
-        n++;
-        prop = obj->GetNextProperty(prop);
+        if (obj->Is<FbxCollection>())
+            PrintCollection(FbxCast<FbxCollection>(obj));
+        else if (obj->Is<FbxAnimCurve>())
+            PrintAnimCurve(FbxCast<FbxAnimCurve>(obj));
+        else if (obj->Is<FbxAnimCurveNode>())
+            PrintAnimCurveNode(FbxCast<FbxAnimCurveNode>(obj));
+        else if (obj->Is<FbxDeformer>())
+            PrintDeformer(FbxCast<FbxDeformer>(obj));
+        else if (obj->Is<FbxNode>())
+            PrintNode(FbxCast<FbxNode>(obj));
+        else if (obj->Is<FbxNodeAttribute>())
+            PrintNodeAttribute(FbxCast<FbxNodeAttribute>(obj));
+        else if (obj->Is<FbxPose>())
+            PrintPose(FbxCast<FbxPose>(obj));
+        else if (obj->Is<FbxSubDeformer>())
+            PrintSubDeformer(FbxCast<FbxSubDeformer>(obj));
+        else if (obj->Is<FbxSurfaceMaterial>())
+            PrintSurfaceMaterial(FbxCast<FbxSurfaceMaterial>(obj));
+        else if (obj->Is<FbxTexture>())
+            PrintTexture(FbxCast<FbxTexture>(obj));
+        else if (obj->Is<FbxVideo>())
+            PrintVideo(FbxCast<FbxVideo>(obj));
+        else
+            cout << "Unknown object class: " << obj->GetRuntimeClassId().GetName() << endl;
     }
-    cout << "    Properties " << n << endl;
-
-    prop = obj->GetFirstProperty();
-    n = 0;
-    while (prop.IsValid())
-    {
-        cout << "        #" << n << " ";
-        PrintPropertyID(&prop); cout << endl;
-        PrintProperty(&prop, true);
-        n++;
-        prop = obj->GetNextProperty(prop);
-    }
-
-    cout << "    SrcPropertyCount = " << obj->GetSrcPropertyCount() << endl;
-    for (i = 0; i < obj->GetSrcPropertyCount(); i++)
-    {
-        FbxProperty prop = obj->GetSrcProperty(i);
-        cout << "        #" << i << " ";
-        PrintPropertyID(&prop);
-        cout << endl;
-    }
-    cout << "    DstPropertyCount = " << obj->GetDstPropertyCount() << endl;
-    for (i = 0; i < obj->GetDstPropertyCount(); i++)
-    {
-        FbxProperty prop = obj->GetDstProperty(i);
-        cout << "        #" << i << " ";
-        PrintPropertyID(&prop);
-        cout << endl;
-    }
-    if (obj->RootProperty.IsValid())
-    {
-        cout << "    RootProperty ";
-        PrintPropertyID(&obj->RootProperty); cout << endl; 
-        PrintProperty(&obj->RootProperty);
-    }
-    
-    if (obj->Is<FbxCollection>())
-        PrintCollection(FbxCast<FbxCollection>(obj));
-    else if (obj->Is<FbxAnimCurve>())
-        PrintAnimCurve(FbxCast<FbxAnimCurve>(obj));
-    else if (obj->Is<FbxAnimCurveNode>())
-        PrintAnimCurveNode(FbxCast<FbxAnimCurveNode>(obj));
-    else if (obj->Is<FbxDeformer>())
-        PrintDeformer(FbxCast<FbxDeformer>(obj));
-    else if (obj->Is<FbxNode>())
-        PrintNode(FbxCast<FbxNode>(obj));
-    else if (obj->Is<FbxNodeAttribute>())
-        PrintNodeAttribute(FbxCast<FbxNodeAttribute>(obj));
-    else if (obj->Is<FbxPose>())
-        PrintPose(FbxCast<FbxPose>(obj));
-    else if (obj->Is<FbxSubDeformer>())
-        PrintSubDeformer(FbxCast<FbxSubDeformer>(obj));
-    else if (obj->Is<FbxSurfaceMaterial>())
-        PrintSurfaceMaterial(FbxCast<FbxSurfaceMaterial>(obj));
-    else if (obj->Is<FbxTexture>())
-        PrintTexture(FbxCast<FbxTexture>(obj));
-    else if (obj->Is<FbxVideo>())
-        PrintVideo(FbxCast<FbxVideo>(obj));
-    else
-        cout << "Unknown object class: " << obj->GetRuntimeClassId().GetName() << endl;
 
     cout << endl;
 }
