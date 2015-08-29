@@ -45,3 +45,43 @@ test FbxObject_SetName_SetsName
     then
     AssertEqual("qwer", obj.GetName())
 
+test FbxObject_SetNameSpace_SetsNamespace
+    given
+    FbxObject obj = new("asdf")
+
+    when
+    obj.SetNameSpace("qwer")
+
+    then
+    AssertEqual("qwer", obj.GetNameSpaceOnly())
+
+test FbxObject_GetNameSpaceArray_SplitsNamespace
+    given
+    FbxObject obj = new("asdf")
+    obj.SetNameSpace("name:space")
+    FbxArray<FbxString*> arr
+
+    when
+    arr = obj.GetNameSpaceArray(':')
+
+    then
+    AssertEqual(2, arr&.GetCount())
+    AssertEqual("space", *arr&.GetAt(0))
+    AssertEqual("name", *arr&.GetAt(1))
+
+    when
+    arr = obj.GetNameSpaceArray('s')
+
+    then
+    AssertEqual(2, arr&.GetCount())
+    AssertEqual("pace", *arr&.GetAt(0))
+    AssertEqual("name:", *arr&.GetAt(1))
+
+    when
+    arr = obj.GetNameSpaceArray('a')
+
+    then
+    AssertEqual(3, arr&.GetCount())
+    AssertEqual("ce", *arr&.GetAt(0))
+    AssertEqual("me:sp", *arr&.GetAt(1))
+    AssertEqual("n", *arr&.GetAt(2))

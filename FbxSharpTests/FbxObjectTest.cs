@@ -64,5 +64,52 @@ namespace FbxSharpTests
             // then:
             Assert.AreEqual("qwer", obj.GetName());
         }
+
+        [Test]
+        public void FbxObject_SetNameSpace_SetsNamespace()
+        {
+            // given:
+            var obj = new FbxObject("asdf");
+
+            // when:
+            obj.SetNameSpace("qwer");
+
+            // then:
+            Assert.AreEqual("qwer", obj.GetNameSpaceOnly());
+        }
+
+        [Test]
+        public void FbxObject_GetNameSpaceArray_SplitsNamespace()
+        {
+            // given:
+            var obj = new FbxObject("asdf");
+            obj.SetNameSpace("name:space");
+            string[] arr;
+
+            // when:
+            arr = obj.GetNameSpaceArray(':');
+
+            // then:
+            Assert.AreEqual(2, arr.GetCount());
+            Assert.AreEqual("space", arr.GetAt(0));
+            Assert.AreEqual("name", arr.GetAt(1));
+
+            // when:
+            arr = obj.GetNameSpaceArray('s');
+
+            // then:
+            Assert.AreEqual(2, arr.GetCount());
+            Assert.AreEqual("pace", arr.GetAt(0));
+            Assert.AreEqual("name:", arr.GetAt(1));
+
+            // when:
+            arr = obj.GetNameSpaceArray('a');
+
+            // then:
+            Assert.AreEqual(3, arr.GetCount());
+            Assert.AreEqual("ce", arr.GetAt(0));
+            Assert.AreEqual("me:sp", arr.GetAt(1));
+            Assert.AreEqual("n", arr.GetAt(2));
+        }
     }
 }

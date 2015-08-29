@@ -267,6 +267,11 @@ namespace TestCaseGenerator
                                 {
                                     targetTypeName = "Matrix";
                                 }
+                                if (targetTypeName == "FbxArray<FbxString*>" ||
+                                    targetTypeName == "FbxArray<FbxString>")
+                                {
+                                    targetTypeName = "string[]";
+                                }
 
                                 parts[0] = targetTypeName;
                                 outline = string.Join(" ", parts);
