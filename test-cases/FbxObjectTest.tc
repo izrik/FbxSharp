@@ -92,3 +92,43 @@ test FbxObject_GetNameSpaceArray_SplitsNamespace
     AssertEqual("ce", *arr&.GetAt(0))
     AssertEqual("me:sp", *arr&.GetAt(1))
     AssertEqual("n", *arr&.GetAt(2))
+
+test FbxObject_Create_SetsInitialName
+    given
+    FbxObject obj = new("asdf")
+
+    require
+    AssertEqual("asdf", obj.GetName())
+
+    then
+    AssertEqual("asdf", obj.GetInitialName())
+
+test FbxObject_SetName_DoesntChangeInitialName
+    given
+    FbxObject obj = new("asdf")
+
+    require
+    AssertEqual("asdf", obj.GetInitialName())
+    AssertEqual("asdf", obj.GetName())
+
+    when
+    obj.SetName("qwer")
+
+    then
+    AssertEqual("asdf", obj.GetInitialName())
+    AssertEqual("qwer", obj.GetName())
+
+test FbxObject_SetInitialName_SetsInitialNameAndName
+    given
+    FbxObject obj = new("asdf")
+
+    require
+    AssertEqual("asdf", obj.GetInitialName())
+    AssertEqual("asdf", obj.GetName())
+
+    when
+    obj.SetInitialName("qwer")
+
+    then
+    AssertEqual("qwer", obj.GetInitialName())
+    AssertEqual("qwer", obj.GetName())

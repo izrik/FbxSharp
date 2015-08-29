@@ -10,7 +10,7 @@ namespace FbxSharp
 
         public FbxObject(String name="")
         {
-            Name = name ?? "";
+            SetInitialName(name ?? "");
 
             Properties = new FbxObjectPropertyCollection(this);
             SrcObjects = new ObjectSrcObjectCollection(this);
@@ -307,12 +307,14 @@ namespace FbxSharp
 
         public void SetInitialName(string pName)
         {
-            throw new NotImplementedException();
+            initialName = pName;
+            SetName(pName);
         }
 
+        string initialName = "";
         public string GetInitialName()
         {
-            throw new NotImplementedException();
+            return initialName;
         }
 
         string _namespace = "";

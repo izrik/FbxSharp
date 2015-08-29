@@ -121,5 +121,54 @@ namespace FbxSharpTests
             Assert.AreEqual("me:sp", arr.GetAt(1));
             Assert.AreEqual("n", arr.GetAt(2));
         }
+
+        [Test]
+        public void FbxObject_Create_SetsInitialName()
+        {
+            // given:
+            var obj = new FbxObject("asdf");
+
+            // require:
+            Assert.AreEqual("asdf", obj.GetName());
+
+            // then:
+            Assert.AreEqual("asdf", obj.GetInitialName());
+        }
+
+        [Test]
+        public void FbxObject_SetName_DoesntChangeInitialName()
+        {
+            // given:
+            var obj = new FbxObject("asdf");
+
+            // require:
+            Assert.AreEqual("asdf", obj.GetInitialName());
+            Assert.AreEqual("asdf", obj.GetName());
+
+            // when:
+            obj.SetName("qwer");
+
+            // then:
+            Assert.AreEqual("asdf", obj.GetInitialName());
+            Assert.AreEqual("qwer", obj.GetName());
+        }
+
+        [Test]
+        public void FbxObject_SetInitialName_SetsInitialNameAndName()
+        {
+            // given:
+            var obj = new FbxObject("asdf");
+
+            // require:
+            Assert.AreEqual("asdf", obj.GetInitialName());
+            Assert.AreEqual("asdf", obj.GetName());
+
+            // when:
+            obj.SetInitialName("qwer");
+
+            // then:
+            Assert.AreEqual("qwer", obj.GetInitialName());
+            Assert.AreEqual("qwer", obj.GetName());
+        }
     }
 }

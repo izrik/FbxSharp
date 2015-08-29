@@ -116,6 +116,55 @@ void FbxObject_GetNameSpaceArray_SplitsNamespace()
     AssertEqual("n", *arr.GetAt(2));
 }
 
+void FbxObject_Create_SetsInitialName()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "asdf");
+
+    // require:
+    AssertEqual("asdf", obj->GetName());
+
+    // then:
+    AssertEqual("asdf", obj->GetInitialName());
+}
+
+void FbxObject_SetName_DoesntChangeInitialName()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "asdf");
+
+    // require:
+    AssertEqual("asdf", obj->GetInitialName());
+    AssertEqual("asdf", obj->GetName());
+
+    // when:
+    obj->SetName("qwer");
+
+    // then:
+    AssertEqual("asdf", obj->GetInitialName());
+    AssertEqual("qwer", obj->GetName());
+}
+
+void FbxObject_SetInitialName_SetsInitialNameAndName()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "asdf");
+
+    // require:
+    AssertEqual("asdf", obj->GetInitialName());
+    AssertEqual("asdf", obj->GetName());
+
+    // when:
+    obj->SetInitialName("qwer");
+
+    // then:
+    AssertEqual("qwer", obj->GetInitialName());
+    AssertEqual("qwer", obj->GetName());
+}
+
 void FbxObjectTest::RegisterTestCases()
 {
     AddTestCase(FbxObject_Create_HasZeroProperties);
@@ -126,5 +175,8 @@ void FbxObjectTest::RegisterTestCases()
     AddTestCase(FbxObject_Create_EmptyNamespace);
     AddTestCase(FbxObject_SetNameSpace_SetsNamespace);
     AddTestCase(FbxObject_GetNameSpaceArray_SplitsNamespace);
+    AddTestCase(FbxObject_Create_SetsInitialName);
+    AddTestCase(FbxObject_SetName_DoesntChangeInitialName);
+    AddTestCase(FbxObject_SetInitialName_SetsInitialNameAndName);
 }
 
