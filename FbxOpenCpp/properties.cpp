@@ -83,31 +83,31 @@ void PrintProperty(FbxProperty* prop, bool indent)
             break;
         case eFbxChar:
             ch = prop->Get<char>();
-            sprintf(n, "%i ('%c')", (int)ch, ch);
+            sprintf_s(n, "%i ('%c')", (int)ch, ch);
             break;
         case eFbxUChar:
             uch = prop->Get<unsigned char>();
-            sprintf(n, "%i ('%c')", (unsigned int)uch, uch);
+            sprintf_s(n, "%i ('%c')", (unsigned int)uch, uch);
             break;
         case eFbxShort:
             sh = prop->Get<short>();
-            sprintf(n, "%i", (int)sh);
+            sprintf_s(n, "%i", (int)sh);
             break;
         case eFbxUShort:
             ush = prop->Get<unsigned short>();
-            sprintf(n, "%ui", (unsigned int)ush);
+            sprintf_s(n, "%ui", (unsigned int)ush);
             break;
         case eFbxUInt:
             ui = prop->Get<unsigned int>();
-            sprintf(n, "%ui", ui);
+            sprintf_s(n, "%ui", ui);
             break;
         case eFbxLongLong:
             ll = prop->Get<long long>();
-            sprintf(n, "%lli", ll);
+            sprintf_s(n, "%lli", ll);
             break;
         case eFbxULongLong:
             ull = prop->Get<unsigned long long>();
-            sprintf(n, "%llu", ull);
+            sprintf_s(n, "%llu", ull);
             break;
         case eFbxHalfFloat:
             printValue = false;
@@ -115,33 +115,33 @@ void PrintProperty(FbxProperty* prop, bool indent)
         case eFbxBool:
             b = prop->Get<bool>();
             if (b)
-                sprintf(n, "true");
+                sprintf_s(n, "true");
             else
-                sprintf(n, "false");
+                sprintf_s(n, "false");
             break;
         case eFbxInt:
             i = prop->Get<int>();
-            sprintf(n, "%i", i);
+            sprintf_s(n, "%i", i);
             break;
         case eFbxFloat:
             f = prop->Get<float>();
-            sprintf(n, "%f", f);
+            sprintf_s(n, "%f", f);
             break;
         case eFbxDouble:
             d = prop->Get<double>();
-            sprintf(n, "%lf", d);
+            sprintf_s(n, "%lf", d);
             break;
         case eFbxDouble2:
             v2 = prop->Get<FbxDouble2>();
-            sprintf(n, "%lf, %lf", v2[0], v2[1]);
+            sprintf_s(n, "%lf, %lf", v2[0], v2[1]);
             break;
         case eFbxDouble3:
             v3 = prop->Get<FbxDouble3>();
-            sprintf(n, "%lf, %lf, %lf", v3[0], v3[1], v3[2]);
+            sprintf_s(n, "%lf, %lf, %lf", v3[0], v3[1], v3[2]);
             break;
         case eFbxDouble4:
             v4 = prop->Get<FbxDouble4>();
-            sprintf(n, "%lf, %lf, %lf, %lf", v4[0], v4[1], v4[2], v4[3]);
+            sprintf_s(n, "%lf, %lf, %lf, %lf", v4[0], v4[1], v4[2], v4[3]);
             break;
         case eFbxDouble4x4:
         case eFbxEnum:
@@ -149,14 +149,14 @@ void PrintProperty(FbxProperty* prop, bool indent)
             break;
         case eFbxString:
             fstr = prop->Get<FbxString>();
-            sprintf(n, "%s", fstr.Buffer());
+            sprintf_s(n, "%s", fstr.Buffer());
             s = (fstr.Buffer());
             s = quote(s.c_str());
-            sprintf(n, "%s", s.c_str());
+            sprintf_s(n, "%s", s.c_str());
             break;
         case eFbxTime:
             ss << prop->Get<FbxTime>();
-            sprintf(n, "%s", ss.str().c_str());
+            sprintf_s(n, "%s", ss.str().c_str());
             break;
         case eFbxReference:
 //            FbxObject* obj;
