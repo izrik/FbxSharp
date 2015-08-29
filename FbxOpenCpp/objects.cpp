@@ -92,7 +92,7 @@ void PrintObject(FbxObject* obj, bool branch, bool printProperties)
     cout << "      GetNameWithNameSpacePrefix = " << quote(obj->GetNameWithNameSpacePrefix()) << endl;
     cout << "      GetInitialName = " << quote(obj->GetInitialName()) << endl;
     cout << "      GetNameSpaceOnly = " << quote(obj->GetNameSpaceOnly()) << endl;
-    FbxArray<FbxString*> namespaces = obj->GetNameSpaceArray('n');
+    FbxArray<FbxString*> namespaces = obj->GetNameSpaceArray(':');
     cout << "      GetNameSpaceArray (" << namespaces.GetCount() << ")" << endl;
     int i;
     for (i = 0; i < namespaces.GetCount(); i++)
