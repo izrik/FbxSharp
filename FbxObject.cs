@@ -315,19 +315,20 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
+        string _namespace = "";
         public string GetNameSpaceOnly()
         {
-            throw new NotImplementedException();
+            return _namespace;
         }
 
         public void SetNameSpace(string pNameSpace)
         {
-            throw new NotImplementedException();
+            _namespace = pNameSpace;
         }
 
         public string[] GetNameSpaceArray(char identifier)
         {
-            throw new NotImplementedException();
+            return _namespace.Split(identifier).Reverse().ToArray();
         }
 
         public string GetNameOnly()
