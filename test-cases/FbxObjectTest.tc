@@ -45,6 +45,13 @@ test FbxObject_SetName_SetsName
     then
     AssertEqual("qwer", obj.GetName())
 
+test FbxObject_Create_EmptyNamespace
+    given
+    FbxObject obj = new("asdf")
+
+    then
+    AssertEqual("", obj.GetNameSpaceOnly())
+
 test FbxObject_SetNameSpace_SetsNamespace
     given
     FbxObject obj = new("asdf")

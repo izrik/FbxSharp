@@ -66,6 +66,16 @@ namespace FbxSharpTests
         }
 
         [Test]
+        public void FbxObject_Create_EmptyNamespace()
+        {
+            // given:
+            var obj = new FbxObject("asdf");
+
+            // then:
+            Assert.AreEqual("", obj.GetNameSpaceOnly());
+        }
+
+        [Test]
         public void FbxObject_SetNameSpace_SetsNamespace()
         {
             // given:

@@ -59,6 +59,16 @@ void FbxObject_SetName_SetsName()
     AssertEqual("qwer", obj->GetName());
 }
 
+void FbxObject_Create_EmptyNamespace()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "asdf");
+
+    // then:
+    AssertEqual("", obj->GetNameSpaceOnly());
+}
+
 void FbxObject_SetNameSpace_SetsNamespace()
 {
     // given:
@@ -113,6 +123,7 @@ void FbxObjectTest::RegisterTestCases()
     AddTestCase(FbxObject_Create_HasClassRootProperty);
     AddTestCase(FbxObject_GetName_GetsName);
     AddTestCase(FbxObject_SetName_SetsName);
+    AddTestCase(FbxObject_Create_EmptyNamespace);
     AddTestCase(FbxObject_SetNameSpace_SetsNamespace);
     AddTestCase(FbxObject_GetNameSpaceArray_SplitsNamespace);
 }
