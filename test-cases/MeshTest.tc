@@ -69,4 +69,4 @@ test Mesh_Create_HasNamespacePrefix
     Mesh obj = new("asdf")
 
     then
-    AssertEqual("Geometry::", obj.GetNameSpacePrefix())
+    AssertEqual("Geometry:\:", obj.GetNameSpacePrefix())

@@ -962,7 +962,7 @@ namespace FbxSharpTests
             var obj = new Node("asdf");
 
             // then:
-            Assert.AreEqual("Model.", obj.GetNameSpacePrefix());
+            Assert.AreEqual("Model::", obj.GetNameSpacePrefix());
         }
     }
 }

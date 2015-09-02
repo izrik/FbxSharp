@@ -85,7 +85,7 @@ namespace FbxSharpTests
             var obj = new Mesh("asdf");
 
             // then:
-            Assert.AreEqual("Geometry.", obj.GetNameSpacePrefix());
+            Assert.AreEqual("Geometry::", obj.GetNameSpacePrefix());
         }
     }
 }

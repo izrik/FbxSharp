@@ -14,7 +14,7 @@ namespace FbxSharpTests
             var obj = new AnimStack("asdf");
 
             // then:
-            Assert.AreEqual("AnimStack.", obj.GetNameSpacePrefix());
+            Assert.AreEqual("AnimStack::", obj.GetNameSpacePrefix());
         }
     }
 }

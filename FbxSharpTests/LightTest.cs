@@ -243,7 +243,7 @@ namespace FbxSharpTests
             var obj = new Light("asdf");
 
             // then:
-            Assert.AreEqual("NodeAttribute.", obj.GetNameSpacePrefix());
+            Assert.AreEqual("NodeAttribute::", obj.GetNameSpacePrefix());
         }
     }
 }

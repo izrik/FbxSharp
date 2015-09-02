@@ -203,7 +203,7 @@ namespace FbxSharpTests
             var surface = new SurfacePhong("asdf");
 
             // then:
-            Assert.AreEqual("Material.", surface.GetNameSpacePrefix());
+            Assert.AreEqual("Material::", surface.GetNameSpacePrefix());
         }
     }
 }

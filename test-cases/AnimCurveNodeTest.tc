@@ -68,4 +68,4 @@ test FbxAnimCurveNode_Create_HasNamespacePrefix
     AnimCurveNode obj = new("asdf")
 
     then
-    AssertEqual("AnimCurveNode::", obj.GetNameSpacePrefix())
+    AssertEqual("AnimCurveNode:\:", obj.GetNameSpacePrefix())

@@ -875,7 +875,7 @@ namespace FbxSharpTests
             var obj = new Camera("asdf");
 
             // then:
-            Assert.AreEqual("NodeAttribute.", obj.GetNameSpacePrefix());
+            Assert.AreEqual("NodeAttribute::", obj.GetNameSpacePrefix());
         }
     }
 }

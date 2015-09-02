@@ -74,7 +74,7 @@ namespace FbxSharpTests
             var obj = new Skin("asdf");
 
             // then:
-            Assert.AreEqual("Deformer.", obj.GetNameSpacePrefix());
+            Assert.AreEqual("Deformer::", obj.GetNameSpacePrefix());
         }
     }
 }

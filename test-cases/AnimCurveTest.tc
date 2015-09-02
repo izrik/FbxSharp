@@ -458,5 +458,5 @@ test FbxAnimCurve_Create_HasNamespacePrefix
     AnimCurve obj = new("asdf")
 
     then
-    AssertEqual("AnimCurve::", obj.GetNameSpacePrefix())
+    AssertEqual("AnimCurve:\:", obj.GetNameSpacePrefix())
 

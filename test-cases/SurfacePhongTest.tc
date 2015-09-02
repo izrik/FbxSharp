@@ -190,4 +190,4 @@ test SurfacePhong_Create_HasNamespacePrefix
     SurfacePhong surface = new("asdf")
 
     then
-    AssertEqual("Material::", surface.GetNameSpacePrefix())
+    AssertEqual("Material:\:", surface.GetNameSpacePrefix())

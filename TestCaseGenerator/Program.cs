@@ -227,6 +227,7 @@ namespace TestCaseGenerator
                                     @"(\S)\*(\S)",
                                     m => m.Groups[1].Value + m.Groups[2].Value);
                             outline = outline.Replace("::", ".");
+                            outline = outline.Replace(":\\:", "::");
 
                             outline = Regex.Replace(outline, @"\bFbx\$", "");
 
@@ -355,6 +356,7 @@ namespace TestCaseGenerator
                             var outline = stmt;
 
                             outline = outline.Replace("AssertSame", "AssertEqual");
+                            outline = outline.Replace(":\\:", "::");
 
                             parts = outline.Split(' ').ToList();
                             if ((parts.Count > 3 && parts[2] == "=" && !parts[0].StartsWith("Fbx")) ||

@@ -368,4 +368,4 @@ test Scene_Create_HasNamespacePrefix
     Scene obj = new("asdf")
 
     then
-    AssertEqual("Scene::", obj.GetNameSpacePrefix())
+    AssertEqual("Scene:\:", obj.GetNameSpacePrefix())

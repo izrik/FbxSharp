@@ -43,7 +43,7 @@ namespace FbxSharpTests
             var obj = new Cluster("asdf");
 
             // then:
-            Assert.AreEqual("SubDeformer.", obj.GetNameSpacePrefix());
+            Assert.AreEqual("SubDeformer::", obj.GetNameSpacePrefix());
         }
     }
 }

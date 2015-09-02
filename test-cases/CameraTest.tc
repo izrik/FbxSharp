@@ -864,5 +864,5 @@ test FbxCamera_Create_HasNamespacePrefix
     Camera obj = new("asdf")
 
     then
-    AssertEqual("NodeAttribute::", obj.GetNameSpacePrefix())
+    AssertEqual("NodeAttribute:\:", obj.GetNameSpacePrefix())
 

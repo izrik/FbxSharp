@@ -30,4 +30,4 @@ test FbxCluster_Create_HasNamespacePrefix
     Cluster obj = new("asdf")
 
     then
-    AssertEqual("SubDeformer::", obj.GetNameSpacePrefix())
+    AssertEqual("SubDeformer:\:", obj.GetNameSpacePrefix())

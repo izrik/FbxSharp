@@ -404,7 +404,7 @@ namespace FbxSharpTests
             var obj = new Scene("asdf");
 
             // then:
-            Assert.AreEqual("Scene.", obj.GetNameSpacePrefix());
+            Assert.AreEqual("Scene::", obj.GetNameSpacePrefix());
         }
     }
 }

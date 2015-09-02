@@ -931,4 +931,4 @@ test Node_Create_HasNamespacePrefix
     Node obj = new("asdf")
 
     then
-    AssertEqual("Model::", obj.GetNameSpacePrefix())
+    AssertEqual("Model:\:", obj.GetNameSpacePrefix())

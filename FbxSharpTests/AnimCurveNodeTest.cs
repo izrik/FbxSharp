@@ -82,7 +82,7 @@ namespace FbxSharpTests
             var obj = new AnimCurveNode("asdf");
 
             // then:
-            Assert.AreEqual("AnimCurveNode.", obj.GetNameSpacePrefix());
+            Assert.AreEqual("AnimCurveNode::", obj.GetNameSpacePrefix());
         }
     }
 }

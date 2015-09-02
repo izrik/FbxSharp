@@ -58,4 +58,4 @@ test Skin_Create_HasNamespacePrefix
     Skin obj = new("asdf")
 
     then
-    AssertEqual("Deformer::", obj.GetNameSpacePrefix())
+    AssertEqual("Deformer:\:", obj.GetNameSpacePrefix())

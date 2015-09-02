@@ -230,5 +230,5 @@ test Light_Create_HasNamespacePrefix
     Light obj = new("asdf")
 
     then
-    AssertEqual("NodeAttribute::", obj.GetNameSpacePrefix())
+    AssertEqual("NodeAttribute:\:", obj.GetNameSpacePrefix())
 
