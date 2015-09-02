@@ -170,5 +170,15 @@ namespace FbxSharpTests
             Assert.AreEqual("qwer", obj.GetInitialName());
             Assert.AreEqual("qwer", obj.GetName());
         }
+
+        [Test]
+        public void FbxObject_Create_HasNamespacePrefix()
+        {
+            // given:
+            var obj = new FbxObject("asdf");
+
+            // then:
+            Assert.AreEqual("", obj.GetNameSpacePrefix());
+        }
     }
 }

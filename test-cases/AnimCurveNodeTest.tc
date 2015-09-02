@@ -62,3 +62,10 @@ test AnimCurveNodeTest_ConnectToChannel_AddsSrcConnection
     AssertTrue(prop&.IsValid())
     AssertEqual(1, prop&.GetSrcObjectCount())
     AssertSame(ac, prop&.GetSrcObject(0))
+
+test FbxAnimCurveNode_Create_HasNamespacePrefix
+    given
+    AnimCurveNode obj = new("asdf")
+
+    then
+    AssertEqual("AnimCurveNode::", obj.GetNameSpacePrefix())

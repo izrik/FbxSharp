@@ -453,3 +453,10 @@ test AnimCurve_ThreeKeyVaryInValue_EvaluationsAreCorrect
     time = new FbxTime(2300)
     AssertEqual(1.116450f, ac.Evaluate(*time), 0.000001)
 
+test FbxAnimCurve_Create_HasNamespacePrefix
+    given
+    AnimCurve obj = new("asdf")
+
+    then
+    AssertEqual("AnimCurve::", obj.GetNameSpacePrefix())
+

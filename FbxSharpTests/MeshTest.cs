@@ -77,5 +77,15 @@ namespace FbxSharpTests
             Assert.AreEqual("BBoxMax", mesh.BBoxMax.GetName());
             Assert.AreSame(prop, mesh.BBoxMax);
         }
+
+        [Test]
+        public void Mesh_Create_HasNamespacePrefix()
+        {
+            // given:
+            var obj = new Mesh("asdf");
+
+            // then:
+            Assert.AreEqual("Geometry.", obj.GetNameSpacePrefix());
+        }
     }
 }

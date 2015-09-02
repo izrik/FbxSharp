@@ -867,5 +867,15 @@ namespace FbxSharpTests
             Assert.AreEqual("FrameSamplingType", camera.FrameSamplingType.GetName());
             Assert.AreSame(prop, camera.FrameSamplingType);
         }
+
+        [Test]
+        public void FbxCamera_Create_HasNamespacePrefix()
+        {
+            // given:
+            var obj = new Camera("asdf");
+
+            // then:
+            Assert.AreEqual("NodeAttribute.", obj.GetNameSpacePrefix());
+        }
     }
 }

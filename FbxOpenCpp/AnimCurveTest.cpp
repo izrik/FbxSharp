@@ -486,6 +486,16 @@ void AnimCurve_ThreeKeyVaryInValue_EvaluationsAreCorrect()
     AssertEqual(1.116450f, ac->Evaluate(*time), 0.000001);
 }
 
+void FbxAnimCurve_Create_HasNamespacePrefix()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxAnimCurve* obj = FbxAnimCurve::Create(manager, "asdf");
+
+    // then:
+    AssertEqual("AnimCurve::", obj->GetNameSpacePrefix());
+}
+
 void AnimCurveTest::RegisterTestCases()
 {
     AddTestCase(AnimCurveDef_Defaults);
@@ -498,5 +508,6 @@ void AnimCurveTest::RegisterTestCases()
     AddTestCase(AnimCurve_ThreeKeyBasic_EvaluationsAreCorrect);
     AddTestCase(AnimCurve_ThreeKeyVaryInTime_EvaluationsAreCorrect);
     AddTestCase(AnimCurve_ThreeKeyVaryInValue_EvaluationsAreCorrect);
+    AddTestCase(FbxAnimCurve_Create_HasNamespacePrefix);
 }
 

@@ -7,5 +7,14 @@ namespace FbxSharpTests
     [TestFixture]
     public class AnimStackTest : TestBase
     {
+        [Test]
+        public void FbxAnimStack_Create_HasNamespacePrefix()
+        {
+            // given:
+            var obj = new AnimStack("asdf");
+
+            // then:
+            Assert.AreEqual("AnimStack.", obj.GetNameSpacePrefix());
+        }
     }
 }

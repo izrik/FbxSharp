@@ -195,5 +195,15 @@ namespace FbxSharpTests
             Assert.AreEqual("ReflectionFactor", surface.ReflectionFactor.GetName());
             Assert.AreSame(prop, surface.ReflectionFactor);
         }
+
+        [Test]
+        public void SurfacePhong_Create_HasNamespacePrefix()
+        {
+            // given:
+            var surface = new SurfacePhong("asdf");
+
+            // then:
+            Assert.AreEqual("Material.", surface.GetNameSpacePrefix());
+        }
     }
 }

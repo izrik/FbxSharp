@@ -546,8 +546,19 @@ void Camera_Create_HasProperties()
     AssertEqual("FrameSamplingType", camera->FrameSamplingType.GetName());
 }
 
+void FbxCamera_Create_HasNamespacePrefix()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxCamera* obj = FbxCamera::Create(manager, "asdf");
+
+    // then:
+    AssertEqual("NodeAttribute::", obj->GetNameSpacePrefix());
+}
+
 void CameraTest::RegisterTestCases()
 {
     AddTestCase(Camera_Create_HasProperties);
+    AddTestCase(FbxCamera_Create_HasNamespacePrefix);
 }
 

@@ -56,9 +56,20 @@ void Mesh_Create_HasProperties()
     AssertEqual("BBoxMax", mesh->BBoxMax.GetName());
 }
 
+void Mesh_Create_HasNamespacePrefix()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxMesh* obj = FbxMesh::Create(manager, "asdf");
+
+    // then:
+    AssertEqual("Geometry::", obj->GetNameSpacePrefix());
+}
+
 void MeshTest::RegisterTestCases()
 {
     AddTestCase(Mesh_Create);
     AddTestCase(Mesh_Create_HasProperties);
+    AddTestCase(Mesh_Create_HasNamespacePrefix);
 }
 

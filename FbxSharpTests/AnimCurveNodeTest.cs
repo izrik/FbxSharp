@@ -74,5 +74,15 @@ namespace FbxSharpTests
             Assert.AreEqual(1, prop.GetSrcObjectCount());
             Assert.AreSame(ac, prop.GetSrcObject(0));
         }
+
+        [Test]
+        public void FbxAnimCurveNode_Create_HasNamespacePrefix()
+        {
+            // given:
+            var obj = new AnimCurveNode("asdf");
+
+            // then:
+            Assert.AreEqual("AnimCurveNode.", obj.GetNameSpacePrefix());
+        }
     }
 }

@@ -381,6 +381,16 @@ void Scene_AddObjectWithSrcObjects_AddsAllSrcObjects()
     AssertEqual(scene, c2->GetScene());
 }
 
+void Scene_Create_HasNamespacePrefix()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxScene* obj = FbxScene::Create(manager, "asdf");
+
+    // then:
+    AssertEqual("Scene::", obj->GetNameSpacePrefix());
+}
+
 void SceneTest::RegisterTestCases()
 {
     AddTestCase(Scene_AddNode_AddsNode);
@@ -392,5 +402,6 @@ void SceneTest::RegisterTestCases()
     AddTestCase(Scene_Create_HasProperties);
     AddTestCase(Document_Create_HasProperties);
     AddTestCase(Scene_AddObjectWithSrcObjects_AddsAllSrcObjects);
+    AddTestCase(Scene_Create_HasNamespacePrefix);
 }
 

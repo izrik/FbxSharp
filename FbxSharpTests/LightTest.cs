@@ -235,5 +235,15 @@ namespace FbxSharpTests
             Assert.AreEqual("EnableBarnDoor", light.EnableBarnDoor.GetName());
             Assert.AreSame(prop, light.EnableBarnDoor);
         }
+
+        [Test]
+        public void Light_Create_HasNamespacePrefix()
+        {
+            // given:
+            var obj = new Light("asdf");
+
+            // then:
+            Assert.AreEqual("NodeAttribute.", obj.GetNameSpacePrefix());
+        }
     }
 }

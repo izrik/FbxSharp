@@ -71,10 +71,21 @@ void AnimCurveNodeTest_ConnectToChannel_AddsSrcConnection()
     AssertEqual(ac, prop.GetSrcObject(0));
 }
 
+void FbxAnimCurveNode_Create_HasNamespacePrefix()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxAnimCurveNode* obj = FbxAnimCurveNode::Create(manager, "asdf");
+
+    // then:
+    AssertEqual("AnimCurveNode::", obj->GetNameSpacePrefix());
+}
+
 void AnimCurveNodeTest::RegisterTestCases()
 {
     AddTestCase(AnimCurveNodeTest_Create_NoChannels);
     AddTestCase(AnimCurveNodeTest_AddChannel_TwoPropertiesOneChannel);
     AddTestCase(AnimCurveNodeTest_ConnectToChannel_AddsSrcConnection);
+    AddTestCase(FbxAnimCurveNode_Create_HasNamespacePrefix);
 }
 

@@ -24,3 +24,10 @@ test Cluster_SetLink_SetsLink
     AssertEqual(0, node.GetSrcObjectCount())
     AssertEqual(1, node.GetDstObjectCount())
     AssertSame(cluster, node.GetDstObject(0))
+
+test FbxCluster_Create_HasNamespacePrefix
+    given
+    Cluster obj = new("asdf")
+
+    then
+    AssertEqual("SubDeformer::", obj.GetNameSpacePrefix())

@@ -63,3 +63,10 @@ test Mesh_Create_HasProperties
     AssertTrue(mesh.BBoxMax&.IsValid())
     AssertEqual("BBoxMax", mesh.BBoxMax&.GetName())
 #cs AssertAreSame(prop, mesh.BBoxMax)
+
+test Mesh_Create_HasNamespacePrefix
+    given
+    Mesh obj = new("asdf")
+
+    then
+    AssertEqual("Geometry::", obj.GetNameSpacePrefix())

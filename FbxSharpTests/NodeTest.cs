@@ -954,5 +954,15 @@ namespace FbxSharpTests
             Assert.AreEqual(scene, mat.GetDstObject(1));
             Assert.AreEqual(scene, mat.GetScene());
         }
+
+        [Test]
+        public void Node_Create_HasNamespacePrefix()
+        {
+            // given:
+            var obj = new Node("asdf");
+
+            // then:
+            Assert.AreEqual("Model.", obj.GetNameSpacePrefix());
+        }
     }
 }

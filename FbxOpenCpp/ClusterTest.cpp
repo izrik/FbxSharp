@@ -32,8 +32,19 @@ void Cluster_SetLink_SetsLink()
     AssertEqual(cluster, node->GetDstObject(0));
 }
 
+void FbxCluster_Create_HasNamespacePrefix()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxCluster* obj = FbxCluster::Create(manager, "asdf");
+
+    // then:
+    AssertEqual("SubDeformer::", obj->GetNameSpacePrefix());
+}
+
 void ClusterTest::RegisterTestCases()
 {
     AddTestCase(Cluster_SetLink_SetsLink);
+    AddTestCase(FbxCluster_Create_HasNamespacePrefix);
 }
 

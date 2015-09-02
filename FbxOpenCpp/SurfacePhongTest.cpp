@@ -126,8 +126,19 @@ void SurfacePhong_Create_HasProperties()
     AssertEqual("ReflectionFactor", surface->ReflectionFactor.GetName());
 }
 
+void SurfacePhong_Create_HasNamespacePrefix()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxSurfacePhong* surface = FbxSurfacePhong::Create(manager, "asdf");
+
+    // then:
+    AssertEqual("Material::", surface->GetNameSpacePrefix());
+}
+
 void SurfacePhongTest::RegisterTestCases()
 {
     AddTestCase(SurfacePhong_Create_HasProperties);
+    AddTestCase(SurfacePhong_Create_HasNamespacePrefix);
 }
 

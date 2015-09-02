@@ -132,3 +132,10 @@ test FbxObject_SetInitialName_SetsInitialNameAndName
     then
     AssertEqual("qwer", obj.GetInitialName())
     AssertEqual("qwer", obj.GetName())
+
+test FbxObject_Create_HasNamespacePrefix
+    given
+    FbxObject obj = new("asdf")
+
+    then
+    AssertEqual("", obj.GetNameSpacePrefix())

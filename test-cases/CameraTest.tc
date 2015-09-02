@@ -859,3 +859,10 @@ test Camera_Create_HasProperties
     AssertEqual("FrameSamplingType", camera.FrameSamplingType&.GetName())
 #cs AssertSame(prop, camera.FrameSamplingType)
 
+test FbxCamera_Create_HasNamespacePrefix
+    given
+    Camera obj = new("asdf")
+
+    then
+    AssertEqual("NodeAttribute::", obj.GetNameSpacePrefix())
+

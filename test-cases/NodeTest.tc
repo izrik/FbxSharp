@@ -925,3 +925,10 @@ test Node_AddMaterial_SetsMaterialScene
     AssertEqual(node, mat.GetDstObject(0))
     AssertEqual(scene, mat.GetDstObject(1))
     AssertEqual(scene, mat.GetScene())
+
+test Node_Create_HasNamespacePrefix
+    given
+    Node obj = new("asdf")
+
+    then
+    AssertEqual("Model::", obj.GetNameSpacePrefix())

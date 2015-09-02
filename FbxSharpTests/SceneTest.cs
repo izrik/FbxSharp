@@ -396,5 +396,15 @@ namespace FbxSharpTests
             Assert.AreSame(scene, c2.GetDstObject(1));
             Assert.AreSame(scene, c2.GetScene());
         }
+
+        [Test]
+        public void Scene_Create_HasNamespacePrefix()
+        {
+            // given:
+            var obj = new Scene("asdf");
+
+            // then:
+            Assert.AreEqual("Scene.", obj.GetNameSpacePrefix());
+        }
     }
 }

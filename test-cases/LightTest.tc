@@ -225,3 +225,10 @@ test Light_Create_HasProperties
     AssertEqual("EnableBarnDoor", light.EnableBarnDoor&.GetName())
 #cs AssertSame(prop, light.EnableBarnDoor)
 
+test Light_Create_HasNamespacePrefix
+    given
+    Light obj = new("asdf")
+
+    then
+    AssertEqual("NodeAttribute::", obj.GetNameSpacePrefix())
+

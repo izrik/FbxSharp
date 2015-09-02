@@ -52,3 +52,10 @@ test Skin_AddCluster_AddsCluster
     AssertEqual(0, c.GetSrcObjectCount())
     AssertEqual(1, c.GetDstObjectCount())
     AssertSame(s, c.GetDstObject(0))
+
+test Skin_Create_HasNamespacePrefix
+    given
+    Skin obj = new("asdf")
+
+    then
+    AssertEqual("Deformer::", obj.GetNameSpacePrefix())

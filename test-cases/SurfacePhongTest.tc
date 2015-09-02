@@ -184,3 +184,10 @@ test SurfacePhong_Create_HasProperties
     AssertTrue(surface.ReflectionFactor&.IsValid())
     AssertEqual("ReflectionFactor", surface.ReflectionFactor&.GetName())
 #cs AssertAreSame(prop, surface.ReflectionFactor)
+
+test SurfacePhong_Create_HasNamespacePrefix
+    given
+    SurfacePhong surface = new("asdf")
+
+    then
+    AssertEqual("Material::", surface.GetNameSpacePrefix())

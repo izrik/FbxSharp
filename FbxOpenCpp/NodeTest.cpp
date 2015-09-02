@@ -738,6 +738,16 @@ void Node_AddMaterial_SetsMaterialScene()
     AssertEqual(scene, mat->GetScene());
 }
 
+void Node_Create_HasNamespacePrefix()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxNode* obj = FbxNode::Create(manager, "asdf");
+
+    // then:
+    AssertEqual("Model::", obj->GetNameSpacePrefix());
+}
+
 void NodeTest::RegisterTestCases()
 {
     AddTestCase(RootNode_AddChild_AddsConnection);
@@ -748,5 +758,6 @@ void NodeTest::RegisterTestCases()
     AddTestCase(Node_AddSrcObject_SetsNodeAttribute);
     AddTestCase(Node_Create_HasProperties);
     AddTestCase(Node_AddMaterial_SetsMaterialScene);
+    AddTestCase(Node_Create_HasNamespacePrefix);
 }
 

@@ -362,3 +362,10 @@ test Scene_AddObjectWithSrcObjects_AddsAllSrcObjects
     AssertSame(n2, c2.GetDstObject(0))
     AssertSame(scene, c2.GetDstObject(1))
     AssertSame(scene, c2.GetScene())
+
+test Scene_Create_HasNamespacePrefix
+    given
+    Scene obj = new("asdf")
+
+    then
+    AssertEqual("Scene::", obj.GetNameSpacePrefix())

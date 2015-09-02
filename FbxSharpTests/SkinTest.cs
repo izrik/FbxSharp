@@ -66,5 +66,15 @@ namespace FbxSharpTests
             Assert.AreEqual(1, c.GetDstObjectCount());
             Assert.AreSame(s, c.GetDstObject(0));
         }
+
+        [Test]
+        public void Skin_Create_HasNamespacePrefix()
+        {
+            // given:
+            var obj = new Skin("asdf");
+
+            // then:
+            Assert.AreEqual("Deformer.", obj.GetNameSpacePrefix());
+        }
     }
 }

@@ -151,8 +151,19 @@ void Light_Create_HasProperties()
     AssertEqual("EnableBarnDoor", light->EnableBarnDoor.GetName());
 }
 
+void Light_Create_HasNamespacePrefix()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxLight* obj = FbxLight::Create(manager, "asdf");
+
+    // then:
+    AssertEqual("NodeAttribute::", obj->GetNameSpacePrefix());
+}
+
 void LightTest::RegisterTestCases()
 {
     AddTestCase(Light_Create_HasProperties);
+    AddTestCase(Light_Create_HasNamespacePrefix);
 }
 

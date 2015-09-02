@@ -63,9 +63,20 @@ void Skin_AddCluster_AddsCluster()
     AssertEqual(s, c->GetDstObject(0));
 }
 
+void Skin_Create_HasNamespacePrefix()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxSkin* obj = FbxSkin::Create(manager, "asdf");
+
+    // then:
+    AssertEqual("Deformer::", obj->GetNameSpacePrefix());
+}
+
 void SkinTest::RegisterTestCases()
 {
     AddTestCase(Skin_SetGeometry_SetsGeometry);
     AddTestCase(Skin_AddCluster_AddsCluster);
+    AddTestCase(Skin_Create_HasNamespacePrefix);
 }
 

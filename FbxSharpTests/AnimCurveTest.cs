@@ -490,5 +490,15 @@ namespace FbxSharpTests
             time = new FbxTime(2300);
             Assert.AreEqual(1.116450f, ac.Evaluate(time), 0.000001);
         }
+
+        [Test]
+        public void FbxAnimCurve_Create_HasNamespacePrefix()
+        {
+            // given:
+            var obj = new AnimCurve("asdf");
+
+            // then:
+            Assert.AreEqual("AnimCurve.", obj.GetNameSpacePrefix());
+        }
     }
 }

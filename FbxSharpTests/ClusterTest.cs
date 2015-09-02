@@ -35,5 +35,15 @@ namespace FbxSharpTests
             Assert.AreEqual(1, node.GetDstObjectCount());
             Assert.AreSame(cluster, node.GetDstObject(0));
         }
+
+        [Test]
+        public void FbxCluster_Create_HasNamespacePrefix()
+        {
+            // given:
+            var obj = new Cluster("asdf");
+
+            // then:
+            Assert.AreEqual("SubDeformer.", obj.GetNameSpacePrefix());
+        }
     }
 }
