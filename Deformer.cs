@@ -18,6 +18,11 @@ namespace FbxSharp
         }
 
         public abstract EDeformerType GetDeformerType();
+
+        public override string GetNameSpacePrefix()
+        {
+            return "Deformer::";
+        }
     }
 }
 

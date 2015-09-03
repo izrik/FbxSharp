@@ -29,6 +29,11 @@ namespace FbxSharp
         }
 
         public abstract EType GetSubDeformerType();
+
+        public override string GetNameSpacePrefix()
+        {
+            return "SubDeformer::";
+        }
     }
 }
 

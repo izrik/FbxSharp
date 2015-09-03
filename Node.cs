@@ -442,6 +442,12 @@ namespace FbxSharp
             eSourcePivot,
             eDestinationPivot,
         }
+
+        public override string GetNameSpacePrefix()
+        {
+            return "Model::";
+        }
+
     }
 }
 

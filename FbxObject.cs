@@ -338,9 +338,9 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public string GetNameSpacePrefix()
+        public virtual string GetNameSpacePrefix()
         {
-            throw new NotImplementedException();
+            return "";
         }
 
         public ulong GetUniqueID()

@@ -65,6 +65,11 @@ namespace FbxSharp
         public readonly PropertyT<Vector3> Color = new PropertyT<Vector3>("Color");
 
         #endregion
+
+        public override string GetNameSpacePrefix()
+        {
+            return "NodeAttribute::";
+        }
     }
 }
 

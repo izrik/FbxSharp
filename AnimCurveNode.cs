@@ -146,6 +146,11 @@ namespace FbxSharp
 
 
         #endregion
+
+        public override string GetNameSpacePrefix()
+        {
+            return "AnimCurveNode::";
+        }
     }
 }
 

@@ -19,6 +19,11 @@ namespace FbxSharp
         public readonly PropertyT<bool>   MultiLayer   = new PropertyT<bool>("MultiLayer");
 
         #endregion
-	}
+
+        public override string GetNameSpacePrefix()
+        {
+            return "Material::";
+        }
+    }
 }
 
