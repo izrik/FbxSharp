@@ -343,3 +343,26 @@ test Mesh_SetNameSpaceAndGetNameWithoutNameSpacePrefix_IncludesNamespace
 
     then
     AssertEqual("Geometry:\:asdf", obj.GetNameWithNameSpacePrefix())
+
+////////////////////////
+
+test Mesh_SetNameUsingColons_IncludesNamespace
+    given
+    Mesh obj = new("asdf:\:Something|zxcv|qwer")
+
+    then
+    AssertEqual("asdf:\:Something|zxcv|qwer", obj.GetName())
+    AssertEqual("", obj.GetNameSpaceOnly())
+    AssertEqual("Geometry:\:", obj.GetNameSpacePrefix())
+    AssertEqual("Geometry:\:asdf:\:Something|zxcv|qwer", obj.GetNameWithNameSpacePrefix())
+
+test Mesh_SetNameUsingColonsandSetNameSpace_IncludesNamespace
+    given
+    Mesh obj = new("asdf:\:Something|zxcv|qwer")
+    obj.SetNameSpace("uiop:\:hjkl|cvbn|dfgh");
+
+    then
+    AssertEqual("asdf:\:Something|zxcv|qwer", obj.GetName())
+    AssertEqual("uiop:\:hjkl|cvbn|dfgh", obj.GetNameSpaceOnly())
+    AssertEqual("Geometry:\:", obj.GetNameSpacePrefix())
+    AssertEqual("Geometry:\:asdf:\:Something|zxcv|qwer", obj.GetNameWithNameSpacePrefix())

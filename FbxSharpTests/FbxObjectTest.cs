@@ -430,5 +430,32 @@ namespace FbxSharpTests
             // then:
             Assert.AreEqual("Geometry::asdf", obj.GetNameWithNameSpacePrefix());
         }
+
+        [Test]
+        public void Mesh_SetNameUsingColons_IncludesNamespace()
+        {
+            // given:
+            var obj = new Mesh("asdf::Something|zxcv|qwer");
+
+            // then:
+            Assert.AreEqual("asdf::Something|zxcv|qwer", obj.GetName());
+            Assert.AreEqual("", obj.GetNameSpaceOnly());
+            Assert.AreEqual("Geometry::", obj.GetNameSpacePrefix());
+            Assert.AreEqual("Geometry::asdf::Something|zxcv|qwer", obj.GetNameWithNameSpacePrefix());
+        }
+
+        [Test]
+        public void Mesh_SetNameUsingColonsandSetNameSpace_IncludesNamespace()
+        {
+            // given:
+            var obj = new Mesh("asdf::Something|zxcv|qwer");
+            obj.SetNameSpace("uiop::hjkl|cvbn|dfgh");;
+
+            // then:
+            Assert.AreEqual("asdf::Something|zxcv|qwer", obj.GetName());
+            Assert.AreEqual("uiop::hjkl|cvbn|dfgh", obj.GetNameSpaceOnly());
+            Assert.AreEqual("Geometry::", obj.GetNameSpacePrefix());
+            Assert.AreEqual("Geometry::asdf::Something|zxcv|qwer", obj.GetNameWithNameSpacePrefix());
+        }
     }
 }

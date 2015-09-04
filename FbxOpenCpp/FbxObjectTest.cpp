@@ -425,6 +425,33 @@ void Mesh_SetNameSpaceAndGetNameWithoutNameSpacePrefix_IncludesNamespace()
     AssertEqual("Geometry::asdf", obj->GetNameWithNameSpacePrefix());
 }
 
+void Mesh_SetNameUsingColons_IncludesNamespace()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxMesh* obj = FbxMesh::Create(manager, "asdf::Something|zxcv|qwer");
+
+    // then:
+    AssertEqual("asdf::Something|zxcv|qwer", obj->GetName());
+    AssertEqual("", obj->GetNameSpaceOnly());
+    AssertEqual("Geometry::", obj->GetNameSpacePrefix());
+    AssertEqual("Geometry::asdf::Something|zxcv|qwer", obj->GetNameWithNameSpacePrefix());
+}
+
+void Mesh_SetNameUsingColonsandSetNameSpace_IncludesNamespace()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxMesh* obj = FbxMesh::Create(manager, "asdf::Something|zxcv|qwer");
+    obj->SetNameSpace("uiop::hjkl|cvbn|dfgh");;
+
+    // then:
+    AssertEqual("asdf::Something|zxcv|qwer", obj->GetName());
+    AssertEqual("uiop::hjkl|cvbn|dfgh", obj->GetNameSpaceOnly());
+    AssertEqual("Geometry::", obj->GetNameSpacePrefix());
+    AssertEqual("Geometry::asdf::Something|zxcv|qwer", obj->GetNameWithNameSpacePrefix());
+}
+
 void FbxObjectTest::RegisterTestCases()
 {
     AddTestCase(FbxObject_Create_HasZeroProperties);
@@ -455,5 +482,7 @@ void FbxObjectTest::RegisterTestCases()
     AddTestCase(Mesh_SetNameSpaceAndGetNameWithoutNameSpacePrefix_FirstCharacterIsNotMissing);
     AddTestCase(Mesh_GetNameWithoutNameSpacePrefix_GetsNameWithNamespacePrefix);
     AddTestCase(Mesh_SetNameSpaceAndGetNameWithoutNameSpacePrefix_IncludesNamespace);
+    AddTestCase(Mesh_SetNameUsingColons_IncludesNamespace);
+    AddTestCase(Mesh_SetNameUsingColonsandSetNameSpace_IncludesNamespace);
 }
 
