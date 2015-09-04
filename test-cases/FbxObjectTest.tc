@@ -157,6 +157,41 @@ test FbxObject_SetNameSpaceAndGetNameOnly_FirstCharacterIsMissing
 
     require
     AssertEqual("asdf", obj.GetName())
+    AssertEqual("qwer", obj.GetNameSpaceOnly())
 
     then
     AssertEqual("sdf", obj.GetNameOnly())
+
+test FbxObject_SetNameSpaceThenSetName_FirstCharacterIsStillMissing
+    given
+    FbxObject obj = new("asdf")
+    obj.SetNameSpace("qwer")
+
+    require
+    AssertEqual("asdf", obj.GetName())
+    AssertEqual("qwer", obj.GetNameSpaceOnly())
+
+    when
+    obj.SetName("zxcv")
+
+    then
+    AssertEqual("asdf", obj.GetInitialName())
+    AssertEqual("zxcv", obj.GetName())
+    AssertEqual("xcv", obj.GetNameOnly())
+
+test FbxObject_SetNameSpaceThenSetInitialName_FirstCharacterIsStillMissing
+    given
+    FbxObject obj = new("asdf")
+    obj.SetNameSpace("qwer")
+
+    require
+    AssertEqual("asdf", obj.GetName())
+    AssertEqual("qwer", obj.GetNameSpaceOnly())
+
+    when
+    obj.SetInitialName("zxcv")
+
+    then
+    AssertEqual("zxcv", obj.GetInitialName())
+    AssertEqual("zxcv", obj.GetName())
+    AssertEqual("xcv", obj.GetNameOnly())

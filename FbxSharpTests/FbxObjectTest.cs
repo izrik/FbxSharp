@@ -203,9 +203,50 @@ namespace FbxSharpTests
 
             // require:
             Assert.AreEqual("asdf", obj.GetName());
+            Assert.AreEqual("qwer", obj.GetNameSpaceOnly());
 
             // then:
             Assert.AreEqual("sdf", obj.GetNameOnly());
+        }
+
+        [Test]
+        public void FbxObject_SetNameSpaceThenSetName_FirstCharacterIsStillMissing()
+        {
+            // given:
+            var obj = new FbxObject("asdf");
+            obj.SetNameSpace("qwer");
+
+            // require:
+            Assert.AreEqual("asdf", obj.GetName());
+            Assert.AreEqual("qwer", obj.GetNameSpaceOnly());
+
+            // when:
+            obj.SetName("zxcv");
+
+            // then:
+            Assert.AreEqual("asdf", obj.GetInitialName());
+            Assert.AreEqual("zxcv", obj.GetName());
+            Assert.AreEqual("xcv", obj.GetNameOnly());
+        }
+
+        [Test]
+        public void FbxObject_SetNameSpaceThenSetInitialName_FirstCharacterIsStillMissing()
+        {
+            // given:
+            var obj = new FbxObject("asdf");
+            obj.SetNameSpace("qwer");
+
+            // require:
+            Assert.AreEqual("asdf", obj.GetName());
+            Assert.AreEqual("qwer", obj.GetNameSpaceOnly());
+
+            // when:
+            obj.SetInitialName("zxcv");
+
+            // then:
+            Assert.AreEqual("zxcv", obj.GetInitialName());
+            Assert.AreEqual("zxcv", obj.GetName());
+            Assert.AreEqual("xcv", obj.GetNameOnly());
         }
     }
 }
