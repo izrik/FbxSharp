@@ -142,6 +142,7 @@
     <None Include="test-cases\GeometryTest.tc" />
     <None Include="test-cases\LayerContainerTest.tc" />
     <None Include="test-cases\MeshTest.tc" />
+    <None Include="test-cases\NodeAttributeTest.tc" />
     <None Include="test-cases\NodeTest.tc" />
     <None Include="test-cases\PropertyTest.tc" />
     <None Include="test-cases\SceneTest.tc" />

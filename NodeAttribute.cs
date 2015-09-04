@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public abstract class NodeAttribute : FbxObject
+    public class NodeAttribute : FbxObject
     {
         protected NodeAttribute(string name="")
             : base(name)
