@@ -304,5 +304,131 @@ namespace FbxSharpTests
             // then:
             Assert.AreEqual("asdf", obj.GetNameWithNameSpacePrefix());
         }
+
+        [Test]
+        public void Mesh_GetNameOnly_GetsNameWithoutNamespacePrefix()
+        {
+            // given:
+            var obj = new Mesh("asdf");
+
+            // require:
+            Assert.AreEqual("asdf", obj.GetName());
+
+            // then:
+            Assert.AreEqual("asdf", obj.GetNameOnly());
+        }
+
+        [Test]
+        public void Mesh_SetNameSpaceAndGetNameOnly_FirstCharacterIsMissing()
+        {
+            // given:
+            var obj = new Mesh("asdf");
+            obj.SetNameSpace("qwer");
+
+            // require:
+            Assert.AreEqual("asdf", obj.GetName());
+            Assert.AreEqual("qwer", obj.GetNameSpaceOnly());
+
+            // then:
+            Assert.AreEqual("sdf", obj.GetNameOnly());
+        }
+
+        [Test]
+        public void Mesh_SetNameSpaceThenSetName_FirstCharacterIsStillMissing()
+        {
+            // given:
+            var obj = new Mesh("asdf");
+            obj.SetNameSpace("qwer");
+
+            // require:
+            Assert.AreEqual("asdf", obj.GetName());
+            Assert.AreEqual("qwer", obj.GetNameSpaceOnly());
+
+            // when:
+            obj.SetName("zxcv");
+
+            // then:
+            Assert.AreEqual("asdf", obj.GetInitialName());
+            Assert.AreEqual("zxcv", obj.GetName());
+            Assert.AreEqual("xcv", obj.GetNameOnly());
+        }
+
+        [Test]
+        public void Mesh_SetNameSpaceThenSetInitialName_FirstCharacterIsStillMissing()
+        {
+            // given:
+            var obj = new Mesh("asdf");
+            obj.SetNameSpace("qwer");
+
+            // require:
+            Assert.AreEqual("asdf", obj.GetName());
+            Assert.AreEqual("qwer", obj.GetNameSpaceOnly());
+
+            // when:
+            obj.SetInitialName("zxcv");
+
+            // then:
+            Assert.AreEqual("zxcv", obj.GetInitialName());
+            Assert.AreEqual("zxcv", obj.GetName());
+            Assert.AreEqual("xcv", obj.GetNameOnly());
+        }
+
+        [Test]
+        public void Mesh_GetNameWithoutNameSpacePrefix_GetsNameWithoutNamespacePrefix()
+        {
+            // given:
+            var obj = new Mesh("asdf");
+
+            // require:
+            Assert.AreEqual("asdf", obj.GetName());
+
+            // then:
+            Assert.AreEqual("asdf", obj.GetNameWithoutNameSpacePrefix());
+        }
+
+        [Test]
+        public void Mesh_SetNameSpaceAndGetNameWithoutNameSpacePrefix_FirstCharacterIsNotMissing()
+        {
+            // given:
+            var obj = new Mesh("asdf");
+            obj.SetNameSpace("qwer");
+
+            // require:
+            Assert.AreEqual("asdf", obj.GetName());
+            Assert.AreEqual("qwer", obj.GetNameSpaceOnly());
+
+            // then:
+            Assert.AreEqual("asdf", obj.GetNameWithoutNameSpacePrefix());
+        }
+
+        [Test]
+        public void Mesh_GetNameWithoutNameSpacePrefix_GetsNameWithNamespacePrefix()
+        {
+            // given:
+            var obj = new Mesh("asdf");
+
+            // require:
+            Assert.AreEqual("asdf", obj.GetName());
+            Assert.AreEqual("Geometry::", obj.GetNameSpacePrefix());
+
+            // then:
+            Assert.AreEqual("Geometry::asdf", obj.GetNameWithNameSpacePrefix());
+        }
+
+        [Test]
+        public void Mesh_SetNameSpaceAndGetNameWithoutNameSpacePrefix_IncludesNamespace()
+        {
+            // given:
+            var obj = new Mesh("asdf");
+            obj.SetNameSpace("qwer");
+
+            // require:
+            Assert.AreEqual("asdf", obj.GetName());
+            Assert.AreEqual("qwer", obj.GetNameSpaceOnly());
+            Assert.AreEqual("Geometry::", obj.GetNameSpacePrefix());
+
+            // then:
+            Assert.AreEqual("Geometry::asdf", obj.GetNameWithNameSpacePrefix());
+        }
     }
 }

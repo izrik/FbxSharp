@@ -239,3 +239,107 @@ test FbxObject_SetNameSpaceAndGetNameWithoutNameSpacePrefix_IncludesNamespace
 
     then
     AssertEqual("asdf", obj.GetNameWithNameSpacePrefix())
+
+/////////////////////////////
+
+test Mesh_GetNameOnly_GetsNameWithoutNamespacePrefix
+    given
+    Mesh obj = new("asdf")
+
+    require
+    AssertEqual("asdf", obj.GetName())
+
+    then
+    AssertEqual("asdf", obj.GetNameOnly())
+
+test Mesh_SetNameSpaceAndGetNameOnly_FirstCharacterIsMissing
+    given
+    Mesh obj = new("asdf")
+    obj.SetNameSpace("qwer")
+
+    require
+    AssertEqual("asdf", obj.GetName())
+    AssertEqual("qwer", obj.GetNameSpaceOnly())
+
+    then
+    AssertEqual("sdf", obj.GetNameOnly())
+
+test Mesh_SetNameSpaceThenSetName_FirstCharacterIsStillMissing
+    given
+    Mesh obj = new("asdf")
+    obj.SetNameSpace("qwer")
+
+    require
+    AssertEqual("asdf", obj.GetName())
+    AssertEqual("qwer", obj.GetNameSpaceOnly())
+
+    when
+    obj.SetName("zxcv")
+
+    then
+    AssertEqual("asdf", obj.GetInitialName())
+    AssertEqual("zxcv", obj.GetName())
+    AssertEqual("xcv", obj.GetNameOnly())
+
+test Mesh_SetNameSpaceThenSetInitialName_FirstCharacterIsStillMissing
+    given
+    Mesh obj = new("asdf")
+    obj.SetNameSpace("qwer")
+
+    require
+    AssertEqual("asdf", obj.GetName())
+    AssertEqual("qwer", obj.GetNameSpaceOnly())
+
+    when
+    obj.SetInitialName("zxcv")
+
+    then
+    AssertEqual("zxcv", obj.GetInitialName())
+    AssertEqual("zxcv", obj.GetName())
+    AssertEqual("xcv", obj.GetNameOnly())
+
+test Mesh_GetNameWithoutNameSpacePrefix_GetsNameWithoutNamespacePrefix
+    given
+    Mesh obj = new("asdf")
+
+    require
+    AssertEqual("asdf", obj.GetName())
+
+    then
+    AssertEqual("asdf", obj.GetNameWithoutNameSpacePrefix())
+
+test Mesh_SetNameSpaceAndGetNameWithoutNameSpacePrefix_FirstCharacterIsNotMissing
+    given
+    Mesh obj = new("asdf")
+    obj.SetNameSpace("qwer")
+
+    require
+    AssertEqual("asdf", obj.GetName())
+    AssertEqual("qwer", obj.GetNameSpaceOnly())
+
+    then
+    AssertEqual("asdf", obj.GetNameWithoutNameSpacePrefix())
+
+test Mesh_GetNameWithoutNameSpacePrefix_GetsNameWithNamespacePrefix
+    given
+    Mesh obj = new("asdf")
+
+    require
+    AssertEqual("asdf", obj.GetName())
+    AssertEqual("Geometry:\:", obj.GetNameSpacePrefix())
+
+    then
+    AssertEqual("Geometry:\:asdf", obj.GetNameWithNameSpacePrefix())
+
+test Mesh_SetNameSpaceAndGetNameWithoutNameSpacePrefix_IncludesNamespace
+    given
+    Mesh obj = new("asdf")
+    obj.SetNameSpace("qwer")
+
+    require
+    AssertEqual("asdf", obj.GetName())
+    AssertEqual("qwer", obj.GetNameSpaceOnly())
+    AssertEqual("Geometry:\:", obj.GetNameSpacePrefix())
+
+    then
+    AssertEqual("Geometry:\:asdf", obj.GetNameWithNameSpacePrefix())

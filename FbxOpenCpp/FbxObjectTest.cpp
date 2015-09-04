@@ -299,6 +299,132 @@ void FbxObject_SetNameSpaceAndGetNameWithoutNameSpacePrefix_IncludesNamespace()
     AssertEqual("asdf", obj->GetNameWithNameSpacePrefix());
 }
 
+void Mesh_GetNameOnly_GetsNameWithoutNamespacePrefix()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxMesh* obj = FbxMesh::Create(manager, "asdf");
+
+    // require:
+    AssertEqual("asdf", obj->GetName());
+
+    // then:
+    AssertEqual("asdf", obj->GetNameOnly());
+}
+
+void Mesh_SetNameSpaceAndGetNameOnly_FirstCharacterIsMissing()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxMesh* obj = FbxMesh::Create(manager, "asdf");
+    obj->SetNameSpace("qwer");
+
+    // require:
+    AssertEqual("asdf", obj->GetName());
+    AssertEqual("qwer", obj->GetNameSpaceOnly());
+
+    // then:
+    AssertEqual("sdf", obj->GetNameOnly());
+}
+
+void Mesh_SetNameSpaceThenSetName_FirstCharacterIsStillMissing()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxMesh* obj = FbxMesh::Create(manager, "asdf");
+    obj->SetNameSpace("qwer");
+
+    // require:
+    AssertEqual("asdf", obj->GetName());
+    AssertEqual("qwer", obj->GetNameSpaceOnly());
+
+    // when:
+    obj->SetName("zxcv");
+
+    // then:
+    AssertEqual("asdf", obj->GetInitialName());
+    AssertEqual("zxcv", obj->GetName());
+    AssertEqual("xcv", obj->GetNameOnly());
+}
+
+void Mesh_SetNameSpaceThenSetInitialName_FirstCharacterIsStillMissing()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxMesh* obj = FbxMesh::Create(manager, "asdf");
+    obj->SetNameSpace("qwer");
+
+    // require:
+    AssertEqual("asdf", obj->GetName());
+    AssertEqual("qwer", obj->GetNameSpaceOnly());
+
+    // when:
+    obj->SetInitialName("zxcv");
+
+    // then:
+    AssertEqual("zxcv", obj->GetInitialName());
+    AssertEqual("zxcv", obj->GetName());
+    AssertEqual("xcv", obj->GetNameOnly());
+}
+
+void Mesh_GetNameWithoutNameSpacePrefix_GetsNameWithoutNamespacePrefix()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxMesh* obj = FbxMesh::Create(manager, "asdf");
+
+    // require:
+    AssertEqual("asdf", obj->GetName());
+
+    // then:
+    AssertEqual("asdf", obj->GetNameWithoutNameSpacePrefix());
+}
+
+void Mesh_SetNameSpaceAndGetNameWithoutNameSpacePrefix_FirstCharacterIsNotMissing()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxMesh* obj = FbxMesh::Create(manager, "asdf");
+    obj->SetNameSpace("qwer");
+
+    // require:
+    AssertEqual("asdf", obj->GetName());
+    AssertEqual("qwer", obj->GetNameSpaceOnly());
+
+    // then:
+    AssertEqual("asdf", obj->GetNameWithoutNameSpacePrefix());
+}
+
+void Mesh_GetNameWithoutNameSpacePrefix_GetsNameWithNamespacePrefix()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxMesh* obj = FbxMesh::Create(manager, "asdf");
+
+    // require:
+    AssertEqual("asdf", obj->GetName());
+    AssertEqual("Geometry::", obj->GetNameSpacePrefix());
+
+    // then:
+    AssertEqual("Geometry::asdf", obj->GetNameWithNameSpacePrefix());
+}
+
+void Mesh_SetNameSpaceAndGetNameWithoutNameSpacePrefix_IncludesNamespace()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxMesh* obj = FbxMesh::Create(manager, "asdf");
+    obj->SetNameSpace("qwer");
+
+    // require:
+    AssertEqual("asdf", obj->GetName());
+    AssertEqual("qwer", obj->GetNameSpaceOnly());
+    AssertEqual("Geometry::", obj->GetNameSpacePrefix());
+
+    // then:
+    AssertEqual("Geometry::asdf", obj->GetNameWithNameSpacePrefix());
+}
+
 void FbxObjectTest::RegisterTestCases()
 {
     AddTestCase(FbxObject_Create_HasZeroProperties);
@@ -321,5 +447,13 @@ void FbxObjectTest::RegisterTestCases()
     AddTestCase(FbxObject_SetNameSpaceAndGetNameWithoutNameSpacePrefix_FirstCharacterIsNotMissing);
     AddTestCase(FbxObject_GetNameWithoutNameSpacePrefix_GetsNameWithNamespacePrefix);
     AddTestCase(FbxObject_SetNameSpaceAndGetNameWithoutNameSpacePrefix_IncludesNamespace);
+    AddTestCase(Mesh_GetNameOnly_GetsNameWithoutNamespacePrefix);
+    AddTestCase(Mesh_SetNameSpaceAndGetNameOnly_FirstCharacterIsMissing);
+    AddTestCase(Mesh_SetNameSpaceThenSetName_FirstCharacterIsStillMissing);
+    AddTestCase(Mesh_SetNameSpaceThenSetInitialName_FirstCharacterIsStillMissing);
+    AddTestCase(Mesh_GetNameWithoutNameSpacePrefix_GetsNameWithoutNamespacePrefix);
+    AddTestCase(Mesh_SetNameSpaceAndGetNameWithoutNameSpacePrefix_FirstCharacterIsNotMissing);
+    AddTestCase(Mesh_GetNameWithoutNameSpacePrefix_GetsNameWithNamespacePrefix);
+    AddTestCase(Mesh_SetNameSpaceAndGetNameWithoutNameSpacePrefix_IncludesNamespace);
 }
 
