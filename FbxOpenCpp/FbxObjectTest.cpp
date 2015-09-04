@@ -452,6 +452,18 @@ void Mesh_SetNameUsingColonsandSetNameSpace_IncludesNamespace()
     AssertEqual("Geometry::asdf::Something|zxcv|qwer", obj->GetNameWithNameSpacePrefix());
 }
 
+void FbxObject_RemovePrefix_RemovesAllPrefix()
+{
+    // then:
+    AssertEqual("four", FbxObject::RemovePrefix("one::two::three::four"));
+}
+
+void FbxObject_StripPrefix_RemovesFirstPrefix()
+{
+    // then:
+    AssertEqual("two::three::four", FbxObject::StripPrefix("one::two::three::four"));
+}
+
 void FbxObjectTest::RegisterTestCases()
 {
     AddTestCase(FbxObject_Create_HasZeroProperties);
@@ -484,5 +496,7 @@ void FbxObjectTest::RegisterTestCases()
     AddTestCase(Mesh_SetNameSpaceAndGetNameWithoutNameSpacePrefix_IncludesNamespace);
     AddTestCase(Mesh_SetNameUsingColons_IncludesNamespace);
     AddTestCase(Mesh_SetNameUsingColonsandSetNameSpace_IncludesNamespace);
+    AddTestCase(FbxObject_RemovePrefix_RemovesAllPrefix);
+    AddTestCase(FbxObject_StripPrefix_RemovesFirstPrefix);
 }
 

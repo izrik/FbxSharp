@@ -457,5 +457,19 @@ namespace FbxSharpTests
             Assert.AreEqual("Geometry::", obj.GetNameSpacePrefix());
             Assert.AreEqual("Geometry::asdf::Something|zxcv|qwer", obj.GetNameWithNameSpacePrefix());
         }
+
+        [Test]
+        public void FbxObject_RemovePrefix_RemovesAllPrefix()
+        {
+            // then:
+            Assert.AreEqual("four", FbxObject.RemovePrefix("one::two::three::four"));
+        }
+
+        [Test]
+        public void FbxObject_StripPrefix_RemovesFirstPrefix()
+        {
+            // then:
+            Assert.AreEqual("two::three::four", FbxObject.StripPrefix("one::two::three::four"));
+        }
     }
 }

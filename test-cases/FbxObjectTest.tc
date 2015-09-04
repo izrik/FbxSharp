@@ -366,3 +366,13 @@ test Mesh_SetNameUsingColonsandSetNameSpace_IncludesNamespace
     AssertEqual("uiop:\:hjkl|cvbn|dfgh", obj.GetNameSpaceOnly())
     AssertEqual("Geometry:\:", obj.GetNameSpacePrefix())
     AssertEqual("Geometry:\:asdf:\:Something|zxcv|qwer", obj.GetNameWithNameSpacePrefix())
+
+////////////////////////
+
+test FbxObject_RemovePrefix_RemovesAllPrefix
+    then
+    AssertEqual("four", FbxObject::RemovePrefix("one:\:two:\:three:\:four"))
+
+test FbxObject_StripPrefix_RemovesFirstPrefix
+    then
+    AssertEqual("two:\:three:\:four", FbxObject::StripPrefix("one:\:two:\:three:\:four"))
