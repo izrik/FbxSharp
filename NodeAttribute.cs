@@ -44,7 +44,10 @@ namespace FbxSharp
             get { return GetAttributeType(); }
         }
 
-        public abstract EAttributeType GetAttributeType();
+        public virtual EAttributeType GetAttributeType()
+        {
+            return EAttributeType.Unknown;
+        }
 
         readonly CollectionView<Node> nodes;
         public int GetNodeCount()
