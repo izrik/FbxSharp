@@ -297,7 +297,7 @@ namespace FbxSharp
 
         public string GetNameWithoutNameSpacePrefix()
         {
-            throw new NotImplementedException();
+            return Name;
         }
 
         public string GetNameWithNameSpacePrefix()

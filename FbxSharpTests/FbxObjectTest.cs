@@ -248,5 +248,33 @@ namespace FbxSharpTests
             Assert.AreEqual("zxcv", obj.GetName());
             Assert.AreEqual("xcv", obj.GetNameOnly());
         }
+
+        [Test]
+        public void FbxObject_GetNameWithoutNameSpacePrefix_GetsNameWithoutNamespacePrefix()
+        {
+            // given:
+            var obj = new FbxObject("asdf");
+
+            // require:
+            Assert.AreEqual("asdf", obj.GetName());
+
+            // then:
+            Assert.AreEqual("asdf", obj.GetNameWithoutNameSpacePrefix());
+        }
+
+        [Test]
+        public void FbxObject_SetNameSpaceAndGetNameWithoutNameSpacePrefix_FirstCharacterIsNotMissing()
+        {
+            // given:
+            var obj = new FbxObject("asdf");
+            obj.SetNameSpace("qwer");
+
+            // require:
+            Assert.AreEqual("asdf", obj.GetName());
+            Assert.AreEqual("qwer", obj.GetNameSpaceOnly());
+
+            // then:
+            Assert.AreEqual("asdf", obj.GetNameWithoutNameSpacePrefix());
+        }
     }
 }

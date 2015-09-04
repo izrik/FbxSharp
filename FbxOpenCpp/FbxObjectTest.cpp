@@ -243,6 +243,34 @@ void FbxObject_SetNameSpaceThenSetInitialName_FirstCharacterIsStillMissing()
     AssertEqual("xcv", obj->GetNameOnly());
 }
 
+void FbxObject_GetNameWithoutNameSpacePrefix_GetsNameWithoutNamespacePrefix()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "asdf");
+
+    // require:
+    AssertEqual("asdf", obj->GetName());
+
+    // then:
+    AssertEqual("asdf", obj->GetNameWithoutNameSpacePrefix());
+}
+
+void FbxObject_SetNameSpaceAndGetNameWithoutNameSpacePrefix_FirstCharacterIsNotMissing()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "asdf");
+    obj->SetNameSpace("qwer");
+
+    // require:
+    AssertEqual("asdf", obj->GetName());
+    AssertEqual("qwer", obj->GetNameSpaceOnly());
+
+    // then:
+    AssertEqual("asdf", obj->GetNameWithoutNameSpacePrefix());
+}
+
 void FbxObjectTest::RegisterTestCases()
 {
     AddTestCase(FbxObject_Create_HasZeroProperties);
@@ -261,5 +289,7 @@ void FbxObjectTest::RegisterTestCases()
     AddTestCase(FbxObject_SetNameSpaceAndGetNameOnly_FirstCharacterIsMissing);
     AddTestCase(FbxObject_SetNameSpaceThenSetName_FirstCharacterIsStillMissing);
     AddTestCase(FbxObject_SetNameSpaceThenSetInitialName_FirstCharacterIsStillMissing);
+    AddTestCase(FbxObject_GetNameWithoutNameSpacePrefix_GetsNameWithoutNamespacePrefix);
+    AddTestCase(FbxObject_SetNameSpaceAndGetNameWithoutNameSpacePrefix_FirstCharacterIsNotMissing);
 }
 

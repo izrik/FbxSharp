@@ -195,3 +195,25 @@ test FbxObject_SetNameSpaceThenSetInitialName_FirstCharacterIsStillMissing
     AssertEqual("zxcv", obj.GetInitialName())
     AssertEqual("zxcv", obj.GetName())
     AssertEqual("xcv", obj.GetNameOnly())
+
+test FbxObject_GetNameWithoutNameSpacePrefix_GetsNameWithoutNamespacePrefix
+    given
+    FbxObject obj = new("asdf")
+
+    require
+    AssertEqual("asdf", obj.GetName())
+
+    then
+    AssertEqual("asdf", obj.GetNameWithoutNameSpacePrefix())
+
+test FbxObject_SetNameSpaceAndGetNameWithoutNameSpacePrefix_FirstCharacterIsNotMissing
+    given
+    FbxObject obj = new("asdf")
+    obj.SetNameSpace("qwer")
+
+    require
+    AssertEqual("asdf", obj.GetName())
+    AssertEqual("qwer", obj.GetNameSpaceOnly())
+
+    then
+    AssertEqual("asdf", obj.GetNameWithoutNameSpacePrefix())
