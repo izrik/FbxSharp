@@ -10,7 +10,10 @@ namespace FbxSharp
         {
         }
 
-        public override EAttributeType AttributeType { get { return EAttributeType.Mesh; } }
+        public override NodeAttribute.EAttributeType GetAttributeType()
+        {
+            return EAttributeType.Mesh;
+        }
 
         public List<List<long>> PolygonIndexes = new List<List<long>>();
     }

@@ -37,15 +37,14 @@ namespace FbxSharp
             Line,
         }
 
-
-        public abstract EAttributeType AttributeType { get; }
-
         #region Public Member Functions
 
-        public EAttributeType GetAttributeType()
+        public EAttributeType AttributeType
         {
-            return AttributeType;
+            get { return GetAttributeType(); }
         }
+
+        public abstract EAttributeType GetAttributeType();
 
         readonly CollectionView<Node> nodes;
         public int GetNodeCount()

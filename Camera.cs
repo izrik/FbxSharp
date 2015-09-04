@@ -116,10 +116,9 @@ namespace FbxSharp
 
         #region implemented abstract members of NodeAttribute
 
-        public override EAttributeType AttributeType {
-            get {
-                return EAttributeType.Camera;
-            }
+        public override NodeAttribute.EAttributeType GetAttributeType()
+        {
+            return EAttributeType.Camera;
         }
 
         #endregion

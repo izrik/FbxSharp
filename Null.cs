@@ -8,7 +8,10 @@ namespace FbxSharp
         {
         }
 
-        public override EAttributeType AttributeType { get { return EAttributeType.Null; } }
+        public override EAttributeType GetAttributeType()
+        {
+            return EAttributeType.Null;
+        }
     }
 }
 

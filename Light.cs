@@ -38,10 +38,9 @@ namespace FbxSharp
 
         #region implemented abstract members of NodeAttribute
 
-        public override EAttributeType AttributeType {
-            get {
-                return EAttributeType.Light;
-            }
+        public override EAttributeType GetAttributeType()
+        {
+            return EAttributeType.Light;
         }
 
         #endregion

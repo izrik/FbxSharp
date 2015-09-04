@@ -4,7 +4,10 @@ namespace FbxSharp
 {
     public class Skeleton : NodeAttribute
     {
-        public override EAttributeType AttributeType { get { return EAttributeType.Skeleton; } }
+        public override EAttributeType GetAttributeType()
+        {
+            return EAttributeType.Skeleton;
+        }
 
         public void Reset()
         {
