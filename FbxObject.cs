@@ -302,7 +302,7 @@ namespace FbxSharp
 
         public string GetNameWithNameSpacePrefix()
         {
-            throw new NotImplementedException();
+            return GetNameSpacePrefix() + GetName();
         }
 
         public void SetInitialName(string pName)
