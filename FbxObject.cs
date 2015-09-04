@@ -326,6 +326,7 @@ namespace FbxSharp
         public void SetNameSpace(string pNameSpace)
         {
             _namespace = pNameSpace;
+            FirstCharIsMissing = true;
         }
 
         public string[] GetNameSpaceArray(char identifier)
@@ -333,9 +334,12 @@ namespace FbxSharp
             return _namespace.Split(identifier).Reverse().ToArray();
         }
 
+        bool FirstCharIsMissing = false;
         public string GetNameOnly()
         {
-            throw new NotImplementedException();
+            if (FirstCharIsMissing)
+                return Name.Substring(1);
+            return Name;
         }
 
         public virtual string GetNameSpacePrefix()
