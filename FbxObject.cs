@@ -354,12 +354,14 @@ namespace FbxSharp
 
         public static string RemovePrefix(string pName)
         {
-            throw new NotImplementedException();
+            int index = pName.LastIndexOf("::");
+            return pName.Substring(index+2);
         }
 
         public static string StripPrefix(string lName)
         {
-            throw new NotImplementedException();
+            int index = lName.IndexOf("::");
+            return lName.Substring(index+2);
         }
 
         #endregion
