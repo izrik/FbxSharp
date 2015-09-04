@@ -64,6 +64,7 @@ std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EConstantMode&
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EVelocityMode& value);
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentVisibility& value);
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EDataIndex& value);
+std::ostream& operator<<(std::ostream& os, const FbxNodeAttribute::EType& value);
 
 
 FbxScene* Load(const char* filename, FbxManager* manager=NULL);

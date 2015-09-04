@@ -681,6 +681,18 @@ void PrintNode(FbxNode* node)
 
 void PrintNodeAttribute(FbxNodeAttribute* obj)
 {
+    cout << "    Color = " << obj->Color.Get() << endl;
+
+    cout << "    GetAttributeType() = " << obj->GetAttributeType() << endl;
+    cout << "    GetNodeCount() = " << obj->GetNodeCount() << endl;
+    int i;
+    for (i = 0; i < obj->GetNodeCount(); i++)
+    {
+        cout << "        #" << i << " ";
+        PrintObjectID(obj->GetNode(i));
+        cout << endl;
+    }
+
     if (obj->Is<FbxCamera>())
         PrintCamera(FbxCast<FbxCamera>(obj));
     else if (obj->Is<FbxLight>())
@@ -1171,5 +1183,38 @@ std::ostream& operator<<(std::ostream& os, const FbxAMatrix& value)
         << value.Get(3, 1) << ", "
         << value.Get(3, 2) << ", "
         << value.Get(3, 3) << " ]";
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const FbxNodeAttribute::EType& value)
+{
+    switch (value)
+    {
+    case FbxNodeAttribute::eUnknown          : os << "eUnknown"; break;
+    case FbxNodeAttribute::eNull             : os << "eNull"; break;
+    case FbxNodeAttribute::eMarker           : os << "eMarker"; break;
+    case FbxNodeAttribute::eSkeleton         : os << "eSkeleton "; break;
+    case FbxNodeAttribute::eMesh             : os << "eMesh "; break;
+    case FbxNodeAttribute::eNurbs            : os << "eNurbs "; break;
+    case FbxNodeAttribute::ePatch            : os << "ePatch"; break;
+    case FbxNodeAttribute::eCamera           : os << "eCamera "; break;
+    case FbxNodeAttribute::eCameraStereo     : os << "eCameraStereo"; break;
+    case FbxNodeAttribute::eCameraSwitcher   : os << "eCameraSwitcher"; break;
+    case FbxNodeAttribute::eLight            : os << "eLight"; break;
+    case FbxNodeAttribute::eOpticalReference : os << "eOpticalReference"; break;
+    case FbxNodeAttribute::eOpticalMarker    : os << "eOpticalMarker"; break;
+    case FbxNodeAttribute::eNurbsCurve       : os << "eNurbsCurve"; break;
+    case FbxNodeAttribute::eTrimNurbsSurface : os << "eTrimNurbsSurface"; break;
+    case FbxNodeAttribute::eBoundary         : os << "eBoundary"; break;
+    case FbxNodeAttribute::eNurbsSurface     : os << "eNurbsSurface"; break;
+    case FbxNodeAttribute::eShape            : os << "eShape"; break;
+    case FbxNodeAttribute::eLODGroup         : os << "eLODGroup"; break;
+    case FbxNodeAttribute::eSubDiv           : os << "eSubDiv"; break;
+    case FbxNodeAttribute::eCachedEffect     : os << "eCachedEffect"; break;
+    case FbxNodeAttribute::eLine             : os << "eLine"; break;
+    default:
+        os << "<<unknown>>";
+        break;
+    }
     return os;
 }
