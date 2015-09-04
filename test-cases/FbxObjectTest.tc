@@ -217,3 +217,25 @@ test FbxObject_SetNameSpaceAndGetNameWithoutNameSpacePrefix_FirstCharacterIsNotM
 
     then
     AssertEqual("asdf", obj.GetNameWithoutNameSpacePrefix())
+
+test FbxObject_GetNameWithoutNameSpacePrefix_GetsNameWithNamespacePrefix
+    given
+    FbxObject obj = new("asdf")
+
+    require
+    AssertEqual("asdf", obj.GetName())
+
+    then
+    AssertEqual("asdf", obj.GetNameWithNameSpacePrefix())
+
+test FbxObject_SetNameSpaceAndGetNameWithoutNameSpacePrefix_IncludesNamespace
+    given
+    FbxObject obj = new("asdf")
+    obj.SetNameSpace("qwer")
+
+    require
+    AssertEqual("asdf", obj.GetName())
+    AssertEqual("qwer", obj.GetNameSpaceOnly())
+
+    then
+    AssertEqual("asdf", obj.GetNameWithNameSpacePrefix())
