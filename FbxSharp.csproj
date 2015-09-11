@@ -32,6 +32,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FbxCriteria.cs" />
     <Compile Include="TokenType.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="Tokenizer.cs" />
