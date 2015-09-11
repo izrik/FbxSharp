@@ -47,6 +47,44 @@ namespace FbxSharp
 
         #endregion
 
+        #region Selection Management
+
+        public virtual bool GetSelected()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void SetSelected(bool pSelected)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region User Data
+
+        public void SetUserDataPtr(ulong pUserID, object pUserData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object GetUserDataPtr(ulong pUserID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetUserDataPtr(object pUserData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object GetUserDataPtr()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
         #region General Object Connection and Relationship Management
 
         public readonly ObjectSrcObjectCollection SrcObjects;
