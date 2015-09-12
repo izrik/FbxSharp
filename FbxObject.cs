@@ -190,7 +190,7 @@ namespace FbxSharp
 
         public int GetSrcObjectCount<T>()
         {
-            throw new NotImplementedException();
+            return SrcObjects.Count(obj => obj is T);
         }
 
         public int GetSrcObjectCount<T>(FbxCriteria pCriteria)
@@ -200,7 +200,7 @@ namespace FbxSharp
 
         public T GetSrcObject<T>(int pIndex=0)
         {
-            throw new NotImplementedException();
+            return SrcObjects.Where(obj => obj is T).Cast<T>().ElementAt(pIndex);
         }
 
         public T GetSrcObject<T>(FbxCriteria pCriteria, int pIndex=0)
