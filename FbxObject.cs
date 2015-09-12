@@ -119,15 +119,103 @@ namespace FbxSharp
             return true;
         }
 
+        public bool DisconnectAllSrcObject(FbxCriteria pCriteria)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Obsolete("Deprecated, please use DisconnectAllSrcObject<T>() instead.")]
+        public bool DisconnectAllSrcObject(FbxClassId pClassId)
+        {
+            throw new NotImplementedException();
+        }
 
         public int GetSrcObjectCount()
         {
             return SrcObjects.Count;
         }
 
+        public int GetSrcObjectCount(FbxCriteria pCriteria)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Obsolete("Deprecated, please use GetSrcObjectCount<T>() instead.")]
+        public int GetSrcObjectCount(FbxClassId pClassId)
+        {
+            throw new NotImplementedException();
+        }
+
         public FbxObject GetSrcObject(int pIndex = 0)
         {
             return SrcObjects[pIndex];
+        }
+
+        public FbxObject GetSrcObject(FbxCriteria pCriteria, int pIndex=0)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Obsolete("Deprecated, please use GetSrcObject<T>() instead.")]
+        public FbxObject GetSrcObject(FbxClassId pClassId, int pIndex=0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FbxObject FindSrcObject(string pName, int pStartIndex=0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FbxObject FindSrcObject (FbxCriteria pCriteria, string pName, int pStartIndex=0)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Obsolete("Deprecated, please use FindSrcObject<T>() instead.")]
+        public FbxObject FindSrcObject (FbxClassId pClassId, string pName, int pStartIndex=0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DisconnectAllSrcObject<T>()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DisconnectAllSrcObject<T>(FbxCriteria pCriteria)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetSrcObjectCount<T>()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetSrcObjectCount<T>(FbxCriteria pCriteria)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T GetSrcObject<T>(int pIndex=0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T GetSrcObject<T>(FbxCriteria pCriteria, int pIndex=0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T FindSrcObject<T>(string pName, int pStartIndex=0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T FindSrcObject<T>(FbxCriteria pCriteria, string pName, int pStartIndex=0)
+        {
+            throw new NotImplementedException();
         }
 
         public virtual bool ConnectDstObject(FbxObject pObject/*, Connection.EType pType = Connection.EType.None*/)
@@ -155,14 +243,92 @@ namespace FbxSharp
             return true;
         }
 
+        public bool DisconnectAllDstObject(FbxCriteria pCriteria)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Obsolete("Deprecated, please use DisconnectAllDstObject<T>() instead.")]
+        public bool DisconnectAllDstObject(FbxClassId pClassId)
+        {
+            throw new NotImplementedException();
+        }
+
         public int GetDstObjectCount()
         {
             return DstObjects.Count;
         }
 
+        public int GetDstObjectCount(FbxCriteria pCriteria)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Obsolete("Deprecated, please use GetDstObjectCount<T>() instead.")]
+        public int GetDstObjectCount(FbxClassId pClassId)
+        {
+            throw new NotImplementedException();
+        }
+
         public FbxObject GetDstObject(int pIndex = 0)
         {
             return DstObjects[pIndex];
+        }
+
+        FbxObject FindDstObject(string pName, int pStartIndex=0)
+        {
+            throw new NotImplementedException();
+        }
+
+        FbxObject FindDstObject(FbxCriteria pCriteria, string pName, int pStartIndex=0)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Obsolete("Deprecated, please use FindDstObject<T>() instead.")]
+        public FbxObject FindDstObject(FbxClassId pClassId, string pName, int pStartIndex=0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DisconnectAllDstObject<T>()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DisconnectAllDstObject<T>(FbxCriteria pCriteria)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetDstObjectCount<T>()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetDstObjectCount<T>(FbxCriteria pCriteria)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T GetDstObject<T>(int pIndex=0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T GetDstObject<T>(FbxCriteria pCriteria, int pIndex=0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T FindDstObject<T>(string pName, int pStartIndex=0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T FindDstObject<T>(FbxCriteria pCriteria, string pName, int pStartIndex=0)
+        {
+            throw new NotImplementedException();
         }
 
 
