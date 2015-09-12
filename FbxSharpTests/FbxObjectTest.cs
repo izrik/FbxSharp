@@ -471,5 +471,81 @@ namespace FbxSharpTests
             // then:
             Assert.AreEqual("two::three::four", FbxObject.StripPrefix("one::two::three::four"));
         }
+
+        [Test]
+        public void FbxObject_TypedGetSrcObjectCount_GetsCountOfObjectsOfThatType()
+        {
+            // given:
+            var obj = new FbxObject("asdf");
+            var mesh1 = new Mesh("mesh1");
+            var mesh2 = new Mesh("mesh2");
+            var node = new Node("node");
+            var mesh3 = new Mesh("mesh3");
+            var light = new Light("light");
+            obj.ConnectSrcObject(mesh1);
+            obj.ConnectSrcObject(mesh2);
+            obj.ConnectSrcObject(node);
+            obj.ConnectSrcObject(mesh3);
+            obj.ConnectSrcObject(light);
+
+            // require:
+            Assert.AreEqual(5, obj.GetSrcObjectCount());
+            Assert.AreSame(mesh1, obj.GetSrcObject(0));
+            Assert.AreSame(mesh2, obj.GetSrcObject(1));
+            Assert.AreSame(node, obj.GetSrcObject(2));
+            Assert.AreSame(mesh3, obj.GetSrcObject(3));
+            Assert.AreSame(light, obj.GetSrcObject(4));
+
+            // then:
+            Assert.AreEqual(3, obj.GetSrcObjectCount<Mesh>());
+            Assert.AreEqual(1, obj.GetSrcObjectCount<Node>());
+            Assert.AreEqual(1, obj.GetSrcObjectCount<Light>());
+            Assert.AreEqual(4, obj.GetSrcObjectCount<NodeAttribute>());
+        }
+
+        [Test]
+        public void FbxObject_TypedGetSrcObject_GetsObjectOfThatType()
+        {
+            // given:
+            var obj = new FbxObject("asdf");
+            var mesh1 = new Mesh("mesh1");
+            var mesh2 = new Mesh("mesh2");
+            var node = new Node("node");
+            var mesh3 = new Mesh("mesh3");
+            var light = new Light("light");
+            obj.ConnectSrcObject(mesh1);
+            obj.ConnectSrcObject(mesh2);
+            obj.ConnectSrcObject(node);
+            obj.ConnectSrcObject(mesh3);
+            obj.ConnectSrcObject(light);
+
+            // require:
+            Assert.AreEqual(5, obj.GetSrcObjectCount());
+            Assert.AreSame(mesh1, obj.GetSrcObject(0));
+            Assert.AreSame(mesh2, obj.GetSrcObject(1));
+            Assert.AreSame(node, obj.GetSrcObject(2));
+            Assert.AreSame(mesh3, obj.GetSrcObject(3));
+            Assert.AreSame(light, obj.GetSrcObject(4));
+
+            Assert.AreEqual(3, obj.GetSrcObjectCount<Mesh>());
+            Assert.AreEqual(1, obj.GetSrcObjectCount<Node>());
+            Assert.AreEqual(1, obj.GetSrcObjectCount<Light>());
+            Assert.AreEqual(4, obj.GetSrcObjectCount<NodeAttribute>());
+
+            // then:
+            Assert.AreSame(mesh1, obj.GetSrcObject<Mesh>());
+            Assert.AreSame(mesh1, obj.GetSrcObject<Mesh>(0));
+            Assert.AreSame(mesh2, obj.GetSrcObject<Mesh>(1));
+            Assert.AreSame(mesh3, obj.GetSrcObject<Mesh>(2));
+            Assert.AreSame(node, obj.GetSrcObject<Node>());
+            Assert.AreSame(node, obj.GetSrcObject<Node>(0));
+            Assert.AreSame(light, obj.GetSrcObject<Light>());
+            Assert.AreSame(light, obj.GetSrcObject<Light>(0));
+            Assert.AreSame(mesh1, obj.GetSrcObject<NodeAttribute>());
+            Assert.AreSame(mesh1, obj.GetSrcObject<NodeAttribute>(0));
+            Assert.AreSame(mesh2, obj.GetSrcObject<NodeAttribute>(1));
+            Assert.AreSame(mesh3, obj.GetSrcObject<NodeAttribute>(2));
+            Assert.AreSame(light, obj.GetSrcObject<NodeAttribute>(3));
+        }
     }
 }

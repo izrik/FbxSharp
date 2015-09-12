@@ -464,6 +464,82 @@ void FbxObject_StripPrefix_RemovesFirstPrefix()
     AssertEqual("two::three::four", FbxObject::StripPrefix("one::two::three::four"));
 }
 
+void FbxObject_TypedGetSrcObjectCount_GetsCountOfObjectsOfThatType()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "asdf");
+    FbxMesh* mesh1 = FbxMesh::Create(manager, "mesh1");
+    FbxMesh* mesh2 = FbxMesh::Create(manager, "mesh2");
+    FbxNode* node = FbxNode::Create(manager, "node");
+    FbxMesh* mesh3 = FbxMesh::Create(manager, "mesh3");
+    FbxLight* light = FbxLight::Create(manager, "light");
+    obj->ConnectSrcObject(mesh1);
+    obj->ConnectSrcObject(mesh2);
+    obj->ConnectSrcObject(node);
+    obj->ConnectSrcObject(mesh3);
+    obj->ConnectSrcObject(light);
+
+    // require:
+    AssertEqual(5, obj->GetSrcObjectCount());
+    AssertEqual(mesh1, obj->GetSrcObject(0));
+    AssertEqual(mesh2, obj->GetSrcObject(1));
+    AssertEqual(node, obj->GetSrcObject(2));
+    AssertEqual(mesh3, obj->GetSrcObject(3));
+    AssertEqual(light, obj->GetSrcObject(4));
+
+    // then:
+    AssertEqual(3, obj->GetSrcObjectCount<FbxMesh>());
+    AssertEqual(1, obj->GetSrcObjectCount<FbxNode>());
+    AssertEqual(1, obj->GetSrcObjectCount<FbxLight>());
+    AssertEqual(4, obj->GetSrcObjectCount<FbxNodeAttribute>());
+}
+
+void FbxObject_TypedGetSrcObject_GetsObjectOfThatType()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "asdf");
+    FbxMesh* mesh1 = FbxMesh::Create(manager, "mesh1");
+    FbxMesh* mesh2 = FbxMesh::Create(manager, "mesh2");
+    FbxNode* node = FbxNode::Create(manager, "node");
+    FbxMesh* mesh3 = FbxMesh::Create(manager, "mesh3");
+    FbxLight* light = FbxLight::Create(manager, "light");
+    obj->ConnectSrcObject(mesh1);
+    obj->ConnectSrcObject(mesh2);
+    obj->ConnectSrcObject(node);
+    obj->ConnectSrcObject(mesh3);
+    obj->ConnectSrcObject(light);
+
+    // require:
+    AssertEqual(5, obj->GetSrcObjectCount());
+    AssertEqual(mesh1, obj->GetSrcObject(0));
+    AssertEqual(mesh2, obj->GetSrcObject(1));
+    AssertEqual(node, obj->GetSrcObject(2));
+    AssertEqual(mesh3, obj->GetSrcObject(3));
+    AssertEqual(light, obj->GetSrcObject(4));
+
+    AssertEqual(3, obj->GetSrcObjectCount<FbxMesh>());
+    AssertEqual(1, obj->GetSrcObjectCount<FbxNode>());
+    AssertEqual(1, obj->GetSrcObjectCount<FbxLight>());
+    AssertEqual(4, obj->GetSrcObjectCount<FbxNodeAttribute>());
+
+    // then:
+    AssertEqual(mesh1, obj->GetSrcObject<FbxMesh>());
+    AssertEqual(mesh1, obj->GetSrcObject<FbxMesh>(0));
+    AssertEqual(mesh2, obj->GetSrcObject<FbxMesh>(1));
+    AssertEqual(mesh3, obj->GetSrcObject<FbxMesh>(2));
+    AssertEqual(node, obj->GetSrcObject<FbxNode>());
+    AssertEqual(node, obj->GetSrcObject<FbxNode>(0));
+    AssertEqual(light, obj->GetSrcObject<FbxLight>());
+    AssertEqual(light, obj->GetSrcObject<FbxLight>(0));
+    AssertEqual(mesh1, obj->GetSrcObject<FbxNodeAttribute>());
+    AssertEqual(mesh1, obj->GetSrcObject<FbxNodeAttribute>(0));
+    AssertEqual(mesh2, obj->GetSrcObject<FbxNodeAttribute>(1));
+    AssertEqual(mesh3, obj->GetSrcObject<FbxNodeAttribute>(2));
+    AssertEqual(light, obj->GetSrcObject<FbxNodeAttribute>(3));
+}
+
 void FbxObjectTest::RegisterTestCases()
 {
     AddTestCase(FbxObject_Create_HasZeroProperties);
@@ -498,5 +574,7 @@ void FbxObjectTest::RegisterTestCases()
     AddTestCase(Mesh_SetNameUsingColonsandSetNameSpace_IncludesNamespace);
     AddTestCase(FbxObject_RemovePrefix_RemovesAllPrefix);
     AddTestCase(FbxObject_StripPrefix_RemovesFirstPrefix);
+    AddTestCase(FbxObject_TypedGetSrcObjectCount_GetsCountOfObjectsOfThatType);
+    AddTestCase(FbxObject_TypedGetSrcObject_GetsObjectOfThatType);
 }
 
