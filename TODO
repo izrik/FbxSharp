@@ -1,0 +1,7 @@
+﻿
+FbxObject
+    DisconnectAllSrcObject<T> and DisconnectAllDstObject<T>
+        what are the failure modes?
+        if a single src/dst object fails to be disconnected, that fails the whole thing, right?
+        but if a single src/dst object fails to be disconnected, does that stop the process of disconnecting objects after it?
+        if so, what is the order in which the objects are considered?
