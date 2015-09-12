@@ -574,9 +574,10 @@ namespace FbxSharpTests
             Assert.AreEqual(1, mesh2.GetDstObjectCount());
 
             // when:
-            obj.DisconnectAllSrcObject<Mesh>();
+            var ret = obj.DisconnectAllSrcObject<Mesh>();
 
             // then:
+            Assert.True(ret);
             Assert.AreEqual(1, obj.GetSrcObjectCount());
             Assert.AreSame(node, obj.GetSrcObject());
             Assert.AreSame(node, obj.GetSrcObject(0));
@@ -620,9 +621,10 @@ namespace FbxSharpTests
             Assert.AreEqual(1, light.GetDstObjectCount());
 
             // when:
-            obj.DisconnectAllSrcObject<NodeAttribute>();
+            var ret = obj.DisconnectAllSrcObject<NodeAttribute>();
 
             // then:
+            Assert.True(ret);
             Assert.AreEqual(1, obj.GetSrcObjectCount());
             Assert.AreSame(node, obj.GetSrcObject());
             Assert.AreSame(node, obj.GetSrcObject(0));

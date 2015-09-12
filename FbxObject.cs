@@ -181,13 +181,14 @@ namespace FbxSharp
         public bool DisconnectAllSrcObject<T>()
         {
             var objectsToDisconnect = SrcObjects.Where(obj => obj is T).ToArray();
+            bool succeeded = true;
             foreach (var obj in objectsToDisconnect)
             {
                 // failure modes?
-                DisconnectSrcObject(obj);
+                succeeded &= DisconnectSrcObject(obj);
             }
 
-            return true;
+            return succeeded;
         }
 
         public bool DisconnectAllSrcObject<T>(FbxCriteria pCriteria)

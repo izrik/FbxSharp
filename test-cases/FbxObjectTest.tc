@@ -473,9 +473,10 @@ test FbxObject_TypedDisconnectAllSrcObject_DisconnectsAllSrcObjectOfThatType
     AssertEqual(1, mesh2.GetDstObjectCount())
 
     when
-    obj.DisconnectAllSrcObject<Fbx$Mesh>()
+    bool ret = obj.DisconnectAllSrcObject<Fbx$Mesh>()
 
     then
+    AssertTrue(ret)
     AssertEqual(1, obj.GetSrcObjectCount())
     AssertSame(node, obj.GetSrcObject())
     AssertSame(node, obj.GetSrcObject(0))
@@ -516,9 +517,10 @@ test FbxObject_TypedDisconnectAllSrcObjectWithInheritance_DisconnectsAllSrcObjec
     AssertEqual(1, light.GetDstObjectCount())
 
     when
-    obj.DisconnectAllSrcObject<Fbx$NodeAttribute>()
+    bool ret = obj.DisconnectAllSrcObject<Fbx$NodeAttribute>()
 
     then
+    AssertTrue(ret)
     AssertEqual(1, obj.GetSrcObjectCount())
     AssertSame(node, obj.GetSrcObject())
     AssertSame(node, obj.GetSrcObject(0))

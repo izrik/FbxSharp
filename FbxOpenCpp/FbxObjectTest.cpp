@@ -566,9 +566,10 @@ void FbxObject_TypedDisconnectAllSrcObject_DisconnectsAllSrcObjectOfThatType()
     AssertEqual(1, mesh2->GetDstObjectCount());
 
     // when:
-    obj->DisconnectAllSrcObject<FbxMesh>();
+    bool ret = obj->DisconnectAllSrcObject<FbxMesh>();
 
     // then:
+    AssertTrue(ret);
     AssertEqual(1, obj->GetSrcObjectCount());
     AssertEqual(node, obj->GetSrcObject());
     AssertEqual(node, obj->GetSrcObject(0));
@@ -612,9 +613,10 @@ void FbxObject_TypedDisconnectAllSrcObjectWithInheritance_DisconnectsAllSrcObjec
     AssertEqual(1, light->GetDstObjectCount());
 
     // when:
-    obj->DisconnectAllSrcObject<FbxNodeAttribute>();
+    bool ret = obj->DisconnectAllSrcObject<FbxNodeAttribute>();
 
     // then:
+    AssertTrue(ret);
     AssertEqual(1, obj->GetSrcObjectCount());
     AssertEqual(node, obj->GetSrcObject());
     AssertEqual(node, obj->GetSrcObject(0));
