@@ -448,3 +448,89 @@ test FbxObject_TypedGetSrcObject_GetsObjectOfThatType
     AssertSame(mesh2, obj.GetSrcObject<Fbx$NodeAttribute>(1))
     AssertSame(mesh3, obj.GetSrcObject<Fbx$NodeAttribute>(2))
     AssertSame(light, obj.GetSrcObject<Fbx$NodeAttribute>(3))
+
+test FbxObject_TypedDisconnectAllSrcObject_DisconnectsAllSrcObjectOfThatType
+    given
+    FbxObject obj = new("asdf")
+    Mesh mesh1 = new("mesh1")
+    Node node = new("node")
+    Mesh mesh2 = new("mesh2")
+    obj.ConnectSrcObject(mesh1)
+    obj.ConnectSrcObject(node)
+    obj.ConnectSrcObject(mesh2)
+
+    require
+    AssertEqual(3, obj.GetSrcObjectCount())
+    AssertSame(mesh1, obj.GetSrcObject(0))
+    AssertSame(node, obj.GetSrcObject(1))
+    AssertSame(mesh2, obj.GetSrcObject(2))
+
+    AssertEqual(2, obj.GetSrcObjectCount<Fbx$Mesh>())
+    AssertEqual(1, obj.GetSrcObjectCount<Fbx$Node>())
+
+    AssertEqual(1, mesh1.GetDstObjectCount())
+    AssertEqual(1, node.GetDstObjectCount())
+    AssertEqual(1, mesh2.GetDstObjectCount())
+
+    when
+    obj.DisconnectAllSrcObject<Fbx$Mesh>()
+
+    then
+    AssertEqual(1, obj.GetSrcObjectCount())
+    AssertSame(node, obj.GetSrcObject())
+    AssertSame(node, obj.GetSrcObject(0))
+
+    AssertEqual(0, obj.GetSrcObjectCount<Fbx$Mesh>())
+
+    AssertEqual(1, obj.GetSrcObjectCount<Fbx$Node>())
+    AssertSame(node, obj.GetSrcObject<Fbx$Node>())
+    AssertSame(node, obj.GetSrcObject<Fbx$Node>(0))
+
+    AssertEqual(0, mesh1.GetDstObjectCount())
+    AssertEqual(1, node.GetDstObjectCount())
+    AssertEqual(0, mesh2.GetDstObjectCount())
+
+test FbxObject_TypedDisconnectAllSrcObjectWithInheritance_DisconnectsAllSrcObjectOfThatType
+    given
+    FbxObject obj = new("asdf")
+    Mesh mesh1 = new("mesh1")
+    Node node = new("node")
+    Light light = new("light")
+    obj.ConnectSrcObject(mesh1)
+    obj.ConnectSrcObject(node)
+    obj.ConnectSrcObject(light)
+
+    require
+    AssertEqual(3, obj.GetSrcObjectCount())
+    AssertSame(mesh1, obj.GetSrcObject(0))
+    AssertSame(node, obj.GetSrcObject(1))
+    AssertSame(light, obj.GetSrcObject(2))
+
+    AssertEqual(1, obj.GetSrcObjectCount<Fbx$Mesh>())
+    AssertEqual(1, obj.GetSrcObjectCount<Fbx$Node>())
+    AssertEqual(1, obj.GetSrcObjectCount<Fbx$Light>())
+    AssertEqual(2, obj.GetSrcObjectCount<Fbx$NodeAttribute>())
+
+    AssertEqual(1, mesh1.GetDstObjectCount())
+    AssertEqual(1, node.GetDstObjectCount())
+    AssertEqual(1, light.GetDstObjectCount())
+
+    when
+    obj.DisconnectAllSrcObject<Fbx$NodeAttribute>()
+
+    then
+    AssertEqual(1, obj.GetSrcObjectCount())
+    AssertSame(node, obj.GetSrcObject())
+    AssertSame(node, obj.GetSrcObject(0))
+
+    AssertEqual(0, obj.GetSrcObjectCount<Fbx$Mesh>())
+    AssertEqual(0, obj.GetSrcObjectCount<Fbx$Light>())
+    AssertEqual(0, obj.GetSrcObjectCount<Fbx$NodeAttribute>())
+
+    AssertEqual(1, obj.GetSrcObjectCount<Fbx$Node>())
+    AssertSame(node, obj.GetSrcObject<Fbx$Node>())
+    AssertSame(node, obj.GetSrcObject<Fbx$Node>(0))
+
+    AssertEqual(0, mesh1.GetDstObjectCount())
+    AssertEqual(1, node.GetDstObjectCount())
+    AssertEqual(0, light.GetDstObjectCount())

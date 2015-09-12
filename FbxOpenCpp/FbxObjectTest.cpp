@@ -540,6 +540,98 @@ void FbxObject_TypedGetSrcObject_GetsObjectOfThatType()
     AssertEqual(light, obj->GetSrcObject<FbxNodeAttribute>(3));
 }
 
+void FbxObject_TypedDisconnectAllSrcObject_DisconnectsAllSrcObjectOfThatType()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "asdf");
+    FbxMesh* mesh1 = FbxMesh::Create(manager, "mesh1");
+    FbxNode* node = FbxNode::Create(manager, "node");
+    FbxMesh* mesh2 = FbxMesh::Create(manager, "mesh2");
+    obj->ConnectSrcObject(mesh1);
+    obj->ConnectSrcObject(node);
+    obj->ConnectSrcObject(mesh2);
+
+    // require:
+    AssertEqual(3, obj->GetSrcObjectCount());
+    AssertEqual(mesh1, obj->GetSrcObject(0));
+    AssertEqual(node, obj->GetSrcObject(1));
+    AssertEqual(mesh2, obj->GetSrcObject(2));
+
+    AssertEqual(2, obj->GetSrcObjectCount<FbxMesh>());
+    AssertEqual(1, obj->GetSrcObjectCount<FbxNode>());
+
+    AssertEqual(1, mesh1->GetDstObjectCount());
+    AssertEqual(1, node->GetDstObjectCount());
+    AssertEqual(1, mesh2->GetDstObjectCount());
+
+    // when:
+    obj->DisconnectAllSrcObject<FbxMesh>();
+
+    // then:
+    AssertEqual(1, obj->GetSrcObjectCount());
+    AssertEqual(node, obj->GetSrcObject());
+    AssertEqual(node, obj->GetSrcObject(0));
+
+    AssertEqual(0, obj->GetSrcObjectCount<FbxMesh>());
+
+    AssertEqual(1, obj->GetSrcObjectCount<FbxNode>());
+    AssertEqual(node, obj->GetSrcObject<FbxNode>());
+    AssertEqual(node, obj->GetSrcObject<FbxNode>(0));
+
+    AssertEqual(0, mesh1->GetDstObjectCount());
+    AssertEqual(1, node->GetDstObjectCount());
+    AssertEqual(0, mesh2->GetDstObjectCount());
+}
+
+void FbxObject_TypedDisconnectAllSrcObjectWithInheritance_DisconnectsAllSrcObjectOfThatType()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "asdf");
+    FbxMesh* mesh1 = FbxMesh::Create(manager, "mesh1");
+    FbxNode* node = FbxNode::Create(manager, "node");
+    FbxLight* light = FbxLight::Create(manager, "light");
+    obj->ConnectSrcObject(mesh1);
+    obj->ConnectSrcObject(node);
+    obj->ConnectSrcObject(light);
+
+    // require:
+    AssertEqual(3, obj->GetSrcObjectCount());
+    AssertEqual(mesh1, obj->GetSrcObject(0));
+    AssertEqual(node, obj->GetSrcObject(1));
+    AssertEqual(light, obj->GetSrcObject(2));
+
+    AssertEqual(1, obj->GetSrcObjectCount<FbxMesh>());
+    AssertEqual(1, obj->GetSrcObjectCount<FbxNode>());
+    AssertEqual(1, obj->GetSrcObjectCount<FbxLight>());
+    AssertEqual(2, obj->GetSrcObjectCount<FbxNodeAttribute>());
+
+    AssertEqual(1, mesh1->GetDstObjectCount());
+    AssertEqual(1, node->GetDstObjectCount());
+    AssertEqual(1, light->GetDstObjectCount());
+
+    // when:
+    obj->DisconnectAllSrcObject<FbxNodeAttribute>();
+
+    // then:
+    AssertEqual(1, obj->GetSrcObjectCount());
+    AssertEqual(node, obj->GetSrcObject());
+    AssertEqual(node, obj->GetSrcObject(0));
+
+    AssertEqual(0, obj->GetSrcObjectCount<FbxMesh>());
+    AssertEqual(0, obj->GetSrcObjectCount<FbxLight>());
+    AssertEqual(0, obj->GetSrcObjectCount<FbxNodeAttribute>());
+
+    AssertEqual(1, obj->GetSrcObjectCount<FbxNode>());
+    AssertEqual(node, obj->GetSrcObject<FbxNode>());
+    AssertEqual(node, obj->GetSrcObject<FbxNode>(0));
+
+    AssertEqual(0, mesh1->GetDstObjectCount());
+    AssertEqual(1, node->GetDstObjectCount());
+    AssertEqual(0, light->GetDstObjectCount());
+}
+
 void FbxObjectTest::RegisterTestCases()
 {
     AddTestCase(FbxObject_Create_HasZeroProperties);
@@ -576,5 +668,7 @@ void FbxObjectTest::RegisterTestCases()
     AddTestCase(FbxObject_StripPrefix_RemovesFirstPrefix);
     AddTestCase(FbxObject_TypedGetSrcObjectCount_GetsCountOfObjectsOfThatType);
     AddTestCase(FbxObject_TypedGetSrcObject_GetsObjectOfThatType);
+    AddTestCase(FbxObject_TypedDisconnectAllSrcObject_DisconnectsAllSrcObjectOfThatType);
+    AddTestCase(FbxObject_TypedDisconnectAllSrcObjectWithInheritance_DisconnectsAllSrcObjectOfThatType);
 }
 
