@@ -167,13 +167,13 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public FbxObject FindSrcObject (FbxCriteria pCriteria, string pName, int pStartIndex=0)
+        public FbxObject FindSrcObject(FbxCriteria pCriteria, string pName, int pStartIndex=0)
         {
             throw new NotImplementedException();
         }
 
         [Obsolete("Deprecated, please use FindSrcObject<T>() instead.")]
-        public FbxObject FindSrcObject (FbxClassId pClassId, string pName, int pStartIndex=0)
+        public FbxObject FindSrcObject(FbxClassId pClassId, string pName, int pStartIndex=0)
         {
             throw new NotImplementedException();
         }
