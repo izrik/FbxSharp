@@ -346,6 +346,8 @@ namespace FbxSharp
 
         public AnimCurveNode GetCurveNode(AnimStack pAnimStack, bool pCreate=false)
         {
+            if (pAnimStack == null) return null;
+
             var currentLayers = new HashSet<AnimLayer>(pAnimStack.GetSrcObjects<AnimLayer>());
 
             return (AnimCurveNode)SrcObjects.FirstOrDefault(x =>
