@@ -339,12 +339,22 @@ namespace FbxSharp
 
         public AnimCurveNode GetCurveNode(bool pCreate=false)
         {
-            return (AnimCurveNode)SrcObjects.FirstOrDefault(x => x is AnimCurveNode);
+            if (this.ParentFbxObject == null || this.ParentFbxObject.Scene == null) return null;
+            var stack = this.ParentFbxObject.Scene.GetCurrentAnimationStack();
+            return GetCurveNode(stack);
         }
 
         public AnimCurveNode GetCurveNode(AnimStack pAnimStack, bool pCreate=false)
         {
-            throw new NotImplementedException();
+            var currentLayers = new HashSet<AnimLayer>(pAnimStack.GetSrcObjects<AnimLayer>());
+
+            return (AnimCurveNode)SrcObjects.FirstOrDefault(x =>
+            {
+                if (!(x is AnimCurveNode)) return false;
+                var acn = (AnimCurveNode)x;
+                var layers = new HashSet<AnimLayer>(acn.GetDstObjects<AnimLayer>());
+                return layers.Intersect(currentLayers).Any();
+            });
         }
 
         public AnimCurveNode GetCurveNode(AnimLayer pAnimLayer, bool pCreate=false)
