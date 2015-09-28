@@ -96,7 +96,7 @@ void FbxProperty_HierarchicalSeparator()
     AssertEqual("|", FbxProperty::sHierarchicalSeparator);
 }
 
-void Property_MultipleStacks_IsAnimatedOnly()
+void Property_MultipleStacks_IsAnimatedOnlyWhenTheCorrectStackIsCurrent()
 {
     // given:
     FbxManager* manager = FbxManager::Create();
@@ -159,6 +159,69 @@ void Property_MultipleStacks_IsAnimatedOnly()
     AssertTrue(node->LclRotation.IsAnimated());
 }
 
+void Property_MultipleStacks_GetCurveNodeOnlyGetsCurvesOnTheCurrentStack()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxNode* node = FbxNode::Create(manager, "node");
+    FbxScene* scene = FbxScene::Create(manager, "scene");
+
+    FbxAnimCurveNode* acn1 = FbxAnimCurveNode::Create(manager, "acn1");
+    FbxAnimCurve* ac1 = FbxAnimCurve::Create(manager, "ac1");
+    FbxAnimLayer* layer1 = FbxAnimLayer::Create(manager, "layer1");
+    FbxAnimStack* stack1 = FbxAnimStack::Create(manager, "stack1");
+
+    FbxAnimCurveNode* acn2 = FbxAnimCurveNode::Create(manager, "acn2");
+    FbxAnimCurve* ac2 = FbxAnimCurve::Create(manager, "ac2");
+    FbxAnimLayer* layer2 = FbxAnimLayer::Create(manager, "layer2");
+    FbxAnimStack* stack2 = FbxAnimStack::Create(manager, "stack2");
+
+    FbxTime time = FbxTime(0);
+    FbxAnimCurveKey key = FbxAnimCurveKey(time, 1.0f);
+    ac1->KeyAdd(time, key);
+
+    FbxTime time2 = FbxTime(0);
+    FbxAnimCurveKey key2 = FbxAnimCurveKey(time2, 1.0f);
+    ac2->KeyAdd(time2, key2);
+
+    scene->ConnectSrcObject(node);
+    scene->ConnectSrcObject(acn1);
+    scene->ConnectSrcObject(ac1);
+    scene->ConnectSrcObject(layer1);
+    scene->ConnectSrcObject(stack1);
+    scene->ConnectSrcObject(acn2);
+    scene->ConnectSrcObject(ac2);
+    scene->ConnectSrcObject(layer2);
+    scene->ConnectSrcObject(stack2);
+
+    acn1->AddChannel<double>("x", 1.0);
+    acn1->ConnectToChannel(ac1, 0U);
+    layer1->ConnectSrcObject(acn1);
+    stack1->ConnectSrcObject(layer1);
+
+    acn2->AddChannel<double>("y", -1.0);
+    acn2->ConnectToChannel(ac2, 0U);
+    layer2->ConnectSrcObject(acn2);
+    stack2->ConnectSrcObject(layer2);
+
+    scene->SetCurrentAnimationStack(stack1);
+
+    node->LclTranslation.ConnectSrcObject(acn1);
+    node->LclRotation.ConnectSrcObject(acn2);
+
+    // require:
+    AssertEqual(stack1, scene->GetCurrentAnimationStack());
+    AssertEqual(acn1, node->LclTranslation.GetCurveNode());
+    AssertNull(node->LclRotation.GetCurveNode());
+
+    // when:
+    scene->SetCurrentAnimationStack(stack2);
+
+    // then:
+    AssertNull(node->LclTranslation.GetCurveNode());
+    AssertEqual(acn2, node->LclRotation.GetCurveNode());
+}
+
 void PropertyTest::RegisterTestCases()
 {
     AddTestCase(SurfacePhong_FindProperty_FindsProperty);
@@ -166,6 +229,7 @@ void PropertyTest::RegisterTestCases()
     AddTestCase(SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsDstProperty);
     AddTestCase(Property_AttachCurveNode_IsAnimated);
     AddTestCase(FbxProperty_HierarchicalSeparator);
-    AddTestCase(Property_MultipleStacks_IsAnimatedOnly);
+    AddTestCase(Property_MultipleStacks_IsAnimatedOnlyWhenTheCorrectStackIsCurrent);
+    AddTestCase(Property_MultipleStacks_GetCurveNodeOnlyGetsCurvesOnTheCurrentStack);
 }
 
