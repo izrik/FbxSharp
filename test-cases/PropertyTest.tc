@@ -87,3 +87,63 @@ test Property_AttachCurveNode_IsAnimated
 test FbxProperty_HierarchicalSeparator
     require
     AssertEqual("|", Fbx$Property::sHierarchicalSeparator)
+
+test Property_MultipleStacks_IsAnimatedOnly
+    given
+    Node node = new("node")
+    Scene scene = new("scene")
+
+    AnimCurveNode acn1 = new("acn1")
+    AnimCurve ac1 = new("ac1")
+    AnimLayer layer1 = new("layer1")
+    AnimStack stack1 = new("stack1")
+
+    AnimCurveNode acn2 = new("acn2")
+    AnimCurve ac2 = new("ac2")
+    AnimLayer layer2 = new("layer2")
+    AnimStack stack2 = new("stack2")
+
+    FbxTime! time = new(0)
+    AnimCurveKey! key = new(time, 1.0f)
+    ac1.KeyAdd(time, key)
+
+    FbxTime! time2 = new(0)
+    AnimCurveKey! key2 = new(time2, 1.0f)
+    ac2.KeyAdd(time2, key2)
+
+    scene.ConnectSrcObject(node)
+    scene.ConnectSrcObject(acn1)
+    scene.ConnectSrcObject(ac1)
+    scene.ConnectSrcObject(layer1)
+    scene.ConnectSrcObject(stack1)
+    scene.ConnectSrcObject(acn2)
+    scene.ConnectSrcObject(ac2)
+    scene.ConnectSrcObject(layer2)
+    scene.ConnectSrcObject(stack2)
+
+    acn1.AddChannel<double>("x", 1.0)
+    acn1.ConnectToChannel(ac1, 0U)
+    layer1.ConnectSrcObject(acn1)
+    stack1.ConnectSrcObject(layer1)
+
+    acn2.AddChannel<double>("y", -1.0)
+    acn2.ConnectToChannel(ac2, 0U)
+    layer2.ConnectSrcObject(acn2)
+    stack2.ConnectSrcObject(layer2)
+
+    scene.SetCurrentAnimationStack(stack1)
+
+    node.LclTranslation&.ConnectSrcObject(acn1)
+    node.LclRotation&.ConnectSrcObject(acn2)
+
+    require
+    AssertSame(scene.GetCurrentAnimationStack(), stack1)
+    AssertTrue(node.LclTranslation&.IsAnimated())
+    AssertFalse(node.LclRotation&.IsAnimated())
+
+    when
+    scene.SetCurrentAnimationStack(stack2)
+
+    then
+    AssertFalse(node.LclTranslation&.IsAnimated())
+    AssertTrue(node.LclRotation&.IsAnimated())
