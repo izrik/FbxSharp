@@ -7,6 +7,8 @@ namespace FbxSharp
         public static readonly FbxTime Infinite = new FbxTime(0x7fffffffffffffffL);
         public static readonly FbxTime Zero = new FbxTime(0);
 
+        public const long UnitsPerSecond = 46186158000L;
+
         public FbxTime(long time)
         {
             Value = time;
@@ -21,7 +23,7 @@ namespace FbxSharp
 
         public double GetSecondDouble()
         {
-            return Value / 46186158000.0;
+            return Value / (double)UnitsPerSecond;
         }
 
         public long GetFrameCount()
