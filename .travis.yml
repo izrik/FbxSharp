@@ -18,3 +18,8 @@ branches:
   only:
     - master
 
+deploy:
+  provider: script
+  script: nuget-pack-push.sh
+  on:
+    tags: true

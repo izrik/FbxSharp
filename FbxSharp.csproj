@@ -126,6 +126,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Light.cs" />
     <Compile Include="Camera.cs" />
+    <None Include="nuget-pack-push.sh" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
