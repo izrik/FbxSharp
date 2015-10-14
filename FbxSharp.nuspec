@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/izrik/FbxSharp/master/FbxSharp.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A pure C# library for loading FBX files</description>
-    <releaseNotes>- Fully stub out the object connection section of FbxObject.&#10;- Implement and test the typed (generic) versions of the GetSrcObjectCount, GetSrcObject, and DisconnectAllSrcObject methods.&#10;- Add support for multiple AnimStacks in the same file.</releaseNotes>
+    <releaseNotes>Provide FbxTime units per second in a static const field</releaseNotes>
     <copyright>Copyright 2015 izrik and Metaphysics Industries, Inc.</copyright>
     <tags>fbx 3d model files</tags>
     <frameworkAssemblies>
