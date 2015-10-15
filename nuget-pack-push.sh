@@ -22,7 +22,7 @@ fi
 
 AVERSION=`grep AssemblyVersion AssemblyInfo.cs | perl -npe 's/^.*?\"//;s/\".*$//'`
 
-if [ "$VERSION" != "$AVERSION ]
+if [ "$VERSION" != "$AVERSION" ]
 then
     echo "Tag doesn't match assembly version. Package will not be created."
     exit 1
