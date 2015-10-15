@@ -1,6 +1,19 @@
 ﻿#!/bin/bash
 
-VERSION=`echo "$1" | perl -ne 'print /^v(\d+\.\d+(?:\.\d+(?:\.\d+)?)?)$/'`
+TAG="$1"
+
+if [ "$TAG" = "" ]
+then
+    TAG=$TRAVIS_TAG
+fi
+
+if [ "$TAG" = "" ]
+then
+    echo 'No tag given. Package will not be created.'
+    exit 1
+fi
+
+VERSION=`echo "$TAG" | perl -ne 'print /^v(\d+\.\d+(?:\.\d+(?:\.\d+)?)?)$/'`
 if [ "$VERSION" = "" ];
 then
     echo 'Wrong version format. Package will not be created.'
