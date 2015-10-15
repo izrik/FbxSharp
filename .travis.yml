@@ -14,10 +14,6 @@ script:
   - xbuild /p:Configuration=Debug FbxSharpBuild.sln
   - nunit-console ./FbxSharpTests/bin/Debug/FbxSharpTests.dll
 
-branches:
-  only:
-    - master
-
 deploy:
   provider: script
   script: nuget-pack-push.sh
