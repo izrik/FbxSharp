@@ -28,5 +28,10 @@ then
     exit 1
 fi
 
-nuget pack FbxSharp.nuspec -Properties version=$VERSION && \
-    nuget push -ApiKey $NUGET_APIKEY FbxSharp.$VERSION.nupkg
+echo 'Creating the nuget package...'
+nuget pack FbxSharp.nuspec -Properties version=$VERSION
+
+echo 'Uploading the package to nuget...'
+nuget push -ApiKey $NUGET_APIKEY FbxSharp.$VERSION.nupkg
+
+echo 'Done.'
