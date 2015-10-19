@@ -17,6 +17,6 @@ script:
 deploy:
   skip_cleanup: true
   provider: script
-  script: nuget-pack-push.sh
+  script: ./nuget-pack-push.sh
   on:
     tags: true
