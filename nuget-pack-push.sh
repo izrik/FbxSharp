@@ -29,9 +29,15 @@ then
 fi
 
 echo 'Creating the nuget package...'
-nuget pack FbxSharp.nuspec -Properties version=$VERSION
+if ! nuget pack FbxSharp.nuspec -Properties version=$VERSION ; then
+    echo 'Error creating the package. The package will not be uploaded.'
+    exit 1
+fi
 
 echo 'Uploading the package to nuget...'
-nuget push -ApiKey $NUGET_APIKEY FbxSharp.$VERSION.nupkg
+if ! nuget push -ApiKey $NUGET_APIKEY FbxSharp.$VERSION.nupkg ; then
+    echo 'Error uploading the package. Quitting.'
+    exit 1
+fi
 
 echo 'Done.'
