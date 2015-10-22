@@ -32,6 +32,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyInfo.Git.cs" />
     <Compile Include="FbxClassId.cs" />
     <Compile Include="FbxCriteria.cs" />
     <None Include="TODO" />
@@ -166,5 +167,10 @@
     <None Include="test-cases\CameraTest.tc" />
     <None Include=".travis.yml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="pre-build.py" />
+  </ItemGroup>
+  <PropertyGroup>
+    <PreBuildEvent>python $(ProjectDir)pre-build.py $(ProjectDir)AssemblyInfo.Git.cs</PreBuildEvent>
+  </PropertyGroup>
 </Project>

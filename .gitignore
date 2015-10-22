@@ -185,3 +185,6 @@ FakesAssemblies/
 # MonoDevelop/Xamarin
 *.userprefs
 
+# Auto-generated files
+AssemblyInfo.Git.cs
+
