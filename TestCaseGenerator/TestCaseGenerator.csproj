@@ -9,6 +9,8 @@
     <AssemblyName>TestCaseGenerator</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +41,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestFixture.cs" />
     <Compile Include="TestCase.cs" />
+    <Compile Include="FbxType.cs" />
+    <Compile Include="FbxTypes.cs" />
+    <Compile Include="FbxMethod.cs" />
+    <Compile Include="FbxParameter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
