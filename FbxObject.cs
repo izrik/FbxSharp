@@ -7,6 +7,12 @@ namespace FbxSharp
     public class FbxObject : Emitter
     {
         static ulong __uniqueId = 0;
+        private static ulong GetNextUniqueId()
+        {
+            var next = __uniqueId;
+            __uniqueId++;
+            return next;
+        }
 
         public FbxObject(String name="")
         {
@@ -19,8 +25,7 @@ namespace FbxSharp
             SrcProperties = new ObjectSrcPropertyCollection(this);
             DstProperties = new ObjectDstPropertyCollection(this);
 
-            UniqueId = __uniqueId;
-            __uniqueId++;
+            UniqueId = GetNextUniqueId();
 
             _scene = DstObjects.CreateObjectView<Scene>();
         }
