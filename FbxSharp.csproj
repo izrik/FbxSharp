@@ -130,6 +130,7 @@
     <Compile Include="Light.cs" />
     <Compile Include="Camera.cs" />
     <None Include="release.sh" />
+    <None Include="build.sh" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
