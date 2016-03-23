@@ -26,7 +26,7 @@ namespace FbxSharpTests
             Assert.AreEqual(root, scene.GetNode(0));
 
             Assert.AreEqual(0, root.GetSrcObjectCount());
-            Assert.AreEqual(, root.GetDstObjectCount());
+            Assert.AreEqual(1, root.GetDstObjectCount());
             Assert.AreEqual(scene, root.GetDstObject(0));
 
             Assert.AreEqual(0, node2.GetSrcObjectCount());
