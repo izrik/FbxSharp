@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ObjectPrinter
 {
-    public class Collector
+    public class Collector : FbxVisitor
     {
         public readonly List<FbxObject> Objects = new List<FbxObject>();
 
