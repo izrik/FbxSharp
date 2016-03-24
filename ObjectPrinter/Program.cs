@@ -21,24 +21,24 @@ namespace ObjectPrinter
                 var importer = new Importer(filename);
                 var scene = importer.Import(filename);
 
-                var acs1 = scene.SrcObjects.Where(x => x is AnimCurve).ToList();
-                var acs2 = acs1.Cast<AnimCurve>().ToList();
-                var ordered = acs2.OrderBy(x => x.GetUniqueID()).ToList();
-                var acs = ordered.ToList();
-                foreach (var srcobj in acs)
-                {
-                    var ac = srcobj as AnimCurve;
-                    if (ac != null)
-                    {
-    //                    PrintObject(ac);
-    //                    Console.WriteLine(PrintObjectID(ac));
-                        PrintAnimCurve(ac);
-                        Console.WriteLine();
-     //                    break;
-                    }
-                }
+//                var acs1 = scene.SrcObjects.Where(x => x is AnimCurve).ToList();
+//                var acs2 = acs1.Cast<AnimCurve>().ToList();
+//                var ordered = acs2.OrderBy(x => x.GetUniqueID()).ToList();
+//                var acs = ordered.ToList();
+//                foreach (var srcobj in acs)
+//                {
+//                    var ac = srcobj as AnimCurve;
+//                    if (ac != null)
+//                    {
+//    //                    PrintObject(ac);
+//    //                    Console.WriteLine(PrintObjectID(ac));
+//                        PrintAnimCurve(ac);
+//                        Console.WriteLine();
+//     //                    break;
+//                    }
+//                }
 
-    //            PrintObjectGraph(scene);
+                PrintObjectGraph(scene);
             }
         }
 
