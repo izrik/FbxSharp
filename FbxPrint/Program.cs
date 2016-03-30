@@ -4,7 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ObjectPrinter
+namespace FbxPrint
 {
     class MainClass
     {
@@ -12,7 +12,7 @@ namespace ObjectPrinter
         {
             if (args == null || args.Length < 1)
             {
-                Console.Error.WriteLine("Usage: ObjectPrinter.exe FILENAME [ FILENAME ... ]");
+                Console.Error.WriteLine("Usage: FbxPrint.exe FILENAME [ FILENAME ... ]");
                 return;
             }
 

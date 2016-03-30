@@ -5,8 +5,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{520853BD-16B0-4839-AC15-7AE68124BAEA}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ObjectPrinter</RootNamespace>
-    <AssemblyName>ObjectPrinter</AssemblyName>
+    <RootNamespace>FbxPrint</RootNamespace>
+    <AssemblyName>FbxPrint</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <ProductVersion>8.0.30703</ProductVersion>
