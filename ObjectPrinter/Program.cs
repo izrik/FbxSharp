@@ -38,7 +38,8 @@ namespace ObjectPrinter
 //                    }
 //                }
 
-                ObjectPrinter.PrintObjectGraph(scene);
+                var printer = new ObjectPrinter();
+                printer.PrintObjectGraph(scene);
             }
         }
     }

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ObjectPrinter
 {
-    class ObjectPrinter
+    public class ObjectPrinter
     {
         public static string quote(string s)
         {
@@ -38,7 +38,7 @@ namespace ObjectPrinter
                 quote(obj.GetName()));
         }
 
-        public static void PrintObject(FbxObject obj)
+        public void PrintObject(FbxObject obj)
         {
             Console.WriteLine("${0}", PrintObjectID(obj));  // extra $ for easy text search
             Console.WriteLine("    Name = {0}", quote(obj.GetName()));
@@ -135,7 +135,7 @@ namespace ObjectPrinter
             Console.WriteLine();
         }
 
-        public static int sort_by_id(FbxObject a, FbxObject b)
+        public int sort_by_id(FbxObject a, FbxObject b)
         {
             if (a == null) throw new ArgumentNullException("a");
             if (b == null) throw new ArgumentNullException("b");
@@ -148,7 +148,7 @@ namespace ObjectPrinter
             return 1;
         }
 
-        public static void PrintObjectGraph(FbxObject obj)
+        public void PrintObjectGraph(FbxObject obj)
         {
             var c = new Collector();
 
@@ -166,7 +166,7 @@ namespace ObjectPrinter
         }
 
 
-        //public static string GetTypeName(EFbxType tid)
+        //public string GetTypeName(EFbxType tid)
         //{
         //    switch (tid)
         //    {
@@ -200,12 +200,12 @@ namespace ObjectPrinter
         //    return "<<unknown>>";
         //}
 
-        public static string GetTypeName(Type tid)
+        public string GetTypeName(Type tid)
         {
             return tid.Name;
         }
 
-        public static void PrintProperty(Property prop, bool indent=false)
+        public void PrintProperty(Property prop, bool indent=false)
         {
             string prefix = indent ? "            " : "        ";
 
@@ -422,7 +422,7 @@ namespace ObjectPrinter
 
 
 
-        public static void PrintAnimCurve(AnimCurve ac)
+        public void PrintAnimCurve(AnimCurve ac)
         {
             Console.Write("    KeyGetCount() = ");
             Console.Write(ac.KeyGetCount());
