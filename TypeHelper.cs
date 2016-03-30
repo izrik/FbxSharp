@@ -1,7 +1,7 @@
 ﻿using System;
 using FbxSharp;
 
-namespace ObjectPrinter
+namespace FbxSharp
 {
     public static class TypeHelper
     {

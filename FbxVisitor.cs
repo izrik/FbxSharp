@@ -2,7 +2,7 @@ using System;
 using FbxSharp;
 using System.Collections.Generic;
 
-namespace ObjectPrinter
+namespace FbxSharp
 {
 	public class FbxVisitor
 	{

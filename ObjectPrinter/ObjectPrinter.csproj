@@ -36,10 +36,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TypeHelper.cs" />
-    <Compile Include="Collector.cs" />
-    <Compile Include="FbxVisitor.cs" />
-    <Compile Include="ObjectPrinter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

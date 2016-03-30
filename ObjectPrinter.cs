@@ -4,7 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ObjectPrinter
+namespace FbxSharp
 {
     public class ObjectPrinter
     {

@@ -38,7 +38,7 @@ namespace ObjectPrinter
 //                    }
 //                }
 
-                var printer = new ObjectPrinter();
+                var printer = new FbxSharp.ObjectPrinter();
                 printer.PrintObjectGraph(scene);
             }
         }
