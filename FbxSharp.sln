@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCaseGenerator", "TestCa
 EndProject
 Project("{2857B73E-F847-4B02-9238-064979017E93}") = "FbxOpenCpp.xamarin-mac", "FbxOpenCpp\FbxOpenCpp.xamarin-mac.cproj", "{44E660AC-1A21-498E-B270-15E37C551BB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectPrinter", "ObjectPrinter\ObjectPrinter.csproj", "{520853BD-16B0-4839-AC15-7AE68124BAEA}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FbxOpenCpp.vs2010-win", "FbxOpenCpp\FbxOpenCpp.vs2010-win.vcxproj", "{5CF9CF6D-8963-4BA7-AA01-6E4AA03D5BC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxPrint", "FbxPrint\FbxPrint.csproj", "{520853BD-16B0-4839-AC15-7AE68124BAEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,16 +23,6 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Release|Win32.ActiveCfg = Release|Any CPU
 		{06E9280F-1851-4A20-BA7C-18AAE0A809D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{06E9280F-1851-4A20-BA7C-18AAE0A809D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06E9280F-1851-4A20-BA7C-18AAE0A809D4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -66,11 +56,13 @@ Global
 		{520853BD-16B0-4839-AC15-7AE68124BAEA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{520853BD-16B0-4839-AC15-7AE68124BAEA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{520853BD-16B0-4839-AC15-7AE68124BAEA}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{520853BD-16B0-4839-AC15-7AE68124BAEA}.Debug|Win32.Build.0 = Debug|Any CPU
 		{520853BD-16B0-4839-AC15-7AE68124BAEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{520853BD-16B0-4839-AC15-7AE68124BAEA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{520853BD-16B0-4839-AC15-7AE68124BAEA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{520853BD-16B0-4839-AC15-7AE68124BAEA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{520853BD-16B0-4839-AC15-7AE68124BAEA}.Release|Win32.ActiveCfg = Release|Any CPU
+		{520853BD-16B0-4839-AC15-7AE68124BAEA}.Release|Win32.Build.0 = Release|Any CPU
 		{5CF9CF6D-8963-4BA7-AA01-6E4AA03D5BC3}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{5CF9CF6D-8963-4BA7-AA01-6E4AA03D5BC3}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{5CF9CF6D-8963-4BA7-AA01-6E4AA03D5BC3}.Debug|Mixed Platforms.Build.0 = Debug|Win32
@@ -81,9 +73,16 @@ Global
 		{5CF9CF6D-8963-4BA7-AA01-6E4AA03D5BC3}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{5CF9CF6D-8963-4BA7-AA01-6E4AA03D5BC3}.Release|Win32.ActiveCfg = Release|Win32
 		{5CF9CF6D-8963-4BA7-AA01-6E4AA03D5BC3}.Release|Win32.Build.0 = Release|Win32
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
+		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
@@ -114,5 +113,8 @@ Global
 		$3.inheritsSet = VisualStudio
 		$3.inheritsScope = text/plain
 		$3.scope = text/plain
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

@@ -5,10 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{520853BD-16B0-4839-AC15-7AE68124BAEA}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ObjectPrinter</RootNamespace>
-    <AssemblyName>ObjectPrinter</AssemblyName>
+    <RootNamespace>FbxPrint</RootNamespace>
+    <AssemblyName>FbxPrint</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,8 +36,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TypeHelper.cs" />
-    <Compile Include="Collector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

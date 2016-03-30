@@ -2,9 +2,9 @@
 using FbxSharp;
 using System.Collections.Generic;
 
-namespace ObjectPrinter
+namespace FbxSharp
 {
-    public class Collector
+    public class Collector : FbxVisitor
     {
         public readonly List<FbxObject> Objects = new List<FbxObject>();
 
