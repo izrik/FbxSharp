@@ -152,11 +152,11 @@ namespace FbxSharp
         {
             var c = new Collector();
 
-            c.Visit(obj);
+            var collected = c.Collect(obj);
+            var objs = new List<FbxObject>(collected);
 
             Console.WriteLine();
 
-            var objs = c.Objects;
             objs.Sort(sort_by_id);
 
             foreach (var o in objs)

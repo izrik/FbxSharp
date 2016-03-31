@@ -6,7 +6,14 @@ namespace FbxSharp
 {
     public class Collector : FbxVisitor
     {
-        public readonly ISet<FbxObject> Objects = new HashSet<FbxObject>();
+        public ISet<FbxObject> Collect(FbxObject obj)
+        {
+            Objects.Clear();
+            Accept(obj);
+            return Objects;
+        }
+
+        readonly ISet<FbxObject> Objects = new HashSet<FbxObject>();
 
         public override void Visit(FbxObject obj)
         {
