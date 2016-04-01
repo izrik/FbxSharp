@@ -115,8 +115,8 @@ namespace FbxSharp
 
         protected void AcceptFbxObject(FbxObject obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             //AcceptEmitter(obj, visitedObjects);
+            Visit(obj);
 
             //Accept(obj.GetDocument());
             //Accept(obj.GetRootDocument());
@@ -168,8 +168,8 @@ namespace FbxSharp
 
         protected void AcceptScene(Scene scene, ISet<object> visitedObjects)
         {
-            Visit(scene);
             AcceptDocument(scene, visitedObjects);
+            Visit(scene);
 
             // GenericNodeCount
             // CharacterCount
@@ -211,8 +211,8 @@ namespace FbxSharp
 
         protected void AcceptNode(Node node, ISet<object> visitedObjects)
         {
-            Visit(node);
             AcceptFbxObject(node, visitedObjects);
+            Visit(node);
 
             if (node.GetParent() != null)
                 Accept(node.GetParent(), visitedObjects);
@@ -245,40 +245,40 @@ namespace FbxSharp
 
         protected void AcceptNodeAttribute(NodeAttribute obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptFbxObject(obj, visitedObjects);
+            Visit(obj);
 
             Accept(obj.GetNode(), visitedObjects);
         }
 
         protected void AcceptSurfaceMaterial(SurfaceMaterial obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptFbxObject(obj, visitedObjects);
+            Visit(obj);
         }
 
         protected void AcceptSurfaceLambert(SurfaceLambert obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptSurfaceMaterial(obj, visitedObjects);
+            Visit(obj);
         }
 
         protected void AcceptSurfacePhong(SurfacePhong obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptSurfaceLambert(obj, visitedObjects);
+            Visit(obj);
         }
 
         protected void AcceptMesh(Mesh obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptGeometry(obj, visitedObjects);
+            Visit(obj);
         }
 
         protected void AcceptGeometry(Geometry obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptGeometryBase(obj, visitedObjects);
+            Visit(obj);
 
             int i;
             for (i = 0; i < obj.GetDeformerCount(); i++)
@@ -292,8 +292,8 @@ namespace FbxSharp
 
         protected void AcceptGeometryBase(GeometryBase obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptLayerContainer(obj, visitedObjects);
+            Visit(obj);
 
             // TODO: geometry elements
         }
@@ -316,8 +316,8 @@ namespace FbxSharp
 
         protected void AcceptLayerContainer(LayerContainer layerContainer, ISet<object> visitedObjects)
         {
-            Visit(layerContainer);
             AcceptNodeAttribute(layerContainer, visitedObjects);
+            Visit(layerContainer);
 
             int j;
             for (j = 0; j < layerContainer.GetLayerCount(); j++)
@@ -356,8 +356,8 @@ namespace FbxSharp
 
         protected void AcceptDocument(Document obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptCollection(obj, visitedObjects);
+            Visit(obj);
 
             int i;
             //for (i = 0; i < obj.GetRootMemberCount(); i++)
@@ -373,8 +373,8 @@ namespace FbxSharp
 
         protected void AcceptCollection(Collection obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptFbxObject(obj, visitedObjects);
+            Visit(obj);
 
             int i;
             //for (i = 0; i < obj.GetMemberCount(); i++)
@@ -385,28 +385,27 @@ namespace FbxSharp
 
         protected void AcceptAnimLayer(AnimLayer obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptCollection(obj, visitedObjects);
+            Visit(obj);
         }
 
         protected void AcceptAnimStack(AnimStack obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptCollection(obj, visitedObjects);
+            Visit(obj);
         }
 
         protected void AcceptAnimCurve(AnimCurve obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             //AcceptAnimCurveBase(obj, visitedObjects);
             AcceptFbxObject(obj, visitedObjects);
-
+            Visit(obj);
         }
 
         protected void AcceptAnimCurveNode(AnimCurveNode obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptFbxObject(obj, visitedObjects);
+            Visit(obj);
 
             int i;
             int j;
@@ -423,16 +422,16 @@ namespace FbxSharp
 
         protected void AcceptDeformer(Deformer obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptFbxObject(obj, visitedObjects);
+            Visit(obj);
 
             throw new NotImplementedException();
         }
 
         protected void AcceptPose(Pose pose, ISet<object> visitedObjects)
         {
-            Visit(pose);
             AcceptFbxObject(pose, visitedObjects);
+            Visit(pose);
 
             int i;
             for (i = 0; i < pose.GetCount(); i++)
@@ -443,51 +442,50 @@ namespace FbxSharp
 
         protected void AcceptSubDeformer(SubDeformer obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptFbxObject(obj, visitedObjects);
+            Visit(obj);
             throw new NotImplementedException();
         }
 
         protected void AcceptTexture(Texture obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptFbxObject(obj, visitedObjects);
+            Visit(obj);
         }
 
         protected void AcceptVideo(Video obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptFbxObject(obj, visitedObjects);
+            Visit(obj);
             throw new NotImplementedException();
         }
 
         protected void AcceptCamera(Camera obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptNodeAttribute(obj, visitedObjects);
+            Visit(obj);
             throw new NotImplementedException();
         }
 
         protected void AcceptLight(Light obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptNodeAttribute(obj, visitedObjects);
+            Visit(obj);
             throw new NotImplementedException();
         }
 
         protected void AcceptNull(Null obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptNodeAttribute(obj, visitedObjects);
+            Visit(obj);
         }
 
         protected void AcceptSkeleton(Skeleton obj, ISet<object> visitedObjects)
         {
-            Visit(obj);
             AcceptNodeAttribute(obj, visitedObjects);
+            Visit(obj);
             throw new NotImplementedException();
         }
-
     }
 }
 
