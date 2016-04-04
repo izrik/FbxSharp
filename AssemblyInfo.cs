@@ -12,4 +12,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 
 
-[assembly: AssemblyVersion("0.7")]
+[assembly: AssemblyVersion("0.8")]
