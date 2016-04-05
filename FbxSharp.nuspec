@@ -11,10 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/izrik/FbxSharp/master/FbxSharp.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A pure C# library for loading FBX files</description>
-    <releaseNotes>
-    - Change the license from GPL to LGPL.&#10;
-    - Include the FbxPrint tool.&#10;
-    </releaseNotes>
+    <releaseNotes>- Change the license from GPL to LGPL.&#10;- Include the FbxPrint tool.&#10;</releaseNotes>
     <copyright>Copyright 2016 izrik and Metaphysics Industries, Inc.</copyright>
     <tags>fbx 3d model files</tags>
     <frameworkAssemblies>
