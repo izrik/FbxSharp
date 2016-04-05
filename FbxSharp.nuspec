@@ -11,8 +11,8 @@
     <iconUrl>https://raw.githubusercontent.com/izrik/FbxSharp/master/FbxSharp.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A pure C# library for loading FBX files</description>
-    <releaseNotes>Provide FbxTime units per second in a static const field</releaseNotes>
-    <copyright>Copyright 2015 izrik and Metaphysics Industries, Inc.</copyright>
+    <releaseNotes>- Change the license from GPL to LGPL.&#10;- Add the ObjectPrinter and Collector classes.&#10;- Include the FbxPrint tool.&#10;</releaseNotes>
+    <copyright>Copyright 2016 izrik and Metaphysics Industries, Inc.</copyright>
     <tags>fbx 3d model files</tags>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System" targetFramework="" />
@@ -20,5 +20,6 @@
   </metadata>
   <files>
     <file src="bin/Debug/FbxSharp.dll" target="lib/net40" />
+    <file src="FbxPrint/bin/Debug/FbxPrint.exe" target="tools" />
   </files>
 </package>
