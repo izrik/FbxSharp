@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using FbxSharp;
+using System.IO;
 
 namespace FbxSharpTests
 {
@@ -20,6 +21,28 @@ namespace FbxSharpTests
             Assert.AreEqual("\"\\r\"", ObjectPrinter.quote("\r"));
             Assert.AreEqual("\"\\n\"", ObjectPrinter.quote("\n"));
             Assert.AreEqual("\"\\t\"", ObjectPrinter.quote("\t"));
+        }
+
+        [Test]
+        public void PrintPropertyPrintsTheProperty()
+        {
+            // given
+            var prop = new PropertyT<double>("something");
+            var printer = new ObjectPrinter();
+            var writer = new StringWriter();
+            var expected =
+@"        Name = something
+        Type = Double (MonoType)
+        Value = 0
+        SrcObjectCount = 0
+        DstObjectCount = 0
+";
+
+            // when
+            printer.PrintProperty(prop, writer);
+
+            // then
+            Assert.AreEqual(expected, writer.ToString());
         }
     }
 }
