@@ -75,6 +75,7 @@
     <Compile Include="LightTest.cs" />
     <Compile Include="CameraTest.cs" />
     <Compile Include="CollectorTest.cs" />
+    <Compile Include="ObjectPrinterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

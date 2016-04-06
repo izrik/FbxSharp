@@ -3,6 +3,7 @@ using FbxSharp;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace FbxSharp
 {
@@ -40,26 +41,30 @@ namespace FbxSharp
 
         public void PrintObject(FbxObject obj)
         {
-            Console.WriteLine("${0}", PrintObjectID(obj));  // extra $ for easy text search
-            Console.WriteLine("    Name = {0}", quote(obj.GetName()));
-            Console.WriteLine("    ClassId = {0}", obj.GetType().Name/*obj.GetRuntimeClassId().GetName()*/);
-            Console.WriteLine("    UniqueId = {0}", obj.GetUniqueID());
-            Console.WriteLine("    GetScene() = {0}", PrintObjectID(obj.GetScene()));
-//            Console.Write("    GetDocument() = {0}", PrintObjectID(obj.GetDocument()));
-//            Console.Write("    GetRootDocument() = {0}", PrintObjectID(obj.GetRootDocument()));
-            Console.WriteLine("    SrcObjectCount = {0}", obj.GetSrcObjectCount());
+            PrintObject(obj, Console.Out);
+        }
+        public void PrintObject(FbxObject obj, TextWriter writer)
+        {
+            writer.WriteLine("${0}", PrintObjectID(obj));  // extra $ for easy text search
+            writer.WriteLine("    Name = {0}", quote(obj.GetName()));
+            writer.WriteLine("    ClassId = {0}", obj.GetType().Name/*obj.GetRuntimeClassId().GetName()*/);
+            writer.WriteLine("    UniqueId = {0}", obj.GetUniqueID());
+            writer.WriteLine("    GetScene() = {0}", PrintObjectID(obj.GetScene()));
+//            writer.Write("    GetDocument() = {0}", PrintObjectID(obj.GetDocument()));
+//            writer.Write("    GetRootDocument() = {0}", PrintObjectID(obj.GetRootDocument()));
+            writer.WriteLine("    SrcObjectCount = {0}", obj.GetSrcObjectCount());
 
             int i;
             for (i = 0; i < obj.GetSrcObjectCount(); i++)
             {
                 FbxObject srcObj = obj.GetSrcObject(i);
-                Console.WriteLine("        #{0} {1}", i, PrintObjectID(srcObj));
+                writer.WriteLine("        #{0} {1}", i, PrintObjectID(srcObj));
             }
-            Console.Write("    DstObjectCount = {0}", obj.GetDstObjectCount());
+            writer.Write("    DstObjectCount = {0}", obj.GetDstObjectCount());
             for (i = 0; i < obj.GetDstObjectCount(); i++)
             {
                 FbxObject dstObj = obj.GetDstObject(i);
-                Console.WriteLine("        #{0} {1}", i, PrintObjectID(dstObj));
+                writer.WriteLine("        #{0} {1}", i, PrintObjectID(dstObj));
             }
 
             var prop = obj.GetFirstProperty();
@@ -69,39 +74,39 @@ namespace FbxSharp
                 n++;
                 prop = obj.GetNextProperty(prop);
             }
-            Console.WriteLine("    Properties {0}", n);
+            writer.WriteLine("    Properties {0}", n);
 
             prop = obj.GetFirstProperty();
             n = 0;
             while (prop != null && prop.IsValid())
             {
-                Console.WriteLine("        #{0} {1}", n, PrintPropertyID(prop));
+                writer.WriteLine("        #{0} {1}", n, PrintPropertyID(prop));
                 PrintProperty(prop, true);
                 n++;
                 prop = obj.GetNextProperty(prop);
             }
 
-            Console.WriteLine("    SrcPropertyCount = {0}", obj.GetSrcPropertyCount());
+            writer.WriteLine("    SrcPropertyCount = {0}", obj.GetSrcPropertyCount());
             for (i = 0; i < obj.GetSrcPropertyCount(); i++)
             {
                 prop = obj.GetSrcProperty(i);
-                Console.Write("        #{0} ", i);
+                writer.Write("        #{0} ", i);
                 PrintPropertyID(prop);
-                Console.WriteLine();
+                writer.WriteLine();
             }
-            Console.WriteLine("    DstPropertyCount = {0}", obj.GetDstPropertyCount());
+            writer.WriteLine("    DstPropertyCount = {0}", obj.GetDstPropertyCount());
             for (i = 0; i < obj.GetDstPropertyCount(); i++)
             {
                 prop = obj.GetDstProperty(i);
-                Console.Write("        #{0} ", i);
+                writer.Write("        #{0} ", i);
                 PrintPropertyID(prop);
-                Console.WriteLine();
+                writer.WriteLine();
             }
             if (obj.RootProperty.IsValid())
             {
-                Console.Write("    RootProperty ");
+                writer.Write("    RootProperty ");
                 PrintPropertyID(obj.RootProperty);
-                Console.WriteLine();
+                writer.WriteLine();
                 PrintProperty(obj.RootProperty);
             }
 
@@ -130,9 +135,9 @@ namespace FbxSharp
 //            else if (obj is Video)
 //                PrintVideo(obj as Video);
             else
-                Console.WriteLine("Unknown object class: {0}", obj.GetType().Name/*obj.GetRuntimeClassId().GetName()*/);
+                writer.WriteLine("Unknown object class: {0}", obj.GetType().Name/*obj.GetRuntimeClassId().GetName()*/);
 
-            Console.WriteLine();
+            writer.WriteLine();
         }
 
         public int sort_by_id(FbxObject a, FbxObject b)
@@ -150,12 +155,16 @@ namespace FbxSharp
 
         public void PrintObjectGraph(FbxObject obj)
         {
+            PrintObjectGraph(obj, Console.Out);
+        }
+        public void PrintObjectGraph(FbxObject obj, TextWriter writer)
+        {
             var c = new Collector();
 
             var collected = c.Collect(obj);
             var objs = new List<FbxObject>(collected);
 
-            Console.WriteLine();
+            writer.WriteLine();
 
             objs.Sort(sort_by_id);
 
@@ -207,13 +216,17 @@ namespace FbxSharp
 
         public void PrintProperty(Property prop, bool indent=false)
         {
+            PrintProperty(prop, Console.Out, indent);
+        }
+        public void PrintProperty(Property prop, TextWriter writer, bool indent=false)
+        {
             string prefix = indent ? "            " : "        ";
 
-            Console.WriteLine("{0}Name = {1}", prefix, prop.GetName());
+            writer.WriteLine("{0}Name = {1}", prefix, prop.GetName());
             var type = prop.GetPropertyDataType();
-            Console.WriteLine("{0}Type = {1} ({2})", prefix, type.GetName(), GetTypeName(type.GetType()));
-//            Console.WriteLine("{0}HierName = {1}", prefix, prop.GetHierarchicalName());
-//            Console.WriteLine("{0}Label = {1}", prefix, prop.GetLabel());
+            writer.WriteLine("{0}Type = {1}", prefix, type.GetName());
+//            writer.WriteLine("{0}HierName = {1}", prefix, prop.GetHierarchicalName());
+//            writer.WriteLine("{0}Label = {1}", prefix, prop.GetLabel());
 
 //            char n[1024];
             int i;
@@ -382,41 +395,41 @@ namespace FbxSharp
 
             if (printValue)
             {
-                Console.WriteLine("{0}Value = {1}", prefix, sb.ToString());
+                writer.WriteLine("{0}Value = {1}", prefix, sb.ToString());
             }
 
 
-            Console.WriteLine("{0}{1}{2}", prefix , "SrcObjectCount = " , prop.GetSrcObjectCount() );
+            writer.WriteLine("{0}{1}{2}", prefix , "SrcObjectCount = " , prop.GetSrcObjectCount() );
             for (i = 0; i < prop.GetSrcObjectCount(); i++)
             {
                 FbxObject srcObj = prop.GetSrcObject(i);
-                Console.Write("{0}{1}{2}", prefix , "    #" , i , " ");
+                writer.Write("{0}{1}{2}", prefix , "    #" , i , " ");
                 PrintObjectID(srcObj);
-                Console.WriteLine();
+                writer.WriteLine();
             }
-            Console.WriteLine("{0}{1}{2}", prefix , "DstObjectCount = " , prop.GetDstObjectCount() );
+            writer.WriteLine("{0}{1}{2}", prefix , "DstObjectCount = " , prop.GetDstObjectCount() );
             for (i = 0; i < prop.GetDstObjectCount(); i++)
             {
                 FbxObject dstObj = prop.GetDstObject(i);
-                Console.Write("{0}{1}{2}", prefix , "    #" , i , " ");
+                writer.Write("{0}{1}{2}", prefix , "    #" , i , " ");
                 PrintObjectID(dstObj);
-                Console.WriteLine();
+                writer.WriteLine();
             }
-//            Console.WriteLine("{0}{1}{2}", prefix , "SrcPropertyCount = " , prop.GetSrcPropertyCount() );
+//            writer.WriteLine("{0}{1}{2}", prefix , "SrcPropertyCount = " , prop.GetSrcPropertyCount() );
 //            for (i = 0; i < prop.GetSrcPropertyCount(); i++)
 //            {
 //                Property prop2 = prop.GetSrcProperty(i);
-//                Console.Write("{0}{1}{2}", prefix , "    #" , i , " ");
+//                writer.Write("{0}{1}{2}", prefix , "    #" , i , " ");
 //                PrintPropertyID(prop2);
-//                Console.WriteLine();
+//                writer.WriteLine();
 //            }
-//            Console.WriteLine("{0}{1}{2}", prefix , "DstPropertyCount = " , prop.GetDstPropertyCount() );
+//            writer.WriteLine("{0}{1}{2}", prefix , "DstPropertyCount = " , prop.GetDstPropertyCount() );
 //            for (i = 0; i < prop.GetDstPropertyCount(); i++)
 //            {
 //                Property prop2 = prop.GetDstProperty(i);
-//                Console.Write("{0}{1}{2}", prefix , "    #" , i , " ");
+//                writer.Write("{0}{1}{2}", prefix , "    #" , i , " ");
 //                PrintPropertyID(prop2);
-//                Console.WriteLine();
+//                writer.WriteLine();
 //            }
         }
 
@@ -424,59 +437,63 @@ namespace FbxSharp
 
         public void PrintAnimCurve(AnimCurve ac)
         {
-            Console.Write("    KeyGetCount() = ");
-            Console.Write(ac.KeyGetCount());
-            Console.WriteLine();
+            PrintAnimCurve(ac, Console.Out);
+        }
+        public void PrintAnimCurve(AnimCurve ac, TextWriter writer)
+        {
+            writer.Write("    KeyGetCount() = ");
+            writer.Write(ac.KeyGetCount());
+            writer.WriteLine();
             int k;
             for (k = 0; k < ac.KeyGetCount(); k++)
             {
                 var key = ac.KeyGet(k);
 
-                Console.Write("        #{0}: {1}, ", k, key.GetTime().Print());
+                writer.Write("        #{0}: {1}, ", k, key.GetTime().Print());
 
-                Console.Write("{0:g5}", key.GetValue());
-                Console.Write(", ");
-                Console.Write((int)key.GetInterpolation());
-                Console.Write(":");
-                Console.Write(key.GetInterpolation());
-                Console.Write(", ");
-                Console.Write((int)key.GetTangentMode());
-                Console.Write(":");
-                Console.Write(key.GetTangentMode());
-                Console.Write(", ");
-                Console.Write((int)key.GetTangentWeightMode());
-                Console.Write(":");
-                Console.Write(key.GetTangentWeightMode());
-                Console.Write(", ");
-                Console.Write((int)key.GetTangentVelocityMode());
-                Console.Write(":");
-                Console.Write(key.GetTangentVelocityMode());
-                Console.Write(", ");
-                Console.Write((int)key.GetConstantMode());
-                Console.Write(":");
-                Console.Write(key.GetConstantMode());
-                Console.Write(", ");
-                Console.Write((int)key.GetTangentVisibility());
-                Console.Write(":");
-                Console.Write(key.GetTangentVisibility());
-                Console.Write(", ");
-                Console.Write("Break: ");
-                Console.Write(key.GetBreak() ? "1" : "0");
-                Console.Write(", ");
-                Console.Write("DataFloat: ");
-                Console.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)0));
-                Console.Write(", ");
-                Console.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)1));
-                Console.Write(", ");
-                Console.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)2));
-                Console.Write(", ");
-                Console.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)3));
-                Console.Write(", ");
-                Console.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)4));
-                Console.Write(", ");
-                Console.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)5));
+                writer.Write("{0:g5}", key.GetValue());
+                writer.Write(", ");
+                writer.Write((int)key.GetInterpolation());
+                writer.Write(":");
+                writer.Write(key.GetInterpolation());
+                writer.Write(", ");
+                writer.Write((int)key.GetTangentMode());
+                writer.Write(":");
+                writer.Write(key.GetTangentMode());
+                writer.Write(", ");
+                writer.Write((int)key.GetTangentWeightMode());
+                writer.Write(":");
+                writer.Write(key.GetTangentWeightMode());
+                writer.Write(", ");
+                writer.Write((int)key.GetTangentVelocityMode());
+                writer.Write(":");
+                writer.Write(key.GetTangentVelocityMode());
+                writer.Write(", ");
+                writer.Write((int)key.GetConstantMode());
+                writer.Write(":");
+                writer.Write(key.GetConstantMode());
+                writer.Write(", ");
+                writer.Write((int)key.GetTangentVisibility());
+                writer.Write(":");
+                writer.Write(key.GetTangentVisibility());
+                writer.Write(", ");
+                writer.Write("Break: ");
+                writer.Write(key.GetBreak() ? "1" : "0");
+                writer.Write(", ");
+                writer.Write("DataFloat: ");
+                writer.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)0));
+                writer.Write(", ");
+                writer.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)1));
+                writer.Write(", ");
+                writer.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)2));
+                writer.Write(", ");
+                writer.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)3));
+                writer.Write(", ");
+                writer.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)4));
+                writer.Write(", ");
+                writer.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)5));
 
-                Console.WriteLine();
+                writer.WriteLine();
             }
         }
     }
