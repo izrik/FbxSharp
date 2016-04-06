@@ -224,7 +224,7 @@ namespace FbxSharp
 
             writer.WriteLine("{0}Name = {1}", prefix, prop.GetName());
             var type = prop.GetPropertyDataType();
-            writer.WriteLine("{0}Type = {1} ({2})", prefix, type.GetName(), GetTypeName(type.GetType()));
+            writer.WriteLine("{0}Type = {1}", prefix, type.GetName());
 //            writer.WriteLine("{0}HierName = {1}", prefix, prop.GetHierarchicalName());
 //            writer.WriteLine("{0}Label = {1}", prefix, prop.GetLabel());
 

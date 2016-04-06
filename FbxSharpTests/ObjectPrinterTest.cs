@@ -32,7 +32,7 @@ namespace FbxSharpTests
             var writer = new StringWriter();
             var expected =
 @"        Name = something
-        Type = Double (MonoType)
+        Type = Double
         Value = 0
         SrcObjectCount = 0
         DstObjectCount = 0
