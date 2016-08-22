@@ -5,13 +5,17 @@ namespace FbxSharp
     public class FbxSystemUnit
     {
         public FbxSystemUnit()
+            : this(1)
         {
-            throw new NotImplementedException();
         }
         public FbxSystemUnit(double pScaleFactor, double pMultiplier=1.0)
         {
-            throw new NotImplementedException();
+            this.scaleFactor = pScaleFactor;
+            this.multiplier = pMultiplier;
         }
+
+        private readonly double scaleFactor;
+        private readonly double multiplier;
 
         public struct ConversionOptions
         {
@@ -66,7 +70,7 @@ namespace FbxSharp
 
         public double GetScaleFactor() /*const*/
         {
-            throw new NotImplementedException();
+            return scaleFactor;
         }
 
         public string GetScaleFactorAsString(bool pAbbreviated=true) /*const*/
@@ -81,7 +85,7 @@ namespace FbxSharp
 
         public double GetMultiplier() /*const*/
         {
-            throw new NotImplementedException();
+            return multiplier;
         }
 
         //public bool operator == (/*const*/ FbxSystemUnit &pOther) /*const*/
