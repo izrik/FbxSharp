@@ -1,0 +1,20 @@
+﻿fixture FbxSystemUnitTest
+test FbxSystemUnitTest_Create_DefaultScaleFactorIsOne
+	given
+	FbxSystemUnit* su
+
+    when
+    su = new FbxSystemUnit()
+
+    then
+    AssertEqual(1, su.GetScaleFactor(), 0.00001)
+
+test FbxSystemUnitTest_Create_DefaultMultiplierIsOne
+	given
+	FbxSystemUnit* su
+
+    when
+    su = new FbxSystemUnit()
+
+    then
+    AssertEqual(1, su.GetMultiplier(), 0.00001)

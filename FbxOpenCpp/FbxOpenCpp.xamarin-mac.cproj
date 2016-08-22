@@ -76,6 +76,7 @@
     <Compile Include="AnimCurveKeyTest.cpp" />
     <Compile Include="LightTest.cpp" />
     <Compile Include="CameraTest.cpp" />
+    <Compile Include="FbxSystemUnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.h" />

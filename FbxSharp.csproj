@@ -135,6 +135,7 @@
     <Compile Include="ObjectPrinter.cs" />
     <Compile Include="TypeHelper.cs" />
     <Compile Include="FbxSystemUnit.cs" />
+    <None Include="test-cases\FbxSystemUnitTest.tc" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

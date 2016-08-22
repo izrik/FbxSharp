@@ -132,7 +132,8 @@ void RunTests()
     tests.push_back(new AnimCurveKeyTest());
     tests.push_back(new LightTest());
     tests.push_back(new CameraTest());
-
+    tests.push_back(new FbxSystemUnitTest());
+    
     cout << "Running tests..." << endl;
 
     vector<TestCase*> failures;
