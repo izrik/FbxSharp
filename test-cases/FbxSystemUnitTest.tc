@@ -97,3 +97,19 @@ test FbxSystemUnitTest_Create_NegativeValuesAreAllowed
     then
     AssertEqual(-4, su.GetScaleFactor(), 0.00001)
     AssertEqual(-5, su.GetMultiplier(), 0.00001)
+
+test FbxSystemUnitTest_GetScaleFactorAsString_AsString
+    given
+    FbxSystemUnit* su
+
+    when
+    su = new FbxSystemUnit(1, 1)
+
+    then
+    AssertEqual("cm", su.GetScaleFactorAsString())
+
+    when
+    su = new FbxSystemUnit(100, 3)
+
+    then
+    AssertEqual("custom unit", su.GetScaleFactorAsString())

@@ -123,5 +123,24 @@ namespace FbxSharpTests
             Assert.AreEqual(-4, su.GetScaleFactor(), 0.00001);
             Assert.AreEqual(-5, su.GetMultiplier(), 0.00001);
         }
+
+        [Test]
+        public void FbxSystemUnitTest_GetScaleFactorAsString_AsString()
+        {
+            // given:
+            FbxSystemUnit su;
+
+            // when:
+            su = new FbxSystemUnit(1, 1);
+
+            // then:
+            Assert.AreEqual("cm", su.GetScaleFactorAsString());
+
+            // when:
+            su = new FbxSystemUnit(100, 3);
+
+            // then:
+            Assert.AreEqual("custom unit", su.GetScaleFactorAsString());
+        }
     }
 }

@@ -120,6 +120,25 @@ void FbxSystemUnitTest_Create_NegativeValuesAreAllowed()
     AssertEqual(-5, su->GetMultiplier(), 0.00001);
 }
 
+void FbxSystemUnitTest_GetScaleFactorAsString_AsString()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxSystemUnit* su;
+
+    // when:
+    su = new FbxSystemUnit(1, 1);
+
+    // then:
+    AssertEqual("cm", su->GetScaleFactorAsString());
+
+    // when:
+    su = new FbxSystemUnit(100, 3);
+
+    // then:
+    AssertEqual("custom unit", su->GetScaleFactorAsString());
+}
+
 void FbxSystemUnitTest::RegisterTestCases()
 {
     AddTestCase(FbxSystemUnitTest_Create_DefaultScaleFactorIsOne);
@@ -128,5 +147,6 @@ void FbxSystemUnitTest::RegisterTestCases()
     AddTestCase(FbxSystemUnitTest_Create_SettingMultiplierSetsMultiplier);
     AddTestCase(FbxSystemUnitTest_Create_SettingBothSetsBoth);
     AddTestCase(FbxSystemUnitTest_Create_NegativeValuesAreAllowed);
+    AddTestCase(FbxSystemUnitTest_GetScaleFactorAsString_AsString);
 }
 
