@@ -1351,7 +1351,8 @@ namespace FbxSharp
                     var defaultValue = ((Number)prop.Values[0]).AsDouble.Value;
                     break;
                 case "KeyVer":
-                    if (((Number)prop.Values[0]).AsLong.Value != 4008)
+                    long keyVersion = ((Number)prop.Values[0]).AsLong.Value;
+                    if (keyVersion != 4008 && keyVersion != 4009)
                         throw new NotImplementedException();
                     break;
                 case "KeyTime":
