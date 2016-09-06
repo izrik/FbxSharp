@@ -27,7 +27,7 @@ namespace FbxSharp
         int line = 1;
         int column = 0;
         TokenType currentTokenType = TokenType.None;
-        string newToken = "";
+        readonly List<char> newTokenChars = new List<char>();
         InputLocation tokenLocation;
         char lastChar = '\0';
 
@@ -59,7 +59,7 @@ namespace FbxSharp
                     if (currentTokenType == TokenType.Unknown) 
                         throw new InvalidOperationException(
                             string.Format("Unknown character '{0}' at index {1}", ch.ToString(), index));
-                    newToken = "";
+                    newTokenChars.Clear();
                     tokenLocation = new InputLocation(line, column, index);
                     if (currentTokenType == TokenType.String) startString = true;
                 }
@@ -67,10 +67,10 @@ namespace FbxSharp
 
                 if (IsValidChar(currentTokenType, ch))
                 {
-                    newToken += ch;
+                    newTokenChars.Add(ch);
                     if (!startString && IsForceEndChar(currentTokenType, ch))
                     {
-                        var value = newToken; //new string(newToken.ToArray());
+                        var value = new string(newTokenChars.ToArray());
                         var token = new Token(currentTokenType, value, tokenLocation);
                         currentTokenType = TokenType.None;
                         if (!ShouldIgnoreToken(token))
@@ -86,14 +86,15 @@ namespace FbxSharp
                 }
                 else if (IsEndingChar(currentTokenType, lastChar))
                 {
-                    var value = newToken;
+                    var value = new string(newTokenChars.ToArray());
                     var token = new Token(currentTokenType, value, tokenLocation);
 
                     currentTokenType = GetNewTokenType(ch);
                     if (currentTokenType == TokenType.Unknown) 
                         throw new InvalidOperationException(
                             string.Format("Unknown character '{0}' at index {1}", ch.ToString(), index));
-                    newToken = ch.ToString();
+                    newTokenChars.Clear();
+                    newTokenChars.Add(ch);
                     tokenLocation = new InputLocation(line, column, index);
                     if (!ShouldIgnoreToken(token))
                     {
@@ -115,7 +116,8 @@ namespace FbxSharp
                     throw new InvalidOperationException("Bad ending char");
                 }
 
-                var token = new Token(currentTokenType, newToken, tokenLocation);
+                var value = new string(newTokenChars.ToArray());
+                var token = new Token(currentTokenType, value, tokenLocation);
                 if (!ShouldIgnoreToken(token))
                 {
                     return token;
