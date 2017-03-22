@@ -30,14 +30,46 @@ size_t len(T(&arr)[N]) { return N; }
 
 int main (int argc, char *argv[])
 {
-    int n = 0;
+    //if (argc > 1)
+    //{
+    //    LoadAndPrint(argv[1]);
+    //}
+    //else
+    //{
+    //    RunTests();
+    //}
 
-    const char* filename = "model.fbx";
+    FbxManager* man = FbxManager::Create();
+    FbxScene* scene = FbxScene::Create(man, "scene1");
+    FbxNull* null = FbxNull::Create(scene, "null1");
+    //null->SetNameSpace("A");
+    //PrintObject(null);
+    //null->SetNameSpace("B");
+    //PrintObject(null);
+    //null->SetNameSpace("A::B");
+    //PrintObject(null);
+    //null->SetNameSpace("A::Bb");
+    //PrintObject(null);
+    //FbxString C = "C";
+    //null->GetNameSpaceArray().Add(&C);
 
-    switch (n)
+    int i;
+    char n[1024];
+    for (i = 0; i < 256; i++)
     {
-        case 0: RunTests(); break;
-        case 2: LoadAndPrint(filename); break;
+        if (!isprint(i)) continue;
+
+        char ch = (char)i;
+        sprintf_s(n, "name%cspace", ch);
+        null->SetNameSpace(n);
+        FbxArray<FbxString*> nsarray = null->GetNameSpaceArray(ch);
+        int count = nsarray.GetCount();
+        int j;
+        cout << "'"<<ch << "': " << count << endl;
+        for (j=0;j<count;j++)
+        {
+            cout << "  [" << j << "]: '" << *nsarray.GetAt(j) << "'" << endl;
+        }
     }
 
     cout << "Press any key to continue." << endl;
