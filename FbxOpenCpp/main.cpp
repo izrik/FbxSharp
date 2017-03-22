@@ -46,6 +46,7 @@ int main (int argc, char *argv[])
         #endif
     #endif
 
+    /**/
     if (argc > 1)
     {
         LoadAndPrint(argv[1]);
@@ -54,6 +55,57 @@ int main (int argc, char *argv[])
     {
         RunTests();
     }
+    return 0;
+    /**/
+
+    FbxManager* manager = FbxManager::Create();
+    FbxNode* node = FbxNode::Create(manager, "node");
+    FbxScene* scene = FbxScene::Create(manager, "scene");
+
+    FbxAnimCurveNode* acn1 = FbxAnimCurveNode::Create(manager, "acn1");
+    FbxAnimCurve* ac1 = FbxAnimCurve::Create(manager, "ac1");
+    FbxAnimLayer* layer1 = FbxAnimLayer::Create(manager, "layer1");
+    FbxAnimStack* stack1 = FbxAnimStack::Create(manager, "stack1");
+
+    FbxAnimCurveNode* acn2 = FbxAnimCurveNode::Create(manager, "acn2");
+    FbxAnimCurve* ac2 = FbxAnimCurve::Create(manager, "ac2");
+    FbxAnimLayer* layer2 = FbxAnimLayer::Create(manager, "layer2");
+    FbxAnimStack* stack2 = FbxAnimStack::Create(manager, "stack2");
+
+    FbxTime time = FbxTime(0);
+    FbxAnimCurveKey key = FbxAnimCurveKey(time, 1.0f);
+    ac1->KeyAdd(time, key);
+
+    FbxTime time2 = FbxTime(0);
+    FbxAnimCurveKey key2 = FbxAnimCurveKey(time2, 1.0f);
+    ac2->KeyAdd(time2, key2);
+
+    scene->ConnectSrcObject(node);
+    scene->ConnectSrcObject(acn1);
+    scene->ConnectSrcObject(ac1);
+    scene->ConnectSrcObject(layer1);
+    scene->ConnectSrcObject(stack1);
+    scene->ConnectSrcObject(acn2);
+    scene->ConnectSrcObject(ac2);
+    scene->ConnectSrcObject(layer2);
+    scene->ConnectSrcObject(stack2);
+
+    acn1->AddChannel<double>("x", 1.0);
+    acn1->ConnectToChannel(ac1, 0U);
+    layer1->ConnectSrcObject(acn1);
+    stack1->ConnectSrcObject(layer1);
+
+    acn2->AddChannel<double>("y", -1.0);
+    acn2->ConnectToChannel(ac2, 0U);
+    layer2->ConnectSrcObject(acn2);
+    stack2->ConnectSrcObject(layer2);
+
+    scene->SetCurrentAnimationStack(stack1);
+
+    node->LclTranslation.ConnectSrcObject(acn1);
+    node->LclRotation.ConnectSrcObject(acn2);
+
+    PrintObjectGraph(scene);
 
     return 0;
 }
