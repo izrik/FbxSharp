@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Default</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ItemType>GenericProject</ItemType>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2F41F0DD-65C2-48B1-92B4-FEF787FA2F99}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Default|AnyCPU' ">
+    <OutputPath>.</OutputPath>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="Build" command="make" workingdir="${ProjectDir}" />
+        <Command type="Clean" command="make clean" workingdir="${ProjectDir}" />
+        <Command type="Execute" command="./bin/FbxOpenCpp" workingdir="${ProjectDir}" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="AnimCurveKeyTest.cpp" />
+    <None Include="AnimCurveNodeTest.cpp" />
+    <None Include="AnimCurveTest.cpp" />
+    <None Include="AnimLayerTest.cpp" />
+    <None Include="AnimStackTest.cpp" />
+    <None Include="Assertions.cpp" />
+    <None Include="Assertions.h" />
+    <None Include="basic_types.cpp" />
+    <None Include="CameraTest.cpp" />
+    <None Include="ClusterTest.cpp" />
+    <None Include="Collector.cpp" />
+    <None Include="Collector.h" />
+    <None Include="common.h" />
+    <None Include="DeformerTest.cpp" />
+    <None Include="FbxObjectTest.cpp" />
+    <None Include="FbxTimeTest.cpp" />
+    <None Include="gen_tests.sh" />
+    <None Include="GeometryBaseTest.cpp" />
+    <None Include="GeometryTest.cpp" />
+    <None Include="LayerContainerTest.cpp" />
+    <None Include="LightTest.cpp" />
+    <None Include="main.cpp" />
+    <None Include="Makefile" />
+    <None Include="MatrixTest.cpp" />
+    <None Include="MeshTest.cpp" />
+    <None Include="NodeTest.cpp" />
+    <None Include="NodeTransformsTest.cpp" />
+    <None Include="objects.cpp" />
+    <None Include="OutputDebugStringBuf.h" />
+    <None Include="properties.cpp" />
+    <None Include="PropertyTest.cpp" />
+    <None Include="SceneTest.cpp" />
+    <None Include="SkinTest.cpp" />
+    <None Include="SubDeformerTest.cpp" />
+    <None Include="SurfacePhongTest.cpp" />
+    <None Include="TestFixture.cpp" />
+    <None Include="TestRunner.cpp" />
+    <None Include="Tests.h" />
+    <None Include="textures.cpp" />
+  </ItemGroup>
+</Project>
