@@ -29,5 +29,5 @@ obj/%.o: %.cpp
 #	$(CC) $(CFLAGS) $< -o $@
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) $(STATIC_LIBS) -o bin/$@
+	$(CC) $(OBJECTS) $(STATIC_LIBS) -o bin/$@ $(LDFLAGS)
 
