@@ -17,6 +17,8 @@ HEADERS=Assertions.h Collector.h OutputDebugStringBuf.h Tests.h common.h
 OBJECTS=$(SOURCES:%.cpp=obj/%.o)
 EXECUTABLE=FbxOpenCpp
 
+.PHONY: all directories clean
+
 all: directories $(SOURCES) $(EXECUTABLE)
 
 directories:
@@ -31,3 +33,5 @@ obj/%.o: %.cpp
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(OBJECTS) $(STATIC_LIBS) -o bin/$@ $(LDFLAGS)
 
+clean:
+	rm -rf obj bin
