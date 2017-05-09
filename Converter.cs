@@ -184,7 +184,7 @@ namespace FbxSharp
                     obj.Name));
         }
 
-        public static NodeAttribute ConvertNodeAttribute(ParseObject obj)
+        public static FbxNodeAttribute ConvertNodeAttribute(ParseObject obj)
         {
             var typeFlagsProp = obj.FindPropertyByName("TypeFlags");
             var typeFlags = new HashSet<string>(typeFlagsProp.Values.Select(x => (string)x));
@@ -257,9 +257,9 @@ namespace FbxSharp
             return skeleton;
         }
 
-        public static Null ConvertNull(ParseObject obj)
+        public static FbxNull ConvertNull(ParseObject obj)
         {
-            var n = new Null();
+            var n = new FbxNull();
             n.Name = ((string)obj.Values[1]);
 
             return n;
@@ -383,14 +383,14 @@ namespace FbxSharp
             }
         }
 
-        public static Mesh ConvertMesh(ParseObject obj)
+        public static FbxMesh ConvertMesh(ParseObject obj)
         {
             var normals = new List<FbxLayerElementNormal>();
             var uvs = new List<FbxLayerElementUV>();
             var visibility = new List<FbxLayerElementVisibility>();
             var materials = new List<FbxLayerElementMaterial>();
 
-            var mesh = new Mesh();
+            var mesh = new FbxMesh();
             mesh.Name = ((string)obj.Values[1]);
 
             foreach (var prop in obj.Properties)
@@ -765,7 +765,7 @@ namespace FbxSharp
             return propNamesTypesValues;
         }
 
-        public static void ConvertVertices(Mesh mesh, ParseObject obj)
+        public static void ConvertVertices(FbxMesh mesh, ParseObject obj)
         {
             var values = obj.Properties[0].Values;
             mesh.InitControlPoints(values.Count / 3);
@@ -804,9 +804,9 @@ namespace FbxSharp
             return polygons;
         }
 
-        public static Node ConvertNode(ParseObject obj)
+        public static FbxNode ConvertNode(ParseObject obj)
         {
-            var node = new Node();
+            var node = new FbxNode();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -921,7 +921,7 @@ namespace FbxSharp
             return pose;
         }
 
-        public static Tuple<Node, Matrix, bool> ConvertPoseNode(
+        public static Tuple<FbxNode, FbxMatrix, bool> ConvertPoseNode(
             ParseObject obj,
             Dictionary<ulong, FbxObject> fbxObjectsById,
             Dictionary<ulong, ulong> actualIdsByInFileIds)
@@ -934,17 +934,17 @@ namespace FbxSharp
                 throw new InvalidOperationException();
             var inFileNodeId = (ulong)((Number)nodeIdProp.Values[0]).AsLong.Value;
             var nodeId = actualIdsByInFileIds[inFileNodeId];
-            var node = (Node)fbxObjectsById[(ulong)nodeId];
+            var node = (FbxNode)fbxObjectsById[(ulong)nodeId];
 
             var matrixProp = obj.FindPropertyByName("Matrix");
             if (matrixProp == null)
                 throw new InvalidOperationException();
             var matrix = ConvertMatrix(matrixProp);
 
-            return new Tuple<Node, Matrix, bool>(node, matrix, false);
+            return new Tuple<FbxNode, FbxMatrix, bool>(node, matrix, false);
         }
 
-        public static Matrix ConvertMatrix(ParseObject obj)
+        public static FbxMatrix ConvertMatrix(ParseObject obj)
         {
             if (obj.Properties.Count != 1)
                 throw new InvalidOperationException();
@@ -954,7 +954,7 @@ namespace FbxSharp
 
             var v = values.Select(n => ((Number)n).AsDouble.Value).ToArray();
 
-            var m = new Matrix(
+            var m = new FbxMatrix(
                         v[0], v[1], v[2], v[3],
                         v[4], v[5], v[6], v[7],
                         v[8], v[9], v[10], v[11],

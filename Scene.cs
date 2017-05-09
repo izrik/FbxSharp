@@ -9,12 +9,12 @@ namespace FbxSharp
         public Scene(string name="")
             : base(name)
         {
-            RootNode = new Node();
+            RootNode = new FbxNode();
 
             Poses = SrcObjects.CreateCollectionView<Pose>();
             Materials = SrcObjects.CreateCollectionView<SurfaceMaterial>();
             Textures = SrcObjects.CreateCollectionView<Texture>();
-            Nodes = SrcObjects.CreateCollectionView<Node>();
+            Nodes = SrcObjects.CreateCollectionView<FbxNode>();
 
             SrcObjects.Add(new FbxGlobalSettings());
             SetAnimationEvaluator(new FbxAnimEvaluator());
@@ -187,10 +187,10 @@ namespace FbxSharp
 
         #region Node Tree Access
 
-        public CollectionView<Node> Nodes;
+        public CollectionView<FbxNode> Nodes;
 
-        Node _rootNode;
-        public Node RootNode {
+        FbxNode _rootNode;
+        public FbxNode RootNode {
             get { return _rootNode; }
             protected set
             {
@@ -211,7 +211,7 @@ namespace FbxSharp
             }
         }
 
-        public Node GetRootNode()
+        public FbxNode GetRootNode()
         {
             return RootNode;
         }
@@ -225,12 +225,12 @@ namespace FbxSharp
             return Nodes.Count;
         }
 
-        public Node GetNode(int pIndex)
+        public FbxNode GetNode(int pIndex)
         {
             return Nodes[pIndex];
         }
 
-        public bool AddNode(Node pNode)
+        public bool AddNode(FbxNode pNode)
         {
             if (!Nodes.Contains(pNode))
             {
@@ -245,7 +245,7 @@ namespace FbxSharp
             return false;
         }
 
-        public bool RemoveNode(Node pNode)
+        public bool RemoveNode(FbxNode pNode)
         {
             if (Nodes.Contains(pNode))
             {
@@ -265,7 +265,7 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public Node FindNodeByName(string pName)
+        public FbxNode FindNodeByName(string pName)
         {
             return Nodes.FirstOrDefault(n => n.Name == pName);
         }

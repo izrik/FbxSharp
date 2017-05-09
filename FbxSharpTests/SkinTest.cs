@@ -12,7 +12,7 @@ namespace FbxSharpTests
         {
             // given:
             var skin = new Skin("");
-            var mesh = new Mesh("");
+            var mesh = new FbxMesh("");
 
             // require:
             Assert.AreEqual(0, skin.GetSrcObjectCount());

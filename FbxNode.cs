@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace FbxSharp
 {
-    public class Node : FbxObject
+    public class FbxNode : FbxObject
     {
-        public Node(string name="")
+        public FbxNode(string name="")
         {
             this.Properties.AddRange(
                 new Property[] {
@@ -82,11 +82,11 @@ namespace FbxSharp
                     Freeze,
                     LODBox});
 
-            this.ChildNodes = SrcObjects.CreateCollectionView<Node>();
-            _parentNode = DstObjects.CreateObjectView<Node>();
+            this.ChildNodes = SrcObjects.CreateCollectionView<FbxNode>();
+            _parentNode = DstObjects.CreateObjectView<FbxNode>();
 
             DefaultAttributeIndex.Set(-1);
-            nodeAttributes = SrcObjects.CreateCollectionView<NodeAttribute>();
+            nodeAttributes = SrcObjects.CreateCollectionView<FbxNodeAttribute>();
             Materials = SrcObjects.CreateCollectionView<SurfaceMaterial>();
         }
 
@@ -98,13 +98,13 @@ namespace FbxSharp
         #region Node Tree Management
 
         //Get the parent node.
-        public Node GetParent()
+        public FbxNode GetParent()
         {
             return ParentNode;
         }
 
         //Add a child node and its underlying node tree.
-        public bool AddChild(Node pNode)
+        public bool AddChild(FbxNode pNode)
         {
             if (pNode == null)
                 return false;
@@ -126,7 +126,7 @@ namespace FbxSharp
                 }
             }
 
-            var node = obj as Node;
+            var node = obj as FbxNode;
             if (node != null)
             {
                 foreach (var child in node.ChildNodes)
@@ -137,7 +137,7 @@ namespace FbxSharp
         }
 
         //Remove the child node.
-        public Node RemoveChild(Node pNode)
+        public FbxNode RemoveChild(FbxNode pNode)
         {
             if (this.DisconnectSrcObject(pNode))
             {
@@ -150,15 +150,15 @@ namespace FbxSharp
         {
             var ret = base.DisconnectSrcObject(pObject);
 
-            if (pObject is Node)
+            if (pObject is FbxNode)
             {
-                DisconnectScene((Node)pObject);
+                DisconnectScene((FbxNode)pObject);
             }
 
             return ret;
         }
 
-        void DisconnectScene(Node child)
+        void DisconnectScene(FbxNode child)
         {
             if (child.Scene != null)
             {
@@ -177,17 +177,17 @@ namespace FbxSharp
         }
 
         //Get child by index.
-        public Node GetChild(int pIndex)
+        public FbxNode GetChild(int pIndex)
         {
             return ChildNodes[pIndex];
         }
 
-        private ObjectView<Node> _parentNode;
-        public Node ParentNode
+        private ObjectView<FbxNode> _parentNode;
+        public FbxNode ParentNode
         {
             get { return _parentNode.Get(); }
         }
-        public readonly CollectionView<Node> ChildNodes;
+        public readonly CollectionView<FbxNode> ChildNodes;
 
         //Finds a child node by name.
         //FbxNode *   FindChild (const char *pName, bool pRecursive=true, bool pInitial=false)
@@ -196,9 +196,9 @@ namespace FbxSharp
 
         #region Node Attribute Management
 
-        readonly CollectionView<NodeAttribute> nodeAttributes;
+        readonly CollectionView<FbxNodeAttribute> nodeAttributes;
 
-        public NodeAttribute SetNodeAttribute(NodeAttribute pNodeAttribute)
+        public FbxNodeAttribute SetNodeAttribute(FbxNodeAttribute pNodeAttribute)
         {
             ConnectSrcObject(pNodeAttribute);
             if (DefaultAttributeIndex.Get() < 0)
@@ -209,7 +209,7 @@ namespace FbxSharp
             return pNodeAttribute;
         }
 
-        public NodeAttribute GetNodeAttribute()
+        public FbxNodeAttribute GetNodeAttribute()
         {
             if (DefaultAttributeIndex.Get() < 0) return null;
             if (DefaultAttributeIndex.Get() >= nodeAttributes.Count) return null;
@@ -231,12 +231,12 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public NodeAttribute GetNodeAttributeByIndex(int pIndex)
+        public FbxNodeAttribute GetNodeAttributeByIndex(int pIndex)
         {
             return nodeAttributes[pIndex];
         }
 
-        public int GetNodeAttributeIndex(NodeAttribute nodeattr /*, FbxStatus=null*/)
+        public int GetNodeAttributeIndex(FbxNodeAttribute nodeattr /*, FbxStatus=null*/)
         {
             return nodeAttributes.IndexOf(nodeattr);
         }
@@ -253,20 +253,20 @@ namespace FbxSharp
             return FbxAnimEvaluator.Default;
         }
 
-        public Matrix EvaluateGlobalTransform()
+        public FbxMatrix EvaluateGlobalTransform()
         {
             return EvaluateGlobalTransform(FbxTime.Infinite);
         }
-        public Matrix EvaluateGlobalTransform(FbxTime pTime, Node.EPivotSet pPivotSet=Node.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
+        public FbxMatrix EvaluateGlobalTransform(FbxTime pTime, FbxNode.EPivotSet pPivotSet=FbxNode.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
         {
             return GetAnimationEvaluator().GetNodeGlobalTransform(this, pTime, pPivotSet, pApplyTarget, pForceEval);
         }
 
-        public Matrix EvaluateLocalTransform()
+        public FbxMatrix EvaluateLocalTransform()
         {
             return EvaluateLocalTransform(FbxTime.Infinite);
         }
-        public Matrix EvaluateLocalTransform(FbxTime pTime, Node.EPivotSet pPivotSet=Node.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
+        public FbxMatrix EvaluateLocalTransform(FbxTime pTime, FbxNode.EPivotSet pPivotSet=FbxNode.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
         {
             return GetAnimationEvaluator().GetNodeLocalTransform(this, pTime, pPivotSet, pApplyTarget, pForceEval);
         }
@@ -275,7 +275,7 @@ namespace FbxSharp
         {
             return EvaluateLocalTranslation(FbxTime.Infinite);
         }
-        public Vector4 EvaluateLocalTranslation(FbxTime pTime, Node.EPivotSet pPivotSet=Node.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
+        public Vector4 EvaluateLocalTranslation(FbxTime pTime, FbxNode.EPivotSet pPivotSet=FbxNode.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
         {
             throw new NotImplementedException();
         }
@@ -284,7 +284,7 @@ namespace FbxSharp
         {
             return EvaluateLocalRotation(FbxTime.Infinite);
         }
-        public Vector4 EvaluateLocalRotation(FbxTime pTime, Node.EPivotSet pPivotSet=Node.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
+        public Vector4 EvaluateLocalRotation(FbxTime pTime, FbxNode.EPivotSet pPivotSet=FbxNode.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
         {
             throw new NotImplementedException();
         }
@@ -293,7 +293,7 @@ namespace FbxSharp
         {
             return EvaluateLocalScaling(FbxTime.Infinite);
         }
-        public Vector4 EvaluateLocalScaling(FbxTime pTime, Node.EPivotSet pPivotSet=Node.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
+        public Vector4 EvaluateLocalScaling(FbxTime pTime, FbxNode.EPivotSet pPivotSet=FbxNode.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
         {
             throw new NotImplementedException();
         }

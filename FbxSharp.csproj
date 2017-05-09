@@ -46,13 +46,9 @@
     <Compile Include="Number.cs" />
     <Compile Include="FbxObject.cs" />
     <Compile Include="Skeleton.cs" />
-    <Compile Include="Mesh.cs" />
-    <Compile Include="Node.cs" />
-    <Compile Include="Null.cs" />
     <Compile Include="Property.cs" />
     <Compile Include="PropertyT.cs" />
     <Compile Include="Scene.cs" />
-    <Compile Include="NodeAttribute.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="SurfaceMaterial.cs" />
     <Compile Include="Pose.cs" />
@@ -68,7 +64,6 @@
     <Compile Include="Vector4.cs" />
     <Compile Include="Vector3.cs" />
     <Compile Include="Vector2.cs" />
-    <Compile Include="Matrix.cs" />
     <Compile Include="ChangeNotifyList.cs" />
     <Compile Include="VectorHelper.cs" />
     <Compile Include="PropertyFlags.cs" />
@@ -136,6 +131,11 @@
     <Compile Include="FbxLayerElementSmoothing.cs" />
     <Compile Include="FbxLayerElementTemplate.cs" />
     <Compile Include="FbxLight.cs" />
+    <Compile Include="FbxMatrix.cs" />
+    <Compile Include="FbxMesh.cs" />
+    <Compile Include="FbxNode.cs" />
+    <Compile Include="FbxNodeAttribute.cs" />
+    <Compile Include="FbxNull.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

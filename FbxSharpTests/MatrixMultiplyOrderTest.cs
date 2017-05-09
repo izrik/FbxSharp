@@ -11,12 +11,12 @@ namespace FbxSharpTests
         public void MultiplyMethodShouldMatchOperatorOperandOrder()
         {
             // given:
-            var a = new Matrix(1, 0, -0, 0, 0, 0.707107, 0.707107, 0, 0, -0.707107, 0.707107, 0, 0, 0, 0, 1); // 45 degrees around x;
-            var b = new Matrix(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
+            var a = new FbxMatrix(1, 0, -0, 0, 0, 0.707107, 0.707107, 0, 0, -0.707107, 0.707107, 0, 0, 0, 0, 1); // 45 degrees around x;
+            var b = new FbxMatrix(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
 
             // when:
             var expected = a * b;
-            var actual = Matrix.Multiply(a, b);
+            var actual = FbxMatrix.Multiply(a, b);
 
             // then:
             Assert.AreEqual(expected.Get(0, 0), actual.Get(0, 0), 0.000001f);
@@ -38,7 +38,7 @@ namespace FbxSharpTests
 
             // when:
             expected = b * a;
-            actual = Matrix.Multiply(b, a);
+            actual = FbxMatrix.Multiply(b, a);
 
             // then:
             Assert.AreEqual(expected.Get(0, 0), actual.Get(0, 0), 0.000001f);
@@ -63,13 +63,13 @@ namespace FbxSharpTests
         public void MultiplyMethodShouldMatchOperatorOperandOrder3()
         {
             // given:
-            var r = new Matrix(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1);
-            var t = new Matrix(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
-            var s = new Matrix(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1);
+            var r = new FbxMatrix(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1);
+            var t = new FbxMatrix(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
+            var s = new FbxMatrix(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1);
 
             // when:
             var expected = r * t * s;
-            var actual = Matrix.Multiply(r, Matrix.Multiply(t, s));
+            var actual = FbxMatrix.Multiply(r, FbxMatrix.Multiply(t, s));
 
             // then:
             Assert.AreEqual(expected.Get(0, 0), actual.Get(0, 0), 0.000001f);
@@ -90,7 +90,7 @@ namespace FbxSharpTests
             Assert.AreEqual(expected.Get(3, 3), actual.Get(3, 3), 0.000001f);
 
             // when:
-            actual = Matrix.Multiply(Matrix.Multiply(r, t), s);
+            actual = FbxMatrix.Multiply(FbxMatrix.Multiply(r, t), s);
 
             // then:
             Assert.AreEqual(expected.Get(0, 0), actual.Get(0, 0), 0.000001f);
@@ -115,13 +115,13 @@ namespace FbxSharpTests
         public void MultiplyMethodIsAssociative()
         {
             // given:
-            var r = new Matrix(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1);
-            var t = new Matrix(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
-            var s = new Matrix(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1);
+            var r = new FbxMatrix(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1);
+            var t = new FbxMatrix(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
+            var s = new FbxMatrix(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1);
 
             // when:
-            var m1 = Matrix.Multiply(Matrix.Multiply(r, t), s);
-            var m2 = Matrix.Multiply(r, Matrix.Multiply(t, s));
+            var m1 = FbxMatrix.Multiply(FbxMatrix.Multiply(r, t), s);
+            var m2 = FbxMatrix.Multiply(r, FbxMatrix.Multiply(t, s));
 
             // then:
             Assert.AreEqual(m1.Get(0, 0), m2.Get(0, 0), 0.000001f);
@@ -142,8 +142,8 @@ namespace FbxSharpTests
             Assert.AreEqual(m1.Get(3, 3), m2.Get(3, 3), 0.000001f);
 
             // when:
-            m1 = Matrix.Multiply(Matrix.Multiply(r, s), t);
-            m2 = Matrix.Multiply(r, Matrix.Multiply(s, t));
+            m1 = FbxMatrix.Multiply(FbxMatrix.Multiply(r, s), t);
+            m2 = FbxMatrix.Multiply(r, FbxMatrix.Multiply(s, t));
 
             // then:
             Assert.AreEqual(m1.Get(0, 0), m2.Get(0, 0), 0.000001f);
@@ -164,8 +164,8 @@ namespace FbxSharpTests
             Assert.AreEqual(m1.Get(3, 3), m2.Get(3, 3), 0.000001f);
 
             // when:
-            m1 = Matrix.Multiply(Matrix.Multiply(s, r), t);
-            m2 = Matrix.Multiply(s, Matrix.Multiply(r, t));
+            m1 = FbxMatrix.Multiply(FbxMatrix.Multiply(s, r), t);
+            m2 = FbxMatrix.Multiply(s, FbxMatrix.Multiply(r, t));
 
             // then:
             Assert.AreEqual(m1.Get(0, 0), m2.Get(0, 0), 0.000001f);
@@ -186,8 +186,8 @@ namespace FbxSharpTests
             Assert.AreEqual(m1.Get(3, 3), m2.Get(3, 3), 0.000001f);
 
             // when:
-            m1 = Matrix.Multiply(Matrix.Multiply(s, t), r);
-            m2 = Matrix.Multiply(s, Matrix.Multiply(t, r));
+            m1 = FbxMatrix.Multiply(FbxMatrix.Multiply(s, t), r);
+            m2 = FbxMatrix.Multiply(s, FbxMatrix.Multiply(t, r));
 
             // then:
             Assert.AreEqual(m1.Get(0, 0), m2.Get(0, 0), 0.000001f);
@@ -208,8 +208,8 @@ namespace FbxSharpTests
             Assert.AreEqual(m1.Get(3, 3), m2.Get(3, 3), 0.000001f);
 
             // when:
-            m1 = Matrix.Multiply(Matrix.Multiply(t, s), r);
-            m2 = Matrix.Multiply(t, Matrix.Multiply(s, r));
+            m1 = FbxMatrix.Multiply(FbxMatrix.Multiply(t, s), r);
+            m2 = FbxMatrix.Multiply(t, FbxMatrix.Multiply(s, r));
 
             // then:
             Assert.AreEqual(m1.Get(0, 0), m2.Get(0, 0), 0.000001f);
@@ -230,8 +230,8 @@ namespace FbxSharpTests
             Assert.AreEqual(m1.Get(3, 3), m2.Get(3, 3), 0.000001f);
 
             // when:
-            m1 = Matrix.Multiply(Matrix.Multiply(t, r), s);
-            m2 = Matrix.Multiply(t, Matrix.Multiply(r, s));
+            m1 = FbxMatrix.Multiply(FbxMatrix.Multiply(t, r), s);
+            m2 = FbxMatrix.Multiply(t, FbxMatrix.Multiply(r, s));
 
             // then:
             Assert.AreEqual(m1.Get(0, 0), m2.Get(0, 0), 0.000001f);

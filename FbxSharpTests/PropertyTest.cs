@@ -62,7 +62,7 @@ namespace FbxSharpTests
         public void Property_AttachCurveNode_IsAnimated()
         {
             // given:
-            var node = new Node("node");
+            var node = new FbxNode("node");
             var acn = new FbxAnimCurveNode("acn");
             var x = new FbxAnimCurve("x");
             var scene = new Scene("scene");
@@ -107,7 +107,7 @@ namespace FbxSharpTests
         public void Property_MultipleStacks_IsAnimatedOnlyWhenTheCorrectStackIsCurrent()
         {
             // given:
-            var node = new Node("node");
+            var node = new FbxNode("node");
             var scene = new Scene("scene");
 
             var acn1 = new FbxAnimCurveNode("acn1");
@@ -170,7 +170,7 @@ namespace FbxSharpTests
         public void Property_MultipleStacks_GetCurveNodeOnlyGetsCurvesOnTheCurrentStack()
         {
             // given:
-            var node = new Node("node");
+            var node = new FbxNode("node");
             var scene = new Scene("scene");
 
             var acn1 = new FbxAnimCurveNode("acn1");

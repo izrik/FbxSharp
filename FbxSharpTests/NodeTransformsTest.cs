@@ -11,11 +11,11 @@ namespace FbxSharpTests
         public void Node_CalcGlobalTransformFromCreatedState_ReturnsIdentity()
         {
             // given:
-            var node = new Node("");
+            var node = new FbxNode("");
             var t = new Vector4(0, 0, 0);
             var r = new Vector4(0, 0, 0);
             var s = new Vector4(1, 1, 1);
-            var expected = new Matrix(t, r, s);
+            var expected = new FbxMatrix(t, r, s);
 
             // when:
             var actual = node.EvaluateGlobalTransform();
@@ -28,11 +28,11 @@ namespace FbxSharpTests
         public void Node_CalcGlobalTransformWithTranslation_ReturnsTranslation()
         {
             // given:
-            var node = new Node("");
+            var node = new FbxNode("");
             var t = new Vector4(2, 3, 4);
             var r = new Vector4(0, 0, 0);
             var s = new Vector4(1, 1, 1);
-            var expected = new Matrix(t, r, s);
+            var expected = new FbxMatrix(t, r, s);
             node.LclTranslation.Set(t);
 
             // when:
@@ -46,11 +46,11 @@ namespace FbxSharpTests
         public void Node_CalcGlobalTransformWithRotation_ReturnsRotation()
         {
             // given:
-            var node = new Node("");
+            var node = new FbxNode("");
             var t = new Vector4(0, 0, 0);
             var r = new Vector4(22, 33, 44);
             var s = new Vector4(1, 1, 1);
-            var expected = new Matrix(t, r, s);
+            var expected = new FbxMatrix(t, r, s);
             node.LclRotation.Set(r);
 
             // when:
@@ -64,11 +64,11 @@ namespace FbxSharpTests
         public void Node_CalcGlobalTransformWithScale_ReturnsScale()
         {
             // given:
-            var node = new Node("");
+            var node = new FbxNode("");
             var t = new Vector4(0, 0, 0);
             var r = new Vector4(0, 0, 0);
             var s = new Vector4(5, 6, 7);
-            var expected = new Matrix(t, r, s);
+            var expected = new FbxMatrix(t, r, s);
             node.LclScaling.Set(s);
 
             // when:
@@ -82,8 +82,8 @@ namespace FbxSharpTests
         public void NodesInHierarchy_CalcGlobalTransformWithTranslationAndWithRotation_ReturnsRotatedThenTranslated()
         {
             // given:
-            var node1 = new Node("node1");
-            var node2 = new Node("node2");
+            var node1 = new FbxNode("node1");
+            var node2 = new FbxNode("node2");
             node1.AddChild(node2);
             var t = new Vector4(2, 3, 4);
             var r = new Vector4(45, 0, 0);
@@ -137,8 +137,8 @@ namespace FbxSharpTests
         public void NodesInHierarchy_CalcGlobalTransformWithRotationAndWithTranslation_ReturnsTranslatedThenRotated()
         {
             // given:
-            var node1 = new Node("node1");
-            var node2 = new Node("node2");
+            var node1 = new FbxNode("node1");
+            var node2 = new FbxNode("node2");
             node1.AddChild(node2);
             var t = new Vector4(2, 3, 4);
             var r = new Vector4(45, 0, 0);
@@ -192,8 +192,8 @@ namespace FbxSharpTests
         public void NodesInHierarchy_CalcGlobalTransform_ChildsIsTimesParent()
         {
             // given:
-            var node1 = new Node("node1");
-            var node2 = new Node("node2");
+            var node1 = new FbxNode("node1");
+            var node2 = new FbxNode("node2");
             node1.AddChild(node2);
             var r1 = new Vector4(45, 0, 0);
             var r2 = new Vector4(0, 60, 0);

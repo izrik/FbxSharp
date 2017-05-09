@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxCamera : NodeAttribute
+    public class FbxCamera : FbxNodeAttribute
     {
         public FbxCamera(string name="")
             : base(name)
@@ -756,24 +756,24 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public Matrix ComputeProjectionMatrix(int pWidth, int pHeight, bool pVerticalFOV = true)
+        public FbxMatrix ComputeProjectionMatrix(int pWidth, int pHeight, bool pVerticalFOV = true)
         {
             throw new NotImplementedException();
         }
 
-        public bool IsBoundingBoxInView(Matrix pWorldToScreen, Matrix pWorldToCamera, Vector4 [] pPoints)
+        public bool IsBoundingBoxInView(FbxMatrix pWorldToScreen, FbxMatrix pWorldToCamera, Vector4 [] pPoints)
         {
             if (pPoints.Length != 8) throw new ArgumentOutOfRangeException("pPoints");
 
             throw new NotImplementedException();
         }
 
-        public bool IsPointInView(Matrix pWorldToScreen, Matrix pWorldToCamera, Vector4 pPoint)
+        public bool IsPointInView(FbxMatrix pWorldToScreen, FbxMatrix pWorldToCamera, Vector4 pPoint)
         {
             throw new NotImplementedException();
         }
 
-        public Matrix ComputeWorldToScreen(int pPixelWidth, int pPixelHeight, Matrix pWorldToCamera)
+        public FbxMatrix ComputeWorldToScreen(int pPixelWidth, int pPixelHeight, FbxMatrix pWorldToCamera)
         {
             throw new NotImplementedException();
         }

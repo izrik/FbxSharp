@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public class Null : NodeAttribute
+    public class FbxNull : FbxNodeAttribute
     {
-        public Null(string name="")
+        public FbxNull(string name="")
         {
         }
 

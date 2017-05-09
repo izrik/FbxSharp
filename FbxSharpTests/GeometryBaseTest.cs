@@ -11,7 +11,7 @@ namespace FbxSharpTests
         public void GeometryBase_InitControlPoints_InitsControlPoints()
         {
             // given:
-            var gb = new Mesh("");
+            var gb = new FbxMesh("");
 
             // require:
             Assert.AreEqual(0, gb.GetControlPointsCount());
@@ -39,7 +39,7 @@ namespace FbxSharpTests
         public void GeometryBase_SetControlPointAt_SetsControlPoint()
         {
             // given:
-            var gb = new Mesh("");
+            var gb = new FbxMesh("");
             gb.InitControlPoints(4);
 
             // require:

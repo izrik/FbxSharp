@@ -11,7 +11,7 @@ namespace FbxSharpTests
         public void Geometry_AddDeformer_AddsDeformer()
         {
             // given:
-            var g = new Mesh("");
+            var g = new FbxMesh("");
             var skin = new Skin("");
 
             // require:
@@ -32,7 +32,7 @@ namespace FbxSharpTests
         public void Geometry_AddSrcConnection_AddsDeformer()
         {
             // given:
-            var g = new Mesh("");
+            var g = new FbxMesh("");
             var skin = new Skin("");
 
             // require:
@@ -53,7 +53,7 @@ namespace FbxSharpTests
         public void Geometry_RemoveDeformer_RemovesDeformer()
         {
             // given:
-            var g = new Mesh("");
+            var g = new FbxMesh("");
             var skin = new Skin("");
             g.AddDeformer(skin);
 
@@ -73,7 +73,7 @@ namespace FbxSharpTests
         public void Geometry_DisconnectSrcObject_RemovesDeformer()
         {
             // given:
-            var g = new Mesh("");
+            var g = new FbxMesh("");
             var skin = new Skin("");
             g.AddDeformer(skin);
 

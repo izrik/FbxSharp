@@ -13,7 +13,7 @@ namespace FbxSharpTests
             // given:
 
             // when:
-            var lc = new Mesh("");
+            var lc = new FbxMesh("");
 
             // then:
             Assert.AreEqual(0, lc.GetSrcObjectCount());

@@ -2,13 +2,13 @@
 
 namespace FbxSharp
 {
-    public abstract class NodeAttribute : FbxObject
+    public abstract class FbxNodeAttribute : FbxObject
     {
-        protected NodeAttribute(string name="")
+        protected FbxNodeAttribute(string name="")
             : base(name)
         {
             this.Properties.Add(Color);
-            nodes = DstObjects.CreateCollectionView<Node>();
+            nodes = DstObjects.CreateCollectionView<FbxNode>();
         }
 
         public enum EAttributeType
@@ -47,13 +47,13 @@ namespace FbxSharp
             return AttributeType;
         }
 
-        readonly CollectionView<Node> nodes;
+        readonly CollectionView<FbxNode> nodes;
         public int GetNodeCount()
         {
             return nodes.Count;
         }
 
-        public Node GetNode(int pIndex=0)
+        public FbxNode GetNode(int pIndex=0)
         {
             return nodes[pIndex];
         }

@@ -12,7 +12,7 @@ namespace FbxSharpTests
         {
             // given:
             var cluster = new FbxCluster("");
-            var node = new Node("");
+            var node = new FbxNode("");
 
             // require:
             Assert.AreEqual(0, cluster.GetSrcObjectCount());

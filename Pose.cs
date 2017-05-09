@@ -18,15 +18,15 @@ namespace FbxSharp
 
         public struct PoseInfo
         {
-            public PoseInfo(Node node, Matrix matrix, bool matrixIsLocal=false)
+            public PoseInfo(FbxNode node, FbxMatrix matrix, bool matrixIsLocal=false)
             {
                 Node = node;
                 Matrix = matrix;
                 MatrixIsLocal = matrixIsLocal;
             }
 
-            public readonly Node Node;
-            public readonly Matrix Matrix;
+            public readonly FbxNode Node;
+            public readonly FbxMatrix Matrix;
             public readonly bool MatrixIsLocal;
         }
 
@@ -51,7 +51,7 @@ namespace FbxSharp
             return poseInfos.Count;
         }
 
-        public int Add(Node pNode, Matrix pMatrix, bool pLocalMatrix=false/*, bool pMultipleBindPose=true*/)
+        public int Add(FbxNode pNode, FbxMatrix pMatrix, bool pLocalMatrix=false/*, bool pMultipleBindPose=true*/)
         {
             var match = poseInfos.FindIndex(pi => pi.Node == pNode);
             if (match >= 0)
@@ -72,12 +72,12 @@ namespace FbxSharp
             poseInfos.RemoveAt(pIndex);
         }
 
-        public Node GetNode(int pIndex)
+        public FbxNode GetNode(int pIndex)
         {
             return poseInfos[pIndex].Node;
         }
 
-        public Matrix GetMatrix(int pIndex)
+        public FbxMatrix GetMatrix(int pIndex)
         {
             return poseInfos[pIndex].Matrix;
         }

@@ -8,7 +8,7 @@ namespace FbxSharp
         public FbxCluster(string name="")
             : base(name)
         {
-            Link = this.SrcObjects.CreateObjectView<Node>();
+            Link = this.SrcObjects.CreateObjectView<FbxNode>();
         }
 
         #region Public Member Functions
@@ -55,9 +55,9 @@ namespace FbxSharp
             return LinkMode;
         }
 
-        public readonly ObjectView<Node> Link;
+        public readonly ObjectView<FbxNode> Link;
 
-        public void SetLink(Node pNode)
+        public void SetLink(FbxNode pNode)
         {
             if (GetLink() == pNode)
                 return;
@@ -70,17 +70,17 @@ namespace FbxSharp
             ConnectSrcObject(pNode);
         }
 
-        public Node GetLink()
+        public FbxNode GetLink()
         {
             return Link.Get();
         }
 
-        public void SetAssociateModel(Node pNode)
+        public void SetAssociateModel(FbxNode pNode)
         {
             throw new NotImplementedException();
         }
 
-        public Node GetAssociateModel()
+        public FbxNode GetAssociateModel()
         {
             throw new NotImplementedException();
         }
@@ -117,46 +117,46 @@ namespace FbxSharp
 
         #region Transformation matrices
 
-        public Matrix Transform = Matrix.Identity;
+        public FbxMatrix Transform = FbxMatrix.Identity;
 
-        public void SetTransformMatrix(Matrix pMatrix)
+        public void SetTransformMatrix(FbxMatrix pMatrix)
         {
             Transform = pMatrix;
         }
 
-        public Matrix GetTransformMatrix(Matrix pMatrix)
+        public FbxMatrix GetTransformMatrix(FbxMatrix pMatrix)
         {
             return Transform;
         }
 
-        public Matrix TransformLink = Matrix.Identity;
+        public FbxMatrix TransformLink = FbxMatrix.Identity;
 
-        public void SetTransformLinkMatrix(Matrix pMatrix)
+        public void SetTransformLinkMatrix(FbxMatrix pMatrix)
         {
             TransformLink = pMatrix;
         }
 
-        public Matrix GetTransformLinkMatrix(Matrix pMatrix)
+        public FbxMatrix GetTransformLinkMatrix(FbxMatrix pMatrix)
         {
             return TransformLink;
         }
 
-        public void SetTransformAssociateModelMatrix(Matrix pMatrix)
+        public void SetTransformAssociateModelMatrix(FbxMatrix pMatrix)
         {
             throw new NotImplementedException();
         }
 
-        public Matrix GetTransformAssociateModelMatrix(Matrix pMatrix)
+        public FbxMatrix GetTransformAssociateModelMatrix(FbxMatrix pMatrix)
         {
             throw new NotImplementedException();
         }
 
-        public void SetTransformParentMatrix(Matrix pMatrix)
+        public void SetTransformParentMatrix(FbxMatrix pMatrix)
         {
             throw new NotImplementedException();
         }
 
-        public Matrix GetTransformParentMatrix(Matrix pMatrix)
+        public FbxMatrix GetTransformParentMatrix(FbxMatrix pMatrix)
         {
             throw new NotImplementedException();
         }

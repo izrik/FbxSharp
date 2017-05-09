@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxLight : NodeAttribute
+    public class FbxLight : FbxNodeAttribute
     {
         public FbxLight(string name="")
             : base(name)

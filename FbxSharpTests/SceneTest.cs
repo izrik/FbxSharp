@@ -12,7 +12,7 @@ namespace FbxSharpTests
         {
             // given:
             var scene = new Scene("TheScene");
-            var node = new Node("ChildNode");
+            var node = new FbxNode("ChildNode");
 
             // require:
             Assert.AreEqual(3, scene.GetSrcObjectCount());
@@ -53,7 +53,7 @@ namespace FbxSharpTests
             // given:
             var scene = new Scene("TheScene");
             var root = scene.GetRootNode();
-            var node = new Node("ChildNode");
+            var node = new FbxNode("ChildNode");
 
             // require:
             Assert.AreEqual(3, scene.GetSrcObjectCount());
@@ -278,12 +278,12 @@ namespace FbxSharpTests
         {
             // given:
             var scene = new Scene("s");
-            var node = new Node("n");
-            var m1 = new Mesh("m1");
-            var m2 = new Mesh("m2");
+            var node = new FbxNode("n");
+            var m1 = new FbxMesh("m1");
+            var m2 = new FbxMesh("m2");
             var v = new Video("v");
             var c = new FbxCluster("c");
-            var n2 = new Node("n2");
+            var n2 = new FbxNode("n2");
             var c2 = new FbxCluster("c2");
 
             node.ConnectSrcObject(m1);

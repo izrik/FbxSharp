@@ -2,14 +2,14 @@
 
 namespace FbxSharp
 {
-    public struct Matrix
+    public struct FbxMatrix
     {
-        public static readonly Matrix Identity = new Matrix(1,0,0,0,
+        public static readonly FbxMatrix Identity = new FbxMatrix(1,0,0,0,
                                                             0,1,0,0,
                                                             0,0,1,0,
                                                             0,0,0,1);
 
-        public Matrix(Matrix pM)
+        public FbxMatrix(FbxMatrix pM)
         {
             M00 = pM.M00;
             M10 = pM.M10;
@@ -32,13 +32,13 @@ namespace FbxSharp
         //{
         //    throw new NotImplementedException();
         //}
-        public Matrix(Vector4 pT, Vector4 pR, Vector4 pS)
+        public FbxMatrix(Vector4 pT, Vector4 pR, Vector4 pS)
         {
             var s = CreateScale(pS);
-            var x = Matrix.CreateRotationX(pR.X);
-            var y = Matrix.CreateRotationY(pR.Y);
-            var z = Matrix.CreateRotationZ(pR.Z);
-            var t = Matrix.CreateTranslation(pT);
+            var x = FbxMatrix.CreateRotationX(pR.X);
+            var y = FbxMatrix.CreateRotationY(pR.Y);
+            var z = FbxMatrix.CreateRotationZ(pR.Z);
+            var t = FbxMatrix.CreateTranslation(pT);
 
             var r = z * y * x;
             var m = t * r * s;
@@ -64,7 +64,7 @@ namespace FbxSharp
         //{
         //    throw new NotImplementedException();
         //}
-        public Matrix(double p00, double p10, double p20, double p30,
+        public FbxMatrix(double p00, double p10, double p20, double p30,
                double p01, double p11, double p21, double p31,
                double p02, double p12, double p22, double p32,
                double p03, double p13, double p23, double p33)
@@ -106,15 +106,15 @@ namespace FbxSharp
 
         public override bool Equals(object obj)
         {
-            if (!(obj is Matrix))
+            if (!(obj is FbxMatrix))
                 return false;
 
-            var m = (Matrix)obj;
+            var m = (FbxMatrix)obj;
 
             return this.Equals(m);
         }
 
-        public bool Equals(Matrix m, double epsilon=0)
+        public bool Equals(FbxMatrix m, double epsilon=0)
         {
             return
                 Math.Abs(this.M00 - m.M00) <= epsilon &&
@@ -156,12 +156,12 @@ namespace FbxSharp
                 M33.GetHashCode();
         }
 
-        public static bool operator == (Matrix a, Matrix b)
+        public static bool operator == (FbxMatrix a, FbxMatrix b)
         {
             return a.Equals(b);
         }
 
-        public static bool operator != (Matrix a, Matrix b)
+        public static bool operator != (FbxMatrix a, FbxMatrix b)
         {
             return !a.Equals(b);
         }
@@ -215,86 +215,86 @@ namespace FbxSharp
             throw new ArgumentOutOfRangeException("pY, pX");
         }
 
-        public static Matrix CreateTranslation(Vector3 t)
+        public static FbxMatrix CreateTranslation(Vector3 t)
         {
             return CreateTranslation(t.X, t.Y, t.Z);
         }
-        public static Matrix CreateTranslation(Vector4 t)
+        public static FbxMatrix CreateTranslation(Vector4 t)
         {
             return CreateTranslation(t.X, t.Y, t.Z);
         }
-        public static Matrix CreateTranslation(double x, double y, double z)
+        public static FbxMatrix CreateTranslation(double x, double y, double z)
         {
-            return new Matrix(1, 0, 0, 0,
+            return new FbxMatrix(1, 0, 0, 0,
                               0, 1, 0, 0,
                               0, 0, 1, 0,
                               x, y, z, 1);
         }
 
-        public static Matrix CreateRotationX(double degrees)
+        public static FbxMatrix CreateRotationX(double degrees)
         {
             double radians = Math.PI * degrees / 180.0;
             double c = Math.Cos(radians);
             double s = Math.Sin(radians);
-            return new Matrix(
+            return new FbxMatrix(
                 1, 0, 0, 0,
                 0, c, s, 0,
                 0, -s, c, 0,
                 0, 0, 0, 1);
         }
 
-        public static Matrix CreateRotationY(double degrees)
+        public static FbxMatrix CreateRotationY(double degrees)
         {
             double radians = Math.PI * degrees / 180.0;
             double c = Math.Cos(radians);
             double s = Math.Sin(radians);
-            return new Matrix(
+            return new FbxMatrix(
                 c, 0, -s, 0,
                 0, 1, 0, 0,
                 s, 0, c, 0,
                 0, 0, 0, 1);
         }
 
-        public static Matrix CreateRotationZ(double degrees)
+        public static FbxMatrix CreateRotationZ(double degrees)
         {
             double radians = Math.PI * degrees / 180.0;
             double c = Math.Cos(radians);
             double s = Math.Sin(radians);
-            return new Matrix(
+            return new FbxMatrix(
                 c, s, 0, 0,
                 -s, c, 0, 0,
                 0, 0, 1, 0,
                 0, 0, 0, 1);
         }
 
-        public static Matrix CreateScale(double s)
+        public static FbxMatrix CreateScale(double s)
         {
             return CreateScale(s, s, s);
         }
-        public static Matrix CreateScale(Vector3 s)
+        public static FbxMatrix CreateScale(Vector3 s)
         {
             return CreateScale(s.X, s.Y, s.Z);
         }
-        public static Matrix CreateScale(Vector4 s)
+        public static FbxMatrix CreateScale(Vector4 s)
         {
             return CreateScale(s.X, s.Y, s.Z);
         }
-        public static Matrix CreateScale(double x, double y, double z)
+        public static FbxMatrix CreateScale(double x, double y, double z)
         {
-            return new Matrix(
+            return new FbxMatrix(
                 x, 0, 0, 0,
                 0, y, 0, 0,
                 0, 0, z, 0,
                 0, 0, 0, 1);
         }
 
-        public static Matrix operator * (Matrix a, Matrix b)
+        public static FbxMatrix operator * (FbxMatrix a, FbxMatrix b)
         {
             return Multiply(a, b);
         }
-        public static Matrix Multiply(Matrix a, Matrix b)
+        public static FbxMatrix Multiply(FbxMatrix a, FbxMatrix b)
         {
-            return new Matrix(
+            return new FbxMatrix(
                 a.M00 * b.M00 + a.M01 * b.M10 + a.M02 * b.M20 + a.M03 * b.M30,
                 a.M10 * b.M00 + a.M11 * b.M10 + a.M12 * b.M20 + a.M13 * b.M30,
                 a.M20 * b.M00 + a.M21 * b.M10 + a.M22 * b.M20 + a.M23 * b.M30,

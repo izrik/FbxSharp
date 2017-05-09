@@ -11,7 +11,7 @@ namespace FbxSharpTests
         public void Mesh_Create()
         {
             // given:
-            var mesh = new Mesh("Mesh");
+            var mesh = new FbxMesh("Mesh");
 
             // then:
             Assert.AreEqual(0, mesh.GetControlPointsCount());
@@ -21,7 +21,7 @@ namespace FbxSharpTests
         public void Mesh_Create_HasProperties()
         {
             // given:
-            var mesh = new Mesh("Mesh");
+            var mesh = new FbxMesh("Mesh");
             Property prop;
 
             // then:
@@ -82,7 +82,7 @@ namespace FbxSharpTests
         public void Mesh_Create_HasNamespacePrefix()
         {
             // given:
-            var obj = new Mesh("asdf");
+            var obj = new FbxMesh("asdf");
 
             // then:
             Assert.AreEqual("Geometry::", obj.GetNameSpacePrefix());
