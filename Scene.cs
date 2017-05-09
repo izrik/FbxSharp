@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FbxSharp
 {
-    public class Scene : Document
+    public class Scene : FbxDocument
     {
         public Scene(string name="")
             : base(name)
@@ -16,7 +16,7 @@ namespace FbxSharp
             Textures = SrcObjects.CreateCollectionView<Texture>();
             Nodes = SrcObjects.CreateCollectionView<Node>();
 
-            SrcObjects.Add(new GlobalSettings());
+            SrcObjects.Add(new FbxGlobalSettings());
             SetAnimationEvaluator(new FbxAnimEvaluator());
         }
 
@@ -83,9 +83,9 @@ namespace FbxSharp
 
         #region Global Settings
 
-        public GlobalSettings GetGlobalSettings()
+        public FbxGlobalSettings GetGlobalSettings()
         {
-            return (GlobalSettings)SrcObjects.FirstOrDefault(x => x is GlobalSettings);
+            return (FbxGlobalSettings)SrcObjects.FirstOrDefault(x => x is FbxGlobalSettings);
         }
 
         #endregion

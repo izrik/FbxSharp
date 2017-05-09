@@ -14,17 +14,17 @@ namespace FbxSharp
         public virtual void Visit(SurfaceLambert obj) { }
         public virtual void Visit(SurfacePhong obj) { }
         public virtual void Visit(Mesh obj) { }
-        public virtual void Visit(Geometry obj) { }
-        public virtual void Visit(GeometryBase obj) { }
+        public virtual void Visit(FbxGeometry obj) { }
+        public virtual void Visit(FbxGeometryBase obj) { }
         public virtual void Visit(LayerElementTexture tex) { }
         public virtual void Visit(LayerContainer layerContainer) { }
-        public virtual void Visit(Document obj) { }
+        public virtual void Visit(FbxDocument obj) { }
         public virtual void Visit(FbxCollection obj) { }
         public virtual void Visit(FbxAnimLayer obj) { }
         public virtual void Visit(FbxAnimStack obj) { }
         public virtual void Visit(FbxAnimCurve obj) { }
         public virtual void Visit(FbxAnimCurveNode obj) { }
-        public virtual void Visit(Deformer obj) { }
+        public virtual void Visit(FbxDeformer obj) { }
         public virtual void Visit(Pose pose) { }
         public virtual void Visit(SubDeformer obj) { }
         public virtual void Visit(Texture obj) { }
@@ -73,16 +73,16 @@ namespace FbxSharp
                 AcceptSurfacePhong((SurfacePhong)obj, visitedObjects);
             else if (type == typeof(Mesh))
                 AcceptMesh((Mesh)obj, visitedObjects);
-            else if (type == typeof(Geometry))
-                AcceptGeometry((Geometry)obj, visitedObjects);
-            else if (type == typeof(GeometryBase))
-                AcceptGeometryBase((GeometryBase)obj, visitedObjects);
+            else if (type == typeof(FbxGeometry))
+                AcceptGeometry((FbxGeometry)obj, visitedObjects);
+            else if (type == typeof(FbxGeometryBase))
+                AcceptGeometryBase((FbxGeometryBase)obj, visitedObjects);
             else if (type == typeof(LayerElementTexture))
                 AcceptLayerElementTexture((LayerElementTexture)obj, visitedObjects);
             else if (type == typeof(LayerContainer))
                 AcceptLayerContainer((LayerContainer)obj, visitedObjects);
-            else if (type == typeof(Document))
-                AcceptDocument((Document)obj, visitedObjects);
+            else if (type == typeof(FbxDocument))
+                AcceptDocument((FbxDocument)obj, visitedObjects);
             else if (type == typeof(FbxCollection))
                 AcceptCollection((FbxCollection)obj, visitedObjects);
             else if (type == typeof(FbxAnimLayer))
@@ -93,8 +93,8 @@ namespace FbxSharp
                 AcceptAnimCurve((FbxAnimCurve)obj, visitedObjects);
             else if (type == typeof(FbxAnimCurveNode))
                 AcceptAnimCurveNode((FbxAnimCurveNode)obj, visitedObjects);
-            else if (type == typeof(Deformer))
-                AcceptDeformer((Deformer)obj, visitedObjects);
+            else if (type == typeof(FbxDeformer))
+                AcceptDeformer((FbxDeformer)obj, visitedObjects);
             else if (type == typeof(Pose))
                 AcceptPose((Pose)obj, visitedObjects);
             else if (type == typeof(SubDeformer))
@@ -275,7 +275,7 @@ namespace FbxSharp
             Visit(obj);
         }
 
-        protected void AcceptGeometry(Geometry obj, ISet<object> visitedObjects)
+        protected void AcceptGeometry(FbxGeometry obj, ISet<object> visitedObjects)
         {
             AcceptGeometryBase(obj, visitedObjects);
             Visit(obj);
@@ -290,7 +290,7 @@ namespace FbxSharp
             // shape
         }
 
-        protected void AcceptGeometryBase(GeometryBase obj, ISet<object> visitedObjects)
+        protected void AcceptGeometryBase(FbxGeometryBase obj, ISet<object> visitedObjects)
         {
             AcceptLayerContainer(obj, visitedObjects);
             Visit(obj);
@@ -354,7 +354,7 @@ namespace FbxSharp
             }
         }
 
-        protected void AcceptDocument(Document obj, ISet<object> visitedObjects)
+        protected void AcceptDocument(FbxDocument obj, ISet<object> visitedObjects)
         {
             AcceptCollection(obj, visitedObjects);
             Visit(obj);
@@ -420,7 +420,7 @@ namespace FbxSharp
             //}
         }
 
-        protected void AcceptDeformer(Deformer obj, ISet<object> visitedObjects)
+        protected void AcceptDeformer(FbxDeformer obj, ISet<object> visitedObjects)
         {
             AcceptFbxObject(obj, visitedObjects);
             Visit(obj);

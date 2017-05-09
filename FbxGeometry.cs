@@ -2,25 +2,25 @@
 
 namespace FbxSharp
 {
-    public abstract class Geometry : GeometryBase
+    public abstract class FbxGeometry : FbxGeometryBase
     {
-        protected Geometry(string name="")
+        protected FbxGeometry(string name="")
             : base(name)
         {
-            Deformers = SrcObjects.CreateCollectionView<Deformer>();
+            Deformers = SrcObjects.CreateCollectionView<FbxDeformer>();
         }
 
         #region Deformer Management
 
-        public readonly CollectionView<Deformer> Deformers;
+        public readonly CollectionView<FbxDeformer> Deformers;
 
-        public int AddDeformer(Deformer pDeformer)
+        public int AddDeformer(FbxDeformer pDeformer)
         {
             ConnectSrcObject(pDeformer);
             return Deformers.IndexOf(pDeformer);
         }
 
-        public Deformer RemoveDeformer(int pIndex/*, FbxStatus pStatus=null*/)
+        public FbxDeformer RemoveDeformer(int pIndex/*, FbxStatus pStatus=null*/)
         {
             var deformer = Deformers[pIndex];
             return DisconnectSrcObject(deformer) ? deformer : null;
@@ -31,7 +31,7 @@ namespace FbxSharp
             return Deformers.Count;
         }
 
-        public Deformer GetDeformer(int pIndex/*, FbxStatus pStatus=null*/)
+        public FbxDeformer GetDeformer(int pIndex/*, FbxStatus pStatus=null*/)
         {
             return Deformers[pIndex];
         }

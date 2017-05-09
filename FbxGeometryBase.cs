@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public abstract class GeometryBase : LayerContainer
+    public abstract class FbxGeometryBase : LayerContainer
     {
-        protected GeometryBase(string name="")
+        protected FbxGeometryBase(string name="")
             : base(name)
         {
             this.Properties.Add(PrimaryVisibility);

@@ -357,7 +357,7 @@ namespace FbxSharp
         public PropertyT<Vector3>                       LclScaling                  = new PropertyT<Vector3>("Lcl Scaling", Vector3.One);
         public PropertyT<double>                        Visibility                  = new PropertyT<double>("Visibility");
         public PropertyT<bool>                          VisibilityInheritance       = new PropertyT<bool>("Visibility Inheritance");
-        public PropertyT<EQuatInterpMode>               QuaternionInterpolate       = new PropertyT<EQuatInterpMode>("QuaternionInterpolate");
+        public PropertyT<EFbxQuatInterpMode>               QuaternionInterpolate       = new PropertyT<EFbxQuatInterpMode>("QuaternionInterpolate");
         public PropertyT<Vector3>                       RotationOffset              = new PropertyT<Vector3>("RotationOffset");
         public PropertyT<Vector3>                       RotationPivot               = new PropertyT<Vector3>("RotationPivot");
         public PropertyT<Vector3>                       ScalingOffset               = new PropertyT<Vector3>("ScalingOffset");

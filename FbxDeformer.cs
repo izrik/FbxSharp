@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public abstract class Deformer : FbxObject
+    public abstract class FbxDeformer : FbxObject
     {
-        protected Deformer(string name="")
+        protected FbxDeformer(string name="")
             : base(name)
         {
         }

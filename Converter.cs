@@ -362,7 +362,7 @@ namespace FbxSharp
             return camera;
         }
 
-        public static Geometry ConvertGeometry(ParseObject obj)
+        public static FbxGeometry ConvertGeometry(ParseObject obj)
         {
             var geometryType = ((string)obj.Values[2]);
 

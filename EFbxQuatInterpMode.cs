@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public enum EQuatInterpMode
+    public enum EFbxQuatInterpMode
     {
         eQuatInterpOff,
         eQuatInterpClassic,

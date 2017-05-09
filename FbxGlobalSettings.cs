@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class GlobalSettings : FbxObject
+    public class FbxGlobalSettings : FbxObject
     {
     }
 }

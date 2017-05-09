@@ -248,7 +248,7 @@ namespace FbxSharpTests
         public void Document_Create_HasProperties()
         {
             // given:
-            var doc = new Document("");
+            var doc = new FbxDocument("");
             Property prop;
 
             // then:

@@ -46,10 +46,6 @@
     <Compile Include="Number.cs" />
     <Compile Include="FbxObject.cs" />
     <Compile Include="Skeleton.cs" />
-    <Compile Include="Document.cs" />
-    <Compile Include="Emitter.cs" />
-    <Compile Include="Geometry.cs" />
-    <Compile Include="GeometryBase.cs" />
     <Compile Include="LayerContainer.cs" />
     <Compile Include="Mesh.cs" />
     <Compile Include="Node.cs" />
@@ -69,14 +65,12 @@
     <Compile Include="Pose.cs" />
     <Compile Include="SurfacePhong.cs" />
     <Compile Include="SurfaceLambert.cs" />
-    <Compile Include="Deformer.cs" />
     <Compile Include="Skin.cs" />
     <Compile Include="SubDeformer.cs" />
     <Compile Include="Video.cs" />
     <Compile Include="Texture.cs" />
     <Compile Include="Time.cs" />
     <Compile Include="Importer.cs" />
-    <Compile Include="GlobalSettings.cs" />
     <Compile Include="CollectionView.cs" />
     <Compile Include="ObjectView.cs" />
     <Compile Include="Vector4.cs" />
@@ -97,7 +91,6 @@
     <Compile Include="VectorHelper.cs" />
     <Compile Include="PropertyFlags.cs" />
     <Compile Include="Transform.cs" />
-    <Compile Include="EQuatInterpMode.cs" />
     <Compile Include="ObjectDstObjectCollection.cs" />
     <Compile Include="ObjectSrcObjectCollection.cs" />
     <Compile Include="ObjectSrcPropertyCollection.cs" />
@@ -135,6 +128,13 @@
     <Compile Include="FbxCollection.cs" />
     <Compile Include="FbxColor.cs" />
     <Compile Include="FbxConnection.cs" />
+    <Compile Include="FbxDeformer.cs" />
+    <Compile Include="FbxDocument.cs" />
+    <Compile Include="FbxEmitter.cs" />
+    <Compile Include="EFbxQuatInterpMode.cs" />
+    <Compile Include="FbxGeometry.cs" />
+    <Compile Include="FbxGeometryBase.cs" />
+    <Compile Include="FbxGlobalSettings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

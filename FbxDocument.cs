@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public class Document : FbxCollection
+    public class FbxDocument : FbxCollection
     {
-        public Document(string name="")
+        public FbxDocument(string name="")
             : base(name)
         {
             this.Properties.Add(Roots);

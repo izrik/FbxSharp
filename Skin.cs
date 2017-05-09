@@ -2,12 +2,12 @@
 
 namespace FbxSharp
 {
-    public class Skin : Deformer
+    public class Skin : FbxDeformer
     {
         public Skin(string name="")
             : base(name)
         {
-            Geometry = this.DstObjects.CreateObjectView<Geometry>();
+            Geometry = this.DstObjects.CreateObjectView<FbxGeometry>();
             Clusters = this.SrcObjects.CreateCollectionView<FbxCluster>();
         }
 
@@ -25,9 +25,9 @@ namespace FbxSharp
             return DeformAccuracy;
         }
 
-        public readonly ObjectView<Geometry> Geometry;
+        public readonly ObjectView<FbxGeometry> Geometry;
 
-        public bool SetGeometry(Geometry pGeometry)
+        public bool SetGeometry(FbxGeometry pGeometry)
         {
             if (GetGeometry() != null)
             {
@@ -37,7 +37,7 @@ namespace FbxSharp
             return ConnectDstObject(pGeometry);
         }
 
-        public Geometry GetGeometry()
+        public FbxGeometry GetGeometry()
         {
             return Geometry.Get();
         }

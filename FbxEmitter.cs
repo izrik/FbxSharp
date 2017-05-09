@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class Emitter
+    public class FbxEmitter
     {
     }
 }
