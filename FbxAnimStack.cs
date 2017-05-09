@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public class AnimStack : Collection
+    public class FbxAnimStack : FbxCollection
     {
-        public AnimStack(String name="")
+        public FbxAnimStack(String name="")
             : base(name)
         {
             Properties.Add(Description);
@@ -47,7 +47,7 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public bool BakeLayers(AnimEvaluator pEvaluator, FbxTime pStart, FbxTime pStop, FbxTime pPeriod)
+        public bool BakeLayers(FbxAnimEvaluator pEvaluator, FbxTime pStart, FbxTime pStop, FbxTime pPeriod)
         {
             throw new NotImplementedException();
         }

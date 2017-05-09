@@ -63,14 +63,14 @@ namespace FbxSharpTests
         {
             // given:
             var node = new Node("node");
-            var acn = new AnimCurveNode("acn");
-            var x = new AnimCurve("x");
+            var acn = new FbxAnimCurveNode("acn");
+            var x = new FbxAnimCurve("x");
             var scene = new Scene("scene");
-            var layer = new AnimLayer("layer");
-            var stack = new AnimStack("stack");
+            var layer = new FbxAnimLayer("layer");
+            var stack = new FbxAnimStack("stack");
 
             var time = new FbxTime(0);
-            var key = new AnimCurveKey(time, 1.0f);
+            var key = new FbxAnimCurveKey(time, 1.0f);
             x.KeyAdd(time, key);
 
             scene.ConnectSrcObject(node);
@@ -110,22 +110,22 @@ namespace FbxSharpTests
             var node = new Node("node");
             var scene = new Scene("scene");
 
-            var acn1 = new AnimCurveNode("acn1");
-            var ac1 = new AnimCurve("ac1");
-            var layer1 = new AnimLayer("layer1");
-            var stack1 = new AnimStack("stack1");
+            var acn1 = new FbxAnimCurveNode("acn1");
+            var ac1 = new FbxAnimCurve("ac1");
+            var layer1 = new FbxAnimLayer("layer1");
+            var stack1 = new FbxAnimStack("stack1");
 
-            var acn2 = new AnimCurveNode("acn2");
-            var ac2 = new AnimCurve("ac2");
-            var layer2 = new AnimLayer("layer2");
-            var stack2 = new AnimStack("stack2");
+            var acn2 = new FbxAnimCurveNode("acn2");
+            var ac2 = new FbxAnimCurve("ac2");
+            var layer2 = new FbxAnimLayer("layer2");
+            var stack2 = new FbxAnimStack("stack2");
 
             var time = new FbxTime(0);
-            var key = new AnimCurveKey(time, 1.0f);
+            var key = new FbxAnimCurveKey(time, 1.0f);
             ac1.KeyAdd(time, key);
 
             var time2 = new FbxTime(0);
-            var key2 = new AnimCurveKey(time2, 1.0f);
+            var key2 = new FbxAnimCurveKey(time2, 1.0f);
             ac2.KeyAdd(time2, key2);
 
             scene.ConnectSrcObject(node);
@@ -173,22 +173,22 @@ namespace FbxSharpTests
             var node = new Node("node");
             var scene = new Scene("scene");
 
-            var acn1 = new AnimCurveNode("acn1");
-            var ac1 = new AnimCurve("ac1");
-            var layer1 = new AnimLayer("layer1");
-            var stack1 = new AnimStack("stack1");
+            var acn1 = new FbxAnimCurveNode("acn1");
+            var ac1 = new FbxAnimCurve("ac1");
+            var layer1 = new FbxAnimLayer("layer1");
+            var stack1 = new FbxAnimStack("stack1");
 
-            var acn2 = new AnimCurveNode("acn2");
-            var ac2 = new AnimCurve("ac2");
-            var layer2 = new AnimLayer("layer2");
-            var stack2 = new AnimStack("stack2");
+            var acn2 = new FbxAnimCurveNode("acn2");
+            var ac2 = new FbxAnimCurve("ac2");
+            var layer2 = new FbxAnimLayer("layer2");
+            var stack2 = new FbxAnimStack("stack2");
 
             var time = new FbxTime(0);
-            var key = new AnimCurveKey(time, 1.0f);
+            var key = new FbxAnimCurveKey(time, 1.0f);
             ac1.KeyAdd(time, key);
 
             var time2 = new FbxTime(0);
-            var key2 = new AnimCurveKey(time2, 1.0f);
+            var key2 = new FbxAnimCurveKey(time2, 1.0f);
             ac2.KeyAdd(time2, key2);
 
             scene.ConnectSrcObject(node);

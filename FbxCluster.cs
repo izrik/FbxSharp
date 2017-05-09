@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class Cluster : SubDeformer
+    public class FbxCluster : SubDeformer
     {
-        public Cluster(string name="")
+        public FbxCluster(string name="")
             : base(name)
         {
             Link = this.SrcObjects.CreateObjectView<Node>();

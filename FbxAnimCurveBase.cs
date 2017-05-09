@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public abstract class AnimCurveBase : FbxObject
+    public abstract class FbxAnimCurveBase : FbxObject
     {
-        protected AnimCurveBase(string name="")
+        protected FbxAnimCurveBase(string name="")
             : base(name)
         {
         }
@@ -15,9 +15,9 @@ namespace FbxSharp
 
         public abstract int KeyGetCount();
 
-        public abstract int KeyAdd(FbxTime pTime, AnimCurveKeyBase pKey/*, int *pLast=NULL*/);
+        public abstract int KeyAdd(FbxTime pTime, FbxAnimCurveKeyBase pKey/*, int *pLast=NULL*/);
 
-        public abstract bool KeySet(int pIndex, AnimCurveKeyBase pKey);
+        public abstract bool KeySet(int pIndex, FbxAnimCurveKeyBase pKey);
 
         public abstract bool KeyRemove(int pIndex);
 

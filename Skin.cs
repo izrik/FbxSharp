@@ -8,7 +8,7 @@ namespace FbxSharp
             : base(name)
         {
             Geometry = this.DstObjects.CreateObjectView<Geometry>();
-            Clusters = this.SrcObjects.CreateCollectionView<Cluster>();
+            Clusters = this.SrcObjects.CreateCollectionView<FbxCluster>();
         }
 
         public double DeformAccuracy;
@@ -42,15 +42,15 @@ namespace FbxSharp
             return Geometry.Get();
         }
 
-        public readonly CollectionView<Cluster> Clusters;
+        public readonly CollectionView<FbxCluster> Clusters;
 
-        public bool AddCluster(Cluster pCluster)
+        public bool AddCluster(FbxCluster pCluster)
         {
             ConnectSrcObject(pCluster);
             return true;
         }
 
-        public Cluster RemoveCluster(Cluster pCluster)
+        public FbxCluster RemoveCluster(FbxCluster pCluster)
         {
             if (DisconnectSrcObject(pCluster))
                 return pCluster;
@@ -63,7 +63,7 @@ namespace FbxSharp
             return Clusters.Count;
         }
 
-        public Cluster GetCluster(int pIndex)
+        public FbxCluster GetCluster(int pIndex)
         {
             return Clusters[pIndex];
         }

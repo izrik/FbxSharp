@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public class Camera : NodeAttribute
+    public class FbxCamera : NodeAttribute
     {
-        public Camera(string name="")
+        public FbxCamera(string name="")
             : base(name)
         {
             Properties.Add(Position);

@@ -293,10 +293,10 @@ namespace FbxSharp
             return light;
         }
 
-        public static Camera ConvertCamera(ParseObject obj)
+        public static FbxCamera ConvertCamera(ParseObject obj)
         {
             var name = ((string)obj.Values[1]);
-            var camera = new Camera(name);
+            var camera = new FbxCamera(name);
 
             Vector3 position;
             Vector3 up;
@@ -692,8 +692,8 @@ namespace FbxSharp
                     var r = ((Number)p.Values[4]).AsDouble.Value;
                     var g = ((Number)p.Values[5]).AsDouble.Value;
                     var b = ((Number)p.Values[6]).AsDouble.Value;
-                    propType = typeof(Color);
-                    propValue = new Color(r, g, b);
+                    propType = typeof(FbxColor);
+                    propValue = new FbxColor(r, g, b);
                     break;
                 case "Visibility":
                 case "bool":
@@ -1060,9 +1060,9 @@ namespace FbxSharp
             return skin;
         }
 
-        public static Cluster ConvertCluster(ParseObject obj)
+        public static FbxCluster ConvertCluster(ParseObject obj)
         {
-            var cluster = new Cluster();
+            var cluster = new FbxCluster();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1236,9 +1236,9 @@ namespace FbxSharp
                     ((Number)values[startIndex + 3]).AsDouble.Value);
         }
 
-        public static AnimStack ConvertAnimationStack(ParseObject obj)
+        public static FbxAnimStack ConvertAnimationStack(ParseObject obj)
         {
-            var animstack = new AnimStack();
+            var animstack = new FbxAnimStack();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1262,9 +1262,9 @@ namespace FbxSharp
             return animstack;
         }
 
-        public static AnimLayer ConvertAnimationLayer(ParseObject obj)
+        public static FbxAnimLayer ConvertAnimationLayer(ParseObject obj)
         {
-            var animlayer = new AnimLayer();
+            var animlayer = new FbxAnimLayer();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1279,9 +1279,9 @@ namespace FbxSharp
             return animlayer;
         }
 
-        public static AnimCurveNode ConvertAnimationCurveNode(ParseObject obj)
+        public static FbxAnimCurveNode ConvertAnimationCurveNode(ParseObject obj)
         {
-            var animCurveNode = new AnimCurveNode();
+            var animCurveNode = new FbxAnimCurveNode();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1307,7 +1307,7 @@ namespace FbxSharp
                         }
                         else if (pname.StartsWith("d|"))
                         {
-                            var genMethod = typeof(AnimCurveNode).GetMethod("AddChannel");
+                            var genMethod = typeof(FbxAnimCurveNode).GetMethod("AddChannel");
                             var typedMethod = genMethod.MakeGenericMethod(ptype);
                             typedMethod.Invoke(animCurveNode, new object[]{pname, pvalue});
                             //animCurveNode.AddChannel<ptype>(pname, pvalue)
@@ -1326,9 +1326,9 @@ namespace FbxSharp
             return animCurveNode;
         }
 
-        public static AnimCurve ConvertAnimationCurve(ParseObject obj)
+        public static FbxAnimCurve ConvertAnimationCurve(ParseObject obj)
         {
-            var curve = new AnimCurve();
+            var curve = new FbxAnimCurve();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1375,12 +1375,12 @@ namespace FbxSharp
                 }
             }
 
-            var keys = new AnimCurveKey[Math.Min(keyTimes.Length, keyValues.Length)];
+            var keys = new FbxAnimCurveKey[Math.Min(keyTimes.Length, keyValues.Length)];
             int i;
             for (i = 0; i < Math.Min(keyTimes.Length, keyValues.Length); i++)
             {
                 var time = new FbxTime(keyTimes[i]);
-                keys[i] = new AnimCurveKey(time, (float)keyValues[i]);
+                keys[i] = new FbxAnimCurveKey(time, (float)keyValues[i]);
             }
 
 
@@ -1394,13 +1394,13 @@ namespace FbxSharp
                 long data3 = attrData[4 * m + 3];
                 long flags = attrFlags[m];
 
-                var tangentMode = (AnimCurveDef.ETangentMode)(flags & 0x00007f00);
-                tangentMode = tangentMode & ~AnimCurveDef.ETangentMode.eTangentGenericTimeIndependent;
-                var interpolation = (AnimCurveDef.EInterpolationType)(flags & 0x0000000e);
-                var weight = (AnimCurveDef.EWeightedMode)(flags & 0x03000000);
-                var constant = (AnimCurveDef.EConstantMode)(flags & 0x00000100);
-                var velocity = (AnimCurveDef.EVelocityMode)(flags & 0x30000000);
-                var visibility = (AnimCurveDef.ETangentVisibility)(flags & 0x00300000);
+                var tangentMode = (FbxAnimCurveDef.ETangentMode)(flags & 0x00007f00);
+                tangentMode = tangentMode & ~FbxAnimCurveDef.ETangentMode.eTangentGenericTimeIndependent;
+                var interpolation = (FbxAnimCurveDef.EInterpolationType)(flags & 0x0000000e);
+                var weight = (FbxAnimCurveDef.EWeightedMode)(flags & 0x03000000);
+                var constant = (FbxAnimCurveDef.EConstantMode)(flags & 0x00000100);
+                var velocity = (FbxAnimCurveDef.EVelocityMode)(flags & 0x30000000);
+                var visibility = (FbxAnimCurveDef.ETangentVisibility)(flags & 0x00300000);
 
                 for (i = 0; i < attrCount; i++, k++)
                 {
@@ -1411,8 +1411,8 @@ namespace FbxSharp
                     key.SetConstantMode(constant);
                     key.SetTangentVelocityMode(velocity);
                     key.SetTangentVisibility(visibility);
-                    key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eRightWeight, (data2 & 0x0000ffff) / 9999.0);
-                    key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eNextLeftWeight, ((data2 >> 16) & 0xffff) / 9999.0);
+                    key.SetTangentWeightAndAdjustTangent(FbxAnimCurveDef.EDataIndex.eRightWeight, (data2 & 0x0000ffff) / 9999.0);
+                    key.SetTangentWeightAndAdjustTangent(FbxAnimCurveDef.EDataIndex.eNextLeftWeight, ((data2 >> 16) & 0xffff) / 9999.0);
 //                    key.SetDataFloat(AnimCurveDef.EDataIndex.eRightSlope, data0);
 //                    key.SetDataFloat(AnimCurveDef.EDataIndex.eRightSlope, data1);
 //                    key.SetDataFloat(AnimCurveDef.EDataIndex.eRightSlope, data2);

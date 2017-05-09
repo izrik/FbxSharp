@@ -282,9 +282,9 @@ namespace FbxSharpTests
             var m1 = new Mesh("m1");
             var m2 = new Mesh("m2");
             var v = new Video("v");
-            var c = new Cluster("c");
+            var c = new FbxCluster("c");
             var n2 = new Node("n2");
-            var c2 = new Cluster("c2");
+            var c2 = new FbxCluster("c2");
 
             node.ConnectSrcObject(m1);
             node.ConnectSrcObject(m2);

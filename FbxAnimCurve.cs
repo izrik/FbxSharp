@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class AnimCurve : AnimCurveBase
+    public class FbxAnimCurve : FbxAnimCurveBase
     {
-        public AnimCurve(string name="")
+        public FbxAnimCurve(string name="")
             : base(name)
         {
         }
 
         #region Animation curve creation.
 
-        public static AnimCurve Create(Scene pContainer, string pName)
+        public static FbxAnimCurve Create(Scene pContainer, string pName)
         {
             throw new NotImplementedException();
         }
@@ -23,7 +23,7 @@ namespace FbxSharp
 
         #region Key Management
 
-        SortedList<long, AnimCurveKeyBase> keys = new SortedList<long, AnimCurveKeyBase>();
+        SortedList<long, FbxAnimCurveKeyBase> keys = new SortedList<long, FbxAnimCurveKeyBase>();
 
         public virtual void ResizeKeyBuffer(int pKeyCount)
         {
@@ -50,7 +50,7 @@ namespace FbxSharp
             return keys.Count;
         }
 
-        public override int KeyAdd(FbxTime pTime, AnimCurveKeyBase pKey/*, int *pLast=NULL*/)
+        public override int KeyAdd(FbxTime pTime, FbxAnimCurveKeyBase pKey/*, int *pLast=NULL*/)
         {
             if (keys.ContainsKey(pTime.Value))
             {
@@ -66,10 +66,10 @@ namespace FbxSharp
 
         public virtual int KeyAdd(FbxTime pTime/*, int *pLast=NULL*/)
         {
-            return KeyAdd(pTime, new AnimCurveKey(pTime));
+            return KeyAdd(pTime, new FbxAnimCurveKey(pTime));
         }
 
-        public override bool KeySet(int pIndex, AnimCurveKeyBase pKey)
+        public override bool KeySet(int pIndex, FbxAnimCurveKeyBase pKey)
         {
             throw new NotImplementedException();
         }
@@ -109,14 +109,14 @@ namespace FbxSharp
         #region Key Manipulation
 
         public virtual void KeySet(int pKeyIndex, FbxTime pTime, float pValue,
-            AnimCurveDef.EInterpolationType pInterpolation=AnimCurveDef.EInterpolationType.eInterpolationCubic,
-            AnimCurveDef.ETangentMode pTangentMode=AnimCurveDef.ETangentMode.eTangentAuto,
+            FbxAnimCurveDef.EInterpolationType pInterpolation=FbxAnimCurveDef.EInterpolationType.eInterpolationCubic,
+            FbxAnimCurveDef.ETangentMode pTangentMode=FbxAnimCurveDef.ETangentMode.eTangentAuto,
             float pData0=0.0f, float pData1=0.0f,
-            AnimCurveDef.EWeightedMode pTangentWeightMode=AnimCurveDef.EWeightedMode.eWeightedNone,
-            float pWeight0=AnimCurveDef.sDEFAULT_WEIGHT,
-            float pWeight1=AnimCurveDef.sDEFAULT_WEIGHT,
-            float pVelocity0=AnimCurveDef.sDEFAULT_VELOCITY,
-            float pVelocity1=AnimCurveDef.sDEFAULT_VELOCITY)
+            FbxAnimCurveDef.EWeightedMode pTangentWeightMode=FbxAnimCurveDef.EWeightedMode.eWeightedNone,
+            float pWeight0=FbxAnimCurveDef.sDEFAULT_WEIGHT,
+            float pWeight1=FbxAnimCurveDef.sDEFAULT_WEIGHT,
+            float pVelocity0=FbxAnimCurveDef.sDEFAULT_VELOCITY,
+            float pVelocity1=FbxAnimCurveDef.sDEFAULT_VELOCITY)
         {
             throw new NotImplementedException();
         }
@@ -127,37 +127,37 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public virtual AnimCurveDef.EInterpolationType KeyGetInterpolation(int pKeyIndex)
+        public virtual FbxAnimCurveDef.EInterpolationType KeyGetInterpolation(int pKeyIndex)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void KeySetInterpolation(int pKeyIndex, AnimCurveDef.EInterpolationType pInterpolation)
+        public virtual void KeySetInterpolation(int pKeyIndex, FbxAnimCurveDef.EInterpolationType pInterpolation)
         {
             throw new NotImplementedException();
         }
 
-        public virtual AnimCurveDef.EConstantMode KeyGetConstantMode(int pKeyIndex)
+        public virtual FbxAnimCurveDef.EConstantMode KeyGetConstantMode(int pKeyIndex)
         {
             throw new NotImplementedException();
         }
 
-        public virtual AnimCurveDef.ETangentMode KeyGetTangentMode(int pKeyIndex, bool pIncludeOverrides=false)
+        public virtual FbxAnimCurveDef.ETangentMode KeyGetTangentMode(int pKeyIndex, bool pIncludeOverrides=false)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void KeySetConstantMode(int pKeyIndex, AnimCurveDef.EConstantMode pMode)
+        public virtual void KeySetConstantMode(int pKeyIndex, FbxAnimCurveDef.EConstantMode pMode)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void KeySetTangentMode(int pKeyIndex, AnimCurveDef.ETangentMode pTangent)
+        public virtual void KeySetTangentMode(int pKeyIndex, FbxAnimCurveDef.ETangentMode pTangent)
         {
             throw new NotImplementedException();
         }
 
-        public virtual AnimCurveKey KeyGet(int pIndex)
+        public virtual FbxAnimCurveKey KeyGet(int pIndex)
         {
             throw new NotImplementedException();
         }
@@ -273,38 +273,38 @@ namespace FbxSharp
 
         public virtual float KeyGetLeftTangentWeight(int pIndex)
         {
-            var key = keys[keys.Keys[pIndex]] as AnimCurveKey;
-            return key.GetDataFloat(AnimCurveDef.EDataIndex.eNextLeftWeight);
+            var key = keys[keys.Keys[pIndex]] as FbxAnimCurveKey;
+            return key.GetDataFloat(FbxAnimCurveDef.EDataIndex.eNextLeftWeight);
         }
 
         public virtual float KeyGetRightTangentWeight(int pIndex)
         {
-            var key = keys[keys.Keys[pIndex]] as AnimCurveKey;
-            return key.GetDataFloat(AnimCurveDef.EDataIndex.eRightWeight);
+            var key = keys[keys.Keys[pIndex]] as FbxAnimCurveKey;
+            return key.GetDataFloat(FbxAnimCurveDef.EDataIndex.eRightWeight);
         }
 
         public virtual void KeySetLeftTangentWeight(int pIndex, float pWeight, bool pAdjustTan=false)
         {
-            var key = keys[keys.Keys[pIndex]] as AnimCurveKey;
-            key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eNextLeftWeight, pWeight);
+            var key = keys[keys.Keys[pIndex]] as FbxAnimCurveKey;
+            key.SetTangentWeightAndAdjustTangent(FbxAnimCurveDef.EDataIndex.eNextLeftWeight, pWeight);
         }
 
         public virtual void KeySetRightTangentWeight(int pIndex, float pWeight, bool pAdjustTan=false)
         {
-            var key = keys[keys.Keys[pIndex]] as AnimCurveKey;
-            key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eRightWeight, pWeight);
+            var key = keys[keys.Keys[pIndex]] as FbxAnimCurveKey;
+            key.SetTangentWeightAndAdjustTangent(FbxAnimCurveDef.EDataIndex.eRightWeight, pWeight);
         }
 
         public virtual float KeyGetLeftTangentVelocity(int pIndex)
         {
-            var key = keys[keys.Keys[pIndex]] as AnimCurveKey;
-            return key.GetDataFloat(AnimCurveDef.EDataIndex.eNextLeftVelocity);
+            var key = keys[keys.Keys[pIndex]] as FbxAnimCurveKey;
+            return key.GetDataFloat(FbxAnimCurveDef.EDataIndex.eNextLeftVelocity);
         }
 
         public virtual float KeyGetRightTangentVelocity(int pIndex)
         {
-            var key = keys[keys.Keys[pIndex]] as AnimCurveKey;
-            return key.GetDataFloat(AnimCurveDef.EDataIndex.eRightVelocity);
+            var key = keys[keys.Keys[pIndex]] as FbxAnimCurveKey;
+            return key.GetDataFloat(FbxAnimCurveDef.EDataIndex.eRightVelocity);
         }
         #endregion
 
@@ -318,10 +318,10 @@ namespace FbxSharp
 
             if (index < 0)
             {
-                return (keys[keys.Keys[0]] as AnimCurveKey).GetValue();
+                return (keys[keys.Keys[0]] as FbxAnimCurveKey).GetValue();
             }
 
-            var pre = (keys[keys.Keys[index]] as AnimCurveKey);
+            var pre = (keys[keys.Keys[index]] as FbxAnimCurveKey);
 
             if (index >= keys.Count - 1)
             {
@@ -333,7 +333,7 @@ namespace FbxSharp
                 return pre.GetValue();
             }
 
-            var post = (keys[keys.Keys[index+1]] as AnimCurveKey);
+            var post = (keys[keys.Keys[index+1]] as FbxAnimCurveKey);
 
             double p0, p1, p2, p3;
             double s0, s1, s2, s3;
@@ -345,7 +345,7 @@ namespace FbxSharp
             t2 = post.GetTime().Get();
             if (index > 0)
             {
-                var prepre = (keys[keys.Keys[index-1]] as AnimCurveKey);
+                var prepre = (keys[keys.Keys[index-1]] as FbxAnimCurveKey);
                 p0 = prepre.GetValue();
                 t0 = prepre.GetTime().Get();
             }
@@ -356,7 +356,7 @@ namespace FbxSharp
             }
             if (index < keys.Count - 2)
             {
-                var postpost = (keys[keys.Keys[index + 2]] as AnimCurveKey);
+                var postpost = (keys[keys.Keys[index + 2]] as FbxAnimCurveKey);
                 p3 = postpost.GetValue();
                 t3 = postpost.GetTime().Get();
             }
@@ -411,7 +411,7 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public virtual void CopyFrom(AnimCurve /*&*/pSource, bool pWithKeys=true)
+        public virtual void CopyFrom(FbxAnimCurve /*&*/pSource, bool pWithKeys=true)
         {
             throw new NotImplementedException();
         }

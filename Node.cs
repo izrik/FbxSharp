@@ -245,12 +245,12 @@ namespace FbxSharp
 
         #region Node Evaluation Functions
 
-        public AnimEvaluator GetAnimationEvaluator()
+        public FbxAnimEvaluator GetAnimationEvaluator()
         {
             if (Scene != null)
                 return Scene.GetAnimationEvaluator();
 
-            return AnimEvaluator.Default;
+            return FbxAnimEvaluator.Default;
         }
 
         public Matrix EvaluateGlobalTransform()

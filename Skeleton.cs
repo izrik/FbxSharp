@@ -34,14 +34,14 @@ namespace FbxSharp
 
         public double LimbNodeSizeDefaultValue { get { return sDefaultSize; } }
 
-        Color? _limbNodeColor;
-        public Color LimbNodeColor
+        FbxColor? _limbNodeColor;
+        public FbxColor LimbNodeColor
         {
             get { return _limbNodeColor.HasValue ? _limbNodeColor.Value : LimbNodeColorDefaultValue; }
             set { _limbNodeColor = value; }
         }
         public bool IsLimbNodeColorSet { get { return _limbNodeColor.HasValue; } }
-        public Color LimbNodeColorDefaultValue { get { return new Color(new Vector3(0.8f,0.8f,0.8f)); } }
+        public FbxColor LimbNodeColorDefaultValue { get { return new FbxColor(new Vector3(0.8f,0.8f,0.8f)); } }
 
         public bool IsSkeletonRoot { get; protected set; }
 

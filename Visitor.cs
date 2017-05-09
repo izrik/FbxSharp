@@ -19,17 +19,17 @@ namespace FbxSharp
         public virtual void Visit(LayerElementTexture tex) { }
         public virtual void Visit(LayerContainer layerContainer) { }
         public virtual void Visit(Document obj) { }
-        public virtual void Visit(Collection obj) { }
-        public virtual void Visit(AnimLayer obj) { }
-        public virtual void Visit(AnimStack obj) { }
-        public virtual void Visit(AnimCurve obj) { }
-        public virtual void Visit(AnimCurveNode obj) { }
+        public virtual void Visit(FbxCollection obj) { }
+        public virtual void Visit(FbxAnimLayer obj) { }
+        public virtual void Visit(FbxAnimStack obj) { }
+        public virtual void Visit(FbxAnimCurve obj) { }
+        public virtual void Visit(FbxAnimCurveNode obj) { }
         public virtual void Visit(Deformer obj) { }
         public virtual void Visit(Pose pose) { }
         public virtual void Visit(SubDeformer obj) { }
         public virtual void Visit(Texture obj) { }
         public virtual void Visit(Video obj) { }
-        public virtual void Visit(Camera obj) { }
+        public virtual void Visit(FbxCamera obj) { }
         public virtual void Visit(Light obj) { }
         public virtual void Visit(Null obj) { }
         public virtual void Visit(Skeleton obj) { }
@@ -83,16 +83,16 @@ namespace FbxSharp
                 AcceptLayerContainer((LayerContainer)obj, visitedObjects);
             else if (type == typeof(Document))
                 AcceptDocument((Document)obj, visitedObjects);
-            else if (type == typeof(Collection))
-                AcceptCollection((Collection)obj, visitedObjects);
-            else if (type == typeof(AnimLayer))
-                AcceptAnimLayer((AnimLayer)obj, visitedObjects);
-            else if (type == typeof(AnimStack))
-                AcceptAnimStack((AnimStack)obj, visitedObjects);
-            else if (type == typeof(AnimCurve))
-                AcceptAnimCurve((AnimCurve)obj, visitedObjects);
-            else if (type == typeof(AnimCurveNode))
-                AcceptAnimCurveNode((AnimCurveNode)obj, visitedObjects);
+            else if (type == typeof(FbxCollection))
+                AcceptCollection((FbxCollection)obj, visitedObjects);
+            else if (type == typeof(FbxAnimLayer))
+                AcceptAnimLayer((FbxAnimLayer)obj, visitedObjects);
+            else if (type == typeof(FbxAnimStack))
+                AcceptAnimStack((FbxAnimStack)obj, visitedObjects);
+            else if (type == typeof(FbxAnimCurve))
+                AcceptAnimCurve((FbxAnimCurve)obj, visitedObjects);
+            else if (type == typeof(FbxAnimCurveNode))
+                AcceptAnimCurveNode((FbxAnimCurveNode)obj, visitedObjects);
             else if (type == typeof(Deformer))
                 AcceptDeformer((Deformer)obj, visitedObjects);
             else if (type == typeof(Pose))
@@ -103,8 +103,8 @@ namespace FbxSharp
                 AcceptTexture((Texture)obj, visitedObjects);
             else if (type == typeof(Video))
                 AcceptVideo((Video)obj, visitedObjects);
-            else if (type == typeof(Camera))
-                AcceptCamera((Camera)obj, visitedObjects);
+            else if (type == typeof(FbxCamera))
+                AcceptCamera((FbxCamera)obj, visitedObjects);
             else if (type == typeof(Light))
                 AcceptLight((Light)obj, visitedObjects);
             else if (type == typeof(Null))
@@ -371,7 +371,7 @@ namespace FbxSharp
             //}
         }
 
-        protected void AcceptCollection(Collection obj, ISet<object> visitedObjects)
+        protected void AcceptCollection(FbxCollection obj, ISet<object> visitedObjects)
         {
             AcceptFbxObject(obj, visitedObjects);
             Visit(obj);
@@ -383,26 +383,26 @@ namespace FbxSharp
             //}
         }
 
-        protected void AcceptAnimLayer(AnimLayer obj, ISet<object> visitedObjects)
+        protected void AcceptAnimLayer(FbxAnimLayer obj, ISet<object> visitedObjects)
         {
             AcceptCollection(obj, visitedObjects);
             Visit(obj);
         }
 
-        protected void AcceptAnimStack(AnimStack obj, ISet<object> visitedObjects)
+        protected void AcceptAnimStack(FbxAnimStack obj, ISet<object> visitedObjects)
         {
             AcceptCollection(obj, visitedObjects);
             Visit(obj);
         }
 
-        protected void AcceptAnimCurve(AnimCurve obj, ISet<object> visitedObjects)
+        protected void AcceptAnimCurve(FbxAnimCurve obj, ISet<object> visitedObjects)
         {
             //AcceptAnimCurveBase(obj, visitedObjects);
             AcceptFbxObject(obj, visitedObjects);
             Visit(obj);
         }
 
-        protected void AcceptAnimCurveNode(AnimCurveNode obj, ISet<object> visitedObjects)
+        protected void AcceptAnimCurveNode(FbxAnimCurveNode obj, ISet<object> visitedObjects)
         {
             AcceptFbxObject(obj, visitedObjects);
             Visit(obj);
@@ -460,7 +460,7 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        protected void AcceptCamera(Camera obj, ISet<object> visitedObjects)
+        protected void AcceptCamera(FbxCamera obj, ISet<object> visitedObjects)
         {
             AcceptNodeAttribute(obj, visitedObjects);
             Visit(obj);

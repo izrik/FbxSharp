@@ -17,16 +17,16 @@ namespace FbxSharp
             Nodes = SrcObjects.CreateCollectionView<Node>();
 
             SrcObjects.Add(new GlobalSettings());
-            SetAnimationEvaluator(new AnimEvaluator());
+            SetAnimationEvaluator(new FbxAnimEvaluator());
         }
 
         public override void ConnectSrcObject(FbxObject fbxObject/*, Connection.EType type = Connection.EType.None*/)
         {
             base.ConnectSrcObject(fbxObject/*, type*/);
 
-            if (fbxObject is AnimStack && this.GetCurrentAnimationStack() == null)
+            if (fbxObject is FbxAnimStack && this.GetCurrentAnimationStack() == null)
             {
-                this.SetCurrentAnimationStack((AnimStack)fbxObject);
+                this.SetCurrentAnimationStack((FbxAnimStack)fbxObject);
             }
 
             foreach (var srcobj in fbxObject.SrcObjects)
@@ -92,19 +92,19 @@ namespace FbxSharp
 
         #region Scene Animation Evaluation
 
-        public AnimStack CurrentAnimationStack;
+        public FbxAnimStack CurrentAnimationStack;
 
-        public void SetCurrentAnimationStack(AnimStack pAnimStack)
+        public void SetCurrentAnimationStack(FbxAnimStack pAnimStack)
         {
             CurrentAnimationStack = pAnimStack;
         }
 
-        public AnimStack GetCurrentAnimationStack()
+        public FbxAnimStack GetCurrentAnimationStack()
         {
             return CurrentAnimationStack;
         }
 
-        public void SetAnimationEvaluator(AnimEvaluator pEvaluator)
+        public void SetAnimationEvaluator(FbxAnimEvaluator pEvaluator)
         {
             var current = GetAnimationEvaluator();
             if (current != null)
@@ -114,9 +114,9 @@ namespace FbxSharp
             SrcObjects.Add(pEvaluator);
         }
 
-        public AnimEvaluator GetAnimationEvaluator()
+        public FbxAnimEvaluator GetAnimationEvaluator()
         {
-            return (AnimEvaluator)SrcObjects.FirstOrDefault(x => x is AnimEvaluator);
+            return (FbxAnimEvaluator)SrcObjects.FirstOrDefault(x => x is FbxAnimEvaluator);
         }
 
         #endregion

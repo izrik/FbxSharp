@@ -262,12 +262,12 @@ namespace FbxSharp
 
         #region Animation Curve Management
 
-        public AnimEvaluator GetAnimationEvaluator()
+        public FbxAnimEvaluator GetAnimationEvaluator()
         {
             throw new NotImplementedException();
         }
 
-        public bool IsAnimated(AnimLayer pAnimLayer=null)
+        public bool IsAnimated(FbxAnimLayer pAnimLayer=null)
         {
             // TODO: curve node shouold have channels and curves attached
             // TODO: curve node should be attached to scene, stack, and layer
@@ -332,49 +332,49 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public AnimCurveNode CreateCurveNode(AnimLayer pAnimLayer)
+        public FbxAnimCurveNode CreateCurveNode(FbxAnimLayer pAnimLayer)
         {
             throw new NotImplementedException();
         }
 
-        public AnimCurveNode GetCurveNode(bool pCreate=false)
+        public FbxAnimCurveNode GetCurveNode(bool pCreate=false)
         {
             if (this.ParentFbxObject == null || this.ParentFbxObject.Scene == null) return null;
             var stack = this.ParentFbxObject.Scene.GetCurrentAnimationStack();
             return GetCurveNode(stack);
         }
 
-        public AnimCurveNode GetCurveNode(AnimStack pAnimStack, bool pCreate=false)
+        public FbxAnimCurveNode GetCurveNode(FbxAnimStack pAnimStack, bool pCreate=false)
         {
             if (pAnimStack == null) return null;
 
-            var currentLayers = new HashSet<AnimLayer>(pAnimStack.GetSrcObjects<AnimLayer>());
+            var currentLayers = new HashSet<FbxAnimLayer>(pAnimStack.GetSrcObjects<FbxAnimLayer>());
 
-            return (AnimCurveNode)SrcObjects.FirstOrDefault(x =>
+            return (FbxAnimCurveNode)SrcObjects.FirstOrDefault(x =>
             {
-                if (!(x is AnimCurveNode)) return false;
-                var acn = (AnimCurveNode)x;
-                var layers = new HashSet<AnimLayer>(acn.GetDstObjects<AnimLayer>());
+                if (!(x is FbxAnimCurveNode)) return false;
+                var acn = (FbxAnimCurveNode)x;
+                var layers = new HashSet<FbxAnimLayer>(acn.GetDstObjects<FbxAnimLayer>());
                 return layers.Intersect(currentLayers).Any();
             });
         }
 
-        public AnimCurveNode GetCurveNode(AnimLayer pAnimLayer, bool pCreate=false)
+        public FbxAnimCurveNode GetCurveNode(FbxAnimLayer pAnimLayer, bool pCreate=false)
         {
             throw new NotImplementedException();
         }
 
-        public AnimCurve GetCurve(AnimLayer pAnimLayer, bool pCreate=false)
+        public FbxAnimCurve GetCurve(FbxAnimLayer pAnimLayer, bool pCreate=false)
         {
             throw new NotImplementedException();
         }
 
-        public AnimCurve GetCurve(AnimLayer pAnimLayer, string pChannel, bool pCreate=false)
+        public FbxAnimCurve GetCurve(FbxAnimLayer pAnimLayer, string pChannel, bool pCreate=false)
         {
             throw new NotImplementedException();
         }
 
-        public AnimCurve GetCurve(AnimLayer pAnimLayer, string pName, string pChannel, bool pCreate)
+        public FbxAnimCurve GetCurve(FbxAnimLayer pAnimLayer, string pName, string pChannel, bool pCreate)
         {
             throw new NotImplementedException();
         }

@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public class AnimLayer : Collection
+    public class FbxAnimLayer : FbxCollection
     {
-        public AnimLayer(string name="")
+        public FbxAnimLayer(string name="")
             : base(name)
         {
         }
@@ -70,7 +70,7 @@ namespace FbxSharp
 
         #region CurveNode Management
 
-        public AnimCurveNode CreateCurveNode(Property pProperty)
+        public FbxAnimCurveNode CreateCurveNode(Property pProperty)
         {
             throw new NotImplementedException();
         }

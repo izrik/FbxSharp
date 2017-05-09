@@ -2,30 +2,30 @@
 
 namespace FbxSharp
 {
-    public struct Color
+    public struct FbxColor
     {
-        public Color(Color pValue)
+        public FbxColor(FbxColor pValue)
         {
             Red = pValue.Red;
             Green = pValue.Green;
             Blue = pValue.Blue;
             Alpha = pValue.Alpha;
         }
-        public Color(double pRed, double pGreen, double pBlue, double pAlpha=1.0)
+        public FbxColor(double pRed, double pGreen, double pBlue, double pAlpha=1.0)
         {
             Red = pRed;
             Green = pGreen;
             Blue = pBlue;
             Alpha = pAlpha;
         }
-        public Color(Vector3 pRGB, double pAlpha=1.0)
+        public FbxColor(Vector3 pRGB, double pAlpha=1.0)
         {
             Red = pRGB.X;
             Green = pRGB.Y;
             Blue = pRGB.Z;
             Alpha = pAlpha;
         }
-        public Color(Vector4 pRGBA)
+        public FbxColor(Vector4 pRGBA)
         {
             Red = pRGBA.X;
             Green = pRGBA.Y;

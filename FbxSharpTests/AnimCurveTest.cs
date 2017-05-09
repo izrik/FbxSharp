@@ -11,17 +11,17 @@ namespace FbxSharpTests
         public void AnimCurveDef_Defaults()
         {
             // require:
-            Assert.AreEqual(1/3.0f, AnimCurveDef.sDEFAULT_WEIGHT);
-            Assert.AreEqual(0.000099999997f, AnimCurveDef.sMIN_WEIGHT);
-            Assert.AreEqual(0.99f, AnimCurveDef.sMAX_WEIGHT);
-            Assert.AreEqual(0.0f, AnimCurveDef.sDEFAULT_VELOCITY);
+            Assert.AreEqual(1/3.0f, FbxAnimCurveDef.sDEFAULT_WEIGHT);
+            Assert.AreEqual(0.000099999997f, FbxAnimCurveDef.sMIN_WEIGHT);
+            Assert.AreEqual(0.99f, FbxAnimCurveDef.sMAX_WEIGHT);
+            Assert.AreEqual(0.0f, FbxAnimCurveDef.sDEFAULT_VELOCITY);
         }
 
         [Test]
         public void AnimCurve_Create_AllZero()
         {
             // given:
-            var ac = new AnimCurve("");
+            var ac = new FbxAnimCurve("");
             FbxTime time;
             double value;
 
@@ -58,10 +58,10 @@ namespace FbxSharpTests
         public void AnimCurve_SingleKey_AllResultsSame()
         {
             // given:
-            var ac = new AnimCurve("");
+            var ac = new FbxAnimCurve("");
             FbxTime time;
             time = new FbxTime(100);
-            var key = new AnimCurveKey(time, 1.5f);
+            var key = new FbxAnimCurveKey(time, 1.5f);
             ac.KeyAdd(time, key);
             double value;
 
@@ -91,16 +91,16 @@ namespace FbxSharpTests
         public void AnimCurve_Evaluate()
         {
             // given:
-            var ac = new AnimCurve("");
+            var ac = new FbxAnimCurve("");
 
             FbxTime time;
             time = new FbxTime(100);
-            var key = new AnimCurveKey(time, 1.5f);
+            var key = new FbxAnimCurveKey(time, 1.5f);
             ac.KeyAdd(time, key);
 
             FbxTime time2;
             time2 = new FbxTime(10000);
-            var key2 = new AnimCurveKey(time2, 2.3f);
+            var key2 = new FbxAnimCurveKey(time2, 2.3f);
             ac.KeyAdd(time2, key2);
 
             double value;
@@ -152,14 +152,14 @@ namespace FbxSharpTests
         public void AnimCurve_TwoKeyBasic_EvaluationsAreCorrect()
         {
             // given:
-            var ac = new AnimCurve("");
+            var ac = new FbxAnimCurve("");
             FbxTime time;
-            AnimCurveKey key;
+            FbxAnimCurveKey key;
             time = new FbxTime(0);
-            key = new AnimCurveKey(time, 0.0f);
+            key = new FbxAnimCurveKey(time, 0.0f);
             ac.KeyAdd(time, key);
             time = new FbxTime(1000);
-            key = new AnimCurveKey(time, 1.0f);
+            key = new FbxAnimCurveKey(time, 1.0f);
             ac.KeyAdd(time, key);
 
             // then:
@@ -207,14 +207,14 @@ namespace FbxSharpTests
         public void AnimCurve_TwoKeyVaryInTime_EvaluationsAreCorrect()
         {
             // given:
-            var ac = new AnimCurve("");
+            var ac = new FbxAnimCurve("");
             FbxTime time;
-            AnimCurveKey key;
+            FbxAnimCurveKey key;
             time = new FbxTime(100);
-            key = new AnimCurveKey(time, 0.0f);
+            key = new FbxAnimCurveKey(time, 0.0f);
             ac.KeyAdd(time, key);
             time = new FbxTime(1300);
-            key = new AnimCurveKey(time, 1.0f);
+            key = new FbxAnimCurveKey(time, 1.0f);
             ac.KeyAdd(time, key);
 
             // then:
@@ -266,14 +266,14 @@ namespace FbxSharpTests
         public void AnimCurve_TwoKeyVaryInValue_EvaluationsAreCorrect()
         {
             // given:
-            var ac = new AnimCurve("");
+            var ac = new FbxAnimCurve("");
             FbxTime time;
-            AnimCurveKey key;
+            FbxAnimCurveKey key;
             time = new FbxTime(0);
-            key = new AnimCurveKey(time, -0.1f);
+            key = new FbxAnimCurveKey(time, -0.1f);
             ac.KeyAdd(time, key);
             time = new FbxTime(1000);
-            key = new AnimCurveKey(time, 2.3f);
+            key = new FbxAnimCurveKey(time, 2.3f);
             ac.KeyAdd(time, key);
 
             // then:
@@ -321,17 +321,17 @@ namespace FbxSharpTests
         public void AnimCurve_ThreeKeyBasic_EvaluationsAreCorrect()
         {
             // given:
-            var ac = new AnimCurve("");
+            var ac = new FbxAnimCurve("");
             FbxTime time;
-            AnimCurveKey key;
+            FbxAnimCurveKey key;
             time = new FbxTime(0);
-            key = new AnimCurveKey(time, 0.0f);
+            key = new FbxAnimCurveKey(time, 0.0f);
             ac.KeyAdd(time, key);
             time = new FbxTime(1000);
-            key = new AnimCurveKey(time, 1.0f);
+            key = new FbxAnimCurveKey(time, 1.0f);
             ac.KeyAdd(time, key);
             time = new FbxTime(2000);
-            key = new AnimCurveKey(time, 2.0f);
+            key = new FbxAnimCurveKey(time, 2.0f);
             ac.KeyAdd(time, key);
 
             // then:
@@ -375,17 +375,17 @@ namespace FbxSharpTests
         public void AnimCurve_ThreeKeyVaryInTime_EvaluationsAreCorrect()
         {
             // given:
-            var ac = new AnimCurve("");
+            var ac = new FbxAnimCurve("");
             FbxTime time;
-            AnimCurveKey key;
+            FbxAnimCurveKey key;
             time = new FbxTime(-150);
-            key = new AnimCurveKey(time, 0.0f);
+            key = new FbxAnimCurveKey(time, 0.0f);
             ac.KeyAdd(time, key);
             time = new FbxTime(1100);
-            key = new AnimCurveKey(time, 1.0f);
+            key = new FbxAnimCurveKey(time, 1.0f);
             ac.KeyAdd(time, key);
             time = new FbxTime(1900);
-            key = new AnimCurveKey(time, 2.0f);
+            key = new FbxAnimCurveKey(time, 2.0f);
             ac.KeyAdd(time, key);
 
             // then:
@@ -435,17 +435,17 @@ namespace FbxSharpTests
         public void AnimCurve_ThreeKeyVaryInValue_EvaluationsAreCorrect()
         {
             // given:
-            var ac = new AnimCurve("");
+            var ac = new FbxAnimCurve("");
             FbxTime time;
-            AnimCurveKey key;
+            FbxAnimCurveKey key;
             time = new FbxTime(0);
-            key = new AnimCurveKey(time, -0.23f);
+            key = new FbxAnimCurveKey(time, -0.23f);
             ac.KeyAdd(time, key);
             time = new FbxTime(1000);
-            key = new AnimCurveKey(time, 1.6724f);
+            key = new FbxAnimCurveKey(time, 1.6724f);
             ac.KeyAdd(time, key);
             time = new FbxTime(2000);
-            key = new AnimCurveKey(time, 1.11645f);
+            key = new FbxAnimCurveKey(time, 1.11645f);
             ac.KeyAdd(time, key);
 
             // then:
@@ -495,7 +495,7 @@ namespace FbxSharpTests
         public void FbxAnimCurve_Create_HasNamespacePrefix()
         {
             // given:
-            var obj = new AnimCurve("asdf");
+            var obj = new FbxAnimCurve("asdf");
 
             // then:
             Assert.AreEqual("AnimCurve::", obj.GetNameSpacePrefix());

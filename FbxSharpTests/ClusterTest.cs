@@ -11,7 +11,7 @@ namespace FbxSharpTests
         public void Cluster_SetLink_SetsLink()
         {
             // given:
-            var cluster = new Cluster("");
+            var cluster = new FbxCluster("");
             var node = new Node("");
 
             // require:
@@ -40,7 +40,7 @@ namespace FbxSharpTests
         public void FbxCluster_Create_HasNamespacePrefix()
         {
             // given:
-            var obj = new Cluster("asdf");
+            var obj = new FbxCluster("asdf");
 
             // then:
             Assert.AreEqual("SubDeformer::", obj.GetNameSpacePrefix());

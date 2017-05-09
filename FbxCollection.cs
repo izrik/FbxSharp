@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public class Collection : FbxObject
+    public class FbxCollection : FbxObject
     {
-        public Collection(string name="")
+        public FbxCollection(string name="")
             : base(name)
         {
         }

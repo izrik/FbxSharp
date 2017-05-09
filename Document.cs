@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class Document : Collection
+    public class Document : FbxCollection
     {
         public Document(string name="")
             : base(name)

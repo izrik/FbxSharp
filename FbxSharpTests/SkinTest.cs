@@ -42,7 +42,7 @@ namespace FbxSharpTests
         {
             // given:
             var s = new Skin("");
-            var c = new Cluster("");
+            var c = new FbxCluster("");
 
             // require:
             Assert.AreEqual(0, s.GetSrcObjectCount());

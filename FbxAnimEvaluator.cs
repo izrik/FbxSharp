@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public class AnimEvaluator : FbxObject
+    public class FbxAnimEvaluator : FbxObject
     {
-        public static readonly AnimEvaluator Default = new AnimEvalClassic();
+        public static readonly FbxAnimEvaluator Default = new FbxAnimEvalClassic();
 
         public Matrix GetNodeGlobalTransform(Node pNode)
         {
@@ -72,7 +72,7 @@ namespace FbxSharp
         //    throw new NotImplementedException();
         //}
 
-        public AnimCurveNode GetPropertyCurveNode(Property pProperty, AnimLayer pAnimLayer)
+        public FbxAnimCurveNode GetPropertyCurveNode(Property pProperty, FbxAnimLayer pAnimLayer)
         {
             throw new NotImplementedException();
         }
