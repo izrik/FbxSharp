@@ -18,7 +18,7 @@ namespace FbxPrint
 
             foreach (var filename in args)
             {
-                var importer = new Importer(filename);
+                var importer = new FbxImporter(filename);
                 var scene = importer.Import(filename);
 
 //                var acs1 = scene.SrcObjects.Where(x => x is AnimCurve).ToList();

@@ -46,7 +46,6 @@
     <Compile Include="Number.cs" />
     <Compile Include="FbxObject.cs" />
     <Compile Include="Skeleton.cs" />
-    <Compile Include="LayerContainer.cs" />
     <Compile Include="Mesh.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Null.cs" />
@@ -55,12 +54,6 @@
     <Compile Include="Scene.cs" />
     <Compile Include="NodeAttribute.cs" />
     <Compile Include="Converter.cs" />
-    <Compile Include="LayerElementNormal.cs" />
-    <Compile Include="LayerElement.cs" />
-    <Compile Include="LayerElementUV.cs" />
-    <Compile Include="Layer.cs" />
-    <Compile Include="LayerElementVisibility.cs" />
-    <Compile Include="LayerElementMaterial.cs" />
     <Compile Include="SurfaceMaterial.cs" />
     <Compile Include="Pose.cs" />
     <Compile Include="SurfacePhong.cs" />
@@ -70,7 +63,6 @@
     <Compile Include="Video.cs" />
     <Compile Include="Texture.cs" />
     <Compile Include="Time.cs" />
-    <Compile Include="Importer.cs" />
     <Compile Include="CollectionView.cs" />
     <Compile Include="ObjectView.cs" />
     <Compile Include="Vector4.cs" />
@@ -78,16 +70,6 @@
     <Compile Include="Vector2.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="ChangeNotifyList.cs" />
-    <Compile Include="LayerElementArray.cs" />
-    <Compile Include="LayerElementTangent.cs" />
-    <Compile Include="LayerElementBinormal.cs" />
-    <Compile Include="LayerElementPolygonGroup.cs" />
-    <Compile Include="LayerElementVertexColor.cs" />
-    <Compile Include="LayerElementSmoothing.cs" />
-    <Compile Include="LayerElementCrease.cs" />
-    <Compile Include="LayerElementHole.cs" />
-    <Compile Include="LayerElementUserData.cs" />
-    <Compile Include="LayerElementTexture.cs" />
     <Compile Include="VectorHelper.cs" />
     <Compile Include="PropertyFlags.cs" />
     <Compile Include="Transform.cs" />
@@ -135,6 +117,24 @@
     <Compile Include="FbxGeometry.cs" />
     <Compile Include="FbxGeometryBase.cs" />
     <Compile Include="FbxGlobalSettings.cs" />
+    <Compile Include="FbxImporter.cs" />
+    <Compile Include="FbxLayer.cs" />
+    <Compile Include="FbxLayerContainer.cs" />
+    <Compile Include="FbxLayerElementVisibility.cs" />
+    <Compile Include="FbxLayerElementVertexColor.cs" />
+    <Compile Include="FbxLayerElement.cs" />
+    <Compile Include="FbxLayerElementArray.cs" />
+    <Compile Include="FbxLayerElementUV.cs" />
+    <Compile Include="FbxLayerElementUserData.cs" />
+    <Compile Include="FbxLayerElementTexture.cs" />
+    <Compile Include="FbxLayerElementTangent.cs" />
+    <Compile Include="FbxLayerElementBinormal.cs" />
+    <Compile Include="FbxLayerElementCrease.cs" />
+    <Compile Include="FbxLayerElementHole.cs" />
+    <Compile Include="FbxLayerElementMaterial.cs" />
+    <Compile Include="FbxLayerElementNormal.cs" />
+    <Compile Include="FbxLayerElementPolygonGroup.cs" />
+    <Compile Include="FbxLayerElementSmoothing.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

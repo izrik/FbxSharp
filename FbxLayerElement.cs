@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class LayerElement
+    public class FbxLayerElement
     {
         public enum EType
         {
@@ -100,7 +100,7 @@ namespace FbxSharp
         }
     }
 
-    public class LayerElementT<T> : LayerElement
+    public class FbxLayerElementTemplate<T> : FbxLayerElement
     {
         readonly LayerElementArrayT<T> direct = new LayerElementArrayT<T>();
         public LayerElementArrayT<T> GetDirectArray()
@@ -121,7 +121,7 @@ namespace FbxSharp
             return true;
         }
 
-        public int RemapIndexTo(LayerElement.EMappingMode pNewMapping)
+        public int RemapIndexTo(FbxLayerElement.EMappingMode pNewMapping)
         {
             throw new NotImplementedException();
         }

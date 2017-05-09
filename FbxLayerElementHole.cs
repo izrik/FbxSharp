@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public class LayerElementTexture
+    public class FbxLayerElementHole
     {
-        public LayerElementTexture()
+        public FbxLayerElementHole()
         {
         }
     }

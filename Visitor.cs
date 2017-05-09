@@ -16,8 +16,8 @@ namespace FbxSharp
         public virtual void Visit(Mesh obj) { }
         public virtual void Visit(FbxGeometry obj) { }
         public virtual void Visit(FbxGeometryBase obj) { }
-        public virtual void Visit(LayerElementTexture tex) { }
-        public virtual void Visit(LayerContainer layerContainer) { }
+        public virtual void Visit(FbxLayerElementTexture tex) { }
+        public virtual void Visit(FbxLayerContainer layerContainer) { }
         public virtual void Visit(FbxDocument obj) { }
         public virtual void Visit(FbxCollection obj) { }
         public virtual void Visit(FbxAnimLayer obj) { }
@@ -77,10 +77,10 @@ namespace FbxSharp
                 AcceptGeometry((FbxGeometry)obj, visitedObjects);
             else if (type == typeof(FbxGeometryBase))
                 AcceptGeometryBase((FbxGeometryBase)obj, visitedObjects);
-            else if (type == typeof(LayerElementTexture))
-                AcceptLayerElementTexture((LayerElementTexture)obj, visitedObjects);
-            else if (type == typeof(LayerContainer))
-                AcceptLayerContainer((LayerContainer)obj, visitedObjects);
+            else if (type == typeof(FbxLayerElementTexture))
+                AcceptLayerElementTexture((FbxLayerElementTexture)obj, visitedObjects);
+            else if (type == typeof(FbxLayerContainer))
+                AcceptLayerContainer((FbxLayerContainer)obj, visitedObjects);
             else if (type == typeof(FbxDocument))
                 AcceptDocument((FbxDocument)obj, visitedObjects);
             else if (type == typeof(FbxCollection))
@@ -298,7 +298,7 @@ namespace FbxSharp
             // TODO: geometry elements
         }
 
-        protected void AcceptLayerElementTexture(LayerElementTexture tex, ISet<object> visitedObjects)
+        protected void AcceptLayerElementTexture(FbxLayerElementTexture tex, ISet<object> visitedObjects)
         {
             Visit(tex);
 
@@ -314,7 +314,7 @@ namespace FbxSharp
             //}
         }
 
-        protected void AcceptLayerContainer(LayerContainer layerContainer, ISet<object> visitedObjects)
+        protected void AcceptLayerContainer(FbxLayerContainer layerContainer, ISet<object> visitedObjects)
         {
             AcceptNodeAttribute(layerContainer, visitedObjects);
             Visit(layerContainer);
@@ -322,13 +322,13 @@ namespace FbxSharp
             int j;
             for (j = 0; j < layerContainer.GetLayerCount(); j++)
             {
-                Layer layer = layerContainer.GetLayer(j);
+                FbxLayer layer = layerContainer.GetLayer(j);
 
                 int i;
-                LayerElementMaterial mats = layer.GetMaterials();
+                FbxLayerElementMaterial mats = layer.GetMaterials();
                 if (mats != null)
                 {
-                    LayerElementT<SurfaceMaterial> _mats = mats;
+                    FbxLayerElementTemplate<SurfaceMaterial> _mats = mats;
                     LayerElementArrayT<SurfaceMaterial> marray = _mats.GetDirectArray();
                     //for (i = 0; i < marray.GetCount(); i++)
                     //{

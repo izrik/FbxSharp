@@ -3,9 +3,9 @@ using System.IO;
 
 namespace FbxSharp
 {
-    public class Importer
+    public class FbxImporter
     {
-        public Importer(string name = null)
+        public FbxImporter(string name = null)
         {
             Name = name;
         }

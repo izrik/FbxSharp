@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class LayerElementMaterial : LayerElementT<SurfaceMaterial>
+    public class FbxLayerElementMaterial : FbxLayerElementTemplate<SurfaceMaterial>
 	{
         public readonly LayerElementArrayT<int> MaterialIndexes = new LayerElementArrayT<int>();
 	}

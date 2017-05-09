@@ -71,9 +71,9 @@ namespace FbxSharp
             // fix-up material layer elements
             foreach (var node in scene.Nodes)
             {
-                if ((node.GetNodeAttribute() as LayerContainer) == null) continue;
+                if ((node.GetNodeAttribute() as FbxLayerContainer) == null) continue;
 
-                var lc = (LayerContainer)node.GetNodeAttribute();
+                var lc = (FbxLayerContainer)node.GetNodeAttribute();
                 foreach (var layer in lc.Layers)
                 {
                     var matelem = layer.GetMaterials();
@@ -385,10 +385,10 @@ namespace FbxSharp
 
         public static Mesh ConvertMesh(ParseObject obj)
         {
-            var normals = new List<LayerElementNormal>();
-            var uvs = new List<LayerElementUV>();
-            var visibility = new List<LayerElementVisibility>();
-            var materials = new List<LayerElementMaterial>();
+            var normals = new List<FbxLayerElementNormal>();
+            var uvs = new List<FbxLayerElementUV>();
+            var visibility = new List<FbxLayerElementVisibility>();
+            var materials = new List<FbxLayerElementMaterial>();
 
             var mesh = new Mesh();
             mesh.Name = ((string)obj.Values[1]);
@@ -446,7 +446,7 @@ namespace FbxSharp
             return mesh;
         }
 
-        static void ConvertLayer(Layer layer, ParseObject obj, List<LayerElementNormal> normals, List<LayerElementUV> uvs, List<LayerElementVisibility> visibility, List<LayerElementMaterial> materials)
+        static void ConvertLayer(FbxLayer layer, ParseObject obj, List<FbxLayerElementNormal> normals, List<FbxLayerElementUV> uvs, List<FbxLayerElementVisibility> visibility, List<FbxLayerElementMaterial> materials)
         {
             foreach (var prop in obj.Properties)
             {
@@ -490,9 +490,9 @@ namespace FbxSharp
             }
         }
 
-        public static LayerElementNormal ConvertLayerElementNormal(ParseObject obj)
+        public static FbxLayerElementNormal ConvertLayerElementNormal(ParseObject obj)
         {
-            var normals = new LayerElementNormal();
+            var normals = new FbxLayerElementNormal();
 
             foreach (var prop in obj.Properties)
             {
@@ -526,9 +526,9 @@ namespace FbxSharp
             return normals;
         }
 
-        public static LayerElementUV ConvertLayerElementUV(ParseObject obj)
+        public static FbxLayerElementUV ConvertLayerElementUV(ParseObject obj)
         {
-            var uvs = new LayerElementUV();
+            var uvs = new FbxLayerElementUV();
 
             foreach (var prop in obj.Properties)
             {
@@ -566,9 +566,9 @@ namespace FbxSharp
             return uvs;
         }
 
-        public static LayerElementVisibility ConvertLayerElementVisibility(ParseObject obj)
+        public static FbxLayerElementVisibility ConvertLayerElementVisibility(ParseObject obj)
         {
-            var visibility = new LayerElementVisibility();
+            var visibility = new FbxLayerElementVisibility();
 
             foreach (var prop in obj.Properties)
             {
@@ -598,9 +598,9 @@ namespace FbxSharp
             return visibility;
         }
 
-        public static LayerElementMaterial ConvertLayerElementMaterial(ParseObject obj)
+        public static FbxLayerElementMaterial ConvertLayerElementMaterial(ParseObject obj)
         {
-            var material = new LayerElementMaterial();
+            var material = new FbxLayerElementMaterial();
 
             foreach (var prop in obj.Properties)
             {
@@ -631,37 +631,37 @@ namespace FbxSharp
             return material;
         }
 
-        public static LayerElement.EMappingMode ConvertMappingInformationType(ParseObject obj)
+        public static FbxLayerElement.EMappingMode ConvertMappingInformationType(ParseObject obj)
         {
             if (obj.Values.Count < 1)
                 throw new NotImplementedException();
             switch ((string)obj.Values[0])
             {
             case "ByPolygonVertex":
-                return LayerElement.EMappingMode.ByPolygonVertex;
+                return FbxLayerElement.EMappingMode.ByPolygonVertex;
             case "ByPolygon":
-                return LayerElement.EMappingMode.ByPolygon;
+                return FbxLayerElement.EMappingMode.ByPolygon;
             case "ByVertex":
-                return LayerElement.EMappingMode.ByPolygonVertex;
+                return FbxLayerElement.EMappingMode.ByPolygonVertex;
             case "ByEdge":
-                return LayerElement.EMappingMode.ByEdge;
+                return FbxLayerElement.EMappingMode.ByEdge;
             case "AllSame":
-                return LayerElement.EMappingMode.AllSame;
+                return FbxLayerElement.EMappingMode.AllSame;
             default:
                 throw new NotImplementedException();
             }
         }
 
-        public static LayerElement.EReferenceMode ConvertReferenceInformationType(ParseObject obj)
+        public static FbxLayerElement.EReferenceMode ConvertReferenceInformationType(ParseObject obj)
         {
             if (obj.Values.Count < 1)
                 throw new NotImplementedException();
             switch ((string)obj.Values[0])
             {
             case "Direct":
-                return LayerElement.EReferenceMode.Direct;
+                return FbxLayerElement.EReferenceMode.Direct;
             case "IndexToDirect":
-                return LayerElement.EReferenceMode.IndexToDirect;
+                return FbxLayerElement.EReferenceMode.IndexToDirect;
             default:
                 throw new NotImplementedException();
             }

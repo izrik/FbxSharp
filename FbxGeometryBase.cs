@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public abstract class FbxGeometryBase : LayerContainer
+    public abstract class FbxGeometryBase : FbxLayerContainer
     {
         protected FbxGeometryBase(string name="")
             : base(name)
