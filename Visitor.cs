@@ -30,7 +30,7 @@ namespace FbxSharp
         public virtual void Visit(Texture obj) { }
         public virtual void Visit(Video obj) { }
         public virtual void Visit(FbxCamera obj) { }
-        public virtual void Visit(Light obj) { }
+        public virtual void Visit(FbxLight obj) { }
         public virtual void Visit(Null obj) { }
         public virtual void Visit(Skeleton obj) { }
 
@@ -105,8 +105,8 @@ namespace FbxSharp
                 AcceptVideo((Video)obj, visitedObjects);
             else if (type == typeof(FbxCamera))
                 AcceptCamera((FbxCamera)obj, visitedObjects);
-            else if (type == typeof(Light))
-                AcceptLight((Light)obj, visitedObjects);
+            else if (type == typeof(FbxLight))
+                AcceptLight((FbxLight)obj, visitedObjects);
             else if (type == typeof(Null))
                 AcceptNull((Null)obj, visitedObjects);
             else if (type == typeof(Skeleton))
@@ -467,7 +467,7 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        protected void AcceptLight(Light obj, ISet<object> visitedObjects)
+        protected void AcceptLight(FbxLight obj, ISet<object> visitedObjects)
         {
             AcceptNodeAttribute(obj, visitedObjects);
             Visit(obj);

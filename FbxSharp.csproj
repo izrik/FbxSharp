@@ -87,7 +87,6 @@
     <Compile Include="FbxObjectPropertyCollection.cs" />
     <Compile Include="PropertyChildrenCollection.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Light.cs" />
     <None Include="release.sh" />
     <None Include="build.sh" />
     <Compile Include="Collector.cs" />
@@ -136,6 +135,7 @@
     <Compile Include="FbxLayerElementPolygonGroup.cs" />
     <Compile Include="FbxLayerElementSmoothing.cs" />
     <Compile Include="FbxLayerElementTemplate.cs" />
+    <Compile Include="FbxLight.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public class Light : NodeAttribute
+    public class FbxLight : NodeAttribute
     {
-        public Light(string name="")
+        public FbxLight(string name="")
             : base(name)
         {
             Properties.Add(LightType);

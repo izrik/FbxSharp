@@ -265,10 +265,10 @@ namespace FbxSharp
             return n;
         }
 
-        public static Light ConvertLight(ParseObject obj)
+        public static FbxLight ConvertLight(ParseObject obj)
         {
             var name = ((string)obj.Values[1]);
-            var light = new Light(name);
+            var light = new FbxLight(name);
 
             foreach (var prop in obj.Properties)
             {
