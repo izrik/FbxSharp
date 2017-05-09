@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using FbxSharp;
 using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class Collector : FbxVisitor
+    public class Collector : Visitor
     {
         public ISet<FbxObject> Collect(FbxObject obj)
         {

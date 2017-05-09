@@ -1,0 +1,486 @@
+ColladaLayerTraits
+ElementBase
+    AnimationElement
+ElementContentAccessor
+    SourceElementContentAccessor<TYPE>
+Fbx6ClassTemplateMap
+FbxAccumulatorEntry
+FbxAnimCurveDef
+FbxAnimCurveFilter
+    FbxAnimCurveFilterConstantKeyReducer
+    FbxAnimCurveFilterGimbleKiller
+    FbxAnimCurveFilterKeyReducer
+    FbxAnimCurveFilterKeySync
+    FbxAnimCurveFilterMatrixConverter
+    FbxAnimCurveFilterResample
+    FbxAnimCurveFilterScale
+    FbxAnimCurveFilterScaleByCurve
+    FbxAnimCurveFilterScaleCompensate
+    FbxAnimCurveFilterTSS
+    FbxAnimCurveFilterUnroll
+FbxAnimCurveKey_Impl
+FbxAnimCurveKeyBase
+    FbxAnimCurveKey
+FbxAnimCurveTangentInfo
+FbxAnimEvalState
+FbxAnimUtilities
+FbxAnimUtilities::CurveIntfce
+FbxAnimUtilities::CurveNodeIntfce
+FbxAnimUtilities::FbxAnimSplitDef
+FbxArray<T>
+FbxArray<FbxAccumulatorEntry *>
+FbxArray<FbxAnimCurveNode *>
+FbxArray<FbxArray<FbxWeightedMapping::Element> *>
+FbxArray<FbxNode *>
+FbxArray<FbxProperty>
+FbxArray<FbxPropertyPage *>
+FbxArray<FbxString *>
+FbxArray<FbxStringListItem *>
+FbxArray<FbxTakeInfo *>
+FbxArray<FbxTakeLayerInfo *>
+FbxArray<FbxTexture *>
+FbxArray<FbxUserNotification::AESequence *>
+FbxArray<FbxXRefManagerProject *>
+FbxArray<int>
+FbxArray<ListItem *>
+FbxArray<ModifiedPropertyInfo *>
+FbxArray<Type *>
+FbxArray<void *>
+FbxArray<xmlNode *>
+FbxAtomOp
+FbxAutoPtr<Type, Policy>
+FbxAutoPtr<FbxStringList, FbxDeletionPolicyDelete<FbxStringList>>
+    FbxAutoDeletePtr<FbxStringList>
+FbxAutoPtr<Type, FbxDeletionPolicyDelete<Type>>
+    FbxAutoDeletePtr<Type>
+FbxAutoPtr<Type, FbxDeletionPolicyFree<Type>>
+    FbxAutoFreePtr<Type>
+FbxAutoPtr<Type, FbxDeletionPolicyObject<Type>>
+    FbxAutoDestroyPtr<Type>
+FbxAxisSystem
+FbxBase64Decoder
+FbxBase64Encoder
+FbxBaseAllocator
+FbxBindingOperator::Function
+    FbxAddBOF
+    FbxAssignBOF
+    FbxConditionalBOF
+    FbxDegreeToRadianBOF
+    FbxIsYupBOF
+    FbxMultiplyBOF
+    FbxMultiplyDistBOF
+    FbxNodeDirectionBOF
+    FbxNodePositionBOF
+    FbxOneOverXBOF
+    FbxPowerBOF
+    FbxSphericalToCartesianBOF
+    FbxSpotDistributionChooserBOF
+    FbxSubstractBOF
+    FbxSwitchBOF
+    FbxSymbolIDBOF
+    FbxTRSToMatrixBOF
+    FbxVectorDegreeToVectorRadianBOF
+FbxBindingOperator::FunctionCreatorBase
+    FbxBindingOperator::FunctionCreator<FUNCTION>
+FbxBindingOperator::FunctionRegistry
+FbxBindingTableEntry
+FbxBitSet
+FbxBlob
+FbxCharacterLink
+FbxCharacterPropertyInfo
+FbxCharPtrCompare
+FbxCharPtrCompareNoCase
+FbxCharPtrSet
+FbxClassId
+FbxClassIdCompare
+FbxCloneManager
+FbxCloneManager::CloneSetElement
+FbxColladaNamespace
+FbxColor
+FbxConnection
+FbxConnectionPoint
+FbxConnectionPointFilter
+FbxConstraintUtils
+FbxControlSet
+FbxControlSetLink
+FbxCriteria
+FbxCriteriaCompare
+FbxDataType
+FbxDateTime
+FbxDefaultComparator<T>
+FbxDeformationsEvaluator
+FbxDeletionPolicyDefault<Type>
+FbxDeletionPolicyDelete<Type>
+FbxDeletionPolicyFree<Type>
+FbxDeletionPolicyObject<Type>
+FbxDistance
+FbxDualQuaternion
+FbxDynamicArray<Type, Allocator>
+FbxEffector
+FbxEmbeddedFilesAccumulator::EmbeddedFileInfo
+FbxEmbeddedFilesAccumulator::FbxPropertyUrlIndexCompare
+FbxEmbeddedFilesAccumulator::PropertyUrlIndex
+FbxEmitter
+    FbxObject
+        FbxAnimCurveBase
+            FbxAnimCurve
+        FbxAnimCurveNode
+        FbxAnimEvaluator
+            FbxAnimEvalClassic
+        FbxBindingTableBase
+            FbxBindingOperator
+            FbxBindingTable
+        FbxCache
+        FbxCameraManipulator
+        FbxCharacterPose
+        FbxCollection
+            FbxAnimLayer
+            FbxAnimStack
+            FbxCollectionExclusive
+                FbxDisplayLayer
+            FbxDocument
+                FbxLibrary
+                FbxScene
+            FbxSelectionSet
+        FbxConstraint
+            FbxCharacter
+            FbxConstraintAim
+            FbxConstraintCustom
+            FbxConstraintParent
+            FbxConstraintPosition
+            FbxConstraintRotation
+            FbxConstraintScale
+            FbxConstraintSingleChainIK
+        FbxContainer
+        FbxContainerTemplate
+        FbxControlSetPlug
+        FbxDeformer
+            FbxBlendShape
+            FbxSkin
+            FbxVertexCacheDeformer
+        FbxDocumentInfo
+        FbxEnvironment
+        FbxGenericNode
+        FbxGeometryWeightedMap
+        FbxGlobalSettings
+        FbxImplementation
+        FbxIOBase
+            FbxExporter
+            FbxImporter
+        FbxIOSettings
+        FbxNode
+        FbxNodeAttribute
+            FbxCachedEffect
+            FbxCamera
+                FbxCameraStereo
+            FbxCameraSwitcher
+            FbxLayerContainer
+                FbxGeometryBase
+                    FbxGeometry
+                        FbxBoundary
+                        FbxLine
+                        FbxMesh
+                        FbxNurbs
+                        FbxNurbsCurve
+                        FbxNurbsSurface
+                        FbxPatch
+                        FbxProceduralGeometry
+                        FbxTrimNurbsSurface
+                    FbxShape
+            FbxLight
+            FbxLODGroup
+            FbxMarker
+            FbxNull
+            FbxOpticalReference
+            FbxSkeleton
+        FbxObjectMetaData
+        FbxPose
+        FbxProcessor
+            FbxEmbeddedFilesAccumulator
+            FbxProcessorShaderDependency
+            FbxProcessorXRefCopy
+                FbxProcessorXRefCopyUserLibrary
+        FbxSceneReference
+        FbxSelectionNode
+        FbxSubDeformer
+            FbxBlendShapeChannel
+            FbxCluster
+        FbxSurfaceMaterial
+            FbxSurfaceLambert
+                FbxSurfacePhong
+        FbxTexture
+            FbxFileTexture
+            FbxLayeredTexture
+            FbxProceduralTexture
+        FbxThumbnail
+        FbxVideo
+    FbxPluginContainer
+        FbxLoadingStrategy
+            FbxScopedLoadingDirectory
+            FbxScopedLoadingFileName
+FbxEntryView
+    FbxBindingsEntryView
+    FbxConstantEntryView
+    FbxLayerEntryView
+    FbxOperatorEntryView
+    FbxPropertyEntryView
+    FbxSemanticEntryView
+FbxEuler
+FbxEvalState
+    FbxNodeEvalState
+    FbxPropertyEvalState
+FbxEventBase
+    FbxEvent<T>
+    FbxEvent<FbxEventPostExport>
+        FbxEventPostExport
+    FbxEvent<FbxEventPostImport>
+        FbxEventPostImport
+    FbxEvent<FbxEventPreExport>
+        FbxEventPreExport
+    FbxEvent<FbxEventPreImport>
+        FbxEventPreImport
+    FbxEvent<FbxEventReferencedDocument>
+        FbxEventReferencedDocument
+    FbxEvent<FbxQueryEvent<QueryT>>
+        FbxQueryEvent<QueryT>
+FbxEventHandler
+FbxExternalDocumentInfo
+    FbxEventReferencedDocument
+FbxFile
+FbxFileUtils
+FbxFolder
+FbxGate
+FbxGeometryConverter
+FbxGlobalCameraSettings
+FbxGlobalLightSettings
+FbxGlobalLightSettings::ShadowPlane
+FbxGlobalSettings::TimeMarker
+FbxGobo
+FbxHalfFloat
+FbxHashMap<KEY, VALUE, HASH, Destruct, Comparator>
+FbxHashMap<KEY, VALUE, HASH, Destruct, Comparator>::Iterator
+FbxHungryAllocator
+FbxIO
+FbxIO::FbxAutoResetXRefManager
+FbxIODefaultRenderResolution
+FbxIOFileHeaderInfo
+FbxIOPluginRegistry
+FbxIterator<FbxProperty>
+FbxIteratorDstBase
+    FbxIteratorDst<Type>
+FbxIteratorSrcBase
+    FbxIteratorSrc<Type>
+FbxLayer
+FbxLayerElement
+    FbxLayerElementTemplate<Type>
+    FbxLayerElementTemplate<bool>
+        FbxLayerElementHole
+        FbxLayerElementVisibility
+    FbxLayerElementTemplate<double>
+        FbxLayerElementCrease
+    FbxLayerElementTemplate<FbxColor>
+        FbxLayerElementVertexColor
+    FbxLayerElementTemplate<FbxSurfaceMaterial *>
+        FbxLayerElementMaterial
+    FbxLayerElementTemplate<FbxTexture *>
+        FbxLayerElementTexture
+    FbxLayerElementTemplate<FbxVector2>
+        FbxLayerElementUV
+    FbxLayerElementTemplate<FbxVector4>
+        FbxLayerElementBinormal
+        FbxLayerElementNormal
+        FbxLayerElementTangent
+    FbxLayerElementTemplate<int>
+        FbxLayerElementPolygonGroup
+        FbxLayerElementSmoothing
+    FbxLayerElementTemplate<void *>
+        FbxLayerElementUserData
+FbxLayerElementArray
+    FbxLayerElementArrayTemplate<T>
+    FbxLayerElementArrayTemplate<FbxSurfaceMaterial *>
+        FbxLayerElementMaterial::LayerElementArrayProxy
+FbxLayerElementArrayReadLock<T>
+FbxLessCompare<Type>
+FbxLimits
+FbxLimitsUtilities
+FbxListener
+    FbxExternalDocRefListener
+    FbxPlugin
+FbxLocalTime
+FbxManager
+FbxMap<Key, Type, Compare, Allocator>
+FbxMap<FbxClassId, FbxObject *, FbxClassIdCompare>
+FbxMap<FbxInt, FbxPropertyEntry *, FbxLessCompare<FbxInt>, FbxHungryAllocator>
+FbxMap<FbxObject *, PropertyUrlIndexSet>
+FbxMap<FbxString, EmbeddedFileInfo>
+FbxMaterialConverter
+FbxMemoryPool
+FbxMesh::DuplicateVertex
+FbxMesh::VertexNormalInfo
+FbxMultiMap
+FbxMultiMap::Pair
+FbxMutex
+FbxNameHandler
+FbxNameMapCompare
+FbxNoOpDestruct<T>
+FbxObjectFilter
+    FbxImplementationFilter
+    FbxNameFilter
+FbxObjectsContainer
+FbxPair<First, Second>
+FbxPair<const Key, Type>
+    FbxMap<Key, Type, Compare, Allocator>::KeyValuePair
+FbxPair<unsigned int, NameMap>
+FbxPathUtils
+FbxPeripheral
+FbxPluginData
+FbxPluginDef
+FbxPoseInfo
+FbxProcessorXRefCopy::AutoRevertPropertyChanges
+FbxProcessorXRefCopy::MissingUrlHandler
+FbxProcessorXRefCopy::PropertyUpdate
+FbxProgress
+FbxProperty
+    FbxPropertyT<T>
+    FbxPropertyT<EAntialiasingMethod>
+    FbxPropertyT<EApertureFormat>
+    FbxPropertyT<EApertureMode>
+    FbxPropertyT<EAreaLightShape>
+    FbxPropertyT<EAspectRatioMode>
+    FbxPropertyT<EAutoUser>
+    FbxPropertyT<EBlendMode>
+    FbxPropertyT<ECacheChannelType>
+    FbxPropertyT<EContactBehaviour>
+    FbxPropertyT<EDecayType>
+    FbxPropertyT<EFbxQuatInterpMode>
+    FbxPropertyT<EFbxRotationOrder>
+    FbxPropertyT<EFilmRollOrder>
+    FbxPropertyT<EFingerContactMode>
+    FbxPropertyT<EFloorPivot>
+    FbxPropertyT<EFocusDistanceSource>
+    FbxPropertyT<EFootContactType>
+    FbxPropertyT<EFormat>
+    FbxPropertyT<EFrontBackPlaneDisplayMode>
+    FbxPropertyT<EFrontBackPlaneDistanceMode>
+    FbxPropertyT<EGateFit>
+    FbxPropertyT<EHandContactType>
+    FbxPropertyT<EHipsTranslationMode>
+    FbxPropertyT<ELook>
+    FbxPropertyT<EOffAutoUser>
+    FbxPropertyT<EPostureMode>
+    FbxPropertyT<EProjectionType>
+    FbxPropertyT<ERollExtractionMode>
+    FbxPropertyT<ESafeAreaStyle>
+    FbxPropertyT<ESamplingType>
+    FbxPropertyT<EStereoType>
+    FbxPropertyT<ETextureUse6>
+    FbxPropertyT<EType>
+    FbxPropertyT<EUnifiedMappingType>
+    FbxPropertyT<EWrapMode>
+    FbxPropertyT<FbxBlob>
+    FbxPropertyT<FbxBool>
+    FbxPropertyT<FbxControlSet::EType>
+    FbxPropertyT<FbxDateTime>
+    FbxPropertyT<FbxDouble>
+    FbxPropertyT<FbxEnum>
+    FbxPropertyT<FbxFloat>
+    FbxPropertyT<FbxInt>
+    FbxPropertyT<FbxObject>
+    FbxPropertyT<FbxString>
+    FbxPropertyT<FbxTime>
+    FbxPropertyT<FbxTransform::EInheritType>
+    FbxPropertyT<FbxVectorTemplate3>
+FbxProperty::FbxPropertyNameCache
+FbxPropertyConnect
+FbxPropertyEntry
+FbxPropertyFlags
+FbxPropertyHandle
+FbxPropertyIdGenerator
+FbxPropertyInfo
+FbxPropertyPage
+FbxPropertyValue
+FbxPtrDestruct<T>
+FbxQuery
+FbxReader
+    FbxReaderCollada
+    FbxReaderFbx5
+    FbxReaderFbx6
+    FbxReaderFbx7
+FbxRenamingStrategyBase
+    FbxRenamingStrategyFbx5
+    FbxRenamingStrategyFbx6
+    FbxRenamingStrategyFbx7
+FbxRenamingStrategyInterface
+    FbxRenamingStrategy
+    FbxRenamingStrategyNumber
+FbxRenamingStrategyUtils
+FbxRootNodeUtility
+FbxRotationOrder
+FbxSceneRenamer
+FbxSemaphore
+FbxSet<Type, Compare, Allocator>
+FbxSet<Type, Compare, Allocator>::Value
+FbxSharedPtr<Type, Policy>
+FbxSharedPtr<Type, FbxDeletionPolicyDelete<Type>>
+    FbxSharedDeletePtr<Type>
+FbxSharedPtr<Type, FbxDeletionPolicyFree<Type>>
+    FbxSharedFreePtr<Type>
+FbxSharedPtr<Type, FbxDeletionPolicyObject<Type>>
+    FbxSharedDestroyPtr<Type>
+FbxSimpleMap<Key, Type, Compare>
+FbxSimpleMap<FbxString, FbxObject *, FbxStringCompare>
+    FbxObjectMap<FbxString, FbxStringCompare>
+        FbxObjectStringMap
+FbxSimpleMap<Type, FbxObject *, Compare>
+    FbxObjectMap<Type, Compare>
+FbxSimpleType<T>
+FbxSimpleType<const T>
+FbxSimpleType<T *>
+FbxSimpleType<T[n]>
+FbxSpinLock
+FbxStatistics
+FbxStatus
+FbxStatusGlobal
+FbxStream
+FbxString
+FbxStringCompare
+FbxStringCompareNoCase
+FbxStringListItem
+FbxStringListT<Type>
+FbxStringListT<FbxStringListItem>
+    FbxStringList
+FbxStringSymbol
+FbxSymbol
+FbxSyncStack
+FbxSyncStack::Item
+FbxSystemUnit
+FbxSystemUnit::ConversionOptions
+FbxTakeInfo
+FbxTakeLayerInfo
+FbxThread
+FbxTime
+FbxTimeSpan
+FbxTransform
+FbxUserNotification
+FbxUserNotification::AESequence
+FbxUserNotificationFilteredIterator
+FbxVectorTemplate2<T>
+    FbxVector2
+FbxVectorTemplate3<T>
+FbxVectorTemplate4<T>
+    FbxAMatrix
+    FbxMatrix
+    FbxQuaternion
+    FbxVector4
+FbxWeightedMapping
+FbxWeightedMapping::Element
+FbxWriter
+    FbxWriterCollada
+    FbxWriterFbx5
+    FbxWriterFbx6
+    FbxWriterFbx7
+FbxXRefManager
+HIK2FbxCharacterPropertyBridge
+LockAccessStatus
+RefCount
+XmlNodeDeletionPolicy

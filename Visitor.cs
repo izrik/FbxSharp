@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class FbxVisitor
+    public class Visitor
     {
         public virtual void Visit(FbxObject obj) { }
         public virtual void Visit(Scene scene) { }

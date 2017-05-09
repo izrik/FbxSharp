@@ -131,9 +131,10 @@
     <None Include="release.sh" />
     <None Include="build.sh" />
     <Compile Include="Collector.cs" />
-    <Compile Include="FbxVisitor.cs" />
+    <Compile Include="Visitor.cs" />
     <Compile Include="ObjectPrinter.cs" />
     <Compile Include="TypeHelper.cs" />
+    <None Include="fbx-class-hierarchy.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

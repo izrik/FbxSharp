@@ -188,3 +188,6 @@ FakesAssemblies/
 # Auto-generated files
 AssemblyInfo.Git.cs
 
+# misc
+_scratch*
+.idea
