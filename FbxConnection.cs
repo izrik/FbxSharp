@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public static class Connection
+    public static class FbxConnection
     {
         public enum EType
         {

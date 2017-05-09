@@ -498,7 +498,7 @@ namespace FbxSharp
         //    throw new NotImplementedException();
         //}
 
-        public bool ConnectDstObject(FbxObject pObject, Connection.EType pType=Connection.EType.None)
+        public bool ConnectDstObject(FbxObject pObject, FbxConnection.EType pType=FbxConnection.EType.None)
         {
             if (DstObjects.Contains(pObject))
                 return false;

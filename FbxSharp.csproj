@@ -75,7 +75,6 @@
     <Compile Include="Video.cs" />
     <Compile Include="Texture.cs" />
     <Compile Include="Time.cs" />
-    <Compile Include="Connection.cs" />
     <Compile Include="Importer.cs" />
     <Compile Include="GlobalSettings.cs" />
     <Compile Include="CollectionView.cs" />
@@ -135,6 +134,7 @@
     <Compile Include="FbxCluster.cs" />
     <Compile Include="FbxCollection.cs" />
     <Compile Include="FbxColor.cs" />
+    <Compile Include="FbxConnection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
