@@ -2,13 +2,13 @@
 
 namespace FbxSharp
 {
-    public class PropertyT<T> : Property
+    public class FbxPropertyT<T> : FbxProperty
     {
-        public PropertyT(string name="")
+        public FbxPropertyT(string name="")
             : base(name)
         {
         }
-        public PropertyT(string name, T initialValue)
+        public FbxPropertyT(string name, T initialValue)
             : base(name)
         {
             Value = initialValue;

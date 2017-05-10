@@ -22,7 +22,7 @@ namespace FbxSharpTests
         {
             // given:
             var mesh = new FbxMesh("Mesh");
-            Property prop;
+            FbxProperty prop;
 
             // then:
             Assert.AreEqual(6, CountProperties(mesh));

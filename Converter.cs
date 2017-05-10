@@ -869,12 +869,12 @@ namespace FbxSharp
             }
         }
 
-        public static Pose ConvertPose(
+        public static FbxPose ConvertPose(
             ParseObject obj,
             Dictionary<ulong, FbxObject> fbxObjectsById,
             Dictionary<ulong, ulong> actualIdsByInFileIds)
         {
-            var pose = new Pose();
+            var pose = new FbxPose();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();

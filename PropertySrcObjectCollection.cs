@@ -7,7 +7,7 @@ namespace FbxSharp
     {
         // An ordered collection of FbxObject objects
 
-        public PropertySrcObjectCollection(Property container)
+        public PropertySrcObjectCollection(FbxProperty container)
         {
             _container = container;
         }
@@ -150,7 +150,7 @@ namespace FbxSharp
             }
         }
 
-        readonly Property _container;
+        readonly FbxProperty _container;
         readonly List<FbxObject> _list = new List<FbxObject>();
 
         public event EventHandler CollectionChanged;

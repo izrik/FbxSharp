@@ -85,32 +85,32 @@ namespace FbxSharp
 
         #region Properties
 
-        public PropertyT<EType>             LightType                       = new PropertyT<EType>          ("LightType");
-        public PropertyT<bool>              CastLight                       = new PropertyT<bool>           ("CastLightOnObject");
-        public PropertyT<bool>              DrawVolumetricLight             = new PropertyT<bool>           ("DrawVolumetricLight");
-        public PropertyT<bool>              DrawGroundProjection            = new PropertyT<bool>           ("DrawGroundProjection");
-        public PropertyT<bool>              DrawFrontFacingVolumetricLight  = new PropertyT<bool>           ("DrawFrontFacingVolumetricLight");
-        public PropertyT<double>            Intensity                       = new PropertyT<double>         ("Intensity");
-        public PropertyT<double>            InnerAngle                      = new PropertyT<double>         ("InnerAngle");
-        public PropertyT<double>            OuterAngle                      = new PropertyT<double>         ("OuterAngle");
-        public PropertyT<double>            Fog                             = new PropertyT<double>         ("Fog");
-        public PropertyT<EDecayType>        DecayType                       = new PropertyT<EDecayType>     ("DecayType");
-        public PropertyT<double>            DecayStart                      = new PropertyT<double>         ("DecayStart");
-        public PropertyT<string>            FileName                        = new PropertyT<string>         ("FileName");
-        public PropertyT<bool>              EnableNearAttenuation           = new PropertyT<bool>           ("EnableNearAttenuation");
-        public PropertyT<double>            NearAttenuationStart            = new PropertyT<double>         ("NearAttenuationStart");
-        public PropertyT<double>            NearAttenuationEnd              = new PropertyT<double>         ("NearAttenuationEnd");
-        public PropertyT<bool>              EnableFarAttenuation            = new PropertyT<bool>           ("EnableFarAttenuation");
-        public PropertyT<double>            FarAttenuationStart             = new PropertyT<double>         ("FarAttenuationStart");
-        public PropertyT<double>            FarAttenuationEnd               = new PropertyT<double>         ("FarAttenuationEnd");
-        public PropertyT<bool>              CastShadows                     = new PropertyT<bool>           ("CastShadows");
-        public PropertyT<Vector3>           ShadowColor                     = new PropertyT<Vector3>        ("ShadowColor");
-        public PropertyT<EAreaLightShape>   AreaLightShape                  = new PropertyT<EAreaLightShape>("AreaLightShape");
-        public PropertyT<float>             LeftBarnDoor                    = new PropertyT<float>          ("LeftBarnDoor");
-        public PropertyT<float>             RightBarnDoor                   = new PropertyT<float>          ("RightBarnDoor");
-        public PropertyT<float>             TopBarnDoor                     = new PropertyT<float>          ("TopBarnDoor");
-        public PropertyT<float>             BottomBarnDoor                  = new PropertyT<float>          ("BottomBarnDoor");
-        public PropertyT<bool>              EnableBarnDoor                  = new PropertyT<bool>           ("EnableBarnDoor");
+        public FbxPropertyT<EType>             LightType                       = new FbxPropertyT<EType>          ("LightType");
+        public FbxPropertyT<bool>              CastLight                       = new FbxPropertyT<bool>           ("CastLightOnObject");
+        public FbxPropertyT<bool>              DrawVolumetricLight             = new FbxPropertyT<bool>           ("DrawVolumetricLight");
+        public FbxPropertyT<bool>              DrawGroundProjection            = new FbxPropertyT<bool>           ("DrawGroundProjection");
+        public FbxPropertyT<bool>              DrawFrontFacingVolumetricLight  = new FbxPropertyT<bool>           ("DrawFrontFacingVolumetricLight");
+        public FbxPropertyT<double>            Intensity                       = new FbxPropertyT<double>         ("Intensity");
+        public FbxPropertyT<double>            InnerAngle                      = new FbxPropertyT<double>         ("InnerAngle");
+        public FbxPropertyT<double>            OuterAngle                      = new FbxPropertyT<double>         ("OuterAngle");
+        public FbxPropertyT<double>            Fog                             = new FbxPropertyT<double>         ("Fog");
+        public FbxPropertyT<EDecayType>        DecayType                       = new FbxPropertyT<EDecayType>     ("DecayType");
+        public FbxPropertyT<double>            DecayStart                      = new FbxPropertyT<double>         ("DecayStart");
+        public FbxPropertyT<string>            FileName                        = new FbxPropertyT<string>         ("FileName");
+        public FbxPropertyT<bool>              EnableNearAttenuation           = new FbxPropertyT<bool>           ("EnableNearAttenuation");
+        public FbxPropertyT<double>            NearAttenuationStart            = new FbxPropertyT<double>         ("NearAttenuationStart");
+        public FbxPropertyT<double>            NearAttenuationEnd              = new FbxPropertyT<double>         ("NearAttenuationEnd");
+        public FbxPropertyT<bool>              EnableFarAttenuation            = new FbxPropertyT<bool>           ("EnableFarAttenuation");
+        public FbxPropertyT<double>            FarAttenuationStart             = new FbxPropertyT<double>         ("FarAttenuationStart");
+        public FbxPropertyT<double>            FarAttenuationEnd               = new FbxPropertyT<double>         ("FarAttenuationEnd");
+        public FbxPropertyT<bool>              CastShadows                     = new FbxPropertyT<bool>           ("CastShadows");
+        public FbxPropertyT<Vector3>           ShadowColor                     = new FbxPropertyT<Vector3>        ("ShadowColor");
+        public FbxPropertyT<EAreaLightShape>   AreaLightShape                  = new FbxPropertyT<EAreaLightShape>("AreaLightShape");
+        public FbxPropertyT<float>             LeftBarnDoor                    = new FbxPropertyT<float>          ("LeftBarnDoor");
+        public FbxPropertyT<float>             RightBarnDoor                   = new FbxPropertyT<float>          ("RightBarnDoor");
+        public FbxPropertyT<float>             TopBarnDoor                     = new FbxPropertyT<float>          ("TopBarnDoor");
+        public FbxPropertyT<float>             BottomBarnDoor                  = new FbxPropertyT<float>          ("BottomBarnDoor");
+        public FbxPropertyT<bool>              EnableBarnDoor                  = new FbxPropertyT<bool>           ("EnableBarnDoor");
 
         #endregion
     }

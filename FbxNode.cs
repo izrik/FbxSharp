@@ -9,7 +9,7 @@ namespace FbxSharp
         public FbxNode(string name="")
         {
             this.Properties.AddRange(
-                new Property[] {
+                new FbxProperty[] {
                     LclTranslation,
                     LclRotation,
                     LclScaling,
@@ -352,77 +352,77 @@ namespace FbxSharp
 
         #region Public and Fast Access Properties
 
-        public PropertyT<Vector3>                       LclTranslation              = new PropertyT<Vector3>("Lcl Translation");
-        public PropertyT<Vector3>                       LclRotation                 = new PropertyT<Vector3>("Lcl Rotation");
-        public PropertyT<Vector3>                       LclScaling                  = new PropertyT<Vector3>("Lcl Scaling", Vector3.One);
-        public PropertyT<double>                        Visibility                  = new PropertyT<double>("Visibility");
-        public PropertyT<bool>                          VisibilityInheritance       = new PropertyT<bool>("Visibility Inheritance");
-        public PropertyT<EFbxQuatInterpMode>               QuaternionInterpolate       = new PropertyT<EFbxQuatInterpMode>("QuaternionInterpolate");
-        public PropertyT<Vector3>                       RotationOffset              = new PropertyT<Vector3>("RotationOffset");
-        public PropertyT<Vector3>                       RotationPivot               = new PropertyT<Vector3>("RotationPivot");
-        public PropertyT<Vector3>                       ScalingOffset               = new PropertyT<Vector3>("ScalingOffset");
-        public PropertyT<Vector3>                       ScalingPivot                = new PropertyT<Vector3>("ScalingPivot");
-        public PropertyT<bool>                          TranslationActive           = new PropertyT<bool>("TranslationActive");
-        public PropertyT<Vector3>                       TranslationMin              = new PropertyT<Vector3>("TranslationMin");
-        public PropertyT<Vector3>                       TranslationMax              = new PropertyT<Vector3>("TranslationMax");
-        public PropertyT<bool>                          TranslationMinX             = new PropertyT<bool>("TranslationMinX");
-        public PropertyT<bool>                          TranslationMinY             = new PropertyT<bool>("TranslationMinY");
-        public PropertyT<bool>                          TranslationMinZ             = new PropertyT<bool>("TranslationMinZ");
-        public PropertyT<bool>                          TranslationMaxX             = new PropertyT<bool>("TranslationMaxX");
-        public PropertyT<bool>                          TranslationMaxY             = new PropertyT<bool>("TranslationMaxY");
-        public PropertyT<bool>                          TranslationMaxZ             = new PropertyT<bool>("TranslationMaxZ");
-        public PropertyT<ERotationOrder>                RotationOrder               = new PropertyT<ERotationOrder>("RotationOrder");
-        public PropertyT<bool>                          RotationSpaceForLimitOnly   = new PropertyT<bool>("RotationSpaceForLimitOnly");
-        public PropertyT<double>                        RotationStiffnessX          = new PropertyT<double>("RotationStiffnessX");
-        public PropertyT<double>                        RotationStiffnessY          = new PropertyT<double>("RotationStiffnessY");
-        public PropertyT<double>                        RotationStiffnessZ          = new PropertyT<double>("RotationStiffnessZ");
-        public PropertyT<double>                        AxisLen                     = new PropertyT<double>("AxisLen");
-        public PropertyT<Vector3>                       PreRotation                 = new PropertyT<Vector3>("PreRotation");
-        public PropertyT<Vector3>                       PostRotation                = new PropertyT<Vector3>("PostRotation");
-        public PropertyT<bool>                          RotationActive              = new PropertyT<bool>("RotationActive");
-        public PropertyT<Vector3>                       RotationMin                 = new PropertyT<Vector3>("RotationMin");
-        public PropertyT<Vector3>                       RotationMax                 = new PropertyT<Vector3>("RotationMax");
-        public PropertyT<bool>                          RotationMinX                = new PropertyT<bool>("RotationMinX");
-        public PropertyT<bool>                          RotationMinY                = new PropertyT<bool>("RotationMinY");
-        public PropertyT<bool>                          RotationMinZ                = new PropertyT<bool>("RotationMinZ");
-        public PropertyT<bool>                          RotationMaxX                = new PropertyT<bool>("RotationMaxX");
-        public PropertyT<bool>                          RotationMaxY                = new PropertyT<bool>("RotationMaxY");
-        public PropertyT<bool>                          RotationMaxZ                = new PropertyT<bool>("RotationMaxZ");
-        public PropertyT<Transform.EInheritType>        InheritType                 = new PropertyT<Transform.EInheritType>("InheritType");
-        public PropertyT<bool>                          ScalingActive               = new PropertyT<bool>("ScalingActive");
-        public PropertyT<Vector3>                       ScalingMin                  = new PropertyT<Vector3>("ScalingMin");
-        public PropertyT<Vector3>                       ScalingMax                  = new PropertyT<Vector3>("ScalingMax");
-        public PropertyT<bool>                          ScalingMinX                 = new PropertyT<bool>("ScalingMinX");
-        public PropertyT<bool>                          ScalingMinY                 = new PropertyT<bool>("ScalingMinY");
-        public PropertyT<bool>                          ScalingMinZ                 = new PropertyT<bool>("ScalingMinZ");
-        public PropertyT<bool>                          ScalingMaxX                 = new PropertyT<bool>("ScalingMaxX");
-        public PropertyT<bool>                          ScalingMaxY                 = new PropertyT<bool>("ScalingMaxY");
-        public PropertyT<bool>                          ScalingMaxZ                 = new PropertyT<bool>("ScalingMaxZ");
-        public PropertyT<Vector3>                       GeometricTranslation        = new PropertyT<Vector3>("GeometricTranslation");
-        public PropertyT<Vector3>                       GeometricRotation           = new PropertyT<Vector3>("GeometricRotation");
-        public PropertyT<Vector3>                       GeometricScaling            = new PropertyT<Vector3>("GeometricScaling");
-        public PropertyT<double>                        MinDampRangeX               = new PropertyT<double>("MinDampRangeX");
-        public PropertyT<double>                        MinDampRangeY               = new PropertyT<double>("MinDampRangeY");
-        public PropertyT<double>                        MinDampRangeZ               = new PropertyT<double>("MinDampRangeZ");
-        public PropertyT<double>                        MaxDampRangeX               = new PropertyT<double>("MaxDampRangeX");
-        public PropertyT<double>                        MaxDampRangeY               = new PropertyT<double>("MaxDampRangeY");
-        public PropertyT<double>                        MaxDampRangeZ               = new PropertyT<double>("MaxDampRangeZ");
-        public PropertyT<double>                        MinDampStrengthX            = new PropertyT<double>("MinDampStrengthX");
-        public PropertyT<double>                        MinDampStrengthY            = new PropertyT<double>("MinDampStrengthY");
-        public PropertyT<double>                        MinDampStrengthZ            = new PropertyT<double>("MinDampStrengthZ");
-        public PropertyT<double>                        MaxDampStrengthX            = new PropertyT<double>("MaxDampStrengthX");
-        public PropertyT<double>                        MaxDampStrengthY            = new PropertyT<double>("MaxDampStrengthY");
-        public PropertyT<double>                        MaxDampStrengthZ            = new PropertyT<double>("MaxDampStrengthZ");
-        public PropertyT<double>                        PreferedAngleX              = new PropertyT<double>("PreferedAngleX");
-        public PropertyT<double>                        PreferedAngleY              = new PropertyT<double>("PreferedAngleY");
-        public PropertyT<double>                        PreferedAngleZ              = new PropertyT<double>("PreferedAngleZ");
-        public PropertyT<FbxObject>                     LookAtProperty              = new PropertyT<FbxObject>("LookAtProperty");
-        public PropertyT<FbxObject>                     UpVectorProperty            = new PropertyT<FbxObject>("UpVectorProperty");
-        public PropertyT<bool>                          Show                        = new PropertyT<bool>("Show");
-        public PropertyT<bool>                          NegativePercentShapeSupport = new PropertyT<bool>("NegativePercentShapeSupport");
-        public PropertyT<int>                           DefaultAttributeIndex       = new PropertyT<int>("DefaultAttributeIndex");
-        public PropertyT<bool>                          Freeze                      = new PropertyT<bool>("Freeze");
-        public PropertyT<bool>                          LODBox                      = new PropertyT<bool>("LODBox");
+        public FbxPropertyT<Vector3>                       LclTranslation              = new FbxPropertyT<Vector3>("Lcl Translation");
+        public FbxPropertyT<Vector3>                       LclRotation                 = new FbxPropertyT<Vector3>("Lcl Rotation");
+        public FbxPropertyT<Vector3>                       LclScaling                  = new FbxPropertyT<Vector3>("Lcl Scaling", Vector3.One);
+        public FbxPropertyT<double>                        Visibility                  = new FbxPropertyT<double>("Visibility");
+        public FbxPropertyT<bool>                          VisibilityInheritance       = new FbxPropertyT<bool>("Visibility Inheritance");
+        public FbxPropertyT<EFbxQuatInterpMode>               QuaternionInterpolate       = new FbxPropertyT<EFbxQuatInterpMode>("QuaternionInterpolate");
+        public FbxPropertyT<Vector3>                       RotationOffset              = new FbxPropertyT<Vector3>("RotationOffset");
+        public FbxPropertyT<Vector3>                       RotationPivot               = new FbxPropertyT<Vector3>("RotationPivot");
+        public FbxPropertyT<Vector3>                       ScalingOffset               = new FbxPropertyT<Vector3>("ScalingOffset");
+        public FbxPropertyT<Vector3>                       ScalingPivot                = new FbxPropertyT<Vector3>("ScalingPivot");
+        public FbxPropertyT<bool>                          TranslationActive           = new FbxPropertyT<bool>("TranslationActive");
+        public FbxPropertyT<Vector3>                       TranslationMin              = new FbxPropertyT<Vector3>("TranslationMin");
+        public FbxPropertyT<Vector3>                       TranslationMax              = new FbxPropertyT<Vector3>("TranslationMax");
+        public FbxPropertyT<bool>                          TranslationMinX             = new FbxPropertyT<bool>("TranslationMinX");
+        public FbxPropertyT<bool>                          TranslationMinY             = new FbxPropertyT<bool>("TranslationMinY");
+        public FbxPropertyT<bool>                          TranslationMinZ             = new FbxPropertyT<bool>("TranslationMinZ");
+        public FbxPropertyT<bool>                          TranslationMaxX             = new FbxPropertyT<bool>("TranslationMaxX");
+        public FbxPropertyT<bool>                          TranslationMaxY             = new FbxPropertyT<bool>("TranslationMaxY");
+        public FbxPropertyT<bool>                          TranslationMaxZ             = new FbxPropertyT<bool>("TranslationMaxZ");
+        public FbxPropertyT<ERotationOrder>                RotationOrder               = new FbxPropertyT<ERotationOrder>("RotationOrder");
+        public FbxPropertyT<bool>                          RotationSpaceForLimitOnly   = new FbxPropertyT<bool>("RotationSpaceForLimitOnly");
+        public FbxPropertyT<double>                        RotationStiffnessX          = new FbxPropertyT<double>("RotationStiffnessX");
+        public FbxPropertyT<double>                        RotationStiffnessY          = new FbxPropertyT<double>("RotationStiffnessY");
+        public FbxPropertyT<double>                        RotationStiffnessZ          = new FbxPropertyT<double>("RotationStiffnessZ");
+        public FbxPropertyT<double>                        AxisLen                     = new FbxPropertyT<double>("AxisLen");
+        public FbxPropertyT<Vector3>                       PreRotation                 = new FbxPropertyT<Vector3>("PreRotation");
+        public FbxPropertyT<Vector3>                       PostRotation                = new FbxPropertyT<Vector3>("PostRotation");
+        public FbxPropertyT<bool>                          RotationActive              = new FbxPropertyT<bool>("RotationActive");
+        public FbxPropertyT<Vector3>                       RotationMin                 = new FbxPropertyT<Vector3>("RotationMin");
+        public FbxPropertyT<Vector3>                       RotationMax                 = new FbxPropertyT<Vector3>("RotationMax");
+        public FbxPropertyT<bool>                          RotationMinX                = new FbxPropertyT<bool>("RotationMinX");
+        public FbxPropertyT<bool>                          RotationMinY                = new FbxPropertyT<bool>("RotationMinY");
+        public FbxPropertyT<bool>                          RotationMinZ                = new FbxPropertyT<bool>("RotationMinZ");
+        public FbxPropertyT<bool>                          RotationMaxX                = new FbxPropertyT<bool>("RotationMaxX");
+        public FbxPropertyT<bool>                          RotationMaxY                = new FbxPropertyT<bool>("RotationMaxY");
+        public FbxPropertyT<bool>                          RotationMaxZ                = new FbxPropertyT<bool>("RotationMaxZ");
+        public FbxPropertyT<Transform.EInheritType>        InheritType                 = new FbxPropertyT<Transform.EInheritType>("InheritType");
+        public FbxPropertyT<bool>                          ScalingActive               = new FbxPropertyT<bool>("ScalingActive");
+        public FbxPropertyT<Vector3>                       ScalingMin                  = new FbxPropertyT<Vector3>("ScalingMin");
+        public FbxPropertyT<Vector3>                       ScalingMax                  = new FbxPropertyT<Vector3>("ScalingMax");
+        public FbxPropertyT<bool>                          ScalingMinX                 = new FbxPropertyT<bool>("ScalingMinX");
+        public FbxPropertyT<bool>                          ScalingMinY                 = new FbxPropertyT<bool>("ScalingMinY");
+        public FbxPropertyT<bool>                          ScalingMinZ                 = new FbxPropertyT<bool>("ScalingMinZ");
+        public FbxPropertyT<bool>                          ScalingMaxX                 = new FbxPropertyT<bool>("ScalingMaxX");
+        public FbxPropertyT<bool>                          ScalingMaxY                 = new FbxPropertyT<bool>("ScalingMaxY");
+        public FbxPropertyT<bool>                          ScalingMaxZ                 = new FbxPropertyT<bool>("ScalingMaxZ");
+        public FbxPropertyT<Vector3>                       GeometricTranslation        = new FbxPropertyT<Vector3>("GeometricTranslation");
+        public FbxPropertyT<Vector3>                       GeometricRotation           = new FbxPropertyT<Vector3>("GeometricRotation");
+        public FbxPropertyT<Vector3>                       GeometricScaling            = new FbxPropertyT<Vector3>("GeometricScaling");
+        public FbxPropertyT<double>                        MinDampRangeX               = new FbxPropertyT<double>("MinDampRangeX");
+        public FbxPropertyT<double>                        MinDampRangeY               = new FbxPropertyT<double>("MinDampRangeY");
+        public FbxPropertyT<double>                        MinDampRangeZ               = new FbxPropertyT<double>("MinDampRangeZ");
+        public FbxPropertyT<double>                        MaxDampRangeX               = new FbxPropertyT<double>("MaxDampRangeX");
+        public FbxPropertyT<double>                        MaxDampRangeY               = new FbxPropertyT<double>("MaxDampRangeY");
+        public FbxPropertyT<double>                        MaxDampRangeZ               = new FbxPropertyT<double>("MaxDampRangeZ");
+        public FbxPropertyT<double>                        MinDampStrengthX            = new FbxPropertyT<double>("MinDampStrengthX");
+        public FbxPropertyT<double>                        MinDampStrengthY            = new FbxPropertyT<double>("MinDampStrengthY");
+        public FbxPropertyT<double>                        MinDampStrengthZ            = new FbxPropertyT<double>("MinDampStrengthZ");
+        public FbxPropertyT<double>                        MaxDampStrengthX            = new FbxPropertyT<double>("MaxDampStrengthX");
+        public FbxPropertyT<double>                        MaxDampStrengthY            = new FbxPropertyT<double>("MaxDampStrengthY");
+        public FbxPropertyT<double>                        MaxDampStrengthZ            = new FbxPropertyT<double>("MaxDampStrengthZ");
+        public FbxPropertyT<double>                        PreferedAngleX              = new FbxPropertyT<double>("PreferedAngleX");
+        public FbxPropertyT<double>                        PreferedAngleY              = new FbxPropertyT<double>("PreferedAngleY");
+        public FbxPropertyT<double>                        PreferedAngleZ              = new FbxPropertyT<double>("PreferedAngleZ");
+        public FbxPropertyT<FbxObject>                     LookAtProperty              = new FbxPropertyT<FbxObject>("LookAtProperty");
+        public FbxPropertyT<FbxObject>                     UpVectorProperty            = new FbxPropertyT<FbxObject>("UpVectorProperty");
+        public FbxPropertyT<bool>                          Show                        = new FbxPropertyT<bool>("Show");
+        public FbxPropertyT<bool>                          NegativePercentShapeSupport = new FbxPropertyT<bool>("NegativePercentShapeSupport");
+        public FbxPropertyT<int>                           DefaultAttributeIndex       = new FbxPropertyT<int>("DefaultAttributeIndex");
+        public FbxPropertyT<bool>                          Freeze                      = new FbxPropertyT<bool>("Freeze");
+        public FbxPropertyT<bool>                          LODBox                      = new FbxPropertyT<bool>("LODBox");
 
         #endregion
 

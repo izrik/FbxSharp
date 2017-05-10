@@ -37,7 +37,7 @@
     <Compile Include="AssemblyInfo.Git.cs" />
     <Compile Include="FbxClassId.cs" />
     <Compile Include="FbxCriteria.cs" />
-    <Compile Include="PoseInfo.cs" />
+    <Compile Include="FbxPoseInfo.cs" />
     <Compile Include="TokenType.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="Tokenizer.cs" />
@@ -47,12 +47,12 @@
     <Compile Include="Number.cs" />
     <Compile Include="FbxObject.cs" />
     <Compile Include="Skeleton.cs" />
-    <Compile Include="Property.cs" />
-    <Compile Include="PropertyT.cs" />
+    <Compile Include="FbxProperty.cs" />
+    <Compile Include="FbxPropertyT.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="SurfaceMaterial.cs" />
-    <Compile Include="Pose.cs" />
+    <Compile Include="FbxPose.cs" />
     <Compile Include="SurfacePhong.cs" />
     <Compile Include="SurfaceLambert.cs" />
     <Compile Include="Skin.cs" />
@@ -67,7 +67,7 @@
     <Compile Include="Vector2.cs" />
     <Compile Include="ChangeNotifyList.cs" />
     <Compile Include="VectorHelper.cs" />
-    <Compile Include="PropertyFlags.cs" />
+    <Compile Include="FbxPropertyFlags.cs" />
     <Compile Include="Transform.cs" />
     <Compile Include="ObjectDstObjectCollection.cs" />
     <Compile Include="ObjectSrcObjectCollection.cs" />

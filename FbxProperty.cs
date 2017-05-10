@@ -4,15 +4,15 @@ using System.Linq;
 
 namespace FbxSharp
 {
-    public abstract class Property
+    public abstract class FbxProperty
     {
-        static Property()
+        static FbxProperty()
         {
             AddConverter(typeof(Vector4), typeof(Vector3), (v4) => ((Vector4)v4).ToVector3());
             AddConverter(typeof(Vector3), typeof(Vector4), (v3) => ((Vector3)v3).ToVector4());
         }
 
-        protected Property(string name)
+        protected FbxProperty(string name)
         {
             Name = name;
 
@@ -102,7 +102,7 @@ namespace FbxSharp
             Converters.Add(new Tuple<Type, Type>(from, to), converter);
         }
 
-        public static bool HasDefaultValue(Property pProperty)
+        public static bool HasDefaultValue(FbxProperty pProperty)
         {
             throw new NotImplementedException();
         }
@@ -132,12 +132,12 @@ namespace FbxSharp
             return true;
         }
 
-        public PropertyFlags.EInheritType GetValueInheritType()
+        public FbxPropertyFlags.EInheritType GetValueInheritType()
         {
             throw new NotImplementedException();
         }
 
-        public bool SetValueInheritType(PropertyFlags.EInheritType pType)
+        public bool SetValueInheritType(FbxPropertyFlags.EInheritType pType)
         {
             throw new NotImplementedException();
         }
@@ -151,8 +151,8 @@ namespace FbxSharp
 
         #region Hierarchical Properties
 
-        private Property _parentProperty;
-        public Property ParentProperty
+        private FbxProperty _parentProperty;
+        public FbxProperty ParentProperty
         {
             get { return _parentProperty; }
             set
@@ -181,12 +181,12 @@ namespace FbxSharp
             return (ParentProperty == null);
         }
 
-        public bool IsChildOf(Property pParent)
+        public bool IsChildOf(FbxProperty pParent)
         {
             return (ParentProperty == pParent);
         }
 
-        public bool IsDescendentOf(Property pAncestor)
+        public bool IsDescendentOf(FbxProperty pAncestor)
         {
             var c = ParentProperty;
             while (c != null)
@@ -199,36 +199,36 @@ namespace FbxSharp
             return false;
         }
 
-        public Property GetParent()
+        public FbxProperty GetParent()
         {
             return ParentProperty;
         }
 
-        public /*FBX_DEPRECATED*/ bool SetParent(Property pOther)
+        public /*FBX_DEPRECATED*/ bool SetParent(FbxProperty pOther)
         {
             //throw new NotImplementedException();
             //ParentProperty = pOther;
             return false;
         }
 
-        public Property GetChild()
+        public FbxProperty GetChild()
         {
             return Children.FirstOrDefault();
         }
 
-        public Property GetSibling()
+        public FbxProperty GetSibling()
         {
             if (GetParent() == null) return null;
 
             return GetParent().GetNextDescendent(this);
         }
 
-        public Property GetFirstDescendent()
+        public FbxProperty GetFirstDescendent()
         {
             return Children.FirstOrDefault();
         }
 
-        public Property GetNextDescendent(Property pProperty)
+        public FbxProperty GetNextDescendent(FbxProperty pProperty)
         {
             if (pProperty.ParentProperty != this) return null;
 
@@ -238,7 +238,7 @@ namespace FbxSharp
             return Children[index + 1];
         }
 
-        public Property Find(string pName, bool pCaseSensitive = true)
+        public FbxProperty Find(string pName, bool pCaseSensitive = true)
         {
             throw new NotImplementedException();
         }
@@ -248,7 +248,7 @@ namespace FbxSharp
         //    throw new NotImplementedException();
         //}
 
-        public Property FindHierarchical(string pName, bool pCaseSensitive = true)
+        public FbxProperty FindHierarchical(string pName, bool pCaseSensitive = true)
         {
             throw new NotImplementedException();
         }
@@ -614,17 +614,17 @@ namespace FbxSharp
 
         #region General Property Connection and Relationship Management
 
-        public bool ConnectSrcProperty(Property pProperty)
+        public bool ConnectSrcProperty(FbxProperty pProperty)
         {
             throw new NotImplementedException();
         }
 
-        public bool IsConnectedSrcProperty(Property pProperty)
+        public bool IsConnectedSrcProperty(FbxProperty pProperty)
         {
             throw new NotImplementedException();
         }
 
-        public bool DisconnectSrcProperty(Property pProperty)
+        public bool DisconnectSrcProperty(FbxProperty pProperty)
         {
             throw new NotImplementedException();
         }
@@ -634,17 +634,17 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public bool ConnectDstProperty(Property pProperty)
+        public bool ConnectDstProperty(FbxProperty pProperty)
         {
             throw new NotImplementedException();
         }
 
-        public bool IsConnectedDstProperty(Property pProperty)
+        public bool IsConnectedDstProperty(FbxProperty pProperty)
         {
             throw new NotImplementedException();
         }
 
-        public bool DisconnectDstProperty(Property pProperty)
+        public bool DisconnectDstProperty(FbxProperty pProperty)
         {
             throw new NotImplementedException();
         }
@@ -659,22 +659,22 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public Property GetSrcProperty(int pIndex=0)
+        public FbxProperty GetSrcProperty(int pIndex=0)
         {
             throw new NotImplementedException();
         }
 
-        public Property FindSrcProperty(string pName, int pStartIndex=0)
+        public FbxProperty FindSrcProperty(string pName, int pStartIndex=0)
         {
             throw new NotImplementedException();
         }
 
-        public Property GetDstProperty(int pIndex=0)
+        public FbxProperty GetDstProperty(int pIndex=0)
         {
             throw new NotImplementedException();
         }
 
-        public Property FindDstProperty(string pName, int pStartIndex=0)
+        public FbxProperty FindDstProperty(string pName, int pStartIndex=0)
         {
             throw new NotImplementedException();
         }

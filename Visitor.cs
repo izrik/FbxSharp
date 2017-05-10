@@ -25,7 +25,7 @@ namespace FbxSharp
         public virtual void Visit(FbxAnimCurve obj) { }
         public virtual void Visit(FbxAnimCurveNode obj) { }
         public virtual void Visit(FbxDeformer obj) { }
-        public virtual void Visit(Pose pose) { }
+        public virtual void Visit(FbxPose pose) { }
         public virtual void Visit(SubDeformer obj) { }
         public virtual void Visit(Texture obj) { }
         public virtual void Visit(Video obj) { }
@@ -95,8 +95,8 @@ namespace FbxSharp
                 AcceptAnimCurveNode((FbxAnimCurveNode)obj, visitedObjects);
             else if (type == typeof(FbxDeformer))
                 AcceptDeformer((FbxDeformer)obj, visitedObjects);
-            else if (type == typeof(Pose))
-                AcceptPose((Pose)obj, visitedObjects);
+            else if (type == typeof(FbxPose))
+                AcceptPose((FbxPose)obj, visitedObjects);
             else if (type == typeof(SubDeformer))
                 AcceptSubDeformer((SubDeformer)obj, visitedObjects);
             else if (type == typeof(Texture))
@@ -133,7 +133,7 @@ namespace FbxSharp
             }
 
 
-            Property prop = obj.GetFirstProperty();
+            FbxProperty prop = obj.GetFirstProperty();
             while (prop != null && prop.IsValid())
             {
                 for (i = 0; i < prop.GetSrcObjectCount(); i++)
@@ -428,7 +428,7 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        protected void AcceptPose(Pose pose, ISet<object> visitedObjects)
+        protected void AcceptPose(FbxPose pose, ISet<object> visitedObjects)
         {
             AcceptFbxObject(pose, visitedObjects);
             Visit(pose);

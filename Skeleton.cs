@@ -59,8 +59,8 @@ namespace FbxSharp
         public const double sDefaultSize = 100;
         public const double sDefaultLimbLength = 1;
 
-        public readonly PropertyT<double> Size = new PropertyT<double>("Size");
-        public readonly PropertyT<double> LimbLength = new PropertyT<double>("LimbLength");
+        public readonly FbxPropertyT<double> Size = new FbxPropertyT<double>("Size");
+        public readonly FbxPropertyT<double> LimbLength = new FbxPropertyT<double>("LimbLength");
 
         #endregion
     }

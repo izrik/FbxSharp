@@ -11,7 +11,7 @@ namespace FbxSharp
         {
             RootNode = new FbxNode();
 
-            Poses = SrcObjects.CreateCollectionView<Pose>();
+            Poses = SrcObjects.CreateCollectionView<FbxPose>();
             Materials = SrcObjects.CreateCollectionView<SurfaceMaterial>();
             Textures = SrcObjects.CreateCollectionView<Texture>();
             Nodes = SrcObjects.CreateCollectionView<FbxNode>();
@@ -35,7 +35,7 @@ namespace FbxSharp
                     this.ConnectSrcObject(srcobj);
             }
 
-            foreach (Property prop in fbxObject.Properties)
+            foreach (FbxProperty prop in fbxObject.Properties)
             {
                 foreach (var srcobj in prop.SrcObjects)
                 {
@@ -48,19 +48,19 @@ namespace FbxSharp
 
         #region Pose Management
 
-        public readonly CollectionView<Pose> Poses;
+        public readonly CollectionView<FbxPose> Poses;
 
         public int GetPoseCount()
         {
             return Poses.Count;
         }
 
-        public Pose GetPose(int pIndex)
+        public FbxPose GetPose(int pIndex)
         {
             return Poses[pIndex];
         }
 
-        public bool AddPose(Pose pPose)
+        public bool AddPose(FbxPose pPose)
         {
             if (this.Poses.Contains(pPose)) return false;
 
@@ -69,7 +69,7 @@ namespace FbxSharp
             return true;
         }
 
-        public bool RemovePose(Pose pPose)
+        public bool RemovePose(FbxPose pPose)
         {
             return this.DisconnectSrcObject(pPose);
         }

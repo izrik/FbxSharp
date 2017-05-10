@@ -15,7 +15,7 @@ namespace FbxSharp
             return "\"" + s.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "\"";
         }
 
-        public static string PrintPropertyID(Property prop)
+        public static string PrintPropertyID(FbxProperty prop)
         {
             if (prop == null)
                 return "<<null>>";
@@ -214,11 +214,11 @@ namespace FbxSharp
             return tid.Name;
         }
 
-        public void PrintProperty(Property prop, bool indent=false)
+        public void PrintProperty(FbxProperty prop, bool indent=false)
         {
             PrintProperty(prop, Console.Out, indent);
         }
-        public void PrintProperty(Property prop, TextWriter writer, bool indent=false)
+        public void PrintProperty(FbxProperty prop, TextWriter writer, bool indent=false)
         {
             string prefix = indent ? "            " : "        ";
 

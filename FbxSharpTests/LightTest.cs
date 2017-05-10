@@ -12,7 +12,7 @@ namespace FbxSharpTests
         {
             // given:
             var light = new FbxLight("light");
-            Property prop;
+            FbxProperty prop;
 
             // then:
             Assert.AreEqual(27, CountProperties(light));

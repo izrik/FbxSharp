@@ -13,13 +13,13 @@ namespace FbxSharp
 
         #region Properties
 
-        public readonly PropertyT<FbxObject> Roots = new PropertyT<FbxObject>("SourceObject");
+        public readonly FbxPropertyT<FbxObject> Roots = new FbxPropertyT<FbxObject>("SourceObject");
 
         #endregion
 
         #region Animation Stack Management
 
-        public readonly PropertyT<string> ActiveAnimStackName = new PropertyT<string>("ActiveAnimStackName");
+        public readonly FbxPropertyT<string> ActiveAnimStackName = new FbxPropertyT<string>("ActiveAnimStackName");
 
         bool CreateAnimStack(string pName/*, FbxStatus *pStatus=NULL*/)
         {

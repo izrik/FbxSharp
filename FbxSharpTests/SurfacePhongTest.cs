@@ -12,7 +12,7 @@ namespace FbxSharpTests
         {
             // given:
             var surface = new SurfacePhong("");
-            Property prop;
+            FbxProperty prop;
 
             // then:
             Assert.AreEqual(22, CountProperties(surface));

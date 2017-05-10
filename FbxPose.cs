@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class Pose : FbxObject
+    public class FbxPose : FbxObject
     {
-        public Pose(String name="")
+        public FbxPose(String name="")
             : base(name)
         {
-            PoseInfos = new CollectionView<PoseInfo, PoseInfo>(poseInfos, eh => poseInfos.CollectionChanged += eh);
+            PoseInfos = new CollectionView<FbxPoseInfo, FbxPoseInfo>(poseInfos, eh => poseInfos.CollectionChanged += eh);
         }
 
         #region Public Member Functions
 
-        readonly ChangeNotifyList<PoseInfo> poseInfos = new ChangeNotifyList<PoseInfo>();
-        public readonly CollectionView<PoseInfo, PoseInfo> PoseInfos;
+        readonly ChangeNotifyList<FbxPoseInfo> poseInfos = new ChangeNotifyList<FbxPoseInfo>();
+        public readonly CollectionView<FbxPoseInfo, FbxPoseInfo> PoseInfos;
 
         public void SetIsBindPose(bool pIsBindPose)
         {
@@ -47,7 +47,7 @@ namespace FbxSharp
                 return match;
             }
 
-            var p = new PoseInfo(pNode, pMatrix, pLocalMatrix);
+            var p = new FbxPoseInfo(pNode, pMatrix, pLocalMatrix);
             poseInfos.Add(p);
 
             return poseInfos.IndexOf(p);

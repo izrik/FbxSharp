@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public static class PropertyFlags
+    public static class FbxPropertyFlags
     {
         public enum EInheritType
         {

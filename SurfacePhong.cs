@@ -8,7 +8,7 @@ namespace FbxSharp
             : base(name)
         {
             this.Properties.AddRange(
-                new Property[] {
+                new FbxProperty[] {
                     Specular,
                     SpecularFactor,
                     Shininess,
@@ -19,11 +19,11 @@ namespace FbxSharp
 
         #region Material properties
 
-        public readonly PropertyT<Vector3>  Specular            = new PropertyT<Vector3>("SpecularColor");
-        public readonly PropertyT<double>   SpecularFactor      = new PropertyT<double>("SpecularFactor");
-        public readonly PropertyT<double>   Shininess           = new PropertyT<double>("ShininessExponent");
-        public readonly PropertyT<Vector3>  Reflection          = new PropertyT<Vector3>("ReflectionColor");
-        public readonly PropertyT<double>   ReflectionFactor    = new PropertyT<double>("ReflectionFactor");
+        public readonly FbxPropertyT<Vector3>  Specular            = new FbxPropertyT<Vector3>("SpecularColor");
+        public readonly FbxPropertyT<double>   SpecularFactor      = new FbxPropertyT<double>("SpecularFactor");
+        public readonly FbxPropertyT<double>   Shininess           = new FbxPropertyT<double>("ShininessExponent");
+        public readonly FbxPropertyT<Vector3>  Reflection          = new FbxPropertyT<Vector3>("ReflectionColor");
+        public readonly FbxPropertyT<double>   ReflectionFactor    = new FbxPropertyT<double>("ReflectionFactor");
 
         #endregion
     }

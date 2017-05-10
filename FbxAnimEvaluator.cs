@@ -62,7 +62,7 @@ namespace FbxSharp
             return GetPropertyValue<Vector4>(pNode.LclScaling, pTime, pForceEval);
         }
 
-        public T GetPropertyValue<T>(Property pProperty, FbxTime pTime, bool pForceEval=false)
+        public T GetPropertyValue<T>(FbxProperty pProperty, FbxTime pTime, bool pForceEval=false)
         {
             return pProperty.EvaluateValue<T>(pTime, pForceEval);
         }
@@ -72,7 +72,7 @@ namespace FbxSharp
         //    throw new NotImplementedException();
         //}
 
-        public FbxAnimCurveNode GetPropertyCurveNode(Property pProperty, FbxAnimLayer pAnimLayer)
+        public FbxAnimCurveNode GetPropertyCurveNode(FbxProperty pProperty, FbxAnimLayer pAnimLayer)
         {
             throw new NotImplementedException();
         }
@@ -92,7 +92,7 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public void Flush(Property pProperty)
+        public void Flush(FbxProperty pProperty)
         {
             throw new NotImplementedException();
         }

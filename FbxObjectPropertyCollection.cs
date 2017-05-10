@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class FbxObjectPropertyCollection : IList<Property>
+    public class FbxObjectPropertyCollection : IList<FbxProperty>
     {
         // An ordered collection of Property objects
 
@@ -12,34 +12,34 @@ namespace FbxSharp
             _container = container;
         }
 
-        public void AddRange(params Property [] items)
+        public void AddRange(params FbxProperty [] items)
         {
-            AddRange((IEnumerable<Property>)items);
+            AddRange((IEnumerable<FbxProperty>)items);
         }
 
-        public void AddRange(IEnumerable<Property> items)
+        public void AddRange(IEnumerable<FbxProperty> items)
         {
-            foreach (Property item in items)
+            foreach (FbxProperty item in items)
             {
                 Add(item);
             }
         }
 
-        public void RemoveRange(params Property [] items)
+        public void RemoveRange(params FbxProperty [] items)
         {
-            RemoveRange((IEnumerable<Property>)items);
+            RemoveRange((IEnumerable<FbxProperty>)items);
         }
 
-        public void RemoveRange(IEnumerable<Property> items)
+        public void RemoveRange(IEnumerable<FbxProperty> items)
         {
-            foreach (Property item in items)
+            foreach (FbxProperty item in items)
             {
                 Remove(item);
             }
         }
 
         //ICollection<Property>
-        public virtual void Add(Property item)
+        public virtual void Add(FbxProperty item)
         {
             if (!Contains(item))
             {
@@ -48,12 +48,12 @@ namespace FbxSharp
             }
         }
 
-        public virtual bool Contains(Property item)
+        public virtual bool Contains(FbxProperty item)
         {
             return _list.Contains(item);
         }
 
-        public virtual bool Remove(Property item)
+        public virtual bool Remove(FbxProperty item)
         {
             if (Contains(item))
             {
@@ -67,11 +67,11 @@ namespace FbxSharp
 
         public virtual void Clear()
         {
-            Property [] array = new Property[Count];
+            FbxProperty [] array = new FbxProperty[Count];
 
             CopyTo(array, 0);
 
-            foreach (Property item in array)
+            foreach (FbxProperty item in array)
             {
                 Remove(item);
             }
@@ -79,23 +79,23 @@ namespace FbxSharp
             _list.Clear();
         }
 
-        public virtual void CopyTo(Property [] array, int arrayIndex)
+        public virtual void CopyTo(FbxProperty [] array, int arrayIndex)
         {
             _list.CopyTo(array, arrayIndex);
         }
 
-        public virtual IEnumerator<Property> GetEnumerator()
+        public virtual IEnumerator<FbxProperty> GetEnumerator()
         {
             return _list.GetEnumerator();
         }
 
         //IList<Property>
-        public virtual int IndexOf(Property item)
+        public virtual int IndexOf(FbxProperty item)
         {
             return _list.IndexOf(item);
         }
 
-        public virtual void Insert(int index, Property item)
+        public virtual void Insert(int index, FbxProperty item)
         {
             if (Contains(item))
             {
@@ -123,7 +123,7 @@ namespace FbxSharp
         }
 
         public virtual bool IsReadOnly {
-            get { return (_list as ICollection<Property>).IsReadOnly; }
+            get { return (_list as ICollection<FbxProperty>).IsReadOnly; }
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
@@ -132,7 +132,7 @@ namespace FbxSharp
         }
 
         //IList<Property>
-        public virtual Property this [int index] {
+        public virtual FbxProperty this [int index] {
             get { return _list[index]; }
             set {
                 RemoveAt(index);
@@ -141,6 +141,6 @@ namespace FbxSharp
         }
 
         private FbxObject _container;
-        private List<Property> _list = new List<Property>();
+        private List<FbxProperty> _list = new List<FbxProperty>();
     }
 }

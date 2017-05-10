@@ -8,7 +8,7 @@ namespace FbxSharp
             : base(name)
         {
             this.Properties.AddRange(
-                new Property[] {
+                new FbxProperty[] {
                     Emissive,
                     EmissiveFactor,
                     Ambient,
@@ -29,21 +29,21 @@ namespace FbxSharp
 
         #region Material properties
 
-        public readonly PropertyT<Vector3>  Emissive                    = new PropertyT<Vector3>("EmissiveColor");
-        public readonly PropertyT<double>   EmissiveFactor              = new PropertyT<double>("EmissiveFactor");
-        public readonly PropertyT<Vector3>  Ambient                     = new PropertyT<Vector3>("AmbientColor");
-        public readonly PropertyT<double>   AmbientFactor               = new PropertyT<double>("AmbientFactor");
-        public readonly PropertyT<Vector3>  Diffuse                     = new PropertyT<Vector3>("DiffuseColor");
-        public readonly PropertyT<double>   DiffuseFactor               = new PropertyT<double>("DiffuseFactor");
-        public readonly PropertyT<Vector3>  NormalMap                   = new PropertyT<Vector3>("NormalMap");
-        public readonly PropertyT<Vector3>  Bump                        = new PropertyT<Vector3>("Bump");
-        public readonly PropertyT<double>   BumpFactor                  = new PropertyT<double>("BumpFactor");
-        public readonly PropertyT<Vector3>  TransparentColor            = new PropertyT<Vector3>("TransparentColor");
-        public readonly PropertyT<double>   TransparencyFactor          = new PropertyT<double>("TransparencyFactor");
-        public readonly PropertyT<Vector3>  DisplacementColor           = new PropertyT<Vector3>("DisplacementColor");
-        public readonly PropertyT<double>   DisplacementFactor          = new PropertyT<double>("DisplacementFactor");
-        public readonly PropertyT<Vector3>  VectorDisplacementColor     = new PropertyT<Vector3>("VectorDisplacementColor");
-        public readonly PropertyT<double>   VectorDisplacementFactor    = new PropertyT<double>("VectorDisplacementFactor");
+        public readonly FbxPropertyT<Vector3>  Emissive                    = new FbxPropertyT<Vector3>("EmissiveColor");
+        public readonly FbxPropertyT<double>   EmissiveFactor              = new FbxPropertyT<double>("EmissiveFactor");
+        public readonly FbxPropertyT<Vector3>  Ambient                     = new FbxPropertyT<Vector3>("AmbientColor");
+        public readonly FbxPropertyT<double>   AmbientFactor               = new FbxPropertyT<double>("AmbientFactor");
+        public readonly FbxPropertyT<Vector3>  Diffuse                     = new FbxPropertyT<Vector3>("DiffuseColor");
+        public readonly FbxPropertyT<double>   DiffuseFactor               = new FbxPropertyT<double>("DiffuseFactor");
+        public readonly FbxPropertyT<Vector3>  NormalMap                   = new FbxPropertyT<Vector3>("NormalMap");
+        public readonly FbxPropertyT<Vector3>  Bump                        = new FbxPropertyT<Vector3>("Bump");
+        public readonly FbxPropertyT<double>   BumpFactor                  = new FbxPropertyT<double>("BumpFactor");
+        public readonly FbxPropertyT<Vector3>  TransparentColor            = new FbxPropertyT<Vector3>("TransparentColor");
+        public readonly FbxPropertyT<double>   TransparencyFactor          = new FbxPropertyT<double>("TransparencyFactor");
+        public readonly FbxPropertyT<Vector3>  DisplacementColor           = new FbxPropertyT<Vector3>("DisplacementColor");
+        public readonly FbxPropertyT<double>   DisplacementFactor          = new FbxPropertyT<double>("DisplacementFactor");
+        public readonly FbxPropertyT<Vector3>  VectorDisplacementColor     = new FbxPropertyT<Vector3>("VectorDisplacementColor");
+        public readonly FbxPropertyT<double>   VectorDisplacementFactor    = new FbxPropertyT<double>("VectorDisplacementFactor");
 
         #endregion
     }

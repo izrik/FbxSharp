@@ -43,11 +43,11 @@ namespace FbxSharp
 
         #region Public Attributes
 
-        public PropertyT<double>    Weight                      = new PropertyT<double>("Weight");
-        public PropertyT<bool>      Mute                        = new PropertyT<bool>("Mute");
-        public PropertyT<bool>      Solo                        = new PropertyT<bool>("Solo");
-        public PropertyT<bool>      Lock                        = new PropertyT<bool>("Lock");
-        public PropertyT<Vector3>   Color                       = new PropertyT<Vector3>("Color");
+        public FbxPropertyT<double>    Weight                      = new FbxPropertyT<double>("Weight");
+        public FbxPropertyT<bool>      Mute                        = new FbxPropertyT<bool>("Mute");
+        public FbxPropertyT<bool>      Solo                        = new FbxPropertyT<bool>("Solo");
+        public FbxPropertyT<bool>      Lock                        = new FbxPropertyT<bool>("Lock");
+        public FbxPropertyT<Vector3>   Color                       = new FbxPropertyT<Vector3>("Color");
 //        public PropertyT<FbxEnum>   BlendMode                   = new PropertyT<FbxEnum>("BlendMode");
 //        public PropertyT<FbxEnum>   RotationAccumulationMode    = new PropertyT<FbxEnum>("RotationAccumulationMode");
 //        public PropertyT<FbxEnum>   ScaleAccumulationMode       = new PropertyT<FbxEnum>("ScaleAccumulationMode");
@@ -70,7 +70,7 @@ namespace FbxSharp
 
         #region CurveNode Management
 
-        public FbxAnimCurveNode CreateCurveNode(Property pProperty)
+        public FbxAnimCurveNode CreateCurveNode(FbxProperty pProperty)
         {
             throw new NotImplementedException();
         }

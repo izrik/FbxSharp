@@ -7,7 +7,7 @@ namespace FbxSharp
     {
         // An ordered collection of FbxObject objects
 
-        public PropertyDstObjectCollection(Property container)
+        public PropertyDstObjectCollection(FbxProperty container)
         {
             _container = container;
         }
@@ -146,7 +146,7 @@ namespace FbxSharp
             }
         }
 
-        private Property _container;
+        private FbxProperty _container;
         private List<FbxObject> _list = new List<FbxObject>();
     }
 }

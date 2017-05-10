@@ -144,7 +144,7 @@ namespace FbxSharpTests
         {
             // given:
             var scene = new Scene("Scene");
-            var pose = new Pose("Pose");
+            var pose = new FbxPose("Pose");
 
             // require:
             Assert.AreEqual(3, scene.GetSrcObjectCount());
@@ -182,7 +182,7 @@ namespace FbxSharpTests
         {
             // given:
             var scene = new Scene("Scene");
-            var pose = new Pose("Pose");
+            var pose = new FbxPose("Pose");
 
             // require:
             Assert.AreEqual(3, scene.GetSrcObjectCount());
@@ -220,7 +220,7 @@ namespace FbxSharpTests
         {
             // given:
             var scene = new Scene("");
-            Property prop;
+            FbxProperty prop;
 
             // then:
             Assert.AreEqual(2, CountProperties(scene));
@@ -249,7 +249,7 @@ namespace FbxSharpTests
         {
             // given:
             var doc = new FbxDocument("");
-            Property prop;
+            FbxProperty prop;
 
             // then:
             Assert.AreEqual(2, CountProperties(doc));

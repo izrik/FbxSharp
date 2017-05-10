@@ -12,7 +12,7 @@ namespace FbxSharpTests
         {
             // given:
             var camera = new FbxCamera("camera");
-            Property prop;
+            FbxProperty prop;
 
             // then:
             Assert.AreEqual(106, CountProperties(camera));

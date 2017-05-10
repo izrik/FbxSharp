@@ -100,7 +100,7 @@ namespace FbxSharpTests
         public void FbxProperty_HierarchicalSeparator()
         {
             // require:
-            Assert.AreEqual("|", Property.sHierarchicalSeparator);
+            Assert.AreEqual("|", FbxProperty.sHierarchicalSeparator);
         }
 
         [Test]

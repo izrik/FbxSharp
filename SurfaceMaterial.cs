@@ -15,8 +15,8 @@ namespace FbxSharp
 
         #region Material Properties
 
-        public readonly PropertyT<string> ShadingModel = new PropertyT<string>("ShadingModel");
-        public readonly PropertyT<bool>   MultiLayer   = new PropertyT<bool>("MultiLayer");
+        public readonly FbxPropertyT<string> ShadingModel = new FbxPropertyT<string>("ShadingModel");
+        public readonly FbxPropertyT<bool>   MultiLayer   = new FbxPropertyT<bool>("MultiLayer");
 
         #endregion
 

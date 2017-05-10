@@ -27,7 +27,7 @@ namespace FbxSharpTests
         public void PrintPropertyPrintsTheProperty()
         {
             // given
-            var prop = new PropertyT<double>("something");
+            var prop = new FbxPropertyT<double>("something");
             var printer = new ObjectPrinter();
             var writer = new StringWriter();
             var expected =

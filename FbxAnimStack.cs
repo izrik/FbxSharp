@@ -16,11 +16,11 @@ namespace FbxSharp
 
         #region Public Attributes
 
-        public readonly PropertyT<string>   Description     = new PropertyT<string>( "Description");
-        public readonly PropertyT<FbxTime>  LocalStart      = new PropertyT<FbxTime>("LocalStart");
-        public readonly PropertyT<FbxTime>  LocalStop       = new PropertyT<FbxTime>("LocalStop");
-        public readonly PropertyT<FbxTime>  ReferenceStart  = new PropertyT<FbxTime>("ReferenceStart");
-        public readonly PropertyT<FbxTime>  ReferenceStop   = new PropertyT<FbxTime>("ReferenceStop");
+        public readonly FbxPropertyT<string>   Description     = new FbxPropertyT<string>( "Description");
+        public readonly FbxPropertyT<FbxTime>  LocalStart      = new FbxPropertyT<FbxTime>("LocalStart");
+        public readonly FbxPropertyT<FbxTime>  LocalStop       = new FbxPropertyT<FbxTime>("LocalStop");
+        public readonly FbxPropertyT<FbxTime>  ReferenceStart  = new FbxPropertyT<FbxTime>("ReferenceStart");
+        public readonly FbxPropertyT<FbxTime>  ReferenceStop   = new FbxPropertyT<FbxTime>("ReferenceStop");
 
         #endregion
 

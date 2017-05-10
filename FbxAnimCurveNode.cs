@@ -13,18 +13,18 @@ namespace FbxSharp
 
         #region Utility Functions
 
-        protected readonly PropertyT<float> channelRootProperty = new PropertyT<float>("d");
+        protected readonly FbxPropertyT<float> channelRootProperty = new FbxPropertyT<float>("d");
 
         protected class Channel
         {
-            public Channel(Property prop)
+            public Channel(FbxProperty prop)
             {
                 Property = prop;
                 Curves = prop.SrcObjects.CreateCollectionView<FbxAnimCurve>();
             }
 
             public string Name { get { return Property.Name; } }
-            public readonly Property Property;
+            public readonly FbxProperty Property;
             public readonly CollectionView<FbxAnimCurve> Curves;
         }
         protected readonly List<Channel> channels = new List<Channel>();
@@ -71,7 +71,7 @@ namespace FbxSharp
 
         public bool AddChannel<T>(string pChnlName, T pValue)
         {
-            var prop = new PropertyT<T>(pChnlName, pValue);
+            var prop = new FbxPropertyT<T>(pChnlName, pValue);
             var ch = new Channel(prop);
             Properties.Add(prop);
             channels.Add(ch);
@@ -98,7 +98,7 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public static FbxAnimCurveNode CreateTypedCurveNode(Property pProperty, Scene pScene)
+        public static FbxAnimCurveNode CreateTypedCurveNode(FbxProperty pProperty, Scene pScene)
         {
             throw new NotImplementedException();
         }

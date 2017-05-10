@@ -324,7 +324,7 @@ namespace FbxSharpTests
         {
             // given:
             var node = new FbxNode("");
-            Property prop;
+            FbxProperty prop;
 
             // then:
             Assert.AreEqual(71, CountProperties(node));
