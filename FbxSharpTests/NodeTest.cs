@@ -11,7 +11,7 @@ namespace FbxSharpTests
         public void RootNode_AddChild_AddsConnection()
         {
             // given:
-            var scene = new Scene("TheScene");
+            var scene = new FbxScene("TheScene");
             var root = scene.GetRootNode();
             var node2 = new FbxNode("ChildNode");
 
@@ -141,7 +141,7 @@ namespace FbxSharpTests
         public void RootNode_AddChild_AddsNodeSubtree()
         {
             // given:
-            var scene = new Scene("TheScene");
+            var scene = new FbxScene("TheScene");
             var root = scene.GetRootNode();
             var node2 = new FbxNode("ChildNode");
             var node3 = new FbxNode("ChildNode");
@@ -224,7 +224,7 @@ namespace FbxSharpTests
         public void RootNode_AddSrcObject_AddsChild()
         {
             // given:
-            var scene = new Scene("TheScene");
+            var scene = new FbxScene("TheScene");
             var root = scene.GetRootNode();
             var node2 = new FbxNode("ChildNode");
 
@@ -904,10 +904,10 @@ namespace FbxSharpTests
         public void Node_AddMaterial_SetsMaterialScene()
         {
             // given:
-            var scene = new Scene("");
+            var scene = new FbxScene("");
             var root = scene.GetRootNode();
             var node = new FbxNode("");
-            var mat = new SurfacePhong("");
+            var mat = new FbxSurfacePhong("");
 
             root.AddChild(node);
 

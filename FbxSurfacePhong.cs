@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public class SurfacePhong : SurfaceLambert
+    public class FbxSurfacePhong : FbxSurfaceLambert
     {
-        public SurfacePhong(string name="")
+        public FbxSurfacePhong(string name="")
             : base(name)
         {
             this.Properties.AddRange(

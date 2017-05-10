@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class FbxCluster : SubDeformer
+    public class FbxCluster : FbxSubDeformer
     {
         public FbxCluster(string name="")
             : base(name)

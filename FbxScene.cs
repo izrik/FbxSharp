@@ -4,15 +4,15 @@ using System.Linq;
 
 namespace FbxSharp
 {
-    public class Scene : FbxDocument
+    public class FbxScene : FbxDocument
     {
-        public Scene(string name="")
+        public FbxScene(string name="")
             : base(name)
         {
             RootNode = new FbxNode();
 
             Poses = SrcObjects.CreateCollectionView<FbxPose>();
-            Materials = SrcObjects.CreateCollectionView<SurfaceMaterial>();
+            Materials = SrcObjects.CreateCollectionView<FbxSurfaceMaterial>();
             Textures = SrcObjects.CreateCollectionView<Texture>();
             Nodes = SrcObjects.CreateCollectionView<FbxNode>();
 
@@ -123,30 +123,30 @@ namespace FbxSharp
 
         #region Material Access
 
-        public readonly CollectionView<SurfaceMaterial> Materials;
+        public readonly CollectionView<FbxSurfaceMaterial> Materials;
 
         public int GetMaterialCount()
         {
             return Materials.Count;
         }
 
-        public SurfaceMaterial GetMaterial(int pIndex)
+        public FbxSurfaceMaterial GetMaterial(int pIndex)
         {
             return Materials[pIndex];
         }
 
-        public SurfaceMaterial GetMaterial(string pName)
+        public FbxSurfaceMaterial GetMaterial(string pName)
         {
             return Materials.FirstOrDefault(m => m.Name == pName);
         }
 
-        public bool AddMaterial(SurfaceMaterial pMaterial)
+        public bool AddMaterial(FbxSurfaceMaterial pMaterial)
         {
             ConnectSrcObject(pMaterial);
             return true;
         }
 
-        public bool RemoveMaterial(SurfaceMaterial pMaterial)
+        public bool RemoveMaterial(FbxSurfaceMaterial pMaterial)
         {
             return DisconnectSrcObject(pMaterial);
         }

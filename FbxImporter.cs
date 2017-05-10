@@ -22,7 +22,7 @@ namespace FbxSharp
         //    throw new NotImplementedException();
         //}
 
-        public Scene Import(string filename)
+        public FbxScene Import(string filename)
         {
             using (var reader = new StreamReader(filename))
             {

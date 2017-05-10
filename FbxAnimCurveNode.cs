@@ -98,7 +98,7 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public static FbxAnimCurveNode CreateTypedCurveNode(FbxProperty pProperty, Scene pScene)
+        public static FbxAnimCurveNode CreateTypedCurveNode(FbxProperty pProperty, FbxScene pScene)
         {
             throw new NotImplementedException();
         }

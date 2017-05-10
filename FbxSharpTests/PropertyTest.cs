@@ -11,7 +11,7 @@ namespace FbxSharpTests
         public void SurfacePhong_FindProperty_FindsProperty()
         {
             // given:
-            var surf = new SurfacePhong("");
+            var surf = new FbxSurfacePhong("");
 
             // when:
             var prop = surf.FindProperty("SpecularColor");
@@ -25,7 +25,7 @@ namespace FbxSharpTests
         public void SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsSrcObject()
         {
             // given:
-            var surf = new SurfacePhong("");
+            var surf = new FbxSurfacePhong("");
             var tex = new Texture("");
 
             // when:
@@ -43,7 +43,7 @@ namespace FbxSharpTests
         public void SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsDstProperty()
         {
             // given:
-            var surf = new SurfacePhong("");
+            var surf = new FbxSurfacePhong("");
             var tex = new Texture("");
 
             // when:
@@ -65,7 +65,7 @@ namespace FbxSharpTests
             var node = new FbxNode("node");
             var acn = new FbxAnimCurveNode("acn");
             var x = new FbxAnimCurve("x");
-            var scene = new Scene("scene");
+            var scene = new FbxScene("scene");
             var layer = new FbxAnimLayer("layer");
             var stack = new FbxAnimStack("stack");
 
@@ -108,7 +108,7 @@ namespace FbxSharpTests
         {
             // given:
             var node = new FbxNode("node");
-            var scene = new Scene("scene");
+            var scene = new FbxScene("scene");
 
             var acn1 = new FbxAnimCurveNode("acn1");
             var ac1 = new FbxAnimCurve("ac1");
@@ -171,7 +171,7 @@ namespace FbxSharpTests
         {
             // given:
             var node = new FbxNode("node");
-            var scene = new Scene("scene");
+            var scene = new FbxScene("scene");
 
             var acn1 = new FbxAnimCurveNode("acn1");
             var ac1 = new FbxAnimCurve("ac1");

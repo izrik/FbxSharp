@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public class SurfaceLambert : SurfaceMaterial
+    public class FbxSurfaceLambert : FbxSurfaceMaterial
     {
-        public SurfaceLambert(string name="")
+        public FbxSurfaceLambert(string name="")
             : base(name)
         {
             this.Properties.AddRange(

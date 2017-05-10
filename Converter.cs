@@ -6,14 +6,14 @@ namespace FbxSharp
 {
     public class Converter
     {
-        public Scene ConvertScene(List<ParseObject> parsedObjects)
+        public FbxScene ConvertScene(List<ParseObject> parsedObjects)
         {
             var parsed = new ParseObject {
                 Name = "Parsed Scene",
                 Properties = parsedObjects,
             };
 
-            var scene = new Scene();
+            var scene = new FbxScene();
 
             var docs = parsed.FindPropertyByName("Documents");
             CheckDocuments(docs);
@@ -214,11 +214,11 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public static Skeleton ConvertSkeleton(ParseObject obj)
+        public static FbxSkeleton ConvertSkeleton(ParseObject obj)
         {
-            var skeleton = new Skeleton();
+            var skeleton = new FbxSkeleton();
             skeleton.Name = ((string)obj.Values[1]);
-            skeleton.SkeletonType = (Skeleton.EType)Enum.Parse(typeof(Skeleton.EType), ((string)obj.Values[2]));
+            skeleton.SkeletonType = (FbxSkeleton.EType)Enum.Parse(typeof(FbxSkeleton.EType), ((string)obj.Values[2]));
 
             var props70 = obj.FindPropertyByName("Properties70");
             if (props70 != null)
@@ -962,7 +962,7 @@ namespace FbxSharp
             return m;
         }
 
-        public static SurfaceMaterial ConvertMaterial(ParseObject obj)
+        public static FbxSurfaceMaterial ConvertMaterial(ParseObject obj)
         {
             var shadingModelProp = obj.FindPropertyByName("ShadingModel");
             if (shadingModelProp == null)
@@ -975,9 +975,9 @@ namespace FbxSharp
             return ConvertPhongMaterial(obj);
         }
 
-        public static SurfacePhong ConvertPhongMaterial(ParseObject obj)
+        public static FbxSurfacePhong ConvertPhongMaterial(ParseObject obj)
         {
-            var material = new SurfacePhong();
+            var material = new FbxSurfacePhong();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1030,9 +1030,9 @@ namespace FbxSharp
             }
         }
 
-        public static Skin ConvertSkin(ParseObject obj)
+        public static FbxSkin ConvertSkin(ParseObject obj)
         {
-            var skin = new Skin();
+            var skin = new FbxSkin();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();

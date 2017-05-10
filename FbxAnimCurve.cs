@@ -12,7 +12,7 @@ namespace FbxSharp
 
         #region Animation curve creation.
 
-        public static FbxAnimCurve Create(Scene pContainer, string pName)
+        public static FbxAnimCurve Create(FbxScene pContainer, string pName)
         {
             throw new NotImplementedException();
         }

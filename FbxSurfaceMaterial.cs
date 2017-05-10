@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public abstract class SurfaceMaterial : FbxObject
+    public abstract class FbxSurfaceMaterial : FbxObject
 	{
-        protected SurfaceMaterial(string name="")
+        protected FbxSurfaceMaterial(string name="")
             : base(name)
         {
             this.Properties.Add(ShadingModel);

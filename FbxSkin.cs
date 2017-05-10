@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public class Skin : FbxDeformer
+    public class FbxSkin : FbxDeformer
     {
-        public Skin(string name="")
+        public FbxSkin(string name="")
             : base(name)
         {
             Geometry = this.DstObjects.CreateObjectView<FbxGeometry>();

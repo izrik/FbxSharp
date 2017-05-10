@@ -12,7 +12,7 @@ namespace FbxSharpTests
         {
             // given:
             var g = new FbxMesh("");
-            var skin = new Skin("");
+            var skin = new FbxSkin("");
 
             // require:
             Assert.AreEqual(0, g.GetDeformerCount());
@@ -33,7 +33,7 @@ namespace FbxSharpTests
         {
             // given:
             var g = new FbxMesh("");
-            var skin = new Skin("");
+            var skin = new FbxSkin("");
 
             // require:
             Assert.AreEqual(0, g.GetDeformerCount());
@@ -54,7 +54,7 @@ namespace FbxSharpTests
         {
             // given:
             var g = new FbxMesh("");
-            var skin = new Skin("");
+            var skin = new FbxSkin("");
             g.AddDeformer(skin);
 
             // require:
@@ -74,7 +74,7 @@ namespace FbxSharpTests
         {
             // given:
             var g = new FbxMesh("");
-            var skin = new Skin("");
+            var skin = new FbxSkin("");
             g.AddDeformer(skin);
 
             // require:

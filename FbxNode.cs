@@ -87,7 +87,7 @@ namespace FbxSharp
 
             DefaultAttributeIndex.Set(-1);
             nodeAttributes = SrcObjects.CreateCollectionView<FbxNodeAttribute>();
-            Materials = SrcObjects.CreateCollectionView<SurfaceMaterial>();
+            Materials = SrcObjects.CreateCollectionView<FbxSurfaceMaterial>();
         }
 
         public bool MultiLayer;
@@ -312,15 +312,15 @@ namespace FbxSharp
 
         #region Material Management
 
-        public readonly CollectionView<SurfaceMaterial> Materials;
+        public readonly CollectionView<FbxSurfaceMaterial> Materials;
 
-        public int AddMaterial(SurfaceMaterial pMaterial)
+        public int AddMaterial(FbxSurfaceMaterial pMaterial)
         {
             ConnectSrcObject(pMaterial);
             return Materials.IndexOf(pMaterial);
         }
 
-        public bool RemoveMaterial(SurfaceMaterial pMaterial)
+        public bool RemoveMaterial(FbxSurfaceMaterial pMaterial)
         {
             return DisconnectSrcObject(pMaterial);
         }
@@ -330,7 +330,7 @@ namespace FbxSharp
             return Materials.Count;
         }
 
-        public SurfaceMaterial GetMaterial(int pIndex)
+        public FbxSurfaceMaterial GetMaterial(int pIndex)
         {
             return Materials[pIndex];
         }

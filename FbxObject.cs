@@ -22,7 +22,7 @@ namespace FbxSharp
             UniqueId = __uniqueId;
             __uniqueId++;
 
-            _scene = DstObjects.CreateObjectView<Scene>();
+            _scene = DstObjects.CreateObjectView<FbxScene>();
         }
 
         public override string ToString()
@@ -32,15 +32,15 @@ namespace FbxSharp
 
         #region General Object Management
 
-        protected readonly ObjectView<Scene> _scene;
-        public Scene Scene
+        protected readonly ObjectView<FbxScene> _scene;
+        public FbxScene Scene
         {
             get
             {
                 return _scene.Get();
             }
         }
-        public Scene GetScene()
+        public FbxScene GetScene()
         {
             return Scene;
         }

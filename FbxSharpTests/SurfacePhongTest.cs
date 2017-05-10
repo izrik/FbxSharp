@@ -11,7 +11,7 @@ namespace FbxSharpTests
         public void SurfacePhong_Create_HasProperties()
         {
             // given:
-            var surface = new SurfacePhong("");
+            var surface = new FbxSurfacePhong("");
             FbxProperty prop;
 
             // then:
@@ -200,7 +200,7 @@ namespace FbxSharpTests
         public void SurfacePhong_Create_HasNamespacePrefix()
         {
             // given:
-            var surface = new SurfacePhong("asdf");
+            var surface = new FbxSurfacePhong("asdf");
 
             // then:
             Assert.AreEqual("Material::", surface.GetNameSpacePrefix());
