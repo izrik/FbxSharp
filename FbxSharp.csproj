@@ -45,7 +45,6 @@
     <Compile Include="Converter.cs" />
     <Compile Include="CollectionView.cs" />
     <Compile Include="ObjectView.cs" />
-    <Compile Include="FbxVector3.cs" />
     <Compile Include="ChangeNotifyList.cs" />
     <Compile Include="VectorHelper.cs" />
     <Compile Include="ObjectDstObjectCollection.cs" />
@@ -123,7 +122,6 @@
     <Compile Include="FbxPoseInfo.NotGenerated.cs" />
     <Compile Include="FbxProperty.NotGenerated.cs" />
     <Compile Include="FbxPropertyFlags.NotGenerated.cs" />
-    <Compile Include="FbxPropertyT.cs" />
     <Compile Include="FbxScene.NotGenerated.cs" />
     <Compile Include="FbxSkeleton.NotGenerated.cs" />
     <Compile Include="FbxSkin.NotGenerated.cs" />
@@ -136,6 +134,8 @@
     <Compile Include="FbxVector2.NotGenerated.cs" />
     <Compile Include="FbxVector4.NotGenerated.cs" />
     <Compile Include="FbxVideo.NotGenerated.cs" />
+    <Compile Include="FbxPropertyT.NotGenerated.cs" />
+    <Compile Include="FbxVector3.NotGenerated.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
