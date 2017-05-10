@@ -41,7 +41,7 @@ namespace FbxSharp
             set { _limbNodeColor = value; }
         }
         public bool IsLimbNodeColorSet { get { return _limbNodeColor.HasValue; } }
-        public FbxColor LimbNodeColorDefaultValue { get { return new FbxColor(new Vector3(0.8f,0.8f,0.8f)); } }
+        public FbxColor LimbNodeColorDefaultValue { get { return new FbxColor(new FbxVector3(0.8f,0.8f,0.8f)); } }
 
         public bool IsSkeletonRoot { get; protected set; }
 

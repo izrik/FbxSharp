@@ -71,12 +71,12 @@ namespace FbxSharp
             eSphere,
         }
 
-        public void SetShadowTexture(Texture pTexture)
+        public void SetShadowTexture(FbxTexture pTexture)
         {
             throw new NotImplementedException();
         }
 
-        public Texture GetShadowTexture()
+        public FbxTexture GetShadowTexture()
         {
             throw new NotImplementedException();
         }
@@ -104,7 +104,7 @@ namespace FbxSharp
         public FbxPropertyT<double>            FarAttenuationStart             = new FbxPropertyT<double>         ("FarAttenuationStart");
         public FbxPropertyT<double>            FarAttenuationEnd               = new FbxPropertyT<double>         ("FarAttenuationEnd");
         public FbxPropertyT<bool>              CastShadows                     = new FbxPropertyT<bool>           ("CastShadows");
-        public FbxPropertyT<Vector3>           ShadowColor                     = new FbxPropertyT<Vector3>        ("ShadowColor");
+        public FbxPropertyT<FbxVector3>           ShadowColor                     = new FbxPropertyT<FbxVector3>        ("ShadowColor");
         public FbxPropertyT<EAreaLightShape>   AreaLightShape                  = new FbxPropertyT<EAreaLightShape>("AreaLightShape");
         public FbxPropertyT<float>             LeftBarnDoor                    = new FbxPropertyT<float>          ("LeftBarnDoor");
         public FbxPropertyT<float>             RightBarnDoor                   = new FbxPropertyT<float>          ("RightBarnDoor");

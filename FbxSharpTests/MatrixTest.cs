@@ -11,9 +11,9 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorNoTransforms_CreatesIdentity()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 0, 0);
-            var s = new Vector4(1, 1, 1);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 0, 0);
+            var s = new FbxVector4(1, 1, 1);
             var m = new FbxMatrix(t, r, s);
 
             // then:
@@ -39,9 +39,9 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorTranslation_CreatesWithTranslation()
         {
             // when:
-            var t = new Vector4(2, 3, 4);
-            var r = new Vector4(0, 0, 0);
-            var s = new Vector4(1, 1, 1);
+            var t = new FbxVector4(2, 3, 4);
+            var r = new FbxVector4(0, 0, 0);
+            var s = new FbxVector4(1, 1, 1);
             var m = new FbxMatrix(t, r, s);
 
             // then:
@@ -67,9 +67,9 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorRotationX_CreatesWithRotationX()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(22.5, 0, 0);
-            var s = new Vector4(1, 1, 1);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(22.5, 0, 0);
+            var s = new FbxVector4(1, 1, 1);
             var m = new FbxMatrix(t, r, s);
 
             // then:
@@ -95,9 +95,9 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorRotationY_CreatesWithRotationY()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 35, 0);
-            var s = new Vector4(1, 1, 1);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 35, 0);
+            var s = new FbxVector4(1, 1, 1);
             var m = new FbxMatrix(t, r, s);
 
             // then:
@@ -123,9 +123,9 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorRotationZ_CreatesWithRotationZ()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 0, 55);
-            var s = new Vector4(1, 1, 1);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 0, 55);
+            var s = new FbxVector4(1, 1, 1);
             var m = new FbxMatrix(t, r, s);
 
             // then:
@@ -151,9 +151,9 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorRotationXY_CreatesWithRotationXY()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(22.5, 35, 0);
-            var s = new Vector4(1, 1, 1);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(22.5, 35, 0);
+            var s = new FbxVector4(1, 1, 1);
             var m = new FbxMatrix(t, r, s);
 
             // then:
@@ -179,9 +179,9 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorRotationYZ_CreatesWithRotationYZ()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 35, 55);
-            var s = new Vector4(1, 1, 1);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 35, 55);
+            var s = new FbxVector4(1, 1, 1);
             var m = new FbxMatrix(t, r, s);
 
             // then:
@@ -207,9 +207,9 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorRotationXZ_CreatesWithRotationXZ()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(22.5, 0, 55);
-            var s = new Vector4(1, 1, 1);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(22.5, 0, 55);
+            var s = new FbxVector4(1, 1, 1);
             var m = new FbxMatrix(t, r, s);
 
             // then:
@@ -235,9 +235,9 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorRotationXYZ_CreatesWithRotationXYZ()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(22.5, 35, 55);
-            var s = new Vector4(1, 1, 1);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(22.5, 35, 55);
+            var s = new FbxVector4(1, 1, 1);
             var m = new FbxMatrix(t, r, s);
 
             // then:
@@ -263,9 +263,9 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorScale_CreatesWithScale()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 0, 0);
-            var s = new Vector4(2, 3, 4);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 0, 0);
+            var s = new FbxVector4(2, 3, 4);
             var m = new FbxMatrix(t, r, s);
 
             // then:
@@ -291,9 +291,9 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorEverything_CreatesMatrix()
         {
             // when:
-            var t = new Vector4(1, 0, 0);
-            var r = new Vector4(22.5, 45, 135);
-            var s = new Vector4(1, 2, 3);
+            var t = new FbxVector4(1, 0, 0);
+            var r = new FbxVector4(22.5, 45, 135);
+            var s = new FbxVector4(1, 2, 3);
             var m = new FbxMatrix(t, r, s);
 
             // then:
@@ -2112,12 +2112,12 @@ namespace FbxSharpTests
         public void MatrixRotationIsCounterClockwiseX()
         {
             // given:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(90, 0, 0);
-            var s = new Vector4(1, 1, 1);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(90, 0, 0);
+            var s = new FbxVector4(1, 1, 1);
             var m = new FbxMatrix(t, r, s);
-            var v = new Vector4();
-            var u = new Vector4();
+            var v = new FbxVector4();
+            var u = new FbxVector4();
 
             // require:
             Assert.AreEqual(1.0, m.Get(0, 0), 0.00001);
@@ -2138,7 +2138,7 @@ namespace FbxSharpTests
             Assert.AreEqual(1.0, m.Get(3, 3), 0.00001);
 
             // when:
-            v = new Vector4(0, 0, 1, 1);
+            v = new FbxVector4(0, 0, 1, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2147,7 +2147,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 0, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(0, 1, 0, 1);
+            v = new FbxVector4(0, 1, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2156,7 +2156,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 1, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(0, 0, -1, 1);
+            v = new FbxVector4(0, 0, -1, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2165,7 +2165,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 0, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(0, -1, 0, 1);
+            v = new FbxVector4(0, -1, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2178,12 +2178,12 @@ namespace FbxSharpTests
         public void MatrixRotationIsCounterClockwiseY()
         {
             // given:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 90, 0);
-            var s = new Vector4(1, 1, 1);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 90, 0);
+            var s = new FbxVector4(1, 1, 1);
             var m = new FbxMatrix(t, r, s);
-            var v = new Vector4();
-            var u = new Vector4();
+            var v = new FbxVector4();
+            var u = new FbxVector4();
 
             // require:
             Assert.AreEqual(0.0, m.Get(0, 0), 0.00001);
@@ -2204,7 +2204,7 @@ namespace FbxSharpTests
             Assert.AreEqual(1.0, m.Get(3, 3), 0.00001);
 
             // when:
-            v = new Vector4(0, 0, 1, 1);
+            v = new FbxVector4(0, 0, 1, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2213,7 +2213,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 0, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(1, 0, 0, 1);
+            v = new FbxVector4(1, 0, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2222,7 +2222,7 @@ namespace FbxSharpTests
             Assert.AreEqual(-1, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(0, 0, -1, 1);
+            v = new FbxVector4(0, 0, -1, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2231,7 +2231,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 0, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(-1, 0, 0, 1);
+            v = new FbxVector4(-1, 0, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2244,12 +2244,12 @@ namespace FbxSharpTests
         public void MatrixRotationIsCounterClockwiseZ()
         {
             // given:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 0, 90);
-            var s = new Vector4(1, 1, 1);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 0, 90);
+            var s = new FbxVector4(1, 1, 1);
             var m = new FbxMatrix(t, r, s);
-            var v = new Vector4();
-            var u = new Vector4();
+            var v = new FbxVector4();
+            var u = new FbxVector4();
 
             // require:
             Assert.AreEqual(0.0, m.Get(0, 0), 0.00001);
@@ -2270,7 +2270,7 @@ namespace FbxSharpTests
             Assert.AreEqual(1.0, m.Get(3, 3), 0.00001);
 
             // when:
-            v = new Vector4(1, 0, 0, 1);
+            v = new FbxVector4(1, 0, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2279,7 +2279,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 0, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(0, 1, 0, 1);
+            v = new FbxVector4(0, 1, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2288,7 +2288,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 0, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(-1, 0, 0, 1);
+            v = new FbxVector4(-1, 0, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2297,7 +2297,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 0, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(0, -1, 0, 1);
+            v = new FbxVector4(0, -1, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2316,19 +2316,19 @@ namespace FbxSharpTests
             */;
 
             // given:
-            var t1 = new Vector4(1, 0, 0);
-            var t2 = new Vector4(0, 0, 0);
-            var r1 = new Vector4(0, 0, 0);
-            var r2 = new Vector4(0, 90, 0);
-            var s = new Vector4(1, 1, 1);
+            var t1 = new FbxVector4(1, 0, 0);
+            var t2 = new FbxVector4(0, 0, 0);
+            var r1 = new FbxVector4(0, 0, 0);
+            var r2 = new FbxVector4(0, 90, 0);
+            var s = new FbxVector4(1, 1, 1);
             var m1 = new FbxMatrix(t1, r1, s);
             var m2 = new FbxMatrix(t2, r2, s);
-            var u = new Vector4();
-            var zero = new Vector4(0, 0, 0, 1);
-            var one = new Vector4(1, 1, 1, 1);
-            var x = new Vector4(1, 0, 0, 1);
-            var y = new Vector4(0, 1, 0, 1);
-            var z = new Vector4(0, 0, 1, 1);
+            var u = new FbxVector4();
+            var zero = new FbxVector4(0, 0, 0, 1);
+            var one = new FbxVector4(1, 1, 1, 1);
+            var x = new FbxVector4(1, 0, 0, 1);
+            var y = new FbxVector4(0, 1, 0, 1);
+            var z = new FbxVector4(0, 0, 1, 1);
 
             // require:
             u = m1.MultNormalize(zero);

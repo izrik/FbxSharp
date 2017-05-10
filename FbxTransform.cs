@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class Transform
+    public class FbxTransform
     {
         public enum EInheritType
         {

@@ -145,13 +145,13 @@ namespace FbxSharp
 
         #region Public Attributes
 
-        public FbxPropertyT<Vector3>                      Position                    = new FbxPropertyT<Vector3>                    ("Position");
-        public FbxPropertyT<Vector3>                      UpVector                    = new FbxPropertyT<Vector3>                    ("UpVector");
-        public FbxPropertyT<Vector3>                      InterestPosition            = new FbxPropertyT<Vector3>                    ("InterestPosition");
+        public FbxPropertyT<FbxVector3>                      Position                    = new FbxPropertyT<FbxVector3>                    ("Position");
+        public FbxPropertyT<FbxVector3>                      UpVector                    = new FbxPropertyT<FbxVector3>                    ("UpVector");
+        public FbxPropertyT<FbxVector3>                      InterestPosition            = new FbxPropertyT<FbxVector3>                    ("InterestPosition");
         public FbxPropertyT<double>                       Roll                        = new FbxPropertyT<double>                     ("Roll");
         public FbxPropertyT<double>                       OpticalCenterX              = new FbxPropertyT<double>                     ("OpticalCenterX");
         public FbxPropertyT<double>                       OpticalCenterY              = new FbxPropertyT<double>                     ("OpticalCenterY");
-        public FbxPropertyT<Vector3>                      BackgroundColor             = new FbxPropertyT<Vector3>                    ("BackgroundColor");
+        public FbxPropertyT<FbxVector3>                      BackgroundColor             = new FbxPropertyT<FbxVector3>                    ("BackgroundColor");
         public FbxPropertyT<double>                       TurnTable                   = new FbxPropertyT<double>                     ("TurnTable");
         public FbxPropertyT<bool>                         DisplayTurnTableIcon        = new FbxPropertyT<bool>                       ("DisplayTurnTableIcon");
         public FbxPropertyT<bool>                         UseMotionBlur               = new FbxPropertyT<bool>                       ("UseMotionBlur");
@@ -169,7 +169,7 @@ namespace FbxSharp
         public FbxPropertyT<double>                       FocalLength                 = new FbxPropertyT<double>                     ("FocalLength");
         public FbxPropertyT<EFormat>                      CameraFormat                = new FbxPropertyT<EFormat>                    ("CameraFormat");
         public FbxPropertyT<bool>                         UseFrameColor               = new FbxPropertyT<bool>                       ("UseFrameColor");
-        public FbxPropertyT<Vector3>                      FrameColor                  = new FbxPropertyT<Vector3>                    ("FrameColor");
+        public FbxPropertyT<FbxVector3>                      FrameColor                  = new FbxPropertyT<FbxVector3>                    ("FrameColor");
         public FbxPropertyT<bool>                         ShowName                    = new FbxPropertyT<bool>                       ("ShowName");
         public FbxPropertyT<bool>                         ShowInfoOnMoving            = new FbxPropertyT<bool>                       ("ShowInfoOnMoving");
         public FbxPropertyT<bool>                         ShowGrid                    = new FbxPropertyT<bool>                       ("ShowGrid");
@@ -177,7 +177,7 @@ namespace FbxSharp
         public FbxPropertyT<bool>                         ShowAzimut                  = new FbxPropertyT<bool>                       ("ShowAzimut");
         public FbxPropertyT<bool>                         ShowTimeCode                = new FbxPropertyT<bool>                       ("ShowTimeCode");
         public FbxPropertyT<bool>                         ShowAudio                   = new FbxPropertyT<bool>                       ("ShowAudio");
-        public FbxPropertyT<Vector3>                      AudioColor                  = new FbxPropertyT<Vector3>                    ("AudioColor");
+        public FbxPropertyT<FbxVector3>                      AudioColor                  = new FbxPropertyT<FbxVector3>                    ("AudioColor");
         public FbxPropertyT<double>                       NearPlane                   = new FbxPropertyT<double>                     ("NearPlane");
         public FbxPropertyT<double>                       FarPlane                    = new FbxPropertyT<double>                     ("FarPlane");
         public FbxPropertyT<bool>                         AutoComputeClipPlanes       = new FbxPropertyT<bool>                       ("AutoComputeClipPanes");
@@ -607,12 +607,12 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public void SetForegroundTexture(Texture pTexture)
+        public void SetForegroundTexture(FbxTexture pTexture)
         {
             throw new NotImplementedException();
         }
 
-        public Texture GetForegroundTexture()
+        public FbxTexture GetForegroundTexture()
         {
             throw new NotImplementedException();
         }
@@ -729,29 +729,29 @@ namespace FbxSharp
 
         #region Utility Functions
 
-        public Vector4 EvaluatePosition()
+        public FbxVector4 EvaluatePosition()
         {
             return EvaluatePosition(FbxTime.Zero);
         }
-        public Vector4 EvaluatePosition(FbxTime pTime)
+        public FbxVector4 EvaluatePosition(FbxTime pTime)
         {
             throw new NotImplementedException();
         }
 
-        public Vector4 EvaluateLookAtPosition()
+        public FbxVector4 EvaluateLookAtPosition()
         {
             return EvaluateLookAtPosition(FbxTime.Zero);
         }
-        public Vector4 EvaluateLookAtPosition(FbxTime pTime)
+        public FbxVector4 EvaluateLookAtPosition(FbxTime pTime)
         {
             throw new NotImplementedException();
         }
 
-        public Vector4 EvaluateUpDirection(Vector4 pCameraPosition, Vector4 pLookAtPosition)
+        public FbxVector4 EvaluateUpDirection(FbxVector4 pCameraPosition, FbxVector4 pLookAtPosition)
         {
             return EvaluateUpDirection(pCameraPosition, pLookAtPosition, FbxTime.Zero);
         }
-        public Vector4 EvaluateUpDirection(Vector4 pCameraPosition, Vector4 pLookAtPosition, FbxTime pTime)
+        public FbxVector4 EvaluateUpDirection(FbxVector4 pCameraPosition, FbxVector4 pLookAtPosition, FbxTime pTime)
         {
             throw new NotImplementedException();
         }
@@ -761,14 +761,14 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public bool IsBoundingBoxInView(FbxMatrix pWorldToScreen, FbxMatrix pWorldToCamera, Vector4 [] pPoints)
+        public bool IsBoundingBoxInView(FbxMatrix pWorldToScreen, FbxMatrix pWorldToCamera, FbxVector4 [] pPoints)
         {
             if (pPoints.Length != 8) throw new ArgumentOutOfRangeException("pPoints");
 
             throw new NotImplementedException();
         }
 
-        public bool IsPointInView(FbxMatrix pWorldToScreen, FbxMatrix pWorldToCamera, Vector4 pPoint)
+        public bool IsPointInView(FbxMatrix pWorldToScreen, FbxMatrix pWorldToCamera, FbxVector4 pPoint)
         {
             throw new NotImplementedException();
         }
@@ -778,11 +778,11 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public Vector4 ComputeScreenToWorld(float pX, float pY, float pWidth, float pHeight)
+        public FbxVector4 ComputeScreenToWorld(float pX, float pY, float pWidth, float pHeight)
         {
             return ComputeScreenToWorld(pX, pY, pWidth, pHeight, FbxTime.Infinite);
         }
-        public Vector4 ComputeScreenToWorld(float pX, float pY, float pWidth, float pHeight, FbxTime pTime)
+        public FbxVector4 ComputeScreenToWorld(float pX, float pY, float pWidth, float pHeight, FbxTime pTime)
         {
             throw new NotImplementedException();
         }

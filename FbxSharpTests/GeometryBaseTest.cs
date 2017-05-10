@@ -44,19 +44,19 @@ namespace FbxSharpTests
 
             // require:
             Assert.AreEqual(4, gb.GetControlPointsCount());
-            Assert.AreEqual(new Vector4(0, 0, 0, 0), gb.GetControlPointAt(0));
-            Assert.AreEqual(new Vector4(0, 0, 0, 0), gb.GetControlPointAt(1));
-            Assert.AreEqual(new Vector4(0, 0, 0, 0), gb.GetControlPointAt(2));
-            Assert.AreEqual(new Vector4(0, 0, 0, 0), gb.GetControlPointAt(3));
+            Assert.AreEqual(new FbxVector4(0, 0, 0, 0), gb.GetControlPointAt(0));
+            Assert.AreEqual(new FbxVector4(0, 0, 0, 0), gb.GetControlPointAt(1));
+            Assert.AreEqual(new FbxVector4(0, 0, 0, 0), gb.GetControlPointAt(2));
+            Assert.AreEqual(new FbxVector4(0, 0, 0, 0), gb.GetControlPointAt(3));
 
             // when:
-            gb.SetControlPointAt(new Vector4(1.2, 3.4, 5.6, 7.8), 2);
+            gb.SetControlPointAt(new FbxVector4(1.2, 3.4, 5.6, 7.8), 2);
 
             // then:
-            Assert.AreEqual(new Vector4(0, 0, 0, 0), gb.GetControlPointAt(0));
-            Assert.AreEqual(new Vector4(0, 0, 0, 0), gb.GetControlPointAt(1));
-            Assert.AreEqual(new Vector4(1.2, 3.4, 5.6, 7.8), gb.GetControlPointAt(2));
-            Assert.AreEqual(new Vector4(0, 0, 0, 0), gb.GetControlPointAt(3));
+            Assert.AreEqual(new FbxVector4(0, 0, 0, 0), gb.GetControlPointAt(0));
+            Assert.AreEqual(new FbxVector4(0, 0, 0, 0), gb.GetControlPointAt(1));
+            Assert.AreEqual(new FbxVector4(1.2, 3.4, 5.6, 7.8), gb.GetControlPointAt(2));
+            Assert.AreEqual(new FbxVector4(0, 0, 0, 0), gb.GetControlPointAt(3));
         }
     }
 }

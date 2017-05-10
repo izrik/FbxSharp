@@ -47,7 +47,7 @@ namespace FbxSharp
         public FbxPropertyT<bool>      Mute                        = new FbxPropertyT<bool>("Mute");
         public FbxPropertyT<bool>      Solo                        = new FbxPropertyT<bool>("Solo");
         public FbxPropertyT<bool>      Lock                        = new FbxPropertyT<bool>("Lock");
-        public FbxPropertyT<Vector3>   Color                       = new FbxPropertyT<Vector3>("Color");
+        public FbxPropertyT<FbxVector3>   Color                       = new FbxPropertyT<FbxVector3>("Color");
 //        public PropertyT<FbxEnum>   BlendMode                   = new PropertyT<FbxEnum>("BlendMode");
 //        public PropertyT<FbxEnum>   RotationAccumulationMode    = new PropertyT<FbxEnum>("RotationAccumulationMode");
 //        public PropertyT<FbxEnum>   ScaleAccumulationMode       = new PropertyT<FbxEnum>("ScaleAccumulationMode");

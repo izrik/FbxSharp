@@ -18,14 +18,14 @@ namespace FbxSharp
             Blue = pBlue;
             Alpha = pAlpha;
         }
-        public FbxColor(Vector3 pRGB, double pAlpha=1.0)
+        public FbxColor(FbxVector3 pRGB, double pAlpha=1.0)
         {
             Red = pRGB.X;
             Green = pRGB.Y;
             Blue = pRGB.Z;
             Alpha = pAlpha;
         }
-        public FbxColor(Vector4 pRGBA)
+        public FbxColor(FbxVector4 pRGBA)
         {
             Red = pRGBA.X;
             Green = pRGBA.Y;
@@ -43,14 +43,14 @@ namespace FbxSharp
             return string.Format("{{R:{0} G:{1} B:{2} A:{3}}}", Red, Green, Blue, Alpha);
         }
 
-        public Vector4 ToVector4()
+        public FbxVector4 ToVector4()
         {
-            return new Vector4(Red, Green, Blue, Alpha);
+            return new FbxVector4(Red, Green, Blue, Alpha);
         }
 
-        public Vector3 ToVector3()
+        public FbxVector3 ToVector3()
         {
-            return new Vector3(Red, Green, Blue);
+            return new FbxVector3(Red, Green, Blue);
         }
     }
 }

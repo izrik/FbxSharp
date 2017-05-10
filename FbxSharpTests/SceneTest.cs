@@ -281,7 +281,7 @@ namespace FbxSharpTests
             var node = new FbxNode("n");
             var m1 = new FbxMesh("m1");
             var m2 = new FbxMesh("m2");
-            var v = new Video("v");
+            var v = new FbxVideo("v");
             var c = new FbxCluster("c");
             var n2 = new FbxNode("n2");
             var c2 = new FbxCluster("c2");

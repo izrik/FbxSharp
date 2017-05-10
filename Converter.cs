@@ -298,12 +298,12 @@ namespace FbxSharp
             var name = ((string)obj.Values[1]);
             var camera = new FbxCamera(name);
 
-            Vector3 position;
-            Vector3 up;
-            Vector3 lookAt;
+            FbxVector3 position;
+            FbxVector3 up;
+            FbxVector3 lookAt;
             bool showInfoOnMoving;
             bool showAudio;
-            Vector3 audioColor;
+            FbxVector3 audioColor;
             double cameraOrthoZoom;
 
             foreach (var prop in obj.Properties)
@@ -322,19 +322,19 @@ namespace FbxSharp
                         throw new NotImplementedException();
                     break;
                 case "Position":
-                    position = new Vector3(
+                    position = new FbxVector3(
                         ((Number)prop.Values[0]).AsDouble.Value,
                         ((Number)prop.Values[1]).AsDouble.Value,
                         ((Number)prop.Values[2]).AsDouble.Value);
                     break;
                 case "Up":
-                    up = new Vector3(
+                    up = new FbxVector3(
                         ((Number)prop.Values[0]).AsDouble.Value,
                         ((Number)prop.Values[1]).AsDouble.Value,
                         ((Number)prop.Values[2]).AsDouble.Value);
                     break;
                 case "LookAt":
-                    lookAt = new Vector3(
+                    lookAt = new FbxVector3(
                         ((Number)prop.Values[0]).AsDouble.Value,
                         ((Number)prop.Values[1]).AsDouble.Value,
                         ((Number)prop.Values[2]).AsDouble.Value);
@@ -346,7 +346,7 @@ namespace FbxSharp
                     showAudio = (((Number)prop.Values[0]).AsLong.Value != 0);
                     break;
                 case "AudioColor":
-                    audioColor = new Vector3(
+                    audioColor = new FbxVector3(
                         ((Number)prop.Values[0]).AsDouble.Value,
                         ((Number)prop.Values[1]).AsDouble.Value,
                         ((Number)prop.Values[2]).AsDouble.Value);
@@ -707,11 +707,11 @@ namespace FbxSharp
                 case "Vector":
                 case "Vector3":
                 case "Vector3D":
-                    propType = typeof(Vector3);
+                    propType = typeof(FbxVector3);
                     var x = ((Number)p.Values[4]).AsDouble.Value;
                     var y = ((Number)p.Values[5]).AsDouble.Value;
                     var z = ((Number)p.Values[6]).AsDouble.Value;
-                    propValue = new Vector3(x, y, z);
+                    propValue = new FbxVector3(x, y, z);
                     break;
                 case "int":
                     propType = typeof(int);
@@ -720,13 +720,13 @@ namespace FbxSharp
                 case "Lcl Translation":
                 case "Lcl Rotation":
                 case "Lcl Scaling":
-                    propType = typeof(Vector3);
+                    propType = typeof(FbxVector3);
                     x = ((Number)p.Values[4]).AsDouble.Value;
                     y = ((Number)p.Values[5]).AsDouble.Value;
                     z = ((Number)p.Values[6]).AsDouble.Value;
                     if (comment != "A+" && comment != "A")
                         throw new NotImplementedException();
-                    propValue = new Vector3(x, y, z);
+                    propValue = new FbxVector3(x, y, z);
                     break;
                 case "KString":
                     propType = typeof(string);
@@ -772,7 +772,7 @@ namespace FbxSharp
             int i;
             for (i = 0; i+2 < values.Count; i+=3)
             {
-                var v = new Vector4(
+                var v = new FbxVector4(
                         ((Number)values[i]).AsDouble.Value,
                         ((Number)values[i+1]).AsDouble.Value,
                         ((Number)values[i+2]).AsDouble.Value,
@@ -1111,9 +1111,9 @@ namespace FbxSharp
             return cluster;
         }
 
-        public static Video ConvertVideo(ParseObject obj)
+        public static FbxVideo ConvertVideo(ParseObject obj)
         {
-            var video = new Video();
+            var video = new FbxVideo();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1149,9 +1149,9 @@ namespace FbxSharp
             return video;
         }
 
-        public static Texture ConvertTexture(ParseObject obj)
+        public static FbxTexture ConvertTexture(ParseObject obj)
         {
-            var texture = new Texture();
+            var texture = new FbxTexture();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1196,7 +1196,7 @@ namespace FbxSharp
                     texture.ModelUVScaling = ConvertVector2(prop.Values);
                     break;
                 case "Texture_Alpha_Source":
-                    texture.AlphaSource = (Texture.EAlphaSource)Enum.Parse(typeof(Texture.EAlphaSource), (string)prop.Values[0]);
+                    texture.AlphaSource = (FbxTexture.EAlphaSource)Enum.Parse(typeof(FbxTexture.EAlphaSource), (string)prop.Values[0]);
                     break;
                 case "Cropping":
                     texture.Cropping = ConvertVector4(prop.Values);
@@ -1209,27 +1209,27 @@ namespace FbxSharp
             return texture;
         }
 
-        public static Vector2 ConvertVector2(List<object> values, int startIndex=0)
+        public static FbxVector2 ConvertVector2(List<object> values, int startIndex=0)
         {
             return
-                new Vector2(
+                new FbxVector2(
                     ((Number)values[startIndex]).AsDouble.Value,
                     ((Number)values[startIndex + 1]).AsDouble.Value);
         }
 
-        public static Vector3 ConvertVector3(List<object> values, int startIndex=0)
+        public static FbxVector3 ConvertVector3(List<object> values, int startIndex=0)
         {
             return
-                new Vector3(
+                new FbxVector3(
                     ((Number)values[startIndex]).AsDouble.Value,
                     ((Number)values[startIndex + 1]).AsDouble.Value,
                     ((Number)values[startIndex + 2]).AsDouble.Value);
         }
 
-        public static Vector4 ConvertVector4(List<object> values, int startIndex=0)
+        public static FbxVector4 ConvertVector4(List<object> values, int startIndex=0)
         {
             return
-                new Vector4(
+                new FbxVector4(
                     ((Number)values[startIndex]).AsDouble.Value,
                     ((Number)values[startIndex + 1]).AsDouble.Value,
                     ((Number)values[startIndex + 2]).AsDouble.Value,

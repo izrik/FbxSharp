@@ -62,7 +62,7 @@ namespace FbxSharp
 
         #region Public Attributes
 
-        public readonly FbxPropertyT<Vector3> Color = new FbxPropertyT<Vector3>("Color");
+        public readonly FbxPropertyT<FbxVector3> Color = new FbxPropertyT<FbxVector3>("Color");
 
         #endregion
 

@@ -32,7 +32,7 @@ namespace FbxSharp
         //{
         //    throw new NotImplementedException();
         //}
-        public FbxMatrix(Vector4 pT, Vector4 pR, Vector4 pS)
+        public FbxMatrix(FbxVector4 pT, FbxVector4 pR, FbxVector4 pS)
         {
             var s = CreateScale(pS);
             var x = FbxMatrix.CreateRotationX(pR.X);
@@ -215,11 +215,11 @@ namespace FbxSharp
             throw new ArgumentOutOfRangeException("pY, pX");
         }
 
-        public static FbxMatrix CreateTranslation(Vector3 t)
+        public static FbxMatrix CreateTranslation(FbxVector3 t)
         {
             return CreateTranslation(t.X, t.Y, t.Z);
         }
-        public static FbxMatrix CreateTranslation(Vector4 t)
+        public static FbxMatrix CreateTranslation(FbxVector4 t)
         {
             return CreateTranslation(t.X, t.Y, t.Z);
         }
@@ -271,11 +271,11 @@ namespace FbxSharp
         {
             return CreateScale(s, s, s);
         }
-        public static FbxMatrix CreateScale(Vector3 s)
+        public static FbxMatrix CreateScale(FbxVector3 s)
         {
             return CreateScale(s.X, s.Y, s.Z);
         }
-        public static FbxMatrix CreateScale(Vector4 s)
+        public static FbxMatrix CreateScale(FbxVector4 s)
         {
             return CreateScale(s.X, s.Y, s.Z);
         }
@@ -316,9 +316,9 @@ namespace FbxSharp
                 a.M30 * b.M03 + a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33);
         }
 
-        public Vector4 MultNormalize(Vector4 pVector)
+        public FbxVector4 MultNormalize(FbxVector4 pVector)
         {
-            return new Vector4(
+            return new FbxVector4(
                 this.M00 * pVector.X + this.M01 * pVector.Y + this.M02 * pVector.Z + this.M03 * pVector.W,
                 this.M10 * pVector.X + this.M11 * pVector.Y + this.M12 * pVector.Z + this.M13 * pVector.W,
                 this.M20 * pVector.X + this.M21 * pVector.Y + this.M22 * pVector.Z + this.M23 * pVector.W,

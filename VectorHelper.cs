@@ -5,7 +5,7 @@ namespace FbxSharp
 {
     public static class VectorHelper
     {
-        public static IEnumerable<Vector2> ToVector2List(this IEnumerable<double> values)
+        public static IEnumerable<FbxVector2> ToVector2List(this IEnumerable<double> values)
         {
             int k = 0;
             double x = 0;
@@ -14,14 +14,14 @@ namespace FbxSharp
                 if (k % 2 == 0)
                     x = f;
                 else
-                    yield return new Vector2(x, f);
+                    yield return new FbxVector2(x, f);
                 k++;
             }
 
             yield break;
         }
 
-        public static IEnumerable<Vector3> ToVector3List(this IEnumerable<double> values)
+        public static IEnumerable<FbxVector3> ToVector3List(this IEnumerable<double> values)
         {
             int k = 0;
             double x = 0;
@@ -33,7 +33,7 @@ namespace FbxSharp
                 case 0: x = f; break;
                 case 1: y = f; break;
                 case 2:
-                    yield return new Vector3(x, y, f);
+                    yield return new FbxVector3(x, y, f);
                     break;
                 }
                 k++;
@@ -42,7 +42,7 @@ namespace FbxSharp
             yield break;
         }
 
-        public static IEnumerable<Vector4> ToVector4List(this IEnumerable<double> values)
+        public static IEnumerable<FbxVector4> ToVector4List(this IEnumerable<double> values)
         {
             int k = 0;
             double x = 0;
@@ -56,7 +56,7 @@ namespace FbxSharp
                 case 1: y = f; break;
                 case 2: z = f; break;
                 case 3:
-                    yield return new Vector4(x, y, z, f);
+                    yield return new FbxVector4(x, y, z, f);
                     break;
                 }
                 k++;

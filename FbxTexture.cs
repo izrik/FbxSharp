@@ -2,9 +2,9 @@
 
 namespace FbxSharp
 {
-    public class Texture : FbxObject
+    public class FbxTexture : FbxObject
     {
-        public Texture(string name="")
+        public FbxTexture(string name="")
             : base(name)
         {
         }
@@ -16,8 +16,8 @@ namespace FbxSharp
         public string Filename;
         public string RelativeFilename;
 
-        public Vector2 ModelUVTranslation;
-        public Vector2 ModelUVScaling;
+        public FbxVector2 ModelUVTranslation;
+        public FbxVector2 ModelUVScaling;
 
         public enum EAlphaSource
         {
@@ -26,8 +26,8 @@ namespace FbxSharp
             Black
         };
 
-        public Texture.EAlphaSource AlphaSource;
-        public Vector4 Cropping;
+        public FbxTexture.EAlphaSource AlphaSource;
+        public FbxVector4 Cropping;
     }
 }
 

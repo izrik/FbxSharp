@@ -13,7 +13,7 @@ namespace FbxSharp
 
             Poses = SrcObjects.CreateCollectionView<FbxPose>();
             Materials = SrcObjects.CreateCollectionView<FbxSurfaceMaterial>();
-            Textures = SrcObjects.CreateCollectionView<Texture>();
+            Textures = SrcObjects.CreateCollectionView<FbxTexture>();
             Nodes = SrcObjects.CreateCollectionView<FbxNode>();
 
             SrcObjects.Add(new FbxGlobalSettings());
@@ -155,30 +155,30 @@ namespace FbxSharp
 
         #region Texture Access
 
-        public readonly CollectionView<Texture> Textures;
+        public readonly CollectionView<FbxTexture> Textures;
 
         public int GetTextureCount()
         {
             return Textures.Count;
         }
 
-        public Texture GetTexture(int pIndex)
+        public FbxTexture GetTexture(int pIndex)
         {
             return Textures[pIndex];
         }
 
-        public Texture GetTexture(string pName)
+        public FbxTexture GetTexture(string pName)
         {
             return Textures.FirstOrDefault(t => t.Name == pName);
         }
 
-        public bool AddTexture(Texture pTexture)
+        public bool AddTexture(FbxTexture pTexture)
         {
             ConnectSrcObject(pTexture);
             return true;
         }
 
-        public bool RemoveTexture(Texture pTexture)
+        public bool RemoveTexture(FbxTexture pTexture)
         {
             return DisconnectSrcObject(pTexture);
         }

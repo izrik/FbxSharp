@@ -26,7 +26,7 @@ namespace FbxSharpTests
         {
             // given:
             var surf = new FbxSurfacePhong("");
-            var tex = new Texture("");
+            var tex = new FbxTexture("");
 
             // when:
             var result = surf.Diffuse.ConnectSrcObject(tex);
@@ -44,7 +44,7 @@ namespace FbxSharpTests
         {
             // given:
             var surf = new FbxSurfacePhong("");
-            var tex = new Texture("");
+            var tex = new FbxTexture("");
 
             // when:
             var result = surf.Diffuse.ConnectSrcObject(tex);

@@ -2,18 +2,18 @@
 
 namespace FbxSharp
 {
-    public struct Vector3
+    public struct FbxVector3
     {
-        public static readonly Vector3 Zero = new Vector3(0, 0, 0);
-        public static readonly Vector3 One = new Vector3(1, 1, 1);
+        public static readonly FbxVector3 Zero = new FbxVector3(0, 0, 0);
+        public static readonly FbxVector3 One = new FbxVector3(1, 1, 1);
 
-        public Vector3(Vector3 pValue)
+        public FbxVector3(FbxVector3 pValue)
         {
             X = pValue.X;
             Y = pValue.Y;
             Z = pValue.Z;
         }
-        public Vector3(double pX, double pY, double pZ)
+        public FbxVector3(double pX, double pY, double pZ)
         {
             X = pX;
             Y = pY;
@@ -43,16 +43,16 @@ namespace FbxSharp
             }
         }
 
-        public static bool operator ==(Vector3 u, Vector3 v)
+        public static bool operator ==(FbxVector3 u, FbxVector3 v)
         {
             return u.Equals(v);
         }
-        public static bool operator !=(Vector3 u, Vector3 v)
+        public static bool operator !=(FbxVector3 u, FbxVector3 v)
         {
             return !u.Equals(v);
         }
 
-        public bool Equals(Vector3 other)
+        public bool Equals(FbxVector3 other)
         {
             return (this.X == other.X &&
                 this.Y == other.Y &&
@@ -60,9 +60,9 @@ namespace FbxSharp
         }
         public override bool Equals(object obj)
         {
-            if (obj is Vector3)
+            if (obj is FbxVector3)
             {
-                return Equals((Vector3)obj);
+                return Equals((FbxVector3)obj);
             }
             else
             {
@@ -74,9 +74,9 @@ namespace FbxSharp
             return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
         }
 
-        public Vector4 ToVector4(double w=0)
+        public FbxVector4 ToVector4(double w=0)
         {
-            return new Vector4(X, Y, Z, w);
+            return new FbxVector4(X, Y, Z, w);
         }
     }
 }

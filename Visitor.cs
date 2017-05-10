@@ -27,8 +27,8 @@ namespace FbxSharp
         public virtual void Visit(FbxDeformer obj) { }
         public virtual void Visit(FbxPose pose) { }
         public virtual void Visit(FbxSubDeformer obj) { }
-        public virtual void Visit(Texture obj) { }
-        public virtual void Visit(Video obj) { }
+        public virtual void Visit(FbxTexture obj) { }
+        public virtual void Visit(FbxVideo obj) { }
         public virtual void Visit(FbxCamera obj) { }
         public virtual void Visit(FbxLight obj) { }
         public virtual void Visit(FbxNull obj) { }
@@ -99,10 +99,10 @@ namespace FbxSharp
                 AcceptPose((FbxPose)obj, visitedObjects);
             else if (type == typeof(FbxSubDeformer))
                 AcceptSubDeformer((FbxSubDeformer)obj, visitedObjects);
-            else if (type == typeof(Texture))
-                AcceptTexture((Texture)obj, visitedObjects);
-            else if (type == typeof(Video))
-                AcceptVideo((Video)obj, visitedObjects);
+            else if (type == typeof(FbxTexture))
+                AcceptTexture((FbxTexture)obj, visitedObjects);
+            else if (type == typeof(FbxVideo))
+                AcceptVideo((FbxVideo)obj, visitedObjects);
             else if (type == typeof(FbxCamera))
                 AcceptCamera((FbxCamera)obj, visitedObjects);
             else if (type == typeof(FbxLight))
@@ -447,13 +447,13 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        protected void AcceptTexture(Texture obj, ISet<object> visitedObjects)
+        protected void AcceptTexture(FbxTexture obj, ISet<object> visitedObjects)
         {
             AcceptFbxObject(obj, visitedObjects);
             Visit(obj);
         }
 
-        protected void AcceptVideo(Video obj, ISet<object> visitedObjects)
+        protected void AcceptVideo(FbxVideo obj, ISet<object> visitedObjects)
         {
             AcceptFbxObject(obj, visitedObjects);
             Visit(obj);

@@ -245,9 +245,9 @@ namespace FbxSharp
             float f;
             double d;
             string fstr;
-            Vector2 v2;
-            Vector3 v3;
-            Vector4 v4;
+            FbxVector2 v2;
+            FbxVector3 v3;
+            FbxVector4 v4;
             string s;
             FbxTime t;
             var sb = new StringBuilder();
@@ -343,23 +343,23 @@ namespace FbxSharp
             }
 //                break;
 //            case eFbxDouble2:
-            if (type == typeof(Vector2))
+            if (type == typeof(FbxVector2))
             {
-                v2 = prop.Get<Vector2>();
+                v2 = prop.Get<FbxVector2>();
                 sb.AppendFormat("{0}, {1}", v2.X, v2.Y);
             }
 //                break;
 //            case eFbxDouble3:
             if (type == typeof(sbyte))
             {
-                v3 = prop.Get<Vector3>();
+                v3 = prop.Get<FbxVector3>();
                 sb.AppendFormat("{0}, {1}, {2}", v3.X, v3.Y, v3.Z);
             }
 //                break;
 //            case eFbxDouble4:
             if (type == typeof(sbyte))
             {
-                v4 = prop.Get<Vector4>();
+                v4 = prop.Get<FbxVector4>();
                 sb.AppendFormat("{0}, {1}, {2}, {3}", v4.X, v4.Y, v4.Z, v4.W);
             }
 //                break;

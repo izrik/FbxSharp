@@ -12,9 +12,9 @@ namespace FbxSharpTests
         {
             // given:
             var node = new FbxNode("");
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 0, 0);
-            var s = new Vector4(1, 1, 1);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 0, 0);
+            var s = new FbxVector4(1, 1, 1);
             var expected = new FbxMatrix(t, r, s);
 
             // when:
@@ -29,9 +29,9 @@ namespace FbxSharpTests
         {
             // given:
             var node = new FbxNode("");
-            var t = new Vector4(2, 3, 4);
-            var r = new Vector4(0, 0, 0);
-            var s = new Vector4(1, 1, 1);
+            var t = new FbxVector4(2, 3, 4);
+            var r = new FbxVector4(0, 0, 0);
+            var s = new FbxVector4(1, 1, 1);
             var expected = new FbxMatrix(t, r, s);
             node.LclTranslation.Set(t);
 
@@ -47,9 +47,9 @@ namespace FbxSharpTests
         {
             // given:
             var node = new FbxNode("");
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(22, 33, 44);
-            var s = new Vector4(1, 1, 1);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(22, 33, 44);
+            var s = new FbxVector4(1, 1, 1);
             var expected = new FbxMatrix(t, r, s);
             node.LclRotation.Set(r);
 
@@ -65,9 +65,9 @@ namespace FbxSharpTests
         {
             // given:
             var node = new FbxNode("");
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 0, 0);
-            var s = new Vector4(5, 6, 7);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 0, 0);
+            var s = new FbxVector4(5, 6, 7);
             var expected = new FbxMatrix(t, r, s);
             node.LclScaling.Set(s);
 
@@ -85,8 +85,8 @@ namespace FbxSharpTests
             var node1 = new FbxNode("node1");
             var node2 = new FbxNode("node2");
             node1.AddChild(node2);
-            var t = new Vector4(2, 3, 4);
-            var r = new Vector4(45, 0, 0);
+            var t = new FbxVector4(2, 3, 4);
+            var r = new FbxVector4(45, 0, 0);
             node1.LclTranslation.Set(t);
             node2.LclRotation.Set(r);
 
@@ -140,8 +140,8 @@ namespace FbxSharpTests
             var node1 = new FbxNode("node1");
             var node2 = new FbxNode("node2");
             node1.AddChild(node2);
-            var t = new Vector4(2, 3, 4);
-            var r = new Vector4(45, 0, 0);
+            var t = new FbxVector4(2, 3, 4);
+            var r = new FbxVector4(45, 0, 0);
             node1.LclRotation.Set(r);
             node2.LclTranslation.Set(t);
 
@@ -195,8 +195,8 @@ namespace FbxSharpTests
             var node1 = new FbxNode("node1");
             var node2 = new FbxNode("node2");
             node1.AddChild(node2);
-            var r1 = new Vector4(45, 0, 0);
-            var r2 = new Vector4(0, 60, 0);
+            var r1 = new FbxVector4(45, 0, 0);
+            var r2 = new FbxVector4(0, 60, 0);
             node1.LclRotation.Set(r1);
             node2.LclRotation.Set(r2);
 

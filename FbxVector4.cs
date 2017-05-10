@@ -2,25 +2,25 @@
 
 namespace FbxSharp
 {
-    public struct Vector4
+    public struct FbxVector4
     {
-        public static readonly Vector4 Zero = new Vector4(0, 0, 0, 0);
+        public static readonly FbxVector4 Zero = new FbxVector4(0, 0, 0, 0);
 
-        public Vector4(double pX, double pY, double pZ, double pW=1.0)
+        public FbxVector4(double pX, double pY, double pZ, double pW=1.0)
         {
             X = pX;
             Y = pY;
             Z = pZ;
             W = pW;
         }
-        public Vector4(double[] pValue)
+        public FbxVector4(double[] pValue)
         {
             X = pValue[0];
             Y = pValue[1];
             Z = pValue[2];
             W = pValue[3];
         }
-        public Vector4(Vector3 pValue, double pW=1.0)
+        public FbxVector4(FbxVector3 pValue, double pW=1.0)
         {
             X = pValue.X;
             Y = pValue.Y;
@@ -38,9 +38,9 @@ namespace FbxSharp
             return string.Format("{{X:{0} Y:{1} Z:{2} W:{3}}}", X, Y, Z, W);
         }
 
-        public Vector3 ToVector3()
+        public FbxVector3 ToVector3()
         {
-            return new Vector3(X, Y, Z);
+            return new FbxVector3(X, Y, Z);
         }
 
         public double this [ int index ]

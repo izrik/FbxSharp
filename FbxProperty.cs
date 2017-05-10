@@ -8,8 +8,8 @@ namespace FbxSharp
     {
         static FbxProperty()
         {
-            AddConverter(typeof(Vector4), typeof(Vector3), (v4) => ((Vector4)v4).ToVector3());
-            AddConverter(typeof(Vector3), typeof(Vector4), (v3) => ((Vector3)v3).ToVector4());
+            AddConverter(typeof(FbxVector4), typeof(FbxVector3), (v4) => ((FbxVector4)v4).ToVector3());
+            AddConverter(typeof(FbxVector3), typeof(FbxVector4), (v3) => ((FbxVector3)v3).ToVector4());
         }
 
         protected FbxProperty(string name)
@@ -304,12 +304,12 @@ namespace FbxSharp
                     return (T)(object)values[0];
                 if (type ==  typeof(double))
                     return (T)(object)(double)values[0];
-                if (type ==  typeof(Vector2))
-                    return (T)(object)(new Vector2(values[0], values[1]));
-                if (type ==  typeof(Vector3))
-                    return (T)(object)(new Vector3(values[0], values[1], values[2]));
-                if (type ==  typeof(Vector4))
-                    return (T)(object)(new Vector4(values[0], values[1], values[2], values[3]));
+                if (type ==  typeof(FbxVector2))
+                    return (T)(object)(new FbxVector2(values[0], values[1]));
+                if (type ==  typeof(FbxVector3))
+                    return (T)(object)(new FbxVector3(values[0], values[1], values[2]));
+                if (type ==  typeof(FbxVector4))
+                    return (T)(object)(new FbxVector4(values[0], values[1], values[2], values[3]));
 
                 throw new NotImplementedException(
                     string.Format(

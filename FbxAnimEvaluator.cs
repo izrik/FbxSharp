@@ -35,31 +35,31 @@ namespace FbxSharp
             return m;
         }
 
-        public Vector4 GetNodeLocalTranslation(FbxNode pNode)
+        public FbxVector4 GetNodeLocalTranslation(FbxNode pNode)
         {
             return GetNodeLocalTranslation(pNode, FbxTime.Infinite);
         }
-        public Vector4 GetNodeLocalTranslation(FbxNode pNode, FbxTime pTime, FbxNode.EPivotSet pPivotSet=FbxNode.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
+        public FbxVector4 GetNodeLocalTranslation(FbxNode pNode, FbxTime pTime, FbxNode.EPivotSet pPivotSet=FbxNode.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
         {
-            return GetPropertyValue<Vector4>(pNode.LclTranslation, pTime, pForceEval);
+            return GetPropertyValue<FbxVector4>(pNode.LclTranslation, pTime, pForceEval);
         }
 
-        public Vector4 GetNodeLocalRotation(FbxNode pNode)
+        public FbxVector4 GetNodeLocalRotation(FbxNode pNode)
         {
             return GetNodeLocalRotation(pNode, FbxTime.Infinite);
         }
-        public Vector4 GetNodeLocalRotation(FbxNode pNode, FbxTime pTime, FbxNode.EPivotSet pPivotSet=FbxNode.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
+        public FbxVector4 GetNodeLocalRotation(FbxNode pNode, FbxTime pTime, FbxNode.EPivotSet pPivotSet=FbxNode.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
         {
-            return GetPropertyValue<Vector4>(pNode.LclRotation, pTime, pForceEval);
+            return GetPropertyValue<FbxVector4>(pNode.LclRotation, pTime, pForceEval);
         }
 
-        public Vector4 GetNodeLocalScaling(FbxNode pNode)
+        public FbxVector4 GetNodeLocalScaling(FbxNode pNode)
         {
             return GetNodeLocalScaling(pNode, FbxTime.Infinite);
         }
-        public Vector4 GetNodeLocalScaling(FbxNode pNode, FbxTime pTime, FbxNode.EPivotSet pPivotSet=FbxNode.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
+        public FbxVector4 GetNodeLocalScaling(FbxNode pNode, FbxTime pTime, FbxNode.EPivotSet pPivotSet=FbxNode.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
         {
-            return GetPropertyValue<Vector4>(pNode.LclScaling, pTime, pForceEval);
+            return GetPropertyValue<FbxVector4>(pNode.LclScaling, pTime, pForceEval);
         }
 
         public T GetPropertyValue<T>(FbxProperty pProperty, FbxTime pTime, bool pForceEval=false)
@@ -97,11 +97,11 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public void ComputeLocalTRSFromGlobal(out Vector4 pRetLT, out Vector4 pRetLR, out Vector4 pRetLS, FbxNode pNode, FbxMatrix pGX)
+        public void ComputeLocalTRSFromGlobal(out FbxVector4 pRetLT, out FbxVector4 pRetLR, out FbxVector4 pRetLS, FbxNode pNode, FbxMatrix pGX)
         {
             ComputeLocalTRSFromGlobal(out pRetLT, out pRetLR, out pRetLS, pNode, pGX, FbxTime.Infinite);
         }
-        public void ComputeLocalTRSFromGlobal(out Vector4 pRetLT, out Vector4 pRetLR, out Vector4 pRetLS, FbxNode pNode, FbxMatrix pGX, FbxTime pTime, FbxNode.EPivotSet pPivotSet=FbxNode.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
+        public void ComputeLocalTRSFromGlobal(out FbxVector4 pRetLT, out FbxVector4 pRetLR, out FbxVector4 pRetLS, FbxNode pNode, FbxMatrix pGX, FbxTime pTime, FbxNode.EPivotSet pPivotSet=FbxNode.EPivotSet.eSourcePivot, bool pApplyTarget=false, bool pForceEval=false)
         {
             throw new NotImplementedException();
         }

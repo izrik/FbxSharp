@@ -2,14 +2,14 @@
 
 namespace FbxSharp
 {
-    public struct Vector2
+    public struct FbxVector2
     {
-        public Vector2(double pX, double pY)
+        public FbxVector2(double pX, double pY)
         {
             X = pX;
             Y = pY;
         }
-        public Vector2(double[] pValue)
+        public FbxVector2(double[] pValue)
         {
             X = pValue[0];
             Y = pValue[1];
