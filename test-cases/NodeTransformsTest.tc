@@ -1,11 +1,11 @@
 ﻿fixture NodeTransformsTest
 test Node_CalcGlobalTransformFromCreatedState_ReturnsIdentity
     given
-    Node node = new("")
-    Vector4! t = Vector4(0, 0, 0)
-    Vector4! r = Vector4(0, 0, 0)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! expected = new(t, r, s)
+    FbxNode node = new("")
+    FbxVector4! t = FbxVector4(0, 0, 0)
+    FbxVector4! r = FbxVector4(0, 0, 0)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! expected = new(t, r, s)
 
     when
     AMatrix! actual = node.EvaluateGlobalTransform()
@@ -15,11 +15,11 @@ test Node_CalcGlobalTransformFromCreatedState_ReturnsIdentity
 
 test Node_CalcGlobalTransformWithTranslation_ReturnsTranslation
     given
-    Node node = new("")
-    Vector4! t = Vector4(2, 3, 4)
-    Vector4! r = Vector4(0, 0, 0)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! expected = new(t, r, s)
+    FbxNode node = new("")
+    FbxVector4! t = FbxVector4(2, 3, 4)
+    FbxVector4! r = FbxVector4(0, 0, 0)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! expected = new(t, r, s)
     node.LclTranslation&.Set(t)
 
     when
@@ -30,11 +30,11 @@ test Node_CalcGlobalTransformWithTranslation_ReturnsTranslation
 
 test Node_CalcGlobalTransformWithRotation_ReturnsRotation
     given
-    Node node = new("")
-    Vector4! t = Vector4(0, 0, 0)
-    Vector4! r = Vector4(22, 33, 44)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! expected = new(t, r, s)
+    FbxNode node = new("")
+    FbxVector4! t = FbxVector4(0, 0, 0)
+    FbxVector4! r = FbxVector4(22, 33, 44)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! expected = new(t, r, s)
     node.LclRotation&.Set(r)
 
     when
@@ -45,11 +45,11 @@ test Node_CalcGlobalTransformWithRotation_ReturnsRotation
 
 test Node_CalcGlobalTransformWithScale_ReturnsScale
     given
-    Node node = new("")
-    Vector4! t = Vector4(0, 0, 0)
-    Vector4! r = Vector4(0, 0, 0)
-    Vector4! s = Vector4(5, 6, 7)
-    Matrix! expected = new(t, r, s)
+    FbxNode node = new("")
+    FbxVector4! t = FbxVector4(0, 0, 0)
+    FbxVector4! r = FbxVector4(0, 0, 0)
+    FbxVector4! s = FbxVector4(5, 6, 7)
+    FbxMatrix! expected = new(t, r, s)
     node.LclScaling&.Set(s)
 
     when
@@ -60,11 +60,11 @@ test Node_CalcGlobalTransformWithScale_ReturnsScale
 
 test NodesInHierarchy_CalcGlobalTransformWithTranslationAndWithRotation_ReturnsRotatedThenTranslated
     given
-    Node node1 = new("node1")
-    Node node2 = new("node2")
+    FbxNode node1 = new("node1")
+    FbxNode node2 = new("node2")
     node1.AddChild(node2)
-    Vector4! t = Vector4(2, 3, 4)
-    Vector4! r = Vector4(45, 0, 0)
+    FbxVector4! t = FbxVector4(2, 3, 4)
+    FbxVector4! r = FbxVector4(45, 0, 0)
     node1.LclTranslation&.Set(t)
     node2.LclRotation&.Set(r)
 
@@ -113,11 +113,11 @@ test NodesInHierarchy_CalcGlobalTransformWithTranslationAndWithRotation_ReturnsR
 
 test NodesInHierarchy_CalcGlobalTransformWithRotationAndWithTranslation_ReturnsTranslatedThenRotated
     given
-    Node node1 = new("node1")
-    Node node2 = new("node2")
+    FbxNode node1 = new("node1")
+    FbxNode node2 = new("node2")
     node1.AddChild(node2)
-    Vector4! t = Vector4(2, 3, 4)
-    Vector4! r = Vector4(45, 0, 0)
+    FbxVector4! t = FbxVector4(2, 3, 4)
+    FbxVector4! r = FbxVector4(45, 0, 0)
     node1.LclRotation&.Set(r)
     node2.LclTranslation&.Set(t)
 
@@ -165,11 +165,11 @@ test NodesInHierarchy_CalcGlobalTransformWithRotationAndWithTranslation_ReturnsT
 
 test NodesInHierarchy_CalcGlobalTransform_ChildsIsTimesParent
     given
-    Node node1 = new("node1")
-    Node node2 = new("node2")
+    FbxNode node1 = new("node1")
+    FbxNode node2 = new("node2")
     node1.AddChild(node2)
-    Vector4! r1 = Vector4(45, 0, 0)
-    Vector4! r2 = Vector4(0, 60, 0)
+    FbxVector4! r1 = FbxVector4(45, 0, 0)
+    FbxVector4! r2 = FbxVector4(0, 60, 0)
     node1.LclRotation&.Set(r1)
     node2.LclRotation&.Set(r2)
 

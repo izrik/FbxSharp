@@ -13,7 +13,7 @@ namespace FbxSharpTests
             // given:
 
             // when:
-            var acn = new AnimCurveNode("");
+            var acn = new FbxAnimCurveNode("");
 
             // then:
             Assert.AreEqual(0, acn.GetChannelsCount());
@@ -24,7 +24,7 @@ namespace FbxSharpTests
         public void AnimCurveNodeTest_AddChannel_TwoPropertiesOneChannel()
         {
             // given:
-            var acn = new AnimCurveNode("");
+            var acn = new FbxAnimCurveNode("");
 
             // require:
             Assert.AreEqual(0, acn.GetChannelsCount());
@@ -49,8 +49,8 @@ namespace FbxSharpTests
         public void AnimCurveNodeTest_ConnectToChannel_AddsSrcConnection()
         {
             // given:
-            var acn = new AnimCurveNode("acn");
-            var ac = new AnimCurve("ac");
+            var acn = new FbxAnimCurveNode("acn");
+            var ac = new FbxAnimCurve("ac");
             acn.AddChannel<float>("channel1", 0.0f);
 
             // require:
@@ -79,7 +79,7 @@ namespace FbxSharpTests
         public void FbxAnimCurveNode_Create_HasNamespacePrefix()
         {
             // given:
-            var obj = new AnimCurveNode("asdf");
+            var obj = new FbxAnimCurveNode("asdf");
 
             // then:
             Assert.AreEqual("AnimCurveNode::", obj.GetNameSpacePrefix());

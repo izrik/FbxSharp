@@ -309,7 +309,7 @@ namespace FbxSharpTests
         public void Mesh_GetNameOnly_GetsNameWithoutNamespacePrefix()
         {
             // given:
-            var obj = new Mesh("asdf");
+            var obj = new FbxMesh("asdf");
 
             // require:
             Assert.AreEqual("asdf", obj.GetName());
@@ -322,7 +322,7 @@ namespace FbxSharpTests
         public void Mesh_SetNameSpaceAndGetNameOnly_FirstCharacterIsMissing()
         {
             // given:
-            var obj = new Mesh("asdf");
+            var obj = new FbxMesh("asdf");
             obj.SetNameSpace("qwer");
 
             // require:
@@ -337,7 +337,7 @@ namespace FbxSharpTests
         public void Mesh_SetNameSpaceThenSetName_FirstCharacterIsStillMissing()
         {
             // given:
-            var obj = new Mesh("asdf");
+            var obj = new FbxMesh("asdf");
             obj.SetNameSpace("qwer");
 
             // require:
@@ -357,7 +357,7 @@ namespace FbxSharpTests
         public void Mesh_SetNameSpaceThenSetInitialName_FirstCharacterIsStillMissing()
         {
             // given:
-            var obj = new Mesh("asdf");
+            var obj = new FbxMesh("asdf");
             obj.SetNameSpace("qwer");
 
             // require:
@@ -377,7 +377,7 @@ namespace FbxSharpTests
         public void Mesh_GetNameWithoutNameSpacePrefix_GetsNameWithoutNamespacePrefix()
         {
             // given:
-            var obj = new Mesh("asdf");
+            var obj = new FbxMesh("asdf");
 
             // require:
             Assert.AreEqual("asdf", obj.GetName());
@@ -390,7 +390,7 @@ namespace FbxSharpTests
         public void Mesh_SetNameSpaceAndGetNameWithoutNameSpacePrefix_FirstCharacterIsNotMissing()
         {
             // given:
-            var obj = new Mesh("asdf");
+            var obj = new FbxMesh("asdf");
             obj.SetNameSpace("qwer");
 
             // require:
@@ -405,7 +405,7 @@ namespace FbxSharpTests
         public void Mesh_GetNameWithoutNameSpacePrefix_GetsNameWithNamespacePrefix()
         {
             // given:
-            var obj = new Mesh("asdf");
+            var obj = new FbxMesh("asdf");
 
             // require:
             Assert.AreEqual("asdf", obj.GetName());
@@ -419,7 +419,7 @@ namespace FbxSharpTests
         public void Mesh_SetNameSpaceAndGetNameWithoutNameSpacePrefix_IncludesNamespace()
         {
             // given:
-            var obj = new Mesh("asdf");
+            var obj = new FbxMesh("asdf");
             obj.SetNameSpace("qwer");
 
             // require:
@@ -435,7 +435,7 @@ namespace FbxSharpTests
         public void Mesh_SetNameUsingColons_IncludesNamespace()
         {
             // given:
-            var obj = new Mesh("asdf::Something|zxcv|qwer");
+            var obj = new FbxMesh("asdf::Something|zxcv|qwer");
 
             // then:
             Assert.AreEqual("asdf::Something|zxcv|qwer", obj.GetName());
@@ -448,7 +448,7 @@ namespace FbxSharpTests
         public void Mesh_SetNameUsingColonsandSetNameSpace_IncludesNamespace()
         {
             // given:
-            var obj = new Mesh("asdf::Something|zxcv|qwer");
+            var obj = new FbxMesh("asdf::Something|zxcv|qwer");
             obj.SetNameSpace("uiop::hjkl|cvbn|dfgh");;
 
             // then:
@@ -477,11 +477,11 @@ namespace FbxSharpTests
         {
             // given:
             var obj = new FbxObject("asdf");
-            var mesh1 = new Mesh("mesh1");
-            var mesh2 = new Mesh("mesh2");
-            var node = new Node("node");
-            var mesh3 = new Mesh("mesh3");
-            var light = new Light("light");
+            var mesh1 = new FbxMesh("mesh1");
+            var mesh2 = new FbxMesh("mesh2");
+            var node = new FbxNode("node");
+            var mesh3 = new FbxMesh("mesh3");
+            var light = new FbxLight("light");
             obj.ConnectSrcObject(mesh1);
             obj.ConnectSrcObject(mesh2);
             obj.ConnectSrcObject(node);
@@ -497,10 +497,10 @@ namespace FbxSharpTests
             Assert.AreSame(light, obj.GetSrcObject(4));
 
             // then:
-            Assert.AreEqual(3, obj.GetSrcObjectCount<Mesh>());
-            Assert.AreEqual(1, obj.GetSrcObjectCount<Node>());
-            Assert.AreEqual(1, obj.GetSrcObjectCount<Light>());
-            Assert.AreEqual(4, obj.GetSrcObjectCount<NodeAttribute>());
+            Assert.AreEqual(3, obj.GetSrcObjectCount<FbxMesh>());
+            Assert.AreEqual(1, obj.GetSrcObjectCount<FbxNode>());
+            Assert.AreEqual(1, obj.GetSrcObjectCount<FbxLight>());
+            Assert.AreEqual(4, obj.GetSrcObjectCount<FbxNodeAttribute>());
         }
 
         [Test]
@@ -508,11 +508,11 @@ namespace FbxSharpTests
         {
             // given:
             var obj = new FbxObject("asdf");
-            var mesh1 = new Mesh("mesh1");
-            var mesh2 = new Mesh("mesh2");
-            var node = new Node("node");
-            var mesh3 = new Mesh("mesh3");
-            var light = new Light("light");
+            var mesh1 = new FbxMesh("mesh1");
+            var mesh2 = new FbxMesh("mesh2");
+            var node = new FbxNode("node");
+            var mesh3 = new FbxMesh("mesh3");
+            var light = new FbxLight("light");
             obj.ConnectSrcObject(mesh1);
             obj.ConnectSrcObject(mesh2);
             obj.ConnectSrcObject(node);
@@ -527,25 +527,25 @@ namespace FbxSharpTests
             Assert.AreSame(mesh3, obj.GetSrcObject(3));
             Assert.AreSame(light, obj.GetSrcObject(4));
 
-            Assert.AreEqual(3, obj.GetSrcObjectCount<Mesh>());
-            Assert.AreEqual(1, obj.GetSrcObjectCount<Node>());
-            Assert.AreEqual(1, obj.GetSrcObjectCount<Light>());
-            Assert.AreEqual(4, obj.GetSrcObjectCount<NodeAttribute>());
+            Assert.AreEqual(3, obj.GetSrcObjectCount<FbxMesh>());
+            Assert.AreEqual(1, obj.GetSrcObjectCount<FbxNode>());
+            Assert.AreEqual(1, obj.GetSrcObjectCount<FbxLight>());
+            Assert.AreEqual(4, obj.GetSrcObjectCount<FbxNodeAttribute>());
 
             // then:
-            Assert.AreSame(mesh1, obj.GetSrcObject<Mesh>());
-            Assert.AreSame(mesh1, obj.GetSrcObject<Mesh>(0));
-            Assert.AreSame(mesh2, obj.GetSrcObject<Mesh>(1));
-            Assert.AreSame(mesh3, obj.GetSrcObject<Mesh>(2));
-            Assert.AreSame(node, obj.GetSrcObject<Node>());
-            Assert.AreSame(node, obj.GetSrcObject<Node>(0));
-            Assert.AreSame(light, obj.GetSrcObject<Light>());
-            Assert.AreSame(light, obj.GetSrcObject<Light>(0));
-            Assert.AreSame(mesh1, obj.GetSrcObject<NodeAttribute>());
-            Assert.AreSame(mesh1, obj.GetSrcObject<NodeAttribute>(0));
-            Assert.AreSame(mesh2, obj.GetSrcObject<NodeAttribute>(1));
-            Assert.AreSame(mesh3, obj.GetSrcObject<NodeAttribute>(2));
-            Assert.AreSame(light, obj.GetSrcObject<NodeAttribute>(3));
+            Assert.AreSame(mesh1, obj.GetSrcObject<FbxMesh>());
+            Assert.AreSame(mesh1, obj.GetSrcObject<FbxMesh>(0));
+            Assert.AreSame(mesh2, obj.GetSrcObject<FbxMesh>(1));
+            Assert.AreSame(mesh3, obj.GetSrcObject<FbxMesh>(2));
+            Assert.AreSame(node, obj.GetSrcObject<FbxNode>());
+            Assert.AreSame(node, obj.GetSrcObject<FbxNode>(0));
+            Assert.AreSame(light, obj.GetSrcObject<FbxLight>());
+            Assert.AreSame(light, obj.GetSrcObject<FbxLight>(0));
+            Assert.AreSame(mesh1, obj.GetSrcObject<FbxNodeAttribute>());
+            Assert.AreSame(mesh1, obj.GetSrcObject<FbxNodeAttribute>(0));
+            Assert.AreSame(mesh2, obj.GetSrcObject<FbxNodeAttribute>(1));
+            Assert.AreSame(mesh3, obj.GetSrcObject<FbxNodeAttribute>(2));
+            Assert.AreSame(light, obj.GetSrcObject<FbxNodeAttribute>(3));
         }
 
         [Test]
@@ -553,9 +553,9 @@ namespace FbxSharpTests
         {
             // given:
             var obj = new FbxObject("asdf");
-            var mesh1 = new Mesh("mesh1");
-            var node = new Node("node");
-            var mesh2 = new Mesh("mesh2");
+            var mesh1 = new FbxMesh("mesh1");
+            var node = new FbxNode("node");
+            var mesh2 = new FbxMesh("mesh2");
             obj.ConnectSrcObject(mesh1);
             obj.ConnectSrcObject(node);
             obj.ConnectSrcObject(mesh2);
@@ -566,15 +566,15 @@ namespace FbxSharpTests
             Assert.AreSame(node, obj.GetSrcObject(1));
             Assert.AreSame(mesh2, obj.GetSrcObject(2));
 
-            Assert.AreEqual(2, obj.GetSrcObjectCount<Mesh>());
-            Assert.AreEqual(1, obj.GetSrcObjectCount<Node>());
+            Assert.AreEqual(2, obj.GetSrcObjectCount<FbxMesh>());
+            Assert.AreEqual(1, obj.GetSrcObjectCount<FbxNode>());
 
             Assert.AreEqual(1, mesh1.GetDstObjectCount());
             Assert.AreEqual(1, node.GetDstObjectCount());
             Assert.AreEqual(1, mesh2.GetDstObjectCount());
 
             // when:
-            var ret = obj.DisconnectAllSrcObject<Mesh>();
+            var ret = obj.DisconnectAllSrcObject<FbxMesh>();
 
             // then:
             Assert.True(ret);
@@ -582,11 +582,11 @@ namespace FbxSharpTests
             Assert.AreSame(node, obj.GetSrcObject());
             Assert.AreSame(node, obj.GetSrcObject(0));
 
-            Assert.AreEqual(0, obj.GetSrcObjectCount<Mesh>());
+            Assert.AreEqual(0, obj.GetSrcObjectCount<FbxMesh>());
 
-            Assert.AreEqual(1, obj.GetSrcObjectCount<Node>());
-            Assert.AreSame(node, obj.GetSrcObject<Node>());
-            Assert.AreSame(node, obj.GetSrcObject<Node>(0));
+            Assert.AreEqual(1, obj.GetSrcObjectCount<FbxNode>());
+            Assert.AreSame(node, obj.GetSrcObject<FbxNode>());
+            Assert.AreSame(node, obj.GetSrcObject<FbxNode>(0));
 
             Assert.AreEqual(0, mesh1.GetDstObjectCount());
             Assert.AreEqual(1, node.GetDstObjectCount());
@@ -598,9 +598,9 @@ namespace FbxSharpTests
         {
             // given:
             var obj = new FbxObject("asdf");
-            var mesh1 = new Mesh("mesh1");
-            var node = new Node("node");
-            var light = new Light("light");
+            var mesh1 = new FbxMesh("mesh1");
+            var node = new FbxNode("node");
+            var light = new FbxLight("light");
             obj.ConnectSrcObject(mesh1);
             obj.ConnectSrcObject(node);
             obj.ConnectSrcObject(light);
@@ -611,17 +611,17 @@ namespace FbxSharpTests
             Assert.AreSame(node, obj.GetSrcObject(1));
             Assert.AreSame(light, obj.GetSrcObject(2));
 
-            Assert.AreEqual(1, obj.GetSrcObjectCount<Mesh>());
-            Assert.AreEqual(1, obj.GetSrcObjectCount<Node>());
-            Assert.AreEqual(1, obj.GetSrcObjectCount<Light>());
-            Assert.AreEqual(2, obj.GetSrcObjectCount<NodeAttribute>());
+            Assert.AreEqual(1, obj.GetSrcObjectCount<FbxMesh>());
+            Assert.AreEqual(1, obj.GetSrcObjectCount<FbxNode>());
+            Assert.AreEqual(1, obj.GetSrcObjectCount<FbxLight>());
+            Assert.AreEqual(2, obj.GetSrcObjectCount<FbxNodeAttribute>());
 
             Assert.AreEqual(1, mesh1.GetDstObjectCount());
             Assert.AreEqual(1, node.GetDstObjectCount());
             Assert.AreEqual(1, light.GetDstObjectCount());
 
             // when:
-            var ret = obj.DisconnectAllSrcObject<NodeAttribute>();
+            var ret = obj.DisconnectAllSrcObject<FbxNodeAttribute>();
 
             // then:
             Assert.True(ret);
@@ -629,13 +629,13 @@ namespace FbxSharpTests
             Assert.AreSame(node, obj.GetSrcObject());
             Assert.AreSame(node, obj.GetSrcObject(0));
 
-            Assert.AreEqual(0, obj.GetSrcObjectCount<Mesh>());
-            Assert.AreEqual(0, obj.GetSrcObjectCount<Light>());
-            Assert.AreEqual(0, obj.GetSrcObjectCount<NodeAttribute>());
+            Assert.AreEqual(0, obj.GetSrcObjectCount<FbxMesh>());
+            Assert.AreEqual(0, obj.GetSrcObjectCount<FbxLight>());
+            Assert.AreEqual(0, obj.GetSrcObjectCount<FbxNodeAttribute>());
 
-            Assert.AreEqual(1, obj.GetSrcObjectCount<Node>());
-            Assert.AreSame(node, obj.GetSrcObject<Node>());
-            Assert.AreSame(node, obj.GetSrcObject<Node>(0));
+            Assert.AreEqual(1, obj.GetSrcObjectCount<FbxNode>());
+            Assert.AreSame(node, obj.GetSrcObject<FbxNode>());
+            Assert.AreSame(node, obj.GetSrcObject<FbxNode>(0));
 
             Assert.AreEqual(0, mesh1.GetDstObjectCount());
             Assert.AreEqual(1, node.GetDstObjectCount());

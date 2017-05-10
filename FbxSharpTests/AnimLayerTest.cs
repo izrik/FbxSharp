@@ -11,7 +11,7 @@ namespace FbxSharpTests
         public void FbxAnimLayer_Create_HasNamespacePrefix()
         {
             // given:
-            var obj = new AnimLayer("asdf");
+            var obj = new FbxAnimLayer("asdf");
 
             // then:
             Assert.AreEqual("AnimLayer::", obj.GetNameSpacePrefix());

@@ -11,8 +11,8 @@ namespace FbxSharpTests
         public void Skin_SetGeometry_SetsGeometry()
         {
             // given:
-            var skin = new Skin("");
-            var mesh = new Mesh("");
+            var skin = new FbxSkin("");
+            var mesh = new FbxMesh("");
 
             // require:
             Assert.AreEqual(0, skin.GetSrcObjectCount());
@@ -41,8 +41,8 @@ namespace FbxSharpTests
         public void Skin_AddCluster_AddsCluster()
         {
             // given:
-            var s = new Skin("");
-            var c = new Cluster("");
+            var s = new FbxSkin("");
+            var c = new FbxCluster("");
 
             // require:
             Assert.AreEqual(0, s.GetSrcObjectCount());
@@ -71,7 +71,7 @@ namespace FbxSharpTests
         public void Skin_Create_HasNamespacePrefix()
         {
             // given:
-            var obj = new Skin("asdf");
+            var obj = new FbxSkin("asdf");
 
             // then:
             Assert.AreEqual("Deformer::", obj.GetNameSpacePrefix());

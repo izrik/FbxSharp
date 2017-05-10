@@ -11,8 +11,8 @@ namespace FbxSharpTests
         public void Light_Create_HasProperties()
         {
             // given:
-            var light = new Light("light");
-            Property prop;
+            var light = new FbxLight("light");
+            FbxProperty prop;
 
             // then:
             Assert.AreEqual(27, CountProperties(light));
@@ -240,7 +240,7 @@ namespace FbxSharpTests
         public void Light_Create_HasNamespacePrefix()
         {
             // given:
-            var obj = new Light("asdf");
+            var obj = new FbxLight("asdf");
 
             // then:
             Assert.AreEqual("NodeAttribute::", obj.GetNameSpacePrefix());

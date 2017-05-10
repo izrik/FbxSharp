@@ -11,7 +11,7 @@ namespace FbxSharpTests
         public void FbxAnimStack_Create_HasNamespacePrefix()
         {
             // given:
-            var obj = new AnimStack("asdf");
+            var obj = new FbxAnimStack("asdf");
 
             // then:
             Assert.AreEqual("AnimStack::", obj.GetNameSpacePrefix());

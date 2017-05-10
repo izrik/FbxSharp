@@ -6,14 +6,14 @@ namespace FbxSharp
 {
     public class Converter
     {
-        public Scene ConvertScene(List<ParseObject> parsedObjects)
+        public FbxScene ConvertScene(List<ParseObject> parsedObjects)
         {
             var parsed = new ParseObject {
                 Name = "Parsed Scene",
                 Properties = parsedObjects,
             };
 
-            var scene = new Scene();
+            var scene = new FbxScene();
 
             var docs = parsed.FindPropertyByName("Documents");
             CheckDocuments(docs);
@@ -71,9 +71,9 @@ namespace FbxSharp
             // fix-up material layer elements
             foreach (var node in scene.Nodes)
             {
-                if ((node.GetNodeAttribute() as LayerContainer) == null) continue;
+                if ((node.GetNodeAttribute() as FbxLayerContainer) == null) continue;
 
-                var lc = (LayerContainer)node.GetNodeAttribute();
+                var lc = (FbxLayerContainer)node.GetNodeAttribute();
                 foreach (var layer in lc.Layers)
                 {
                     var matelem = layer.GetMaterials();
@@ -184,7 +184,7 @@ namespace FbxSharp
                     obj.Name));
         }
 
-        public static NodeAttribute ConvertNodeAttribute(ParseObject obj)
+        public static FbxNodeAttribute ConvertNodeAttribute(ParseObject obj)
         {
             var typeFlagsProp = obj.FindPropertyByName("TypeFlags");
             var typeFlags = new HashSet<string>(typeFlagsProp.Values.Select(x => (string)x));
@@ -214,11 +214,11 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public static Skeleton ConvertSkeleton(ParseObject obj)
+        public static FbxSkeleton ConvertSkeleton(ParseObject obj)
         {
-            var skeleton = new Skeleton();
+            var skeleton = new FbxSkeleton();
             skeleton.Name = ((string)obj.Values[1]);
-            skeleton.SkeletonType = (Skeleton.EType)Enum.Parse(typeof(Skeleton.EType), ((string)obj.Values[2]));
+            skeleton.SkeletonType = (FbxSkeleton.EType)Enum.Parse(typeof(FbxSkeleton.EType), ((string)obj.Values[2]));
 
             var props70 = obj.FindPropertyByName("Properties70");
             if (props70 != null)
@@ -257,18 +257,18 @@ namespace FbxSharp
             return skeleton;
         }
 
-        public static Null ConvertNull(ParseObject obj)
+        public static FbxNull ConvertNull(ParseObject obj)
         {
-            var n = new Null();
+            var n = new FbxNull();
             n.Name = ((string)obj.Values[1]);
 
             return n;
         }
 
-        public static Light ConvertLight(ParseObject obj)
+        public static FbxLight ConvertLight(ParseObject obj)
         {
             var name = ((string)obj.Values[1]);
-            var light = new Light(name);
+            var light = new FbxLight(name);
 
             foreach (var prop in obj.Properties)
             {
@@ -293,17 +293,17 @@ namespace FbxSharp
             return light;
         }
 
-        public static Camera ConvertCamera(ParseObject obj)
+        public static FbxCamera ConvertCamera(ParseObject obj)
         {
             var name = ((string)obj.Values[1]);
-            var camera = new Camera(name);
+            var camera = new FbxCamera(name);
 
-            Vector3 position;
-            Vector3 up;
-            Vector3 lookAt;
+            FbxVector3 position;
+            FbxVector3 up;
+            FbxVector3 lookAt;
             bool showInfoOnMoving;
             bool showAudio;
-            Vector3 audioColor;
+            FbxVector3 audioColor;
             double cameraOrthoZoom;
 
             foreach (var prop in obj.Properties)
@@ -322,19 +322,19 @@ namespace FbxSharp
                         throw new NotImplementedException();
                     break;
                 case "Position":
-                    position = new Vector3(
+                    position = new FbxVector3(
                         ((Number)prop.Values[0]).AsDouble.Value,
                         ((Number)prop.Values[1]).AsDouble.Value,
                         ((Number)prop.Values[2]).AsDouble.Value);
                     break;
                 case "Up":
-                    up = new Vector3(
+                    up = new FbxVector3(
                         ((Number)prop.Values[0]).AsDouble.Value,
                         ((Number)prop.Values[1]).AsDouble.Value,
                         ((Number)prop.Values[2]).AsDouble.Value);
                     break;
                 case "LookAt":
-                    lookAt = new Vector3(
+                    lookAt = new FbxVector3(
                         ((Number)prop.Values[0]).AsDouble.Value,
                         ((Number)prop.Values[1]).AsDouble.Value,
                         ((Number)prop.Values[2]).AsDouble.Value);
@@ -346,7 +346,7 @@ namespace FbxSharp
                     showAudio = (((Number)prop.Values[0]).AsLong.Value != 0);
                     break;
                 case "AudioColor":
-                    audioColor = new Vector3(
+                    audioColor = new FbxVector3(
                         ((Number)prop.Values[0]).AsDouble.Value,
                         ((Number)prop.Values[1]).AsDouble.Value,
                         ((Number)prop.Values[2]).AsDouble.Value);
@@ -362,7 +362,7 @@ namespace FbxSharp
             return camera;
         }
 
-        public static Geometry ConvertGeometry(ParseObject obj)
+        public static FbxGeometry ConvertGeometry(ParseObject obj)
         {
             var geometryType = ((string)obj.Values[2]);
 
@@ -383,14 +383,14 @@ namespace FbxSharp
             }
         }
 
-        public static Mesh ConvertMesh(ParseObject obj)
+        public static FbxMesh ConvertMesh(ParseObject obj)
         {
-            var normals = new List<LayerElementNormal>();
-            var uvs = new List<LayerElementUV>();
-            var visibility = new List<LayerElementVisibility>();
-            var materials = new List<LayerElementMaterial>();
+            var normals = new List<FbxLayerElementNormal>();
+            var uvs = new List<FbxLayerElementUV>();
+            var visibility = new List<FbxLayerElementVisibility>();
+            var materials = new List<FbxLayerElementMaterial>();
 
-            var mesh = new Mesh();
+            var mesh = new FbxMesh();
             mesh.Name = ((string)obj.Values[1]);
 
             foreach (var prop in obj.Properties)
@@ -446,7 +446,7 @@ namespace FbxSharp
             return mesh;
         }
 
-        static void ConvertLayer(Layer layer, ParseObject obj, List<LayerElementNormal> normals, List<LayerElementUV> uvs, List<LayerElementVisibility> visibility, List<LayerElementMaterial> materials)
+        static void ConvertLayer(FbxLayer layer, ParseObject obj, List<FbxLayerElementNormal> normals, List<FbxLayerElementUV> uvs, List<FbxLayerElementVisibility> visibility, List<FbxLayerElementMaterial> materials)
         {
             foreach (var prop in obj.Properties)
             {
@@ -490,9 +490,9 @@ namespace FbxSharp
             }
         }
 
-        public static LayerElementNormal ConvertLayerElementNormal(ParseObject obj)
+        public static FbxLayerElementNormal ConvertLayerElementNormal(ParseObject obj)
         {
-            var normals = new LayerElementNormal();
+            var normals = new FbxLayerElementNormal();
 
             foreach (var prop in obj.Properties)
             {
@@ -526,9 +526,9 @@ namespace FbxSharp
             return normals;
         }
 
-        public static LayerElementUV ConvertLayerElementUV(ParseObject obj)
+        public static FbxLayerElementUV ConvertLayerElementUV(ParseObject obj)
         {
-            var uvs = new LayerElementUV();
+            var uvs = new FbxLayerElementUV();
 
             foreach (var prop in obj.Properties)
             {
@@ -566,9 +566,9 @@ namespace FbxSharp
             return uvs;
         }
 
-        public static LayerElementVisibility ConvertLayerElementVisibility(ParseObject obj)
+        public static FbxLayerElementVisibility ConvertLayerElementVisibility(ParseObject obj)
         {
-            var visibility = new LayerElementVisibility();
+            var visibility = new FbxLayerElementVisibility();
 
             foreach (var prop in obj.Properties)
             {
@@ -598,9 +598,9 @@ namespace FbxSharp
             return visibility;
         }
 
-        public static LayerElementMaterial ConvertLayerElementMaterial(ParseObject obj)
+        public static FbxLayerElementMaterial ConvertLayerElementMaterial(ParseObject obj)
         {
-            var material = new LayerElementMaterial();
+            var material = new FbxLayerElementMaterial();
 
             foreach (var prop in obj.Properties)
             {
@@ -631,37 +631,37 @@ namespace FbxSharp
             return material;
         }
 
-        public static LayerElement.EMappingMode ConvertMappingInformationType(ParseObject obj)
+        public static FbxLayerElement.EMappingMode ConvertMappingInformationType(ParseObject obj)
         {
             if (obj.Values.Count < 1)
                 throw new NotImplementedException();
             switch ((string)obj.Values[0])
             {
             case "ByPolygonVertex":
-                return LayerElement.EMappingMode.ByPolygonVertex;
+                return FbxLayerElement.EMappingMode.ByPolygonVertex;
             case "ByPolygon":
-                return LayerElement.EMappingMode.ByPolygon;
+                return FbxLayerElement.EMappingMode.ByPolygon;
             case "ByVertex":
-                return LayerElement.EMappingMode.ByPolygonVertex;
+                return FbxLayerElement.EMappingMode.ByPolygonVertex;
             case "ByEdge":
-                return LayerElement.EMappingMode.ByEdge;
+                return FbxLayerElement.EMappingMode.ByEdge;
             case "AllSame":
-                return LayerElement.EMappingMode.AllSame;
+                return FbxLayerElement.EMappingMode.AllSame;
             default:
                 throw new NotImplementedException();
             }
         }
 
-        public static LayerElement.EReferenceMode ConvertReferenceInformationType(ParseObject obj)
+        public static FbxLayerElement.EReferenceMode ConvertReferenceInformationType(ParseObject obj)
         {
             if (obj.Values.Count < 1)
                 throw new NotImplementedException();
             switch ((string)obj.Values[0])
             {
             case "Direct":
-                return LayerElement.EReferenceMode.Direct;
+                return FbxLayerElement.EReferenceMode.Direct;
             case "IndexToDirect":
-                return LayerElement.EReferenceMode.IndexToDirect;
+                return FbxLayerElement.EReferenceMode.IndexToDirect;
             default:
                 throw new NotImplementedException();
             }
@@ -692,8 +692,8 @@ namespace FbxSharp
                     var r = ((Number)p.Values[4]).AsDouble.Value;
                     var g = ((Number)p.Values[5]).AsDouble.Value;
                     var b = ((Number)p.Values[6]).AsDouble.Value;
-                    propType = typeof(Color);
-                    propValue = new Color(r, g, b);
+                    propType = typeof(FbxColor);
+                    propValue = new FbxColor(r, g, b);
                     break;
                 case "Visibility":
                 case "bool":
@@ -707,11 +707,11 @@ namespace FbxSharp
                 case "Vector":
                 case "Vector3":
                 case "Vector3D":
-                    propType = typeof(Vector3);
+                    propType = typeof(FbxVector3);
                     var x = ((Number)p.Values[4]).AsDouble.Value;
                     var y = ((Number)p.Values[5]).AsDouble.Value;
                     var z = ((Number)p.Values[6]).AsDouble.Value;
-                    propValue = new Vector3(x, y, z);
+                    propValue = new FbxVector3(x, y, z);
                     break;
                 case "int":
                     propType = typeof(int);
@@ -720,13 +720,13 @@ namespace FbxSharp
                 case "Lcl Translation":
                 case "Lcl Rotation":
                 case "Lcl Scaling":
-                    propType = typeof(Vector3);
+                    propType = typeof(FbxVector3);
                     x = ((Number)p.Values[4]).AsDouble.Value;
                     y = ((Number)p.Values[5]).AsDouble.Value;
                     z = ((Number)p.Values[6]).AsDouble.Value;
                     if (comment != "A+" && comment != "A")
                         throw new NotImplementedException();
-                    propValue = new Vector3(x, y, z);
+                    propValue = new FbxVector3(x, y, z);
                     break;
                 case "KString":
                     propType = typeof(string);
@@ -765,14 +765,14 @@ namespace FbxSharp
             return propNamesTypesValues;
         }
 
-        public static void ConvertVertices(Mesh mesh, ParseObject obj)
+        public static void ConvertVertices(FbxMesh mesh, ParseObject obj)
         {
             var values = obj.Properties[0].Values;
             mesh.InitControlPoints(values.Count / 3);
             int i;
             for (i = 0; i+2 < values.Count; i+=3)
             {
-                var v = new Vector4(
+                var v = new FbxVector4(
                         ((Number)values[i]).AsDouble.Value,
                         ((Number)values[i+1]).AsDouble.Value,
                         ((Number)values[i+2]).AsDouble.Value,
@@ -804,9 +804,9 @@ namespace FbxSharp
             return polygons;
         }
 
-        public static Node ConvertNode(ParseObject obj)
+        public static FbxNode ConvertNode(ParseObject obj)
         {
-            var node = new Node();
+            var node = new FbxNode();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -869,12 +869,12 @@ namespace FbxSharp
             }
         }
 
-        public static Pose ConvertPose(
+        public static FbxPose ConvertPose(
             ParseObject obj,
             Dictionary<ulong, FbxObject> fbxObjectsById,
             Dictionary<ulong, ulong> actualIdsByInFileIds)
         {
-            var pose = new Pose();
+            var pose = new FbxPose();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -921,7 +921,7 @@ namespace FbxSharp
             return pose;
         }
 
-        public static Tuple<Node, Matrix, bool> ConvertPoseNode(
+        public static Tuple<FbxNode, FbxMatrix, bool> ConvertPoseNode(
             ParseObject obj,
             Dictionary<ulong, FbxObject> fbxObjectsById,
             Dictionary<ulong, ulong> actualIdsByInFileIds)
@@ -934,17 +934,17 @@ namespace FbxSharp
                 throw new InvalidOperationException();
             var inFileNodeId = (ulong)((Number)nodeIdProp.Values[0]).AsLong.Value;
             var nodeId = actualIdsByInFileIds[inFileNodeId];
-            var node = (Node)fbxObjectsById[(ulong)nodeId];
+            var node = (FbxNode)fbxObjectsById[(ulong)nodeId];
 
             var matrixProp = obj.FindPropertyByName("Matrix");
             if (matrixProp == null)
                 throw new InvalidOperationException();
             var matrix = ConvertMatrix(matrixProp);
 
-            return new Tuple<Node, Matrix, bool>(node, matrix, false);
+            return new Tuple<FbxNode, FbxMatrix, bool>(node, matrix, false);
         }
 
-        public static Matrix ConvertMatrix(ParseObject obj)
+        public static FbxMatrix ConvertMatrix(ParseObject obj)
         {
             if (obj.Properties.Count != 1)
                 throw new InvalidOperationException();
@@ -954,7 +954,7 @@ namespace FbxSharp
 
             var v = values.Select(n => ((Number)n).AsDouble.Value).ToArray();
 
-            var m = new Matrix(
+            var m = new FbxMatrix(
                         v[0], v[1], v[2], v[3],
                         v[4], v[5], v[6], v[7],
                         v[8], v[9], v[10], v[11],
@@ -962,7 +962,7 @@ namespace FbxSharp
             return m;
         }
 
-        public static SurfaceMaterial ConvertMaterial(ParseObject obj)
+        public static FbxSurfaceMaterial ConvertMaterial(ParseObject obj)
         {
             var shadingModelProp = obj.FindPropertyByName("ShadingModel");
             if (shadingModelProp == null)
@@ -975,9 +975,9 @@ namespace FbxSharp
             return ConvertPhongMaterial(obj);
         }
 
-        public static SurfacePhong ConvertPhongMaterial(ParseObject obj)
+        public static FbxSurfacePhong ConvertPhongMaterial(ParseObject obj)
         {
-            var material = new SurfacePhong();
+            var material = new FbxSurfacePhong();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1030,9 +1030,9 @@ namespace FbxSharp
             }
         }
 
-        public static Skin ConvertSkin(ParseObject obj)
+        public static FbxSkin ConvertSkin(ParseObject obj)
         {
-            var skin = new Skin();
+            var skin = new FbxSkin();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1060,9 +1060,9 @@ namespace FbxSharp
             return skin;
         }
 
-        public static Cluster ConvertCluster(ParseObject obj)
+        public static FbxCluster ConvertCluster(ParseObject obj)
         {
-            var cluster = new Cluster();
+            var cluster = new FbxCluster();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1111,9 +1111,9 @@ namespace FbxSharp
             return cluster;
         }
 
-        public static Video ConvertVideo(ParseObject obj)
+        public static FbxVideo ConvertVideo(ParseObject obj)
         {
-            var video = new Video();
+            var video = new FbxVideo();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1149,9 +1149,9 @@ namespace FbxSharp
             return video;
         }
 
-        public static Texture ConvertTexture(ParseObject obj)
+        public static FbxTexture ConvertTexture(ParseObject obj)
         {
-            var texture = new Texture();
+            var texture = new FbxTexture();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1196,7 +1196,7 @@ namespace FbxSharp
                     texture.ModelUVScaling = ConvertVector2(prop.Values);
                     break;
                 case "Texture_Alpha_Source":
-                    texture.AlphaSource = (Texture.EAlphaSource)Enum.Parse(typeof(Texture.EAlphaSource), (string)prop.Values[0]);
+                    texture.AlphaSource = (FbxTexture.EAlphaSource)Enum.Parse(typeof(FbxTexture.EAlphaSource), (string)prop.Values[0]);
                     break;
                 case "Cropping":
                     texture.Cropping = ConvertVector4(prop.Values);
@@ -1209,36 +1209,36 @@ namespace FbxSharp
             return texture;
         }
 
-        public static Vector2 ConvertVector2(List<object> values, int startIndex=0)
+        public static FbxVector2 ConvertVector2(List<object> values, int startIndex=0)
         {
             return
-                new Vector2(
+                new FbxVector2(
                     ((Number)values[startIndex]).AsDouble.Value,
                     ((Number)values[startIndex + 1]).AsDouble.Value);
         }
 
-        public static Vector3 ConvertVector3(List<object> values, int startIndex=0)
+        public static FbxVector3 ConvertVector3(List<object> values, int startIndex=0)
         {
             return
-                new Vector3(
+                new FbxVector3(
                     ((Number)values[startIndex]).AsDouble.Value,
                     ((Number)values[startIndex + 1]).AsDouble.Value,
                     ((Number)values[startIndex + 2]).AsDouble.Value);
         }
 
-        public static Vector4 ConvertVector4(List<object> values, int startIndex=0)
+        public static FbxVector4 ConvertVector4(List<object> values, int startIndex=0)
         {
             return
-                new Vector4(
+                new FbxVector4(
                     ((Number)values[startIndex]).AsDouble.Value,
                     ((Number)values[startIndex + 1]).AsDouble.Value,
                     ((Number)values[startIndex + 2]).AsDouble.Value,
                     ((Number)values[startIndex + 3]).AsDouble.Value);
         }
 
-        public static AnimStack ConvertAnimationStack(ParseObject obj)
+        public static FbxAnimStack ConvertAnimationStack(ParseObject obj)
         {
-            var animstack = new AnimStack();
+            var animstack = new FbxAnimStack();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1262,9 +1262,9 @@ namespace FbxSharp
             return animstack;
         }
 
-        public static AnimLayer ConvertAnimationLayer(ParseObject obj)
+        public static FbxAnimLayer ConvertAnimationLayer(ParseObject obj)
         {
-            var animlayer = new AnimLayer();
+            var animlayer = new FbxAnimLayer();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1279,9 +1279,9 @@ namespace FbxSharp
             return animlayer;
         }
 
-        public static AnimCurveNode ConvertAnimationCurveNode(ParseObject obj)
+        public static FbxAnimCurveNode ConvertAnimationCurveNode(ParseObject obj)
         {
-            var animCurveNode = new AnimCurveNode();
+            var animCurveNode = new FbxAnimCurveNode();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1307,7 +1307,7 @@ namespace FbxSharp
                         }
                         else if (pname.StartsWith("d|"))
                         {
-                            var genMethod = typeof(AnimCurveNode).GetMethod("AddChannel");
+                            var genMethod = typeof(FbxAnimCurveNode).GetMethod("AddChannel");
                             var typedMethod = genMethod.MakeGenericMethod(ptype);
                             typedMethod.Invoke(animCurveNode, new object[]{pname, pvalue});
                             //animCurveNode.AddChannel<ptype>(pname, pvalue)
@@ -1326,9 +1326,9 @@ namespace FbxSharp
             return animCurveNode;
         }
 
-        public static AnimCurve ConvertAnimationCurve(ParseObject obj)
+        public static FbxAnimCurve ConvertAnimationCurve(ParseObject obj)
         {
-            var curve = new AnimCurve();
+            var curve = new FbxAnimCurve();
 
             if (obj.Values.Count < 3)
                 throw new InvalidOperationException();
@@ -1375,12 +1375,12 @@ namespace FbxSharp
                 }
             }
 
-            var keys = new AnimCurveKey[Math.Min(keyTimes.Length, keyValues.Length)];
+            var keys = new FbxAnimCurveKey[Math.Min(keyTimes.Length, keyValues.Length)];
             int i;
             for (i = 0; i < Math.Min(keyTimes.Length, keyValues.Length); i++)
             {
                 var time = new FbxTime(keyTimes[i]);
-                keys[i] = new AnimCurveKey(time, (float)keyValues[i]);
+                keys[i] = new FbxAnimCurveKey(time, (float)keyValues[i]);
             }
 
 
@@ -1394,13 +1394,13 @@ namespace FbxSharp
                 long data3 = attrData[4 * m + 3];
                 long flags = attrFlags[m];
 
-                var tangentMode = (AnimCurveDef.ETangentMode)(flags & 0x00007f00);
-                tangentMode = tangentMode & ~AnimCurveDef.ETangentMode.eTangentGenericTimeIndependent;
-                var interpolation = (AnimCurveDef.EInterpolationType)(flags & 0x0000000e);
-                var weight = (AnimCurveDef.EWeightedMode)(flags & 0x03000000);
-                var constant = (AnimCurveDef.EConstantMode)(flags & 0x00000100);
-                var velocity = (AnimCurveDef.EVelocityMode)(flags & 0x30000000);
-                var visibility = (AnimCurveDef.ETangentVisibility)(flags & 0x00300000);
+                var tangentMode = (FbxAnimCurveDef.ETangentMode)(flags & 0x00007f00);
+                tangentMode = tangentMode & ~FbxAnimCurveDef.ETangentMode.eTangentGenericTimeIndependent;
+                var interpolation = (FbxAnimCurveDef.EInterpolationType)(flags & 0x0000000e);
+                var weight = (FbxAnimCurveDef.EWeightedMode)(flags & 0x03000000);
+                var constant = (FbxAnimCurveDef.EConstantMode)(flags & 0x00000100);
+                var velocity = (FbxAnimCurveDef.EVelocityMode)(flags & 0x30000000);
+                var visibility = (FbxAnimCurveDef.ETangentVisibility)(flags & 0x00300000);
 
                 for (i = 0; i < attrCount; i++, k++)
                 {
@@ -1411,8 +1411,8 @@ namespace FbxSharp
                     key.SetConstantMode(constant);
                     key.SetTangentVelocityMode(velocity);
                     key.SetTangentVisibility(visibility);
-                    key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eRightWeight, (data2 & 0x0000ffff) / 9999.0);
-                    key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eNextLeftWeight, ((data2 >> 16) & 0xffff) / 9999.0);
+                    key.SetTangentWeightAndAdjustTangent(FbxAnimCurveDef.EDataIndex.eRightWeight, (data2 & 0x0000ffff) / 9999.0);
+                    key.SetTangentWeightAndAdjustTangent(FbxAnimCurveDef.EDataIndex.eNextLeftWeight, ((data2 >> 16) & 0xffff) / 9999.0);
 //                    key.SetDataFloat(AnimCurveDef.EDataIndex.eRightSlope, data0);
 //                    key.SetDataFloat(AnimCurveDef.EDataIndex.eRightSlope, data1);
 //                    key.SetDataFloat(AnimCurveDef.EDataIndex.eRightSlope, data2);

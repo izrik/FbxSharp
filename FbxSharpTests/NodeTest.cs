@@ -11,9 +11,9 @@ namespace FbxSharpTests
         public void RootNode_AddChild_AddsConnection()
         {
             // given:
-            var scene = new Scene("TheScene");
+            var scene = new FbxScene("TheScene");
             var root = scene.GetRootNode();
-            var node2 = new Node("ChildNode");
+            var node2 = new FbxNode("ChildNode");
 
             // require:
             Assert.AreEqual(3, scene.GetSrcObjectCount());
@@ -51,8 +51,8 @@ namespace FbxSharpTests
         public void Node_SetNodeAttribute_SetsNodeAttribute()
         {
             // given:
-            var node = new Node("Node");
-            var nullattr = new Null("nullattr");
+            var node = new FbxNode("Node");
+            var nullattr = new FbxNull("nullattr");
 
             // require:
             Assert.AreEqual(0, node.GetSrcObjectCount());
@@ -97,8 +97,8 @@ namespace FbxSharpTests
         public void Node_AddChild_AddsChild()
         {
             // given:
-            var node1 = new Node("Node1");
-            var node2 = new Node("Node2");
+            var node1 = new FbxNode("Node1");
+            var node2 = new FbxNode("Node2");
 
             // require:
             Assert.AreEqual(0, node1.GetSrcObjectCount());
@@ -141,10 +141,10 @@ namespace FbxSharpTests
         public void RootNode_AddChild_AddsNodeSubtree()
         {
             // given:
-            var scene = new Scene("TheScene");
+            var scene = new FbxScene("TheScene");
             var root = scene.GetRootNode();
-            var node2 = new Node("ChildNode");
-            var node3 = new Node("ChildNode");
+            var node2 = new FbxNode("ChildNode");
+            var node3 = new FbxNode("ChildNode");
             node2.AddChild(node3);
 
             // require:
@@ -224,9 +224,9 @@ namespace FbxSharpTests
         public void RootNode_AddSrcObject_AddsChild()
         {
             // given:
-            var scene = new Scene("TheScene");
+            var scene = new FbxScene("TheScene");
             var root = scene.GetRootNode();
-            var node2 = new Node("ChildNode");
+            var node2 = new FbxNode("ChildNode");
 
             // require:
             Assert.AreEqual(3, scene.GetSrcObjectCount());
@@ -277,8 +277,8 @@ namespace FbxSharpTests
         public void Node_AddSrcObject_SetsNodeAttribute()
         {
             // given:
-            var node = new Node("Node");
-            var nullattr = new Null("nullattr");
+            var node = new FbxNode("Node");
+            var nullattr = new FbxNull("nullattr");
 
             // require:
             Assert.AreEqual(0, node.GetSrcObjectCount());
@@ -323,8 +323,8 @@ namespace FbxSharpTests
         public void Node_Create_HasProperties()
         {
             // given:
-            var node = new Node("");
-            Property prop;
+            var node = new FbxNode("");
+            FbxProperty prop;
 
             // then:
             Assert.AreEqual(71, CountProperties(node));
@@ -904,10 +904,10 @@ namespace FbxSharpTests
         public void Node_AddMaterial_SetsMaterialScene()
         {
             // given:
-            var scene = new Scene("");
+            var scene = new FbxScene("");
             var root = scene.GetRootNode();
-            var node = new Node("");
-            var mat = new SurfacePhong("");
+            var node = new FbxNode("");
+            var mat = new FbxSurfacePhong("");
 
             root.AddChild(node);
 
@@ -959,7 +959,7 @@ namespace FbxSharpTests
         public void Node_Create_HasNamespacePrefix()
         {
             // given:
-            var obj = new Node("asdf");
+            var obj = new FbxNode("asdf");
 
             // then:
             Assert.AreEqual("Model::", obj.GetNameSpacePrefix());

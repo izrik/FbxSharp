@@ -1,60 +1,60 @@
 ﻿fixture AnimCurveKeyTest
 test AnimCurveKey_Create_HasDefaultValues
     when
-    AnimCurveKey key = new()
+    FbxAnimCurveKey key = new()
 
     then
 #cs AssertEqual(0L, key.GetTime()&.Get())
 #cpp AssertEqual(0LL, key.GetTime()&.Get())
     AssertEqual(0.0, key.GetValue())
-    AssertEqual(AnimCurveDef.ETangentMode.eTangentAuto, key.GetTangentMode())
-    AssertEqual(AnimCurveDef.EInterpolationType.eInterpolationCubic, key.GetInterpolation())
-    AssertEqual(AnimCurveDef.EWeightedMode.eWeightedNone, key.GetTangentWeightMode())
-    AssertEqual(AnimCurveDef.EConstantMode.eConstantNext, key.GetConstantMode())
-    AssertEqual(AnimCurveDef.EVelocityMode.eVelocityNone, key.GetTangentVelocityMode())
-    AssertEqual(AnimCurveDef.ETangentVisibility.eTangentShowNone, key.GetTangentVisibility())
+    AssertEqual(FbxAnimCurveDef.ETangentMode.eTangentAuto, key.GetTangentMode())
+    AssertEqual(FbxAnimCurveDef.EInterpolationType.eInterpolationCubic, key.GetInterpolation())
+    AssertEqual(FbxAnimCurveDef.EWeightedMode.eWeightedNone, key.GetTangentWeightMode())
+    AssertEqual(FbxAnimCurveDef.EConstantMode.eConstantNext, key.GetConstantMode())
+    AssertEqual(FbxAnimCurveDef.EVelocityMode.eVelocityNone, key.GetTangentVelocityMode())
+    AssertEqual(FbxAnimCurveDef.ETangentVisibility.eTangentShowNone, key.GetTangentVisibility())
     AssertTrue(!key.GetBreak())
 
 test AnimCurveKey_SetWeightLeftThenRight_WeightIsAll
     given
-    AnimCurveKey key = new()
+    FbxAnimCurveKey key = new()
 
     require
-    AssertEqual(AnimCurveDef.EWeightedMode.eWeightedNone, key.GetTangentWeightMode())
+    AssertEqual(FbxAnimCurveDef.EWeightedMode.eWeightedNone, key.GetTangentWeightMode())
 
     when
-    key.SetTangentWeightMode(AnimCurveDef.EWeightedMode.eWeightedNextLeft)
+    key.SetTangentWeightMode(FbxAnimCurveDef.EWeightedMode.eWeightedNextLeft)
 
     then
-    AssertEqual(AnimCurveDef.EWeightedMode.eWeightedNextLeft, key.GetTangentWeightMode())
+    AssertEqual(FbxAnimCurveDef.EWeightedMode.eWeightedNextLeft, key.GetTangentWeightMode())
     
     when
-    key.SetTangentWeightMode(AnimCurveDef.EWeightedMode.eWeightedRight, AnimCurveDef.EWeightedMode.eWeightedRight)
+    key.SetTangentWeightMode(FbxAnimCurveDef.EWeightedMode.eWeightedRight, FbxAnimCurveDef.EWeightedMode.eWeightedRight)
 
     then
-    AssertEqual(AnimCurveDef.EWeightedMode.eWeightedAll, key.GetTangentWeightMode())
+    AssertEqual(FbxAnimCurveDef.EWeightedMode.eWeightedAll, key.GetTangentWeightMode())
 
 test AnimCurveKey_SetTangentWeights_TangentWeightsGetSet
     given
-    AnimCurveKey key = new()
-    key.SetTangentWeightMode(AnimCurveDef.EWeightedMode.eWeightedAll)
+    FbxAnimCurveKey key = new()
+    key.SetTangentWeightMode(FbxAnimCurveDef.EWeightedMode.eWeightedAll)
 
     require
-    AssertEqual(AnimCurveDef.EWeightedMode.eWeightedAll, key.GetTangentWeightMode())
-    AssertEqual(AnimCurveDef.sDEFAULT_WEIGHT, key.GetDataFloat(AnimCurveDef.EDataIndex.eRightWeight))
-    AssertEqual(AnimCurveDef.sDEFAULT_WEIGHT, key.GetDataFloat(AnimCurveDef.EDataIndex.eNextLeftWeight))
+    AssertEqual(FbxAnimCurveDef.EWeightedMode.eWeightedAll, key.GetTangentWeightMode())
+    AssertEqual(FbxAnimCurveDef.sDEFAULT_WEIGHT, key.GetDataFloat(FbxAnimCurveDef.EDataIndex.eRightWeight))
+    AssertEqual(FbxAnimCurveDef.sDEFAULT_WEIGHT, key.GetDataFloat(FbxAnimCurveDef.EDataIndex.eNextLeftWeight))
 
     when
-    key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eRightWeight, 0.234f)
+    key.SetTangentWeightAndAdjustTangent(FbxAnimCurveDef.EDataIndex.eRightWeight, 0.234f)
 
     then
-    AssertEqual(0.234f, key.GetDataFloat(AnimCurveDef.EDataIndex.eRightWeight), 0.0001f)
-    AssertEqual(AnimCurveDef.sDEFAULT_WEIGHT, key.GetDataFloat(AnimCurveDef.EDataIndex.eNextLeftWeight))
+    AssertEqual(0.234f, key.GetDataFloat(FbxAnimCurveDef.EDataIndex.eRightWeight), 0.0001f)
+    AssertEqual(FbxAnimCurveDef.sDEFAULT_WEIGHT, key.GetDataFloat(FbxAnimCurveDef.EDataIndex.eNextLeftWeight))
 
     when
-    key.SetTangentWeightAndAdjustTangent(AnimCurveDef.EDataIndex.eNextLeftWeight, 0.567f)
+    key.SetTangentWeightAndAdjustTangent(FbxAnimCurveDef.EDataIndex.eNextLeftWeight, 0.567f)
 
     then
-    AssertEqual(0.234f, key.GetDataFloat(AnimCurveDef.EDataIndex.eRightWeight), 0.0001f)
-    AssertEqual(0.567f, key.GetDataFloat(AnimCurveDef.EDataIndex.eNextLeftWeight), 0.0001f)
+    AssertEqual(0.234f, key.GetDataFloat(FbxAnimCurveDef.EDataIndex.eRightWeight), 0.0001f)
+    AssertEqual(0.567f, key.GetDataFloat(FbxAnimCurveDef.EDataIndex.eNextLeftWeight), 0.0001f)
 

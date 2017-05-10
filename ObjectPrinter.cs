@@ -15,7 +15,7 @@ namespace FbxSharp
             return "\"" + s.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "\"";
         }
 
-        public static string PrintPropertyID(Property prop)
+        public static string PrintPropertyID(FbxProperty prop)
         {
             if (prop == null)
                 return "<<null>>";
@@ -114,8 +114,8 @@ namespace FbxSharp
 //            if (obj is Collection)
 //                PrintCollection(obj as Collection);
 //            else
-            if (obj is AnimCurve)
-                PrintAnimCurve(obj as AnimCurve);
+            if (obj is FbxAnimCurve)
+                PrintAnimCurve(obj as FbxAnimCurve);
 //            else if (obj is AnimCurveNode)
 //                PrintAnimCurveNode(obj as AnimCurveNode);
 //            else if (obj is Deformer)
@@ -214,11 +214,11 @@ namespace FbxSharp
             return tid.Name;
         }
 
-        public void PrintProperty(Property prop, bool indent=false)
+        public void PrintProperty(FbxProperty prop, bool indent=false)
         {
             PrintProperty(prop, Console.Out, indent);
         }
-        public void PrintProperty(Property prop, TextWriter writer, bool indent=false)
+        public void PrintProperty(FbxProperty prop, TextWriter writer, bool indent=false)
         {
             string prefix = indent ? "            " : "        ";
 
@@ -245,9 +245,9 @@ namespace FbxSharp
             float f;
             double d;
             string fstr;
-            Vector2 v2;
-            Vector3 v3;
-            Vector4 v4;
+            FbxVector2 v2;
+            FbxVector3 v3;
+            FbxVector4 v4;
             string s;
             FbxTime t;
             var sb = new StringBuilder();
@@ -343,23 +343,23 @@ namespace FbxSharp
             }
 //                break;
 //            case eFbxDouble2:
-            if (type == typeof(Vector2))
+            if (type == typeof(FbxVector2))
             {
-                v2 = prop.Get<Vector2>();
+                v2 = prop.Get<FbxVector2>();
                 sb.AppendFormat("{0}, {1}", v2.X, v2.Y);
             }
 //                break;
 //            case eFbxDouble3:
             if (type == typeof(sbyte))
             {
-                v3 = prop.Get<Vector3>();
+                v3 = prop.Get<FbxVector3>();
                 sb.AppendFormat("{0}, {1}, {2}", v3.X, v3.Y, v3.Z);
             }
 //                break;
 //            case eFbxDouble4:
             if (type == typeof(sbyte))
             {
-                v4 = prop.Get<Vector4>();
+                v4 = prop.Get<FbxVector4>();
                 sb.AppendFormat("{0}, {1}, {2}, {3}", v4.X, v4.Y, v4.Z, v4.W);
             }
 //                break;
@@ -435,11 +435,11 @@ namespace FbxSharp
 
 
 
-        public void PrintAnimCurve(AnimCurve ac)
+        public void PrintAnimCurve(FbxAnimCurve ac)
         {
             PrintAnimCurve(ac, Console.Out);
         }
-        public void PrintAnimCurve(AnimCurve ac, TextWriter writer)
+        public void PrintAnimCurve(FbxAnimCurve ac, TextWriter writer)
         {
             writer.Write("    KeyGetCount() = ");
             writer.Write(ac.KeyGetCount());
@@ -481,17 +481,17 @@ namespace FbxSharp
                 writer.Write(key.GetBreak() ? "1" : "0");
                 writer.Write(", ");
                 writer.Write("DataFloat: ");
-                writer.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)0));
+                writer.Write("{0:G5}", key.GetDataFloat((FbxAnimCurveDef.EDataIndex)0));
                 writer.Write(", ");
-                writer.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)1));
+                writer.Write("{0:G5}", key.GetDataFloat((FbxAnimCurveDef.EDataIndex)1));
                 writer.Write(", ");
-                writer.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)2));
+                writer.Write("{0:G5}", key.GetDataFloat((FbxAnimCurveDef.EDataIndex)2));
                 writer.Write(", ");
-                writer.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)3));
+                writer.Write("{0:G5}", key.GetDataFloat((FbxAnimCurveDef.EDataIndex)3));
                 writer.Write(", ");
-                writer.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)4));
+                writer.Write("{0:G5}", key.GetDataFloat((FbxAnimCurveDef.EDataIndex)4));
                 writer.Write(", ");
-                writer.Write("{0:G5}", key.GetDataFloat((AnimCurveDef.EDataIndex)5));
+                writer.Write("{0:G5}", key.GetDataFloat((FbxAnimCurveDef.EDataIndex)5));
 
                 writer.WriteLine();
             }

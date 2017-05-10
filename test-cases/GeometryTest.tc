@@ -1,8 +1,8 @@
 ﻿fixture GeometryTest
 test Geometry_AddDeformer_AddsDeformer
     given
-    Geometry g = new("")
-    Skin skin = new("")
+    FbxGeometry g = new("")
+    FbxSkin skin = new("")
 
     require
     AssertEqual(0, g.GetDeformerCount())
@@ -21,8 +21,8 @@ test Geometry_AddDeformer_AddsDeformer
 
 test Geometry_AddSrcConnection_AddsDeformer
     given
-    Geometry g = new("")
-    Skin skin = new("")
+    FbxGeometry g = new("")
+    FbxSkin skin = new("")
 
     require
     AssertEqual(0, g.GetDeformerCount())
@@ -41,8 +41,8 @@ test Geometry_AddSrcConnection_AddsDeformer
 
 test Geometry_RemoveDeformer_RemovesDeformer
     given
-    Geometry g = new("")
-    Skin skin = new("")
+    FbxGeometry g = new("")
+    FbxSkin skin = new("")
     g.AddDeformer(skin)
 
     require
@@ -58,8 +58,8 @@ test Geometry_RemoveDeformer_RemovesDeformer
 
 test Geometry_DisconnectSrcObject_RemovesDeformer
     given
-    Geometry g = new("")
-    Skin skin = new("")
+    FbxGeometry g = new("")
+    FbxSkin skin = new("")
     g.AddDeformer(skin)
 
     require

@@ -1,10 +1,10 @@
 ﻿fixture MatrixTest
 test Matrix_TrsConstructorNoTransforms_CreatesIdentity
     when
-    Vector4! t = Vector4(0, 0, 0)
-    Vector4! r = Vector4(0, 0, 0)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! m = new(t, r, s)
+    FbxVector4! t = FbxVector4(0, 0, 0)
+    FbxVector4! r = FbxVector4(0, 0, 0)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! m = new(t, r, s)
 
     then
     AssertEqual(1.0, m&.Get(0, 0))
@@ -26,10 +26,10 @@ test Matrix_TrsConstructorNoTransforms_CreatesIdentity
 
 test Matrix_TrsConstructorTranslation_CreatesWithTranslation
     when
-    Vector4! t = Vector4(2, 3, 4)
-    Vector4! r = Vector4(0, 0, 0)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! m = new(t, r, s)
+    FbxVector4! t = FbxVector4(2, 3, 4)
+    FbxVector4! r = FbxVector4(0, 0, 0)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! m = new(t, r, s)
 
     then
     AssertEqual(1.0, m&.Get(0, 0), 0.00001)
@@ -51,10 +51,10 @@ test Matrix_TrsConstructorTranslation_CreatesWithTranslation
 
 test Matrix_TrsConstructorRotationX_CreatesWithRotationX
     when
-    Vector4! t = Vector4(0, 0, 0)
-    Vector4! r = Vector4(22.5, 0, 0)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! m = new(t, r, s)
+    FbxVector4! t = FbxVector4(0, 0, 0)
+    FbxVector4! r = FbxVector4(22.5, 0, 0)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! m = new(t, r, s)
 
     then
     AssertEqual(1.0,       m&.Get(0, 0), 0.00001)
@@ -76,10 +76,10 @@ test Matrix_TrsConstructorRotationX_CreatesWithRotationX
 
 test Matrix_TrsConstructorRotationY_CreatesWithRotationY
     when
-    Vector4! t = Vector4(0, 0, 0)
-    Vector4! r = Vector4(0, 35, 0)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! m = new(t, r, s)
+    FbxVector4! t = FbxVector4(0, 0, 0)
+    FbxVector4! r = FbxVector4(0, 35, 0)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! m = new(t, r, s)
 
     then
     AssertEqual(0.819152,  m&.Get(0, 0), 0.00001)
@@ -101,10 +101,10 @@ test Matrix_TrsConstructorRotationY_CreatesWithRotationY
 
 test Matrix_TrsConstructorRotationZ_CreatesWithRotationZ
     when
-    Vector4! t = Vector4(0, 0, 0)
-    Vector4! r = Vector4(0, 0, 55)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! m = new(t, r, s)
+    FbxVector4! t = FbxVector4(0, 0, 0)
+    FbxVector4! r = FbxVector4(0, 0, 55)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! m = new(t, r, s)
 
     then
     AssertEqual(0.573576,  m&.Get(0, 0), 0.00001)
@@ -126,10 +126,10 @@ test Matrix_TrsConstructorRotationZ_CreatesWithRotationZ
 
 test Matrix_TrsConstructorRotationXY_CreatesWithRotationXY
     when
-    Vector4! t = Vector4(0, 0, 0)
-    Vector4! r = Vector4(22.5, 35, 0)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! m = new(t, r, s)
+    FbxVector4! t = FbxVector4(0, 0, 0)
+    FbxVector4! r = FbxVector4(22.5, 35, 0)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! m = new(t, r, s)
 
     then
     AssertEqual(0.819152,  m&.Get(0, 0), 0.00001)
@@ -151,10 +151,10 @@ test Matrix_TrsConstructorRotationXY_CreatesWithRotationXY
 
 test Matrix_TrsConstructorRotationYZ_CreatesWithRotationYZ
     when
-    Vector4! t = Vector4(0, 0, 0)
-    Vector4! r = Vector4(0, 35, 55)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! m = new(t, r, s)
+    FbxVector4! t = FbxVector4(0, 0, 0)
+    FbxVector4! r = FbxVector4(0, 35, 55)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! m = new(t, r, s)
 
     then
     AssertEqual(0.469846,  m&.Get(0, 0), 0.00001)
@@ -176,10 +176,10 @@ test Matrix_TrsConstructorRotationYZ_CreatesWithRotationYZ
 
 test Matrix_TrsConstructorRotationXZ_CreatesWithRotationXZ
     when
-    Vector4! t = Vector4(0, 0, 0)
-    Vector4! r = Vector4(22.5, 0, 55)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! m = new(t, r, s)
+    FbxVector4! t = FbxVector4(0, 0, 0)
+    FbxVector4! r = FbxVector4(22.5, 0, 55)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! m = new(t, r, s)
 
     then
     AssertEqual(0.573576,  m&.Get(0, 0), 0.00001)
@@ -201,10 +201,10 @@ test Matrix_TrsConstructorRotationXZ_CreatesWithRotationXZ
 
 test Matrix_TrsConstructorRotationXYZ_CreatesWithRotationXYZ
     when
-    Vector4! t = Vector4(0, 0, 0)
-    Vector4! r = Vector4(22.5, 35, 55)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! m = new(t, r, s)
+    FbxVector4! t = FbxVector4(0, 0, 0)
+    FbxVector4! r = FbxVector4(22.5, 35, 55)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! m = new(t, r, s)
 
     then
     AssertEqual(0.469846,  m&.Get(0, 0), 0.00001)
@@ -226,10 +226,10 @@ test Matrix_TrsConstructorRotationXYZ_CreatesWithRotationXYZ
     
 test Matrix_TrsConstructorScale_CreatesWithScale
     when
-    Vector4! t = Vector4(0, 0, 0)
-    Vector4! r = Vector4(0, 0, 0)
-    Vector4! s = Vector4(2, 3, 4)
-    Matrix! m = new(t, r, s)
+    FbxVector4! t = FbxVector4(0, 0, 0)
+    FbxVector4! r = FbxVector4(0, 0, 0)
+    FbxVector4! s = FbxVector4(2, 3, 4)
+    FbxMatrix! m = new(t, r, s)
 
     then
     AssertEqual(2.0, m&.Get(0, 0), 0.00001)
@@ -251,10 +251,10 @@ test Matrix_TrsConstructorScale_CreatesWithScale
 
 test Matrix_TrsConstructorEverything_CreatesMatrix
     when
-    Vector4! t = Vector4(1, 0, 0)
-    Vector4! r = Vector4(22.5, 45, 135)
-    Vector4! s = Vector4(1, 2, 3)
-    Matrix! m = new(t, r, s)
+    FbxVector4! t = FbxVector4(1, 0, 0)
+    FbxVector4! r = FbxVector4(22.5, 45, 135)
+    FbxVector4! s = FbxVector4(1, 2, 3)
+    FbxMatrix! m = new(t, r, s)
 
     then
     AssertEqual(-0.5,      m&.Get(0, 0), 0.00001)
@@ -276,11 +276,11 @@ test Matrix_TrsConstructorEverything_CreatesMatrix
 
 test Matrix_Multiply
     given
-    Matrix! a = new(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1)
-    Matrix! b = new(0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1)
+    FbxMatrix! a = new(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1)
+    FbxMatrix! b = new(0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0.0f, m&.Get(0, 0), 0.000001f)
@@ -323,11 +323,11 @@ test Matrix_Multiply
 
 test Matrix_Multiply_2
     given
-    Matrix! a = new(1, 0, -0, 0, 0, 0.707107, 0.707107, 0, 0, -0.707107, 0.707107, 0, 0, 0, 0, 1); // 45 degrees around x
-    Matrix! b = new(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1)
+    FbxMatrix! a = new(1, 0, -0, 0, 0, 0.707107, 0.707107, 0, 0, -0.707107, 0.707107, 0, 0, 0, 0, 1); // 45 degrees around x
+    FbxMatrix! b = new(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(1.000000f, m&.Get(0, 0), 0.000001f)
@@ -370,12 +370,12 @@ test Matrix_Multiply_2
 
 test Matrix_Multiply_3
     given
-    Matrix! r = new(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1)
-    Matrix! t = new(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1)
-    Matrix! s = new(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1)
+    FbxMatrix! r = new(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1)
+    FbxMatrix! t = new(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1)
+    FbxMatrix! s = new(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1)
 
     when
-    Matrix! m = r * t * s
+    FbxMatrix! m = r * t * s
 
     then
     AssertEqual(0.0f, m&.Get(0, 0), 0.000001f)
@@ -502,13 +502,13 @@ test Matrix_Multiply_3
 
 test Matrix_MultiplicationIsAssociative
     given
-    Matrix! r = new(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1)
-    Matrix! t = new(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1)
-    Matrix! s = new(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1)
+    FbxMatrix! r = new(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1)
+    FbxMatrix! t = new(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1)
+    FbxMatrix! s = new(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1)
 
     when
-    Matrix! m1 = (r * t) * s
-    Matrix! m2 = r * (t * s)
+    FbxMatrix! m1 = (r * t) * s
+    FbxMatrix! m2 = r * (t * s)
 
     then
     AssertEqual(m1&.Get(0, 0), m2&.Get(0, 0), 0.000001f)
@@ -640,11 +640,11 @@ test Matrix_MultiplicationIsAssociative
 
 test MatrixMultiplication_IndividualElements_00
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! m = a * b
+    FbxMatrix! b = new(59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(118, m&.Get(0, 0), 0.000001f)
@@ -666,11 +666,11 @@ test MatrixMultiplication_IndividualElements_00
     
 test MatrixMultiplication_IndividualElements_01
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! m = a * b
+    FbxMatrix! b = new(0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(649,  m&.Get(0, 0), 0.000001f)
@@ -692,11 +692,11 @@ test MatrixMultiplication_IndividualElements_01
 
 test MatrixMultiplication_IndividualElements_02
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! m = a * b
+    FbxMatrix! b = new(0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(1357, m&.Get(0, 0), 0.000001f)
@@ -718,11 +718,11 @@ test MatrixMultiplication_IndividualElements_02
 
 test MatrixMultiplication_IndividualElements_03
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! m = a * b
+    FbxMatrix! b = new(0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(2419, m&.Get(0, 0), 0.000001f)
@@ -744,11 +744,11 @@ test MatrixMultiplication_IndividualElements_03
 
 test MatrixMultiplication_IndividualElements_04
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! m = a * b
+    FbxMatrix! b = new(0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0,   m&.Get(0, 0), 0.000001f)
@@ -770,11 +770,11 @@ test MatrixMultiplication_IndividualElements_04
 
 test MatrixMultiplication_IndividualElements_05
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! m = a * b
+    FbxMatrix! b = new(0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0,    m&.Get(0, 0), 0.000001f)
@@ -796,11 +796,11 @@ test MatrixMultiplication_IndividualElements_05
 
 test MatrixMultiplication_IndividualElements_06
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! m = a * b
+    FbxMatrix! b = new(0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0,    m&.Get(0, 0), 0.000001f)
@@ -822,11 +822,11 @@ test MatrixMultiplication_IndividualElements_06
 
 test MatrixMultiplication_IndividualElements_07
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! m = a * b
+    FbxMatrix! b = new(0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0,    m&.Get(0, 0), 0.000001f)
@@ -848,11 +848,11 @@ test MatrixMultiplication_IndividualElements_07
 
 test MatrixMultiplication_IndividualElements_08
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! m = a * b
+    FbxMatrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0,   m&.Get(0, 0), 0.000001f)
@@ -874,11 +874,11 @@ test MatrixMultiplication_IndividualElements_08
 
 test MatrixMultiplication_IndividualElements_09
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0)
-    Matrix! m = a * b
+    FbxMatrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0,    m&.Get(0, 0), 0.000001f)
@@ -900,11 +900,11 @@ test MatrixMultiplication_IndividualElements_09
 
 test MatrixMultiplication_IndividualElements_10
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0)
-    Matrix! m = a * b
+    FbxMatrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0,    m&.Get(0, 0), 0.000001f)
@@ -926,11 +926,11 @@ test MatrixMultiplication_IndividualElements_10
 
 test MatrixMultiplication_IndividualElements_11
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0)
-    Matrix! m = a * b
+    FbxMatrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0,    m&.Get(0, 0), 0.000001f)
@@ -952,11 +952,11 @@ test MatrixMultiplication_IndividualElements_11
 
 test MatrixMultiplication_IndividualElements_12
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0)
-    Matrix! m = a * b
+    FbxMatrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0,   m&.Get(0, 0), 0.000001f)
@@ -978,11 +978,11 @@ test MatrixMultiplication_IndividualElements_12
 
 test MatrixMultiplication_IndividualElements_13
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0)
-    Matrix! m = a * b
+    FbxMatrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0,    m&.Get(0, 0), 0.000001f)
@@ -1004,11 +1004,11 @@ test MatrixMultiplication_IndividualElements_13
 
 test MatrixMultiplication_IndividualElements_14
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0)
-    Matrix! m = a * b
+    FbxMatrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0,    m&.Get(0, 0), 0.000001f)
@@ -1030,11 +1030,11 @@ test MatrixMultiplication_IndividualElements_14
 
 test MatrixMultiplication_IndividualElements_15
     given
-    Matrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+    FbxMatrix! a = new(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
     when
-    Matrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59)
-    Matrix! m = a * b
+    FbxMatrix! b = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59)
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0,    m&.Get(0, 0), 0.000001f)
@@ -1056,7 +1056,7 @@ test MatrixMultiplication_IndividualElements_15
 
 test Matrix_ConstructorElements_GetMethodGetsCorrectElements
     when
-    Matrix! m = new(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)
+    FbxMatrix! m = new(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)
 
     then
     AssertEqual( 1, m&.Get(0, 0), 0.000001f)
@@ -1078,11 +1078,11 @@ test Matrix_ConstructorElements_GetMethodGetsCorrectElements
 
 test Matrix_MultiplyRowsAndColumns_00
     given
-    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+    FbxMatrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual( 22, m&.Get(0, 0), 0.000001f)
@@ -1104,11 +1104,11 @@ test Matrix_MultiplyRowsAndColumns_00
 
 test Matrix_MultiplyColumnsAndRows_00
     given
-    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+    FbxMatrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(279, m&.Get(0, 0), 0.000001f)
@@ -1130,11 +1130,11 @@ test Matrix_MultiplyColumnsAndRows_00
 
 test Matrix_MultiplyRowsAndColumns_01
     given
-    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+    FbxMatrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1156,11 +1156,11 @@ test Matrix_MultiplyRowsAndColumns_01
 
 test Matrix_MultiplyColumnsAndRows_01
     given
-    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+    FbxMatrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1182,11 +1182,11 @@ test Matrix_MultiplyColumnsAndRows_01
 
 test Matrix_MultiplyRowsAndColumns_02
     given
-    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+    FbxMatrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1208,11 +1208,11 @@ test Matrix_MultiplyRowsAndColumns_02
 
 test Matrix_MultiplyColumnsAndRows_02
     given
-    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+    FbxMatrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1234,11 +1234,11 @@ test Matrix_MultiplyColumnsAndRows_02
 
 test Matrix_MultiplyRowsAndColumns_03
     given
-    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+    FbxMatrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1260,11 +1260,11 @@ test Matrix_MultiplyRowsAndColumns_03
 
 test Matrix_MultiplyColumnsAndRows_03
     given
-    Matrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+    FbxMatrix! a = new(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1286,11 +1286,11 @@ test Matrix_MultiplyColumnsAndRows_03
 
 test Matrix_MultiplyRowsAndColumns_10
     given
-    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1312,11 +1312,11 @@ test Matrix_MultiplyRowsAndColumns_10
 
 test Matrix_MultiplyColumnsAndRows_10
     given
-    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1338,11 +1338,11 @@ test Matrix_MultiplyColumnsAndRows_10
 
 test Matrix_MultiplyRowsAndColumns_11
     given
-    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual( 22, m&.Get(0, 0), 0.000001f)
@@ -1364,11 +1364,11 @@ test Matrix_MultiplyRowsAndColumns_11
 
 test Matrix_MultiplyColumnsAndRows_11
     given
-    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1390,11 +1390,11 @@ test Matrix_MultiplyColumnsAndRows_11
 
 test Matrix_MultiplyRowsAndColumns_12
     given
-    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1416,11 +1416,11 @@ test Matrix_MultiplyRowsAndColumns_12
 
 test Matrix_MultiplyColumnsAndRows_12
     given
-    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1442,11 +1442,11 @@ test Matrix_MultiplyColumnsAndRows_12
 
 test Matrix_MultiplyRowsAndColumns_13
     given
-    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+    FbxMatrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1468,11 +1468,11 @@ test Matrix_MultiplyRowsAndColumns_13
 
 test Matrix_MultiplyColumnsAndRows_13
     given
-    Matrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
-    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+    FbxMatrix! a = new(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1494,11 +1494,11 @@ test Matrix_MultiplyColumnsAndRows_13
 
 test Matrix_MultiplyRowsAndColumns_20
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
-    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    FbxMatrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1520,11 +1520,11 @@ test Matrix_MultiplyRowsAndColumns_20
 
 test Matrix_MultiplyColumnsAndRows_20
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
-    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    FbxMatrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1546,11 +1546,11 @@ test Matrix_MultiplyColumnsAndRows_20
 
 test Matrix_MultiplyRowsAndColumns_21
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
-    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1572,11 +1572,11 @@ test Matrix_MultiplyRowsAndColumns_21
 
 test Matrix_MultiplyColumnsAndRows_21
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
-    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1598,11 +1598,11 @@ test Matrix_MultiplyColumnsAndRows_21
 
 test Matrix_MultiplyRowsAndColumns_22
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
-    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual( 22, m&.Get(0, 0), 0.000001f)
@@ -1624,11 +1624,11 @@ test Matrix_MultiplyRowsAndColumns_22
 
 test Matrix_MultiplyColumnsAndRows_22
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
-    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1650,11 +1650,11 @@ test Matrix_MultiplyColumnsAndRows_22
 
 test Matrix_MultiplyRowsAndColumns_23
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
-    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1676,11 +1676,11 @@ test Matrix_MultiplyRowsAndColumns_23
 
 test Matrix_MultiplyColumnsAndRows_23
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
-    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0)
+    FbxMatrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1702,11 +1702,11 @@ test Matrix_MultiplyColumnsAndRows_23
 
 test Matrix_MultiplyRowsAndColumns_30
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
-    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    FbxMatrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1728,11 +1728,11 @@ test Matrix_MultiplyRowsAndColumns_30
 
 test Matrix_MultiplyColumnsAndRows_30
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
-    Matrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    FbxMatrix! b = new(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1754,11 +1754,11 @@ test Matrix_MultiplyColumnsAndRows_30
 
 test Matrix_MultiplyRowsAndColumns_31
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
-    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    FbxMatrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1780,11 +1780,11 @@ test Matrix_MultiplyRowsAndColumns_31
 
 test Matrix_MultiplyColumnsAndRows_31
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
-    Matrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    FbxMatrix! b = new(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1806,11 +1806,11 @@ test Matrix_MultiplyColumnsAndRows_31
 
 test Matrix_MultiplyRowsAndColumns_32
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
-    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    FbxMatrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1832,11 +1832,11 @@ test Matrix_MultiplyRowsAndColumns_32
 
 test Matrix_MultiplyColumnsAndRows_32
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
-    Matrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    FbxMatrix! b = new(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1858,11 +1858,11 @@ test Matrix_MultiplyColumnsAndRows_32
 
 test Matrix_MultiplyRowsAndColumns_33
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
-    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    FbxMatrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
 
     when
-    Matrix! m = a * b
+    FbxMatrix! m = a * b
 
     then
     AssertEqual( 22, m&.Get(0, 0), 0.000001f)
@@ -1884,11 +1884,11 @@ test Matrix_MultiplyRowsAndColumns_33
 
 test Matrix_MultiplyColumnsAndRows_33
     given
-    Matrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
-    Matrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
+    FbxMatrix! a = new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7)
+    FbxMatrix! b = new(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19)
 
     when
-    Matrix! m = b * a
+    FbxMatrix! m = b * a
 
     then
     AssertEqual(0, m&.Get(0, 0), 0.000001f)
@@ -1911,12 +1911,12 @@ test Matrix_MultiplyColumnsAndRows_33
 
 test MatrixRotationIsCounterClockwiseX
     given
-    Vector4! t = Vector4(0, 0, 0)
-    Vector4! r = Vector4(90, 0, 0)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! m = new(t, r, s)
-    Vector4! v = Vector4()
-    Vector4! u = Vector4()
+    FbxVector4! t = FbxVector4(0, 0, 0)
+    FbxVector4! r = FbxVector4(90, 0, 0)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! m = new(t, r, s)
+    FbxVector4! v = FbxVector4()
+    FbxVector4! u = FbxVector4()
 
     require
     AssertEqual(1.0, m&.Get(0, 0), 0.00001)
@@ -1937,7 +1937,7 @@ test MatrixRotationIsCounterClockwiseX
     AssertEqual(1.0, m&.Get(3, 3), 0.00001)
 
     when
-    v = Fbx$Vector4(0, 0, 1, 1)
+    v = FbxVector4(0, 0, 1, 1)
     u = m&.MultNormalize(v)
 
     then
@@ -1946,7 +1946,7 @@ test MatrixRotationIsCounterClockwiseX
     AssertEqual( 0, u[2], 0.000001f)
 
     when
-    v = Fbx$Vector4(0, 1, 0, 1)
+    v = FbxVector4(0, 1, 0, 1)
     u = m&.MultNormalize(v)
 
     then
@@ -1955,7 +1955,7 @@ test MatrixRotationIsCounterClockwiseX
     AssertEqual( 1, u[2], 0.000001f)
 
     when
-    v = Fbx$Vector4(0, 0, -1, 1)
+    v = FbxVector4(0, 0, -1, 1)
     u = m&.MultNormalize(v)
 
     then
@@ -1964,7 +1964,7 @@ test MatrixRotationIsCounterClockwiseX
     AssertEqual( 0, u[2], 0.000001f)
 
     when
-    v = Fbx$Vector4(0, -1, 0, 1)
+    v = FbxVector4(0, -1, 0, 1)
     u = m&.MultNormalize(v)
 
     then
@@ -1974,12 +1974,12 @@ test MatrixRotationIsCounterClockwiseX
 
 test MatrixRotationIsCounterClockwiseY
     given
-    Vector4! t = Vector4(0, 0, 0)
-    Vector4! r = Vector4(0, 90, 0)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! m = new(t, r, s)
-    Vector4! v = Vector4()
-    Vector4! u = Vector4()
+    FbxVector4! t = FbxVector4(0, 0, 0)
+    FbxVector4! r = FbxVector4(0, 90, 0)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! m = new(t, r, s)
+    FbxVector4! v = FbxVector4()
+    FbxVector4! u = FbxVector4()
 
     require
     AssertEqual(0.0, m&.Get(0, 0), 0.00001)
@@ -2000,7 +2000,7 @@ test MatrixRotationIsCounterClockwiseY
     AssertEqual(1.0, m&.Get(3, 3), 0.00001)
 
     when
-    v = Fbx$Vector4(0, 0, 1, 1)
+    v = FbxVector4(0, 0, 1, 1)
     u = m&.MultNormalize(v)
 
     then
@@ -2009,7 +2009,7 @@ test MatrixRotationIsCounterClockwiseY
     AssertEqual( 0, u[2], 0.000001f)
 
     when
-    v = Fbx$Vector4(1, 0, 0, 1)
+    v = FbxVector4(1, 0, 0, 1)
     u = m&.MultNormalize(v)
 
     then
@@ -2018,7 +2018,7 @@ test MatrixRotationIsCounterClockwiseY
     AssertEqual(-1, u[2], 0.000001f)
 
     when
-    v = Fbx$Vector4(0, 0, -1, 1)
+    v = FbxVector4(0, 0, -1, 1)
     u = m&.MultNormalize(v)
 
     then
@@ -2027,7 +2027,7 @@ test MatrixRotationIsCounterClockwiseY
     AssertEqual( 0, u[2], 0.000001f)
 
     when
-    v = Fbx$Vector4(-1, 0, 0, 1)
+    v = FbxVector4(-1, 0, 0, 1)
     u = m&.MultNormalize(v)
 
     then
@@ -2037,12 +2037,12 @@ test MatrixRotationIsCounterClockwiseY
 
 test MatrixRotationIsCounterClockwiseZ
     given
-    Vector4! t = Vector4(0, 0, 0)
-    Vector4! r = Vector4(0, 0, 90)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! m = new(t, r, s)
-    Vector4! v = Vector4()
-    Vector4! u = Vector4()
+    FbxVector4! t = FbxVector4(0, 0, 0)
+    FbxVector4! r = FbxVector4(0, 0, 90)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! m = new(t, r, s)
+    FbxVector4! v = FbxVector4()
+    FbxVector4! u = FbxVector4()
 
     require
     AssertEqual(0.0, m&.Get(0, 0), 0.00001)
@@ -2063,7 +2063,7 @@ test MatrixRotationIsCounterClockwiseZ
     AssertEqual(1.0, m&.Get(3, 3), 0.00001)
 
     when
-    v = Fbx$Vector4(1, 0, 0, 1)
+    v = FbxVector4(1, 0, 0, 1)
     u = m&.MultNormalize(v)
 
     then
@@ -2072,7 +2072,7 @@ test MatrixRotationIsCounterClockwiseZ
     AssertEqual( 0, u[2], 0.000001f)
 
     when
-    v = Fbx$Vector4(0, 1, 0, 1)
+    v = FbxVector4(0, 1, 0, 1)
     u = m&.MultNormalize(v)
 
     then
@@ -2081,7 +2081,7 @@ test MatrixRotationIsCounterClockwiseZ
     AssertEqual( 0, u[2], 0.000001f)
 
     when
-    v = Fbx$Vector4(-1, 0, 0, 1)
+    v = FbxVector4(-1, 0, 0, 1)
     u = m&.MultNormalize(v)
 
     then
@@ -2090,7 +2090,7 @@ test MatrixRotationIsCounterClockwiseZ
     AssertEqual( 0, u[2], 0.000001f)
 
     when
-    v = Fbx$Vector4(0, -1, 0, 1)
+    v = FbxVector4(0, -1, 0, 1)
     u = m&.MultNormalize(v)
 
     then
@@ -2106,19 +2106,19 @@ test MatrixMultiplyTransformOrder_TransformationsOccurRightToLeft
     */
 
     given
-    Vector4! t1 = Vector4(1, 0, 0)
-    Vector4! t2 = Vector4(0, 0, 0)
-    Vector4! r1 = Vector4(0, 0, 0)
-    Vector4! r2 = Vector4(0, 90, 0)
-    Vector4! s = Vector4(1, 1, 1)
-    Matrix! m1 = new(t1, r1, s)
-    Matrix! m2 = new(t2, r2, s)
-    Vector4! u = Vector4()
-    Vector4! zero = Vector4(0, 0, 0, 1)
-    Vector4! one = Vector4(1, 1, 1, 1)
-    Vector4! x = Vector4(1, 0, 0, 1)
-    Vector4! y = Vector4(0, 1, 0, 1)
-    Vector4! z = Vector4(0, 0, 1, 1)
+    FbxVector4! t1 = FbxVector4(1, 0, 0)
+    FbxVector4! t2 = FbxVector4(0, 0, 0)
+    FbxVector4! r1 = FbxVector4(0, 0, 0)
+    FbxVector4! r2 = FbxVector4(0, 90, 0)
+    FbxVector4! s = FbxVector4(1, 1, 1)
+    FbxMatrix! m1 = new(t1, r1, s)
+    FbxMatrix! m2 = new(t2, r2, s)
+    FbxVector4! u = FbxVector4()
+    FbxVector4! zero = FbxVector4(0, 0, 0, 1)
+    FbxVector4! one = FbxVector4(1, 1, 1, 1)
+    FbxVector4! x = FbxVector4(1, 0, 0, 1)
+    FbxVector4! y = FbxVector4(0, 1, 0, 1)
+    FbxVector4! z = FbxVector4(0, 0, 1, 1)
 
     require
     u = m1&.MultNormalize(zero)
@@ -2164,7 +2164,7 @@ test MatrixMultiplyTransformOrder_TransformationsOccurRightToLeft
     AssertEqual(-1,u[2], 0.000001f)
 
     when
-    Matrix! m = m1 * m2
+    FbxMatrix! m = m1 * m2
 
     then
     u = m&.MultNormalize(zero)

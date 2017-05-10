@@ -11,8 +11,8 @@ namespace FbxSharpTests
         public void Camera_Create_HasProperties()
         {
             // given:
-            var camera = new Camera("camera");
-            Property prop;
+            var camera = new FbxCamera("camera");
+            FbxProperty prop;
 
             // then:
             Assert.AreEqual(106, CountProperties(camera));
@@ -872,7 +872,7 @@ namespace FbxSharpTests
         public void FbxCamera_Create_HasNamespacePrefix()
         {
             // given:
-            var obj = new Camera("asdf");
+            var obj = new FbxCamera("asdf");
 
             // then:
             Assert.AreEqual("NodeAttribute::", obj.GetNameSpacePrefix());

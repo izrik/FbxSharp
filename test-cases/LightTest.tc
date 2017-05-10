@@ -1,8 +1,8 @@
 ﻿fixture LightTest
 test Light_Create_HasProperties
     given
-    Light light = new("light")
-    Property prop
+    FbxLight light = new("light")
+    FbxProperty prop
 
     then
     AssertEqual(27, CountProperties(light))
@@ -227,7 +227,7 @@ test Light_Create_HasProperties
 
 test Light_Create_HasNamespacePrefix
     given
-    Light obj = new("asdf")
+    FbxLight obj = new("asdf")
 
     then
     AssertEqual("NodeAttribute:\:", obj.GetNameSpacePrefix())

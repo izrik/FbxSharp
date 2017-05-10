@@ -11,10 +11,10 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorNoTransforms_CreatesIdentity()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 0, 0);
-            var s = new Vector4(1, 1, 1);
-            var m = new Matrix(t, r, s);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 0, 0);
+            var s = new FbxVector4(1, 1, 1);
+            var m = new FbxMatrix(t, r, s);
 
             // then:
             Assert.AreEqual(1.0, m.Get(0, 0));
@@ -39,10 +39,10 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorTranslation_CreatesWithTranslation()
         {
             // when:
-            var t = new Vector4(2, 3, 4);
-            var r = new Vector4(0, 0, 0);
-            var s = new Vector4(1, 1, 1);
-            var m = new Matrix(t, r, s);
+            var t = new FbxVector4(2, 3, 4);
+            var r = new FbxVector4(0, 0, 0);
+            var s = new FbxVector4(1, 1, 1);
+            var m = new FbxMatrix(t, r, s);
 
             // then:
             Assert.AreEqual(1.0, m.Get(0, 0), 0.00001);
@@ -67,10 +67,10 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorRotationX_CreatesWithRotationX()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(22.5, 0, 0);
-            var s = new Vector4(1, 1, 1);
-            var m = new Matrix(t, r, s);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(22.5, 0, 0);
+            var s = new FbxVector4(1, 1, 1);
+            var m = new FbxMatrix(t, r, s);
 
             // then:
             Assert.AreEqual(1.0,       m.Get(0, 0), 0.00001);
@@ -95,10 +95,10 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorRotationY_CreatesWithRotationY()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 35, 0);
-            var s = new Vector4(1, 1, 1);
-            var m = new Matrix(t, r, s);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 35, 0);
+            var s = new FbxVector4(1, 1, 1);
+            var m = new FbxMatrix(t, r, s);
 
             // then:
             Assert.AreEqual(0.819152,  m.Get(0, 0), 0.00001);
@@ -123,10 +123,10 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorRotationZ_CreatesWithRotationZ()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 0, 55);
-            var s = new Vector4(1, 1, 1);
-            var m = new Matrix(t, r, s);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 0, 55);
+            var s = new FbxVector4(1, 1, 1);
+            var m = new FbxMatrix(t, r, s);
 
             // then:
             Assert.AreEqual(0.573576,  m.Get(0, 0), 0.00001);
@@ -151,10 +151,10 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorRotationXY_CreatesWithRotationXY()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(22.5, 35, 0);
-            var s = new Vector4(1, 1, 1);
-            var m = new Matrix(t, r, s);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(22.5, 35, 0);
+            var s = new FbxVector4(1, 1, 1);
+            var m = new FbxMatrix(t, r, s);
 
             // then:
             Assert.AreEqual(0.819152,  m.Get(0, 0), 0.00001);
@@ -179,10 +179,10 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorRotationYZ_CreatesWithRotationYZ()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 35, 55);
-            var s = new Vector4(1, 1, 1);
-            var m = new Matrix(t, r, s);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 35, 55);
+            var s = new FbxVector4(1, 1, 1);
+            var m = new FbxMatrix(t, r, s);
 
             // then:
             Assert.AreEqual(0.469846,  m.Get(0, 0), 0.00001);
@@ -207,10 +207,10 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorRotationXZ_CreatesWithRotationXZ()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(22.5, 0, 55);
-            var s = new Vector4(1, 1, 1);
-            var m = new Matrix(t, r, s);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(22.5, 0, 55);
+            var s = new FbxVector4(1, 1, 1);
+            var m = new FbxMatrix(t, r, s);
 
             // then:
             Assert.AreEqual(0.573576,  m.Get(0, 0), 0.00001);
@@ -235,10 +235,10 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorRotationXYZ_CreatesWithRotationXYZ()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(22.5, 35, 55);
-            var s = new Vector4(1, 1, 1);
-            var m = new Matrix(t, r, s);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(22.5, 35, 55);
+            var s = new FbxVector4(1, 1, 1);
+            var m = new FbxMatrix(t, r, s);
 
             // then:
             Assert.AreEqual(0.469846,  m.Get(0, 0), 0.00001);
@@ -263,10 +263,10 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorScale_CreatesWithScale()
         {
             // when:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 0, 0);
-            var s = new Vector4(2, 3, 4);
-            var m = new Matrix(t, r, s);
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 0, 0);
+            var s = new FbxVector4(2, 3, 4);
+            var m = new FbxMatrix(t, r, s);
 
             // then:
             Assert.AreEqual(2.0, m.Get(0, 0), 0.00001);
@@ -291,10 +291,10 @@ namespace FbxSharpTests
         public void Matrix_TrsConstructorEverything_CreatesMatrix()
         {
             // when:
-            var t = new Vector4(1, 0, 0);
-            var r = new Vector4(22.5, 45, 135);
-            var s = new Vector4(1, 2, 3);
-            var m = new Matrix(t, r, s);
+            var t = new FbxVector4(1, 0, 0);
+            var r = new FbxVector4(22.5, 45, 135);
+            var s = new FbxVector4(1, 2, 3);
+            var m = new FbxMatrix(t, r, s);
 
             // then:
             Assert.AreEqual(-0.5,      m.Get(0, 0), 0.00001);
@@ -319,8 +319,8 @@ namespace FbxSharpTests
         public void Matrix_Multiply()
         {
             // given:
-            var a = new Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
-            var b = new Matrix(0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1);
+            var a = new FbxMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
+            var b = new FbxMatrix(0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1);
 
             // when:
             var m = a * b;
@@ -369,8 +369,8 @@ namespace FbxSharpTests
         public void Matrix_Multiply_2()
         {
             // given:
-            var a = new Matrix(1, 0, -0, 0, 0, 0.707107, 0.707107, 0, 0, -0.707107, 0.707107, 0, 0, 0, 0, 1); // 45 degrees around x;
-            var b = new Matrix(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
+            var a = new FbxMatrix(1, 0, -0, 0, 0, 0.707107, 0.707107, 0, 0, -0.707107, 0.707107, 0, 0, 0, 0, 1); // 45 degrees around x;
+            var b = new FbxMatrix(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
 
             // when:
             var m = a * b;
@@ -419,9 +419,9 @@ namespace FbxSharpTests
         public void Matrix_Multiply_3()
         {
             // given:
-            var r = new Matrix(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1);
-            var t = new Matrix(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
-            var s = new Matrix(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1);
+            var r = new FbxMatrix(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1);
+            var t = new FbxMatrix(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
+            var s = new FbxMatrix(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1);
 
             // when:
             var m = r * t * s;
@@ -554,9 +554,9 @@ namespace FbxSharpTests
         public void Matrix_MultiplicationIsAssociative()
         {
             // given:
-            var r = new Matrix(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1);
-            var t = new Matrix(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
-            var s = new Matrix(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1);
+            var r = new FbxMatrix(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1); // 120 degrees around axis (1,1,1);
+            var t = new FbxMatrix(1, 0, -0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 1);
+            var s = new FbxMatrix(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1);
 
             // when:
             var m1 = (r * t) * s;
@@ -695,10 +695,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_00()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             var m = a * b;
 
             // then:
@@ -724,10 +724,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_01()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             var m = a * b;
 
             // then:
@@ -753,10 +753,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_02()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             var m = a * b;
 
             // then:
@@ -782,10 +782,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_03()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             var m = a * b;
 
             // then:
@@ -811,10 +811,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_04()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             var m = a * b;
 
             // then:
@@ -840,10 +840,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_05()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             var m = a * b;
 
             // then:
@@ -869,10 +869,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_06()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             var m = a * b;
 
             // then:
@@ -898,10 +898,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_07()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0);
             var m = a * b;
 
             // then:
@@ -927,10 +927,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_08()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0);
             var m = a * b;
 
             // then:
@@ -956,10 +956,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_09()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 0);
             var m = a * b;
 
             // then:
@@ -985,10 +985,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_10()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0);
             var m = a * b;
 
             // then:
@@ -1014,10 +1014,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_11()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0);
             var m = a * b;
 
             // then:
@@ -1043,10 +1043,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_12()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0);
             var m = a * b;
 
             // then:
@@ -1072,10 +1072,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_13()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0, 0);
             var m = a * b;
 
             // then:
@@ -1101,10 +1101,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_14()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0);
+            var b = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0);
             var m = a * b;
 
             // then:
@@ -1130,10 +1130,10 @@ namespace FbxSharpTests
         public void MatrixMultiplication_IndividualElements_15()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
+            var a = new FbxMatrix(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53);
 
             // when:
-            var b = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59);
+            var b = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59);
             var m = a * b;
 
             // then:
@@ -1159,7 +1159,7 @@ namespace FbxSharpTests
         public void Matrix_ConstructorElements_GetMethodGetsCorrectElements()
         {
             // when:
-            var m = new Matrix(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
+            var m = new FbxMatrix(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
 
             // then:
             Assert.AreEqual( 1, m.Get(0, 0), 0.000001f);
@@ -1184,8 +1184,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_00()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
+            var a = new FbxMatrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
 
             // when:
             var m = a * b;
@@ -1213,8 +1213,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_00()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
+            var a = new FbxMatrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
 
             // when:
             var m = b * a;
@@ -1242,8 +1242,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_01()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
+            var a = new FbxMatrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
 
             // when:
             var m = a * b;
@@ -1271,8 +1271,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_01()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
+            var a = new FbxMatrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
 
             // when:
             var m = b * a;
@@ -1300,8 +1300,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_02()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
+            var a = new FbxMatrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
 
             // when:
             var m = a * b;
@@ -1329,8 +1329,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_02()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
+            var a = new FbxMatrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
 
             // when:
             var m = b * a;
@@ -1358,8 +1358,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_03()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
+            var a = new FbxMatrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
 
             // when:
             var m = a * b;
@@ -1387,8 +1387,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_03()
         {
             // given:
-            var a = new Matrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
+            var a = new FbxMatrix(2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
 
             // when:
             var m = b * a;
@@ -1416,8 +1416,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_10()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
 
             // when:
             var m = a * b;
@@ -1445,8 +1445,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_10()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
 
             // when:
             var m = b * a;
@@ -1474,8 +1474,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_11()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
 
             // when:
             var m = a * b;
@@ -1503,8 +1503,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_11()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
 
             // when:
             var m = b * a;
@@ -1532,8 +1532,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_12()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
 
             // when:
             var m = a * b;
@@ -1561,8 +1561,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_12()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
 
             // when:
             var m = b * a;
@@ -1590,8 +1590,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_13()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
+            var a = new FbxMatrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
 
             // when:
             var m = a * b;
@@ -1619,8 +1619,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_13()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
-            var b = new Matrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
+            var a = new FbxMatrix(0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
 
             // when:
             var m = b * a;
@@ -1648,8 +1648,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_20()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
-            var b = new Matrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
+            var b = new FbxMatrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
 
             // when:
             var m = a * b;
@@ -1677,8 +1677,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_20()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
-            var b = new Matrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
+            var b = new FbxMatrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
 
             // when:
             var m = b * a;
@@ -1706,8 +1706,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_21()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
-            var b = new Matrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
 
             // when:
             var m = a * b;
@@ -1735,8 +1735,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_21()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
-            var b = new Matrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
 
             // when:
             var m = b * a;
@@ -1764,8 +1764,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_22()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
-            var b = new Matrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
 
             // when:
             var m = a * b;
@@ -1793,8 +1793,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_22()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
-            var b = new Matrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
 
             // when:
             var m = b * a;
@@ -1822,8 +1822,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_23()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
-            var b = new Matrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
 
             // when:
             var m = a * b;
@@ -1851,8 +1851,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_23()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
-            var b = new Matrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7, 0, 0, 0, 0);
+            var b = new FbxMatrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
 
             // when:
             var m = b * a;
@@ -1880,8 +1880,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_30()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
-            var b = new Matrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
+            var b = new FbxMatrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
 
             // when:
             var m = a * b;
@@ -1909,8 +1909,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_30()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
-            var b = new Matrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
+            var b = new FbxMatrix(11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 0);
 
             // when:
             var m = b * a;
@@ -1938,8 +1938,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_31()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
-            var b = new Matrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
+            var b = new FbxMatrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
 
             // when:
             var m = a * b;
@@ -1967,8 +1967,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_31()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
-            var b = new Matrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
+            var b = new FbxMatrix(0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0);
 
             // when:
             var m = b * a;
@@ -1996,8 +1996,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_32()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
-            var b = new Matrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
+            var b = new FbxMatrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
 
             // when:
             var m = a * b;
@@ -2025,8 +2025,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_32()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
-            var b = new Matrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
+            var b = new FbxMatrix(0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19, 0);
 
             // when:
             var m = b * a;
@@ -2054,8 +2054,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyRowsAndColumns_33()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
-            var b = new Matrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
+            var b = new FbxMatrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
 
             // when:
             var m = a * b;
@@ -2083,8 +2083,8 @@ namespace FbxSharpTests
         public void Matrix_MultiplyColumnsAndRows_33()
         {
             // given:
-            var a = new Matrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
-            var b = new Matrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
+            var a = new FbxMatrix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 7);
+            var b = new FbxMatrix(0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 17, 0, 0, 0, 19);
 
             // when:
             var m = b * a;
@@ -2112,12 +2112,12 @@ namespace FbxSharpTests
         public void MatrixRotationIsCounterClockwiseX()
         {
             // given:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(90, 0, 0);
-            var s = new Vector4(1, 1, 1);
-            var m = new Matrix(t, r, s);
-            var v = new Vector4();
-            var u = new Vector4();
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(90, 0, 0);
+            var s = new FbxVector4(1, 1, 1);
+            var m = new FbxMatrix(t, r, s);
+            var v = new FbxVector4();
+            var u = new FbxVector4();
 
             // require:
             Assert.AreEqual(1.0, m.Get(0, 0), 0.00001);
@@ -2138,7 +2138,7 @@ namespace FbxSharpTests
             Assert.AreEqual(1.0, m.Get(3, 3), 0.00001);
 
             // when:
-            v = new Vector4(0, 0, 1, 1);
+            v = new FbxVector4(0, 0, 1, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2147,7 +2147,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 0, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(0, 1, 0, 1);
+            v = new FbxVector4(0, 1, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2156,7 +2156,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 1, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(0, 0, -1, 1);
+            v = new FbxVector4(0, 0, -1, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2165,7 +2165,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 0, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(0, -1, 0, 1);
+            v = new FbxVector4(0, -1, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2178,12 +2178,12 @@ namespace FbxSharpTests
         public void MatrixRotationIsCounterClockwiseY()
         {
             // given:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 90, 0);
-            var s = new Vector4(1, 1, 1);
-            var m = new Matrix(t, r, s);
-            var v = new Vector4();
-            var u = new Vector4();
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 90, 0);
+            var s = new FbxVector4(1, 1, 1);
+            var m = new FbxMatrix(t, r, s);
+            var v = new FbxVector4();
+            var u = new FbxVector4();
 
             // require:
             Assert.AreEqual(0.0, m.Get(0, 0), 0.00001);
@@ -2204,7 +2204,7 @@ namespace FbxSharpTests
             Assert.AreEqual(1.0, m.Get(3, 3), 0.00001);
 
             // when:
-            v = new Vector4(0, 0, 1, 1);
+            v = new FbxVector4(0, 0, 1, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2213,7 +2213,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 0, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(1, 0, 0, 1);
+            v = new FbxVector4(1, 0, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2222,7 +2222,7 @@ namespace FbxSharpTests
             Assert.AreEqual(-1, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(0, 0, -1, 1);
+            v = new FbxVector4(0, 0, -1, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2231,7 +2231,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 0, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(-1, 0, 0, 1);
+            v = new FbxVector4(-1, 0, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2244,12 +2244,12 @@ namespace FbxSharpTests
         public void MatrixRotationIsCounterClockwiseZ()
         {
             // given:
-            var t = new Vector4(0, 0, 0);
-            var r = new Vector4(0, 0, 90);
-            var s = new Vector4(1, 1, 1);
-            var m = new Matrix(t, r, s);
-            var v = new Vector4();
-            var u = new Vector4();
+            var t = new FbxVector4(0, 0, 0);
+            var r = new FbxVector4(0, 0, 90);
+            var s = new FbxVector4(1, 1, 1);
+            var m = new FbxMatrix(t, r, s);
+            var v = new FbxVector4();
+            var u = new FbxVector4();
 
             // require:
             Assert.AreEqual(0.0, m.Get(0, 0), 0.00001);
@@ -2270,7 +2270,7 @@ namespace FbxSharpTests
             Assert.AreEqual(1.0, m.Get(3, 3), 0.00001);
 
             // when:
-            v = new Vector4(1, 0, 0, 1);
+            v = new FbxVector4(1, 0, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2279,7 +2279,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 0, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(0, 1, 0, 1);
+            v = new FbxVector4(0, 1, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2288,7 +2288,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 0, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(-1, 0, 0, 1);
+            v = new FbxVector4(-1, 0, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2297,7 +2297,7 @@ namespace FbxSharpTests
             Assert.AreEqual( 0, u[2], 0.000001f);
 
             // when:
-            v = new Vector4(0, -1, 0, 1);
+            v = new FbxVector4(0, -1, 0, 1);
             u = m.MultNormalize(v);
 
             // then:
@@ -2316,19 +2316,19 @@ namespace FbxSharpTests
             */;
 
             // given:
-            var t1 = new Vector4(1, 0, 0);
-            var t2 = new Vector4(0, 0, 0);
-            var r1 = new Vector4(0, 0, 0);
-            var r2 = new Vector4(0, 90, 0);
-            var s = new Vector4(1, 1, 1);
-            var m1 = new Matrix(t1, r1, s);
-            var m2 = new Matrix(t2, r2, s);
-            var u = new Vector4();
-            var zero = new Vector4(0, 0, 0, 1);
-            var one = new Vector4(1, 1, 1, 1);
-            var x = new Vector4(1, 0, 0, 1);
-            var y = new Vector4(0, 1, 0, 1);
-            var z = new Vector4(0, 0, 1, 1);
+            var t1 = new FbxVector4(1, 0, 0);
+            var t2 = new FbxVector4(0, 0, 0);
+            var r1 = new FbxVector4(0, 0, 0);
+            var r2 = new FbxVector4(0, 90, 0);
+            var s = new FbxVector4(1, 1, 1);
+            var m1 = new FbxMatrix(t1, r1, s);
+            var m2 = new FbxMatrix(t2, r2, s);
+            var u = new FbxVector4();
+            var zero = new FbxVector4(0, 0, 0, 1);
+            var one = new FbxVector4(1, 1, 1, 1);
+            var x = new FbxVector4(1, 0, 0, 1);
+            var y = new FbxVector4(0, 1, 0, 1);
+            var z = new FbxVector4(0, 0, 1, 1);
 
             // require:
             u = m1.MultNormalize(zero);

@@ -11,7 +11,7 @@ namespace FbxSharpTests
         public void Matrix_ConstructorElements_FieldsCorrespondToCorrectElements()
         {
             // when:
-            var m = new Matrix(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
+            var m = new FbxMatrix(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
 
             // then:
             Assert.AreEqual( 1, m.M00, 0.000001f);

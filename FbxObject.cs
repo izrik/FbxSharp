@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FbxSharp
 {
-    public class FbxObject : Emitter
+    public class FbxObject : FbxEmitter
     {
         static ulong __uniqueId = 0;
 
@@ -22,7 +22,7 @@ namespace FbxSharp
             UniqueId = __uniqueId;
             __uniqueId++;
 
-            _scene = DstObjects.CreateObjectView<Scene>();
+            _scene = DstObjects.CreateObjectView<FbxScene>();
         }
 
         public override string ToString()
@@ -32,15 +32,15 @@ namespace FbxSharp
 
         #region General Object Management
 
-        protected readonly ObjectView<Scene> _scene;
-        public Scene Scene
+        protected readonly ObjectView<FbxScene> _scene;
+        public FbxScene Scene
         {
             get
             {
                 return _scene.Get();
             }
         }
-        public Scene GetScene()
+        public FbxScene GetScene()
         {
             return Scene;
         }
@@ -362,14 +362,14 @@ namespace FbxSharp
         public readonly ObjectSrcPropertyCollection SrcProperties;
         public readonly ObjectDstPropertyCollection DstProperties;
 
-        public Property GetFirstProperty()
+        public FbxProperty GetFirstProperty()
         {
             if (Properties.Count == 0) return null;
 
             return Properties[0];
         }
 
-        public Property GetNextProperty(Property pProperty)
+        public FbxProperty GetNextProperty(FbxProperty pProperty)
         {
             if (!Properties.Contains(pProperty)) return null;
 
@@ -380,30 +380,30 @@ namespace FbxSharp
             return Properties[index + 1];
         }
 
-        public Property FindProperty(string pName, bool pCaseSensitive=true)
+        public FbxProperty FindProperty(string pName, bool pCaseSensitive=true)
         {
             return Properties.FirstOrDefault(p => string.Compare(p.Name, pName, ignoreCase: !pCaseSensitive) == 0);
         }
 
         //public Property FindProperty(string pName, FbxDataType pDataType, bool pCaseSensitive=true)
-        public Property FindProperty(string pName, Type pDataType, bool pCaseSensitive=true)
+        public FbxProperty FindProperty(string pName, Type pDataType, bool pCaseSensitive=true)
         {
             return FindProperty(prop =>
                 string.Compare(prop.Name, pName, ignoreCase: !pCaseSensitive) == 0 &&
                 prop.PropertyDataType == pDataType);
         }
 
-        public Property FindProperty(Func<Property, bool> predicate)
+        public FbxProperty FindProperty(Func<FbxProperty, bool> predicate)
         {
             return FindProperties(predicate).FirstOrDefault();
         }
 
-        public IEnumerable<Property> FindProperties(Func<Property, bool> predicate)
+        public IEnumerable<FbxProperty> FindProperties(Func<FbxProperty, bool> predicate)
         {
             return Properties.Where(predicate);
         }
 
-        public Property FindPropertyHierarchical(string pName, bool pCaseSensitive=true)
+        public FbxProperty FindPropertyHierarchical(string pName, bool pCaseSensitive=true)
         {
             throw new NotImplementedException();
         }
@@ -413,13 +413,13 @@ namespace FbxSharp
         //    throw new NotImplementedException();
         //}
 
-        readonly static PropertyT<object> classRootProperty = new PropertyT<object>();
-        public Property GetClassRootProperty()
+        readonly static FbxPropertyT<object> classRootProperty = new FbxPropertyT<object>();
+        public FbxProperty GetClassRootProperty()
         {
             return classRootProperty;
         }
 
-        public bool ConnectSrcProperty(Property pProperty)
+        public bool ConnectSrcProperty(FbxProperty pProperty)
         {
             if (SrcProperties.Contains(pProperty))
                 return false;
@@ -429,12 +429,12 @@ namespace FbxSharp
             return true;
         }
 
-        public bool IsConnectedSrcProperty(Property pProperty)
+        public bool IsConnectedSrcProperty(FbxProperty pProperty)
         {
             return SrcProperties.Contains(pProperty);
         }
 
-        public bool DisconnectSrcProperty(Property pProperty)
+        public bool DisconnectSrcProperty(FbxProperty pProperty)
         {
             return SrcProperties.Remove(pProperty);
         }
@@ -444,17 +444,17 @@ namespace FbxSharp
             return SrcProperties.Count;
         }
 
-        public Property GetSrcProperty(int pIndex=0)
+        public FbxProperty GetSrcProperty(int pIndex=0)
         {
             return SrcProperties[pIndex];
         }
 
-        public Property FindSrcProperty(string pName, int pStartIndex=0)
+        public FbxProperty FindSrcProperty(string pName, int pStartIndex=0)
         {
             throw new NotImplementedException();
         }
 
-        public bool ConnectDstProperty(Property pProperty)
+        public bool ConnectDstProperty(FbxProperty pProperty)
         {
             if (DstProperties.Contains(pProperty))
                 return false;
@@ -464,12 +464,12 @@ namespace FbxSharp
             return true;
         }
 
-        public bool IsConnectedDstProperty(Property pProperty)
+        public bool IsConnectedDstProperty(FbxProperty pProperty)
         {
             return DstProperties.Contains(pProperty);
         }
 
-        public bool DisconnectDstProperty(Property pProperty)
+        public bool DisconnectDstProperty(FbxProperty pProperty)
         {
             return DstProperties.Remove(pProperty);
         }
@@ -479,20 +479,20 @@ namespace FbxSharp
             return DstProperties.Count;
         }
 
-        public Property GetDstProperty(int pIndex=0)
+        public FbxProperty GetDstProperty(int pIndex=0)
         {
             return DstProperties[pIndex];
         }
 
-        public Property FindDstProperty(string pName, int pStartIndex=0)
+        public FbxProperty FindDstProperty(string pName, int pStartIndex=0)
         {
             throw new NotImplementedException();
         }
 
-        public Property CreateProperty(string name, Type type)
+        public FbxProperty CreateProperty(string name, Type type)
         {
-            var concreteType = typeof(PropertyT<>).MakeGenericType(type);
-            var prop = (Property)Activator.CreateInstance(concreteType, (object)name);
+            var concreteType = typeof(FbxPropertyT<>).MakeGenericType(type);
+            var prop = (FbxProperty)Activator.CreateInstance(concreteType, (object)name);
             Properties.Add(prop);
             return prop;
         }
@@ -501,7 +501,7 @@ namespace FbxSharp
 
         #region Public Attributes
 
-        public readonly Property RootProperty = new PropertyT<object>();
+        public readonly FbxProperty RootProperty = new FbxPropertyT<object>();
 
         #endregion
 

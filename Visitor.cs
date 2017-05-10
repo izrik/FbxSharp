@@ -7,32 +7,32 @@ namespace FbxSharp
     public class Visitor
     {
         public virtual void Visit(FbxObject obj) { }
-        public virtual void Visit(Scene scene) { }
-        public virtual void Visit(Node node) { }
-        public virtual void Visit(NodeAttribute obj) { }
-        public virtual void Visit(SurfaceMaterial obj) { }
-        public virtual void Visit(SurfaceLambert obj) { }
-        public virtual void Visit(SurfacePhong obj) { }
-        public virtual void Visit(Mesh obj) { }
-        public virtual void Visit(Geometry obj) { }
-        public virtual void Visit(GeometryBase obj) { }
-        public virtual void Visit(LayerElementTexture tex) { }
-        public virtual void Visit(LayerContainer layerContainer) { }
-        public virtual void Visit(Document obj) { }
-        public virtual void Visit(Collection obj) { }
-        public virtual void Visit(AnimLayer obj) { }
-        public virtual void Visit(AnimStack obj) { }
-        public virtual void Visit(AnimCurve obj) { }
-        public virtual void Visit(AnimCurveNode obj) { }
-        public virtual void Visit(Deformer obj) { }
-        public virtual void Visit(Pose pose) { }
-        public virtual void Visit(SubDeformer obj) { }
-        public virtual void Visit(Texture obj) { }
-        public virtual void Visit(Video obj) { }
-        public virtual void Visit(Camera obj) { }
-        public virtual void Visit(Light obj) { }
-        public virtual void Visit(Null obj) { }
-        public virtual void Visit(Skeleton obj) { }
+        public virtual void Visit(FbxScene scene) { }
+        public virtual void Visit(FbxNode node) { }
+        public virtual void Visit(FbxNodeAttribute obj) { }
+        public virtual void Visit(FbxSurfaceMaterial obj) { }
+        public virtual void Visit(FbxSurfaceLambert obj) { }
+        public virtual void Visit(FbxSurfacePhong obj) { }
+        public virtual void Visit(FbxMesh obj) { }
+        public virtual void Visit(FbxGeometry obj) { }
+        public virtual void Visit(FbxGeometryBase obj) { }
+        public virtual void Visit(FbxLayerElementTexture tex) { }
+        public virtual void Visit(FbxLayerContainer layerContainer) { }
+        public virtual void Visit(FbxDocument obj) { }
+        public virtual void Visit(FbxCollection obj) { }
+        public virtual void Visit(FbxAnimLayer obj) { }
+        public virtual void Visit(FbxAnimStack obj) { }
+        public virtual void Visit(FbxAnimCurve obj) { }
+        public virtual void Visit(FbxAnimCurveNode obj) { }
+        public virtual void Visit(FbxDeformer obj) { }
+        public virtual void Visit(FbxPose pose) { }
+        public virtual void Visit(FbxSubDeformer obj) { }
+        public virtual void Visit(FbxTexture obj) { }
+        public virtual void Visit(FbxVideo obj) { }
+        public virtual void Visit(FbxCamera obj) { }
+        public virtual void Visit(FbxLight obj) { }
+        public virtual void Visit(FbxNull obj) { }
+        public virtual void Visit(FbxSkeleton obj) { }
 
         /*********************************/
 
@@ -59,58 +59,58 @@ namespace FbxSharp
 
             if (type == typeof(FbxObject))
                 AcceptFbxObject((FbxObject)obj, visitedObjects);
-            else if (type == typeof(Scene))
-                AcceptScene((Scene)obj, visitedObjects);
-            else if (type == typeof(Node))
-                AcceptNode((Node)obj, visitedObjects);
-            else if (type == typeof(NodeAttribute))
-                AcceptNodeAttribute((NodeAttribute)obj, visitedObjects);
-            else if (type == typeof(SurfaceMaterial))
-                AcceptSurfaceMaterial((SurfaceMaterial)obj, visitedObjects);
-            else if (type == typeof(SurfaceLambert))
-                AcceptSurfaceLambert((SurfaceLambert)obj, visitedObjects);
-            else if (type == typeof(SurfacePhong))
-                AcceptSurfacePhong((SurfacePhong)obj, visitedObjects);
-            else if (type == typeof(Mesh))
-                AcceptMesh((Mesh)obj, visitedObjects);
-            else if (type == typeof(Geometry))
-                AcceptGeometry((Geometry)obj, visitedObjects);
-            else if (type == typeof(GeometryBase))
-                AcceptGeometryBase((GeometryBase)obj, visitedObjects);
-            else if (type == typeof(LayerElementTexture))
-                AcceptLayerElementTexture((LayerElementTexture)obj, visitedObjects);
-            else if (type == typeof(LayerContainer))
-                AcceptLayerContainer((LayerContainer)obj, visitedObjects);
-            else if (type == typeof(Document))
-                AcceptDocument((Document)obj, visitedObjects);
-            else if (type == typeof(Collection))
-                AcceptCollection((Collection)obj, visitedObjects);
-            else if (type == typeof(AnimLayer))
-                AcceptAnimLayer((AnimLayer)obj, visitedObjects);
-            else if (type == typeof(AnimStack))
-                AcceptAnimStack((AnimStack)obj, visitedObjects);
-            else if (type == typeof(AnimCurve))
-                AcceptAnimCurve((AnimCurve)obj, visitedObjects);
-            else if (type == typeof(AnimCurveNode))
-                AcceptAnimCurveNode((AnimCurveNode)obj, visitedObjects);
-            else if (type == typeof(Deformer))
-                AcceptDeformer((Deformer)obj, visitedObjects);
-            else if (type == typeof(Pose))
-                AcceptPose((Pose)obj, visitedObjects);
-            else if (type == typeof(SubDeformer))
-                AcceptSubDeformer((SubDeformer)obj, visitedObjects);
-            else if (type == typeof(Texture))
-                AcceptTexture((Texture)obj, visitedObjects);
-            else if (type == typeof(Video))
-                AcceptVideo((Video)obj, visitedObjects);
-            else if (type == typeof(Camera))
-                AcceptCamera((Camera)obj, visitedObjects);
-            else if (type == typeof(Light))
-                AcceptLight((Light)obj, visitedObjects);
-            else if (type == typeof(Null))
-                AcceptNull((Null)obj, visitedObjects);
-            else if (type == typeof(Skeleton))
-                AcceptSkeleton((Skeleton)obj, visitedObjects);
+            else if (type == typeof(FbxScene))
+                AcceptScene((FbxScene)obj, visitedObjects);
+            else if (type == typeof(FbxNode))
+                AcceptNode((FbxNode)obj, visitedObjects);
+            else if (type == typeof(FbxNodeAttribute))
+                AcceptNodeAttribute((FbxNodeAttribute)obj, visitedObjects);
+            else if (type == typeof(FbxSurfaceMaterial))
+                AcceptSurfaceMaterial((FbxSurfaceMaterial)obj, visitedObjects);
+            else if (type == typeof(FbxSurfaceLambert))
+                AcceptSurfaceLambert((FbxSurfaceLambert)obj, visitedObjects);
+            else if (type == typeof(FbxSurfacePhong))
+                AcceptSurfacePhong((FbxSurfacePhong)obj, visitedObjects);
+            else if (type == typeof(FbxMesh))
+                AcceptMesh((FbxMesh)obj, visitedObjects);
+            else if (type == typeof(FbxGeometry))
+                AcceptGeometry((FbxGeometry)obj, visitedObjects);
+            else if (type == typeof(FbxGeometryBase))
+                AcceptGeometryBase((FbxGeometryBase)obj, visitedObjects);
+            else if (type == typeof(FbxLayerElementTexture))
+                AcceptLayerElementTexture((FbxLayerElementTexture)obj, visitedObjects);
+            else if (type == typeof(FbxLayerContainer))
+                AcceptLayerContainer((FbxLayerContainer)obj, visitedObjects);
+            else if (type == typeof(FbxDocument))
+                AcceptDocument((FbxDocument)obj, visitedObjects);
+            else if (type == typeof(FbxCollection))
+                AcceptCollection((FbxCollection)obj, visitedObjects);
+            else if (type == typeof(FbxAnimLayer))
+                AcceptAnimLayer((FbxAnimLayer)obj, visitedObjects);
+            else if (type == typeof(FbxAnimStack))
+                AcceptAnimStack((FbxAnimStack)obj, visitedObjects);
+            else if (type == typeof(FbxAnimCurve))
+                AcceptAnimCurve((FbxAnimCurve)obj, visitedObjects);
+            else if (type == typeof(FbxAnimCurveNode))
+                AcceptAnimCurveNode((FbxAnimCurveNode)obj, visitedObjects);
+            else if (type == typeof(FbxDeformer))
+                AcceptDeformer((FbxDeformer)obj, visitedObjects);
+            else if (type == typeof(FbxPose))
+                AcceptPose((FbxPose)obj, visitedObjects);
+            else if (type == typeof(FbxSubDeformer))
+                AcceptSubDeformer((FbxSubDeformer)obj, visitedObjects);
+            else if (type == typeof(FbxTexture))
+                AcceptTexture((FbxTexture)obj, visitedObjects);
+            else if (type == typeof(FbxVideo))
+                AcceptVideo((FbxVideo)obj, visitedObjects);
+            else if (type == typeof(FbxCamera))
+                AcceptCamera((FbxCamera)obj, visitedObjects);
+            else if (type == typeof(FbxLight))
+                AcceptLight((FbxLight)obj, visitedObjects);
+            else if (type == typeof(FbxNull))
+                AcceptNull((FbxNull)obj, visitedObjects);
+            else if (type == typeof(FbxSkeleton))
+                AcceptSkeleton((FbxSkeleton)obj, visitedObjects);
         }
 
         protected void AcceptFbxObject(FbxObject obj, ISet<object> visitedObjects)
@@ -133,7 +133,7 @@ namespace FbxSharp
             }
 
 
-            Property prop = obj.GetFirstProperty();
+            FbxProperty prop = obj.GetFirstProperty();
             while (prop != null && prop.IsValid())
             {
                 for (i = 0; i < prop.GetSrcObjectCount(); i++)
@@ -166,7 +166,7 @@ namespace FbxSharp
             }
         }
 
-        protected void AcceptScene(Scene scene, ISet<object> visitedObjects)
+        protected void AcceptScene(FbxScene scene, ISet<object> visitedObjects)
         {
             AcceptDocument(scene, visitedObjects);
             Visit(scene);
@@ -209,7 +209,7 @@ namespace FbxSharp
             // other stuff
         }
 
-        protected void AcceptNode(Node node, ISet<object> visitedObjects)
+        protected void AcceptNode(FbxNode node, ISet<object> visitedObjects)
         {
             AcceptFbxObject(node, visitedObjects);
             Visit(node);
@@ -243,7 +243,7 @@ namespace FbxSharp
             }
         }
 
-        protected void AcceptNodeAttribute(NodeAttribute obj, ISet<object> visitedObjects)
+        protected void AcceptNodeAttribute(FbxNodeAttribute obj, ISet<object> visitedObjects)
         {
             AcceptFbxObject(obj, visitedObjects);
             Visit(obj);
@@ -251,31 +251,31 @@ namespace FbxSharp
             Accept(obj.GetNode(), visitedObjects);
         }
 
-        protected void AcceptSurfaceMaterial(SurfaceMaterial obj, ISet<object> visitedObjects)
+        protected void AcceptSurfaceMaterial(FbxSurfaceMaterial obj, ISet<object> visitedObjects)
         {
             AcceptFbxObject(obj, visitedObjects);
             Visit(obj);
         }
 
-        protected void AcceptSurfaceLambert(SurfaceLambert obj, ISet<object> visitedObjects)
+        protected void AcceptSurfaceLambert(FbxSurfaceLambert obj, ISet<object> visitedObjects)
         {
             AcceptSurfaceMaterial(obj, visitedObjects);
             Visit(obj);
         }
 
-        protected void AcceptSurfacePhong(SurfacePhong obj, ISet<object> visitedObjects)
+        protected void AcceptSurfacePhong(FbxSurfacePhong obj, ISet<object> visitedObjects)
         {
             AcceptSurfaceLambert(obj, visitedObjects);
             Visit(obj);
         }
 
-        protected void AcceptMesh(Mesh obj, ISet<object> visitedObjects)
+        protected void AcceptMesh(FbxMesh obj, ISet<object> visitedObjects)
         {
             AcceptGeometry(obj, visitedObjects);
             Visit(obj);
         }
 
-        protected void AcceptGeometry(Geometry obj, ISet<object> visitedObjects)
+        protected void AcceptGeometry(FbxGeometry obj, ISet<object> visitedObjects)
         {
             AcceptGeometryBase(obj, visitedObjects);
             Visit(obj);
@@ -290,7 +290,7 @@ namespace FbxSharp
             // shape
         }
 
-        protected void AcceptGeometryBase(GeometryBase obj, ISet<object> visitedObjects)
+        protected void AcceptGeometryBase(FbxGeometryBase obj, ISet<object> visitedObjects)
         {
             AcceptLayerContainer(obj, visitedObjects);
             Visit(obj);
@@ -298,7 +298,7 @@ namespace FbxSharp
             // TODO: geometry elements
         }
 
-        protected void AcceptLayerElementTexture(LayerElementTexture tex, ISet<object> visitedObjects)
+        protected void AcceptLayerElementTexture(FbxLayerElementTexture tex, ISet<object> visitedObjects)
         {
             Visit(tex);
 
@@ -314,7 +314,7 @@ namespace FbxSharp
             //}
         }
 
-        protected void AcceptLayerContainer(LayerContainer layerContainer, ISet<object> visitedObjects)
+        protected void AcceptLayerContainer(FbxLayerContainer layerContainer, ISet<object> visitedObjects)
         {
             AcceptNodeAttribute(layerContainer, visitedObjects);
             Visit(layerContainer);
@@ -322,14 +322,14 @@ namespace FbxSharp
             int j;
             for (j = 0; j < layerContainer.GetLayerCount(); j++)
             {
-                Layer layer = layerContainer.GetLayer(j);
+                FbxLayer layer = layerContainer.GetLayer(j);
 
                 int i;
-                LayerElementMaterial mats = layer.GetMaterials();
+                FbxLayerElementMaterial mats = layer.GetMaterials();
                 if (mats != null)
                 {
-                    LayerElementT<SurfaceMaterial> _mats = mats;
-                    LayerElementArrayT<SurfaceMaterial> marray = _mats.GetDirectArray();
+                    FbxLayerElementTemplate<FbxSurfaceMaterial> _mats = mats;
+                    LayerElementArrayT<FbxSurfaceMaterial> marray = _mats.GetDirectArray();
                     //for (i = 0; i < marray.GetCount(); i++)
                     //{
                     //    Accept(marray.GetAt(i));
@@ -354,7 +354,7 @@ namespace FbxSharp
             }
         }
 
-        protected void AcceptDocument(Document obj, ISet<object> visitedObjects)
+        protected void AcceptDocument(FbxDocument obj, ISet<object> visitedObjects)
         {
             AcceptCollection(obj, visitedObjects);
             Visit(obj);
@@ -371,7 +371,7 @@ namespace FbxSharp
             //}
         }
 
-        protected void AcceptCollection(Collection obj, ISet<object> visitedObjects)
+        protected void AcceptCollection(FbxCollection obj, ISet<object> visitedObjects)
         {
             AcceptFbxObject(obj, visitedObjects);
             Visit(obj);
@@ -383,26 +383,26 @@ namespace FbxSharp
             //}
         }
 
-        protected void AcceptAnimLayer(AnimLayer obj, ISet<object> visitedObjects)
+        protected void AcceptAnimLayer(FbxAnimLayer obj, ISet<object> visitedObjects)
         {
             AcceptCollection(obj, visitedObjects);
             Visit(obj);
         }
 
-        protected void AcceptAnimStack(AnimStack obj, ISet<object> visitedObjects)
+        protected void AcceptAnimStack(FbxAnimStack obj, ISet<object> visitedObjects)
         {
             AcceptCollection(obj, visitedObjects);
             Visit(obj);
         }
 
-        protected void AcceptAnimCurve(AnimCurve obj, ISet<object> visitedObjects)
+        protected void AcceptAnimCurve(FbxAnimCurve obj, ISet<object> visitedObjects)
         {
             //AcceptAnimCurveBase(obj, visitedObjects);
             AcceptFbxObject(obj, visitedObjects);
             Visit(obj);
         }
 
-        protected void AcceptAnimCurveNode(AnimCurveNode obj, ISet<object> visitedObjects)
+        protected void AcceptAnimCurveNode(FbxAnimCurveNode obj, ISet<object> visitedObjects)
         {
             AcceptFbxObject(obj, visitedObjects);
             Visit(obj);
@@ -420,7 +420,7 @@ namespace FbxSharp
             //}
         }
 
-        protected void AcceptDeformer(Deformer obj, ISet<object> visitedObjects)
+        protected void AcceptDeformer(FbxDeformer obj, ISet<object> visitedObjects)
         {
             AcceptFbxObject(obj, visitedObjects);
             Visit(obj);
@@ -428,7 +428,7 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        protected void AcceptPose(Pose pose, ISet<object> visitedObjects)
+        protected void AcceptPose(FbxPose pose, ISet<object> visitedObjects)
         {
             AcceptFbxObject(pose, visitedObjects);
             Visit(pose);
@@ -440,47 +440,47 @@ namespace FbxSharp
             }
         }
 
-        protected void AcceptSubDeformer(SubDeformer obj, ISet<object> visitedObjects)
+        protected void AcceptSubDeformer(FbxSubDeformer obj, ISet<object> visitedObjects)
         {
             AcceptFbxObject(obj, visitedObjects);
             Visit(obj);
             throw new NotImplementedException();
         }
 
-        protected void AcceptTexture(Texture obj, ISet<object> visitedObjects)
+        protected void AcceptTexture(FbxTexture obj, ISet<object> visitedObjects)
         {
             AcceptFbxObject(obj, visitedObjects);
             Visit(obj);
         }
 
-        protected void AcceptVideo(Video obj, ISet<object> visitedObjects)
+        protected void AcceptVideo(FbxVideo obj, ISet<object> visitedObjects)
         {
             AcceptFbxObject(obj, visitedObjects);
             Visit(obj);
             throw new NotImplementedException();
         }
 
-        protected void AcceptCamera(Camera obj, ISet<object> visitedObjects)
+        protected void AcceptCamera(FbxCamera obj, ISet<object> visitedObjects)
         {
             AcceptNodeAttribute(obj, visitedObjects);
             Visit(obj);
             throw new NotImplementedException();
         }
 
-        protected void AcceptLight(Light obj, ISet<object> visitedObjects)
+        protected void AcceptLight(FbxLight obj, ISet<object> visitedObjects)
         {
             AcceptNodeAttribute(obj, visitedObjects);
             Visit(obj);
             throw new NotImplementedException();
         }
 
-        protected void AcceptNull(Null obj, ISet<object> visitedObjects)
+        protected void AcceptNull(FbxNull obj, ISet<object> visitedObjects)
         {
             AcceptNodeAttribute(obj, visitedObjects);
             Visit(obj);
         }
 
-        protected void AcceptSkeleton(Skeleton obj, ISet<object> visitedObjects)
+        protected void AcceptSkeleton(FbxSkeleton obj, ISet<object> visitedObjects)
         {
             AcceptNodeAttribute(obj, visitedObjects);
             Visit(obj);

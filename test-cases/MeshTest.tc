@@ -1,15 +1,15 @@
 ﻿fixture MeshTest
 test Mesh_Create
     given
-    Mesh mesh = new("Mesh")
+    FbxMesh mesh = new("Mesh")
 
     then
     AssertEqual(0, mesh.GetControlPointsCount())
 
 test Mesh_Create_HasProperties
     given
-    Mesh mesh = new("Mesh")
-    Property prop
+    FbxMesh mesh = new("Mesh")
+    FbxProperty prop
 
     then
     AssertEqual(6, CountProperties(mesh))
@@ -66,7 +66,7 @@ test Mesh_Create_HasProperties
 
 test Mesh_Create_HasNamespacePrefix
     given
-    Mesh obj = new("asdf")
+    FbxMesh obj = new("asdf")
 
     then
     AssertEqual("Geometry:\:", obj.GetNameSpacePrefix())

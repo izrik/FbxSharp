@@ -241,17 +241,17 @@ namespace TestCaseGenerator
                                 parts = outline.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                                 parts[0] = parts[0].Replace("!", "");
                                 var targetTypeName = parts[0];
-                                if (targetTypeName == "LayerContainer" ||
-                                    targetTypeName == "GeometryBase" ||
-                                    targetTypeName == "Geometry")
+                                if (targetTypeName == "FbxLayerContainer" ||
+                                    targetTypeName == "FbxGeometryBase" ||
+                                    targetTypeName == "FbxGeometry")
                                 {
-                                    targetTypeName = "Mesh";
+                                    targetTypeName = "FbxMesh";
                                 }
-                                if (targetTypeName == "AMatrix" ||
+                                if (targetTypeName == "FbxAMatrix" ||
                                     targetTypeName == "FbxMatrix" ||
                                     targetTypeName == "FbxAMatrix")
                                 {
-                                    targetTypeName = "Matrix";
+                                    targetTypeName = "FbxMatrix";
                                 }
 
                                 parts[3] = parts[3].Replace("new", "new " + targetTypeName);
@@ -262,11 +262,11 @@ namespace TestCaseGenerator
                             if (parts.Count == 2)
                             {
                                 var targetTypeName = parts[0];
-                                if (targetTypeName == "AMatrix" ||
+                                if (targetTypeName == "FbxAMatrix" ||
                                     targetTypeName == "FbxMatrix" ||
                                     targetTypeName == "FbxAMatrix")
                                 {
-                                    targetTypeName = "Matrix";
+                                    targetTypeName = "FbxMatrix";
                                 }
                                 if (targetTypeName == "FbxArray<FbxString*>" ||
                                     targetTypeName == "FbxArray<FbxString>")
@@ -283,13 +283,13 @@ namespace TestCaseGenerator
                                 outline = string.Join(" ", parts);
                             }
 
-                            if (Regex.IsMatch(outline, @"\bVector(\d)\("))
+                            if (Regex.IsMatch(outline, @"\bFbxVector(\d)\("))
                             {
                                 outline =
                                     Regex.Replace(
                                         outline,
-                                        @"\bVector(\d)\(",
-                                        m => "new Vector" + m.Groups[1].Value + "(");
+                                        @"\bFbxVector(\d)\(",
+                                        m => "new FbxVector" + m.Groups[1].Value + "(");
                             }
 
                             if (Regex.IsMatch(outline, @"\bNULL\b"))
@@ -441,7 +441,9 @@ namespace TestCaseGenerator
                             }
 
                             outline = Regex.Replace(outline, @"\bAnimCurveDef\.(\w+)\.", "FbxAnimCurveDef::");
+                            outline = Regex.Replace(outline, @"\bFbxAnimCurveDef\.(\w+)\.", "FbxAnimCurveDef::");
                             outline = Regex.Replace(outline, @"\bAnimCurveDef\.s", "FbxAnimCurveDef::s");
+                            outline = Regex.Replace(outline, @"\bFbxAnimCurveDef\.s", "FbxAnimCurveDef::s");
 
                             outline = Regex.Replace(outline, @"\bFbx\$", "Fbx");
 
