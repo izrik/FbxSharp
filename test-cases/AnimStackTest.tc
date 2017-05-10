@@ -1,7 +1,7 @@
 ﻿fixture AnimStackTest
 test FbxAnimStack_Create_HasNamespacePrefix
     given
-    AnimStack obj = new("asdf")
+    FbxAnimStack obj = new("asdf")
 
     then
     AssertEqual("AnimStack:\:", obj.GetNameSpacePrefix())

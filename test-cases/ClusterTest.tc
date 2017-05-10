@@ -1,8 +1,8 @@
 ﻿fixture ClusterTest
 test Cluster_SetLink_SetsLink
 	given
-	Cluster cluster = new("")
-	Node node = new("")
+	FbxCluster cluster = new("")
+	FbxNode node = new("")
 
 	require
     AssertEqual(0, cluster.GetSrcObjectCount())
@@ -27,7 +27,7 @@ test Cluster_SetLink_SetsLink
 
 test FbxCluster_Create_HasNamespacePrefix
     given
-    Cluster obj = new("asdf")
+    FbxCluster obj = new("asdf")
 
     then
     AssertEqual("SubDeformer:\:", obj.GetNameSpacePrefix())

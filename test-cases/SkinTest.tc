@@ -1,8 +1,8 @@
 ﻿fixture SkinTest
 test Skin_SetGeometry_SetsGeometry
 	given
-	Skin skin = new("")
-	Mesh mesh = new("")
+	FbxSkin skin = new("")
+	FbxMesh mesh = new("")
 
 	require
     AssertEqual(0, skin.GetSrcObjectCount())
@@ -28,8 +28,8 @@ test Skin_SetGeometry_SetsGeometry
 
 test Skin_AddCluster_AddsCluster
 	given
-	Skin s = new("")
-	Cluster c = new("")
+	FbxSkin s = new("")
+	FbxCluster c = new("")
 
 	require
     AssertEqual(0, s.GetSrcObjectCount())
@@ -55,7 +55,7 @@ test Skin_AddCluster_AddsCluster
 
 test Skin_Create_HasNamespacePrefix
     given
-    Skin obj = new("asdf")
+    FbxSkin obj = new("asdf")
 
     then
     AssertEqual("Deformer:\:", obj.GetNameSpacePrefix())

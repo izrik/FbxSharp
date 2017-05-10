@@ -1,7 +1,7 @@
 fixture PropertyTest
 test SurfacePhong_FindProperty_FindsProperty
     given
-    SurfacePhong surf = new("")
+    FbxSurfacePhong surf = new("")
 
     when
     Property! prop = surf.FindProperty("SpecularColor")
@@ -19,8 +19,8 @@ test SurfacePhong_FindProperty_FindsProperty
 
 test SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsSrcObject
     given
-    SurfacePhong surf = new("")
-    Texture tex = new("")
+    FbxSurfacePhong surf = new("")
+    FbxTexture tex = new("")
 
     when
     bool result = surf.Diffuse&.ConnectSrcObject(tex)
@@ -35,8 +35,8 @@ test SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsSrcObject
 
 test SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsDstProperty
     given
-    SurfacePhong surf = new("")
-    Texture tex = new("")
+    FbxSurfacePhong surf = new("")
+    FbxTexture tex = new("")
 
     when
     bool result = surf.Diffuse&.ConnectSrcObject(tex)
@@ -51,15 +51,15 @@ test SurfacePhongDiffuseColor_ConnectSrcObject_ConnectsDstProperty
 
 test Property_AttachCurveNode_IsAnimated
     given
-    Node node = new("node")
-    AnimCurveNode acn = new("acn")
-    AnimCurve x = new("x")
-    Scene scene = new("scene")
-    AnimLayer layer = new("layer")
-    AnimStack stack = new("stack")
+    FbxNode node = new("node")
+    FbxAnimCurveNode acn = new("acn")
+    FbxAnimCurve x = new("x")
+    FbxScene scene = new("scene")
+    FbxAnimLayer layer = new("layer")
+    FbxAnimStack stack = new("stack")
 
     FbxTime! time = new(0)
-    AnimCurveKey! key = new(time, 1.0f)
+    FbxAnimCurveKey! key = new(time, 1.0f)
     x.KeyAdd(time, key)
 
     scene.ConnectSrcObject(node)
@@ -86,29 +86,29 @@ test Property_AttachCurveNode_IsAnimated
 
 test FbxProperty_HierarchicalSeparator
     require
-    AssertEqual("|", Fbx$Property::sHierarchicalSeparator)
+    AssertEqual("|", FbxProperty::sHierarchicalSeparator)
 
 test Property_MultipleStacks_IsAnimatedOnlyWhenTheCorrectStackIsCurrent
     given
-    Node node = new("node")
-    Scene scene = new("scene")
+    FbxNode node = new("node")
+    FbxScene scene = new("scene")
 
-    AnimCurveNode acn1 = new("acn1")
-    AnimCurve ac1 = new("ac1")
-    AnimLayer layer1 = new("layer1")
-    AnimStack stack1 = new("stack1")
+    FbxAnimCurveNode acn1 = new("acn1")
+    FbxAnimCurve ac1 = new("ac1")
+    FbxAnimLayer layer1 = new("layer1")
+    FbxAnimStack stack1 = new("stack1")
 
-    AnimCurveNode acn2 = new("acn2")
-    AnimCurve ac2 = new("ac2")
-    AnimLayer layer2 = new("layer2")
-    AnimStack stack2 = new("stack2")
+    FbxAnimCurveNode acn2 = new("acn2")
+    FbxAnimCurve ac2 = new("ac2")
+    FbxAnimLayer layer2 = new("layer2")
+    FbxAnimStack stack2 = new("stack2")
 
     FbxTime! time = new(0)
-    AnimCurveKey! key = new(time, 1.0f)
+    FbxAnimCurveKey! key = new(time, 1.0f)
     ac1.KeyAdd(time, key)
 
     FbxTime! time2 = new(0)
-    AnimCurveKey! key2 = new(time2, 1.0f)
+    FbxAnimCurveKey! key2 = new(time2, 1.0f)
     ac2.KeyAdd(time2, key2)
 
     scene.ConnectSrcObject(node)
@@ -150,25 +150,25 @@ test Property_MultipleStacks_IsAnimatedOnlyWhenTheCorrectStackIsCurrent
 
 test Property_MultipleStacks_GetCurveNodeOnlyGetsCurvesOnTheCurrentStack
     given
-    Node node = new("node")
-    Scene scene = new("scene")
+    FbxNode node = new("node")
+    FbxScene scene = new("scene")
 
-    AnimCurveNode acn1 = new("acn1")
-    AnimCurve ac1 = new("ac1")
-    AnimLayer layer1 = new("layer1")
-    AnimStack stack1 = new("stack1")
+    FbxAnimCurveNode acn1 = new("acn1")
+    FbxAnimCurve ac1 = new("ac1")
+    FbxAnimLayer layer1 = new("layer1")
+    FbxAnimStack stack1 = new("stack1")
 
-    AnimCurveNode acn2 = new("acn2")
-    AnimCurve ac2 = new("ac2")
-    AnimLayer layer2 = new("layer2")
-    AnimStack stack2 = new("stack2")
+    FbxAnimCurveNode acn2 = new("acn2")
+    FbxAnimCurve ac2 = new("ac2")
+    FbxAnimLayer layer2 = new("layer2")
+    FbxAnimStack stack2 = new("stack2")
 
     FbxTime! time = new(0)
-    AnimCurveKey! key = new(time, 1.0f)
+    FbxAnimCurveKey! key = new(time, 1.0f)
     ac1.KeyAdd(time, key)
 
     FbxTime! time2 = new(0)
-    AnimCurveKey! key2 = new(time2, 1.0f)
+    FbxAnimCurveKey! key2 = new(time2, 1.0f)
     ac2.KeyAdd(time2, key2)
 
     scene.ConnectSrcObject(node)

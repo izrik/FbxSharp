@@ -1,8 +1,8 @@
 ﻿fixture SceneTest
 test Scene_AddNode_AddsNode
     given
-    Scene scene = new("TheScene")
-    Node node = new("ChildNode")
+    FbxScene scene = new("TheScene")
+    FbxNode node = new("ChildNode")
 
     require
     AssertEqual(3, scene.GetSrcObjectCount())
@@ -38,9 +38,9 @@ test Scene_AddNode_AddsNode
 
 test RootNode_AddChildNode_AddsNodeToScene
     given
-    Scene scene = new("TheScene")
-    Node root = scene.GetRootNode()
-    Node node = new("ChildNode")
+    FbxScene scene = new("TheScene")
+    FbxNode root = scene.GetRootNode()
+    FbxNode node = new("ChildNode")
 
     require
     AssertEqual(3, scene.GetSrcObjectCount())
@@ -92,8 +92,8 @@ test Scene_Create_HasRootNode
     given
 
     when
-    Scene scene = new("Scene1")
-    Node root = scene.GetRootNode()
+    FbxScene scene = new("Scene1")
+    FbxNode root = scene.GetRootNode()
 
     then
     AssertEqual(3, scene.GetSrcObjectCount())
@@ -115,15 +115,15 @@ test Scene_Create_HasZeroPoses
     given
 
     when
-    Scene scene = new("Scene1")
+    FbxScene scene = new("Scene1")
 
     then
     AssertEqual(0, scene.GetPoseCount())
 
 test Scene_AddPose_AddsPose
     given
-    Scene scene = new("Scene")
-    Pose pose = new("Pose")
+    FbxScene scene = new("Scene")
+    FbxPose pose = new("Pose")
 
     require
     AssertEqual(3, scene.GetSrcObjectCount())
@@ -157,8 +157,8 @@ test Scene_AddPose_AddsPose
 
 test Scene_ConnectSrcObject_AddsPose
     given
-    Scene scene = new("Scene")
-    Pose pose = new("Pose")
+    FbxScene scene = new("Scene")
+    FbxPose pose = new("Pose")
 
     require
     AssertEqual(3, scene.GetSrcObjectCount())
@@ -192,8 +192,8 @@ test Scene_ConnectSrcObject_AddsPose
 
 test Scene_Create_HasProperties
     given
-    Scene scene = new("")
-    Property prop
+    FbxScene scene = new("")
+    FbxProperty prop
 
     then
     AssertEqual(2, CountProperties(scene))
@@ -218,8 +218,8 @@ test Scene_Create_HasProperties
 
 test Document_Create_HasProperties
     given
-    Document doc = new("")
-    Property prop
+    FbxDocument doc = new("")
+    FbxProperty prop
 
     then
     AssertEqual(2, CountProperties(doc))
@@ -244,14 +244,14 @@ test Document_Create_HasProperties
 
 test Scene_AddObjectWithSrcObjects_AddsAllSrcObjects
     given
-    Scene scene = new("s")
-    Node node = new("n")
-    Mesh m1 = new("m1")
-    Mesh m2 = new("m2")
-    Video v = new("v")
-    Cluster c = new("c")
-    Node n2 = new("n2")
-    Cluster c2 = new("c2")
+    FbxScene scene = new("s")
+    FbxNode node = new("n")
+    FbxMesh m1 = new("m1")
+    FbxMesh m2 = new("m2")
+    FbxVideo v = new("v")
+    FbxCluster c = new("c")
+    FbxNode n2 = new("n2")
+    FbxCluster c2 = new("c2")
 
     node.ConnectSrcObject(m1)
     node.ConnectSrcObject(m2)
@@ -365,7 +365,7 @@ test Scene_AddObjectWithSrcObjects_AddsAllSrcObjects
 
 test Scene_Create_HasNamespacePrefix
     given
-    Scene obj = new("asdf")
+    FbxScene obj = new("asdf")
 
     then
     AssertEqual("Scene:\:", obj.GetNameSpacePrefix())

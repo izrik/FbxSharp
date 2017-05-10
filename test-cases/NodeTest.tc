@@ -1,9 +1,9 @@
 ﻿fixture NodeTest
 test RootNode_AddChild_AddsConnection
     given
-    Scene scene = new("TheScene")
-    Node root = scene.GetRootNode()
-    Node node2 = new("ChildNode")
+    FbxScene scene = new("TheScene")
+    FbxNode root = scene.GetRootNode()
+    FbxNode node2 = new("ChildNode")
 
     require
     AssertEqual(3, scene.GetSrcObjectCount())
@@ -38,8 +38,8 @@ test RootNode_AddChild_AddsConnection
 
 test Node_SetNodeAttribute_SetsNodeAttribute
     given
-    Node node = new("Node")
-    Null nullattr = new("nullattr")
+    FbxNode node = new("Node")
+    FbxNull nullattr = new("nullattr")
 
     require
     AssertEqual(0, node.GetSrcObjectCount())
@@ -81,8 +81,8 @@ test Node_SetNodeAttribute_SetsNodeAttribute
 
 test Node_AddChild_AddsChild
     given
-    Node node1 = new("Node1")
-    Node node2 = new("Node2")
+    FbxNode node1 = new("Node1")
+    FbxNode node2 = new("Node2")
 
     require
     AssertEqual(0, node1.GetSrcObjectCount())
@@ -122,10 +122,10 @@ test Node_AddChild_AddsChild
 
 test RootNode_AddChild_AddsNodeSubtree
     given
-    Scene scene = new("TheScene")
-    Node root = scene.GetRootNode()
-    Node node2 = new("ChildNode")
-    Node node3 = new("ChildNode")
+    FbxScene scene = new("TheScene")
+    FbxNode root = scene.GetRootNode()
+    FbxNode node2 = new("ChildNode")
+    FbxNode node3 = new("ChildNode")
     node2.AddChild(node3)
 
     require
@@ -202,9 +202,9 @@ test RootNode_AddChild_AddsNodeSubtree
 
 test RootNode_AddSrcObject_AddsChild
     given
-    Scene scene = new("TheScene")
-    Node root = scene.GetRootNode()
-    Node node2 = new("ChildNode")
+    FbxScene scene = new("TheScene")
+    FbxNode root = scene.GetRootNode()
+    FbxNode node2 = new("ChildNode")
 
     require
     AssertEqual(3, scene.GetSrcObjectCount())
@@ -254,8 +254,8 @@ test RootNode_AddSrcObject_AddsChild
 
 test Node_AddSrcObject_SetsNodeAttribute
     given
-    Node node = new("Node")
-    Null nullattr = new("nullattr")
+    FbxNode node = new("Node")
+    FbxNull nullattr = new("nullattr")
 
     require
     AssertEqual(0, node.GetSrcObjectCount())
@@ -297,8 +297,8 @@ test Node_AddSrcObject_SetsNodeAttribute
 
 test Node_Create_HasProperties
     given
-    Node node = new("")
-    Property prop
+    FbxNode node = new("")
+    FbxProperty prop
 
     then
     AssertEqual(71, CountProperties(node))
@@ -876,10 +876,10 @@ test Node_Create_HasProperties
 
 test Node_AddMaterial_SetsMaterialScene
     given
-    Scene scene = new("")
-    Node root = scene.GetRootNode()
-    Node node = new("")
-    SurfacePhong mat = new("")
+    FbxScene scene = new("")
+    FbxNode root = scene.GetRootNode()
+    FbxNode node = new("")
+    FbxSurfacePhong mat = new("")
 
     root.AddChild(node)
 
@@ -928,7 +928,7 @@ test Node_AddMaterial_SetsMaterialScene
 
 test Node_Create_HasNamespacePrefix
     given
-    Node obj = new("asdf")
+    FbxNode obj = new("asdf")
 
     then
     AssertEqual("Model:\:", obj.GetNameSpacePrefix())

@@ -1,8 +1,8 @@
 ﻿fixture CameraTest
 test Camera_Create_HasProperties
     given
-    Camera camera = new("camera")
-    Property prop
+    FbxCamera camera = new("camera")
+    FbxProperty prop
 
     then
     AssertEqual(106, CountProperties(camera))
@@ -861,7 +861,7 @@ test Camera_Create_HasProperties
 
 test FbxCamera_Create_HasNamespacePrefix
     given
-    Camera obj = new("asdf")
+    FbxCamera obj = new("asdf")
 
     then
     AssertEqual("NodeAttribute:\:", obj.GetNameSpacePrefix())

@@ -3,7 +3,7 @@ test LayerContainer_Create
 	given
 
 	when
-	LayerContainer lc = new("")
+	FbxLayerContainer lc = new("")
 
 	then
 	AssertEqual(0, lc.GetSrcObjectCount())

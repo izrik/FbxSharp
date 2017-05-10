@@ -3,7 +3,7 @@ test AnimCurveNodeTest_Create_NoChannels
     given
 
     when
-    AnimCurveNode acn = new("")
+    FbxAnimCurveNode acn = new("")
 
     then
     AssertEqual(0, acn.GetChannelsCount())
@@ -15,7 +15,7 @@ test AnimCurveNodeTest_Create_NoChannels
 
 test AnimCurveNodeTest_AddChannel_TwoPropertiesOneChannel
     given
-    AnimCurveNode acn = new("")
+    FbxAnimCurveNode acn = new("")
 
     require
     AssertEqual(0, acn.GetChannelsCount())
@@ -38,8 +38,8 @@ test AnimCurveNodeTest_AddChannel_TwoPropertiesOneChannel
 
 test AnimCurveNodeTest_ConnectToChannel_AddsSrcConnection
     given
-    AnimCurveNode acn = new("acn")
-    AnimCurve ac = new("ac")
+    FbxAnimCurveNode acn = new("acn")
+    FbxAnimCurve ac = new("ac")
     acn.AddChannel<float>("channel1", 0.0f)
 
     require
@@ -65,7 +65,7 @@ test AnimCurveNodeTest_ConnectToChannel_AddsSrcConnection
 
 test FbxAnimCurveNode_Create_HasNamespacePrefix
     given
-    AnimCurveNode obj = new("asdf")
+    FbxAnimCurveNode obj = new("asdf")
 
     then
     AssertEqual("AnimCurveNode:\:", obj.GetNameSpacePrefix())
