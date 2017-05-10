@@ -37,6 +37,7 @@
     <Compile Include="AssemblyInfo.Git.cs" />
     <Compile Include="FbxClassId.cs" />
     <Compile Include="FbxCriteria.cs" />
+    <Compile Include="PoseInfo.cs" />
     <Compile Include="TokenType.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="Tokenizer.cs" />
