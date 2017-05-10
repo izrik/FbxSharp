@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public struct FbxMatrix
+    public partial struct FbxMatrix
     {
         public static readonly FbxMatrix Identity = new FbxMatrix(1,0,0,0,
                                                             0,1,0,0,

@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxEuler
+    public partial class FbxEuler
     {
         public enum EOrder
         {

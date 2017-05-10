@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxAnimLayer : FbxCollection
+    public partial class FbxAnimLayer : FbxCollection
     {
         public FbxAnimLayer(string name="")
             : base(name)

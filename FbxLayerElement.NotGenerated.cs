@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class FbxLayerElement
+    public partial class FbxLayerElement
     {
         public enum EType
         {

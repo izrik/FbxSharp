@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public static class FbxAnimCurveDef
+    public static partial class FbxAnimCurveDef
     {
         public const float  sDEFAULT_WEIGHT = 1/3.0f;
         public const float  sMIN_WEIGHT = 0.000099999997f;

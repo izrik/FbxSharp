@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public abstract class FbxDeformer : FbxObject
+    public abstract partial class FbxDeformer : FbxObject
     {
         protected FbxDeformer(string name="")
             : base(name)

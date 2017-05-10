@@ -2,7 +2,7 @@ using System;
 
 namespace FbxSharp
 {
-    public struct FbxTime
+    public partial struct FbxTime
     {
         public static readonly FbxTime Infinite = new FbxTime(0x7fffffffffffffffL);
         public static readonly FbxTime Zero = new FbxTime(0);

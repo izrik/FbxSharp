@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxSkin : FbxDeformer
+    public partial class FbxSkin : FbxDeformer
     {
         public FbxSkin(string name="")
             : base(name)

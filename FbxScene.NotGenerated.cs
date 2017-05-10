@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FbxSharp
 {
-    public class FbxScene : FbxDocument
+    public partial class FbxScene : FbxDocument
     {
         public FbxScene(string name="")
             : base(name)

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public abstract class FbxSurfaceMaterial : FbxObject
+    public abstract partial class FbxSurfaceMaterial : FbxObject
 	{
         protected FbxSurfaceMaterial(string name="")
             : base(name)

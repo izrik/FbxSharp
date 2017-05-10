@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class FbxLayerElementUV : FbxLayerElementTemplate<FbxVector2>
+    public partial class FbxLayerElementUV : FbxLayerElementTemplate<FbxVector2>
     {
     }
 }

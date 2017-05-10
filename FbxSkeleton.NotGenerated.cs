@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxSkeleton : FbxNodeAttribute
+    public partial class FbxSkeleton : FbxNodeAttribute
     {
         public override EAttributeType AttributeType { get { return EAttributeType.Skeleton; } }
 

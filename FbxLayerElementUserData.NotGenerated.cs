@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxLayerElementUserData
+    public partial class FbxLayerElementUserData
     {
         public FbxLayerElementUserData()
         {

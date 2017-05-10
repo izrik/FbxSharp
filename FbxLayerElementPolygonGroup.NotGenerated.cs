@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxLayerElementPolygonGroup
+    public partial class FbxLayerElementPolygonGroup
     {
         public FbxLayerElementPolygonGroup()
         {

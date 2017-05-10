@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxLayerElementTangent
+    public partial class FbxLayerElementTangent
     {
         public FbxLayerElementTangent()
         {

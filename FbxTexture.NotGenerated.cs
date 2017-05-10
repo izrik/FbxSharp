@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxTexture : FbxObject
+    public partial class FbxTexture : FbxObject
     {
         public FbxTexture(string name="")
             : base(name)

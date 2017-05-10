@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class FbxAnimCurve : FbxAnimCurveBase
+    public partial class FbxAnimCurve : FbxAnimCurveBase
     {
         public FbxAnimCurve(string name="")
             : base(name)

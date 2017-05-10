@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxLayerElementBinormal
+    public partial class FbxLayerElementBinormal
     {
         public FbxLayerElementBinormal()
         {

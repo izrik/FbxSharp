@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxLayerElementCrease
+    public partial class FbxLayerElementCrease
     {
         public FbxLayerElementCrease()
         {

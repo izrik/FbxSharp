@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxAnimEvalClassic : FbxAnimEvaluator
+    public partial class FbxAnimEvalClassic : FbxAnimEvaluator
     {
     }
 }

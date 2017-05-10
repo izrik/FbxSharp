@@ -2,7 +2,7 @@ using System;
 
 namespace FbxSharp
 {
-    public struct FbxTimeSpan
+    public partial struct FbxTimeSpan
     {
         public FbxTime Start;
         public FbxTime Stop;

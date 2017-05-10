@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public struct FbxColor
+    public partial struct FbxColor
     {
         public FbxColor(FbxColor pValue)
         {

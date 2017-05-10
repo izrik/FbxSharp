@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FbxSharp
 {
-    public class FbxNode : FbxObject
+    public partial class FbxNode : FbxObject
     {
         public FbxNode(string name="")
         {

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FbxSharp
 {
-    public abstract class FbxProperty
+    public abstract partial class FbxProperty
     {
         static FbxProperty()
         {

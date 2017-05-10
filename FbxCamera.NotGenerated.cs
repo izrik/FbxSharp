@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxCamera : FbxNodeAttribute
+    public partial class FbxCamera : FbxNodeAttribute
     {
         public FbxCamera(string name="")
             : base(name)

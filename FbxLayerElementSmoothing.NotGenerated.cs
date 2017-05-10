@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxLayerElementSmoothing
+    public partial class FbxLayerElementSmoothing
     {
         public FbxLayerElementSmoothing()
         {

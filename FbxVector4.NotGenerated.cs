@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public struct FbxVector4
+    public partial struct FbxVector4
     {
         public static readonly FbxVector4 Zero = new FbxVector4(0, 0, 0, 0);
 

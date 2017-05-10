@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxSurfaceLambert : FbxSurfaceMaterial
+    public partial class FbxSurfaceLambert : FbxSurfaceMaterial
     {
         public FbxSurfaceLambert(string name="")
             : base(name)

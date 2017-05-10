@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public abstract class FbxAnimCurveBase : FbxObject
+    public abstract partial class FbxAnimCurveBase : FbxObject
     {
         protected FbxAnimCurveBase(string name="")
             : base(name)

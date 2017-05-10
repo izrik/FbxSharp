@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxAnimEvaluator : FbxObject
+    public partial class FbxAnimEvaluator : FbxObject
     {
         public static readonly FbxAnimEvaluator Default = new FbxAnimEvalClassic();
 

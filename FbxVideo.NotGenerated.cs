@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxVideo : FbxObject
+    public partial class FbxVideo : FbxObject
     {
         public FbxVideo(string name="")
             : base(name)

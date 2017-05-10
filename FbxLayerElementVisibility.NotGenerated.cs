@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class FbxLayerElementVisibility : FbxLayerElementTemplate<bool>
+    public partial class FbxLayerElementVisibility : FbxLayerElementTemplate<bool>
 	{
 	}
 }

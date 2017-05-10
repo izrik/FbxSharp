@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class FbxMesh : FbxGeometry
+    public partial class FbxMesh : FbxGeometry
     {
         public FbxMesh(string name="")
             : base(name)

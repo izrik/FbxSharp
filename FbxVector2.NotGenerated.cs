@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public struct FbxVector2
+    public partial struct FbxVector2
     {
         public FbxVector2(double pX, double pY)
         {

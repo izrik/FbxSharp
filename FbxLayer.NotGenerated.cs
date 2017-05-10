@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class FbxLayer
+    public partial class FbxLayer
     {
         public FbxLayer()
         {

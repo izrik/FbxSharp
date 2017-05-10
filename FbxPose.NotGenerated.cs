@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class FbxPose : FbxObject
+    public partial class FbxPose : FbxObject
     {
         public FbxPose(String name="")
             : base(name)

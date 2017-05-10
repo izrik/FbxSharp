@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public abstract class FbxLayerContainer : FbxNodeAttribute
+    public abstract partial class FbxLayerContainer : FbxNodeAttribute
     {
         protected FbxLayerContainer(string name="")
             : base(name)

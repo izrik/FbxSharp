@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FbxSharp
 {
-    public struct FbxPoseInfo
+    public partial struct FbxPoseInfo
     {
         public FbxPoseInfo(FbxNode node, FbxMatrix matrix, bool matrixIsLocal = false)
         {

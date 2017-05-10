@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxLayerElementTexture
+    public partial class FbxLayerElementTexture
     {
         public FbxLayerElementTexture()
         {

@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxLayerElementHole
+    public partial class FbxLayerElementHole
     {
         public FbxLayerElementHole()
         {

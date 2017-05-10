@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxAnimStack : FbxCollection
+    public partial class FbxAnimStack : FbxCollection
     {
         public FbxAnimStack(String name="")
             : base(name)

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FbxSharp
 {
-    public class FbxObject : FbxEmitter
+    public partial class FbxObject : FbxEmitter
     {
         static ulong __uniqueId = 0;
 

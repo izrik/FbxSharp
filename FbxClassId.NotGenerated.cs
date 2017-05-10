@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FbxSharp
 {
-    public struct FbxClassId
+    public partial struct FbxClassId
     {
     }
 }

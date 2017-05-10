@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FbxSharp
 {
-    public struct FbxCriteria
+    public partial struct FbxCriteria
     {
     }
 }

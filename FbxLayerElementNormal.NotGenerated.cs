@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxLayerElementNormal : FbxLayerElementTemplate<FbxVector4>
+    public partial class FbxLayerElementNormal : FbxLayerElementTemplate<FbxVector4>
     {
     }
 }

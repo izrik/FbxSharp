@@ -2,7 +2,7 @@
 
 namespace FbxSharp
 {
-    public class FbxNull : FbxNodeAttribute
+    public partial class FbxNull : FbxNodeAttribute
     {
         public FbxNull(string name="")
         {

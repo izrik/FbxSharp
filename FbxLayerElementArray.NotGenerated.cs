@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class FbxLayerElementArray
+    public partial class FbxLayerElementArray
     {
         public enum ELockMode
         {
@@ -48,7 +48,7 @@ namespace FbxSharp
         }
     }
 
-    public class LayerElementArrayT<T> : FbxLayerElementArray
+    public partial class LayerElementArrayT<T> : FbxLayerElementArray
     {
         public LayerElementArrayT(/*EFbxType pDataType*/)
         {
