@@ -2,7 +2,20 @@
 
 from fbxclass import *
 
-all_classes, root_classes = load_classes_from_file()
+all_classes = get_all_classes_from_file()
+
+root_classes = [cls for cls in all_classes if cls.name == 'FbxObject']
+fbxobject = root_classes[0]
+
+def traverse(cls, s=None):
+    if s is None:
+        s = set()
+    s.add(cls)
+    for cc in cls.children:
+        traverse(cc, s)
+    return s
+
+all_classes = traverse(fbxobject)
 
 # generate stubs for all classes
 classes_by_name = {}
@@ -13,13 +26,14 @@ for cls in all_classes:
         classes_by_name[name] = set()
     classes_by_name[name].add(cls)
 print('using System;')
+print('using System.Collections.Generic;')
 print('')
 print('namespace FbxSharp')
 print('{')
 print('    public partial class Visitor'.format(cls.name))
 print('    {')
 for cls in all_classes:
-    varname = cls.name.replace('Fbx', '').lower()
+    varname = 'obj' # cls.name.replace('Fbx', '').lower()
     print('        public virtual void Visit({} {}) {{ }}'.format(cls.name,
                                                                   varname))
 print('')
@@ -39,10 +53,11 @@ for cls in root_classes:
           ' visitedObjects);'.format(cls.name, cls.name))
 print('        }')
 def print_accept_method(cls):
-    varname = cls.name.replace('Fbx', '').lower()
+    varname = 'obj' # cls.name.replace('Fbx', '').lower()
     print('')
-    print('        protected void Accept({} {}, '
-          'ISet<object> visitedObjects=null)'.format(cls.name, varname))
+    print('        protected void Accept{}({} {}, '
+          'ISet<object> visitedObjects=null)'.format(cls.name, cls.name,
+                                                     varname))
     print('        {')
     print('            Visit({});'.format(varname))
     print('')
