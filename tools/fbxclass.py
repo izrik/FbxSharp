@@ -24,6 +24,7 @@ def load_classes_from_file():
     with open('fbx-class-hierarchy.txt') as f:
         for line in f.readlines():
             line_number += 1
+            if line.lstrip().startswith('#'): continue
             class_name = line.lstrip()
             indent = (len(line) - len(class_name))//4
             class_name = class_name.strip()
