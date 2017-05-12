@@ -140,6 +140,7 @@
     <None Include="tools\print_hierarchy.py" />
     <None Include="tools\generate_class_stubs.py" />
     <None Include="tools\print_new_hier_format.py" />
+    <None Include="tools\generate_visitor.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
