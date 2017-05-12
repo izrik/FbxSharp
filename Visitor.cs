@@ -379,7 +379,6 @@ namespace FbxSharp
 
         protected void _AcceptFbxDeformer(FbxDeformer obj, ISet<object> visitedObjects)
         {
-            throw new NotImplementedException();
         }
 
         protected void _AcceptFbxPose(FbxPose pose, ISet<object> visitedObjects)
@@ -393,7 +392,6 @@ namespace FbxSharp
 
         protected void _AcceptFbxSubDeformer(FbxSubDeformer obj, ISet<object> visitedObjects)
         {
-            throw new NotImplementedException();
         }
 
         protected void _AcceptFbxTexture(FbxTexture obj, ISet<object> visitedObjects)
@@ -402,7 +400,6 @@ namespace FbxSharp
 
         protected void _AcceptFbxVideo(FbxVideo obj, ISet<object> visitedObjects)
         {
-            throw new NotImplementedException();
         }
 
         protected void _AcceptFbxCamera(FbxCamera obj, ISet<object> visitedObjects)
@@ -412,7 +409,7 @@ namespace FbxSharp
 
         protected void _AcceptFbxLight(FbxLight obj, ISet<object> visitedObjects)
         {
-            throw new NotImplementedException();
+            //TODO: shadow texture
         }
 
         protected void _AcceptFbxNull(FbxNull obj, ISet<object> visitedObjects)
@@ -421,27 +418,26 @@ namespace FbxSharp
 
         protected void _AcceptFbxSkeleton(FbxSkeleton obj, ISet<object> visitedObjects)
         {
-            throw new NotImplementedException();
         }
 
         protected void _AcceptFbxAnimEvaluator(FbxAnimEvaluator obj, ISet<object> visitedObjects)
         {
-            throw new NotImplementedException();
+            //TODO: GetPropertyCurveNode
         }
 
         protected void _AcceptFbxAnimEvalClassic(FbxAnimEvalClassic obj, ISet<object> visitedObjects)
         {
-            throw new NotImplementedException();
         }
 
         protected void _AcceptFbxSkin(FbxSkin obj, ISet<object> visitedObjects)
         {
-            throw new NotImplementedException();
+            //TODO: GetGeometry
+            //TODO: Clusters
         }
 
         protected void _AcceptFbxGlobalSettings(FbxGlobalSettings obj, ISet<object> visitedObjects)
         {
-            throw new NotImplementedException();
+            // TODO: default camera
         }
 
         protected void _AcceptFbxIOBase(FbxIOBase obj, ISet<object> visitedObjects)
@@ -456,9 +452,9 @@ namespace FbxSharp
 
         protected void _AcceptFbxCluster(FbxCluster obj, ISet<object> visitedObjects)
         {
-            throw new NotImplementedException();
+            //TODO: link
+            //TODO: associated model
         }
-
     }
 }
 
