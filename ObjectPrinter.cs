@@ -1,13 +1,11 @@
 ﻿using System;
-using FbxSharp;
 using System.Text;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
 
 namespace FbxSharp
 {
-    public class ObjectPrinter
+    public partial class ObjectPrinter
     {
         public static string quote(string s)
         {
