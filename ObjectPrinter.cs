@@ -37,11 +37,7 @@ namespace FbxSharp
                 quote(obj.GetName()));
         }
 
-        public void PrintObject(FbxObject obj)
-        {
-            PrintObject(obj, Console.Out);
-        }
-        public void PrintObject(FbxObject obj, TextWriter writer)
+        public void _PrintFbxObject(FbxObject obj, TextWriter writer)
         {
             writer.WriteLine("${0}", PrintObjectID(obj));  // extra $ for easy text search
             writer.WriteLine("    Name = {0}", quote(obj.GetName()));
@@ -108,33 +104,6 @@ namespace FbxSharp
                 PrintProperty(obj.RootProperty);
             }
 
-
-//            if (obj is Collection)
-//                PrintCollection(obj as Collection);
-//            else
-            if (obj is FbxAnimCurve)
-                PrintAnimCurve(obj as FbxAnimCurve);
-//            else if (obj is AnimCurveNode)
-//                PrintAnimCurveNode(obj as AnimCurveNode);
-//            else if (obj is Deformer)
-//                PrintDeformer(obj as Deformer);
-//            else if (obj is Node)
-//                PrintNode(obj as Node);
-//            else if (obj is NodeAttribute)
-//                PrintNodeAttribute(obj as NodeAttribute);
-//            else if (obj is Pose)
-//                PrintPose(obj as Pose);
-//            else if (obj is SubDeformer)
-//                PrintSubDeformer(obj as SubDeformer);
-//            else if (obj is SurfaceMaterial)
-//                PrintSurfaceMaterial(obj as SurfaceMaterial);
-//            else if (obj is Texture)
-//                PrintTexture(obj as Texture);
-//            else if (obj is Video)
-//                PrintVideo(obj as Video);
-            else
-                writer.WriteLine("Unknown object class: {0}", obj.GetType().Name/*obj.GetRuntimeClassId().GetName()*/);
-
             writer.WriteLine();
         }
 
@@ -168,7 +137,7 @@ namespace FbxSharp
 
             foreach (var o in objs)
             {
-                PrintObject(o);
+                PrintFbxObject(o, writer);
             }
         }
 
@@ -433,11 +402,7 @@ namespace FbxSharp
 
 
 
-        public void PrintAnimCurve(FbxAnimCurve ac)
-        {
-            PrintAnimCurve(ac, Console.Out);
-        }
-        public void PrintAnimCurve(FbxAnimCurve ac, TextWriter writer)
+        public void _PrintAnimCurve(FbxAnimCurve ac, TextWriter writer)
         {
             writer.Write("    KeyGetCount() = ");
             writer.Write(ac.KeyGetCount());
@@ -494,5 +459,170 @@ namespace FbxSharp
                 writer.WriteLine();
             }
         }
-    }
+
+		protected void _PrintFbxAnimCurveBase(FbxAnimCurveBase obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxAnimCurve(FbxAnimCurve obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxAnimCurveNode(FbxAnimCurveNode obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxAnimEvaluator(FbxAnimEvaluator obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxAnimEvalClassic(FbxAnimEvalClassic obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxCollection(FbxCollection obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxAnimLayer(FbxAnimLayer obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxAnimStack(FbxAnimStack obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxDocument(FbxDocument obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxScene(FbxScene obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxDeformer(FbxDeformer obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxSkin(FbxSkin obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxGlobalSettings(FbxGlobalSettings obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxIOBase(FbxIOBase obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxImporter(FbxImporter obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxNode(FbxNode obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxNodeAttribute(FbxNodeAttribute obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxCamera(FbxCamera obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxLayerContainer(FbxLayerContainer obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxGeometryBase(FbxGeometryBase obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxGeometry(FbxGeometry obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxMesh(FbxMesh obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxLight(FbxLight obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxNull(FbxNull obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxSkeleton(FbxSkeleton obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxPose(FbxPose obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxSubDeformer(FbxSubDeformer obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxCluster(FbxCluster obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxSurfaceMaterial(FbxSurfaceMaterial obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxSurfaceLambert(FbxSurfaceLambert obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxSurfacePhong(FbxSurfacePhong obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxTexture(FbxTexture obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected void _PrintFbxVideo(FbxVideo obj, TextWriter writer)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

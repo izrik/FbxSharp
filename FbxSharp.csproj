@@ -143,6 +143,8 @@
     <None Include="tools\generate_visitor.py" />
     <Compile Include="FbxIOBase.cs" />
     <Compile Include="Visitor.Generated.cs" />
+    <None Include="tools\generate_object_printer.py" />
+    <Compile Include="ObjectPrinter.Generated.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
