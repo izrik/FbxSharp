@@ -13,6 +13,8 @@ namespace FbxSharp
 
             if (obj is FbxObject)
                 PrintFbxObject((FbxObject)obj, writer);
+
+            writer.WriteLine();
         }
 
         protected void PrintFbxObject(FbxObject obj, TextWriter writer)

@@ -54,7 +54,7 @@ namespace FbxSharp
                 FbxObject srcObj = obj.GetSrcObject(i);
                 writer.WriteLine("        #{0} {1}", i, PrintObjectID(srcObj));
             }
-            writer.Write("    DstObjectCount = {0}", obj.GetDstObjectCount());
+            writer.WriteLine("    DstObjectCount = {0}", obj.GetDstObjectCount());
             for (i = 0; i < obj.GetDstObjectCount(); i++)
             {
                 FbxObject dstObj = obj.GetDstObject(i);
@@ -75,7 +75,7 @@ namespace FbxSharp
             while (prop != null && prop.IsValid())
             {
                 writer.WriteLine("        #{0} {1}", n, PrintPropertyID(prop));
-                PrintProperty(prop, true);
+                PrintProperty(prop, writer, true);
                 n++;
                 prop = obj.GetNextProperty(prop);
             }
@@ -84,27 +84,19 @@ namespace FbxSharp
             for (i = 0; i < obj.GetSrcPropertyCount(); i++)
             {
                 prop = obj.GetSrcProperty(i);
-                writer.Write("        #{0} ", i);
-                PrintPropertyID(prop);
-                writer.WriteLine();
+                writer.WriteLine("        #{0} {1}", i, PrintPropertyID(prop));
             }
             writer.WriteLine("    DstPropertyCount = {0}", obj.GetDstPropertyCount());
             for (i = 0; i < obj.GetDstPropertyCount(); i++)
             {
                 prop = obj.GetDstProperty(i);
-                writer.Write("        #{0} ", i);
-                PrintPropertyID(prop);
-                writer.WriteLine();
+                writer.WriteLine("        #{0} {1}", i, PrintPropertyID(prop));
             }
             if (obj.RootProperty.IsValid())
             {
-                writer.Write("    RootProperty ");
-                PrintPropertyID(obj.RootProperty);
-                writer.WriteLine();
-                PrintProperty(obj.RootProperty);
+                writer.WriteLine("    RootProperty = {0}", PrintPropertyID(obj.RootProperty));
+                PrintProperty(obj.RootProperty, writer);
             }
-
-            writer.WriteLine();
         }
 
         public int sort_by_id(FbxObject a, FbxObject b)
@@ -181,10 +173,6 @@ namespace FbxSharp
             return tid.Name;
         }
 
-        public void PrintProperty(FbxProperty prop, bool indent=false)
-        {
-            PrintProperty(prop, Console.Out, indent);
-        }
         public void PrintProperty(FbxProperty prop, TextWriter writer, bool indent=false)
         {
             string prefix = indent ? "            " : "        ";
@@ -402,15 +390,15 @@ namespace FbxSharp
 
 
 
-        public void _PrintAnimCurve(FbxAnimCurve ac, TextWriter writer)
+        public void _PrintFbxAnimCurve(FbxAnimCurve obj, TextWriter writer)
         {
             writer.Write("    KeyGetCount() = ");
-            writer.Write(ac.KeyGetCount());
+            writer.Write(obj.KeyGetCount());
             writer.WriteLine();
             int k;
-            for (k = 0; k < ac.KeyGetCount(); k++)
+            for (k = 0; k < obj.KeyGetCount(); k++)
             {
-                var key = ac.KeyGet(k);
+                var key = obj.KeyGet(k);
 
                 writer.Write("        #{0}: {1}, ", k, key.GetTime().Print());
 
@@ -458,171 +446,330 @@ namespace FbxSharp
 
                 writer.WriteLine();
             }
+            // TODO: Evaluation and Analysis?
+            // TODO: GetTimeInterval?
         }
 
-		protected void _PrintFbxAnimCurveBase(FbxAnimCurveBase obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxAnimCurveBase(FbxAnimCurveBase obj, TextWriter writer)
+        {
+            // TODO: Extrapolation
+            // TODO: Evaluate?
+            // TODO: GetTimeInterval?
+        }
 
-		protected void _PrintFbxAnimCurve(FbxAnimCurve obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxAnimCurveNode(FbxAnimCurveNode obj, TextWriter writer)
+        {
+            // TODO: GetAnimationInterval?
+            // TODO: writer.WriteLine("    IsAnimated = {0}", obj.IsAnimated());
+            // TODO: IsAnimated(recurse: true)
+            // TODO: writer.WriteLine("    IsComposite = {0}", obj.IsComposite());
+            int i;
+            writer.WriteLine("    ChannelsCount = {0}", obj.GetChannelsCount());
+            for (i = 0; i < obj.GetChannelsCount(); i++)
+            {
+                int curveCount = obj.GetCurveCount((uint)i);
+                writer.WriteLine("        #{0} {1}, {2} curves",
+                                 i,
+                                 obj.GetChannelName(i),
+                                 curveCount);
+                int j;
+                for (j = 0; j < curveCount; j++)
+                {
+                    writer.WriteLine("            #{0} {1}",
+                                     j,
+                                     PrintObjectID(obj.GetCurve((uint)i, (uint)j)));
+                }
+            }
+        }
 
-		protected void _PrintFbxAnimCurveNode(FbxAnimCurveNode obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxAnimEvaluator(FbxAnimEvaluator obj, TextWriter writer)
+        {
+        }
 
-		protected void _PrintFbxAnimEvaluator(FbxAnimEvaluator obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxAnimEvalClassic(FbxAnimEvalClassic obj, TextWriter writer)
+        {
+            throw new NotImplementedException();
+        }
 
-		protected void _PrintFbxAnimEvalClassic(FbxAnimEvalClassic obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxCollection(FbxCollection obj, TextWriter writer)
+        {
+        }
 
-		protected void _PrintFbxCollection(FbxCollection obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxAnimLayer(FbxAnimLayer obj, TextWriter writer)
+        {
+            // TODO
+        }
 
-		protected void _PrintFbxAnimLayer(FbxAnimLayer obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxAnimStack(FbxAnimStack obj, TextWriter writer)
+        {
+            // TODO: GetLocalTimeSpan
+            // TODO: GetReferenceTimeSpan
+        }
 
-		protected void _PrintFbxAnimStack(FbxAnimStack obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxDocument(FbxDocument obj, TextWriter writer)
+        {
+        }
 
-		protected void _PrintFbxDocument(FbxDocument obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxScene(FbxScene obj, TextWriter writer)
+        {
+            writer.WriteLine("    RootNode = {0}", PrintObjectID(obj.GetRootNode()));
+            writer.WriteLine("    AnimationEvaluator = {0}", PrintObjectID(obj.GetAnimationEvaluator()));
+            writer.WriteLine("    CurrentAnimationStack = {0}", PrintObjectID(obj.GetCurrentAnimationStack()));
+            writer.WriteLine("    Global Settings = {0}", PrintObjectID(obj.GetGlobalSettings()));
 
-		protected void _PrintFbxScene(FbxScene obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+            int i;
+            writer.WriteLine("    MaterialCount = {0}", obj.GetMaterialCount());
+            for (i = 0; i < obj.GetMaterialCount(); i++)
+            {
+                FbxSurfaceMaterial mat = obj.GetMaterial(i);
+                writer.WriteLine("        #{0} {1}", i, PrintObjectID(mat));
+            }
+            writer.WriteLine("    PoseCount = {0}", obj.GetPoseCount());
+            for (i = 0; i < obj.GetPoseCount(); i++)
+            {
+                FbxPose pose = obj.GetPose(i);
+                writer.WriteLine("        #{0} {1}", i, PrintObjectID(pose));
+            }
+            writer.WriteLine("    TextureCount = {0}", obj.GetTextureCount());
+            for (i = 0; i < obj.GetTextureCount(); i++)
+            {
+                FbxTexture texture = obj.GetTexture(i);
+                writer.WriteLine("        #{0} {1}", i, PrintObjectID(texture));
+            }
+            writer.WriteLine("    NodeCount = {0}", obj.GetNodeCount());
+            for (i = 0; i < obj.GetNodeCount(); i++)
+            {
+                FbxNode node = obj.GetNode(i);
+                writer.WriteLine("        #{0} {1}", i, PrintObjectID(node));
+            }
+        }
 
-		protected void _PrintFbxDeformer(FbxDeformer obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxDeformer(FbxDeformer obj, TextWriter writer)
+        {
+            writer.WriteLine("    DeformerType = {0}", obj.GetDeformerType());
+        }
 
-		protected void _PrintFbxSkin(FbxSkin obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxSkin(FbxSkin obj, TextWriter writer)
+        {
+            writer.WriteLine("    DeformAccuracy = {0}", obj.GetDeformAccuracy());
+            writer.WriteLine("    Geometry = {0}", PrintObjectID(obj.GetGeometry()));
+            // TODO: GetSkinningType
+            int i;
+            writer.WriteLine("    ClusterCount = {0}", obj.GetClusterCount());
+            for (i = 0; i < obj.GetClusterCount(); i++)
+            {
+                FbxCluster cluster = obj.GetCluster(i);
+                writer.WriteLine("        #{0} {1}", i, PrintObjectID(cluster));
+            }
+            // TODO: Control Points
+        }
 
-		protected void _PrintFbxGlobalSettings(FbxGlobalSettings obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxGlobalSettings(FbxGlobalSettings obj, TextWriter writer)
+        {
+        }
 
-		protected void _PrintFbxIOBase(FbxIOBase obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxIOBase(FbxIOBase obj, TextWriter writer)
+        {
+            throw new NotImplementedException();
+        }
 
-		protected void _PrintFbxImporter(FbxImporter obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxImporter(FbxImporter obj, TextWriter writer)
+        {
+            throw new NotImplementedException();
+        }
 
-		protected void _PrintFbxNode(FbxNode obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxNode(FbxNode obj, TextWriter writer)
+        {
+            writer.WriteLine("    Parent = {0}", PrintObjectID(obj.GetParent()));
+            writer.WriteLine("    MultiLayer = {0}", obj.MultiLayer);
+            writer.WriteLine("    MultiTake = {0}", obj.MultiTake);
+            writer.WriteLine("    Shading = {0}", obj.Shading);
+            writer.WriteLine("    Culling = {0}", obj.Culling);
 
-		protected void _PrintFbxNodeAttribute(FbxNodeAttribute obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+            writer.WriteLine("    ChildCount = {0}", obj.GetChildCount());
+            int i;
+            for (i = 0; i < obj.GetChildCount(); i++)
+            {
+                FbxNode child = obj.GetChild(i);
+                writer.WriteLine("        #{0} {1}", i, PrintObjectID(child));
+            }
+            writer.WriteLine("    NodeAttribute = {0}", PrintObjectID(obj.GetNodeAttribute()));
+            writer.WriteLine("    NodeAttributeCount = {0}", obj.GetNodeAttributeCount());
+            for (i = 0; i < obj.GetNodeAttributeCount(); i++)
+            {
+                FbxNodeAttribute attr = obj.GetNodeAttributeByIndex(i);
+                writer.WriteLine("        #{0} {1}", i, PrintObjectID(attr));
+            }
+            // TODO: Node Evaluation Functions
+            writer.WriteLine("    MaterialCount = {0}", obj.GetMaterialCount());
+            for (i = 0; i < obj.GetMaterialCount(); i++)
+            {
+                FbxSurfaceMaterial mat = obj.GetMaterial(i);
+                writer.WriteLine("        #{0} {1}", i, PrintObjectID(mat));
+            }
+        }
 
-		protected void _PrintFbxCamera(FbxCamera obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxNodeAttribute(FbxNodeAttribute obj, TextWriter writer)
+        {
+            writer.WriteLine("    AttributeType = {0}", obj.GetAttributeType());
+            int i;
+            writer.WriteLine("    NodeCount = {0}", obj.GetNodeCount());
+            for (i = 0; i < obj.GetNodeCount(); i++)
+            {
+                FbxNode node = obj.GetNode(i);
+                writer.WriteLine("        #{0} {1}", i, PrintObjectID(node));
+            }
+        }
 
-		protected void _PrintFbxLayerContainer(FbxLayerContainer obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxCamera(FbxCamera obj, TextWriter writer)
+        {
+            // TODO: Functions to handle the viewing area
+            // TODO: Aperture and Film Functions
+            // TODO: Functions to handle BackPlane/FrontPlane and Plate
+            // TODO: Camera View Functions
+            // TODO: Render Functions
+            // TODO: Utility Functions
+        }
 
-		protected void _PrintFbxGeometryBase(FbxGeometryBase obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxLayerContainer(FbxLayerContainer obj, TextWriter writer)
+        {
+            int i;
+            writer.WriteLine("    LayerCount = {0}", obj.GetLayerCount());
+            for (i = 0; i < obj.GetLayerCount(); i++)
+            {
+                FbxLayer layer = obj.GetLayer(i);
+                writer.WriteLine("        #{0}", i);
+                _PrintFbxLayer(layer, writer);
+            }
+        }
 
-		protected void _PrintFbxGeometry(FbxGeometry obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxLayer(FbxLayer obj, TextWriter writer)
+        {
+            // TODO
+        }
 
-		protected void _PrintFbxMesh(FbxMesh obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxGeometryBase(FbxGeometryBase obj, TextWriter writer)
+        {
+            int i;
+            writer.WriteLine("    ControlPointsCount = {0}", obj.GetControlPointsCount());
+            for (i = 0; i < obj.GetControlPointsCount(); i++)
+            {
+                FbxVector4 cp = obj.GetControlPointAt(i);
+                writer.WriteLine("        #{0} {1}, {2}, {3}, {4}", i, cp.X, cp.Y, cp.Z, cp.W);
+            }
+        }
 
-		protected void _PrintFbxLight(FbxLight obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxGeometry(FbxGeometry obj, TextWriter writer)
+        {
+            int i;
+            writer.WriteLine("    DeformerCount = {0}", obj.GetDeformerCount());
+            for (i = 0; i < obj.GetDeformerCount(); i++)
+            {
+                FbxDeformer deformer = obj.GetDeformer(i);
+                writer.WriteLine("        #{0} {1}", i, PrintObjectID(deformer));
+            }
+        }
 
-		protected void _PrintFbxNull(FbxNull obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxMesh(FbxMesh obj, TextWriter writer)
+        {
+            int i;
+            writer.WriteLine("    PolygonIndexes = {0}", obj.PolygonIndexes.Count);
+            for (i = 0; i < obj.PolygonIndexes.Count; i++)
+            {
+                writer.Write("        #{0} ({1}):", i, obj.PolygonIndexes[i].Count);
+                int j;
+                for (j = 0; j < obj.PolygonIndexes[i].Count; j++)
+                {
+                    writer.Write(" ");
+                    writer.Write(obj.PolygonIndexes[i][j]);
+                }
+                writer.WriteLine();
+            }
+        }
 
-		protected void _PrintFbxSkeleton(FbxSkeleton obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxLight(FbxLight obj, TextWriter writer)
+        {
+            // TODO: writer.WriteLine("    ShadowTexture = {0}", obj.GetShadowTexture());
+        }
 
-		protected void _PrintFbxPose(FbxPose obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxNull(FbxNull obj, TextWriter writer)
+        {
+            throw new NotImplementedException();
+        }
 
-		protected void _PrintFbxSubDeformer(FbxSubDeformer obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxSkeleton(FbxSkeleton obj, TextWriter writer)
+        {
+            writer.WriteLine("    SkeletonType = {0}", obj.SkeletonType);
+            writer.WriteLine("    IsSkeletonRoot = {0}", obj.IsSkeletonRoot);
+            writer.WriteLine("    IsLimbNodeColorSet = {0}", obj.IsLimbNodeColorSet);
+            writer.WriteLine("    LimbNodeColor = {0}", obj.LimbNodeColor);
+        }
 
-		protected void _PrintFbxCluster(FbxCluster obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxPose(FbxPose obj, TextWriter writer)
+        {
+            writer.WriteLine("    IsBindPose = {0}", obj.IsBindPose());
+            writer.WriteLine("    GetCount = {0}", obj.GetCount());
+            int i;
+            for (i = 0; i < obj.GetCount(); i++)
+            {
+                FbxPoseInfo pi = obj.PoseInfos[i];
+                writer.WriteLine("        #{0} {1}", i, RenderPoseInfo(pi));
+            }
+        }
 
-		protected void _PrintFbxSurfaceMaterial(FbxSurfaceMaterial obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected string RenderPoseInfo(FbxPoseInfo pi)
+        {
+            return string.Format("Node={0} IsLocal={1} Matrix={2}",
+                                 PrintObjectID(pi.Node),
+                                 pi.MatrixIsLocal,
+                                 pi.Matrix.ToString());
+        }
 
-		protected void _PrintFbxSurfaceLambert(FbxSurfaceLambert obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxSubDeformer(FbxSubDeformer obj, TextWriter writer)
+        {
+            writer.WriteLine("    IsMultiLayer = {0}", obj.GetMultiLayer());
+            writer.WriteLine("    SubDeformerType = {0}", obj.GetSubDeformerType());
+        }
 
-		protected void _PrintFbxSurfacePhong(FbxSurfacePhong obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxCluster(FbxCluster obj, TextWriter writer)
+        {
+            // TODO: Public Member Functions
+            // TODO: General Functions
+            // TODO: Link Mode, Link Node, Associate Model
+            // TODO: Control Points
+            // TODO: Transformation Matrices
+        }
 
-		protected void _PrintFbxTexture(FbxTexture obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
+        protected void _PrintFbxSurfaceMaterial(FbxSurfaceMaterial obj, TextWriter writer)
+        {
+        }
 
-		protected void _PrintFbxVideo(FbxVideo obj, TextWriter writer)
-		{
-			throw new NotImplementedException();
-		}
-	}
+        protected void _PrintFbxSurfaceLambert(FbxSurfaceLambert obj, TextWriter writer)
+        {
+        }
+
+        protected void _PrintFbxSurfacePhong(FbxSurfacePhong obj, TextWriter writer)
+        {
+        }
+
+        protected void _PrintFbxTexture(FbxTexture obj, TextWriter writer)
+        {
+            writer.WriteLine("    Type = {0}", obj.Type);
+            writer.WriteLine("    Media = {0}", obj.Media);
+            writer.WriteLine("    Filename = {0}", obj.Filename);
+            writer.WriteLine("    RelativeFilename = {0}", obj.RelativeFilename);
+            writer.WriteLine("    ModelUVTranslation = {0}", obj.ModelUVTranslation);
+            writer.WriteLine("    ModelUVScaling = {0}", obj.ModelUVScaling);
+            writer.WriteLine("    AlphaSource = {0}", obj.AlphaSource);
+            writer.WriteLine("    Cropping = {0}", obj.Cropping);
+        }
+
+        protected void _PrintFbxVideo(FbxVideo obj, TextWriter writer)
+        {
+            writer.WriteLine("    Type = {0}", obj.Type);
+            writer.WriteLine("    UseMipMap = {0}", obj.UseMipMap);
+            writer.WriteLine("    Filename = {0}", obj.Filename);
+            writer.WriteLine("    RelativeFilename = {0}", obj.RelativeFilename);
+        }
+    }
 }
