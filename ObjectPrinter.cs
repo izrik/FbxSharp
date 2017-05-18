@@ -358,17 +358,13 @@ namespace FbxSharp
             for (i = 0; i < prop.GetSrcObjectCount(); i++)
             {
                 FbxObject srcObj = prop.GetSrcObject(i);
-                writer.Write("{0}{1}{2}", prefix , "    #" , i , " ");
-                PrintObjectID(srcObj);
-                writer.WriteLine();
+                writer.WriteLine("{0}    #{1} {2}", prefix , i, PrintObjectID(srcObj));
             }
             writer.WriteLine("{0}{1}{2}", prefix , "DstObjectCount = " , prop.GetDstObjectCount() );
             for (i = 0; i < prop.GetDstObjectCount(); i++)
             {
                 FbxObject dstObj = prop.GetDstObject(i);
-                writer.Write("{0}{1}{2}", prefix , "    #" , i , " ");
-                PrintObjectID(dstObj);
-                writer.WriteLine();
+                writer.WriteLine("{0}    #{1} {2}", prefix , i, PrintObjectID(dstObj));
             }
 //            writer.WriteLine("{0}{1}{2}", prefix , "SrcPropertyCount = " , prop.GetSrcPropertyCount() );
 //            for (i = 0; i < prop.GetSrcPropertyCount(); i++)
