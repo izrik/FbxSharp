@@ -388,9 +388,7 @@ namespace FbxSharp
 
         public void _PrintFbxAnimCurve(FbxAnimCurve obj, TextWriter writer)
         {
-            writer.Write("    KeyGetCount() = ");
-            writer.Write(obj.KeyGetCount());
-            writer.WriteLine();
+            writer.WriteLine("    KeyGetCount() = {0}", obj.KeyGetCount());
             int k;
             for (k = 0; k < obj.KeyGetCount(); k++)
             {
