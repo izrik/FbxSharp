@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace FbxSharp
 {
@@ -11,7 +12,7 @@ namespace FbxSharp
             StringRepresentation = str;
 
             double d;
-            if (double.TryParse(str, out d))
+            if (double.TryParse(str, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
                 AsDouble = d;
             else
                 AsDouble = null;
