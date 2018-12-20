@@ -25,7 +25,7 @@ namespace FbxSharp
 
             if (!AsLong.HasValue && !AsDouble.HasValue)
             {
-                throw new ArgumentException("The string cannot be interpreted as a snumber", "str");
+                throw new ArgumentException("The string cannot be interpreted as a number", "str");
             }
         }
 
