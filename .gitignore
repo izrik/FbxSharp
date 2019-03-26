@@ -191,3 +191,4 @@ AssemblyInfo.Git.cs
 # misc
 _scratch*
 .idea
+*.pyc

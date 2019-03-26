@@ -3,7 +3,7 @@ using System.IO;
 
 namespace FbxSharp
 {
-    public class FbxImporter
+    public class FbxImporter : FbxIOBase
     {
         public FbxImporter(string name = null)
         {

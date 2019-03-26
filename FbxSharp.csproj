@@ -88,7 +88,6 @@
     <Compile Include="Visitor.cs" />
     <Compile Include="ObjectPrinter.cs" />
     <Compile Include="TypeHelper.cs" />
-    <None Include="fbx-class-hierarchy.txt" />
     <Compile Include="FbxAnimCurve.cs" />
     <Compile Include="FbxAnimCurveBase.cs" />
     <Compile Include="FbxAnimCurveDef.cs" />
@@ -136,6 +135,16 @@
     <Compile Include="FbxNode.cs" />
     <Compile Include="FbxNodeAttribute.cs" />
     <Compile Include="FbxNull.cs" />
+    <None Include="tools\fbx-class-hierarchy.txt" />
+    <None Include="tools\fbxclass.py" />
+    <None Include="tools\print_hierarchy.py" />
+    <None Include="tools\generate_class_stubs.py" />
+    <None Include="tools\print_new_hier_format.py" />
+    <None Include="tools\generate_visitor.py" />
+    <Compile Include="FbxIOBase.cs" />
+    <Compile Include="Visitor.Generated.cs" />
+    <None Include="tools\generate_object_printer.py" />
+    <Compile Include="ObjectPrinter.Generated.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -181,4 +190,7 @@
   <PropertyGroup>
     <PreBuildEvent>python $(ProjectDir)pre-build.py $(ProjectDir)AssemblyInfo.Git.cs</PreBuildEvent>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="tools\" />
+  </ItemGroup>
 </Project>

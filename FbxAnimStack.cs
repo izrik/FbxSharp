@@ -39,12 +39,13 @@ namespace FbxSharp
 
         public FbxTimeSpan GetReferenceTimeSpan()
         {
-            throw new NotImplementedException();
+            return new FbxTimeSpan(ReferenceStart.Get(), ReferenceStop.Get());
         }
 
         public void SetReferenceTimeSpan(FbxTimeSpan pTimeSpan)
         {
-            throw new NotImplementedException();
+            ReferenceStart.Set(pTimeSpan.GetStart());
+            ReferenceStop.Set(pTimeSpan.GetStop());
         }
 
         public bool BakeLayers(FbxAnimEvaluator pEvaluator, FbxTime pStart, FbxTime pStop, FbxTime pPeriod)
