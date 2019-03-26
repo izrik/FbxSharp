@@ -1,19 +1,22 @@
 using System;
 
-public class ParseException : Exception
+namespace FbxSharp
 {
-    public ParseException() 
-        : base()
+    public class ParseException : Exception
     {
-    }
+        public ParseException()
+            : base()
+        {
+        }
 
-    public ParseException(string message)
-        : base(message)
-    {
-    }
+        public ParseException(string message)
+            : base(message)
+        {
+        }
 
-    public ParseException(string message, Exception inner)
-        : base(message, inner)
-    {
+        public ParseException(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
     }
 }

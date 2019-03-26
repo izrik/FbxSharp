@@ -1,19 +1,22 @@
 using System;
 
-public class TokenizationException : Exception
+namespace FbxSharp
 {
-    public TokenizationException() 
-        : base()
+    public class TokenizationException : Exception
     {
-    }
+        public TokenizationException()
+            : base()
+        {
+        }
 
-    public TokenizationException(string message)
-        : base(message)
-    {
-    }
+        public TokenizationException(string message)
+            : base(message)
+        {
+        }
 
-    public TokenizationException(string message, Exception inner)
-        : base(message, inner)
-    {
+        public TokenizationException(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
     }
 }
