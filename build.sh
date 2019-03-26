@@ -1,5 +1,7 @@
 #!/bin/bash
 set -e
-nuget restore FbxSharpBuild.sln
-msbuild /p:Configuration=Debug FbxSharpBuild.sln
-nunit-console ./FbxSharpTests/bin/Debug/FbxSharpTests.dll
+csc HelloWorld.cs
+mono HelloWorld.exe
+#nuget restore FbxSharpBuild.sln
+#msbuild /p:Configuration=Debug FbxSharpBuild.sln
+#nunit-console ./FbxSharpTests/bin/Debug/FbxSharpTests.dll
