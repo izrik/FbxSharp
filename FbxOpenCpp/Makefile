@@ -1,14 +1,24 @@
 CC=g++
 
 UNAME_S := $(shell uname -s)
+ifeq ($(FBXSDK_HOME),"")
+	ifeq ($(UNAME_S),Linux)
+		FBXSDK_HOME=/usr/share/fbxsdk/2015.1
+	endif
+	ifeq ($(UNAME_S),Darwin)
+		FBXSDK_HOME=/Applications/Autodesk/FBX\ SDK/2015.1
+	endif
+endif
+
 ifeq ($(UNAME_S),Linux)
-	CFLAGS=-c -Wall -I$(HOME)/usr/fbxsdk/include -pthread
-	STATIC_LIBS=$(HOME)/usr/fbxsdk/lib/gcc4/x64/debug/libfbxsdk.a
+	CFLAGS=-c -Wall -I$(FBXSDK_HOME)/include -pthread
+	STATIC_LIBS=$(FBXSDK_HOME)/lib/gcc4/x64/debug/libfbxsdk.a
 	LDFLAGS=-lpthread -ldl
 endif
 ifeq ($(UNAME_S),Darwin)
-	CFLAGS=-c -Wall -I/Applications/Autodesk/FBX\ SDK/2015.1/include
-	STATIC_LIBS=/Applications/Autodesk/FBX\ SDK/2015.1/lib/clang/debug/libfbxsdk.a
+	USE_PTHREAD=0
+	CFLAGS=-c -Wall -I$(FBXSDK_HOME)/include
+	STATIC_LIBS=$(FBXSDK_HOME)/lib/clang/debug/libfbxsdk.a
 	LDFLAGS=-framework Cocoa
 endif
 
