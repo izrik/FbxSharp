@@ -57,7 +57,7 @@ namespace FbxSharp
                 {
                     currentTokenType = GetNewTokenType(ch);
                     if (currentTokenType == TokenType.Unknown) 
-                        throw new InvalidOperationException(
+                        throw new TokenizationException(
                             string.Format("Unknown character '{0}' at index {1}", ch.ToString(), index));
                     newTokenChars.Clear();
                     tokenLocation = new InputLocation(line, column, index);
@@ -91,7 +91,7 @@ namespace FbxSharp
 
                     currentTokenType = GetNewTokenType(ch);
                     if (currentTokenType == TokenType.Unknown) 
-                        throw new InvalidOperationException(
+                        throw new TokenizationException(
                             string.Format("Unknown character '{0}' at index {1}", ch.ToString(), index));
                     newTokenChars.Clear();
                     newTokenChars.Add(ch);
@@ -105,7 +105,8 @@ namespace FbxSharp
                 }
                 else
                 {
-                    throw new InvalidOperationException();
+                    throw new TokenizationException(
+                        string.Format("Invalid character '{0}' at index {1}", ch.ToString(), index));
                 }
             }
 
@@ -113,7 +114,7 @@ namespace FbxSharp
             {
                 if (!IsEndingChar(currentTokenType, ch))
                 {
-                    throw new InvalidOperationException("Bad ending char");
+                    throw new TokenizationException("Bad ending char");
                 }
 
                 var value = new string(newTokenChars.ToArray());
@@ -238,7 +239,8 @@ namespace FbxSharp
                 return (ch == ',');
             }
 
-            throw new InvalidOperationException();
+            throw new TokenizationException(
+                string.Format("Not a valid token type: '{0}'", tokenType.ToString()));
         }
 
         // can be at end of token type x
