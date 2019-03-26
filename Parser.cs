@@ -70,18 +70,18 @@ namespace FbxSharp
                 case ObjectState.Name:
                     token = GetNextToken().Value;
                     if (token.Type != TokenType.Name)
-                        throw new InvalidOperationException();
+                        throw new ParseException();
                     name = UnescapeString(token.Value);
                     state = ObjectState.Colon;
                     break;
                 case ObjectState.Colon:
                     token = GetNextToken().Value;
                     if (token.Type != TokenType.Colon)
-                        throw new InvalidOperationException();
+                        throw new ParseException();
 
                     peek = PeekNextToken();
                     if (peek == null)
-                        throw new InvalidOperationException();
+                        throw new ParseException();
                     switch (peek.Value.Type)
                     {
                     case TokenType.OpenBrace:
@@ -98,7 +98,7 @@ namespace FbxSharp
                 case ObjectState.PreValue:
                     peek = PeekNextToken();
                     if (peek == null)
-                        throw new InvalidOperationException();
+                        throw new ParseException();
                     switch (peek.Value.Type)
                     {
                     case TokenType.String:
@@ -111,7 +111,7 @@ namespace FbxSharp
                         state = ObjectState.NameValue;
                         break;
                     default:
-                        throw new InvalidOperationException();
+                        throw new ParseException();
                     }
                     break;
                 case ObjectState.Array:
@@ -157,7 +157,7 @@ namespace FbxSharp
                 case ObjectState.Comma:
                     token = GetNextToken().Value;
                     if (token.Type != TokenType.Comma)
-                        throw new InvalidOperationException();
+                        throw new ParseException();
                     state = ObjectState.PreValue;
                     break;
                 case ObjectState.Block:
@@ -173,7 +173,7 @@ namespace FbxSharp
                     // assemble parse object and return
                     break;
                 default:
-                    throw new InvalidOperationException();
+                    throw new ParseException();
                 }
             }
 
@@ -214,13 +214,13 @@ namespace FbxSharp
                 case ArrayState.Star:
                     token = GetNextToken().Value;
                     if (token.Type != TokenType.Star)
-                        throw new InvalidOperationException();
+                        throw new ParseException();
                     state = ArrayState.Number;
                     break;
                 case ArrayState.Number:
                     token = GetNextToken().Value;
                     if (token.Type != TokenType.Number)
-                        throw new InvalidOperationException();
+                        throw new ParseException();
                     count = int.Parse(token.Value);
                     state = ArrayState.Block;
                     break;
@@ -228,11 +228,11 @@ namespace FbxSharp
                     subobjects = ReadBlock();
                     if (subobjects.Count != 1)
                     {
-                        throw new InvalidOperationException("Malformed array");
+                        throw new ParseException("Malformed array");
                     }
                     if (subobjects[0].Values.Count != count)
                     {
-                        throw new InvalidOperationException("Array size mismatch");
+                        throw new ParseException("Array size mismatch");
                     }
                     state = ArrayState.End;
                     break;
@@ -273,10 +273,10 @@ namespace FbxSharp
                 case BlockState.OpenBrace:
                     token = GetNextToken().Value;
                     if (token.Type != TokenType.OpenBrace)
-                        throw new InvalidOperationException();
+                        throw new ParseException();
                     peek = PeekNextToken();
                     if (peek == null)
-                        throw new InvalidOperationException();
+                        throw new ParseException();
                     state = (peek.Value.Type == TokenType.CloseBrace) ? BlockState.CloseBrace : BlockState.Object;
                     break;
                 case BlockState.Object:
@@ -284,7 +284,7 @@ namespace FbxSharp
                     objects.Add(obj);
                     peek = PeekNextToken();
                     if (peek == null)
-                        throw new InvalidOperationException();
+                        throw new ParseException();
                     if (peek.Value.Type == TokenType.CloseBrace)
                     {
                         state = BlockState.CloseBrace;
@@ -294,7 +294,7 @@ namespace FbxSharp
                 case BlockState.CloseBrace:
                     token = GetNextToken().Value;
                     if (token.Type != TokenType.CloseBrace)
-                        throw new InvalidOperationException();
+                        throw new ParseException();
                     state = BlockState.End;
                     break;
                 }
