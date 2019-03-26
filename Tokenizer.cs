@@ -8,20 +8,22 @@ namespace FbxSharp
 {
     public class Tokenizer
     {
-        public Tokenizer(string input, bool ignoreWhitespace=true)
-            : this(new StringReader(input), ignoreWhitespace)
+        public Tokenizer(string input, bool ignoreWhitespace=true, string filename="<unknown>")
+            : this(new StringReader(input), ignoreWhitespace, filename)
         {
         }
-        public Tokenizer(TextReader input, bool ignoreWhitespace=true)
+        public Tokenizer(TextReader input, bool ignoreWhitespace=true, string filename="<unknown>")
         {
             if (input == null) throw new ArgumentNullException("input");
 
             Input = input;
             IgnoreWhitespace = ignoreWhitespace;
+            Filename = filename;
         }
 
         public readonly TextReader Input;
         public readonly bool IgnoreWhitespace;
+        public readonly string Filename;
 
         int index = 0;
         int line = 1;
