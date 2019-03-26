@@ -62,7 +62,7 @@ namespace FbxSharp
                         throw new TokenizationException(
                             string.Format("Unknown character '{0}' at index {1}", ch.ToString(), index));
                     newTokenChars.Clear();
-                    tokenLocation = new InputLocation(line, column, index);
+                    tokenLocation = new InputLocation(line, column, index, Filename);
                     if (currentTokenType == TokenType.String) startString = true;
                 }
 
@@ -97,7 +97,7 @@ namespace FbxSharp
                             string.Format("Unknown character '{0}' at index {1}", ch.ToString(), index));
                     newTokenChars.Clear();
                     newTokenChars.Add(ch);
-                    tokenLocation = new InputLocation(line, column, index);
+                    tokenLocation = new InputLocation(line, column, index, Filename);
                     if (!ShouldIgnoreToken(token))
                     {
                         index++;
