@@ -26,7 +26,7 @@ namespace FbxSharp
         {
             using (var reader = new StreamReader(filename))
             {
-                var parser = new Parser(new Tokenizer(reader));
+                var parser = new Parser(new Tokenizer(reader, filename:filename));
                 var converter = new Converter();
 
                 var pobjects = parser.ReadFile();
