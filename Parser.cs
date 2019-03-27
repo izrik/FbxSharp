@@ -70,18 +70,24 @@ namespace FbxSharp
                 case ObjectState.Name:
                     token = GetNextToken().Value;
                     if (token.Type != TokenType.Name)
-                        throw new ParseException(string.Format("Expected a name token. Got '{0}' instead.", token.Type));
+                        throw new ParseException(
+                            token.Location,
+                            string.Format("Expected a name token. Got '{0}' instead.", token.Type));
                     name = UnescapeString(token.Value);
                     state = ObjectState.Colon;
                     break;
                 case ObjectState.Colon:
                     token = GetNextToken().Value;
                     if (token.Type != TokenType.Colon)
-                        throw new ParseException(string.Format("Expected a colon token. Got '{0}' instead.", token.Type));
+                        throw new ParseException(
+                            token.Location,
+                            string.Format("Expected a colon token. Got '{0}' instead.", token.Type));
 
                     peek = PeekNextToken();
                     if (peek == null)
-                        throw new ParseException("Ran out of tokens. Expected a token after ':'.");
+                        throw new ParseException(
+                            tokenizer.CurrentLocation,
+                            "Ran out of tokens. Expected a token after ':'.");
                     switch (peek.Value.Type)
                     {
                     case TokenType.OpenBrace:
@@ -98,7 +104,9 @@ namespace FbxSharp
                 case ObjectState.PreValue:
                     peek = PeekNextToken();
                     if (peek == null)
-                        throw new ParseException("Ran out of tokens. Expected a string, number, or name.");
+                        throw new ParseException(
+                            tokenizer.CurrentLocation,
+                            "Ran out of tokens. Expected a string, number, or name.");
                     switch (peek.Value.Type)
                     {
                     case TokenType.String:
@@ -111,7 +119,9 @@ namespace FbxSharp
                         state = ObjectState.NameValue;
                         break;
                     default:
-                        throw new ParseException(string.Format("Expected a string, number, or name. Got '{0}' instead.", peek.Value.Type));
+                        throw new ParseException(
+                            peek.Value.Location,
+                            string.Format("Expected a string, number, or name. Got '{0}' instead.", peek.Value.Type));
                     }
                     break;
                 case ObjectState.Array:
@@ -157,7 +167,9 @@ namespace FbxSharp
                 case ObjectState.Comma:
                     token = GetNextToken().Value;
                     if (token.Type != TokenType.Comma)
-                        throw new ParseException(string.Format("Expected a comma. Got '{0}' instead.", token.Type));
+                        throw new ParseException(
+                            token.Location,
+                            string.Format("Expected a comma. Got '{0}' instead.", token.Type));
                     state = ObjectState.PreValue;
                     break;
                 case ObjectState.Block:
@@ -173,7 +185,8 @@ namespace FbxSharp
                     // assemble parse object and return
                     break;
                 default:
-                    throw new ParseException(string.Format("Unknown parse state, '{0}'.", state));
+                    throw new ParseException(
+                        string.Format("Unknown parse state, '{0}'.", state));
                 }
             }
 
@@ -214,13 +227,17 @@ namespace FbxSharp
                 case ArrayState.Star:
                     token = GetNextToken().Value;
                     if (token.Type != TokenType.Star)
-                        throw new ParseException(string.Format("Expected a '*' while reading an array. Got '{0}' instead.", token.Type));
+                        throw new ParseException(
+                            token.Location,
+                            string.Format("Expected a '*' while reading an array. Got '{0}' instead.", token.Type));
                     state = ArrayState.Number;
                     break;
                 case ArrayState.Number:
                     token = GetNextToken().Value;
                     if (token.Type != TokenType.Number)
-                        throw new ParseException(string.Format("Expected a number while reading an array. Got '{0}' instead.", token.Type));
+                        throw new ParseException(
+			    token.Location,
+                            string.Format("Expected a number while reading an array. Got '{0}' instead.", token.Type));
                     count = int.Parse(token.Value);
                     state = ArrayState.Block;
                     break;
@@ -228,11 +245,13 @@ namespace FbxSharp
                     subobjects = ReadBlock();
                     if (subobjects.Count != 1)
                     {
-                        throw new ParseException(string.Format("Malformed array. Expected single block. Got {0} blocks instead.", subobjects.Count));
+                        throw new ParseException(
+                            string.Format("Malformed array. Expected single block. Got {0} blocks instead.", subobjects.Count));
                     }
                     if (subobjects[0].Values.Count != count)
                     {
-                        throw new ParseException(string.Format("Array size mismatch. Expected {0} but got {1}.", count, subobjects[0].Values.Count));
+                        throw new ParseException(
+                            string.Format("Array size mismatch. Expected {0} but got {1}.", count, subobjects[0].Values.Count));
                     }
                     state = ArrayState.End;
                     break;
@@ -273,10 +292,14 @@ namespace FbxSharp
                 case BlockState.OpenBrace:
                     token = GetNextToken().Value;
                     if (token.Type != TokenType.OpenBrace)
-                        throw new ParseException(string.Format("Expected a '{'. Got '{0}' instead.", token.Type));
+                        throw new ParseException(
+                            token.Location,
+                            string.Format("Expected a '{'. Got '{0}' instead.", token.Type));
                     peek = PeekNextToken();
                     if (peek == null)
-                        throw new ParseException("Ran out of tokens after '{'.");
+                        throw new ParseException(
+                            tokenizer.CurrentLocation,
+                            "Ran out of tokens after '{'.");
                     state = (peek.Value.Type == TokenType.CloseBrace) ? BlockState.CloseBrace : BlockState.Object;
                     break;
                 case BlockState.Object:
@@ -284,7 +307,9 @@ namespace FbxSharp
                     objects.Add(obj);
                     peek = PeekNextToken();
                     if (peek == null)
-                        throw new ParseException("Ran out of tokens before '}'.");
+                        throw new ParseException(
+                            tokenizer.CurrentLocation,
+                            "Ran out of tokens before '}'.");
                     if (peek.Value.Type == TokenType.CloseBrace)
                     {
                         state = BlockState.CloseBrace;
@@ -294,7 +319,9 @@ namespace FbxSharp
                 case BlockState.CloseBrace:
                     token = GetNextToken().Value;
                     if (token.Type != TokenType.CloseBrace)
-                        throw new ParseException(string.Format("Expected a '}'. Get '{0}' instead.", token.Type));
+                        throw new ParseException(
+                            token.Location,
+                            string.Format("Expected a '}'. Get '{0}' instead.", token.Type));
                     state = BlockState.End;
                     break;
                 }

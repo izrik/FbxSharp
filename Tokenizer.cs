@@ -28,6 +28,10 @@ namespace FbxSharp
         int index = 0;
         int line = 1;
         int column = 0;
+	public InputLocation CurrentLocation
+	{
+		get { return new InputLocation(index, line, column, Filename); }
+	}
         TokenType currentTokenType = TokenType.None;
         readonly List<char> newTokenChars = new List<char>();
         InputLocation tokenLocation;
@@ -60,7 +64,9 @@ namespace FbxSharp
                     currentTokenType = GetNewTokenType(ch);
                     if (currentTokenType == TokenType.Unknown) 
                         throw new TokenizationException(
-                            string.Format("Unknown character '{0}' at index {1}", ch.ToString(), index));
+
+                            CurrentLocation,
+                            string.Format("Unknown character '{0}'", ch.ToString()));
                     newTokenChars.Clear();
                     tokenLocation = new InputLocation(line, column, index, Filename);
                     if (currentTokenType == TokenType.String) startString = true;
@@ -94,7 +100,8 @@ namespace FbxSharp
                     currentTokenType = GetNewTokenType(ch);
                     if (currentTokenType == TokenType.Unknown) 
                         throw new TokenizationException(
-                            string.Format("Unknown character '{0}' at index {1}", ch.ToString(), index));
+                            CurrentLocation,
+                            string.Format("Unknown character '{0}'", ch.ToString()));
                     newTokenChars.Clear();
                     newTokenChars.Add(ch);
                     tokenLocation = new InputLocation(line, column, index, Filename);
@@ -108,6 +115,7 @@ namespace FbxSharp
                 else
                 {
                     throw new TokenizationException(
+                        CurrentLocation,
                         string.Format("Invalid character '{0}' at index {1}", ch.ToString(), index));
                 }
             }
@@ -116,7 +124,9 @@ namespace FbxSharp
             {
                 if (!IsEndingChar(currentTokenType, ch))
                 {
-                    throw new TokenizationException("Bad ending char");
+                    throw new TokenizationException(
+                        CurrentLocation,
+                        "Bad ending char");
                 }
 
                 var value = new string(newTokenChars.ToArray());
