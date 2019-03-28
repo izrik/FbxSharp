@@ -52,7 +52,7 @@ namespace FbxSharp
             var values = new List<object>();
             bool hasEmptyBlock = false;
             List<ParseObject> subobjects = null;
-            var startLocation = tokenizer.CurrentLocation;
+            InputLocation startLocation = default(InputLocation);
 
             while (PeekNextToken().HasValue)
             {
@@ -70,6 +70,7 @@ namespace FbxSharp
                     break;
                 case ObjectState.Name:
                     token = GetNextToken().Value;
+                    startLocation = token.Location;
                     if (token.Type != TokenType.Name)
                         throw new ParseException(
                             token.Location,
