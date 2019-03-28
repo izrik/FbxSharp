@@ -16,11 +16,14 @@ namespace FbxSharp
             var scene = new FbxScene();
 
             var docs = parsed.FindPropertyByName("Documents");
-            CheckDocuments(docs);
-
-            foreach (var doc in docs.Properties.Skip(1))
+            if (docs != null)
             {
-                CheckDocument(doc);
+                CheckDocuments(docs);
+
+                foreach (var doc in docs.Properties.Skip(1))
+                {
+                    CheckDocument(doc);
+                }
             }
 
 
