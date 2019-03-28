@@ -16,6 +16,11 @@ namespace FbxSharp
         public readonly int Column;
         public readonly int Index;
 	public readonly string Filename;
+
+        public override string ToString()
+        {
+            return string.Format("{0}:{1},{2}", Filename, Line, Column);
+        }
     }
 }
 
