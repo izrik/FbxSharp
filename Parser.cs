@@ -52,6 +52,7 @@ namespace FbxSharp
             var values = new List<object>();
             bool hasEmptyBlock = false;
             List<ParseObject> subobjects = null;
+            var startLocation = tokenizer.CurrentLocation;
 
             while (PeekNextToken().HasValue)
             {
@@ -195,6 +196,7 @@ namespace FbxSharp
                 Values = values,
                 Properties = subobjects,
                 HasEmptyBlock = hasEmptyBlock,
+                Location = startLocation,
             };
         }
 

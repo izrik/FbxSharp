@@ -10,6 +10,7 @@ namespace FbxSharp
         public List<object> Values = new List<object>();
         public List<ParseObject> Properties = new List<ParseObject>();
         public bool HasEmptyBlock = true;
+        public InputLocation Location;
 
         public override string ToString()
         {
