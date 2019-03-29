@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class Converter6100
+    public class Converter6100 : IConverter
     {
         public FbxScene ConvertScene(List<ParseObject> parsedObjects)
         {

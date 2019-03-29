@@ -150,6 +150,7 @@
     <Compile Include="ConversionException.cs" />
     <Compile Include="Converter7300.cs" />
     <Compile Include="Converter6100.cs" />
+    <Compile Include="IConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
