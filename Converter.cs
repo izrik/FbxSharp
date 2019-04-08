@@ -18,8 +18,24 @@ namespace FbxSharp
                     if (version.HasValue)
                     {
                         IConverter converter = null;
-                        if (version.Value == 7300) converter = new Converter7300();
+                        if (version.Value == 2000) converter = new Converter2000();
+                        if (version.Value == 2001) converter = new Converter2001();
+                        if (version.Value == 3000) converter = new Converter3000();
+                        if (version.Value == 3001) converter = new Converter3001();
+                        if (version.Value == 4000) converter = new Converter4000();
+                        if (version.Value == 4001) converter = new Converter4001();
+                        if (version.Value == 4050) converter = new Converter4050();
+                        if (version.Value == 5000) converter = new Converter5000();
+                        if (version.Value == 5800) converter = new Converter5800();
+                        if (version.Value == 6000) converter = new Converter6000();
                         if (version.Value == 6100) converter = new Converter6100();
+                        if (version.Value == 7000) converter = new Converter7000();
+                        if (version.Value == 7099) converter = new Converter7099();
+                        if (version.Value == 7100) converter = new Converter7100();
+                        if (version.Value == 7200) converter = new Converter7200();
+                        if (version.Value == 7300) converter = new Converter7300();
+                        if (version.Value == 7400) converter = new Converter7400();
+
 
                         if (converter != null)
                         {
