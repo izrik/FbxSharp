@@ -148,8 +148,23 @@
     <Compile Include="TokenizationException.cs" />
     <Compile Include="ParseException.cs" />
     <Compile Include="ConversionException.cs" />
-    <Compile Include="Converter7300.cs" />
+    <Compile Include="Converter2000.cs" />
+    <Compile Include="Converter2001.cs" />
+    <Compile Include="Converter3000.cs" />
+    <Compile Include="Converter3001.cs" />
+    <Compile Include="Converter4000.cs" />
+    <Compile Include="Converter4001.cs" />
+    <Compile Include="Converter4050.cs" />
+    <Compile Include="Converter5000.cs" />
+    <Compile Include="Converter5800.cs" />
+    <Compile Include="Converter6000.cs" />
     <Compile Include="Converter6100.cs" />
+    <Compile Include="Converter7000.cs" />
+    <Compile Include="Converter7099.cs" />
+    <Compile Include="Converter7100.cs" />
+    <Compile Include="Converter7200.cs" />
+    <Compile Include="Converter7300.cs" />
+    <Compile Include="Converter7400.cs" />
     <Compile Include="IConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
