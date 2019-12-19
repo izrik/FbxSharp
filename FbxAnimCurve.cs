@@ -159,7 +159,8 @@ namespace FbxSharp
 
         public virtual FbxAnimCurveKey KeyGet(int pIndex)
         {
-            throw new NotImplementedException();
+            return (FbxAnimCurveKey)keys.Values[pIndex];
+            //throw new NotImplementedException();
         }
 
         public virtual float KeyGetValue(int pKeyIndex)
