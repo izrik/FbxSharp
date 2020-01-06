@@ -8,7 +8,7 @@ git_desc = os.popen('git describe --always --tags --abbrev=40 --long').read().rs
 print('Writing git description: {}\n'.format(git_desc))
 
 filename = "AssemblyInfo.Git.cs"
-if len(sys.argv) > 1 or sys.argv[1]:
+if len(sys.argv) > 1 and sys.argv[1]:
     filename = sys.argv[1]
 
 with open(filename, 'w') as f:
