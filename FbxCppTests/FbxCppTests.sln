@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{2857B73E-F847-4B02-9238-064979017E93}") = "FbxOpenCpp", "FbxOpenCpp.cproj", "{44E660AC-1A21-498E-B270-15E37C551BB4}"
+Project("{2857B73E-F847-4B02-9238-064979017E93}") = "FbxCppTests", "FbxCppTests.cproj", "{44E660AC-1A21-498E-B270-15E37C551BB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

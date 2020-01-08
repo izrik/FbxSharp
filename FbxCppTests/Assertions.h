@@ -1,6 +1,6 @@
 ﻿
-#ifndef __FBXOPENCPP_ASSERTIONS_H
-#define __FBXOPENCPP_ASSERTIONS_H
+#ifndef __FBXCPPTESTS_ASSERTIONS_H
+#define __FBXCPPTESTS_ASSERTIONS_H
 
 #include <fbxsdk.h>
 
@@ -26,4 +26,4 @@ void _AssertFalse(bool condition, const char* filename, int line);
 #define AssertTrue(condition) _AssertTrue((condition), __FILE__, __LINE__)
 #define AssertFalse(condition) _AssertFalse((condition), __FILE__, __LINE__)
 
-#endif // __FBXOPENCPP_ASSERTIONS_H
+#endif // __FBXCPPTESTS_ASSERTIONS_H

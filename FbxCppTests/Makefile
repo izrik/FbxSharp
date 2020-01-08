@@ -25,7 +25,7 @@ endif
 SOURCES=AnimCurveKeyTest.cpp AnimCurveNodeTest.cpp AnimCurveTest.cpp AnimLayerTest.cpp AnimStackTest.cpp Assertions.cpp CameraTest.cpp ClusterTest.cpp Collector.cpp DeformerTest.cpp FbxObjectTest.cpp FbxTimeTest.cpp GeometryBaseTest.cpp GeometryTest.cpp LayerContainerTest.cpp LightTest.cpp MatrixTest.cpp MeshTest.cpp NodeTest.cpp NodeTransformsTest.cpp PropertyTest.cpp SceneTest.cpp SkinTest.cpp SubDeformerTest.cpp SurfacePhongTest.cpp TestFixture.cpp TestRunner.cpp basic_types.cpp main.cpp objects.cpp properties.cpp textures.cpp
 HEADERS=Assertions.h Collector.h OutputDebugStringBuf.h Tests.h common.h
 OBJECTS=$(SOURCES:%.cpp=obj/%.o)
-EXECUTABLE=FbxOpenCpp
+EXECUTABLE=FbxCppTests
 
 .PHONY: all directories clean
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-(cd FbxOpenCpp && make all && ./bin/FbxOpenCpp ) && \
+(cd FbxCppTests && make all && ./bin/FbxCppTests ) && \
     nuget restore FbxSharpBuild.sln && \
     msbuild /p:Configuration=Debug FbxSharpBuild.sln && \
     nunit-console ./FbxSharpTests/bin/Debug/FbxSharpTests.dll

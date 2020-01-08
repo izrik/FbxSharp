@@ -1,6 +1,6 @@
 ﻿
-#ifndef __FBXOPENCPP_TESTS_H
-#define __FBXOPENCPP_TESTS_H
+#ifndef __FBXCPPTESTS_TESTS_H
+#define __FBXCPPTESTS_TESTS_H
 
 #include "common.h"
 #include "Assertions.h"
@@ -71,4 +71,4 @@ TestClass(AnimCurveKeyTest);
 TestClass(LightTest);
 TestClass(CameraTest);
 
-#endif // __FBXOPENCPP_TESTS_H
+#endif // __FBXCPPTESTS_TESTS_H

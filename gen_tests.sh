@@ -4,7 +4,7 @@ pushd FbxSharpTests
 ./gen_tests.sh
 popd
 
-pushd FbxOpenCpp
+pushd FbxCppTests
 ./gen_tests.sh
 popd
 

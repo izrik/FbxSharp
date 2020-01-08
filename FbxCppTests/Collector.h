@@ -1,6 +1,6 @@
 ﻿
-#ifndef __FBXOPENCPP_COLLECTOR_H
-#define __FBXOPENCPP_COLLECTOR_H
+#ifndef __FBXCPPTESTS_COLLECTOR_H
+#define __FBXCPPTESTS_COLLECTOR_H
 
 #include <vector>
 #include <fbxsdk.h>
@@ -39,5 +39,5 @@ public:
 };
 
 
-#endif // __FBXOPENCPP_COLLECTOR_H
+#endif // __FBXCPPTESTS_COLLECTOR_H
 

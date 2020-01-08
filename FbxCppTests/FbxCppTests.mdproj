@@ -14,7 +14,7 @@
       <CustomCommands>
         <Command type="Build" command="make" workingdir="${ProjectDir}" />
         <Command type="Clean" command="make clean" workingdir="${ProjectDir}" />
-        <Command type="Execute" command="./bin/FbxOpenCpp" workingdir="${ProjectDir}" />
+        <Command type="Execute" command="./bin/FbxCppTests" workingdir="${ProjectDir}" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>

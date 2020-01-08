@@ -7,11 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxSharpTests", "FbxSharpTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCaseGenerator", "TestCaseGenerator\TestCaseGenerator.csproj", "{1A005A50-C3A6-4AC9-98F1-BF6C149DEF80}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FbxOpenCpp.vs2010-win", "FbxOpenCpp\FbxOpenCpp.vs2010-win.vcxproj", "{5CF9CF6D-8963-4BA7-AA01-6E4AA03D5BC3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FbxCppTests_vs2010_win", "FbxCppTests\FbxCppTests_vs2010_win.vcxproj", "{5CF9CF6D-8963-4BA7-AA01-6E4AA03D5BC3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxPrint", "FbxPrint\FbxPrint.csproj", "{520853BD-16B0-4839-AC15-7AE68124BAEA}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "FbxOpenCpp", "FbxOpenCpp\FbxOpenCpp.mdproj", "{2F41F0DD-65C2-48B1-92B4-FEF787FA2F99}"
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "FbxCppTests", "FbxCppTests\FbxCppTests.mdproj", "{2F41F0DD-65C2-48B1-92B4-FEF787FA2F99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

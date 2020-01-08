@@ -1,6 +1,6 @@
 ﻿
-#ifndef __FBXOPENCPP_COMMON_H
-#define __FBXOPENCPP_COMMON_H
+#ifndef __FBXCPPTESTS_COMMON_H
+#define __FBXCPPTESTS_COMMON_H
 
 #include <iostream>
 #include <fbxsdk.h>
@@ -71,4 +71,4 @@ void Save(const char* filename, FbxScene* scene);
 
 std::string quote(const char* s);
 
-#endif // __FBXOPENCPP_COMMON_H
+#endif // __FBXCPPTESTS_COMMON_H
