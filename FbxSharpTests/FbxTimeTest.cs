@@ -21,7 +21,7 @@ namespace FbxSharpTests
             Assert.AreEqual(0L, time.GetFrameCount());
 
             // when:
-            time = new FbxTime(-7697693000L);
+            time = new FbxTime(-23520000L);
 
             // then:
             Assert.AreEqual(-5/30.0, time.GetSecondDouble());

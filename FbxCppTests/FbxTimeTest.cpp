@@ -17,7 +17,7 @@ void FbxTime_CreateLongLong_HasSeconds()
     AssertEqual(0LL, time->GetFrameCount());
 
     // when:
-    time = new FbxTime(-7697693000LL);
+    time = new FbxTime(-23520000LL);
 
     // then:
     AssertEqual(-5/30.0, time->GetSecondDouble());
