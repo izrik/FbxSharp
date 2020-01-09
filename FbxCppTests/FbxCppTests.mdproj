@@ -38,12 +38,10 @@
     <None Include="AnimStackTest.cpp" />
     <None Include="Assertions.cpp" />
     <None Include="Assertions.h" />
-    <None Include="basic_types.cpp" />
     <None Include="CameraTest.cpp" />
     <None Include="ClusterTest.cpp" />
     <None Include="Collector.cpp" />
     <None Include="Collector.h" />
-    <None Include="common.h" />
     <None Include="DeformerTest.cpp" />
     <None Include="FbxObjectTest.cpp" />
     <None Include="FbxTimeTest.cpp" />
@@ -70,5 +68,11 @@
     <None Include="TestRunner.cpp" />
     <None Include="Tests.h" />
     <None Include="textures.cpp" />
+    <None Include="fileio.cpp" />
+    <None Include="fileio.h" />
+    <None Include="objects.h" />
+    <None Include="print.cpp" />
+    <None Include="print.h" />
+    <None Include="properties.h" />
   </ItemGroup>
 </Project>

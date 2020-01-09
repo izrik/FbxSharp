@@ -28,8 +28,8 @@ ifeq ($(UNAME_S),Darwin)
 	LDFLAGS=-framework Cocoa $(COMMON_LDFLAGS)
 endif
 
-SOURCES=AnimCurveKeyTest.cpp AnimCurveNodeTest.cpp AnimCurveTest.cpp AnimLayerTest.cpp AnimStackTest.cpp Assertions.cpp CameraTest.cpp ClusterTest.cpp Collector.cpp DeformerTest.cpp FbxObjectTest.cpp FbxTimeTest.cpp GeometryBaseTest.cpp GeometryTest.cpp LayerContainerTest.cpp LightTest.cpp MatrixTest.cpp MeshTest.cpp NodeTest.cpp NodeTransformsTest.cpp PropertyTest.cpp SceneTest.cpp SkinTest.cpp SubDeformerTest.cpp SurfacePhongTest.cpp TestFixture.cpp TestRunner.cpp basic_types.cpp main.cpp objects.cpp properties.cpp textures.cpp
-HEADERS=Assertions.h Collector.h OutputDebugStringBuf.h Tests.h common.h
+SOURCES=AnimCurveKeyTest.cpp AnimCurveNodeTest.cpp AnimCurveTest.cpp AnimLayerTest.cpp AnimStackTest.cpp Assertions.cpp CameraTest.cpp ClusterTest.cpp Collector.cpp DeformerTest.cpp FbxObjectTest.cpp FbxTimeTest.cpp GeometryBaseTest.cpp GeometryTest.cpp LayerContainerTest.cpp LightTest.cpp MatrixTest.cpp MeshTest.cpp NodeTest.cpp NodeTransformsTest.cpp PropertyTest.cpp SceneTest.cpp SkinTest.cpp SubDeformerTest.cpp SurfacePhongTest.cpp TestFixture.cpp TestRunner.cpp main.cpp objects.cpp properties.cpp textures.cpp fileio.cpp print.cpp
+HEADERS=Assertions.h Collector.h OutputDebugStringBuf.h Tests.h objects.h properties.h print.h fileio.h
 OBJECTS=$(SOURCES:%.cpp=obj/%.o)
 EXECUTABLE=FbxCppTests
 

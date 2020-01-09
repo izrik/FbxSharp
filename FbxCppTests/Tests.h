@@ -2,7 +2,11 @@
 #ifndef __FBXCPPTESTS_TESTS_H
 #define __FBXCPPTESTS_TESTS_H
 
-#include "common.h"
+#include <vector>
+
+#include "objects.h"
+#include "print.h"
+#include "properties.h"
 #include "Assertions.h"
 
 void RunTests();

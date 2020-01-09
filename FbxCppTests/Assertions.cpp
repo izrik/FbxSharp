@@ -1,5 +1,7 @@
 ﻿
-#include "common.h"
+#include "Assertions.h"
+
+#include <sstream>
 
 using namespace std;
 
