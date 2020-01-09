@@ -149,7 +149,7 @@ void RunTests()
         int j;
         for (j = 0; j < test->TestCases.size(); j++)
         {
-            TestCase* testCase = &test->TestCases[j];
+            TestCase* testCase = test->TestCases[j];
             string* exception;
 
             { // ScopedTestRun

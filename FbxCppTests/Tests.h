@@ -37,11 +37,11 @@ public:
 
     const char* Name;
 
-    std::vector<TestCase> TestCases;
+    std::vector<TestCase*> TestCases;
 };
 
 
-#define AddTestCase(name) TestCases.push_back(TestCase(#name, &name, this))
+#define AddTestCase(name) TestCases.push_back(new TestCase(#name, &name, (TestFixture*)this))
 
 #define TestClass(name) class name : public virtual TestFixture {\
     public: name() : TestFixture(#name) { RegisterTestCases(); }\
