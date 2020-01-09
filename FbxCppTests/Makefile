@@ -12,8 +12,8 @@ ifeq ($(FBXSDK_HOME),)
 endif
 $(info FBXSDK_HOME is [$(FBXSDK_HOME)])
 
-COMMON_CFLAGS :=-c -Wall -std=c++11 -I$(FBXSDK_HOME)/include -I/usr/local/opt/libxml2/include -I/usr/local/opt/zlib/include
-COMMON_STATIC_LIBS := ''
+COMMON_CFLAGS :=-c -Wall -std=c++11 -I$(FBXSDK_HOME)/include -I/usr/local/opt/libxml2/include -I/usr/local/opt/zlib/include -I../fbxcppcommon
+COMMON_STATIC_LIBS := ../fbxcppcommon/bin/fbxcppcommon.a
 COMMON_LDFLAGS := -L/usr/lib -lz -lxml2 -liconv
 
 ifeq ($(UNAME_S),Linux)
@@ -28,8 +28,8 @@ ifeq ($(UNAME_S),Darwin)
 	LDFLAGS=-framework Cocoa $(COMMON_LDFLAGS)
 endif
 
-SOURCES=AnimCurveKeyTest.cpp AnimCurveNodeTest.cpp AnimCurveTest.cpp AnimLayerTest.cpp AnimStackTest.cpp Assertions.cpp CameraTest.cpp ClusterTest.cpp Collector.cpp DeformerTest.cpp FbxObjectTest.cpp FbxTimeTest.cpp GeometryBaseTest.cpp GeometryTest.cpp LayerContainerTest.cpp LightTest.cpp MatrixTest.cpp MeshTest.cpp NodeTest.cpp NodeTransformsTest.cpp PropertyTest.cpp SceneTest.cpp SkinTest.cpp SubDeformerTest.cpp SurfacePhongTest.cpp TestFixture.cpp TestRunner.cpp main.cpp objects.cpp properties.cpp textures.cpp fileio.cpp print.cpp
-HEADERS=Assertions.h Collector.h OutputDebugStringBuf.h Tests.h objects.h properties.h print.h fileio.h
+SOURCES=AnimCurveKeyTest.cpp AnimCurveNodeTest.cpp AnimCurveTest.cpp AnimLayerTest.cpp AnimStackTest.cpp Assertions.cpp CameraTest.cpp ClusterTest.cpp DeformerTest.cpp FbxObjectTest.cpp FbxTimeTest.cpp GeometryBaseTest.cpp GeometryTest.cpp LayerContainerTest.cpp LightTest.cpp MatrixTest.cpp MeshTest.cpp NodeTest.cpp NodeTransformsTest.cpp PropertyTest.cpp SceneTest.cpp SkinTest.cpp SubDeformerTest.cpp SurfacePhongTest.cpp TestFixture.cpp TestRunner.cpp main.cpp
+HEADERS=Assertions.h OutputDebugStringBuf.h Tests.h
 OBJECTS=$(SOURCES:%.cpp=obj/%.o)
 EXECUTABLE=FbxCppTests
 

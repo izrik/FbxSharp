@@ -40,8 +40,6 @@
     <None Include="Assertions.h" />
     <None Include="CameraTest.cpp" />
     <None Include="ClusterTest.cpp" />
-    <None Include="Collector.cpp" />
-    <None Include="Collector.h" />
     <None Include="DeformerTest.cpp" />
     <None Include="FbxObjectTest.cpp" />
     <None Include="FbxTimeTest.cpp" />
@@ -56,9 +54,7 @@
     <None Include="MeshTest.cpp" />
     <None Include="NodeTest.cpp" />
     <None Include="NodeTransformsTest.cpp" />
-    <None Include="objects.cpp" />
     <None Include="OutputDebugStringBuf.h" />
-    <None Include="properties.cpp" />
     <None Include="PropertyTest.cpp" />
     <None Include="SceneTest.cpp" />
     <None Include="SkinTest.cpp" />
@@ -67,12 +63,5 @@
     <None Include="TestFixture.cpp" />
     <None Include="TestRunner.cpp" />
     <None Include="Tests.h" />
-    <None Include="textures.cpp" />
-    <None Include="fileio.cpp" />
-    <None Include="fileio.h" />
-    <None Include="objects.h" />
-    <None Include="print.cpp" />
-    <None Include="print.h" />
-    <None Include="properties.h" />
   </ItemGroup>
 </Project>
