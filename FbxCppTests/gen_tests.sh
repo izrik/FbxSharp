@@ -1,8 +1,16 @@
 #!/bin/bash
 
+DEBUG=
+if [[ "$1" == "--debug" ]]; then
+    DEBUG=1
+fi
+
 for f in ../test-cases/*.tc
 do
   g=`basename $f .tc`
-  fbxtest cpp $f $g.cpp
+  if [[ -n "$DEBUG" ]]; then
+    echo "Generating $g in C++"
+  fi
+  mono ../TestCaseGenerator/bin/Debug/TestCaseGenerator.exe cpp $f $g.cpp
 done
 
