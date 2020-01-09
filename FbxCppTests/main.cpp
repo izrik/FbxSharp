@@ -1,14 +1,7 @@
 ﻿
 #include <iostream>
-
-//#include "assimp/Importer.hpp"
-//#include "assimp/postprocess.h"
-//#include "assimp/scene.h"
-//#include "assimp/cimport.h"
-
 #include <fbxsdk.h>
 #include <iomanip>
-
 #include <stdio.h>  /* defines FILENAME_MAX */
 #ifdef WIN32
     #include <direct.h>
