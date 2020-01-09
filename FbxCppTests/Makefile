@@ -49,5 +49,10 @@ obj/%.o: %.cpp
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(OBJECTS) $(STATIC_LIBS) -o bin/$@ $(LDFLAGS)
 
+check: test
+
+test: all
+	./bin/$(EXECUTABLE)
+
 clean:
 	rm -rf obj bin
