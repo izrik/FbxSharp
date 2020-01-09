@@ -12,9 +12,21 @@
     <OutputPath>.</OutputPath>
     <CustomCommands>
       <CustomCommands>
-        <Command type="Build" command="make" workingdir="${ProjectDir}" />
-        <Command type="Clean" command="make clean" workingdir="${ProjectDir}" />
-        <Command type="Execute" command="./bin/FbxCppTests" workingdir="${ProjectDir}" />
+        <Command>
+          <type>Build</type>
+          <command>make</command>
+          <workingdir>${ProjectDir}</workingdir>
+        </Command>
+        <Command>
+          <type>Clean</type>
+          <command>make clean</command>
+          <workingdir>${ProjectDir}</workingdir>
+        </Command>
+        <Command>
+          <type>Execute</type>
+          <command>./bin/FbxCppTests</command>
+          <workingdir>${ProjectDir}</workingdir>
+        </Command>
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
