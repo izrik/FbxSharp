@@ -55,4 +55,6 @@ std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EDataIndex& va
 
 std::string quote(const char* s);
 
+std::string ToString(const FbxLocalTime& value);
+
 #endif // __FBXCPPTESTS_PRINT_H

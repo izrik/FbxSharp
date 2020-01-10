@@ -1410,3 +1410,11 @@ ostream& operator<<(ostream& os, const EFbxType& value)
     return os;
 }
 
+std::string ToString(const FbxLocalTime& value)
+{
+    std::stringstream s;
+    s << value.mYear << "-" << value.mMonth << "-" << value.mDay << "-" <<
+         value.mHour << ":" << value.mMinute << ":" << value.mSecond << "." <<
+         value.mMillisecond;
+    return s.str();
+}
