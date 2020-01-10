@@ -11,6 +11,7 @@ void PrintUsage()
                  "Available Commands" << std::endl <<
                  "    help               Display this help text." << std::endl <<
                  "    info [FILENAME]    Display file info about FILENAME." << std::endl <<
+                 "    print [FILENAME]   Display the contents of FILENAME." << std::endl <<
                  std::endl;
 }
 
@@ -60,6 +61,21 @@ int main (int argc, const char *argv[])
         FBXSDK_printf("mCreator -                  %s\n", header->mCreator.Buffer());
         FBXSDK_printf("mIOPlugin -                 %d\n", header->mIOPlugin);
         FBXSDK_printf("mPLE -                      %d\n", header->mPLE);
+        return 0;
+    }
+
+    if (command == "print")
+    {
+        if (argc <= 2)
+        {
+            std::cout << "print: No filename provided." << std::endl;
+            PrintUsage();
+            return 2;
+        }
+
+        std::string filename = argv[2];
+        FbxScene* scene = Load(filename.c_str());
+        PrintObjectGraph(scene);
         return 0;
     }
 
