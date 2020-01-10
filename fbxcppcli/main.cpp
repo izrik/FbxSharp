@@ -9,9 +9,10 @@ void PrintUsage()
     std::cout << "fbxcppcli [COMMAND]" << std::endl <<
                  std::endl <<
                  "Available Commands" << std::endl <<
-                 "    help               Display this help text." << std::endl <<
-                 "    info [FILENAME]    Display file info about FILENAME." << std::endl <<
-                 "    print [FILENAME]   Display the contents of FILENAME." << std::endl <<
+                 "    help                       Display this help text." << std::endl <<
+                 "    info [FILENAME]            Display file info about FILENAME." << std::endl <<
+                 "    print [FILENAME]           Display the contents of FILENAME." << std::endl <<
+                 "    convert [SOURCE] [DEST]    Open the SOURCE file and then save it as ascii at DEST." << std::endl <<
                  std::endl;
 }
 
@@ -79,6 +80,29 @@ int main (int argc, const char *argv[])
         return 0;
     }
 
+    if (command == "convert")
+    {
+        if (argc <= 2)
+        {
+            std::cout << "print: No source filename provided." << std::endl;
+            PrintUsage();
+            return 2;
+        }
+        if (argc <= 3)
+        {
+            std::cout << "print: No destination filename provided." << std::endl;
+            PrintUsage();
+            return 2;
+        }
+
+        std::string source = argv[2];
+        FbxScene* scene = Load(source.c_str());
+        std::string dest = argv[3];
+        Save(dest.c_str(), scene);
+        return 0;
+    }
+
     std::cout << "Unknown command \"" << command << "\"" << std::endl;
+    PrintUsage();
     return 1;
 }

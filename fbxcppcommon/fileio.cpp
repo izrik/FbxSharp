@@ -29,11 +29,11 @@ void Save(const char* filename, FbxScene* scene)
     FbxManager* manager = scene->GetFbxManager();
 
     FbxIOSettings* ios = FbxIOSettings::Create(manager, IOSROOT);
-    ios->SetEnumProp(EXP_ASCIIFBX, 1);
+    ios->SetBoolProp(EXP_ASCIIFBX, true);
 
     FbxExporter * ex = FbxExporter::Create(manager, "");
-
-    ex->Initialize(filename, -1, ios);
+    int lFormat = manager->GetIOPluginRegistry()->FindWriterIDByDescription("FBX ascii (*.fbx)");
+    ex->Initialize(filename, lFormat, ios);
     ex->Export(scene);
 }
 
