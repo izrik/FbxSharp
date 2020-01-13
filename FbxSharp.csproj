@@ -168,6 +168,9 @@
     <Compile Include="IConverter.cs" />
     <None Include="all_build.sh" />
     <None Include="gen_tests.sh" />
+    <Compile Include="Converter7500.cs" />
+    <Compile Include="Converter7600.cs" />
+    <Compile Include="Converter7700.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
