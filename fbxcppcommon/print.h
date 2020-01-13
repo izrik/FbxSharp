@@ -1,52 +1,42 @@
-﻿
-#ifndef __FBXOPENCPP_COMMON_H
-#define __FBXOPENCPP_COMMON_H
 
-#include <iostream>
+#ifndef __FBXCPPTESTS_PRINT_H
+#define __FBXCPPTESTS_PRINT_H
+
 #include <fbxsdk.h>
-#include <vector>
+#include <iostream>
 #include <string>
-#include <sstream>
 
-void PrintObjectGraph(FbxObject* obj);
-
-void PrintObjectID(FbxObject* obj);
-std::string id(FbxObject* obj);
-void PrintPropertyID(FbxProperty* prop);
-
-void PrintObject(FbxObject* obj, bool branch=true, bool printProperties=true);
-
-void PrintScene(FbxScene* obj);
-
-void PrintAnimLayer(FbxAnimLayer* animLayer);
-void PrintAnimStack(FbxAnimStack* animStack);
 void PrintAnimCurve(FbxAnimCurve* animCurve);
 void PrintAnimCurveNode(FbxAnimCurveNode* animCurveNode);
+void PrintAnimLayer(FbxAnimLayer* animLayer);
+void PrintAnimStack(FbxAnimStack* animStack);
+void PrintCamera(FbxCamera* camera);
+void PrintCollection(FbxCollection* col);
 void PrintDeformer(FbxDeformer* deformer);
+void PrintDocument(FbxDocument* doc);
+void PrintGeometry(FbxGeometry* geometry);
+void PrintGeometryBase(FbxGeometryBase* geometryBase);
+void PrintLayer(FbxLayer* layer);
+void PrintLayerContainer(FbxLayerContainer* layerContainer);
+void PrintLight(FbxLight* light);
+void PrintMesh(FbxMesh* mesh);
 void PrintNode(FbxNode* node);
 void PrintNodeAttribute(FbxNodeAttribute* nodeAttribute);
-void PrintCamera(FbxCamera* camera);
-void PrintLight(FbxLight* light);
-void PrintLayerContainer(FbxLayerContainer* layerContainer);
-void PrintLayer(FbxLayer* layer);
-void PrintGeometryBase(FbxGeometryBase* geometryBase);
-void PrintGeometry(FbxGeometry* geometry);
-void PrintMesh(FbxMesh* mesh);
 void PrintNull(FbxNull* null);
-void PrintSkeleton(FbxSkeleton* skeleton);
+void PrintObject(FbxObject* obj, bool branch=true, bool printProperties=true);
+void PrintObjectGraph(FbxObject* obj);
+void PrintObjectID(FbxObject* obj);
 void PrintPose(FbxPose* pose);
+void PrintProperty(FbxProperty* prop, bool indent=false);
+void PrintPropertyID(FbxProperty* prop);
+void PrintScene(FbxScene* obj);
+void PrintSkeleton(FbxSkeleton* skeleton);
 void PrintSubDeformer(FbxSubDeformer* subDeformer);
-void PrintSurfaceMaterial(FbxSurfaceMaterial* surfaceMaterial);
 void PrintSurfaceLambert(FbxSurfaceLambert* surfaceLambert);
+void PrintSurfaceMaterial(FbxSurfaceMaterial* surfaceMaterial);
 void PrintSurfacePhong(FbxSurfacePhong* surfacePhong);
 void PrintTexture(FbxTexture* texture);
 void PrintVideo(FbxVideo* video);
-void PrintCollection(FbxCollection* col);
-void PrintDocument(FbxDocument* doc);
-
-void PrintProperty(FbxProperty* prop, bool indent=false);
-
-int CountProperties(FbxObject* obj);
 
 std::ostream& operator<<(std::ostream& os, const FbxDouble2& value);
 std::ostream& operator<<(std::ostream& os, const FbxDouble3& value);
@@ -65,10 +55,8 @@ std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EVelocityMode&
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentVisibility& value);
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EDataIndex& value);
 
-
-FbxScene* Load(const char* filename, FbxManager* manager=NULL);
-void Save(const char* filename, FbxScene* scene);
-
 std::string quote(const char* s);
 
-#endif // __FBXOPENCPP_COMMON_H
+std::string ToString(const FbxLocalTime& value);
+
+#endif // __FBXCPPTESTS_PRINT_H

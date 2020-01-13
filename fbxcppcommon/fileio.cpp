@@ -1,12 +1,7 @@
-﻿
+
+#include "fileio.h"
+
 #include <iostream>
-
-//#include "assimp/Importer.hpp"
-//#include "assimp/postprocess.h"
-//#include "assimp/scene.h"
-//#include "assimp/cimport.h"
-
-#include <fbxsdk.h>
 #include <iomanip>
 
 #include <stdio.h>  /* defines FILENAME_MAX */
@@ -18,45 +13,9 @@
     #define __getcwd getcwd
 #endif
 
-#include "OutputDebugStringBuf.h"
+#include "print.h"
 
 using namespace std;
-
-#include "common.h"
-#include "Tests.h"
-
-void LoadAndPrint(const char* filename);
-
-template <typename T, size_t N>
-size_t len(T(&arr)[N]) { return N; }
-
-int main (int argc, char *argv[])
-{
-     #ifndef NDEBUG
-        #ifdef _WIN32
-            static OutputDebugStringBuf<char> charDebugOutput;
-            std::cout.rdbuf(&charDebugOutput);
-            std::cerr.rdbuf(&charDebugOutput);
-            std::clog.rdbuf(&charDebugOutput);
-
-            static OutputDebugStringBuf<wchar_t> wcharDebugOutput;
-            std::wcout.rdbuf(&wcharDebugOutput);
-            std::wcerr.rdbuf(&wcharDebugOutput);
-            std::wclog.rdbuf(&wcharDebugOutput);
-        #endif
-    #endif
-
-    if (argc > 1)
-    {
-        LoadAndPrint(argv[1]);
-    }
-    else
-    {
-        RunTests();
-    }
-
-    return 0;
-}
 
 void LoadAndPrint(const char* filename)
 {
@@ -70,11 +29,11 @@ void Save(const char* filename, FbxScene* scene)
     FbxManager* manager = scene->GetFbxManager();
 
     FbxIOSettings* ios = FbxIOSettings::Create(manager, IOSROOT);
-    ios->SetEnumProp(EXP_ASCIIFBX, 1);
+    ios->SetBoolProp(EXP_ASCIIFBX, true);
 
     FbxExporter * ex = FbxExporter::Create(manager, "");
-
-    ex->Initialize(filename, -1, ios);
+    int lFormat = manager->GetIOPluginRegistry()->FindWriterIDByDescription("FBX ascii (*.fbx)");
+    ex->Initialize(filename, lFormat, ios);
     ex->Export(scene);
 }
 

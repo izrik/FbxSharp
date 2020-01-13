@@ -192,3 +192,4 @@ AssemblyInfo.Git.cs
 _scratch*
 .idea
 *.pyc
+.vs

@@ -1,8 +1,12 @@
 ﻿
-#ifndef __FBXOPENCPP_TESTS_H
-#define __FBXOPENCPP_TESTS_H
+#ifndef __FBXCPPTESTS_TESTS_H
+#define __FBXCPPTESTS_TESTS_H
 
-#include "common.h"
+#include <vector>
+
+#include "objects.h"
+#include "print.h"
+#include "properties.h"
 #include "Assertions.h"
 
 void RunTests();
@@ -37,11 +41,11 @@ public:
 
     const char* Name;
 
-    std::vector<TestCase> TestCases;
+    std::vector<TestCase*> TestCases;
 };
 
 
-#define AddTestCase(name) TestCases.push_back(TestCase(#name, &name, this))
+#define AddTestCase(name) TestCases.push_back(new TestCase(#name, &name, (TestFixture*)this))
 
 #define TestClass(name) class name : public virtual TestFixture {\
     public: name() : TestFixture(#name) { RegisterTestCases(); }\
@@ -71,4 +75,4 @@ TestClass(AnimCurveKeyTest);
 TestClass(LightTest);
 TestClass(CameraTest);
 
-#endif // __FBXOPENCPP_TESTS_H
+#endif // __FBXCPPTESTS_TESTS_H

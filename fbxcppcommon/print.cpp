@@ -1,31 +1,15 @@
-﻿
-#include <iostream>
-#include <fbxsdk.h>
-#include "common.h"
-#include <set>
+
+#include "print.h"
+
 #include <iomanip>
+#include <sstream>
+#include <vector>
+
 #include "Collector.h"
-#include <algorithm>
+#include "objects.h"
+#include "properties.h"
 
 using namespace std;
-
-bool sort_by_id(FbxObject* a, FbxObject* b)
-{
-    if (a == NULL)
-    {
-        cout << "sort_by_id a is NULL" << endl;
-    }
-    if (b == NULL)
-    {
-        cout << "sort_by_id b is NULL" << endl;
-    }
-
-    if (a == NULL && b == NULL) return false;
-    if (a == NULL) return false;
-    if (b == NULL) return true;
-
-    return (a->GetUniqueID() < b->GetUniqueID());
-}
 
 void PrintObjectGraph(FbxObject* obj)
 {
@@ -54,18 +38,6 @@ void PrintObjectID(FbxObject* obj)
             "$" << obj->GetUniqueID() << ", " <<
             obj->GetRuntimeClassId().GetName() << ", " <<
             quote(obj->GetName());
-}
-
-std::string id(FbxObject* obj)
-{
-    if (obj == NULL) return "<<null>>";
-
-    std::stringstream ss;
-    ss <<   "$" << obj->GetUniqueID() << ", " <<
-            obj->GetRuntimeClassId().GetName() << ", " <<
-            quote(obj->GetName());
-
-    return ss.str();
 }
 
 void PrintPropertyID(FbxProperty* prop)
@@ -166,7 +138,7 @@ void PrintObject(FbxObject* obj, bool branch, bool printProperties)
         if (obj->RootProperty.IsValid())
         {
             cout << "    RootProperty ";
-            PrintPropertyID(&obj->RootProperty); cout << endl; 
+            PrintPropertyID(&obj->RootProperty); cout << endl;
             PrintProperty(&obj->RootProperty);
         }
     }
@@ -755,7 +727,7 @@ ostream& operator<<(ostream& os, const FbxLayerElement::EReferenceMode& value)
 
 std::string ToString(const FbxLayerElement* value)
 {
-    std:string s;
+    std::string s;
     if (value == NULL)
        s = "<<null>>";
     else
@@ -935,7 +907,7 @@ void PrintSurfaceMaterial(FbxSurfaceMaterial* obj)
 {
     cout << "    ShadingModel = " << obj->ShadingModel.Get().Buffer() << endl;
     cout << "    MultiLayer = " << obj->MultiLayer.Get() << endl;
-    
+
     if (obj->Is<FbxSurfaceLambert>())
         PrintSurfaceLambert(FbxCast<FbxSurfaceLambert>(obj));
     else
@@ -1037,23 +1009,6 @@ void PrintDocument(FbxDocument* doc)
         cout << "Unknown surface lambert class: " << doc->GetRuntimeClassId().GetName() << endl;
 
 }
-
-int CountProperties(FbxObject* obj)
-{
-    FbxProperty prop = obj->GetFirstProperty();
-    int n = 0;
-    while (prop.IsValid())
-    {
-        n++;
-        prop = obj->GetNextProperty(prop);
-    }
-
-    return n;
-}
-
-
-
-
 
 std::string quote(const char* s)
 {
@@ -1172,4 +1127,292 @@ std::ostream& operator<<(std::ostream& os, const FbxAMatrix& value)
         << value.Get(3, 2) << ", "
         << value.Get(3, 3) << " ]";
     return os;
+}
+
+void PrintProperty(FbxProperty* prop, bool indent)
+{
+    const char * prefix = indent ? "            " : "        ";
+
+    cout << prefix << "Name = " << prop->GetName() << endl;
+    FbxDataType type = prop->GetPropertyDataType();
+    cout << prefix << "Type = " << type.GetName() << " (" << GetTypeName(type.GetType()) << ")" << endl;
+    cout << prefix << "HierName = " << prop->GetHierarchicalName() << endl;
+    cout << prefix << "Label = " << prop->GetLabel() << endl;
+
+    char n[1024];
+    int i;
+    for (i = 0; i < 1024; i++)
+    {
+        n[i] = 0;
+    }
+    char ch;
+    unsigned char uch;
+    unsigned int ui;
+    short sh;
+    unsigned short ush;
+    long long ll;
+    unsigned long long ull;
+    bool b;
+    float f;
+    double d;
+    FbxString fstr;
+    FbxDouble2 v2;
+    FbxDouble3 v3;
+    FbxDouble4 v4;
+    std::string s;
+    std::stringstream ss;
+
+    bool printValue = true;
+
+    switch (type.GetType())
+    {
+        case eFbxUndefined:
+            printValue = false;
+            break;
+        case eFbxChar:
+            ch = prop->Get<char>();
+            snprintf(n, sizeof(n), "%i ('%c')", (int)ch, ch);
+            break;
+        case eFbxUChar:
+            uch = prop->Get<unsigned char>();
+            snprintf(n, sizeof(n), "%i ('%c')", (unsigned int)uch, uch);
+            break;
+        case eFbxShort:
+            sh = prop->Get<short>();
+            snprintf(n, sizeof(n), "%i", (int)sh);
+            break;
+        case eFbxUShort:
+            ush = prop->Get<unsigned short>();
+            snprintf(n, sizeof(n), "%ui", (unsigned int)ush);
+            break;
+        case eFbxUInt:
+            ui = prop->Get<unsigned int>();
+            snprintf(n, sizeof(n), "%ui", ui);
+            break;
+        case eFbxLongLong:
+            ll = prop->Get<long long>();
+            snprintf(n, sizeof(n), "%lli", ll);
+            break;
+        case eFbxULongLong:
+            ull = prop->Get<unsigned long long>();
+            snprintf(n, sizeof(n), "%llu", ull);
+            break;
+        case eFbxHalfFloat:
+            printValue = false;
+            break;
+        case eFbxBool:
+            b = prop->Get<bool>();
+            if (b)
+                snprintf(n, sizeof(n), "true");
+            else
+                snprintf(n, sizeof(n), "false");
+            break;
+        case eFbxInt:
+            i = prop->Get<int>();
+            snprintf(n, sizeof(n), "%i", i);
+            break;
+        case eFbxFloat:
+            f = prop->Get<float>();
+            snprintf(n, sizeof(n), "%f", f);
+            break;
+        case eFbxDouble:
+            d = prop->Get<double>();
+            snprintf(n, sizeof(n), "%lf", d);
+            break;
+        case eFbxDouble2:
+            v2 = prop->Get<FbxDouble2>();
+            snprintf(n, sizeof(n), "%lf, %lf", v2[0], v2[1]);
+            break;
+        case eFbxDouble3:
+            v3 = prop->Get<FbxDouble3>();
+            snprintf(n, sizeof(n), "%lf, %lf, %lf", v3[0], v3[1], v3[2]);
+            break;
+        case eFbxDouble4:
+            v4 = prop->Get<FbxDouble4>();
+            snprintf(n, sizeof(n), "%lf, %lf, %lf, %lf", v4[0], v4[1], v4[2], v4[3]);
+            break;
+        case eFbxDouble4x4:
+        case eFbxEnum:
+            printValue = false;
+            break;
+        case eFbxString:
+            fstr = prop->Get<FbxString>();
+            snprintf(n, sizeof(n), "%s", fstr.Buffer());
+            s = (fstr.Buffer());
+            s = quote(s.c_str());
+            snprintf(n, sizeof(n), "%s", s.c_str());
+            break;
+        case eFbxTime:
+            ss << prop->Get<FbxTime>();
+            snprintf(n, sizeof(n), "%s", ss.str().c_str());
+            break;
+        case eFbxReference:
+//            FbxObject* obj;
+//            obj = prop->Get<FbxObject*>();
+//            cout << prefix << ".Value = " << obj->GetRuntimeClassId().GetName() << ", uid=" << obj->GetUniqueID() << endl;
+//            break;
+        case eFbxBlob:
+        case eFbxDistance:
+        case eFbxDateTime:
+        case eFbxTypeCount:
+            printValue = false;
+            break;
+    }
+    if (printValue)
+    {
+        cout << prefix << "Value = " << n << endl;
+    }
+
+
+    cout << prefix << "SrcObjectCount = " << prop->GetSrcObjectCount() << endl;
+    for (i = 0; i < prop->GetSrcObjectCount(); i++)
+    {
+        FbxObject* srcObj = prop->GetSrcObject(i);
+        cout << prefix << "    #" << i << " ";
+        PrintObjectID(srcObj);
+        cout << endl;
+    }
+    cout << prefix << "DstObjectCount = " << prop->GetDstObjectCount() << endl;
+    for (i = 0; i < prop->GetDstObjectCount(); i++)
+    {
+        FbxObject* dstObj = prop->GetDstObject(i);
+        cout << prefix << "    #" << i << " ";
+        PrintObjectID(dstObj);
+        cout << endl;
+    }
+    cout << prefix << "SrcPropertyCount = " << prop->GetSrcPropertyCount() << endl;
+    for (i = 0; i < prop->GetSrcPropertyCount(); i++)
+    {
+        FbxProperty prop2 = prop->GetSrcProperty(i);
+        cout << prefix << "    #" << i << " ";
+        PrintPropertyID(&prop2);
+        cout << endl;
+    }
+    cout << prefix << "DstPropertyCount = " << prop->GetDstPropertyCount() << endl;
+    for (i = 0; i < prop->GetDstPropertyCount(); i++)
+    {
+        FbxProperty prop2 = prop->GetDstProperty(i);
+        cout << prefix << "    #" << i << " ";
+        PrintPropertyID(&prop2);
+        cout << endl;
+    }
+
+    cout << prefix << "IsAnimated() = " << prop->IsAnimated() << endl;
+    cout << prefix << "IsRoot() = " << prop->IsRoot() << endl;
+
+    cout << prefix << "GetParent() = ";
+    FbxProperty parentProp = prop->GetParent();
+    PrintPropertyID(&parentProp);
+    cout << endl;
+
+    cout << prefix << "GetChild() = ";
+    FbxProperty childProp = prop->GetChild();
+    PrintPropertyID(&childProp);
+    cout << endl;
+
+    cout << prefix << "GetSibling() = ";
+    FbxProperty nextProp = prop->GetSibling();
+    PrintPropertyID(&nextProp);
+    cout << endl;
+
+    i = 0;
+    FbxProperty descendent = prop->GetFirstDescendent();
+    while (descendent.IsValid())
+    {
+        i++;
+        FbxProperty descendent2 = prop->GetNextDescendent(descendent);
+        descendent = descendent2;
+    }
+
+    cout << prefix << "Descendents: " << i << endl;
+    if (i > 0)
+    {
+        cout << prefix << "GetFirstDescendent() = ";
+        descendent = prop->GetFirstDescendent();
+        PrintPropertyID(&parentProp);
+        cout << endl;
+
+        while (descendent.IsValid())
+        {
+            FbxProperty descendent2 = prop->GetNextDescendent(descendent);
+            descendent = descendent2;
+
+            if (descendent.IsValid())
+            {
+                cout << prefix << "GetNextDescendent() = ";
+                PrintPropertyID(&parentProp);
+                cout << endl;
+            }
+        }
+    }
+}
+
+
+ostream& operator<<(ostream& os, const FbxDouble2& value)
+{
+    os << value[0] << ", " << value[1];
+    return os;
+}
+
+ostream& operator<<(ostream& os, const FbxDouble3& value)
+{
+    os << value[0] << ", " << value[1] << ", " << value[2];
+    return os;
+}
+
+ostream& operator<<(ostream& os, const FbxDouble4& value)
+{
+    os << value[0] << ", " << value[1] << ", " << value[2] << ", " << value[3];
+    return os;
+}
+
+ostream& operator<<(ostream& os, const FbxDataType& value)
+{
+    os << value.GetName() << ":" << value.GetType();
+    return os;
+}
+
+ostream& operator<<(ostream& os, const EFbxType& value)
+{
+    const char* s;
+    switch (value)
+    {
+    case eFbxUndefined : s = "eFbxUndefined" ; break;
+    case eFbxChar      : s = "eFbxChar"      ; break;
+    case eFbxUChar     : s = "eFbxUChar"     ; break;
+    case eFbxShort     : s = "eFbxShort"     ; break;
+    case eFbxUShort    : s = "eFbxUShort"    ; break;
+    case eFbxUInt      : s = "eFbxUInt"      ; break;
+    case eFbxLongLong  : s = "eFbxLongLong"  ; break;
+    case eFbxULongLong : s = "eFbxULongLong" ; break;
+    case eFbxHalfFloat : s = "eFbxHalfFloat" ; break;
+    case eFbxBool      : s = "eFbxBool"      ; break;
+    case eFbxInt       : s = "eFbxInt"       ; break;
+    case eFbxFloat     : s = "eFbxFloat"     ; break;
+    case eFbxDouble    : s = "eFbxDouble"    ; break;
+    case eFbxDouble2   : s = "eFbxDouble2"   ; break;
+    case eFbxDouble3   : s = "eFbxDouble3"   ; break;
+    case eFbxDouble4   : s = "eFbxDouble4"   ; break;
+    case eFbxDouble4x4 : s = "eFbxDouble4x4" ; break;
+    case eFbxEnum      : s = "eFbxEnum"      ; break;
+    case eFbxString    : s = "eFbxString"    ; break;
+    case eFbxTime      : s = "eFbxTime"      ; break;
+    case eFbxReference : s = "eFbxReference" ; break;
+    case eFbxBlob      : s = "eFbxBlob"      ; break;
+    case eFbxDistance  : s = "eFbxDistance"  ; break;
+    case eFbxDateTime  : s = "eFbxDateTime"  ; break;
+    case eFbxTypeCount : s = "eFbxTypeCount" ; break;
+    default: s = "<<unknown EFbxType>>"; break;
+    }
+    os << s;
+    return os;
+}
+
+std::string ToString(const FbxLocalTime& value)
+{
+    std::stringstream s;
+    s << value.mYear << "-" << value.mMonth << "-" << value.mDay << "-" <<
+         value.mHour << ":" << value.mMinute << ":" << value.mSecond << "." <<
+         value.mMillisecond;
+    return s.str();
 }

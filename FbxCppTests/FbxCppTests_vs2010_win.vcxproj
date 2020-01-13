@@ -13,7 +13,9 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5CF9CF6D-8963-4BA7-AA01-6E4AA03D5BC3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>FbxOpenCppvs2010win</RootNamespace>
+    <RootNamespace>FbxCppTests_vs2010_win</RootNamespace>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

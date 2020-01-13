@@ -1,10 +1,6 @@
 #!/bin/bash
 
-pushd FbxSharpTests
-./gen_tests.sh
-popd
+(cd FbxSharpTests ; ./gen_tests.sh "$@" )
 
-pushd FbxOpenCpp
-./gen_tests.sh
-popd
+(cd FbxCppTests ; ./gen_tests.sh "$@" )
 

@@ -7,11 +7,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxSharpTests", "FbxSharpTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCaseGenerator", "TestCaseGenerator\TestCaseGenerator.csproj", "{1A005A50-C3A6-4AC9-98F1-BF6C149DEF80}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FbxOpenCpp.vs2010-win", "FbxOpenCpp\FbxOpenCpp.vs2010-win.vcxproj", "{5CF9CF6D-8963-4BA7-AA01-6E4AA03D5BC3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FbxCppTests_vs2010_win", "FbxCppTests\FbxCppTests_vs2010_win.vcxproj", "{5CF9CF6D-8963-4BA7-AA01-6E4AA03D5BC3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxPrint", "FbxPrint\FbxPrint.csproj", "{520853BD-16B0-4839-AC15-7AE68124BAEA}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "FbxOpenCpp", "FbxOpenCpp\FbxOpenCpp.mdproj", "{2F41F0DD-65C2-48B1-92B4-FEF787FA2F99}"
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "FbxCppTests", "FbxCppTests\FbxCppTests.mdproj", "{2F41F0DD-65C2-48B1-92B4-FEF787FA2F99}"
+EndProject
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "fbxcppcommon", "fbxcppcommon\fbxcppcommon.mdproj", "{82E6B34C-BF1D-47CC-B7C8-40C54C9FD7AE}"
+EndProject
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "fbxcppcli", "fbxcppcli\fbxcppcli.mdproj", "{0A072D6F-719D-472A-8DD3-F3C3280FFF38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +104,34 @@ Global
 		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{64FAA76A-CAEA-42A3-9E23-660CFF84394B}.Release|Win32.ActiveCfg = Release|Any CPU
+		{82E6B34C-BF1D-47CC-B7C8-40C54C9FD7AE}.Debug|Any CPU.ActiveCfg = Default|Any CPU
+		{82E6B34C-BF1D-47CC-B7C8-40C54C9FD7AE}.Debug|Any CPU.Build.0 = Default|Any CPU
+		{82E6B34C-BF1D-47CC-B7C8-40C54C9FD7AE}.Debug|Mixed Platforms.ActiveCfg = Default|Any CPU
+		{82E6B34C-BF1D-47CC-B7C8-40C54C9FD7AE}.Debug|Mixed Platforms.Build.0 = Default|Any CPU
+		{82E6B34C-BF1D-47CC-B7C8-40C54C9FD7AE}.Debug|Win32.ActiveCfg = Default|Any CPU
+		{82E6B34C-BF1D-47CC-B7C8-40C54C9FD7AE}.Debug|Win32.Build.0 = Default|Any CPU
+		{82E6B34C-BF1D-47CC-B7C8-40C54C9FD7AE}.Release|Any CPU.ActiveCfg = Default|Any CPU
+		{82E6B34C-BF1D-47CC-B7C8-40C54C9FD7AE}.Release|Any CPU.Build.0 = Default|Any CPU
+		{82E6B34C-BF1D-47CC-B7C8-40C54C9FD7AE}.Release|Mixed Platforms.ActiveCfg = Default|Any CPU
+		{82E6B34C-BF1D-47CC-B7C8-40C54C9FD7AE}.Release|Mixed Platforms.Build.0 = Default|Any CPU
+		{82E6B34C-BF1D-47CC-B7C8-40C54C9FD7AE}.Release|Win32.ActiveCfg = Default|Any CPU
+		{82E6B34C-BF1D-47CC-B7C8-40C54C9FD7AE}.Release|Win32.Build.0 = Default|Any CPU
+		{82E6B34C-BF1D-47CC-B7C8-40C54C9FD7AE}.Default|Any CPU.ActiveCfg = Default|Any CPU
+		{82E6B34C-BF1D-47CC-B7C8-40C54C9FD7AE}.Default|Any CPU.Build.0 = Default|Any CPU
+		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Debug|Any CPU.ActiveCfg = Default|Any CPU
+		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Debug|Any CPU.Build.0 = Default|Any CPU
+		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Debug|Mixed Platforms.ActiveCfg = Default|Any CPU
+		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Debug|Mixed Platforms.Build.0 = Default|Any CPU
+		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Debug|Win32.ActiveCfg = Default|Any CPU
+		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Debug|Win32.Build.0 = Default|Any CPU
+		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Release|Any CPU.ActiveCfg = Default|Any CPU
+		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Release|Any CPU.Build.0 = Default|Any CPU
+		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Release|Mixed Platforms.ActiveCfg = Default|Any CPU
+		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Release|Mixed Platforms.Build.0 = Default|Any CPU
+		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Release|Win32.ActiveCfg = Default|Any CPU
+		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Release|Win32.Build.0 = Default|Any CPU
+		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Default|Any CPU.ActiveCfg = Default|Any CPU
+		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Default|Any CPU.Build.0 = Default|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
@@ -125,23 +157,6 @@ Global
 		$2.SpacesBeforeBrackets = False
 		$2.SpacesBeforeArrayDeclarationBrackets = True
 		$2.scope = text/x-csharp
-		$2.IndentSwitchSection = True
-		$2.NewLinesForBracesInProperties = True
-		$2.NewLinesForBracesInAccessors = True
-		$2.NewLinesForBracesInAnonymousMethods = True
-		$2.NewLinesForBracesInControlBlocks = True
-		$2.NewLinesForBracesInAnonymousTypes = True
-		$2.NewLinesForBracesInObjectCollectionArrayInitializers = True
-		$2.NewLinesForBracesInLambdaExpressionBody = True
-		$2.NewLineForElse = True
-		$2.NewLineForCatch = True
-		$2.NewLineForFinally = True
-		$2.NewLineForMembersInObjectInit = True
-		$2.NewLineForMembersInAnonymousTypes = True
-		$2.NewLineForClausesInQuery = True
-		$2.SpacingAfterMethodDeclarationName = False
-		$2.SpaceAfterMethodCallName = False
-		$2.SpaceBeforeOpenSquareBracket = False
 		$0.TextStylePolicy = $3
 		$3.scope = text/plain
 		$3.FileWidth = 80

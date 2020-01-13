@@ -12,9 +12,21 @@
     <OutputPath>.</OutputPath>
     <CustomCommands>
       <CustomCommands>
-        <Command type="Build" command="make" workingdir="${ProjectDir}" />
-        <Command type="Clean" command="make clean" workingdir="${ProjectDir}" />
-        <Command type="Execute" command="./bin/FbxOpenCpp" workingdir="${ProjectDir}" />
+        <Command>
+          <type>Build</type>
+          <command>make</command>
+          <workingdir>${ProjectDir}</workingdir>
+        </Command>
+        <Command>
+          <type>Clean</type>
+          <command>make clean</command>
+          <workingdir>${ProjectDir}</workingdir>
+        </Command>
+        <Command>
+          <type>Execute</type>
+          <command>./bin/FbxCppTests</command>
+          <workingdir>${ProjectDir}</workingdir>
+        </Command>
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -26,12 +38,8 @@
     <None Include="AnimStackTest.cpp" />
     <None Include="Assertions.cpp" />
     <None Include="Assertions.h" />
-    <None Include="basic_types.cpp" />
     <None Include="CameraTest.cpp" />
     <None Include="ClusterTest.cpp" />
-    <None Include="Collector.cpp" />
-    <None Include="Collector.h" />
-    <None Include="common.h" />
     <None Include="DeformerTest.cpp" />
     <None Include="FbxObjectTest.cpp" />
     <None Include="FbxTimeTest.cpp" />
@@ -46,9 +54,7 @@
     <None Include="MeshTest.cpp" />
     <None Include="NodeTest.cpp" />
     <None Include="NodeTransformsTest.cpp" />
-    <None Include="objects.cpp" />
     <None Include="OutputDebugStringBuf.h" />
-    <None Include="properties.cpp" />
     <None Include="PropertyTest.cpp" />
     <None Include="SceneTest.cpp" />
     <None Include="SkinTest.cpp" />
@@ -57,6 +63,5 @@
     <None Include="TestFixture.cpp" />
     <None Include="TestRunner.cpp" />
     <None Include="Tests.h" />
-    <None Include="textures.cpp" />
   </ItemGroup>
 </Project>
