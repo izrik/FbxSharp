@@ -96,10 +96,10 @@ namespace FbxSharp
 
         #region Value Management
 
-        public static readonly Dictionary<Tuple<Type,Type>, Func<object, object>> Converters = new Dictionary<Tuple<Type, Type>, Func<object, object>>();
+        public static readonly Dictionary<STuple<Type,Type>, Func<object, object>> Converters = new Dictionary<STuple<Type, Type>, Func<object, object>>();
         public static void AddConverter(Type from, Type to, Func<object, object> converter)
         {
-            Converters.Add(new Tuple<Type, Type>(from, to), converter);
+            Converters.Add(new STuple<Type, Type>(from, to), converter);
         }
 
         public static bool HasDefaultValue(FbxProperty pProperty)

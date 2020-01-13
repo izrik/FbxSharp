@@ -33,7 +33,7 @@ namespace FbxSharp
         {
             if (!(Value is U))
             {
-                var tuple = new Tuple<Type, Type>(typeof(T), typeof(U));
+                var tuple = new STuple<Type, Type>(typeof(T), typeof(U));
                 if (Converters.ContainsKey(tuple))
                 {
                     var converter = Converters[tuple];
@@ -65,7 +65,7 @@ namespace FbxSharp
                 return true;
             }
 
-            var tuple = new Tuple<Type, Type>(typeof(U), typeof(T));
+            var tuple = new STuple<Type, Type>(typeof(U), typeof(T));
             if (Converters.ContainsKey(tuple))
             {
                 var converter = Converters[tuple];
