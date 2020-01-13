@@ -48,7 +48,7 @@ namespace FbxSharp
                 }
             }
 
-            return new Converter7300().ConvertScene(parsedObjects);
+            return new Converter7700().ConvertScene(parsedObjects);
         }
 
         protected ParseObject GetHeader(List<ParseObject> parsedObjects)
