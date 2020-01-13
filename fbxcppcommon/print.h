@@ -3,6 +3,8 @@
 #define __FBXCPPTESTS_PRINT_H
 
 #include <fbxsdk.h>
+#include <iostream>
+#include <string>
 
 void PrintAnimCurve(FbxAnimCurve* animCurve);
 void PrintAnimCurveNode(FbxAnimCurveNode* animCurveNode);
