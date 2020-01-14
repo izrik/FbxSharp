@@ -5,11 +5,12 @@
 #include <vector>
 #include <fbxsdk.h>
 
+class Collector;
+void VisitLayerElementTexture(Collector* c, FbxLayerElementTexture* tex, std::vector<FbxObject*>* visited);
+
 class Collector
 {
 public:
-    std::vector<FbxObject*> Objects;
-
     void Visit(FbxObject* obj);
     void VisitScene(FbxScene* obj);
     void VisitNode(FbxNode* obj);
@@ -36,6 +37,33 @@ public:
     void VisitLight(FbxLight* obj);
     void VisitNull(FbxNull* obj);
     void VisitSkeleton(FbxSkeleton* obj);
+
+    void Visit(FbxObject* obj, std::vector<FbxObject*>* visited);
+    void VisitScene(FbxScene* obj, std::vector<FbxObject*>* visited);
+    void VisitNode(FbxNode* obj, std::vector<FbxObject*>* visited);
+    void VisitNodeAttribute(FbxNodeAttribute* obj, std::vector<FbxObject*>* visited);
+    void VisitSurfaceMaterial(FbxSurfaceMaterial* obj, std::vector<FbxObject*>* visited);
+    void VisitSurfaceLambert(FbxSurfaceLambert* obj, std::vector<FbxObject*>* visited);
+    void VisitSurfacePhong(FbxSurfacePhong* obj, std::vector<FbxObject*>* visited);
+    void VisitMesh(FbxMesh* obj, std::vector<FbxObject*>* visited);
+    void VisitGeometry(FbxGeometry* obj, std::vector<FbxObject*>* visited);
+    void VisitGeometryBase(FbxGeometryBase* obj, std::vector<FbxObject*>* visited);
+    void VisitLayerContainer(FbxLayerContainer* obj, std::vector<FbxObject*>* visited);
+    void VisitDocument(FbxDocument* obj, std::vector<FbxObject*>* visited);
+    void VisitCollection(FbxCollection* obj, std::vector<FbxObject*>* visited);
+    void VisitAnimLayer(FbxAnimLayer* obj, std::vector<FbxObject*>* visited);
+    void VisitAnimStack(FbxAnimStack* obj, std::vector<FbxObject*>* visited);
+    void VisitAnimCurve(FbxAnimCurve* obj, std::vector<FbxObject*>* visited);
+    void VisitAnimCurveNode(FbxAnimCurveNode* obj, std::vector<FbxObject*>* visited);
+    void VisitDeformer(FbxDeformer* obj, std::vector<FbxObject*>* visited);
+    void VisitPose(FbxPose* obj, std::vector<FbxObject*>* visited);
+    void VisitSubDeformer(FbxSubDeformer* obj, std::vector<FbxObject*>* visited);
+    void VisitTexture(FbxTexture* obj, std::vector<FbxObject*>* visited);
+    void VisitVideo(FbxVideo* obj, std::vector<FbxObject*>* visited);
+    void VisitCamera(FbxCamera* obj, std::vector<FbxObject*>* visited);
+    void VisitLight(FbxLight* obj, std::vector<FbxObject*>* visited);
+    void VisitNull(FbxNull* obj, std::vector<FbxObject*>* visited);
+    void VisitSkeleton(FbxSkeleton* obj, std::vector<FbxObject*>* visited);
 };
 
 
