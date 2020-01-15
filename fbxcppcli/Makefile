@@ -28,8 +28,8 @@ ifeq ($(UNAME_S),Darwin)
 	LDFLAGS=-framework Cocoa $(COMMON_LDFLAGS)
 endif
 
-SOURCES=main.cpp
-HEADERS=
+SOURCES=main.cpp explore.cpp
+HEADERS=explore.h
 OBJECTS=$(SOURCES:%.cpp=obj/%.o)
 EXECUTABLE=fbxcppcli
 
