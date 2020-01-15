@@ -54,6 +54,21 @@ int CountProperties(FbxObject* obj)
     return n;
 }
 
+FbxProperty GetPropertyByIndex(FbxObject* obj, int index)
+{
+    FbxProperty prop = obj->GetFirstProperty();
+    int n = 0;
+    while (prop.IsValid())
+    {
+        if (n == index)
+            return prop;
 
+        n++;
+        prop = obj->GetNextProperty(prop);
+    }
+
+    prop = FbxProperty();
+    return prop;
+}
 
 
