@@ -87,13 +87,13 @@ int main (int argc, const char *argv[])
     {
         if (argc <= 2)
         {
-            std::cout << "print: No source filename provided." << std::endl;
+            std::cout << "convert: No source filename provided." << std::endl;
             PrintUsage();
             return 2;
         }
         if (argc <= 3)
         {
-            std::cout << "print: No destination filename provided." << std::endl;
+            std::cout << "convert: No destination filename provided." << std::endl;
             PrintUsage();
             return 2;
         }
@@ -109,7 +109,7 @@ int main (int argc, const char *argv[])
     {
         if (argc <= 2)
         {
-            std::cout << "print: No source filename provided." << std::endl;
+            std::cout << "explore: No source filename provided." << std::endl;
             PrintUsage();
             return 2;
         }
