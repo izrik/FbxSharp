@@ -6,6 +6,16 @@ namespace FbxSharp
 {
     public class Converter7700 : IConverter
     {
+        public class ConversionState
+        {
+            public ConversionState(bool legacyTimeCode)
+            {
+                LegacyTimeCode = legacyTimeCode;
+            }
+
+            public readonly bool LegacyTimeCode;
+        }
+
         public FbxScene ConvertScene(List<ParseObject> parsedObjects)
         {
             var parsed = new ParseObject {
@@ -14,14 +24,6 @@ namespace FbxSharp
             };
 
             var scene = new FbxScene();
-
-            // TODO: detect time constant setting
-            // look for FBXHeaderExtension root pobject
-            // within FBXHeaderExtension, look for OtherFlags
-            // within OtherFlags, look for TCDefinition
-            // if present, it defines whether to use the legacy time constant (46186158L), or the new one (141120L)
-            // see FbxTCSetDefinition
-            // see https://help.autodesk.com/view/FBX/2020/ENU/?guid=FBX_Developer_Help_welcome_to_the_fbx_sdk_what_new_fbx_sdk_2019_html
 
             var docs = parsed.FindPropertyByName("Documents");
             if (docs != null)
@@ -34,6 +36,28 @@ namespace FbxSharp
                 }
             }
 
+            bool legacyTimeCode = false;
+            var headerExt = parsed.FindPropertyByName("FBXHeaderExtension");
+            if (headerExt != null)
+            {
+                var otherFlags = headerExt.FindPropertyByName("OtherFlags");
+                if (otherFlags != null)
+                {
+                    var timeCodeDefinition = otherFlags.FindPropertyByName("TCDefinition");
+                    if (timeCodeDefinition != null)
+                    {
+                        if (timeCodeDefinition.Values.Count > 0 &&
+                            timeCodeDefinition.Values[0] != null &&
+                            timeCodeDefinition.Values[0] is Number &&
+                            ((Number)timeCodeDefinition.Values[0]).AsLong == FbxTime.FBXSDK_TC_LEGACY_DEFINITION)
+                        {
+                            legacyTimeCode = true;
+                        }
+                    }
+                }
+            }
+
+            var state = new ConversionState(legacyTimeCode);
 
             var defs = parsed.FindPropertyByName("Definitions");
             CheckDefinitions(defs);
@@ -45,7 +69,7 @@ namespace FbxSharp
             var actualIdsByInFileIds = new Dictionary<ulong, ulong>();
             foreach (var obj in objs.Properties)
             {
-                var fobj = ConvertObject(obj, fbxObjectsById, actualIdsByInFileIds);
+                var fobj = ConvertObject(obj, fbxObjectsById, actualIdsByInFileIds, state);
                 fbxObjects.Add(fobj);
                 fbxObjectsById[fobj.UniqueId] = fobj;
             }
@@ -145,8 +169,8 @@ namespace FbxSharp
 //                throw new ConversionException(defs.Location, "Explicit count does not match actual number of properties.");
         }
 
-        Dictionary<string, Func<ParseObject, FbxObject>> ConvertersByObjectName =
-            new Dictionary<string, Func<ParseObject, FbxObject>> {
+        Dictionary<string, Func<ParseObject, ConversionState, FbxObject>> ConvertersByObjectName =
+            new Dictionary<string, Func<ParseObject, ConversionState, FbxObject>> {
                 { "NodeAttribute", ConvertNodeAttribute },
                 { "Geometry", ConvertGeometry },
                 { "Model", ConvertNode }, // Node?
@@ -163,11 +187,12 @@ namespace FbxSharp
         public FbxObject ConvertObject(
             ParseObject obj,
             Dictionary<ulong, FbxObject> fbxObjectsById,
-            Dictionary<ulong, ulong> actualIdsByInFileIds)
+            Dictionary<ulong, ulong> actualIdsByInFileIds,
+            ConversionState state)
         {
             if (ConvertersByObjectName.ContainsKey(obj.Name))
             {
-                var fbxobj = ConvertersByObjectName[obj.Name](obj);
+                var fbxobj = ConvertersByObjectName[obj.Name](obj, state);
                 if (obj != null &&
                     obj.Values.Count > 0)
                 {
@@ -179,7 +204,7 @@ namespace FbxSharp
 
             if (obj.Name == "Pose")
             {
-                var fbxobj = ConvertPose(obj, fbxObjectsById, actualIdsByInFileIds);
+                var fbxobj = ConvertPose(obj, fbxObjectsById, actualIdsByInFileIds, state);
                 if (obj != null &&
                     obj.Values.Count > 0)
                 {
@@ -196,7 +221,7 @@ namespace FbxSharp
                     obj.Name));
         }
 
-        public static FbxNodeAttribute ConvertNodeAttribute(ParseObject obj)
+        public static FbxNodeAttribute ConvertNodeAttribute(ParseObject obj, ConversionState state)
         {
             var typeFlagsProp = obj.FindPropertyByName("TypeFlags");
             var typeFlags = new HashSet<string>(typeFlagsProp.Values.Select(x => (string)x));
@@ -205,22 +230,22 @@ namespace FbxSharp
             // skeleton
             if (typeFlags.Contains("Skeleton"))
             {
-                return ConvertSkeleton(obj);
+                return ConvertSkeleton(obj, state);
             }
 
             if (typeFlags.Contains("Null"))
             {
-                return ConvertNull(obj);
+                return ConvertNull(obj, state);
             }
 
             if (typeFlags.Contains("Light"))
             {
-                return ConvertLight(obj);
+                return ConvertLight(obj, state);
             }
 
             if (typeFlags.Contains("Camera"))
             {
-                return ConvertCamera(obj);
+                return ConvertCamera(obj, state);
             }
 
             throw new ConversionException(
@@ -230,7 +255,7 @@ namespace FbxSharp
                     typeFlags));
         }
 
-        public static FbxSkeleton ConvertSkeleton(ParseObject obj)
+        public static FbxSkeleton ConvertSkeleton(ParseObject obj, ConversionState state)
         {
             var skeleton = new FbxSkeleton();
             skeleton.Name = ((string)obj.Values[1]);
@@ -273,7 +298,7 @@ namespace FbxSharp
             return skeleton;
         }
 
-        public static FbxNull ConvertNull(ParseObject obj)
+        public static FbxNull ConvertNull(ParseObject obj, ConversionState state)
         {
             var n = new FbxNull();
             n.Name = ((string)obj.Values[1]);
@@ -281,7 +306,7 @@ namespace FbxSharp
             return n;
         }
 
-        public static FbxLight ConvertLight(ParseObject obj)
+        public static FbxLight ConvertLight(ParseObject obj, ConversionState state)
         {
             var name = ((string)obj.Values[1]);
             var light = new FbxLight(name);
@@ -291,7 +316,7 @@ namespace FbxSharp
                 switch (prop.Name)
                 {
                 case "Properties70":
-                    ImportProperties(light, ConvertProperties70(prop));
+                    ImportProperties(light, ConvertProperties70(prop, state));
                     break;
                 case "TypeFlags":
                     if (((string)prop.Values[0]) != "Light")
@@ -310,7 +335,7 @@ namespace FbxSharp
             return light;
         }
 
-        public static FbxCamera ConvertCamera(ParseObject obj)
+        public static FbxCamera ConvertCamera(ParseObject obj, ConversionState state)
         {
             var name = ((string)obj.Values[1]);
             var camera = new FbxCamera(name);
@@ -328,7 +353,7 @@ namespace FbxSharp
                 switch (prop.Name)
                 {
                 case "Properties70":
-                    ImportProperties(camera, ConvertProperties70(prop));
+                    ImportProperties(camera, ConvertProperties70(prop, state));
                     break;
                 case "TypeFlags":
                     if (((string)prop.Values[0]) != "Camera")
@@ -379,14 +404,14 @@ namespace FbxSharp
             return camera;
         }
 
-        public static FbxGeometry ConvertGeometry(ParseObject obj)
+        public static FbxGeometry ConvertGeometry(ParseObject obj, ConversionState state)
         {
             var geometryType = ((string)obj.Values[2]);
 
             switch (geometryType)
             {
             case "Mesh":
-                return ConvertMesh(obj);
+                return ConvertMesh(obj, state);
             default:
                 throw new ConversionException(obj.Location, string.Format("Unknown geometry type in FbxGeometry. Expected 'Mesh'. Got '{0}' instead.", geometryType));
             }
@@ -400,7 +425,7 @@ namespace FbxSharp
             }
         }
 
-        public static FbxMesh ConvertMesh(ParseObject obj)
+        public static FbxMesh ConvertMesh(ParseObject obj, ConversionState state)
         {
             var normals = new List<FbxLayerElementNormal>();
             var uvs = new List<FbxLayerElementUV>();
@@ -416,13 +441,13 @@ namespace FbxSharp
                 switch (prop.Name)
                 {
                 case "Properties70":
-                    ImportProperties(mesh, ConvertProperties70(prop));
+                    ImportProperties(mesh, ConvertProperties70(prop, state));
                     break;
                 case "Vertices":
-                    ConvertVertices(mesh, prop);
+                    ConvertVertices(mesh, prop, state);
                     break;
                 case "PolygonVertexIndex":
-                    mesh.PolygonIndexes = ConvertPolygonVertexIndex(prop);
+                    mesh.PolygonIndexes = ConvertPolygonVertexIndex(prop, state);
                     break;
                 case "Edges":
                     // skip for now
@@ -434,26 +459,26 @@ namespace FbxSharp
                 case "LayerElementNormal":
                     index = (int)(prop.Values.Count > 0 ? ((Number)prop.Values[0]).AsLong.Value : 0);
                     ExpandListToMinimum(normals, index);
-                    normals[index] = ConvertLayerElementNormal(prop);
+                    normals[index] = ConvertLayerElementNormal(prop, state);
                     break;
                 case "LayerElementUV":
                     index = (int)(prop.Values.Count > 0 ? ((Number)prop.Values[0]).AsLong.Value : 0);
                     ExpandListToMinimum(uvs, index);
-                    uvs[index] = ConvertLayerElementUV(prop);
+                    uvs[index] = ConvertLayerElementUV(prop, state);
                     break;
                 case "LayerElementVisibility":
                     index = (int)(prop.Values.Count > 0 ? ((Number)prop.Values[0]).AsLong.Value : 0);
                     ExpandListToMinimum(visibility, index);
-                    visibility[index] = ConvertLayerElementVisibility(prop);
+                    visibility[index] = ConvertLayerElementVisibility(prop, state);
                     break;
                 case "LayerElementMaterial":
                     index = (int)(prop.Values.Count > 0 ? ((Number)prop.Values[0]).AsLong.Value : 0);
                     ExpandListToMinimum(materials, index);
-                    materials[index] = ConvertLayerElementMaterial(prop);
+                    materials[index] = ConvertLayerElementMaterial(prop, state);
                     break;
                 case "Layer":
                     var layer = mesh.GetLayer(mesh.CreateLayer());
-                    ConvertLayer(layer, prop, normals, uvs, visibility, materials);
+                    ConvertLayer(layer, prop, normals, uvs, visibility, materials, state);
                     break;
                 default:
                     throw new ConversionException(prop.Location, string.Format("Unknown property name in FbxMesh. Got '{0}' instead.", prop.Name));
@@ -463,7 +488,14 @@ namespace FbxSharp
             return mesh;
         }
 
-        static void ConvertLayer(FbxLayer layer, ParseObject obj, List<FbxLayerElementNormal> normals, List<FbxLayerElementUV> uvs, List<FbxLayerElementVisibility> visibility, List<FbxLayerElementMaterial> materials)
+        static void ConvertLayer(
+            FbxLayer layer,
+            ParseObject obj,
+            List<FbxLayerElementNormal> normals,
+            List<FbxLayerElementUV> uvs,
+            List<FbxLayerElementVisibility> visibility,
+            List<FbxLayerElementMaterial> materials,
+            ConversionState state)
         {
             foreach (var prop in obj.Properties)
             {
@@ -508,7 +540,7 @@ namespace FbxSharp
             }
         }
 
-        public static FbxLayerElementNormal ConvertLayerElementNormal(ParseObject obj)
+        public static FbxLayerElementNormal ConvertLayerElementNormal(ParseObject obj, ConversionState state)
         {
             var normals = new FbxLayerElementNormal();
             var normalsW = new List<double>();
@@ -526,10 +558,10 @@ namespace FbxSharp
                     normals.SetName((string)prop.Values[0]);
                     break;
                 case "MappingInformationType":
-                    normals.SetMappingMode(ConvertMappingInformationType(prop));
+                    normals.SetMappingMode(ConvertMappingInformationType(prop, state));
                     break;
                 case "ReferenceInformationType":
-                    normals.SetReferenceMode(ConvertReferenceInformationType(prop));
+                    normals.SetReferenceMode(ConvertReferenceInformationType(prop, state));
                     break;
                 case "Normals":
                     normals.GetDirectArray().List.AddRange(
@@ -551,7 +583,7 @@ namespace FbxSharp
             return normals;
         }
 
-        public static FbxLayerElementUV ConvertLayerElementUV(ParseObject obj)
+        public static FbxLayerElementUV ConvertLayerElementUV(ParseObject obj, ConversionState state)
         {
             var uvs = new FbxLayerElementUV();
 
@@ -568,10 +600,10 @@ namespace FbxSharp
                     uvs.Name = ((string)prop.Values[0]);
                     break;
                 case "MappingInformationType":
-                    uvs.MappingMode = ConvertMappingInformationType(prop);
+                    uvs.MappingMode = ConvertMappingInformationType(prop, state);
                     break;
                 case "ReferenceInformationType":
-                    uvs.ReferenceMode = ConvertReferenceInformationType(prop);
+                    uvs.ReferenceMode = ConvertReferenceInformationType(prop, state);
                     break;
                 case "UV":
                     uvs.GetDirectArray().List.AddRange(
@@ -592,7 +624,7 @@ namespace FbxSharp
             return uvs;
         }
 
-        public static FbxLayerElementVisibility ConvertLayerElementVisibility(ParseObject obj)
+        public static FbxLayerElementVisibility ConvertLayerElementVisibility(ParseObject obj, ConversionState state)
         {
             var visibility = new FbxLayerElementVisibility();
 
@@ -609,10 +641,10 @@ namespace FbxSharp
                     visibility.Name = ((string)prop.Values[0]);
                     break;
                 case "MappingInformationType":
-                    visibility.MappingMode = ConvertMappingInformationType(prop);
+                    visibility.MappingMode = ConvertMappingInformationType(prop, state);
                     break;
                 case "ReferenceInformationType":
-                    visibility.ReferenceMode = ConvertReferenceInformationType(prop);
+                    visibility.ReferenceMode = ConvertReferenceInformationType(prop, state);
                     break;
                 case "Visibility":
                     visibility.GetDirectArray().List.AddRange(prop.Properties[0].Values.Select(n => (((Number)n).AsLong.Value == 1)));
@@ -625,7 +657,7 @@ namespace FbxSharp
             return visibility;
         }
 
-        public static FbxLayerElementMaterial ConvertLayerElementMaterial(ParseObject obj)
+        public static FbxLayerElementMaterial ConvertLayerElementMaterial(ParseObject obj, ConversionState state)
         {
             var material = new FbxLayerElementMaterial();
 
@@ -642,10 +674,10 @@ namespace FbxSharp
                     material.Name = ((string)prop.Values[0]);
                     break;
                 case "MappingInformationType":
-                    material.MappingMode = ConvertMappingInformationType(prop);
+                    material.MappingMode = ConvertMappingInformationType(prop, state);
                     break;
                 case "ReferenceInformationType":
-                    material.ReferenceMode = ConvertReferenceInformationType(prop);
+                    material.ReferenceMode = ConvertReferenceInformationType(prop, state);
                     break;
                 case "Materials":
                     material.MaterialIndexes.List.AddRange(
@@ -659,7 +691,7 @@ namespace FbxSharp
             return material;
         }
 
-        public static FbxLayerElement.EMappingMode ConvertMappingInformationType(ParseObject obj)
+        public static FbxLayerElement.EMappingMode ConvertMappingInformationType(ParseObject obj, ConversionState state)
         {
             if (obj.Values.Count < 1)
                 throw new ConversionException(obj.Location, "Mapping mode has no value.");
@@ -680,7 +712,7 @@ namespace FbxSharp
             }
         }
 
-        public static FbxLayerElement.EReferenceMode ConvertReferenceInformationType(ParseObject obj)
+        public static FbxLayerElement.EReferenceMode ConvertReferenceInformationType(ParseObject obj, ConversionState state)
         {
             if (obj.Values.Count < 1)
                 throw new ConversionException(obj.Location, "Reference mode has no value.");
@@ -695,7 +727,7 @@ namespace FbxSharp
             }
         }
 
-        public static List<Tuple<string, Type, object>> ConvertProperties70(ParseObject props70)
+        public static List<Tuple<string, Type, object>> ConvertProperties70(ParseObject props70, ConversionState state)
         {
             var propNamesTypesValues = new List<Tuple<string, Type, object>>();
 
@@ -770,7 +802,11 @@ namespace FbxSharp
                 case "KTime":
                     propType = typeof(FbxTime);
                     long rawValue = ((Number)p.Values[4]).AsLong.Value;
-                    long rawValue7700 = rawValue * FbxTime.FBXSDK_TC_MILLISECOND / FbxTime.FBXSDK_TC_MILLISECOND_LEGACY; // TODO: take "TCDefinition" into account
+                    long rawValue7700 = rawValue;
+                    if (state.LegacyTimeCode)
+                    {
+                        rawValue7700 = rawValue * FbxTime.FBXSDK_TC_MILLISECOND / FbxTime.FBXSDK_TC_LEGACY_MILLISECOND;
+                    }
                     propValue = new FbxTime(rawValue7700);
                     break;
                 case "Compound":
@@ -795,7 +831,7 @@ namespace FbxSharp
             return propNamesTypesValues;
         }
 
-        public static void ConvertVertices(FbxMesh mesh, ParseObject obj)
+        public static void ConvertVertices(FbxMesh mesh, ParseObject obj, ConversionState state)
         {
             var values = obj.Properties[0].Values;
             mesh.InitControlPoints(values.Count / 3);
@@ -811,7 +847,7 @@ namespace FbxSharp
             }
         }
 
-        public static List<List<long>> ConvertPolygonVertexIndex(ParseObject obj)
+        public static List<List<long>> ConvertPolygonVertexIndex(ParseObject obj, ConversionState state)
         {
             var values = obj.Properties[0].Values;
             int i;
@@ -834,7 +870,7 @@ namespace FbxSharp
             return polygons;
         }
 
-        public static FbxNode ConvertNode(ParseObject obj)
+        public static FbxNode ConvertNode(ParseObject obj, ConversionState state)
         {
             var node = new FbxNode();
 
@@ -865,7 +901,7 @@ namespace FbxSharp
                         throw new ConversionException(prop.Location, string.Format("Unknown Version in FbxNode. Expected '232'. Got '{0}' instead.", version));
                     break;
                 case "Properties70":
-                    ImportProperties(node, ConvertProperties70(prop));
+                    ImportProperties(node, ConvertProperties70(prop, state));
                     break;
                 case "MultiLayer":
                     node.MultiLayer = (((Number)prop.Values[0]).AsLong.Value != 0);
@@ -913,7 +949,8 @@ namespace FbxSharp
         public static FbxPose ConvertPose(
             ParseObject obj,
             Dictionary<ulong, FbxObject> fbxObjectsById,
-            Dictionary<ulong, ulong> actualIdsByInFileIds)
+            Dictionary<ulong, ulong> actualIdsByInFileIds,
+            ConversionState state)
         {
             var pose = new FbxPose();
 
@@ -949,7 +986,7 @@ namespace FbxSharp
                     numPoseNodes = ((Number)prop.Values[0]).AsLong.Value;
                     break;
                 case "PoseNode":
-                    var posenode = ConvertPoseNode(prop, fbxObjectsById, actualIdsByInFileIds);
+                    var posenode = ConvertPoseNode(prop, fbxObjectsById, actualIdsByInFileIds, state);
                     pose.Add(posenode.Item1, posenode.Item2, posenode.Item3);
                     break;
                 default:
@@ -966,7 +1003,8 @@ namespace FbxSharp
         public static Tuple<FbxNode, FbxMatrix, bool> ConvertPoseNode(
             ParseObject obj,
             Dictionary<ulong, FbxObject> fbxObjectsById,
-            Dictionary<ulong, ulong> actualIdsByInFileIds)
+            Dictionary<ulong, ulong> actualIdsByInFileIds,
+            ConversionState state)
         {
             if (obj.Properties.Count != 2)
                 throw new ConversionException(obj.Location, "Unknown properties in PoseNode.");
@@ -1004,7 +1042,7 @@ namespace FbxSharp
             return m;
         }
 
-        public static FbxSurfaceMaterial ConvertMaterial(ParseObject obj)
+        public static FbxSurfaceMaterial ConvertMaterial(ParseObject obj, ConversionState state)
         {
             var shadingModelProp = obj.FindPropertyByName("ShadingModel");
             if (shadingModelProp == null)
@@ -1014,10 +1052,10 @@ namespace FbxSharp
             if (shadingModel != "phong")
                 throw new ConversionException(shadingModelProp.Location, string.Format("Unknown shading model in FbxSurfaceMaterial. Expected 'phong'. Got '{0}' instead.", shadingModel));
 
-            return ConvertPhongMaterial(obj);
+            return ConvertPhongMaterial(obj, state);
         }
 
-        public static FbxSurfacePhong ConvertPhongMaterial(ParseObject obj)
+        public static FbxSurfacePhong ConvertPhongMaterial(ParseObject obj, ConversionState state)
         {
             var material = new FbxSurfacePhong();
 
@@ -1044,7 +1082,7 @@ namespace FbxSharp
                     ImportProperty(material, "MultiLayer", typeof(bool), multilayer);
                     break;
                 case "Properties70":
-                    ImportProperties(material, ConvertProperties70(prop));
+                    ImportProperties(material, ConvertProperties70(prop, state));
                     break;
                 default:
                     throw new ConversionException(prop.Location, string.Format("Unknown property in FbxSurfacePhong.  Expected 'Version', 'ShadingModel', 'MultiLayer', or 'Properties70'. Got '{0}' instead.", prop.Name));
@@ -1054,7 +1092,7 @@ namespace FbxSharp
             return material;
         }
 
-        public static FbxObject ConvertDeformer(ParseObject obj)
+        public static FbxObject ConvertDeformer(ParseObject obj, ConversionState state)
         {
             if (obj.Values.Count < 3)
                 throw new ConversionException(obj.Location, string.Format("Not enough values in deformer. Expected 3. Got {0} instead.", obj.Values.Count));
@@ -1065,15 +1103,15 @@ namespace FbxSharp
             switch (type)
             {
             case "Skin":
-                return ConvertSkin(obj);
+                return ConvertSkin(obj, state);
             case "Cluster":
-                return ConvertCluster(obj);
+                return ConvertCluster(obj, state);
             default:
                 throw new ConversionException(obj.Location, string.Format("Unknown deformer type. Expected 'Skin' or 'Cluster'. Got '{0}' instead.", type));
             }
         }
 
-        public static FbxSkin ConvertSkin(ParseObject obj)
+        public static FbxSkin ConvertSkin(ParseObject obj, ConversionState state)
         {
             var skin = new FbxSkin();
 
@@ -1104,7 +1142,7 @@ namespace FbxSharp
             return skin;
         }
 
-        public static FbxCluster ConvertCluster(ParseObject obj)
+        public static FbxCluster ConvertCluster(ParseObject obj, ConversionState state)
         {
             var cluster = new FbxCluster();
 
@@ -1156,7 +1194,7 @@ namespace FbxSharp
             return cluster;
         }
 
-        public static FbxVideo ConvertVideo(ParseObject obj)
+        public static FbxVideo ConvertVideo(ParseObject obj, ConversionState state)
         {
             var video = new FbxVideo();
 
@@ -1175,7 +1213,7 @@ namespace FbxSharp
                     video.Type = (string)prop.Values[0];
                     break;
                 case "Properties70":
-                    ImportProperties(video, ConvertProperties70(prop));
+                    ImportProperties(video, ConvertProperties70(prop, state));
                     break;
                 case "UseMipMap":
                     video.UseMipMap = (((Number)prop.Values[0]).AsLong.Value != 0);
@@ -1195,7 +1233,7 @@ namespace FbxSharp
             return video;
         }
 
-        public static FbxTexture ConvertTexture(ParseObject obj)
+        public static FbxTexture ConvertTexture(ParseObject obj, ConversionState state)
         {
             var texture = new FbxTexture();
 
@@ -1224,7 +1262,7 @@ namespace FbxSharp
                         throw new ConversionException(prop.Location, string.Format("TextureName does not match. Expected '{0}'. Got '{1}' instead.", texture.Name, name));
                     break;
                 case "Properties70":
-                    ImportProperties(texture, ConvertProperties70(prop));
+                    ImportProperties(texture, ConvertProperties70(prop, state));
                     break;
                 case "Media":
                     texture.Media = (string)prop.Values[0];
@@ -1283,7 +1321,7 @@ namespace FbxSharp
                     ((Number)values[startIndex + 3]).AsDouble.Value);
         }
 
-        public static FbxAnimStack ConvertAnimationStack(ParseObject obj)
+        public static FbxAnimStack ConvertAnimationStack(ParseObject obj, ConversionState state)
         {
             var animstack = new FbxAnimStack();
 
@@ -1299,7 +1337,7 @@ namespace FbxSharp
                 switch (prop.Name)
                 {
                 case "Properties70":
-                    ImportProperties(animstack, ConvertProperties70(prop));
+                    ImportProperties(animstack, ConvertProperties70(prop, state));
                     break;
                 default:
                     throw new ConversionException(prop.Location, string.Format("Unknown property in FbxAnimStack. Expected 'Properties70'. Got '{0}' instead.", prop.Name));
@@ -1309,7 +1347,7 @@ namespace FbxSharp
             return animstack;
         }
 
-        public static FbxAnimLayer ConvertAnimationLayer(ParseObject obj)
+        public static FbxAnimLayer ConvertAnimationLayer(ParseObject obj, ConversionState state)
         {
             var animlayer = new FbxAnimLayer();
 
@@ -1326,7 +1364,7 @@ namespace FbxSharp
             return animlayer;
         }
 
-        public static FbxAnimCurveNode ConvertAnimationCurveNode(ParseObject obj)
+        public static FbxAnimCurveNode ConvertAnimationCurveNode(ParseObject obj, ConversionState state)
         {
             var animCurveNode = new FbxAnimCurveNode();
 
@@ -1342,7 +1380,7 @@ namespace FbxSharp
                 switch (prop.Name)
                 {
                 case "Properties70":
-                    var propinfos = ConvertProperties70(prop);
+                    var propinfos = ConvertProperties70(prop, state);
                     foreach (var propinfo in propinfos)
                     {
                         var pname = propinfo.Item1;
@@ -1373,7 +1411,7 @@ namespace FbxSharp
             return animCurveNode;
         }
 
-        public static FbxAnimCurve ConvertAnimationCurve(ParseObject obj)
+        public static FbxAnimCurve ConvertAnimationCurve(ParseObject obj, ConversionState state)
         {
             var curve = new FbxAnimCurve();
 
@@ -1426,7 +1464,12 @@ namespace FbxSharp
             int i;
             for (i = 0; i < Math.Min(keyTimes.Length, keyValues.Length); i++)
             {
-                var time = new FbxTime(keyTimes[i]);
+                var rawValue = keyTimes[i];
+                if (state.LegacyTimeCode)
+                {
+                    rawValue = rawValue * FbxTime.FBXSDK_TC_MILLISECOND / FbxTime.FBXSDK_TC_LEGACY_MILLISECOND;
+                }
+                var time = new FbxTime(rawValue);
                 keys[i] = new FbxAnimCurveKey(time, (float)keyValues[i]);
             }
 
