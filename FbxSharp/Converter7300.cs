@@ -756,7 +756,7 @@ namespace FbxSharp
                 case "KTime":
                     propType = typeof(FbxTime);
                     long rawValue = ((Number)p.Values[4]).AsLong.Value;
-                    long rawValue7700 = rawValue * FbxTime.FBXSDK_TC_MILLISECOND / FbxTime.FBXSDK_TC_MILLISECOND_LEGACY;
+                    long rawValue7700 = rawValue * FbxTime.FBXSDK_TC_MILLISECOND / FbxTime.FBXSDK_TC_LEGACY_MILLISECOND;
                     propValue = new FbxTime(rawValue7700);
                     break;
                 case "Compound":
