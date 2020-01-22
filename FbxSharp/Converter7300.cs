@@ -1412,7 +1412,9 @@ namespace FbxSharp
             int i;
             for (i = 0; i < Math.Min(keyTimes.Length, keyValues.Length); i++)
             {
-                var time = new FbxTime(keyTimes[i]);
+                var rawValue = keyTimes[i];
+                rawValue = rawValue * FbxTime.FBXSDK_TC_MILLISECOND / FbxTime.FBXSDK_TC_LEGACY_MILLISECOND;
+                var time = new FbxTime(rawValue);
                 keys[i] = new FbxAnimCurveKey(time, (float)keyValues[i]);
             }
 
