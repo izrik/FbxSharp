@@ -24,7 +24,7 @@ void LoadAndPrint(const char* filename)
     PrintObjectGraph(scene);
 }
 
-void Save(const char* filename, FbxScene* scene)
+void Save(const char* filename, FbxScene* scene, bool ascii)
 {
     FbxManager* manager = scene->GetFbxManager();
 
@@ -32,7 +32,11 @@ void Save(const char* filename, FbxScene* scene)
     ios->SetBoolProp(EXP_ASCIIFBX, true);
 
     FbxExporter * ex = FbxExporter::Create(manager, "");
-    int lFormat = manager->GetIOPluginRegistry()->FindWriterIDByDescription("FBX ascii (*.fbx)");
+    int lFormat = -1;
+    if (ascii)
+    {
+        lFormat = manager->GetIOPluginRegistry()->FindWriterIDByDescription("FBX ascii (*.fbx)");
+    }
     ex->Initialize(filename, lFormat, ios);
     ex->Export(scene);
 }

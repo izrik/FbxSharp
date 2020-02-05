@@ -5,7 +5,7 @@
 #include <fbxsdk.h>
 
 FbxScene* Load(const char* filename, FbxManager* manager=NULL);
-void Save(const char* filename, FbxScene* scene);
+void Save(const char* filename, FbxScene* scene, bool ascii);
 void LoadAndPrint(const char* filename);
 
 #endif // __FBXCPPTESTS_FILEIO_H

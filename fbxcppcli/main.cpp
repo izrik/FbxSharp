@@ -15,6 +15,7 @@ void PrintUsage()
                  "    info [FILENAME]            Display file info about FILENAME." << std::endl <<
                  "    print [FILENAME]           Display the contents of FILENAME." << std::endl <<
                  "    convert [SOURCE] [DEST]    Open the SOURCE file and then save it as ascii at DEST." << std::endl <<
+                 "    unconvert [SOURCE] [DEST]  Open the SOURCE file and then save it as binary at DEST." << std::endl <<
                  "    explore [FILENAME]         Navigate a scene graph using a shell-like command interface." << std::endl <<
                  std::endl;
 }
@@ -101,7 +102,29 @@ int main (int argc, const char *argv[])
         std::string source = argv[2];
         FbxScene* scene = Load(source.c_str());
         std::string dest = argv[3];
-        Save(dest.c_str(), scene);
+        Save(dest.c_str(), scene, true);
+        return 0;
+    }
+
+    if (command == "unconvert")
+    {
+        if (argc <= 2)
+        {
+            std::cout << "convert: No source filename provided." << std::endl;
+            PrintUsage();
+            return 2;
+        }
+        if (argc <= 3)
+        {
+            std::cout << "convert: No destination filename provided." << std::endl;
+            PrintUsage();
+            return 2;
+        }
+
+        std::string source = argv[2];
+        FbxScene* scene = Load(source.c_str());
+        std::string dest = argv[3];
+        Save(dest.c_str(), scene, false);
         return 0;
     }
 
