@@ -11,6 +11,7 @@ namespace FbxSharp
             materials = new ObjectView<FbxLayerElementMaterial, FbxLayerElement>(elements, eh => elements.CollectionChanged += eh);
             uvs = new ObjectView<FbxLayerElementUV, FbxLayerElement>(elements, eh => elements.CollectionChanged += eh);
             visibility = new ObjectView<FbxLayerElementVisibility, FbxLayerElement>(elements, eh => elements.CollectionChanged += eh);
+            colors = new ObjectView<FbxLayerElementVertexColor, FbxLayerElement>(elements, eh => elements.CollectionChanged += eh);
         }
 
         readonly ChangeNotifyList<FbxLayerElement> elements = new ChangeNotifyList<FbxLayerElement>();
@@ -101,13 +102,19 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
+        readonly ObjectView<FbxLayerElementVertexColor, FbxLayerElement> colors;
         public FbxLayerElementVertexColor GetVertexColors()
         {
-            throw new NotImplementedException();
+            return colors.Get();
         }
         public void SetVertexColors(FbxLayerElementVertexColor pVertexColors)
         {
-            throw new NotImplementedException();
+            if (colors.Get() != null)
+            {
+                elements.Remove(colors.Get());
+            }
+
+            elements.Add(pVertexColors);
         }
 
         public FbxLayerElementSmoothing GetSmoothing()
