@@ -74,5 +74,6 @@ TestClass(MatrixTest);
 TestClass(AnimCurveKeyTest);
 TestClass(LightTest);
 TestClass(CameraTest);
+TestClass(LayerTest);
 
 #endif // __FBXCPPTESTS_TESTS_H

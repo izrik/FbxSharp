@@ -133,6 +133,7 @@ void RunTests()
     tests.push_back(new AnimCurveKeyTest());
     tests.push_back(new LightTest());
     tests.push_back(new CameraTest());
+    tests.push_back(new LayerTest());
 
     cout << "Running tests..." << endl;
 
