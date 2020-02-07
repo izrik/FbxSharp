@@ -37,6 +37,9 @@ namespace FbxSharp
 
         public FbxLayer GetLayer(int pIndex)
         {
+            if (pIndex < 0 || pIndex >= layers.Count)
+                return null;
+
             return layers[pIndex];
         }
 
