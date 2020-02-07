@@ -164,7 +164,7 @@ namespace FbxSharp
         {
             if (visibility.Get() != null)
             {
-                elements.Remove(uvs.Get());
+                elements.Remove(visibility.Get());
             }
 
             elements.Add(pVisibility);
