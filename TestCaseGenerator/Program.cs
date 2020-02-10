@@ -433,6 +433,10 @@ namespace TestCaseGenerator
                                         parts[3] = parts[3].Replace("new(", "new " + type + "(");
                                     }
                                 }
+                                else if (type == "FbxLayerElementVisibility")
+                                {
+                                    parts[3] = parts[3].Replace("new(", type + "::Create(NULL, ");
+                                }
                                 else
                                 {
                                     parts[3] = parts[3].Replace("new(", type + "::Create(manager, ");

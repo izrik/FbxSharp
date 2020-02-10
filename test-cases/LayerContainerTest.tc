@@ -9,3 +9,17 @@ test LayerContainer_Create
 	AssertEqual(0, lc.GetSrcObjectCount())
 	AssertEqual(0, lc.GetDstObjectCount())
 	AssertEqual(0, lc.GetLayerCount())
+
+test LayerContainer_CreateLayer_CreatesNewLayer
+    given
+	FbxLayerContainer lc = new("")
+
+    require
+    AssertEqual(null, lc.GetLayer(0))
+
+    when
+    int result = lc.CreateLayer()
+
+    then
+    AssertEqual(0, result)
+    AssertNotEqual(null, lc.GetLayer(0))

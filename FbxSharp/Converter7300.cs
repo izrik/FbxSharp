@@ -580,6 +580,7 @@ namespace FbxSharp
 
         public static FbxLayerElementVisibility ConvertLayerElementVisibility(ParseObject obj)
         {
+            // TODO: match this from sdk. should use Create with the encompassing mesh as the first argument (?)
             var visibility = new FbxLayerElementVisibility();
 
             foreach (var prop in obj.Properties)

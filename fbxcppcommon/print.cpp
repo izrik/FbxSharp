@@ -787,6 +787,37 @@ void PrintLayer(FbxLayer* layer)
 //    cout << "            GetUVSetChannels() = " << ToString(layer->GetUVSetChannels()) << endl;
 //    cout << "            GetUVSets() = " << ToString(layer->GetUVSets()) << endl;
     cout << "            GetVertexColors() = " << ToString(layer->GetVertexColors()) << endl;
+    FbxLayerElementVertexColor* le = layer->GetVertexColors();
+    FbxLayerElementArrayTemplate<FbxColor> & colors = le->GetDirectArray();
+    cout << "                Colors: " << endl;
+    if (colors.GetCount() <= 6)
+    {
+        for (i = 0; i < colors.GetCount(); i++)
+            cout << "                    #" << i << ": " << colors.GetAt(i) << endl;
+    }
+    else
+    {
+        for (i = 0; i < 3; i++)
+            cout << "                    #" << i << ": " << colors.GetAt(i) << endl;
+        cout << "                    ..." << endl;
+        for (i = colors.GetCount() - 3; i < colors.GetCount(); i++)
+            cout << "                    #" << i << ": " << colors.GetAt(i) << endl;
+    }
+    FbxLayerElementArrayTemplate<int> & indexes = le->GetIndexArray();
+    cout << "                Indexes: " << endl;
+    if (indexes.GetCount() <= 6)
+    {
+        for (i = 0; i < indexes.GetCount(); i++)
+            cout << "                    #" << i << ": " << indexes.GetAt(i) << endl;
+    }
+    else
+    {
+        for (i = 0; i < 3; i++)
+            cout << "                    #" << i << ": " << indexes.GetAt(i) << endl;
+        cout << "                    ..." << endl;
+        for (i = indexes.GetCount() - 3; i < indexes.GetCount(); i++)
+            cout << "                    #" << i << ": " << indexes.GetAt(i) << endl;
+    }
     cout << "            GetSmoothing() = " << ToString(layer->GetSmoothing()) << endl;
     cout << "            GetVertexCrease() = " << ToString(layer->GetVertexCrease()) << endl;
     cout << "            GetEdgeCrease() = " << ToString(layer->GetEdgeCrease()) << endl;
@@ -1365,6 +1396,12 @@ ostream& operator<<(ostream& os, const FbxDouble3& value)
 ostream& operator<<(ostream& os, const FbxDouble4& value)
 {
     os << value[0] << ", " << value[1] << ", " << value[2] << ", " << value[3];
+    return os;
+}
+
+ostream& operator<<(ostream& os, const FbxColor& value)
+{
+    os << "(" << value[0] << ", " << value[1] << ", " << value[2] << ", " << value[3] << ")";
     return os;
 }
 

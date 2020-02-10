@@ -431,6 +431,7 @@ namespace FbxSharp
             var uvs = new List<FbxLayerElementUV>();
             var visibility = new List<FbxLayerElementVisibility>();
             var materials = new List<FbxLayerElementMaterial>();
+            var colors = new List<FbxLayerElementVertexColor>();
 
             var mesh = new FbxMesh();
             mesh.Name = ((string)obj.Values[1]);
@@ -476,9 +477,14 @@ namespace FbxSharp
                     ExpandListToMinimum(materials, index);
                     materials[index] = ConvertLayerElementMaterial(prop, state);
                     break;
+                case "LayerElementColor":
+                    index = (int)(prop.Values.Count > 0 ? ((Number)prop.Values[0]).AsLong.Value : 0);
+                    ExpandListToMinimum(colors, index);
+                    colors[index] = ConvertLayerElementColor(prop, state);
+                    break;
                 case "Layer":
                     var layer = mesh.GetLayer(mesh.CreateLayer());
-                    ConvertLayer(layer, prop, normals, uvs, visibility, materials, state);
+                    ConvertLayer(layer, prop, normals, uvs, visibility, materials, colors, state);
                     break;
                 default:
                     throw new ConversionException(prop.Location, string.Format("Unknown property name in FbxMesh. Got '{0}' instead.", prop.Name));
@@ -495,6 +501,7 @@ namespace FbxSharp
             List<FbxLayerElementUV> uvs,
             List<FbxLayerElementVisibility> visibility,
             List<FbxLayerElementMaterial> materials,
+            List<FbxLayerElementVertexColor> colors,
             ConversionState state)
         {
             foreach (var prop in obj.Properties)
@@ -529,6 +536,9 @@ namespace FbxSharp
                         break;
                     case "LayerElementUV":
                         layer.SetUVs(uvs[indexValue]);
+                        break;
+                    case "LayerElementColor":
+                        layer.SetVertexColors(colors[indexValue]);
                         break;
                     default:
                         throw new ConversionException(prop.Location, string.Format("Unknown LayerElement type in FbxLayer. Expected 'LayerElementNormal', 'LayerElementMaterial', 'LayerElementVisibility', or 'LayerElementUV'. Got '{0}' instead.", (string)type.Values[0]));
@@ -689,6 +699,84 @@ namespace FbxSharp
             }
 
             return material;
+        }
+
+        public static FbxLayerElementVertexColor ConvertLayerElementColor(ParseObject obj, ConversionState state)
+        {
+            var versionp = obj.FindPropertyByName("Version");
+            if (versionp == null) throw new ConversionException(obj.Location,
+                "No 'Version' cound in LayerElementColor block.");
+            var version = ((Number)versionp.Values[0]).AsLong.Value;
+            switch ( version)
+            {
+                case 101:
+                    return ConvertLayerElementColor101(obj, state);
+
+                default:
+                    throw new ConversionException(versionp.Location,
+                        string.Format(
+                            "Unknown version in LayerElementColor: {0}",
+                            version));
+            }
+        }
+
+        public static FbxLayerElementVertexColor ConvertLayerElementColor101(ParseObject obj, ConversionState state)
+        {
+            var colors = new FbxLayerElementVertexColor();
+
+            foreach (var prop in obj.Properties)
+            {
+                switch (prop.Name)
+                {
+                    case "Version":
+                        var version = ((Number)prop.Values[0]).AsLong.Value;
+                        if (version != 101)
+                            throw new ConversionException(prop.Location, string.Format("Unknown Version in LayerElementColor. Expected '101'. Got '{0}' instead.", version));
+                        break;
+                    case "Name":
+                        colors.Name = ((string)prop.Values[0]);
+                        break;
+                    case "MappingInformationType":
+                        colors.MappingMode = ConvertMappingInformationType(
+                            prop, state);
+                        if (colors.MappingMode != FbxLayerElement.EMappingMode.ByPolygonVertex)
+                            throw new ConversionException(
+                                prop.Location,
+                                string.Format(
+                                    "Unsupported MappingInformationType: {0}",
+                                    colors.MappingMode));
+                        break;
+                    case "ReferenceInformationType":
+                        colors.ReferenceMode = ConvertReferenceInformationType(
+                            prop, state);
+                        if (colors.ReferenceMode != FbxLayerElement.EReferenceMode.IndexToDirect)
+                            throw new ConversionException(
+                                prop.Location,
+                                string.Format(
+                                    "Unsupported ReferenceInformationType: {0}",
+                                    colors.ReferenceMode));
+                        break;
+                    case "Colors":
+                        colors.GetDirectArray().List.AddRange(
+                            prop.Properties[0].Values
+                            .Select(n => ((Number)n).AsDouble.Value)
+                            .ToColorList());
+                        break;
+                    case "ColorIndex":
+                        colors.GetIndexArray().List.AddRange(
+                            prop.Properties[0].Values
+                            .Select(n => (int)((Number)n).AsLong.Value));
+                        break;
+                    default:
+                        throw new ConversionException(
+                            prop.Location,
+                            string.Format(
+                                "Unknown property in FbxLayerElementVertexColor. Expected 'Version', 'Name', 'MappingInformationType', 'ReferenceInformationType', 'Colors', or 'ColorIndex'. Got '{0}' instead.",
+                                prop.Name));
+                }
+            }
+
+            return colors;
         }
 
         public static FbxLayerElement.EMappingMode ConvertMappingInformationType(ParseObject obj, ConversionState state)

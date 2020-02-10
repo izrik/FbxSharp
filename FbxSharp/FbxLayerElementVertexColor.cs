@@ -2,11 +2,8 @@
 
 namespace FbxSharp
 {
-    public class FbxLayerElementVertexColor
+    public class FbxLayerElementVertexColor : FbxLayerElementTemplate<FbxColor>
     {
-        public FbxLayerElementVertexColor()
-        {
-        }
     }
 }
 

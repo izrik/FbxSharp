@@ -47,6 +47,8 @@ namespace FbxSharp
 
         public ParseObject FindPropertyByName(string name)
         {
+            // Returns the first property found with the given name, or null if
+            // no such property was found.
             return this.Properties.Find(p => p.Name == name);
         }
     }
