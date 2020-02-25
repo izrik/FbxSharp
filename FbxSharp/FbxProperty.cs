@@ -348,7 +348,14 @@ namespace FbxSharp
         {
             if (pAnimStack == null) return null;
 
-            var currentLayers = new HashSet<FbxAnimLayer>(pAnimStack.GetSrcObjects<FbxAnimLayer>());
+            var currentLayers = new HashSet<FbxAnimLayer>();
+            int j;
+            for (j = 0; j < pAnimStack.GetSrcObjectCount(); j++)
+            {
+                var src = pAnimStack.GetSrcObject(j);
+                if (src is FbxAnimLayer)
+                    currentLayers.Add(src as FbxAnimLayer);
+            }
 
             foreach (var src in SrcObjects)
             {
