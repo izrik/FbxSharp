@@ -392,27 +392,6 @@ namespace FbxSharp
 
         #endregion
 
-        #region Extended Object Connection and Relationship Management
-
-        public IEnumerable<T> GetSrcObjects<T>()
-        {
-            return SrcObjects.Where(obj => obj is T).Cast<T>();
-        }
-
-        public IEnumerable<T> GetDstObjects<T>()
-            where T : FbxObject
-        {
-            foreach (var dst in DstObjects)
-            {
-                if (dst is T)
-                {
-                    yield return (T)dst;
-                }
-            }
-        }
-
-        #endregion
-
         #region Property Management
 
         public readonly FbxObjectPropertyCollection Properties;
