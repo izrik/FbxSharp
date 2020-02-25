@@ -8,7 +8,6 @@ namespace FbxSharp
             : base(name)
         {
             this.Properties.Add(Color);
-            nodes = DstObjects.CreateCollectionView<FbxNode>();
         }
 
         public enum EAttributeType
@@ -47,15 +46,14 @@ namespace FbxSharp
             return AttributeType;
         }
 
-        readonly CollectionView<FbxNode> nodes;
         public int GetNodeCount()
         {
-            return nodes.Count;
+            return GetDstObjectCount<FbxNode>();
         }
 
         public FbxNode GetNode(int pIndex=0)
         {
-            return nodes[pIndex];
+            return GetDstObject<FbxNode>(pIndex);
         }
 
         #endregion
