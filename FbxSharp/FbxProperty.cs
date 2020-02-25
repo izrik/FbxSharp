@@ -348,15 +348,6 @@ namespace FbxSharp
         {
             if (pAnimStack == null) return null;
 
-            var currentLayers = new HashSet<FbxAnimLayer>();
-            int j;
-            for (j = 0; j < pAnimStack.GetSrcObjectCount(); j++)
-            {
-                var src = pAnimStack.GetSrcObject(j);
-                if (src is FbxAnimLayer)
-                    currentLayers.Add(src as FbxAnimLayer);
-            }
-
             foreach (var src in SrcObjects)
             {
                 if (!(src is FbxAnimCurveNode)) continue;
@@ -366,8 +357,12 @@ namespace FbxSharp
                 for (i = 0; i < n; i++)
                 {
                     var layer = acn.GetDstObject<FbxAnimLayer>(i);
-                    if (currentLayers.Contains(layer))
-                        return acn;
+                    int j;
+                    for (j = 0; j < pAnimStack.GetSrcObjectCount(); j++)
+                    {
+                        if (pAnimStack.GetSrcObject(j) == layer)
+                            return acn;
+                    }
                 }
             }
             return null;
