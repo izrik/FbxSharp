@@ -207,8 +207,20 @@ namespace FbxSharp
         }
 
         public T GetSrcObject<T>(int pIndex=0)
+            where T : FbxObject
         {
-            return SrcObjects.Where(obj => obj is T).Cast<T>().ElementAt(pIndex);
+            int i;
+            int n = GetSrcObjectCount();
+            for (i = 0; i < n; i++)
+            {
+                if (SrcObjects[i] is T)
+                {
+                    if (pIndex <= 0) return (T)(SrcObjects[i]);
+                    pIndex--;
+                }
+            }
+
+            return null;
         }
 
         public T GetSrcObject<T>(FbxCriteria pCriteria, int pIndex=0)
@@ -300,8 +312,23 @@ namespace FbxSharp
         }
 
         public bool DisconnectAllDstObject<T>()
+            where T : FbxObject
         {
-            throw new NotImplementedException();
+            int n = GetDstObjectCount<T>();
+            var objectsToDisconnect = new T[n];
+            int i;
+            for (i = 0; i < n; i++)
+            {
+                objectsToDisconnect[i] = GetDstObject<T>(i);
+            }
+            bool succeeded = true;
+            foreach (var obj in objectsToDisconnect)
+            {
+                // failure modes?
+                succeeded &= DisconnectDstObject(obj);
+            }
+
+            return succeeded;
         }
 
         public bool DisconnectAllDstObject<T>(FbxCriteria pCriteria)
@@ -310,8 +337,20 @@ namespace FbxSharp
         }
 
         public int GetDstObjectCount<T>()
+            where T : FbxObject
         {
-            throw new NotImplementedException();
+            // TODO: cache the count for various types.
+            // TODO: clear the cache when the collection changes.
+
+            int i;
+            int k = 0;
+            int n = GetDstObjectCount();
+            for (i = 0; i < n; i++)
+            {
+                if (DstObjects[i] is T) k++;
+            }
+
+            return k;
         }
 
         public int GetDstObjectCount<T>(FbxCriteria pCriteria)
@@ -320,8 +359,20 @@ namespace FbxSharp
         }
 
         public T GetDstObject<T>(int pIndex=0)
+            where T : FbxObject
         {
-            throw new NotImplementedException();
+            int i;
+            int n = GetDstObjectCount();
+            for (i = 0; i < n; i++)
+            {
+                if (DstObjects[i] is T)
+                {
+                    if (pIndex <= 0) return (T)(DstObjects[i]);
+                    pIndex--;
+                }
+            }
+
+            return null;
         }
 
         public T GetDstObject<T>(FbxCriteria pCriteria, int pIndex=0)
@@ -349,8 +400,15 @@ namespace FbxSharp
         }
 
         public IEnumerable<T> GetDstObjects<T>()
+            where T : FbxObject
         {
-            return DstObjects.Where(obj => obj is T).Cast<T>();
+            foreach (var dst in DstObjects)
+            {
+                if (dst is T)
+                {
+                    yield return (T)dst;
+                }
+            }
         }
 
         #endregion

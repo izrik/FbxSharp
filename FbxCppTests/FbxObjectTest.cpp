@@ -538,6 +538,8 @@ void FbxObject_TypedGetSrcObject_GetsObjectOfThatType()
     AssertEqual(mesh2, obj->GetSrcObject<FbxNodeAttribute>(1));
     AssertEqual(mesh3, obj->GetSrcObject<FbxNodeAttribute>(2));
     AssertEqual(light, obj->GetSrcObject<FbxNodeAttribute>(3));
+
+    AssertEqual(NULL, obj->GetSrcObject<FbxCamera>(0));
 }
 
 void FbxObject_TypedDisconnectAllSrcObject_DisconnectsAllSrcObjectOfThatType()
@@ -634,6 +636,178 @@ void FbxObject_TypedDisconnectAllSrcObjectWithInheritance_DisconnectsAllSrcObjec
     AssertEqual(0, light->GetDstObjectCount());
 }
 
+void FbxObject_TypedGetDstObjectCount_GetsCountOfObjectsOfThatType()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "asdf");
+    FbxMesh* mesh1 = FbxMesh::Create(manager, "mesh1");
+    FbxMesh* mesh2 = FbxMesh::Create(manager, "mesh2");
+    FbxNode* node = FbxNode::Create(manager, "node");
+    FbxMesh* mesh3 = FbxMesh::Create(manager, "mesh3");
+    FbxLight* light = FbxLight::Create(manager, "light");
+    obj->ConnectDstObject(mesh1);
+    obj->ConnectDstObject(mesh2);
+    obj->ConnectDstObject(node);
+    obj->ConnectDstObject(mesh3);
+    obj->ConnectDstObject(light);
+
+    // require:
+    AssertEqual(5, obj->GetDstObjectCount());
+    AssertEqual(mesh1, obj->GetDstObject(0));
+    AssertEqual(mesh2, obj->GetDstObject(1));
+    AssertEqual(node, obj->GetDstObject(2));
+    AssertEqual(mesh3, obj->GetDstObject(3));
+    AssertEqual(light, obj->GetDstObject(4));
+
+    // then:
+    AssertEqual(3, obj->GetDstObjectCount<FbxMesh>());
+    AssertEqual(1, obj->GetDstObjectCount<FbxNode>());
+    AssertEqual(1, obj->GetDstObjectCount<FbxLight>());
+    AssertEqual(4, obj->GetDstObjectCount<FbxNodeAttribute>());
+}
+
+void FbxObject_TypedGetDstObject_GetsObjectOfThatType()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "asdf");
+    FbxMesh* mesh1 = FbxMesh::Create(manager, "mesh1");
+    FbxMesh* mesh2 = FbxMesh::Create(manager, "mesh2");
+    FbxNode* node = FbxNode::Create(manager, "node");
+    FbxMesh* mesh3 = FbxMesh::Create(manager, "mesh3");
+    FbxLight* light = FbxLight::Create(manager, "light");
+    obj->ConnectDstObject(mesh1);
+    obj->ConnectDstObject(mesh2);
+    obj->ConnectDstObject(node);
+    obj->ConnectDstObject(mesh3);
+    obj->ConnectDstObject(light);
+
+    // require:
+    AssertEqual(5, obj->GetDstObjectCount());
+    AssertEqual(mesh1, obj->GetDstObject(0));
+    AssertEqual(mesh2, obj->GetDstObject(1));
+    AssertEqual(node, obj->GetDstObject(2));
+    AssertEqual(mesh3, obj->GetDstObject(3));
+    AssertEqual(light, obj->GetDstObject(4));
+
+    AssertEqual(3, obj->GetDstObjectCount<FbxMesh>());
+    AssertEqual(1, obj->GetDstObjectCount<FbxNode>());
+    AssertEqual(1, obj->GetDstObjectCount<FbxLight>());
+    AssertEqual(4, obj->GetDstObjectCount<FbxNodeAttribute>());
+
+    // then:
+    AssertEqual(mesh1, obj->GetDstObject<FbxMesh>());
+    AssertEqual(mesh1, obj->GetDstObject<FbxMesh>(0));
+    AssertEqual(mesh2, obj->GetDstObject<FbxMesh>(1));
+    AssertEqual(mesh3, obj->GetDstObject<FbxMesh>(2));
+    AssertEqual(node, obj->GetDstObject<FbxNode>());
+    AssertEqual(node, obj->GetDstObject<FbxNode>(0));
+    AssertEqual(light, obj->GetDstObject<FbxLight>());
+    AssertEqual(light, obj->GetDstObject<FbxLight>(0));
+    AssertEqual(mesh1, obj->GetDstObject<FbxNodeAttribute>());
+    AssertEqual(mesh1, obj->GetDstObject<FbxNodeAttribute>(0));
+    AssertEqual(mesh2, obj->GetDstObject<FbxNodeAttribute>(1));
+    AssertEqual(mesh3, obj->GetDstObject<FbxNodeAttribute>(2));
+    AssertEqual(light, obj->GetDstObject<FbxNodeAttribute>(3));
+
+    AssertEqual(NULL, obj->GetDstObject<FbxCamera>(0));
+}
+
+void FbxObject_TypedDisconnectAllDstObject_DisconnectsAllDstObjectOfThatType()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "asdf");
+    FbxMesh* mesh1 = FbxMesh::Create(manager, "mesh1");
+    FbxNode* node = FbxNode::Create(manager, "node");
+    FbxMesh* mesh2 = FbxMesh::Create(manager, "mesh2");
+    obj->ConnectDstObject(mesh1);
+    obj->ConnectDstObject(node);
+    obj->ConnectDstObject(mesh2);
+
+    // require:
+    AssertEqual(3, obj->GetDstObjectCount());
+    AssertEqual(mesh1, obj->GetDstObject(0));
+    AssertEqual(node, obj->GetDstObject(1));
+    AssertEqual(mesh2, obj->GetDstObject(2));
+
+    AssertEqual(2, obj->GetDstObjectCount<FbxMesh>());
+    AssertEqual(1, obj->GetDstObjectCount<FbxNode>());
+
+    AssertEqual(1, mesh1->GetSrcObjectCount());
+    AssertEqual(1, node->GetSrcObjectCount());
+    AssertEqual(1, mesh2->GetSrcObjectCount());
+
+    // when:
+    bool ret = obj->DisconnectAllDstObject<FbxMesh>();
+
+    // then:
+    AssertTrue(ret);
+    AssertEqual(1, obj->GetDstObjectCount());
+    AssertEqual(node, obj->GetDstObject());
+    AssertEqual(node, obj->GetDstObject(0));
+
+    AssertEqual(0, obj->GetDstObjectCount<FbxMesh>());
+
+    AssertEqual(1, obj->GetDstObjectCount<FbxNode>());
+    AssertEqual(node, obj->GetDstObject<FbxNode>());
+    AssertEqual(node, obj->GetDstObject<FbxNode>(0));
+
+    AssertEqual(0, mesh1->GetSrcObjectCount());
+    AssertEqual(1, node->GetSrcObjectCount());
+    AssertEqual(0, mesh2->GetSrcObjectCount());
+}
+
+void FbxObject_TypedDisconnectAllDstObjectWithInheritance_DisconnectsAllDstObjectOfThatType()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "asdf");
+    FbxMesh* mesh1 = FbxMesh::Create(manager, "mesh1");
+    FbxNode* node = FbxNode::Create(manager, "node");
+    FbxLight* light = FbxLight::Create(manager, "light");
+    obj->ConnectDstObject(mesh1);
+    obj->ConnectDstObject(node);
+    obj->ConnectDstObject(light);
+
+    // require:
+    AssertEqual(3, obj->GetDstObjectCount());
+    AssertEqual(mesh1, obj->GetDstObject(0));
+    AssertEqual(node, obj->GetDstObject(1));
+    AssertEqual(light, obj->GetDstObject(2));
+
+    AssertEqual(1, obj->GetDstObjectCount<FbxMesh>());
+    AssertEqual(1, obj->GetDstObjectCount<FbxNode>());
+    AssertEqual(1, obj->GetDstObjectCount<FbxLight>());
+    AssertEqual(2, obj->GetDstObjectCount<FbxNodeAttribute>());
+
+    AssertEqual(1, mesh1->GetSrcObjectCount());
+    AssertEqual(1, node->GetSrcObjectCount());
+    AssertEqual(1, light->GetSrcObjectCount());
+
+    // when:
+    bool ret = obj->DisconnectAllDstObject<FbxNodeAttribute>();
+
+    // then:
+    AssertTrue(ret);
+    AssertEqual(1, obj->GetDstObjectCount());
+    AssertEqual(node, obj->GetDstObject());
+    AssertEqual(node, obj->GetDstObject(0));
+
+    AssertEqual(0, obj->GetDstObjectCount<FbxMesh>());
+    AssertEqual(0, obj->GetDstObjectCount<FbxLight>());
+    AssertEqual(0, obj->GetDstObjectCount<FbxNodeAttribute>());
+
+    AssertEqual(1, obj->GetDstObjectCount<FbxNode>());
+    AssertEqual(node, obj->GetDstObject<FbxNode>());
+    AssertEqual(node, obj->GetDstObject<FbxNode>(0));
+
+    AssertEqual(0, mesh1->GetSrcObjectCount());
+    AssertEqual(1, node->GetSrcObjectCount());
+    AssertEqual(0, light->GetSrcObjectCount());
+}
+
 void FbxObjectTest::RegisterTestCases()
 {
     AddTestCase(FbxObject_Create_HasZeroProperties);
@@ -672,5 +846,9 @@ void FbxObjectTest::RegisterTestCases()
     AddTestCase(FbxObject_TypedGetSrcObject_GetsObjectOfThatType);
     AddTestCase(FbxObject_TypedDisconnectAllSrcObject_DisconnectsAllSrcObjectOfThatType);
     AddTestCase(FbxObject_TypedDisconnectAllSrcObjectWithInheritance_DisconnectsAllSrcObjectOfThatType);
+    AddTestCase(FbxObject_TypedGetDstObjectCount_GetsCountOfObjectsOfThatType);
+    AddTestCase(FbxObject_TypedGetDstObject_GetsObjectOfThatType);
+    AddTestCase(FbxObject_TypedDisconnectAllDstObject_DisconnectsAllDstObjectOfThatType);
+    AddTestCase(FbxObject_TypedDisconnectAllDstObjectWithInheritance_DisconnectsAllDstObjectOfThatType);
 }
 
