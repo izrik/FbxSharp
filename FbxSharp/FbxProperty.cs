@@ -354,8 +354,11 @@ namespace FbxSharp
             {
                 if (!(src is FbxAnimCurveNode)) continue;
                 var acn = (FbxAnimCurveNode)src;
-                foreach (var layer in acn.GetDstObjects<FbxAnimLayer>())
+                int i;
+                int n = acn.GetDstObjectCount<FbxAnimLayer>();
+                for (i = 0; i < n; i++)
                 {
+                    var layer = acn.GetDstObject<FbxAnimLayer>(i);
                     if (currentLayers.Contains(layer))
                         return acn;
                 }
