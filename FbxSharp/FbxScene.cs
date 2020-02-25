@@ -235,9 +235,10 @@ namespace FbxSharp
             if (!Nodes.Contains(pNode))
             {
                 ConnectSrcObject(pNode);
-                foreach (var child in pNode.ChildNodes)
+                foreach (var src in pNode.SrcObjects)
                 {
-                    AddNode(child);
+                    if (src is FbxNode)
+                        AddNode(src as FbxNode);
                 }
                 return true;
             }
@@ -250,9 +251,10 @@ namespace FbxSharp
             if (Nodes.Contains(pNode))
             {
                 DisconnectSrcObject(pNode);
-                foreach (var child in pNode.ChildNodes)
+                foreach (var src in pNode.SrcObjects)
                 {
-                    RemoveNode(child);
+                    if (src is FbxNode)
+                        RemoveNode(src as FbxNode);
                 }
                 return true;
             }
