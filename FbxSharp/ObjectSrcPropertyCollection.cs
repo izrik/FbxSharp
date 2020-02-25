@@ -86,9 +86,14 @@ namespace FbxSharp
             _list.CopyTo(array, arrayIndex);
         }
 
-        public virtual IEnumerator<FbxProperty> GetEnumerator()
+        public List<FbxProperty>.Enumerator GetEnumerator()
         {
             return _list.GetEnumerator();
+        }
+
+        IEnumerator<FbxProperty> IEnumerable<FbxProperty>.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         //IList<Property>
