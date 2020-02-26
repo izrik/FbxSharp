@@ -33,7 +33,7 @@ namespace FbxSharp
 		get { return new InputLocation(index, line, column, Filename); }
 	}
         TokenType currentTokenType = TokenType.None;
-        readonly List<char> newTokenChars = new List<char>();
+        readonly StringBuilder newTokenChars = new StringBuilder();
         InputLocation tokenLocation;
         char lastChar = '\0';
 
@@ -67,7 +67,7 @@ namespace FbxSharp
 
                             CurrentLocation,
                             string.Format("Unknown character '{0}'", ch.ToString()));
-                    newTokenChars.Clear();
+                    newTokenChars.Length = 0;
                     tokenLocation = new InputLocation(line, column, index, Filename);
                     if (currentTokenType == TokenType.String) startString = true;
                 }
@@ -75,10 +75,10 @@ namespace FbxSharp
 
                 if (IsValidChar(currentTokenType, ch))
                 {
-                    newTokenChars.Add(ch);
+                    newTokenChars.Append(ch);
                     if (!startString && IsForceEndChar(currentTokenType, ch))
                     {
-                        var value = new string(newTokenChars.ToArray());
+                        var value = newTokenChars.ToString();
                         var token = new Token(currentTokenType, value, tokenLocation);
                         currentTokenType = TokenType.None;
                         if (!ShouldIgnoreToken(token))
@@ -94,7 +94,7 @@ namespace FbxSharp
                 }
                 else if (IsEndingChar(currentTokenType, lastChar))
                 {
-                    var value = new string(newTokenChars.ToArray());
+                    var value = newTokenChars.ToString();
                     var token = new Token(currentTokenType, value, tokenLocation);
 
                     currentTokenType = GetNewTokenType(ch);
@@ -102,8 +102,8 @@ namespace FbxSharp
                         throw new TokenizationException(
                             CurrentLocation,
                             string.Format("Unknown character '{0}'", ch.ToString()));
-                    newTokenChars.Clear();
-                    newTokenChars.Add(ch);
+                    newTokenChars.Length = 0;
+                    newTokenChars.Append(ch);
                     tokenLocation = new InputLocation(line, column, index, Filename);
                     if (!ShouldIgnoreToken(token))
                     {
@@ -129,7 +129,7 @@ namespace FbxSharp
                         "Bad ending char");
                 }
 
-                var value = new string(newTokenChars.ToArray());
+                var value = newTokenChars.ToString();
                 var token = new Token(currentTokenType, value, tokenLocation);
                 if (!ShouldIgnoreToken(token))
                 {

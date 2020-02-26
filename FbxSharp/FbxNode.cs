@@ -82,9 +82,6 @@ namespace FbxSharp
                     Freeze,
                     LODBox});
 
-            this.ChildNodes = SrcObjects.CreateCollectionView<FbxNode>();
-            _parentNode = DstObjects.CreateObjectView<FbxNode>();
-
             DefaultAttributeIndex.Set(-1);
             nodeAttributes = SrcObjects.CreateCollectionView<FbxNodeAttribute>();
             Materials = SrcObjects.CreateCollectionView<FbxSurfaceMaterial>();
@@ -129,9 +126,10 @@ namespace FbxSharp
             var node = obj as FbxNode;
             if (node != null)
             {
-                foreach (var child in node.ChildNodes)
+                foreach (var src in node.SrcObjects)
                 {
-                    ConnectScene(child);
+                    if (src is FbxNode)
+                        ConnectScene(src as FbxNode);
                 }
             }
         }
@@ -164,30 +162,29 @@ namespace FbxSharp
             {
                 child.DisconnectDstObject(child.Scene);
             }
-            foreach (var subchild in child.ChildNodes)
+            foreach (var src in child.SrcObjects)
             {
-                DisconnectScene(subchild);
+                if (src is FbxNode)
+                    DisconnectScene(src as FbxNode);
             }
         }
 
         //Get the number of children nodes.
         public int GetChildCount()//bool pRecursive = false)
         {
-            return ChildNodes.Count;
+            return GetSrcObjectCount<FbxNode>();
         }
 
         //Get child by index.
         public FbxNode GetChild(int pIndex)
         {
-            return ChildNodes[pIndex];
+            return GetSrcObject<FbxNode>(pIndex);
         }
 
-        private ObjectView<FbxNode> _parentNode;
         public FbxNode ParentNode
         {
-            get { return _parentNode.Get(); }
+            get { return GetDstObject<FbxNode>(); }
         }
-        public readonly CollectionView<FbxNode> ChildNodes;
 
         //Finds a child node by name.
         //FbxNode *   FindChild (const char *pName, bool pRecursive=true, bool pInitial=false)
