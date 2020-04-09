@@ -114,8 +114,10 @@ namespace FbxSharp
                     var matelem = layer.GetMaterials();
                     if (matelem == null) continue;
 
-                    foreach (var mi in matelem.MaterialIndexes.List)
+                    int mii;
+                    for (mii = 0; mii < matelem.MaterialIndexes.List.Count; mii++)
                     {
+                        var mi = matelem.MaterialIndexes.List[mii];
                         var mat = node.Materials[mi];
                         matelem.GetDirectArray().Add(mat);
                     }
