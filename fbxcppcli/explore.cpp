@@ -6,12 +6,15 @@
 #include <sstream>
 #include <objects.h>
 #include <print.h>
+#include <stack>
 
 void Explore(FbxScene* scene)
 {
     std::string prompt = ">>> ";
 
     FbxObject* obj = scene;
+    std::stack<FbxObject*> history;
+    history.push(scene);
     while (true)
     {
         std::string s;
@@ -182,8 +185,20 @@ void Explore(FbxScene* scene)
             }
 
             obj = next;
+            history.push(next);
             std::cout << "$"; PrintObjectID(obj); std::cout << std::endl;
             continue;
+        }
+        else if (command == "back")
+        {
+            if (history.size() <= 1)
+            {
+                std::cout << "No previous object to go back to." << std::endl;
+                continue;
+            }
+            history.pop();
+            obj = history.top();
+            std::cout << "$"; PrintObjectID(obj); std::cout << std::endl;
         }
         else
         {
