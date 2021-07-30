@@ -46,6 +46,7 @@ void Explore(FbxScene* scene)
             std::cout << "  ls    - List connections of the current object" << std::endl;
             std::cout << "  cd    - Change to a different object" << std::endl;
             std::cout << "  back  - Return to the previous object" << std::endl;
+            // TODO: Command class
         }
         else if (command == ".")
         {
@@ -57,6 +58,8 @@ void Explore(FbxScene* scene)
         }
         else if (command == "ls")
         {
+            // TODO: filter on object type
+            // TODO: paging or something
             if (tokens.size() >= 2)
             {
                 std::string& target = tokens[1];
