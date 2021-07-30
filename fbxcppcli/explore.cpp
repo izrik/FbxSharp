@@ -39,6 +39,13 @@ void Explore(FbxScene* scene)
 
         if (command == "help")
         {
+            std::cout << "Available commands:" << std::endl;
+            std::cout << "  help  - This text" << std::endl;
+            std::cout << "  .     - Print the ID of the current object" << std::endl;
+            std::cout << "  print - Print the full object graph of the current object" << std::endl;
+            std::cout << "  ls    - List connections of the current object" << std::endl;
+            std::cout << "  cd    - Change to a different object" << std::endl;
+            std::cout << "  back  - Return to the previous object" << std::endl;
         }
         else if (command == ".")
         {
