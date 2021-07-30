@@ -187,7 +187,7 @@ void Explore(FbxScene* scene)
         }
         else
         {
-            std::cout << "Unknwon command \"" << command << "\"" << std::endl;
+            std::cout << "Unknown command \"" << command << "\"" << std::endl;
         }
     }
 }
