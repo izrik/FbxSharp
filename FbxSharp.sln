@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxSharpTests", "FbxSharpTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCaseGenerator", "TestCaseGenerator\TestCaseGenerator.csproj", "{707C5B46-379B-4668-B0A5-4AA97CFEFDAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxPrint", "FbxPrint\FbxPrint.csproj", "{FCDEFA16-DF1A-4EC3-B0CA-D0B9CD6C2EB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxCli", "FbxPrint\FbxPrint.csproj", "{FCDEFA16-DF1A-4EC3-B0CA-D0B9CD6C2EB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxCppTests", "FbxCppTests\FbxCppTests.csproj", "{437E8B3C-CCD7-451B-8424-40F7F2A250E4}"
 EndProject

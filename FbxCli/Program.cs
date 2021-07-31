@@ -1,4 +1,4 @@
-﻿using NCommander;
+using NCommander;
 
 namespace FbxCli
 {

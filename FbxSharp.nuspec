@@ -20,6 +20,6 @@
   </metadata>
   <files>
     <file src="bin/Debug/FbxSharp.dll" target="lib/net40" />
-    <file src="FbxPrint/bin/Debug/FbxPrint.exe" target="tools" />
+    <file src="FbxCli/bin/Debug/FbxCli.exe" target="tools" />
   </files>
 </package>
