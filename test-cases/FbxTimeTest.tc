@@ -1,4 +1,11 @@
 ﻿fixture FbxTimeTest
+test FbxTime_Constants
+    expect
+#cs AssertEqual(141120L, FbxTime::FBXSDK_TC_MILLISECOND)
+#cpp AssertEqual(141120L, FBXSDK_TC_MILLISECOND)
+#cs AssertEqual(141120000L, FbxTime::FBXSDK_TC_SECOND)
+#cpp AssertEqual(141120000L, FBXSDK_TC_SECOND)
+
 test FbxTime_CreateLongLong_HasSeconds
     given
     FbxTime* time

@@ -10,6 +10,7 @@ namespace FbxSharp
         public const long UnitsPerSecond = 141120000L;
 
         public const long FBXSDK_TC_MILLISECOND = 141120L;
+        public const long FBXSDK_TC_SECOND = 141120000L;
         public const long FBXSDK_TC_LEGACY_MILLISECOND = 46186158L;
 
         public const int FBXSDK_TC_STANDARD_DEFINITION = 0;

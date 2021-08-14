@@ -8,6 +8,14 @@ namespace FbxSharpTests
     public class FbxTimeTest : TestBase
     {
         [Test]
+        public void FbxTime_Constants()
+        {
+            // expect:
+            Assert.AreEqual(141120L, FbxTime.FBXSDK_TC_MILLISECOND);
+            Assert.AreEqual(141120000L, FbxTime.FBXSDK_TC_SECOND);
+        }
+
+        [Test]
         public void FbxTime_CreateLongLong_HasSeconds()
         {
             // given:
