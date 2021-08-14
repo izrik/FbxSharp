@@ -201,25 +201,25 @@ namespace FbxSharpTests
         }
 
         [Test]
-        public void FbxTime_GetFrameCountPrecise_FractionYieldsInteger()
+        public void FbxTime_GetFrameCountPrecise_FractionYieldsFraction()
         {
             // given:
             var time = new FbxTime(4703999);
             // when:
             var result = time.GetFrameCountPrecise();
             // then:
-            Assert.AreEqual(0, result, 0);
+            Assert.AreEqual(0.999999787414966, result, 0);
         }
 
         [Test]
-        public void FbxTime_GetFrameCountPrecise_FractionYieldsInteger2()
+        public void FbxTime_GetFrameCountPrecise_FractionYieldsFraction2()
         {
             // given:
             var time = new FbxTime(4704001);
             // when:
             var result = time.GetFrameCountPrecise();
             // then:
-            Assert.AreEqual(1, result, 0);
+            Assert.AreEqual(1.000000212585034, result, 0);
         }
     }
 }

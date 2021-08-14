@@ -81,7 +81,7 @@ test FbxTime_GetMilliSeconds_ZeroYieldsCount
     given
     FbxTime time = new(0)
     when
-    int result = time.GetMilliSeconds()
+    long result = time.GetMilliSeconds()
     then
     AssertEqual(0, result)
 
@@ -89,7 +89,7 @@ test FbxTime_GetMilliSeconds_OneYieldsCount
      given
      FbxTime time = new(141120L)
      when
-     int result = time.GetMilliSeconds()
+     long result = time.GetMilliSeconds()
      then
      AssertEqual(1, result)
 
@@ -97,7 +97,7 @@ test FbxTime_GetMilliSeconds_FractionYieldsCount
      given
      FbxTime time = new(70560L)
      when
-     int result = time.GetMilliSeconds()
+     long result = time.GetMilliSeconds()
      then
      AssertEqual(0, result)
 
@@ -105,7 +105,7 @@ test FbxTime_GetMilliSeconds_FractionYieldsCount2
      given
      FbxTime time = new(141119L)
      when
-     int result = time.GetMilliSeconds()
+     long result = time.GetMilliSeconds()
      then
      AssertEqual(0, result)
 
@@ -113,7 +113,7 @@ test FbxTime_GetMilliSeconds_FractionYieldsCount3
      given
      FbxTime time = new(141121L)
      when
-     int result = time.GetMilliSeconds()
+     long result = time.GetMilliSeconds()
      then
      AssertEqual(1, result)
 
@@ -121,7 +121,7 @@ test FbxTime_GetMilliSeconds_NegativeYieldsCount
      given
      FbxTime time = new(-141120L)
      when
-     int result = time.GetMilliSeconds()
+     long result = time.GetMilliSeconds()
      then
      AssertEqual(-1, result)
 
@@ -129,7 +129,7 @@ test FbxTime_GetFrameCountPrecise_ZeroYieldsZero
     given
     FbxTime time = new(0)
     when
-    int result = time.GetFrameCountPrecise()
+    double result = time.GetFrameCountPrecise()
     then
     AssertEqual(0, result, 0)
 
@@ -137,7 +137,7 @@ test FbxTime_GetFrameCountPrecise_OneYieldsOne
     given
     FbxTime time = new(4704000L)
     when
-    int result = time.GetFrameCountPrecise()
+    double result = time.GetFrameCountPrecise()
     then
     AssertEqual(1, result, 0)
 
@@ -145,22 +145,22 @@ test FbxTime_GetFrameCountPrecise_NegativeYieldsNegative
     given
     FbxTime time = new(-4704000)
     when
-    int result = time.GetFrameCountPrecise()
+    double result = time.GetFrameCountPrecise()
     then
     AssertEqual(-1, result, 0)
 
-test FbxTime_GetFrameCountPrecise_FractionYieldsInteger
+test FbxTime_GetFrameCountPrecise_FractionYieldsFraction
     given
     FbxTime time = new(4703999)
     when
-    int result = time.GetFrameCountPrecise()
+    double result = time.GetFrameCountPrecise()
     then
-    AssertEqual(0, result, 0)
+    AssertEqual(0.999999787414966, result, 0)
 
-test FbxTime_GetFrameCountPrecise_FractionYieldsInteger2
+test FbxTime_GetFrameCountPrecise_FractionYieldsFraction2
     given
     FbxTime time = new(4704001)
     when
-    int result = time.GetFrameCountPrecise()
+    double result = time.GetFrameCountPrecise()
     then
-    AssertEqual(1, result, 0)
+    AssertEqual(1.000000212585034, result, 0)

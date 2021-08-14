@@ -102,7 +102,7 @@ void FbxTime_GetMilliSeconds_ZeroYieldsCount()
     FbxManager* manager = FbxManager::Create();
     FbxTime* time = new FbxTime(0);
     // when:
-    int result = time->GetMilliSeconds();
+    long result = time->GetMilliSeconds();
     // then:
     AssertEqual(0, result);
 }
@@ -113,7 +113,7 @@ void FbxTime_GetMilliSeconds_OneYieldsCount()
     FbxManager* manager = FbxManager::Create();
     FbxTime* time = new FbxTime(141120L);
     // when:
-    int result = time->GetMilliSeconds();
+    long result = time->GetMilliSeconds();
     // then:
     AssertEqual(1, result);
 }
@@ -124,7 +124,7 @@ void FbxTime_GetMilliSeconds_FractionYieldsCount()
     FbxManager* manager = FbxManager::Create();
     FbxTime* time = new FbxTime(70560L);
     // when:
-    int result = time->GetMilliSeconds();
+    long result = time->GetMilliSeconds();
     // then:
     AssertEqual(0, result);
 }
@@ -135,7 +135,7 @@ void FbxTime_GetMilliSeconds_FractionYieldsCount2()
     FbxManager* manager = FbxManager::Create();
     FbxTime* time = new FbxTime(141119L);
     // when:
-    int result = time->GetMilliSeconds();
+    long result = time->GetMilliSeconds();
     // then:
     AssertEqual(0, result);
 }
@@ -146,7 +146,7 @@ void FbxTime_GetMilliSeconds_FractionYieldsCount3()
     FbxManager* manager = FbxManager::Create();
     FbxTime* time = new FbxTime(141121L);
     // when:
-    int result = time->GetMilliSeconds();
+    long result = time->GetMilliSeconds();
     // then:
     AssertEqual(1, result);
 }
@@ -157,7 +157,7 @@ void FbxTime_GetMilliSeconds_NegativeYieldsCount()
     FbxManager* manager = FbxManager::Create();
     FbxTime* time = new FbxTime(-141120L);
     // when:
-    int result = time->GetMilliSeconds();
+    long result = time->GetMilliSeconds();
     // then:
     AssertEqual(-1, result);
 }
@@ -168,7 +168,7 @@ void FbxTime_GetFrameCountPrecise_ZeroYieldsZero()
     FbxManager* manager = FbxManager::Create();
     FbxTime* time = new FbxTime(0);
     // when:
-    int result = time->GetFrameCountPrecise();
+    double result = time->GetFrameCountPrecise();
     // then:
     AssertEqual(0, result, 0);
 }
@@ -179,7 +179,7 @@ void FbxTime_GetFrameCountPrecise_OneYieldsOne()
     FbxManager* manager = FbxManager::Create();
     FbxTime* time = new FbxTime(4704000L);
     // when:
-    int result = time->GetFrameCountPrecise();
+    double result = time->GetFrameCountPrecise();
     // then:
     AssertEqual(1, result, 0);
 }
@@ -190,31 +190,31 @@ void FbxTime_GetFrameCountPrecise_NegativeYieldsNegative()
     FbxManager* manager = FbxManager::Create();
     FbxTime* time = new FbxTime(-4704000);
     // when:
-    int result = time->GetFrameCountPrecise();
+    double result = time->GetFrameCountPrecise();
     // then:
     AssertEqual(-1, result, 0);
 }
 
-void FbxTime_GetFrameCountPrecise_FractionYieldsInteger()
+void FbxTime_GetFrameCountPrecise_FractionYieldsFraction()
 {
     // given:
     FbxManager* manager = FbxManager::Create();
     FbxTime* time = new FbxTime(4703999);
     // when:
-    int result = time->GetFrameCountPrecise();
+    double result = time->GetFrameCountPrecise();
     // then:
-    AssertEqual(0, result, 0);
+    AssertEqual(0.999999787414966, result, 0);
 }
 
-void FbxTime_GetFrameCountPrecise_FractionYieldsInteger2()
+void FbxTime_GetFrameCountPrecise_FractionYieldsFraction2()
 {
     // given:
     FbxManager* manager = FbxManager::Create();
     FbxTime* time = new FbxTime(4704001);
     // when:
-    int result = time->GetFrameCountPrecise();
+    double result = time->GetFrameCountPrecise();
     // then:
-    AssertEqual(1, result, 0);
+    AssertEqual(1.000000212585034, result, 0);
 }
 
 void FbxTimeTest::RegisterTestCases()
@@ -235,7 +235,7 @@ void FbxTimeTest::RegisterTestCases()
     AddTestCase(FbxTime_GetFrameCountPrecise_ZeroYieldsZero);
     AddTestCase(FbxTime_GetFrameCountPrecise_OneYieldsOne);
     AddTestCase(FbxTime_GetFrameCountPrecise_NegativeYieldsNegative);
-    AddTestCase(FbxTime_GetFrameCountPrecise_FractionYieldsInteger);
-    AddTestCase(FbxTime_GetFrameCountPrecise_FractionYieldsInteger2);
+    AddTestCase(FbxTime_GetFrameCountPrecise_FractionYieldsFraction);
+    AddTestCase(FbxTime_GetFrameCountPrecise_FractionYieldsFraction2);
 }
 
