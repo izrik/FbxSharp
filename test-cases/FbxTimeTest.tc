@@ -26,3 +26,53 @@ test FbxTime_CreateLongLong_HasSeconds
     AssertEqual(-5/30.0, time.GetSecondDouble())
 #cs AssertEqual(-5L, time.GetFrameCount())
 #cpp AssertEqual(-5LL, time.GetFrameCount())
+
+test FbxTime_GetSecondCount_ZeroYieldsCount
+    given
+    FbxTime time = new(0)
+
+    when
+    int result = time.GetSecondCount()
+
+    then
+    AssertEqual(0, result)
+
+test FbxTime_GetSecondCount_OneYieldsCount
+     given
+     FbxTime time = new(141120000L)
+
+     when
+     int result = time.GetSecondCount()
+
+     then
+     AssertEqual(1, result)
+
+test FbxTime_GetSecondCount_FractionYieldsCount
+     given
+     FbxTime time = new(70560000L)
+
+     when
+     int result = time.GetSecondCount()
+
+     then
+     AssertEqual(0, result)
+
+test FbxTime_GetSecondCount_FractionYieldsCount2
+     given
+     FbxTime time = new(141119999L)
+
+     when
+     int result = time.GetSecondCount()
+
+     then
+     AssertEqual(0, result)
+
+test FbxTime_GetSecondCount_FractionYieldsCount3
+     given
+     FbxTime time = new(141120001L)
+
+     when
+     int result = time.GetSecondCount()
+
+     then
+     AssertEqual(1, result)

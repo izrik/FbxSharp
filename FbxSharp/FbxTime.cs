@@ -33,6 +33,11 @@ namespace FbxSharp
             return Value / (double)UnitsPerSecond;
         }
 
+        public int GetSecondCount()
+        {
+            return (int)(Value / UnitsPerSecond);
+        }
+
         public long GetFrameCount()
         {
             return Value / 4704000;
