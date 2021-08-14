@@ -164,3 +164,116 @@ test FbxTime_GetFrameCountPrecise_FractionYieldsFraction2
     double result = time.GetFrameCountPrecise()
     then
     AssertEqual(1.000000212585034, result, 0)
+
+test FbxTime_GetFieldCount_ZeroYieldsZero
+    given
+    FbxTime time = new(0)
+    when
+    long result = time.GetFieldCount()
+    then
+    AssertEqual(0, result)
+
+test FbxTime_GetFieldCount_OneYieldsTwo
+    given
+    FbxTime time = new(4704000L)
+    when
+    long result = time.GetFieldCount()
+    then
+    AssertEqual(2, result)
+
+test FbxTime_GetFieldCount_NegativeYieldsNegative
+    given
+    FbxTime time = new(-4704000)
+    when
+    long result = time.GetFieldCount()
+    then
+    AssertEqual(-2, result)
+
+test FbxTime_GetFieldCount_FractionYieldsInteger
+    given
+    FbxTime time = new(4703999)
+    when
+    long result = time.GetFieldCount()
+    then
+    AssertEqual(1, result)
+
+test FbxTime_GetFieldCount_FractionYieldsInteger2
+    given
+    FbxTime time = new(4704001)
+    when
+    long result = time.GetFieldCount()
+    then
+    AssertEqual(2, result)
+
+test FbxTime_GetFieldCount_NegFractionYieldsInteger
+    given
+    FbxTime time = new(-1)
+    when
+    long result = time.GetFieldCount()
+    then
+    AssertEqual(0, result)
+
+test FbxTime_GetFieldCount_NegFractionYieldsInteger2
+    given
+    FbxTime time = new(-4703999)
+    when
+    long result = time.GetFieldCount()
+    then
+    AssertEqual(-1, result)
+
+test FbxTime_GetFieldCount_NegFractionYieldsInteger3
+    given
+    FbxTime time = new(-4704001)
+    when
+    long result = time.GetFieldCount()
+    then
+    AssertEqual(-2, result)
+
+test FbxTime_GetFieldCount_HalfYieldsOne
+    given
+    FbxTime time = new(2352000)
+    when
+    long result = time.GetFieldCount()
+    then
+    AssertEqual(1, result)
+
+test FbxTime_GetFieldCount_HalfYieldsOne2
+    given
+    FbxTime time = new(2351999)
+    when
+    long result = time.GetFieldCount()
+    then
+    AssertEqual(0, result)
+
+test FbxTime_GetFieldCount_HalfYieldsOne3
+    given
+    FbxTime time = new(2352001)
+    when
+    long result = time.GetFieldCount()
+    then
+    AssertEqual(1, result)
+
+
+test FbxTime_GetFieldCount_NegHalfYieldsOne
+    given
+    FbxTime time = new(-2352000)
+    when
+    long result = time.GetFieldCount()
+    then
+    AssertEqual(-1, result)
+
+test FbxTime_GetFieldCount_NegHalfYieldsOne2
+    given
+    FbxTime time = new(-2351999)
+    when
+    long result = time.GetFieldCount()
+    then
+    AssertEqual(0, result)
+
+test FbxTime_GetFieldCount_NegHalfYieldsOne3
+    given
+    FbxTime time = new(-2352001)
+    when
+    long result = time.GetFieldCount()
+    then
+    AssertEqual(-1, result)

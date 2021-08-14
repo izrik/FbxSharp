@@ -217,6 +217,160 @@ void FbxTime_GetFrameCountPrecise_FractionYieldsFraction2()
     AssertEqual(1.000000212585034, result, 0);
 }
 
+void FbxTime_GetFieldCount_ZeroYieldsZero()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(0);
+    // when:
+    long result = time->GetFieldCount();
+    // then:
+    AssertEqual(0, result);
+}
+
+void FbxTime_GetFieldCount_OneYieldsTwo()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(4704000L);
+    // when:
+    long result = time->GetFieldCount();
+    // then:
+    AssertEqual(2, result);
+}
+
+void FbxTime_GetFieldCount_NegativeYieldsNegative()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(-4704000);
+    // when:
+    long result = time->GetFieldCount();
+    // then:
+    AssertEqual(-2, result);
+}
+
+void FbxTime_GetFieldCount_FractionYieldsInteger()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(4703999);
+    // when:
+    long result = time->GetFieldCount();
+    // then:
+    AssertEqual(1, result);
+}
+
+void FbxTime_GetFieldCount_FractionYieldsInteger2()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(4704001);
+    // when:
+    long result = time->GetFieldCount();
+    // then:
+    AssertEqual(2, result);
+}
+
+void FbxTime_GetFieldCount_NegFractionYieldsInteger()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(-1);
+    // when:
+    long result = time->GetFieldCount();
+    // then:
+    AssertEqual(0, result);
+}
+
+void FbxTime_GetFieldCount_NegFractionYieldsInteger2()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(-4703999);
+    // when:
+    long result = time->GetFieldCount();
+    // then:
+    AssertEqual(-1, result);
+}
+
+void FbxTime_GetFieldCount_NegFractionYieldsInteger3()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(-4704001);
+    // when:
+    long result = time->GetFieldCount();
+    // then:
+    AssertEqual(-2, result);
+}
+
+void FbxTime_GetFieldCount_HalfYieldsOne()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(2352000);
+    // when:
+    long result = time->GetFieldCount();
+    // then:
+    AssertEqual(1, result);
+}
+
+void FbxTime_GetFieldCount_HalfYieldsOne2()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(2351999);
+    // when:
+    long result = time->GetFieldCount();
+    // then:
+    AssertEqual(0, result);
+}
+
+void FbxTime_GetFieldCount_HalfYieldsOne3()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(2352001);
+    // when:
+    long result = time->GetFieldCount();
+    // then:
+    AssertEqual(1, result);
+}
+
+void FbxTime_GetFieldCount_NegHalfYieldsOne()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(-2352000);
+    // when:
+    long result = time->GetFieldCount();
+    // then:
+    AssertEqual(-1, result);
+}
+
+void FbxTime_GetFieldCount_NegHalfYieldsOne2()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(-2351999);
+    // when:
+    long result = time->GetFieldCount();
+    // then:
+    AssertEqual(0, result);
+}
+
+void FbxTime_GetFieldCount_NegHalfYieldsOne3()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(-2352001);
+    // when:
+    long result = time->GetFieldCount();
+    // then:
+    AssertEqual(-1, result);
+}
+
 void FbxTimeTest::RegisterTestCases()
 {
     AddTestCase(FbxTime_Constants);
@@ -237,5 +391,19 @@ void FbxTimeTest::RegisterTestCases()
     AddTestCase(FbxTime_GetFrameCountPrecise_NegativeYieldsNegative);
     AddTestCase(FbxTime_GetFrameCountPrecise_FractionYieldsFraction);
     AddTestCase(FbxTime_GetFrameCountPrecise_FractionYieldsFraction2);
+    AddTestCase(FbxTime_GetFieldCount_ZeroYieldsZero);
+    AddTestCase(FbxTime_GetFieldCount_OneYieldsTwo);
+    AddTestCase(FbxTime_GetFieldCount_NegativeYieldsNegative);
+    AddTestCase(FbxTime_GetFieldCount_FractionYieldsInteger);
+    AddTestCase(FbxTime_GetFieldCount_FractionYieldsInteger2);
+    AddTestCase(FbxTime_GetFieldCount_NegFractionYieldsInteger);
+    AddTestCase(FbxTime_GetFieldCount_NegFractionYieldsInteger2);
+    AddTestCase(FbxTime_GetFieldCount_NegFractionYieldsInteger3);
+    AddTestCase(FbxTime_GetFieldCount_HalfYieldsOne);
+    AddTestCase(FbxTime_GetFieldCount_HalfYieldsOne2);
+    AddTestCase(FbxTime_GetFieldCount_HalfYieldsOne3);
+    AddTestCase(FbxTime_GetFieldCount_NegHalfYieldsOne);
+    AddTestCase(FbxTime_GetFieldCount_NegHalfYieldsOne2);
+    AddTestCase(FbxTime_GetFieldCount_NegHalfYieldsOne3);
 }
 

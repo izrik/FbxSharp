@@ -221,5 +221,159 @@ namespace FbxSharpTests
             // then:
             Assert.AreEqual(1.000000212585034, result, 0);
         }
+
+        [Test]
+        public void FbxTime_GetFieldCount_ZeroYieldsZero()
+        {
+            // given:
+            var time = new FbxTime(0);
+            // when:
+            var result = time.GetFieldCount();
+            // then:
+            Assert.AreEqual(0, result);
+        }
+
+        [Test]
+        public void FbxTime_GetFieldCount_OneYieldsTwo()
+        {
+            // given:
+            var time = new FbxTime(4704000L);
+            // when:
+            var result = time.GetFieldCount();
+            // then:
+            Assert.AreEqual(2, result);
+        }
+
+        [Test]
+        public void FbxTime_GetFieldCount_NegativeYieldsNegative()
+        {
+            // given:
+            var time = new FbxTime(-4704000);
+            // when:
+            var result = time.GetFieldCount();
+            // then:
+            Assert.AreEqual(-2, result);
+        }
+
+        [Test]
+        public void FbxTime_GetFieldCount_FractionYieldsInteger()
+        {
+            // given:
+            var time = new FbxTime(4703999);
+            // when:
+            var result = time.GetFieldCount();
+            // then:
+            Assert.AreEqual(1, result);
+        }
+
+        [Test]
+        public void FbxTime_GetFieldCount_FractionYieldsInteger2()
+        {
+            // given:
+            var time = new FbxTime(4704001);
+            // when:
+            var result = time.GetFieldCount();
+            // then:
+            Assert.AreEqual(2, result);
+        }
+
+        [Test]
+        public void FbxTime_GetFieldCount_NegFractionYieldsInteger()
+        {
+            // given:
+            var time = new FbxTime(-1);
+            // when:
+            var result = time.GetFieldCount();
+            // then:
+            Assert.AreEqual(0, result);
+        }
+
+        [Test]
+        public void FbxTime_GetFieldCount_NegFractionYieldsInteger2()
+        {
+            // given:
+            var time = new FbxTime(-4703999);
+            // when:
+            var result = time.GetFieldCount();
+            // then:
+            Assert.AreEqual(-1, result);
+        }
+
+        [Test]
+        public void FbxTime_GetFieldCount_NegFractionYieldsInteger3()
+        {
+            // given:
+            var time = new FbxTime(-4704001);
+            // when:
+            var result = time.GetFieldCount();
+            // then:
+            Assert.AreEqual(-2, result);
+        }
+
+        [Test]
+        public void FbxTime_GetFieldCount_HalfYieldsOne()
+        {
+            // given:
+            var time = new FbxTime(2352000);
+            // when:
+            var result = time.GetFieldCount();
+            // then:
+            Assert.AreEqual(1, result);
+        }
+
+        [Test]
+        public void FbxTime_GetFieldCount_HalfYieldsOne2()
+        {
+            // given:
+            var time = new FbxTime(2351999);
+            // when:
+            var result = time.GetFieldCount();
+            // then:
+            Assert.AreEqual(0, result);
+        }
+
+        [Test]
+        public void FbxTime_GetFieldCount_HalfYieldsOne3()
+        {
+            // given:
+            var time = new FbxTime(2352001);
+            // when:
+            var result = time.GetFieldCount();
+            // then:
+            Assert.AreEqual(1, result);
+        }
+
+        [Test]
+        public void FbxTime_GetFieldCount_NegHalfYieldsOne()
+        {
+            // given:
+            var time = new FbxTime(-2352000);
+            // when:
+            var result = time.GetFieldCount();
+            // then:
+            Assert.AreEqual(-1, result);
+        }
+
+        [Test]
+        public void FbxTime_GetFieldCount_NegHalfYieldsOne2()
+        {
+            // given:
+            var time = new FbxTime(-2351999);
+            // when:
+            var result = time.GetFieldCount();
+            // then:
+            Assert.AreEqual(0, result);
+        }
+
+        [Test]
+        public void FbxTime_GetFieldCount_NegHalfYieldsOne3()
+        {
+            // given:
+            var time = new FbxTime(-2352001);
+            // when:
+            var result = time.GetFieldCount();
+            // then:
+            Assert.AreEqual(-1, result);
+        }
     }
 }

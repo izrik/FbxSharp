@@ -78,5 +78,11 @@ namespace FbxSharp
             // TODO: take time mode into account
             return Value / (double)(FBXSDK_TC_SECOND / 30);
         }
+
+        public long GetFieldCount(EMode pTimeMode = EMode.eDefaultMode)
+        {
+            // TODO: take time mode into account
+            return Value / (FBXSDK_TC_SECOND / 60);
+        }
     }
 }
