@@ -124,3 +124,43 @@ test FbxTime_GetMilliSeconds_NegativeYieldsCount
      int result = time.GetMilliSeconds()
      then
      AssertEqual(-1, result)
+
+test FbxTime_GetFrameCountPrecise_ZeroYieldsZero
+    given
+    FbxTime time = new(0)
+    when
+    int result = time.GetFrameCountPrecise()
+    then
+    AssertEqual(0, result, 0)
+
+test FbxTime_GetFrameCountPrecise_OneYieldsOne
+    given
+    FbxTime time = new(4704000L)
+    when
+    int result = time.GetFrameCountPrecise()
+    then
+    AssertEqual(1, result, 0)
+
+test FbxTime_GetFrameCountPrecise_NegativeYieldsNegative
+    given
+    FbxTime time = new(-4704000)
+    when
+    int result = time.GetFrameCountPrecise()
+    then
+    AssertEqual(-1, result, 0)
+
+test FbxTime_GetFrameCountPrecise_FractionYieldsInteger
+    given
+    FbxTime time = new(4703999)
+    when
+    int result = time.GetFrameCountPrecise()
+    then
+    AssertEqual(0, result, 0)
+
+test FbxTime_GetFrameCountPrecise_FractionYieldsInteger2
+    given
+    FbxTime time = new(4704001)
+    when
+    int result = time.GetFrameCountPrecise()
+    then
+    AssertEqual(1, result, 0)

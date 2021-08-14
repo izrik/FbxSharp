@@ -16,6 +16,30 @@ namespace FbxSharp
         public const int FBXSDK_TC_STANDARD_DEFINITION = 0;
         public const int FBXSDK_TC_LEGACY_DEFINITION = 127;
 
+        public enum EMode
+        {
+            eDefaultMode,
+            eFrames120,
+            eFrames100,
+            eFrames60,
+            eFrames50,
+            eFrames48,
+            eFrames30,
+            eFrames30Drop,
+            eNTSCDropFrame,
+            eNTSCFullFrame,
+            ePAL,
+            eFrames24,
+            eFrames1000,
+            eFilmFullFrame,
+            eCustom,
+            eFrames96,
+            eFrames72,
+            eFrames59dot94,
+            eFrames119dot88,
+            eModesCount
+        }
+
         public FbxTime(long time)
         {
             Value = time;
@@ -43,9 +67,16 @@ namespace FbxSharp
             return (int)(Value / UnitsPerSecond);
         }
 
-        public long GetFrameCount()
+        public long GetFrameCount(EMode pTimeMode = EMode.eDefaultMode)
         {
-            return Value / 4704000;
+            // TODO: take time mode into account
+            return Value / (FBXSDK_TC_SECOND / 30);
+        }
+
+        public double GetFrameCountPrecise(EMode pTimeMode = EMode.eDefaultMode)
+        {
+            // TODO: take time mode into account
+            return (double) (Value / (FBXSDK_TC_SECOND / 30));
         }
     }
     

@@ -166,5 +166,60 @@ namespace FbxSharpTests
             // then:
             Assert.AreEqual(-1, result);
         }
+
+        [Test]
+        public void FbxTime_GetFrameCountPrecise_ZeroYieldsZero()
+        {
+            // given:
+            var time = new FbxTime(0);
+            // when:
+            var result = time.GetFrameCountPrecise();
+            // then:
+            Assert.AreEqual(0, result, 0);
+        }
+
+        [Test]
+        public void FbxTime_GetFrameCountPrecise_OneYieldsOne()
+        {
+            // given:
+            var time = new FbxTime(4704000L);
+            // when:
+            var result = time.GetFrameCountPrecise();
+            // then:
+            Assert.AreEqual(1, result, 0);
+        }
+
+        [Test]
+        public void FbxTime_GetFrameCountPrecise_NegativeYieldsNegative()
+        {
+            // given:
+            var time = new FbxTime(-4704000);
+            // when:
+            var result = time.GetFrameCountPrecise();
+            // then:
+            Assert.AreEqual(-1, result, 0);
+        }
+
+        [Test]
+        public void FbxTime_GetFrameCountPrecise_FractionYieldsInteger()
+        {
+            // given:
+            var time = new FbxTime(4703999);
+            // when:
+            var result = time.GetFrameCountPrecise();
+            // then:
+            Assert.AreEqual(0, result, 0);
+        }
+
+        [Test]
+        public void FbxTime_GetFrameCountPrecise_FractionYieldsInteger2()
+        {
+            // given:
+            var time = new FbxTime(4704001);
+            // when:
+            var result = time.GetFrameCountPrecise();
+            // then:
+            Assert.AreEqual(1, result, 0);
+        }
     }
 }
