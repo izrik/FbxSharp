@@ -76,8 +76,7 @@ namespace FbxSharp
         public double GetFrameCountPrecise(EMode pTimeMode = EMode.eDefaultMode)
         {
             // TODO: take time mode into account
-            return (double) (Value / (FBXSDK_TC_SECOND / 30));
+            return Value / (double)(FBXSDK_TC_SECOND / 30);
         }
     }
-    
 }
