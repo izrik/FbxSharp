@@ -30,7 +30,8 @@ ifeq ($(UNAME_S),Darwin)
 	LDFLAGS=-framework Cocoa $(COMMON_LDFLAGS)
 endif
 
-SOURCES=AnimCurveKeyTest.cpp AnimCurveNodeTest.cpp AnimCurveTest.cpp AnimLayerTest.cpp AnimStackTest.cpp Assertions.cpp CameraTest.cpp ClusterTest.cpp DeformerTest.cpp FbxObjectTest.cpp FbxTimeTest.cpp GeometryBaseTest.cpp GeometryTest.cpp LayerContainerTest.cpp LightTest.cpp MatrixTest.cpp MeshTest.cpp NodeTest.cpp NodeTransformsTest.cpp PropertyTest.cpp SceneTest.cpp SkinTest.cpp SubDeformerTest.cpp SurfacePhongTest.cpp TestFixture.cpp TestRunner.cpp main.cpp LayerTest.cpp
+TC_SOURCES=AnimCurveKeyTest.tc AnimCurveNodeTest.tc AnimCurveTest.tc AnimLayerTest.tc AnimStackTest.tc Assertions.tc CameraTest.tc ClusterTest.tc DeformerTest.tc FbxObjectTest.tc FbxTimeTest.tc GeometryBaseTest.tc GeometryTest.tc LayerContainerTest.tc LightTest.tc MatrixTest.tc MeshTest.tc NodeTest.tc NodeTransformsTest.tc PropertyTest.tc SceneTest.tc SkinTest.tc SubDeformerTest.tc SurfacePhongTest.tc TestFixture.tc TestRunner.tc main.tc LayerTest.tc
+SOURCES=$(TC_SOURCES:%.tc=%.cpp)
 HEADERS=Assertions.h OutputDebugStringBuf.h Tests.h
 OBJECTS=$(SOURCES:%.cpp=obj/%.o)
 EXECUTABLE=FbxCppTests
@@ -42,14 +43,11 @@ all: directories $(SOURCES) $(EXECUTABLE)
 directories:
 	mkdir -p obj bin
 
+%.cpp: ../test-cases/%.tc
+	mono ../TestCaseGenerator/bin/Debug/TestCaseGenerator.exe cpp $< $@
+
 obj/%.o: %.cpp
 	$(CC) $(CFLAGS) $< -o $@
-
-#.cpp.o:
-#	$(CC) $(CFLAGS) $< -o $@
-
-# TODO: use make to run TestCaseGenerator on the individual .tc files,
-#       instead of gen_files.sh
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(OBJECTS) $(STATIC_LIBS) -o bin/$@ $(LDFLAGS)
