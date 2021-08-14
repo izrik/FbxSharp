@@ -371,6 +371,12 @@ void FbxTime_GetFieldCount_NegHalfYieldsOne3()
     AssertEqual(-1, result);
 }
 
+void FbxTime_GetGlobalTimeMode()
+{
+    // expect:
+    AssertEqual(FbxTime::EMode::eFrames30, FbxTime::GetGlobalTimeMode());
+}
+
 void FbxTimeTest::RegisterTestCases()
 {
     AddTestCase(FbxTime_Constants);
@@ -405,5 +411,6 @@ void FbxTimeTest::RegisterTestCases()
     AddTestCase(FbxTime_GetFieldCount_NegHalfYieldsOne);
     AddTestCase(FbxTime_GetFieldCount_NegHalfYieldsOne2);
     AddTestCase(FbxTime_GetFieldCount_NegHalfYieldsOne3);
+    AddTestCase(FbxTime_GetGlobalTimeMode);
 }
 

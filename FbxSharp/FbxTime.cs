@@ -47,6 +47,12 @@ namespace FbxSharp
 
         public long Value;
 
+        public static EMode GetGlobalTimeMode()
+        {
+            // TODO: make the value change-able
+            return EMode.eFrames30;
+        }
+
         public long Get()
         {
             return Value;

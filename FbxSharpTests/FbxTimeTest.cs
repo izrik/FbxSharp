@@ -375,5 +375,12 @@ namespace FbxSharpTests
             // then:
             Assert.AreEqual(-1, result);
         }
+
+        [Test]
+        public void FbxTime_GetGlobalTimeMode()
+        {
+            // expect:
+            Assert.AreEqual(FbxTime.EMode.eFrames30, FbxTime.GetGlobalTimeMode());
+        }
     }
 }

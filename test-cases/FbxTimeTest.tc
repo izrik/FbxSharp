@@ -277,3 +277,7 @@ test FbxTime_GetFieldCount_NegHalfYieldsOne3
     long result = time.GetFieldCount()
     then
     AssertEqual(-1, result)
+
+test FbxTime_GetGlobalTimeMode
+    expect
+    AssertEqual(FbxTime::EMode::eFrames30, FbxTime::GetGlobalTimeMode())
