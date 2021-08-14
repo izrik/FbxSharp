@@ -96,6 +96,72 @@ void FbxTime_GetSecondCount_FractionYieldsCount3()
     AssertEqual(1, result);
 }
 
+void FbxTime_GetMilliSeconds_ZeroYieldsCount()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(0);
+    // when:
+    int result = time->GetMilliSeconds();
+    // then:
+    AssertEqual(0, result);
+}
+
+void FbxTime_GetMilliSeconds_OneYieldsCount()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(141120L);
+    // when:
+    int result = time->GetMilliSeconds();
+    // then:
+    AssertEqual(1, result);
+}
+
+void FbxTime_GetMilliSeconds_FractionYieldsCount()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(70560L);
+    // when:
+    int result = time->GetMilliSeconds();
+    // then:
+    AssertEqual(0, result);
+}
+
+void FbxTime_GetMilliSeconds_FractionYieldsCount2()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(141119L);
+    // when:
+    int result = time->GetMilliSeconds();
+    // then:
+    AssertEqual(0, result);
+}
+
+void FbxTime_GetMilliSeconds_FractionYieldsCount3()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(141121L);
+    // when:
+    int result = time->GetMilliSeconds();
+    // then:
+    AssertEqual(1, result);
+}
+
+void FbxTime_GetMilliSeconds_NegativeYieldsCount()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxTime* time = new FbxTime(-141120L);
+    // when:
+    int result = time->GetMilliSeconds();
+    // then:
+    AssertEqual(-1, result);
+}
+
 void FbxTimeTest::RegisterTestCases()
 {
     AddTestCase(FbxTime_Constants);
@@ -105,5 +171,11 @@ void FbxTimeTest::RegisterTestCases()
     AddTestCase(FbxTime_GetSecondCount_FractionYieldsCount);
     AddTestCase(FbxTime_GetSecondCount_FractionYieldsCount2);
     AddTestCase(FbxTime_GetSecondCount_FractionYieldsCount3);
+    AddTestCase(FbxTime_GetMilliSeconds_ZeroYieldsCount);
+    AddTestCase(FbxTime_GetMilliSeconds_OneYieldsCount);
+    AddTestCase(FbxTime_GetMilliSeconds_FractionYieldsCount);
+    AddTestCase(FbxTime_GetMilliSeconds_FractionYieldsCount2);
+    AddTestCase(FbxTime_GetMilliSeconds_FractionYieldsCount3);
+    AddTestCase(FbxTime_GetMilliSeconds_NegativeYieldsCount);
 }
 

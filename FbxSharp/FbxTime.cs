@@ -28,6 +28,11 @@ namespace FbxSharp
             return Value;
         }
 
+        public long GetMilliSeconds()
+        {
+            return Value / FBXSDK_TC_MILLISECOND;
+        }
+
         public double GetSecondDouble()
         {
             return Value / (double)UnitsPerSecond;

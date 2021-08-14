@@ -100,5 +100,71 @@ namespace FbxSharpTests
             // then:
             Assert.AreEqual(1, result);
         }
+
+        [Test]
+        public void FbxTime_GetMilliSeconds_ZeroYieldsCount()
+        {
+            // given:
+            var time = new FbxTime(0);
+            // when:
+            var result = time.GetMilliSeconds();
+            // then:
+            Assert.AreEqual(0, result);
+        }
+
+        [Test]
+        public void FbxTime_GetMilliSeconds_OneYieldsCount()
+        {
+            // given:
+            var time = new FbxTime(141120L);
+            // when:
+            var result = time.GetMilliSeconds();
+            // then:
+            Assert.AreEqual(1, result);
+        }
+
+        [Test]
+        public void FbxTime_GetMilliSeconds_FractionYieldsCount()
+        {
+            // given:
+            var time = new FbxTime(70560L);
+            // when:
+            var result = time.GetMilliSeconds();
+            // then:
+            Assert.AreEqual(0, result);
+        }
+
+        [Test]
+        public void FbxTime_GetMilliSeconds_FractionYieldsCount2()
+        {
+            // given:
+            var time = new FbxTime(141119L);
+            // when:
+            var result = time.GetMilliSeconds();
+            // then:
+            Assert.AreEqual(0, result);
+        }
+
+        [Test]
+        public void FbxTime_GetMilliSeconds_FractionYieldsCount3()
+        {
+            // given:
+            var time = new FbxTime(141121L);
+            // when:
+            var result = time.GetMilliSeconds();
+            // then:
+            Assert.AreEqual(1, result);
+        }
+
+        [Test]
+        public void FbxTime_GetMilliSeconds_NegativeYieldsCount()
+        {
+            // given:
+            var time = new FbxTime(-141120L);
+            // when:
+            var result = time.GetMilliSeconds();
+            // then:
+            Assert.AreEqual(-1, result);
+        }
     }
 }

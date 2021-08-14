@@ -76,3 +76,51 @@ test FbxTime_GetSecondCount_FractionYieldsCount3
 
      then
      AssertEqual(1, result)
+
+test FbxTime_GetMilliSeconds_ZeroYieldsCount
+    given
+    FbxTime time = new(0)
+    when
+    int result = time.GetMilliSeconds()
+    then
+    AssertEqual(0, result)
+
+test FbxTime_GetMilliSeconds_OneYieldsCount
+     given
+     FbxTime time = new(141120L)
+     when
+     int result = time.GetMilliSeconds()
+     then
+     AssertEqual(1, result)
+
+test FbxTime_GetMilliSeconds_FractionYieldsCount
+     given
+     FbxTime time = new(70560L)
+     when
+     int result = time.GetMilliSeconds()
+     then
+     AssertEqual(0, result)
+
+test FbxTime_GetMilliSeconds_FractionYieldsCount2
+     given
+     FbxTime time = new(141119L)
+     when
+     int result = time.GetMilliSeconds()
+     then
+     AssertEqual(0, result)
+
+test FbxTime_GetMilliSeconds_FractionYieldsCount3
+     given
+     FbxTime time = new(141121L)
+     when
+     int result = time.GetMilliSeconds()
+     then
+     AssertEqual(1, result)
+
+test FbxTime_GetMilliSeconds_NegativeYieldsCount
+     given
+     FbxTime time = new(-141120L)
+     when
+     int result = time.GetMilliSeconds()
+     then
+     AssertEqual(-1, result)
