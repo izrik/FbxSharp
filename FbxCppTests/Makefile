@@ -48,6 +48,9 @@ obj/%.o: %.cpp
 #.cpp.o:
 #	$(CC) $(CFLAGS) $< -o $@
 
+# TODO: use make to run TestCaseGenerator on the individual .tc files,
+#       instead of gen_files.sh
+
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(OBJECTS) $(STATIC_LIBS) -o bin/$@ $(LDFLAGS)
 
