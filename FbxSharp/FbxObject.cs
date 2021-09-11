@@ -417,6 +417,11 @@ namespace FbxSharp
             return Properties[index + 1];
         }
 
+        public FbxProperty GetPropertyByIndex(int index)
+        {
+            return Properties[index];
+        }
+
         public FbxProperty FindProperty(string pName, bool pCaseSensitive=true)
         {
             return Properties.FirstOrDefault(p => string.Compare(p.Name, pName, ignoreCase: !pCaseSensitive) == 0);

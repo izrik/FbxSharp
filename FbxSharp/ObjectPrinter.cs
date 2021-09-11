@@ -305,14 +305,14 @@ namespace FbxSharp
             }
 //                break;
 //            case eFbxDouble3:
-            if (type == typeof(sbyte))
+            if (type == typeof(FbxVector3))
             {
                 v3 = prop.Get<FbxVector3>();
                 sb.AppendFormat("{0}, {1}, {2}", v3.X, v3.Y, v3.Z);
             }
 //                break;
 //            case eFbxDouble4:
-            if (type == typeof(sbyte))
+            if (type == typeof(FbxVector4))
             {
                 v4 = prop.Get<FbxVector4>();
                 sb.AppendFormat("{0}, {1}, {2}, {3}", v4.X, v4.Y, v4.Z, v4.W);
@@ -323,14 +323,14 @@ namespace FbxSharp
 //                printValue = false;
 //                break;
 //            case eFbxString:
-            if (type == typeof(sbyte))
+            if (type == typeof(string))
             {
                 fstr = prop.Get<string>();
                 sb.Append(quote(fstr));
             }
 //                break;
 //            case eFbxTime:
-            if (type == typeof(sbyte))
+            if (type == typeof(FbxTime))
             {
                 t = prop.Get<FbxTime>();
                 sb.AppendFormat("{0}", t);

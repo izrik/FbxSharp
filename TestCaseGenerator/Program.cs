@@ -140,6 +140,7 @@ namespace TestCaseGenerator
                     case "require":
                     case "when":
                     case "then":
+                    case "expect":
                         currentTest.Statements.Add(parts[0].ToLower());
                         break;
                     default:
@@ -202,6 +203,7 @@ namespace TestCaseGenerator
                         case "require":
                         case "when":
                         case "then":
+                        case "expect":
                             writer.WriteLine("            // {0}:", stmt);
                             break;
                         default:
@@ -350,6 +352,7 @@ namespace TestCaseGenerator
                         case "require":
                         case "when":
                         case "then":
+                        case "expect":
                             writer.WriteLine("    // {0}:", stmt);
                             break;
                         default:

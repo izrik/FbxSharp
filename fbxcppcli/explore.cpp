@@ -6,12 +6,15 @@
 #include <sstream>
 #include <objects.h>
 #include <print.h>
+#include <stack>
 
 void Explore(FbxScene* scene)
 {
     std::string prompt = ">>> ";
 
     FbxObject* obj = scene;
+    std::stack<FbxObject*> history;
+    history.push(scene);
     while (true)
     {
         std::string s;
@@ -36,6 +39,14 @@ void Explore(FbxScene* scene)
 
         if (command == "help")
         {
+            std::cout << "Available commands:" << std::endl;
+            std::cout << "  help  - This text" << std::endl;
+            std::cout << "  .     - Print the ID of the current object" << std::endl;
+            std::cout << "  print - Print the full object graph of the current object" << std::endl;
+            std::cout << "  ls    - List connections of the current object" << std::endl;
+            std::cout << "  cd    - Change to a different object" << std::endl;
+            std::cout << "  back  - Return to the previous object" << std::endl;
+            // TODO: Command class
         }
         else if (command == ".")
         {
@@ -47,6 +58,8 @@ void Explore(FbxScene* scene)
         }
         else if (command == "ls")
         {
+            // TODO: filter on object type
+            // TODO: paging or something
             if (tokens.size() >= 2)
             {
                 std::string& target = tokens[1];
@@ -182,12 +195,24 @@ void Explore(FbxScene* scene)
             }
 
             obj = next;
+            history.push(next);
             std::cout << "$"; PrintObjectID(obj); std::cout << std::endl;
             continue;
         }
+        else if (command == "back")
+        {
+            if (history.size() <= 1)
+            {
+                std::cout << "No previous object to go back to." << std::endl;
+                continue;
+            }
+            history.pop();
+            obj = history.top();
+            std::cout << "$"; PrintObjectID(obj); std::cout << std::endl;
+        }
         else
         {
-            std::cout << "Unknwon command \"" << command << "\"" << std::endl;
+            std::cout << "Unknown command \"" << command << "\"" << std::endl;
         }
     }
 }
