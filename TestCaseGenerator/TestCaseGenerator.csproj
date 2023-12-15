@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
@@ -6,6 +6,12 @@
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>disable</Nullable>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DefaultItemExcludes>
+            tmp/**
+        </DefaultItemExcludes>
     </PropertyGroup>
 
     <ItemGroup>
