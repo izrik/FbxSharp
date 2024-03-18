@@ -15,11 +15,12 @@ void PrintObjectGraph(FbxObject* obj)
 {
     Collector c;
 
-    c.Visit(obj);
+    vector<FbxObject*> objs;
+
+    c.Visit(obj, &objs);
 
     cout << endl;
 
-    vector<FbxObject*>& objs = c.Objects;
     sort(objs.begin(), objs.end(), sort_by_id);
 
     vector<FbxObject*>::iterator it;
