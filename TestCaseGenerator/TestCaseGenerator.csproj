@@ -33,7 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="NCommander">
-      <HintPath>..\packages\NCommander.0.9\lib\NCommander.dll</HintPath>
+      <HintPath>..\..\..\..\packages\NCommander.0.11.1\lib\net40\NCommander.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
