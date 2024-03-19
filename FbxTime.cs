@@ -8,6 +8,8 @@ namespace FbxSharp
         public static readonly FbxTime Zero = new FbxTime(0);
 
         public const long UnitsPerSecond = 141120000L;
+        public const long FBXSDK_TC_MILLISECOND = 141120L;
+        public const long FBXSDK_TC_MILLISECOND_LEGACY = 46186158L;
 
         public FbxTime(long time)
         {
