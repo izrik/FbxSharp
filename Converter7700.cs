@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FbxSharp
 {
-    public class Converter7300 : IConverter
+    public class Converter7700 : IConverter
     {
         public FbxScene ConvertScene(List<ParseObject> parsedObjects)
         {
@@ -14,6 +14,14 @@ namespace FbxSharp
             };
 
             var scene = new FbxScene();
+
+            // TODO: detect time constant setting
+            // look for FBXHeaderExtension root pobject
+            // within FBXHeaderExtension, look for OtherFlags
+            // within OtherFlags, look for TCDefinition
+            // if present, it defines whether to use the legacy time constant (46186158L), or the new one (141120L)
+            // see FbxTCSetDefinition
+            // see https://help.autodesk.com/view/FBX/2020/ENU/?guid=FBX_Developer_Help_welcome_to_the_fbx_sdk_what_new_fbx_sdk_2019_html
 
             var docs = parsed.FindPropertyByName("Documents");
             if (docs != null)
@@ -503,6 +511,7 @@ namespace FbxSharp
         public static FbxLayerElementNormal ConvertLayerElementNormal(ParseObject obj)
         {
             var normals = new FbxLayerElementNormal();
+            var normalsW = new List<double>();
 
             foreach (var prop in obj.Properties)
             {
@@ -510,8 +519,8 @@ namespace FbxSharp
                 {
                 case "Version":
                     var version = ((Number)prop.Values[0]).AsLong.Value;
-                    if (version != 101)
-                        throw new ConversionException(prop.Location, string.Format("Unknown Version in FbxLayerElementNormal. Expected '101'. Got '{0}' instead.", version));
+                    if (version != 102)
+                        throw new ConversionException(prop.Location, string.Format("Unknown Version in FbxLayerElementNormal. Expected '102'. Got '{0}' instead.", version));
                     break;
                 case "Name":
                     normals.SetName((string)prop.Values[0]);
@@ -528,6 +537,11 @@ namespace FbxSharp
                         .Select(n => ((Number)n).AsDouble.Value)
                         .ToVector3List()
                         .Select(v => v.ToVector4()));
+                    break;
+                case "NormalsW":
+                    normalsW.AddRange(
+                        prop.Properties[0].Values
+                        .Select(n => ((Number)n).AsDouble.Value));
                     break;
                 default:
                     throw new ConversionException(prop.Location, string.Format("Unknown property in FbxLayerElementNormal. Expected 'Version', 'Name', 'MappingInformationType', 'ReferenceInformationType', or 'Normals'. Got '{0}' instead.", prop.Name));
@@ -756,7 +770,7 @@ namespace FbxSharp
                 case "KTime":
                     propType = typeof(FbxTime);
                     long rawValue = ((Number)p.Values[4]).AsLong.Value;
-                    long rawValue7700 = rawValue * FbxTime.FBXSDK_TC_MILLISECOND / FbxTime.FBXSDK_TC_MILLISECOND_LEGACY;
+                    long rawValue7700 = rawValue * FbxTime.FBXSDK_TC_MILLISECOND / FbxTime.FBXSDK_TC_MILLISECOND_LEGACY; // TODO: take "TCDefinition" into account
                     propValue = new FbxTime(rawValue7700);
                     break;
                 case "Compound":

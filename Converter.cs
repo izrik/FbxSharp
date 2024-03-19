@@ -35,6 +35,9 @@ namespace FbxSharp
                         if (version.Value == 7200) converter = new Converter7200();
                         if (version.Value == 7300) converter = new Converter7300();
                         if (version.Value == 7400) converter = new Converter7400();
+                        if (version.Value == 7500) converter = new Converter7500();
+                        if (version.Value == 7600) converter = new Converter7600();
+                        if (version.Value == 7700) converter = new Converter7700();
 
 
                         if (converter != null)
@@ -45,7 +48,7 @@ namespace FbxSharp
                 }
             }
 
-            return new Converter7300().ConvertScene(parsedObjects);
+            return new Converter7700().ConvertScene(parsedObjects);
         }
 
         protected ParseObject GetHeader(List<ParseObject> parsedObjects)

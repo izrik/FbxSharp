@@ -1,0 +1,34 @@
+﻿fixture LayerTest
+test Layer_SetVisibility_SetsVisibility
+	given
+	FbxLayerContainer lc = new("")
+    lc.CreateLayer()
+    FbxLayer layer = lc.GetLayer(0)
+    FbxLayerElementVisibility lev = new("")
+
+    require
+    AssertEqual(null, layer.GetVisibility())
+
+	when
+    layer.SetVisibility(lev)
+
+	then
+	AssertEqual(lev, layer.GetVisibility())
+
+test Layer_SetVisibility_ReplacesPreviousVisibilityElement
+	given
+	FbxLayerContainer lc = new("")
+    lc.CreateLayer()
+    FbxLayer layer = lc.GetLayer(0)
+    FbxLayerElementVisibility lev1 = new("one")
+    FbxLayerElementVisibility lev2 = new("two")
+    layer.SetVisibility(lev1);
+
+    require
+    AssertEqual(lev1, layer.GetVisibility())
+
+	when
+    layer.SetVisibility(lev2)
+
+	then
+	AssertEqual(lev2, layer.GetVisibility())
