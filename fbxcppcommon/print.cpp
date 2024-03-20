@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <sstream>
 #include <vector>
+#include <algorithm>
 
 #include "Collector.h"
 #include "objects.h"
@@ -21,7 +22,7 @@ void PrintObjectGraph(FbxObject* obj)
 
     cout << endl;
 
-    sort(objs.begin(), objs.end(), sort_by_id);
+    std::sort(objs.begin(), objs.end(), sort_by_id);
 
     vector<FbxObject*>::iterator it;
     for (it = objs.begin(); it != objs.end(); ++it)
