@@ -18,7 +18,7 @@ COMMON_LDFLAGS := -L/usr/lib -lz -lxml2 -liconv
 
 ifeq ($(UNAME_S),Linux)
 	CFLAGS=-pthread $(COMMON_CFLAGS)
-	STATIC_LIBS=$(FBXSDK_HOME)/lib/gcc4/x64/debug/libfbxsdk.a $(COMMON_STATIC_LIBS)
+	STATIC_LIBS=$(FBXSDK_HOME)/lib/gcc/x64/debug/libfbxsdk.a $(COMMON_STATIC_LIBS)
 	LDFLAGS=-lpthread -ldl  $(COMMON_LDFLAGS)
 endif
 ifeq ($(UNAME_S),Darwin)
