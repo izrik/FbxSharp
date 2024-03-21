@@ -2,12 +2,14 @@ CC=g++
 
 UNAME_S := $(shell uname -s)
 
+FBXSDK_HOME?=
+
 ifeq ($(FBXSDK_HOME),)
 	ifeq ($(UNAME_S),Linux)
-		FBXSDK_HOME :=/usr/share/fbxsdk/2020.0.1
+		FBXSDK_HOME :=/usr/share/fbxsdk/2020.3.4
 	endif
 	ifeq ($(UNAME_S),Darwin)
-		FBXSDK_HOME :=/Applications/Autodesk/FBX\ SDK/2020.0.1
+		FBXSDK_HOME :=/Applications/Autodesk/FBX\ SDK/2020.3.4
 	endif
 endif
 $(info FBXSDK_HOME is [$(FBXSDK_HOME)])
