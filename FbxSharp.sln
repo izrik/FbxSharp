@@ -1,6 +1,5 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxSharp", "FbxSharp.csproj", "{64FAA76A-CAEA-42A3-9E23-660CFF84394B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxSharpTests", "FbxSharpTests\FbxSharpTests.csproj", "{06E9280F-1851-4A20-BA7C-18AAE0A809D4}"
