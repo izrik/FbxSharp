@@ -11,6 +11,6 @@ do
   if [[ -n "$DEBUG" ]]; then
     echo "Generating $g in C++"
   fi
-  mono ../TestCaseGenerator/bin/Debug/TestCaseGenerator.exe cpp $f $g.cpp
+  dotnet ../TestCaseGenerator/bin/Debug/net8.0/TestCaseGenerator.dll cpp $f $g.cpp
 done
 
