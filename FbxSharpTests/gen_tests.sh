@@ -11,6 +11,6 @@ do
   if [[ -n "$DEBUG" ]]; then
     echo "Generating $g in C#"
   fi
-  mono ../TestCaseGenerator/bin/Debug/TestCaseGenerator.exe cs $f $g.cs
+  dotnet run ../TestCaseGenerator/bin/Debug/TestCaseGenerator.exe cs $f $g.cs
 done
 
