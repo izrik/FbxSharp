@@ -34,7 +34,10 @@ jobs:
           cd /build/libiconv
           wget http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.11.tar.gz ; tar -xvf libiconv-1.11.tar.gz
           cd /build/libiconv/libiconv-1.11
-          ./configure ; make ; make install ; make check ; make install
+          ./configure
+          make
+          make check
+          sudo make install
 
           mkdir -p /build/fbxsdk
           wget https://www.autodesk.com/content/dam/autodesk/www/adn/fbx/2020-3-4/fbx202034_fbxsdk_linux.tar.gz
