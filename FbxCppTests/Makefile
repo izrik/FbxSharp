@@ -2,12 +2,14 @@ CC=g++
 
 UNAME_S := $(shell uname -s)
 
+FBXSDK_HOME?=
+
 ifeq ($(FBXSDK_HOME),)
 	ifeq ($(UNAME_S),Linux)
-		FBXSDK_HOME :=/usr/share/fbxsdk/2020.0.1
+		FBXSDK_HOME :=/usr/share/fbxsdk/2020.3.4
 	endif
 	ifeq ($(UNAME_S),Darwin)
-		FBXSDK_HOME :=/Applications/Autodesk/FBX\ SDK/2020.0.1
+		FBXSDK_HOME :=/Applications/Autodesk/FBX\ SDK/2020.3.4
 	endif
 endif
 $(info FBXSDK_HOME is [$(FBXSDK_HOME)])
@@ -18,7 +20,7 @@ COMMON_LDFLAGS := -L/usr/lib -lz -lxml2 -liconv
 
 ifeq ($(UNAME_S),Linux)
 	CFLAGS=-pthread $(COMMON_CFLAGS)
-	STATIC_LIBS=$(FBXSDK_HOME)/lib/gcc4/x64/debug/libfbxsdk.a $(COMMON_STATIC_LIBS)
+	STATIC_LIBS=$(FBXSDK_HOME)/lib/gcc/x64/debug/libfbxsdk.a $(COMMON_STATIC_LIBS)
 	LDFLAGS=-lpthread -ldl  $(COMMON_LDFLAGS)
 endif
 ifeq ($(UNAME_S),Darwin)

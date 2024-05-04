@@ -17,6 +17,11 @@ void Explore(FbxScene* scene)
         std::string s;
         std::cout << prompt;
         std::getline(std::cin, s);
+        if (std::cin.eof())
+        {
+            std::cout << std::endl;
+            break;
+        }
 
         std::istringstream ss(s);
         std::vector<std::string> tokens;

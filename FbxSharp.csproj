@@ -1,222 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{64FAA76A-CAEA-42A3-9E23-660CFF84394B}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FbxSharp</RootNamespace>
-    <AssemblyName>FbxSharp</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AssemblyInfo.Git.cs" />
-    <Compile Include="FbxClassId.cs" />
-    <Compile Include="FbxCriteria.cs" />
-    <Compile Include="FbxPoseInfo.cs" />
-    <Compile Include="TokenType.cs" />
-    <Compile Include="Token.cs" />
-    <Compile Include="Tokenizer.cs" />
-    <Compile Include="Parser.cs" />
-    <Compile Include="ParseObject.cs" />
-    <Compile Include="InputLocation.cs" />
-    <Compile Include="Number.cs" />
-    <Compile Include="FbxObject.cs" />
-    <Compile Include="FbxSkeleton.cs" />
-    <Compile Include="FbxProperty.cs" />
-    <Compile Include="FbxPropertyT.cs" />
-    <Compile Include="FbxScene.cs" />
-    <Compile Include="Converter.cs" />
-    <Compile Include="FbxSurfaceMaterial.cs" />
-    <Compile Include="FbxPose.cs" />
-    <Compile Include="FbxSurfacePhong.cs" />
-    <Compile Include="FbxSurfaceLambert.cs" />
-    <Compile Include="FbxSkin.cs" />
-    <Compile Include="FbxSubDeformer.cs" />
-    <Compile Include="FbxVideo.cs" />
-    <Compile Include="FbxTexture.cs" />
-    <Compile Include="CollectionView.cs" />
-    <Compile Include="ObjectView.cs" />
-    <Compile Include="FbxVector4.cs" />
-    <Compile Include="FbxVector3.cs" />
-    <Compile Include="FbxVector2.cs" />
-    <Compile Include="ChangeNotifyList.cs" />
-    <Compile Include="VectorHelper.cs" />
-    <Compile Include="FbxPropertyFlags.cs" />
-    <Compile Include="FbxTransform.cs" />
-    <Compile Include="ObjectDstObjectCollection.cs" />
-    <Compile Include="ObjectSrcObjectCollection.cs" />
-    <Compile Include="ObjectSrcPropertyCollection.cs" />
-    <Compile Include="PropertyDstObjectCollection.cs" />
-    <Compile Include="ObjectDstPropertyCollection.cs" />
-    <Compile Include="PropertySrcObjectCollection.cs" />
-    <Compile Include="FbxTime.cs" />
-    <Compile Include="FbxTimeSpan.cs" />
-    <Compile Include="FbxEuler.cs" />
-    <Compile Include="IListHelper.cs" />
-    <Compile Include="SortedListHelper.cs" />
-    <Compile Include="FbxObjectPropertyCollection.cs" />
-    <Compile Include="PropertyChildrenCollection.cs" />
-    <Compile Include="AssemblyInfo.cs" />
-    <None Include="release.sh" />
-    <None Include="build.sh" />
-    <Compile Include="Collector.cs" />
-    <Compile Include="Visitor.cs" />
-    <Compile Include="ObjectPrinter.cs" />
-    <Compile Include="TypeHelper.cs" />
-    <Compile Include="FbxAnimCurve.cs" />
-    <Compile Include="FbxAnimCurveBase.cs" />
-    <Compile Include="FbxAnimCurveDef.cs" />
-    <Compile Include="FbxAnimCurveKey.cs" />
-    <Compile Include="FbxAnimCurveKeyBase.cs" />
-    <Compile Include="FbxAnimCurveNode.cs" />
-    <Compile Include="FbxAnimEvalClassic.cs" />
-    <Compile Include="FbxAnimEvaluator.cs" />
-    <Compile Include="FbxAnimLayer.cs" />
-    <Compile Include="FbxAnimStack.cs" />
-    <Compile Include="FbxCamera.cs" />
-    <Compile Include="FbxCluster.cs" />
-    <Compile Include="FbxCollection.cs" />
-    <Compile Include="FbxColor.cs" />
-    <Compile Include="FbxConnection.cs" />
-    <Compile Include="FbxDeformer.cs" />
-    <Compile Include="FbxDocument.cs" />
-    <Compile Include="FbxEmitter.cs" />
-    <Compile Include="EFbxQuatInterpMode.cs" />
-    <Compile Include="FbxGeometry.cs" />
-    <Compile Include="FbxGeometryBase.cs" />
-    <Compile Include="FbxGlobalSettings.cs" />
-    <Compile Include="FbxImporter.cs" />
-    <Compile Include="FbxLayer.cs" />
-    <Compile Include="FbxLayerContainer.cs" />
-    <Compile Include="FbxLayerElementVisibility.cs" />
-    <Compile Include="FbxLayerElementVertexColor.cs" />
-    <Compile Include="FbxLayerElement.cs" />
-    <Compile Include="FbxLayerElementArray.cs" />
-    <Compile Include="FbxLayerElementUV.cs" />
-    <Compile Include="FbxLayerElementUserData.cs" />
-    <Compile Include="FbxLayerElementTexture.cs" />
-    <Compile Include="FbxLayerElementTangent.cs" />
-    <Compile Include="FbxLayerElementBinormal.cs" />
-    <Compile Include="FbxLayerElementCrease.cs" />
-    <Compile Include="FbxLayerElementHole.cs" />
-    <Compile Include="FbxLayerElementMaterial.cs" />
-    <Compile Include="FbxLayerElementNormal.cs" />
-    <Compile Include="FbxLayerElementPolygonGroup.cs" />
-    <Compile Include="FbxLayerElementSmoothing.cs" />
-    <Compile Include="FbxLayerElementTemplate.cs" />
-    <Compile Include="FbxLight.cs" />
-    <Compile Include="FbxMatrix.cs" />
-    <Compile Include="FbxMesh.cs" />
-    <Compile Include="FbxNode.cs" />
-    <Compile Include="FbxNodeAttribute.cs" />
-    <Compile Include="FbxNull.cs" />
-    <None Include="tools\fbx-class-hierarchy.txt" />
-    <None Include="tools\fbxclass.py" />
-    <None Include="tools\print_hierarchy.py" />
-    <None Include="tools\generate_class_stubs.py" />
-    <None Include="tools\print_new_hier_format.py" />
-    <None Include="tools\generate_visitor.py" />
-    <Compile Include="FbxIOBase.cs" />
-    <Compile Include="Visitor.Generated.cs" />
-    <None Include="tools\generate_object_printer.py" />
-    <Compile Include="ObjectPrinter.Generated.cs" />
-    <Compile Include="TokenizationException.cs" />
-    <Compile Include="ParseException.cs" />
-    <Compile Include="ConversionException.cs" />
-    <Compile Include="Converter2000.cs" />
-    <Compile Include="Converter2001.cs" />
-    <Compile Include="Converter3000.cs" />
-    <Compile Include="Converter3001.cs" />
-    <Compile Include="Converter4000.cs" />
-    <Compile Include="Converter4001.cs" />
-    <Compile Include="Converter4050.cs" />
-    <Compile Include="Converter5000.cs" />
-    <Compile Include="Converter5800.cs" />
-    <Compile Include="Converter6000.cs" />
-    <Compile Include="Converter6100.cs" />
-    <Compile Include="Converter7000.cs" />
-    <Compile Include="Converter7099.cs" />
-    <Compile Include="Converter7100.cs" />
-    <Compile Include="Converter7200.cs" />
-    <Compile Include="Converter7300.cs" />
-    <Compile Include="Converter7400.cs" />
-    <Compile Include="IConverter.cs" />
-    <None Include="all_build.sh" />
-    <None Include="gen_tests.sh" />
-    <Compile Include="Converter7500.cs" />
-    <Compile Include="Converter7600.cs" />
-    <Compile Include="Converter7700.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <ItemGroup>
-    <None Include="FbxSharp.png" />
-    <None Include="LICENSE" />
-    <None Include="README.md" />
-    <None Include="test-cases\DeformerTest.tc" />
-    <None Include="test-cases\FbxObjectTest.tc" />
-    <None Include="test-cases\GeometryBaseTest.tc" />
-    <None Include="test-cases\GeometryTest.tc" />
-    <None Include="test-cases\LayerContainerTest.tc" />
-    <None Include="test-cases\MeshTest.tc" />
-    <None Include="test-cases\NodeTest.tc" />
-    <None Include="test-cases\PropertyTest.tc" />
-    <None Include="test-cases\SceneTest.tc" />
-    <None Include="test-cases\SkinTest.tc" />
-    <None Include="test-cases\SubDeformerTest.tc" />
-    <None Include="test-cases\SurfacePhongTest.tc" />
-    <None Include="test-cases\ClusterTest.tc" />
-    <None Include="test-cases\FbxTimeTest.tc" />
-    <None Include="test-cases\AnimStackTest.tc" />
-    <None Include="test-cases\AnimLayerTest.tc" />
-    <None Include="test-cases\AnimCurveTest.tc" />
-    <None Include="test-cases\AnimCurveNodeTest.tc" />
-    <None Include="test-cases\NodeTransformsTest.tc" />
-    <None Include="test-cases\MatrixTest.tc" />
-    <None Include="test-cases\AnimCurveKeyTest.tc" />
-    <None Include="FbxSharp.nuspec" />
-    <None Include="test-cases\LightTest.tc" />
-    <None Include="test-cases\CameraTest.tc" />
-    <None Include=".travis.yml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="pre-build.py" />
-  </ItemGroup>
-  <PropertyGroup>
-    <PreBuildEvent>python $(ProjectDir)pre-build.py $(ProjectDir)AssemblyInfo.Git.cs</PreBuildEvent>
-  </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="tools\" />
-  </ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>false</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DefaultItemExcludes>
+            FbxCli/**;
+            fbxcppcli/**;
+            fbxcppcommon/**;
+            FbxCppTests/**;
+            FbxPrint/**;
+            FbxSharp/**;
+            FbxSharpTests/**;
+            TestCaseGenerator/**;
+            bin/**;
+            obj/**;
+            instance/**;
+            packages/**;
+            tmp/**;
+        </DefaultItemExcludes>
+    </PropertyGroup>
+
 </Project>

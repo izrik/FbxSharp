@@ -10,7 +10,7 @@ void Layer_SetVisibility_SetsVisibility()
     FbxLayerContainer* lc = FbxLayerContainer::Create(manager, "");
     lc->CreateLayer();
     FbxLayer* layer = lc->GetLayer(0);
-    FbxLayerElementVisibility* lev = FbxLayerElementVisibility::Create(NULL, "");
+    FbxLayerElementVisibility* lev = FbxLayerElementVisibility::Create(manager, "");
 
     // require:
     AssertEqual(NULL, layer->GetVisibility());
@@ -29,8 +29,8 @@ void Layer_SetVisibility_ReplacesPreviousVisibilityElement()
     FbxLayerContainer* lc = FbxLayerContainer::Create(manager, "");
     lc->CreateLayer();
     FbxLayer* layer = lc->GetLayer(0);
-    FbxLayerElementVisibility* lev1 = FbxLayerElementVisibility::Create(NULL, "one");
-    FbxLayerElementVisibility* lev2 = FbxLayerElementVisibility::Create(NULL, "two");
+    FbxLayerElementVisibility* lev1 = FbxLayerElementVisibility::Create(manager, "one");
+    FbxLayerElementVisibility* lev2 = FbxLayerElementVisibility::Create(manager, "two");
     layer->SetVisibility(lev1);;
 
     // require:
