@@ -17,7 +17,17 @@ jobs:
 
       - name: Download and install FBXSDK files
         run: |
+          # info
+          id
+          cat /etc/os-release
+          uname -a
+
+          # update
           sudo apt update ; sudo apt -y install gcc g++ make curl wget libxml2-dev zlib1g-dev
+
+          # set up
+          sudo mkdir -p /build
+          sudo chown "$(whoami)" /build
 
           # download and build libiconv
           mkdir -p /build/libiconv
