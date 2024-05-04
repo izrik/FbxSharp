@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\FbxSharp.csproj" />
+      <ProjectReference Include="..\FbxSharp\FbxSharp.csproj" />
     </ItemGroup>
     <PropertyGroup>
         <DefaultItemExcludes>
