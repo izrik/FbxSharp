@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "fbxcppcli", "fbxcppcli\fbxcppcli.mdproj", "{0A072D6F-719D-472A-8DD3-F3C3280FFF38}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxSharp", "FbxSharp.csproj", "{9371C168-6135-47A5-9530-FA4C2BEDC0DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxSharpTests", "FbxSharpTests\FbxSharpTests.csproj", "{9707E52B-11A5-4FC4-8997-B256263C3FF6}"
@@ -14,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbxCppTests", "FbxCppTests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fbxcppcommon", "fbxcppcommon\fbxcppcommon.csproj", "{56442575-A601-4EE0-BB47-0119FA1A907B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fbxcppcli", "fbxcppcli\fbxcppcli.csproj", "{35B1957A-914B-4D98-B580-86FEC7DD9441}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,20 +25,6 @@ Global
 		Default|Any CPU = Default|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Debug|Any CPU.ActiveCfg = Default|Any CPU
-		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Debug|Any CPU.Build.0 = Default|Any CPU
-		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Debug|Mixed Platforms.ActiveCfg = Default|Any CPU
-		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Debug|Mixed Platforms.Build.0 = Default|Any CPU
-		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Debug|Win32.ActiveCfg = Default|Any CPU
-		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Debug|Win32.Build.0 = Default|Any CPU
-		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Release|Any CPU.ActiveCfg = Default|Any CPU
-		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Release|Any CPU.Build.0 = Default|Any CPU
-		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Release|Mixed Platforms.ActiveCfg = Default|Any CPU
-		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Release|Mixed Platforms.Build.0 = Default|Any CPU
-		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Release|Win32.ActiveCfg = Default|Any CPU
-		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Release|Win32.Build.0 = Default|Any CPU
-		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Default|Any CPU.ActiveCfg = Default|Any CPU
-		{0A072D6F-719D-472A-8DD3-F3C3280FFF38}.Default|Any CPU.Build.0 = Default|Any CPU
 		{9371C168-6135-47A5-9530-FA4C2BEDC0DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9371C168-6135-47A5-9530-FA4C2BEDC0DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9371C168-6135-47A5-9530-FA4C2BEDC0DA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -123,6 +109,20 @@ Global
 		{56442575-A601-4EE0-BB47-0119FA1A907B}.Release|Win32.Build.0 = Release|Any CPU
 		{56442575-A601-4EE0-BB47-0119FA1A907B}.Default|Any CPU.ActiveCfg = Debug|Any CPU
 		{56442575-A601-4EE0-BB47-0119FA1A907B}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{35B1957A-914B-4D98-B580-86FEC7DD9441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35B1957A-914B-4D98-B580-86FEC7DD9441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35B1957A-914B-4D98-B580-86FEC7DD9441}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{35B1957A-914B-4D98-B580-86FEC7DD9441}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{35B1957A-914B-4D98-B580-86FEC7DD9441}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{35B1957A-914B-4D98-B580-86FEC7DD9441}.Debug|Win32.Build.0 = Debug|Any CPU
+		{35B1957A-914B-4D98-B580-86FEC7DD9441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35B1957A-914B-4D98-B580-86FEC7DD9441}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35B1957A-914B-4D98-B580-86FEC7DD9441}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{35B1957A-914B-4D98-B580-86FEC7DD9441}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{35B1957A-914B-4D98-B580-86FEC7DD9441}.Release|Win32.ActiveCfg = Release|Any CPU
+		{35B1957A-914B-4D98-B580-86FEC7DD9441}.Release|Win32.Build.0 = Release|Any CPU
+		{35B1957A-914B-4D98-B580-86FEC7DD9441}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{35B1957A-914B-4D98-B580-86FEC7DD9441}.Default|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
