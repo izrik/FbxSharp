@@ -21,7 +21,7 @@ jobs:
           id
           cat /etc/os-release
           uname -a
-          ./build_setup.sh
+          ./.github/workflows/build_setup.sh
 
       - name: Build and run tests
         run: |
