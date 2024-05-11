@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#
+# Run the C++ tests in a linux-flavored docker container. Useful if the C++
+# files don't build correctly on your platform.
+#
+
 __DIR__="$(dirname $(realpath $BASH_SOURCE))"
 
 IMAGE=ubuntu:24.04
