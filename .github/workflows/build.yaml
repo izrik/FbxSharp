@@ -23,6 +23,12 @@ jobs:
           uname -a
           ./.github/workflows/build_setup.sh
 
+      - name: Diag
+        run: |
+          ls -l /usr/share/fbxsdk/
+          ls -l /usr/share/fbxsdk/2020.3.4/
+          ls -l /usr/share/fbxsdk/2020.3.4/include
+
       - name: Build and run tests
         run: |
           ./all_build.sh
