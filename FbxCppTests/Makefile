@@ -44,7 +44,7 @@ directories:
 	mkdir -p obj bin
 
 %.cpp: ../test-cases/%.tc
-	mono ../TestCaseGenerator/bin/Debug/TestCaseGenerator.exe cpp $< $@
+	dotnet ../TestCaseGenerator/bin/Debug/net8.0/TestCaseGenerator.dll cpp $< $@
 
 obj/%.o: %.cpp
 	$(CC) $(CFLAGS) $< -o $@
