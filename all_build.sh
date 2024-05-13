@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
-(cd fbxcppcommon && make ) && \
+dotnet build FbxSharp.sln && \
+    dotnet test FbxSharpTests/ && \
+    (cd fbxcppcommon && make ) && \
     (cd FbxCppTests && make all && make check ) && \
-    (cd fbxcppcli && make ) && \
-    dotnet build FbxSharp.sln && \
-    dotnet test FbxSharpTests/
+    (cd fbxcppcli && make )

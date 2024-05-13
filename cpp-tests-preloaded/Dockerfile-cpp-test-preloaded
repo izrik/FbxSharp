@@ -1,0 +1,15 @@
+FROM ubuntu:24.04
+
+RUN apt update ; apt -y install gcc g++ make curl wget libxml2-dev zlib1g-dev
+RUN mkdir -p /build/libiconv
+WORKDIR /build/libiconv
+RUN wget http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.11.tar.gz ; tar -xvf libiconv-1.11.tar.gz
+WORKDIR /build/libiconv/libiconv-1.11
+RUN  ./configure ; make ; make install ; make check ; make install
+WORKDIR /build/fbxsdk
+# RUN wget https://www.autodesk.com/content/dam/autodesk/www/adn/fbx/2020-3-4/fbx202034_fbxsdk_linux.tar.gz ; \
+RUN wget https://damassets.autodesk.net/content/dam/autodesk/www/adn/fbx/2020-3-4/fbx202034_fbxsdk_linux.tar.gz
+RUN tar -xvf fbx202034_fbxsdk_linux.tar.gz ; \
+    mkdir -p /usr/share/fbxsdk/2020.3.4 ; \
+    printf 'yes\nn\n' | /build/fbxsdk/fbx202034_fbxsdk_linux /usr/share/fbxsdk/2020.3.4
+WORKDIR /
