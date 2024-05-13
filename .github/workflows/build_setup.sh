@@ -4,7 +4,7 @@ function pseudo {
   "$@"
 }
 
-SUDO="${SUDO:-"$SUDO"}"
+SUDO="${SUDO:-"sudo"}"
 
 # update
 "$SUDO" apt update
