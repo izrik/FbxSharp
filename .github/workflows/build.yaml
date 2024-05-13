@@ -25,6 +25,7 @@ jobs:
 
       - name: Diag
         run: |
+          ls -l /usr/share/
           ls -l /usr/share/fbxsdk/
           ls -l /usr/share/fbxsdk/2020.3.4/
           ls -l /usr/share/fbxsdk/2020.3.4/include
