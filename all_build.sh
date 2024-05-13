@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/bin/bash -xe
 set -e
 (cd fbxcppcommon && make ) && \
-    (cd FbxCppTests && make all && make check ) && \
+    dotnet build FbxSharp.sln
+ls -laR TestCaseGenerator/bin/* || true
+(cd FbxCppTests && make all && make check ) && \
     (cd fbxcppcli && make ) && \
-    dotnet build FbxSharp.sln && \
     dotnet test FbxSharpTests/
