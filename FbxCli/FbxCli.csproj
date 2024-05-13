@@ -12,4 +12,8 @@
       <ProjectReference Include="..\FbxSharp\FbxSharp.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="NCommander" Version="0.14.0" />
+    </ItemGroup>
+
 </Project>
