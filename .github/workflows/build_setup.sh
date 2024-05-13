@@ -29,4 +29,4 @@ cd /build/fbxsdk
 wget https://damassets.autodesk.net/content/dam/autodesk/www/adn/fbx/2020-3-4/fbx202034_fbxsdk_linux.tar.gz
 tar -xvf fbx202034_fbxsdk_linux.tar.gz
 "$SUDO" mkdir -p /usr/share/fbxsdk/2020.3.4
-printf 'yes\nn\n' | ./fbx202034_fbxsdk_linux /usr/share/fbxsdk/2020.3.4
+printf 'yes\nn\n' | "$SUDO" ./fbx202034_fbxsdk_linux /usr/share/fbxsdk/2020.3.4
