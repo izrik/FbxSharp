@@ -3,14 +3,58 @@ test FbxImporter_Create_AllZero
     given
     FbxImporter importer = new("")
 
-    then
-    AssertEqual(0, CountProperties(importer))
-    AssertEqual(0, importer.GetSrcPropertyCount())
-    AssertEqual(0, importer.GetDstPropertyCount())
+    expect
+    AssertFalse(importer.IsFBX())
 
-test FbxImporter_IsFBX_UnitializedYieldsFalse
+test FbxImporter_IsImporting_UninitializedYieldsFalse
     given
     FbxImporter importer = new("")
+    bool result
+
+    expect
+    AssertFalse(importer.IsImporting(result))
+
+test FbxImporter_GetProgress_UninitializedYieldsZero
+    given
+    FbxImporter importer = new("")
+    bool result
+
+    expect
+    AssertEqual(0.0, importer.GetProgress(NULL))
+
+test FbxImporter_GetFileVersion_UninitializedYieldsZero
+    given
+    FbxImporter importer = new("")
+    int major
+    int minor
+    int revision
+
+    when
+    importer.GetFileVersion(major, minor, revision)
 
     then
-    AssertFalse(importer.IsFBX())
+    AssertEqual(0, major)
+    AssertEqual(0, minor)
+    AssertEqual(0, revision)
+
+test FbxImporter_GetFileHeaderInfo_UninitializedYieldsNonNull
+    given
+    FbxImporter importer = new("")
+    FbxIOFileHeaderInfo* header
+
+    when
+    header = importer.GetFileHeaderInfo()
+
+    then
+    AssertNotNull(header);  // !!!
+
+test FbxImporter_GetIOSettings_UninitializedYieldsNull
+    given
+    FbxImporter importer = new("")
+    FbxIOSettings* result
+
+    when
+    result = importer.GetIOSettings()
+
+    then
+    AssertNull(result)

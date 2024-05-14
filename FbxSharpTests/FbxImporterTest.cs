@@ -14,19 +14,26 @@ namespace FbxSharpTests
             var importer = new FbxImporter("");
 
             // then:
-            Assert.AreEqual(0, CountProperties(importer));
-            Assert.AreEqual(0, importer.GetSrcPropertyCount());
-            Assert.AreEqual(0, importer.GetDstPropertyCount());
+            Assert.False(importer.IsFBX());
+            Assert.False(importer.IsImporting());
         }
 
         [Test]
-        public void FbxImporter_IsFBX_UnitializedYieldsFalse()
+        public void FbxImporter_GetFileVersion_UninitializedYieldsDefaults()
         {
             // given:
             var importer = new FbxImporter("");
+            int major;
+            int minor;
+            int revision;
+
+            // when:
+            importer.GetFileVersion(major, minor, revision);
 
             // then:
-            Assert.False(importer.IsFBX());
+            Assert.AreEqual(5, major);
+            Assert.AreEqual(0, minor);
+            Assert.AreEqual(0, revision);
         }
     }
 }
