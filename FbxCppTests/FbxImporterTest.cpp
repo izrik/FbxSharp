@@ -11,6 +11,7 @@ void FbxImporter_Create_AllZero()
 
     // expect:
     AssertFalse(importer->IsFBX());
+    AssertEqual(-1, importer->GetFileFormat());
 }
 
 void FbxImporter_IsImporting_UninitializedYieldsFalse()
@@ -29,7 +30,6 @@ void FbxImporter_GetProgress_UninitializedYieldsZero()
     // given:
     FbxManager* manager = FbxManager::Create();
     FbxImporter* importer = FbxImporter::Create(manager, "");
-    bool result;
 
     // expect:
     AssertEqual(0.0, importer->GetProgress(NULL));
@@ -81,6 +81,48 @@ void FbxImporter_GetIOSettings_UninitializedYieldsNull()
     AssertNull(result);
 }
 
+void FbxImporter_Initialize_ValidFile_Succeeds1()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxImporter* importer = FbxImporter::Create(manager, "");
+    bool result;
+
+    // when:
+    result = importer->Initialize("../samples/monolith.fbx");
+
+    // then:
+    AssertTrue(result);
+}
+
+void FbxImporter_Initialize_ValidFile_Succeeds2()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxImporter* importer = FbxImporter::Create(manager, "");
+    bool result;
+
+    // when:
+    result = importer->Initialize("../samples/monolith.fbx");
+
+    // then:
+    AssertEqual(FbxStatus::EStatusCode::eSuccess, importer->GetStatus().GetCode());
+}
+
+void FbxImporter_Initialize_ValidFile_Succeeds3()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxImporter* importer = FbxImporter::Create(manager, "");
+    bool result;
+
+    // when:
+    result = importer->Initialize("../samples/monolith.fbx");
+
+    // then:
+    AssertFalse(importer->GetStatus().Error());
+}
+
 void FbxImporterTest::RegisterTestCases()
 {
     AddTestCase(FbxImporter_Create_AllZero);
@@ -89,5 +131,8 @@ void FbxImporterTest::RegisterTestCases()
     AddTestCase(FbxImporter_GetFileVersion_UninitializedYieldsZero);
     AddTestCase(FbxImporter_GetFileHeaderInfo_UninitializedYieldsNonNull);
     AddTestCase(FbxImporter_GetIOSettings_UninitializedYieldsNull);
+    AddTestCase(FbxImporter_Initialize_ValidFile_Succeeds1);
+    AddTestCase(FbxImporter_Initialize_ValidFile_Succeeds2);
+    AddTestCase(FbxImporter_Initialize_ValidFile_Succeeds3);
 }
 

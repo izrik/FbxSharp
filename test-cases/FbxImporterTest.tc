@@ -5,19 +5,20 @@ test FbxImporter_Create_AllZero
 
     expect
     AssertFalse(importer.IsFBX())
+    AssertEqual(-1, importer.GetFileFormat())
 
 test FbxImporter_IsImporting_UninitializedYieldsFalse
     given
     FbxImporter importer = new("")
-    bool result
+    bool result = false
 
     expect
     AssertFalse(importer.IsImporting(result))
+    AssertFalse(result)
 
 test FbxImporter_GetProgress_UninitializedYieldsZero
     given
     FbxImporter importer = new("")
-    bool result
 
     expect
     AssertEqual(0.0, importer.GetProgress(NULL))
@@ -25,9 +26,9 @@ test FbxImporter_GetProgress_UninitializedYieldsZero
 test FbxImporter_GetFileVersion_UninitializedYieldsZero
     given
     FbxImporter importer = new("")
-    int major
-    int minor
-    int revision
+    int major = 0
+    int minor = 0
+    int revision = 0
 
     when
     importer.GetFileVersion(major, minor, revision)
@@ -58,3 +59,36 @@ test FbxImporter_GetIOSettings_UninitializedYieldsNull
 
     then
     AssertNull(result)
+
+test FbxImporter_Initialize_ValidFile_Succeeds1
+    given
+    FbxImporter importer = new("")
+    bool result
+
+    when
+    result = importer.Initialize("../samples/monolith&.fbx")
+
+    then
+    AssertTrue(result)
+
+test FbxImporter_Initialize_ValidFile_Succeeds2
+    given
+    FbxImporter importer = new("")
+    bool result
+
+    when
+    result = importer.Initialize("../samples/monolith&.fbx")
+
+    then
+    AssertEqual(FbxStatus::EStatusCode::eSuccess, importer.GetStatus()&.GetCode())
+
+test FbxImporter_Initialize_ValidFile_Succeeds3
+    given
+    FbxImporter importer = new("")
+    bool result
+
+    when
+    result = importer.Initialize("../samples/monolith&.fbx")
+
+    then
+    AssertFalse(importer.GetStatus()&.Error())
