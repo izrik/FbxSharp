@@ -12,15 +12,17 @@ namespace FbxSharp
 
         public string Name;
 
-        //public bool Initialize(string pFileName /*, int pFileFormat = -1, FbxIOSettings*pIOSettings = null*/)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        private string initializedFilename = null;
 
-        //public bool Import(Document pDocument /*, bool pNonBlocking=false*/)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public bool Initialize(string pFileName /*, int pFileFormat = -1, FbxIOSettings*pIOSettings = null*/)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Import(FbxDocument pDocument /*, bool pNonBlocking=false*/)
+        {
+            throw new NotImplementedException();
+        }
 
         public FbxScene Import(string filename)
         {

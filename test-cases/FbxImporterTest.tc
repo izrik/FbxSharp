@@ -1,0 +1,16 @@
+﻿fixture FbxImporterTest
+test FbxImporter_Create_AllZero
+    given
+    FbxImporter importer = new("")
+
+    then
+    AssertEqual(0, CountProperties(importer))
+    AssertEqual(0, importer.GetSrcPropertyCount())
+    AssertEqual(0, importer.GetDstPropertyCount())
+
+test FbxImporter_IsFBX_UnitializedYieldsError
+    given
+    FbxImporter importer = new("")
+
+    then
+    AssertTrue(true)

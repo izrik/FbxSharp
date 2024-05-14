@@ -134,6 +134,7 @@ void RunTests()
     tests.push_back(new LightTest());
     tests.push_back(new CameraTest());
     tests.push_back(new LayerTest());
+    tests.push_back(new FbxImporterTest());
 
     cout << "Running tests..." << endl;
 
