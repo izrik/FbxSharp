@@ -22,15 +22,22 @@ namespace TestCaseGenerator
                     "newer than the source .tc file",
                 Type = ParameterType.Flag,
             };
+            var verboseOption = new Option()
+            {
+                Name = "verbose",
+                Description =
+                    "Print additional information during execution",
+                Type = ParameterType.Flag,
+            };
 
             var csCmd = CreateCommand(
                 "cs", "Generate C# tests", GenerateCs,
-                options: new[] { forceOption });
+                options: new[] { forceOption, verboseOption });
             commander.Commands.Add("cs", csCmd);
 
             var cppCmd = CreateCommand(
                 "cpp", "Generate C++ tests", GenerateCpp,
-                options: new[] { forceOption });
+                options: new[] { forceOption, verboseOption });
             commander.Commands.Add("cpp", cppCmd);
 
             try
@@ -116,6 +123,8 @@ namespace TestCaseGenerator
             var input = (string)args["input-filename"];
             var fixtures = new List<TestFixture>();
             bool force = args.ContainsKey("force") && (bool)args["force"];
+            bool verbose = args.ContainsKey("verbose") &&
+                           (bool)args["verbose"];
             bool isStdout = !args.ContainsKey("output-filename") ||
                             args["output-filename"] == null;
             string outputFilename = null;
@@ -129,14 +138,18 @@ namespace TestCaseGenerator
                 if (outmod > inmod)
                 {
                     if (force)
-                        Console.WriteLine(
-                            $"Forced overwrite even though " +
-                            $"{outputFilename} is newer than {input}");
+                    {
+                        if (verbose)
+                            Console.WriteLine(
+                                $"Forced overwrite even though " +
+                                $"{outputFilename} is newer than {input}");
+                    }
                     else
                     {
-                        Console.WriteLine(
-                            $"{outputFilename} is newer than {input}, " +
-                            $"skipping...");
+                        if (verbose)
+                            Console.WriteLine(
+                                $"{outputFilename} is newer than {input}, " +
+                                $"skipping...");
                         return;
                     }
                 }
