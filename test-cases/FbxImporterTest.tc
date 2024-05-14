@@ -8,9 +8,9 @@ test FbxImporter_Create_AllZero
     AssertEqual(0, importer.GetSrcPropertyCount())
     AssertEqual(0, importer.GetDstPropertyCount())
 
-test FbxImporter_IsFBX_UnitializedYieldsError
+test FbxImporter_IsFBX_UnitializedYieldsFalse
     given
     FbxImporter importer = new("")
 
     then
-    AssertTrue(true)
+    AssertFalse(importer.IsFBX())

@@ -20,13 +20,13 @@ namespace FbxSharpTests
         }
 
         [Test]
-        public void FbxImporter_IsFBX_UnitializedYieldsError()
+        public void FbxImporter_IsFBX_UnitializedYieldsFalse()
         {
             // given:
             var importer = new FbxImporter("");
 
             // then:
-            Assert.True(true);
+            Assert.False(importer.IsFBX());
         }
     }
 }
