@@ -13,8 +13,25 @@ namespace TestCaseGenerator
         public static void Main(string [] args)
         {
             var commander = new Commander("TestCaseGenerator", GetVersionStringFromAssembly());
-            commander.Commands.Add("cs", CreateCommand("cs", "Generate C# tests", GenerateCs));
-            commander.Commands.Add("cpp", CreateCommand("cpp", "Generate C++ tests", GenerateCpp));
+
+            var forceOption = new Option()
+            {
+                Name = "force",
+                Description =
+                    "Generate a test file even if it already exists and is " +
+                    "newer than the source .tc file",
+                Type = ParameterType.Flag,
+            };
+
+            var csCmd = CreateCommand(
+                "cs", "Generate C# tests", GenerateCs,
+                options: new[] { forceOption });
+            commander.Commands.Add("cs", csCmd);
+
+            var cppCmd = CreateCommand(
+                "cpp", "Generate C++ tests", GenerateCpp,
+                options: new[] { forceOption });
+            commander.Commands.Add("cpp", cppCmd);
 
             try
             {
@@ -59,23 +76,33 @@ namespace TestCaseGenerator
             return version.ToString(version.Major == 0 ? 2 : 3);
         }
 
-        static Command CreateCommand(string name, string description, Action<List<TestFixture>, TextWriter> generator)
+        static Command CreateCommand(string name, string description,
+            Action<List<TestFixture>, TextWriter> generator,
+            IEnumerable<Parameter> extraParams = null,
+            IEnumerable<Option> options = null)
         {
+            var paramlist = new List<Parameter> {
+                new Parameter {
+                    Name = "input-filename",
+                    ParameterType = ParameterType.String,
+                },
+                new Parameter {
+                    Name = "output-filename",
+                    ParameterType = ParameterType.String,
+                    IsOptional = true,
+                }
+            };
+            if (extraParams != null)
+                paramlist.AddRange(extraParams);
+            var optionArray = Array.Empty<Option>();
+            if (options != null)
+                optionArray = options.ToArray();
 
             var cmd = new Command {
                 Name = name,
                 Description = description,
-                Params = new [] {
-                    new Parameter {
-                        Name = "input-filename",
-                        ParameterType = ParameterType.String,
-                    },
-                    new Parameter {
-                        Name = "output-filename",
-                        ParameterType = ParameterType.String,
-                        IsOptional = true,
-                    },
-                },
+                Params = paramlist.ToArray(),
+                Options = optionArray,
                 ExecuteDelegate = args => {
                     ExecuteDelegate(args, generator, name);
                 },
@@ -88,6 +115,32 @@ namespace TestCaseGenerator
         {
             var input = (string)args["input-filename"];
             var fixtures = new List<TestFixture>();
+            bool force = args.ContainsKey("force") && (bool)args["force"];
+            bool isStdout = !args.ContainsKey("output-filename") ||
+                            args["output-filename"] == null;
+            string outputFilename = null;
+            if (!isStdout)
+                outputFilename = (string)args["output-filename"];
+
+            if (!isStdout)
+            {
+                var inmod = File.GetLastWriteTime(input);
+                var outmod = File.GetLastWriteTime(outputFilename);
+                if (outmod > inmod)
+                {
+                    if (force)
+                        Console.WriteLine(
+                            $"Forced overwrite even though " +
+                            $"{outputFilename} is newer than {input}");
+                    else
+                    {
+                        Console.WriteLine(
+                            $"{outputFilename} is newer than {input}, " +
+                            $"skipping...");
+                        return;
+                    }
+                }
+            }
 
             using (var reader = new StreamReader(input))
             {
@@ -126,35 +179,34 @@ namespace TestCaseGenerator
                     string name;
                     switch (parts[0].ToLower())
                     {
-                    case "fixture":
-                        name = parts[1];
-                        currentFixture = new TestFixture { Name = name };
-                        fixtures.Add(currentFixture);
-                        break;
-                    case "test":
-                        name = parts[1];
-                        currentTest = new TestCase { Name = name };
-                        currentFixture.TestCases.Add(currentTest);
-                        break;
-                    case "given":
-                    case "require":
-                    case "when":
-                    case "then":
-                    case "expect":
-                        currentTest.Statements.Add(parts[0].ToLower());
-                        break;
-                    default:
-                        currentTest.Statements.Add(trimmed);
-                        break;
+                        case "fixture":
+                            name = parts[1];
+                            currentFixture = new TestFixture { Name = name };
+                            fixtures.Add(currentFixture);
+                            break;
+                        case "test":
+                            name = parts[1];
+                            currentTest = new TestCase { Name = name };
+                            currentFixture.TestCases.Add(currentTest);
+                            break;
+                        case "given":
+                        case "require":
+                        case "when":
+                        case "then":
+                        case "expect":
+                            currentTest.Statements.Add(parts[0].ToLower());
+                            break;
+                        default:
+                            currentTest.Statements.Add(trimmed);
+                            break;
                     }
                 }
             }
 
-
             using (var writer = 
-                (!args.ContainsKey("output-filename") || args["output-filename"] == null ?
-                    Console.Out :
-                    new StreamWriter((string)args["output-filename"])))
+                   (isStdout ?
+                       Console.Out :
+                       new StreamWriter(outputFilename)))
             {
                 generator(fixtures, writer);
             }
