@@ -1162,6 +1162,31 @@ std::ostream& operator<<(std::ostream& os, const FbxAMatrix& value)
     return os;
 }
 
+bool CanPrintPropertyValue(FbxProperty* prop)
+{
+    switch (prop->GetPropertyDataType().GetType())
+    {
+    case eFbxChar:
+    case eFbxUChar:
+    case eFbxShort:
+    case eFbxUShort:
+    case eFbxUInt:
+    case eFbxLongLong:
+    case eFbxULongLong:
+    case eFbxBool:
+    case eFbxInt:
+    case eFbxFloat:
+    case eFbxDouble:
+    case eFbxDouble2:
+    case eFbxDouble3:
+    case eFbxDouble4:
+    case eFbxString:
+    case eFbxTime:
+        return true;
+    }
+    return false;
+}
+
 void PrintPropertyValue(FbxProperty* prop)
 {
     char n[1024];
@@ -1283,22 +1308,7 @@ void PrintProperty(FbxProperty* prop, bool indent)
     std::string s;
     std::stringstream ss;
 
-    bool printValue = true;
-    switch (type.GetType())
-    {
-        case eFbxUndefined:
-        case eFbxHalfFloat:
-        case eFbxDouble4x4:
-        case eFbxEnum:
-        case eFbxReference:
-        case eFbxBlob:
-        case eFbxDistance:
-        case eFbxDateTime:
-        case eFbxTypeCount:
-            printValue = false;
-            break;
-    }
-    if (printValue)
+    if (CanPrintPropertyValue(prop))
     {
         cout << prefix << "Value = ";
         PrintPropertyValue(prop);
