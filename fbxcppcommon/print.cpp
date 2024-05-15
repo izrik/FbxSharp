@@ -1162,16 +1162,8 @@ std::ostream& operator<<(std::ostream& os, const FbxAMatrix& value)
     return os;
 }
 
-void PrintProperty(FbxProperty* prop, bool indent)
+void PrintPropertyValue(FbxProperty* prop)
 {
-    const char * prefix = indent ? "            " : "        ";
-
-    cout << prefix << "Name = " << prop->GetName() << endl;
-    FbxDataType type = prop->GetPropertyDataType();
-    cout << prefix << "Type = " << type.GetName() << " (" << GetTypeName(type.GetType()) << ")" << endl;
-    cout << prefix << "HierName = " << prop->GetHierarchicalName() << endl;
-    cout << prefix << "Label = " << prop->GetLabel() << endl;
-
     char n[1024];
     int i;
     for (i = 0; i < 1024; i++)
@@ -1195,95 +1187,110 @@ void PrintProperty(FbxProperty* prop, bool indent)
     std::string s;
     std::stringstream ss;
 
-    bool printValue = true;
+    switch (prop->GetPropertyDataType().GetType())
+    {
+    case eFbxChar:
+        ch = prop->Get<char>();
+        snprintf(n, sizeof(n), "%i ('%c')", (int)ch, ch);
+        break;
+    case eFbxUChar:
+        uch = prop->Get<unsigned char>();
+        snprintf(n, sizeof(n), "%i ('%c')", (unsigned int)uch, uch);
+        break;
+    case eFbxShort:
+        sh = prop->Get<short>();
+        snprintf(n, sizeof(n), "%i", (int)sh);
+        break;
+    case eFbxUShort:
+        ush = prop->Get<unsigned short>();
+        snprintf(n, sizeof(n), "%ui", (unsigned int)ush);
+        break;
+    case eFbxUInt:
+        ui = prop->Get<unsigned int>();
+        snprintf(n, sizeof(n), "%ui", ui);
+        break;
+    case eFbxLongLong:
+        ll = prop->Get<long long>();
+        snprintf(n, sizeof(n), "%lli", ll);
+        break;
+    case eFbxULongLong:
+        ull = prop->Get<unsigned long long>();
+        snprintf(n, sizeof(n), "%llu", ull);
+        break;
+    case eFbxBool:
+        b = prop->Get<bool>();
+        if (b)
+            snprintf(n, sizeof(n), "true");
+        else
+            snprintf(n, sizeof(n), "false");
+        break;
+    case eFbxInt:
+        i = prop->Get<int>();
+        snprintf(n, sizeof(n), "%i", i);
+        break;
+    case eFbxFloat:
+        f = prop->Get<float>();
+        snprintf(n, sizeof(n), "%f", f);
+        break;
+    case eFbxDouble:
+        d = prop->Get<double>();
+        snprintf(n, sizeof(n), "%lf", d);
+        break;
+    case eFbxDouble2:
+        v2 = prop->Get<FbxDouble2>();
+        snprintf(n, sizeof(n), "%lf, %lf", v2[0], v2[1]);
+        break;
+    case eFbxDouble3:
+        v3 = prop->Get<FbxDouble3>();
+        snprintf(n, sizeof(n), "%lf, %lf, %lf", v3[0], v3[1], v3[2]);
+        break;
+    case eFbxDouble4:
+        v4 = prop->Get<FbxDouble4>();
+        snprintf(n, sizeof(n), "%lf, %lf, %lf, %lf", v4[0], v4[1], v4[2],
+                 v4[3]);
+        break;
+    case eFbxString:
+        fstr = prop->Get<FbxString>();
+        snprintf(n, sizeof(n), "%s", fstr.Buffer());
+        s = (fstr.Buffer());
+        s = quote(s.c_str());
+        snprintf(n, sizeof(n), "%s", s.c_str());
+        break;
+    case eFbxTime:
+        ss << prop->Get<FbxTime>();
+        snprintf(n, sizeof(n), "%s", ss.str().c_str());
+        break;
+    }
 
+    cout << n;
+}
+
+void PrintProperty(FbxProperty* prop, bool indent)
+{
+    const char * prefix = indent ? "            " : "        ";
+
+    cout << prefix << "Name = " << prop->GetName() << endl;
+    FbxDataType type = prop->GetPropertyDataType();
+    cout << prefix << "Type = " << type.GetName() << " (" << GetTypeName(type.GetType()) << ")" << endl;
+    cout << prefix << "HierName = " << prop->GetHierarchicalName() << endl;
+    cout << prefix << "Label = " << prop->GetLabel() << endl;
+
+    int i;
+    FbxString fstr;
+    FbxDouble2 v2;
+    FbxDouble3 v3;
+    FbxDouble4 v4;
+    std::string s;
+    std::stringstream ss;
+
+    bool printValue = true;
     switch (type.GetType())
     {
         case eFbxUndefined:
-            printValue = false;
-            break;
-        case eFbxChar:
-            ch = prop->Get<char>();
-            snprintf(n, sizeof(n), "%i ('%c')", (int)ch, ch);
-            break;
-        case eFbxUChar:
-            uch = prop->Get<unsigned char>();
-            snprintf(n, sizeof(n), "%i ('%c')", (unsigned int)uch, uch);
-            break;
-        case eFbxShort:
-            sh = prop->Get<short>();
-            snprintf(n, sizeof(n), "%i", (int)sh);
-            break;
-        case eFbxUShort:
-            ush = prop->Get<unsigned short>();
-            snprintf(n, sizeof(n), "%ui", (unsigned int)ush);
-            break;
-        case eFbxUInt:
-            ui = prop->Get<unsigned int>();
-            snprintf(n, sizeof(n), "%ui", ui);
-            break;
-        case eFbxLongLong:
-            ll = prop->Get<long long>();
-            snprintf(n, sizeof(n), "%lli", ll);
-            break;
-        case eFbxULongLong:
-            ull = prop->Get<unsigned long long>();
-            snprintf(n, sizeof(n), "%llu", ull);
-            break;
         case eFbxHalfFloat:
-            printValue = false;
-            break;
-        case eFbxBool:
-            b = prop->Get<bool>();
-            if (b)
-                snprintf(n, sizeof(n), "true");
-            else
-                snprintf(n, sizeof(n), "false");
-            break;
-        case eFbxInt:
-            i = prop->Get<int>();
-            snprintf(n, sizeof(n), "%i", i);
-            break;
-        case eFbxFloat:
-            f = prop->Get<float>();
-            snprintf(n, sizeof(n), "%f", f);
-            break;
-        case eFbxDouble:
-            d = prop->Get<double>();
-            snprintf(n, sizeof(n), "%lf", d);
-            break;
-        case eFbxDouble2:
-            v2 = prop->Get<FbxDouble2>();
-            snprintf(n, sizeof(n), "%lf, %lf", v2[0], v2[1]);
-            break;
-        case eFbxDouble3:
-            v3 = prop->Get<FbxDouble3>();
-            snprintf(n, sizeof(n), "%lf, %lf, %lf", v3[0], v3[1], v3[2]);
-            break;
-        case eFbxDouble4:
-            v4 = prop->Get<FbxDouble4>();
-            snprintf(n, sizeof(n), "%lf, %lf, %lf, %lf", v4[0], v4[1], v4[2], v4[3]);
-            break;
         case eFbxDouble4x4:
         case eFbxEnum:
-            printValue = false;
-            break;
-        case eFbxString:
-            fstr = prop->Get<FbxString>();
-            snprintf(n, sizeof(n), "%s", fstr.Buffer());
-            s = (fstr.Buffer());
-            s = quote(s.c_str());
-            snprintf(n, sizeof(n), "%s", s.c_str());
-            break;
-        case eFbxTime:
-            ss << prop->Get<FbxTime>();
-            snprintf(n, sizeof(n), "%s", ss.str().c_str());
-            break;
         case eFbxReference:
-//            FbxObject* obj;
-//            obj = prop->Get<FbxObject*>();
-//            cout << prefix << ".Value = " << obj->GetRuntimeClassId().GetName() << ", uid=" << obj->GetUniqueID() << endl;
-//            break;
         case eFbxBlob:
         case eFbxDistance:
         case eFbxDateTime:
@@ -1293,7 +1300,9 @@ void PrintProperty(FbxProperty* prop, bool indent)
     }
     if (printValue)
     {
-        cout << prefix << "Value = " << n << endl;
+        cout << prefix << "Value = ";
+        PrintPropertyValue(prop);
+        cout << endl;
     }
 
 

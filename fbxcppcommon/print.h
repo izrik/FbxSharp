@@ -27,6 +27,7 @@ void PrintObject(FbxObject* obj, bool branch=true, bool printProperties=true);
 void PrintObjectGraph(FbxObject* obj);
 void PrintObjectID(FbxObject* obj);
 void PrintPose(FbxPose* pose);
+void PrintPropertyValue(FbxProperty* prop);
 void PrintProperty(FbxProperty* prop, bool indent=false);
 void PrintPropertyID(FbxProperty* prop);
 void PrintScene(FbxScene* obj);
