@@ -194,3 +194,4 @@ _scratch*
 *.pyc
 .vs
 .DS_Store
+*.blend1

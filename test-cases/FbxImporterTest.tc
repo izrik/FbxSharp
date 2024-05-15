@@ -13,7 +13,8 @@ test FbxImporter_IsImporting_UninitializedYieldsFalse
     bool result = false
 
     expect
-    AssertFalse(importer.IsImporting(result))
+#cpp AssertFalse(importer.IsImporting(result))
+#cs AssertFalse(importer.IsImporting(out result))
     AssertFalse(result)
 
 test FbxImporter_GetProgress_UninitializedYieldsZero
@@ -31,14 +32,15 @@ test FbxImporter_GetFileVersion_UninitializedYieldsZero
     int revision = 0
 
     when
-    importer.GetFileVersion(major, minor, revision)
+#cpp importer.GetFileVersion(major, minor, revision)
+#cs importer.GetFileVersion(out major, out minor, out revision)
 
     then
     AssertEqual(0, major)
     AssertEqual(0, minor)
     AssertEqual(0, revision)
 
-test FbxImporter_GetFileHeaderInfo_UninitializedYieldsNonNull
+test FbxImporter_GetFileHeaderInfo_UninitializedYieldsDefaults
     given
     FbxImporter importer = new("")
     FbxIOFileHeaderInfo* header
@@ -47,7 +49,25 @@ test FbxImporter_GetFileHeaderInfo_UninitializedYieldsNonNull
     header = importer.GetFileHeaderInfo()
 
     then
-    AssertNotNull(header);  // !!!
+    AssertNotNull(header)
+    AssertEqual(false, header.mDefaultRenderResolution&.mIsOK)
+    AssertEqual("", header.mDefaultRenderResolution&.mCameraName)
+    AssertEqual("", header.mDefaultRenderResolution&.mResolutionMode)
+    AssertEqual(0.0, header.mDefaultRenderResolution&.mResolutionW)
+    AssertEqual(0.0, header.mDefaultRenderResolution&.mResolutionH)
+    AssertEqual(false, header.mBinary)
+    AssertEqual(0, header.mFileVersion)
+    AssertEqual(false, header.mCreationTimeStampPresent)
+    AssertEqual(0, header.mCreationTimeStamp&.mYear)
+    AssertEqual(0, header.mCreationTimeStamp&.mMonth)
+    AssertEqual(0, header.mCreationTimeStamp&.mDay)
+    AssertEqual(0, header.mCreationTimeStamp&.mHour)
+    AssertEqual(0, header.mCreationTimeStamp&.mMinute)
+    AssertEqual(0, header.mCreationTimeStamp&.mSecond)
+    AssertEqual(0, header.mCreationTimeStamp&.mMillisecond)
+    AssertEqual("", header.mCreator)
+    AssertEqual(false, header.mIOPlugin)
+    AssertEqual(false, header.mPLE)
 
 test FbxImporter_GetIOSettings_UninitializedYieldsNull
     given

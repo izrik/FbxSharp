@@ -19,10 +19,11 @@ void FbxImporter_IsImporting_UninitializedYieldsFalse()
     // given:
     FbxManager* manager = FbxManager::Create();
     FbxImporter* importer = FbxImporter::Create(manager, "");
-    bool result;
+    bool result = false;
 
     // expect:
     AssertFalse(importer->IsImporting(result));
+    AssertFalse(result);
 }
 
 void FbxImporter_GetProgress_UninitializedYieldsZero()
@@ -40,9 +41,9 @@ void FbxImporter_GetFileVersion_UninitializedYieldsZero()
     // given:
     FbxManager* manager = FbxManager::Create();
     FbxImporter* importer = FbxImporter::Create(manager, "");
-    int major;
-    int minor;
-    int revision;
+    int major = 0;
+    int minor = 0;
+    int revision = 0;
 
     // when:
     importer->GetFileVersion(major, minor, revision);
@@ -53,7 +54,7 @@ void FbxImporter_GetFileVersion_UninitializedYieldsZero()
     AssertEqual(0, revision);
 }
 
-void FbxImporter_GetFileHeaderInfo_UninitializedYieldsNonNull()
+void FbxImporter_GetFileHeaderInfo_UninitializedYieldsDefaults()
 {
     // given:
     FbxManager* manager = FbxManager::Create();
@@ -64,7 +65,25 @@ void FbxImporter_GetFileHeaderInfo_UninitializedYieldsNonNull()
     header = importer->GetFileHeaderInfo();
 
     // then:
-    AssertNotNull(header);  // !!!;
+    AssertNotNull(header);
+    AssertEqual(false, header->mDefaultRenderResolution.mIsOK);
+    AssertEqual("", header->mDefaultRenderResolution.mCameraName);
+    AssertEqual("", header->mDefaultRenderResolution.mResolutionMode);
+    AssertEqual(0.0, header->mDefaultRenderResolution.mResolutionW);
+    AssertEqual(0.0, header->mDefaultRenderResolution.mResolutionH);
+    AssertEqual(false, header->mBinary);
+    AssertEqual(0, header->mFileVersion);
+    AssertEqual(false, header->mCreationTimeStampPresent);
+    AssertEqual(0, header->mCreationTimeStamp.mYear);
+    AssertEqual(0, header->mCreationTimeStamp.mMonth);
+    AssertEqual(0, header->mCreationTimeStamp.mDay);
+    AssertEqual(0, header->mCreationTimeStamp.mHour);
+    AssertEqual(0, header->mCreationTimeStamp.mMinute);
+    AssertEqual(0, header->mCreationTimeStamp.mSecond);
+    AssertEqual(0, header->mCreationTimeStamp.mMillisecond);
+    AssertEqual("", header->mCreator);
+    AssertEqual(false, header->mIOPlugin);
+    AssertEqual(false, header->mPLE);
 }
 
 void FbxImporter_GetIOSettings_UninitializedYieldsNull()
@@ -129,7 +148,7 @@ void FbxImporterTest::RegisterTestCases()
     AddTestCase(FbxImporter_IsImporting_UninitializedYieldsFalse);
     AddTestCase(FbxImporter_GetProgress_UninitializedYieldsZero);
     AddTestCase(FbxImporter_GetFileVersion_UninitializedYieldsZero);
-    AddTestCase(FbxImporter_GetFileHeaderInfo_UninitializedYieldsNonNull);
+    AddTestCase(FbxImporter_GetFileHeaderInfo_UninitializedYieldsDefaults);
     AddTestCase(FbxImporter_GetIOSettings_UninitializedYieldsNull);
     AddTestCase(FbxImporter_Initialize_ValidFile_Succeeds1);
     AddTestCase(FbxImporter_Initialize_ValidFile_Succeeds2);
