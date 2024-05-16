@@ -1182,6 +1182,7 @@ bool CanPrintPropertyValue(FbxProperty* prop)
     case eFbxDouble4:
     case eFbxString:
     case eFbxTime:
+    case eFbxEnum:
         return true;
     }
     return false;
@@ -1211,6 +1212,7 @@ void PrintPropertyValue(FbxProperty* prop)
     FbxDouble4 v4;
     std::string s;
     std::stringstream ss;
+    int count;
 
     switch (prop->GetPropertyDataType().GetType())
     {
@@ -1284,6 +1286,29 @@ void PrintPropertyValue(FbxProperty* prop)
     case eFbxTime:
         ss << prop->Get<FbxTime>();
         snprintf(n, sizeof(n), "%s", ss.str().c_str());
+        break;
+    case eFbxEnum:
+        count = prop->GetEnumCount();
+        fstr = prop->Get<FbxString>();
+        ss << fstr.Buffer();
+        i = prop->Get<int>();
+        ss << ":" << i;
+        i = prop->Get<FbxEnum>();
+        ss << ":" << i;
+        ss << " " << "[";
+        for (i = 0; i < count; i++)
+        {
+            if (i > 0)
+                ss << ", ";
+            ss << prop->GetEnumValue(i);
+        }
+        ss << "]";
+        snprintf(n, sizeof(n), "%s", ss.str().c_str());
+        break;
+    default:
+        n[0] = '"';
+        n[1] = '"';
+        n[2] = 0;
         break;
     }
 
