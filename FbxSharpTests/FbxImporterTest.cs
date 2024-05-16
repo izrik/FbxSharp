@@ -241,7 +241,7 @@ namespace FbxSharpTests
             result2 = importer.GetIOSettings();
 
             // then:
-            /* it's the same object */;
+            // it's the same object;
             Assert.AreEqual(result, result2);
         }
     }

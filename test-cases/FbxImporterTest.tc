@@ -197,5 +197,6 @@ test FbxImporter_GetIOSettings_InitializedYieldsAnObject
     result2 = importer.GetIOSettings()
 
     then
-    /* it's the same object */
+#cpp // it's the same object
+#cs // it's the same object
     AssertEqual(result, result2)

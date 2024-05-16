@@ -237,7 +237,7 @@ void FbxImporter_GetIOSettings_InitializedYieldsAnObject()
     result2 = importer->GetIOSettings();
 
     // then:
-    /* it's the same object */;
+    // it's the same object;
     AssertEqual(result, result2);
 }
 
