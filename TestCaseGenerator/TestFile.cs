@@ -6,4 +6,5 @@ public class TestFile
 {
     public readonly List<string> Prologue = [];
     public readonly List<TestFixture> TestFixtures = [];
+    public bool UseConstraints = false;
 }

@@ -8,6 +8,7 @@ namespace TestCaseGenerator
         public string Name;
         public readonly List<TestCase> TestCases = [];
         public readonly List<string> Epilogue = [];
+        public bool UseConstraints = false;
     }
 }
 

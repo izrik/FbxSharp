@@ -161,7 +161,6 @@ namespace TestCaseGenerator
                 TestFixture currentFixture = null;
                 TestCase currentTest = null;
 
-
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
@@ -173,6 +172,17 @@ namespace TestCaseGenerator
                     }
 
                     var trimmed = line.Trim();
+                    if (trimmed == "#use constraints")
+                    {
+                        if (currentTest != null)
+                            currentTest.UseConstraints = true;
+                        else if (currentFixture != null)
+                            currentFixture.UseConstraints = true;
+                        else
+                            testFile.UseConstraints = true;
+                        continue;
+                    }
+
                     var parts = trimmed.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
 
                     if (parts[0].StartsWith("#"))
@@ -285,10 +295,45 @@ namespace TestCaseGenerator
                             writer.WriteLine("            // {0}:", stmt);
                             break;
                         default:
-                            var outline = stmt.Replace("AssertEqual", "Assert.AreEqual");
-                            outline = outline.Replace("AssertNotEqual", "Assert.AreNotEqual");
-                            outline = outline.Replace("AssertSame", "Assert.AreSame");
-                            outline = Regex.Replace(outline, @"Assert(\w)", m => "Assert." + m.Groups[1].Value);
+                            var outline = stmt;
+                            if ((testFile.UseConstraints||fixture.UseConstraints||testcase.UseConstraints) && outline.StartsWith("Assert"))
+                            {
+                                var outline2 = outline[12..^1];
+                                var parts1 = outline2.Split(",", 2);
+                                var parts2 = string.Join(",", parts1[1..]);
+                                parts2 = parts2.Trim();
+                                if (outline.StartsWith("AssertEqual"))
+                                {
+                                    outline = string.Format(
+                                        "Assert.That({0}, Is.EqualTo({1}));",
+                                        parts2, parts1[0].Trim());
+                                }
+                                else if (outline.StartsWith("AssertNotEqual"))
+                                {
+                                    outline = string.Format(
+                                        "Assert.That({0}, Is.Not.EqualTo({1}));",
+                                        parts2, parts1[0].Trim());
+                                }
+                                else if (outline.StartsWith("AssertSame"))
+                                {
+                                    outline = string.Format(
+                                        "Assert.That({0}, Is.SameAs({1}));",
+                                        parts2, parts1[0].Trim());
+                                }
+                                else
+                                {
+                                    outline = Regex.Replace(outline,
+                                        @"Assert(\w)",
+                                        m => "Assert." + m.Groups[1].Value);
+                                }
+                            }
+                            else
+                            {
+                                outline = outline.Replace("AssertEqual", "Assert.AreEqual");
+                                outline = outline.Replace("AssertNotEqual", "Assert.AreNotEqual");
+                                outline = outline.Replace("AssertSame", "Assert.AreSame");
+                                outline = Regex.Replace(outline, @"Assert(\w)", m => "Assert." + m.Groups[1].Value);
+                            }
 
                             outline = outline.Replace("&", "");
                             outline =

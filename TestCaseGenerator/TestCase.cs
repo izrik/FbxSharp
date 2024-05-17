@@ -7,6 +7,7 @@ namespace TestCaseGenerator
     {
         public readonly string Name = name;
         public readonly List<string> Statements = [];
-    }
+        public bool UseConstraints = false;
+     }
 }
 
