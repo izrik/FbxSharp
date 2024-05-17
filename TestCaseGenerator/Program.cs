@@ -167,7 +167,8 @@ namespace TestCaseGenerator
                     var line = reader.ReadLine();
                     if (string.IsNullOrWhiteSpace(line))
                     {
-                        currentTest.Statements.Add(string.Empty);
+                        if (currentTest != null)
+                            currentTest.Statements.Add(string.Empty);
                         continue;
                     }
 
@@ -200,7 +201,10 @@ namespace TestCaseGenerator
                             break;
                         case "test":
                             name = parts[1];
-                            currentTest = new TestCase { Name = name };
+                            if (currentFixture == null)
+                                throw new InvalidOperationException(
+                                    "Test defined outside of a fixture");
+                            currentTest = new TestCase(name);
                             currentFixture.TestCases.Add(currentTest);
                             break;
                         case "given":
@@ -208,10 +212,16 @@ namespace TestCaseGenerator
                         case "when":
                         case "then":
                         case "expect":
-                            currentTest.Statements.Add(parts[0].ToLower());
+                            if (currentTest!=null)
+                                currentTest.Statements.Add(parts[0].ToLower());
                             break;
                         default:
-                            currentTest.Statements.Add(trimmed);
+                            if (currentTest != null)
+                                currentTest.Statements.Add(trimmed);
+                            else if (currentFixture != null)
+                                currentFixture.Epilogue.Add(trimmed);
+                            else
+                                testFile.Prologue.Add(trimmed);
                             break;
                     }
                 }
@@ -228,6 +238,8 @@ namespace TestCaseGenerator
 
         static void GenerateCs(TestFile testFile, TextWriter writer)
         {
+            foreach (var line in testFile.Prologue)
+                writer.WriteLine(line);
             writer.WriteLine("using System;");
             writer.WriteLine("using NUnit.Framework;");
             writer.WriteLine("using FbxSharp;");
@@ -376,6 +388,8 @@ namespace TestCaseGenerator
                     writer.WriteLine("        }");
                     casesStarted = true;
                 }
+                foreach (var line in fixture.Epilogue)
+                    writer.WriteLine(line);
                 writer.WriteLine("    }");
                 fixturesStarted = true;
             }
@@ -385,6 +399,8 @@ namespace TestCaseGenerator
 
         static void GenerateCpp(TestFile testFile, TextWriter writer)
         {
+            foreach (var line in testFile.Prologue)
+                writer.WriteLine(line);
             writer.WriteLine();
             writer.WriteLine("#include \"Tests.h\"");
             writer.WriteLine();
@@ -593,6 +609,8 @@ namespace TestCaseGenerator
                     writer.WriteLine("}");
                 }
 
+                foreach (var line in fixture.Epilogue)
+                    writer.WriteLine(line);
                 writer.WriteLine();
                 writer.WriteLine("void {0}::RegisterTestCases()", fixture.Name);
                 writer.WriteLine("{");

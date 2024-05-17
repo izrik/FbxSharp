@@ -4,5 +4,6 @@ namespace TestCaseGenerator;
 
 public class TestFile
 {
-    public List<TestFixture> TestFixtures = new();
+    public readonly List<string> Prologue = [];
+    public readonly List<TestFixture> TestFixtures = [];
 }

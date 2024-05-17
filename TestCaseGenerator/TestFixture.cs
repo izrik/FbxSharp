@@ -6,7 +6,8 @@ namespace TestCaseGenerator
     public class TestFixture
     {
         public string Name;
-        public List<TestCase> TestCases = new List<TestCase>();
+        public readonly List<TestCase> TestCases = [];
+        public readonly List<string> Epilogue = [];
     }
 }
 

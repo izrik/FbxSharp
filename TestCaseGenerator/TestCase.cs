@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace TestCaseGenerator
 {
-    public class TestCase
+    public class TestCase(string name)
     {
-        public string Name;
-        public List<string> Statements = new List<string>();
+        public readonly string Name = name;
+        public readonly List<string> Statements = [];
     }
 }
 
