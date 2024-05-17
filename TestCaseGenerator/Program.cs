@@ -356,6 +356,8 @@ namespace TestCaseGenerator
 
                             outline = Regex.Replace(outline, @"\bFbx\$", "");
 
+                            outline = Regex.Replace(outline, @"\b(\d+L)L\b", m => m.Groups[1].Value);
+
                             if (Regex.IsMatch(outline, @"^\w+\s*\*\s*\w+$"))
                             {
                                 outline = outline.Replace('*', ' ');
