@@ -84,7 +84,7 @@ namespace TestCaseGenerator
         }
 
         static Command CreateCommand(string name, string description,
-            Action<List<TestFixture>, TextWriter> generator,
+            Action<TestFile, TextWriter> generator,
             IEnumerable<Parameter> extraParams = null,
             IEnumerable<Option> options = null)
         {
@@ -118,10 +118,11 @@ namespace TestCaseGenerator
             return cmd;
         }
 
-        static void ExecuteDelegate(Dictionary<string, object> args, Action<List<TestFixture>, TextWriter> generator, string language)
+        static void ExecuteDelegate(Dictionary<string, object> args,
+            Action<TestFile, TextWriter> generator, string language)
         {
             var input = (string)args["input-filename"];
-            var fixtures = new List<TestFixture>();
+            var testFile = new TestFile();
             bool force = args.ContainsKey("force") && (bool)args["force"];
             bool verbose = args.ContainsKey("verbose") &&
                            (bool)args["verbose"];
@@ -195,7 +196,7 @@ namespace TestCaseGenerator
                         case "fixture":
                             name = parts[1];
                             currentFixture = new TestFixture { Name = name };
-                            fixtures.Add(currentFixture);
+                            testFile.TestFixtures.Add(currentFixture);
                             break;
                         case "test":
                             name = parts[1];
@@ -221,11 +222,11 @@ namespace TestCaseGenerator
                        Console.Out :
                        new StreamWriter(outputFilename)))
             {
-                generator(fixtures, writer);
+                generator(testFile, writer);
             }
         }
 
-        static void GenerateCs(List<TestFixture> fixtures, TextWriter writer)
+        static void GenerateCs(TestFile testFile, TextWriter writer)
         {
             writer.WriteLine("using System;");
             writer.WriteLine("using NUnit.Framework;");
@@ -234,7 +235,7 @@ namespace TestCaseGenerator
             writer.WriteLine("namespace FbxSharpTests");
             writer.WriteLine("{");
             var fixturesStarted = false;
-            foreach (var fixture in fixtures)
+            foreach (var fixture in testFile.TestFixtures)
             {
                 if (fixturesStarted)
                     writer.WriteLine();
@@ -382,13 +383,13 @@ namespace TestCaseGenerator
             writer.Flush();
         }
 
-        static void GenerateCpp(List<TestFixture> fixtures, TextWriter writer)
+        static void GenerateCpp(TestFile testFile, TextWriter writer)
         {
             writer.WriteLine();
             writer.WriteLine("#include \"Tests.h\"");
             writer.WriteLine();
             writer.WriteLine("using namespace std;");
-            foreach (var fixture in fixtures)
+            foreach (var fixture in testFile.TestFixtures)
             {
                 foreach (var testcase in fixture.TestCases)
                 {
