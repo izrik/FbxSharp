@@ -63,6 +63,9 @@ namespace FbxSharp
             return Value / FBXSDK_TC_MILLISECOND;
         }
 
+        public int GetHourCount() => (int)(Value / FBXSDK_TC_SECOND / 3600);
+        public int GetMinuteCount() => (int)(Value / FBXSDK_TC_SECOND / 60);
+
         public double GetSecondDouble()
         {
             return Value / (double)UnitsPerSecond;

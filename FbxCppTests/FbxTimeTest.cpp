@@ -377,6 +377,74 @@ void FbxTime_GetGlobalTimeMode()
     AssertEqual(FbxTime::EMode::eFrames30, FbxTime::GetGlobalTimeMode());
 }
 
+void FbxTime_Get_YieldsInternalRepresentation()
+{
+    // when:
+    FbxTime* time = new FbxTime(0LL);
+    // then:
+    AssertEqual(0LL, time->Get());
+    // when:
+    time = new FbxTime(1LL);
+    // then:
+    AssertEqual(1LL, time->Get());
+    // when:
+    time = new FbxTime(2LL);
+    // then:
+    AssertEqual(2LL, time->Get());
+    // when:
+    time = new FbxTime(141119999L);
+    // then:
+    AssertEqual(141119999L, time->Get());
+    // when:
+    time = new FbxTime(141120000L);
+    // then:
+    AssertEqual(141120000L, time->Get());
+    // when:
+    time = new FbxTime(141120001L);
+    // then:
+    AssertEqual(141120001L, time->Get());
+    // when:
+    time = new FbxTime(-1LL);
+    // then:
+    AssertEqual(-1LL, time->Get());
+    // when:
+    time = new FbxTime(-2LL);
+    // then:
+    AssertEqual(-2LL, time->Get());
+    // when:
+    time = new FbxTime(-141119999L);
+    // then:
+    AssertEqual(-141119999L, time->Get());
+    // when:
+    time = new FbxTime(-141120000L);
+    // then:
+    AssertEqual(-141120000L, time->Get());
+    // when:
+    time = new FbxTime(-141120001L);
+    // then:
+    AssertEqual(-141120001L, time->Get());
+}
+
+void FbxTime_CountFunctionAreIndependent()
+{
+    // when:
+    FbxTime* time = new FbxTime(516640320000LL);
+    // then:
+    AssertEqual(3661000LL, time->GetMilliSeconds());
+    AssertEqual(3661, time->GetSecondCount());
+    AssertEqual(61, time->GetMinuteCount());
+    AssertEqual(1, time->GetHourCount());
+    AssertEqual(3661.0, time->GetSecondDouble());
+
+    // when:
+    time = new FbxTime(516640461120LL);
+    AssertEqual(3661001LL, time->GetMilliSeconds());
+    AssertEqual(3661, time->GetSecondCount());
+    AssertEqual(61, time->GetMinuteCount());
+    AssertEqual(1, time->GetHourCount());
+    AssertEqual(3661.001, time->GetSecondDouble());
+}
+
 void FbxTimeTest::RegisterTestCases()
 {
     AddTestCase(FbxTime_Constants);
@@ -412,5 +480,7 @@ void FbxTimeTest::RegisterTestCases()
     AddTestCase(FbxTime_GetFieldCount_NegHalfYieldsOne2);
     AddTestCase(FbxTime_GetFieldCount_NegHalfYieldsOne3);
     AddTestCase(FbxTime_GetGlobalTimeMode);
+    AddTestCase(FbxTime_Get_YieldsInternalRepresentation);
+    AddTestCase(FbxTime_CountFunctionAreIndependent);
 }
 

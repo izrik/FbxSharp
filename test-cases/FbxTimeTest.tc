@@ -281,3 +281,69 @@ test FbxTime_GetFieldCount_NegHalfYieldsOne3
 test FbxTime_GetGlobalTimeMode
     expect
     AssertEqual(FbxTime::EMode::eFrames30, FbxTime::GetGlobalTimeMode())
+
+test FbxTime_Get_YieldsInternalRepresentation
+    #use constraints
+    when
+    FbxTime time = new(0LL)
+    then
+    AssertEqual(0LL, time.Get())
+    when
+    time = new FbxTime(1LL)
+    then
+    AssertEqual(1LL, time.Get())
+    when
+    time = new FbxTime(2LL)
+    then
+    AssertEqual(2LL, time.Get())
+    when
+    time = new FbxTime(141119999L)
+    then
+    AssertEqual(141119999L, time.Get())
+    when
+    time = new FbxTime(141120000L)
+    then
+    AssertEqual(141120000L, time.Get())
+    when
+    time = new FbxTime(141120001L)
+    then
+    AssertEqual(141120001L, time.Get())
+    when
+    time = new FbxTime(-1LL)
+    then
+    AssertEqual(-1LL, time.Get())
+    when
+    time = new FbxTime(-2LL)
+    then
+    AssertEqual(-2LL, time.Get())
+    when
+    time = new FbxTime(-141119999L)
+    then
+    AssertEqual(-141119999L, time.Get())
+    when
+    time = new FbxTime(-141120000L)
+    then
+    AssertEqual(-141120000L, time.Get())
+    when
+    time = new FbxTime(-141120001L)
+    then
+    AssertEqual(-141120001L, time.Get())
+
+test FbxTime_CountFunctionAreIndependent
+    #use constraints
+    when
+    FbxTime time = new(516640320000LL)
+    then
+    AssertEqual(3661000LL, time.GetMilliSeconds())
+    AssertEqual(3661, time.GetSecondCount())
+    AssertEqual(61, time.GetMinuteCount())
+    AssertEqual(1, time.GetHourCount())
+    AssertEqual(3661.0, time.GetSecondDouble())
+
+    when
+    time = new FbxTime(516640461120LL)
+    AssertEqual(3661001LL, time.GetMilliSeconds())
+    AssertEqual(3661, time.GetSecondCount())
+    AssertEqual(61, time.GetMinuteCount())
+    AssertEqual(1, time.GetHourCount())
+    AssertEqual(3661.001, time.GetSecondDouble())
