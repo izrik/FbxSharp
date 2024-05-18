@@ -2,6 +2,7 @@
 #include "Tests.h"
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -106,6 +107,25 @@ public:
     }
 };
 
+bool CompareTestFixturesByName(TestFixture* a, TestFixture* b)
+{
+    if (a == NULL && b == NULL) return false;
+    if (a == NULL) return true;
+    if (b == NULL) return false;
+    if (a->Name == NULL && b->Name == NULL) return false;
+    if (a->Name == NULL) return true;
+    if (b->Name == NULL) return false;
+    int alen = strlen(a->Name);
+    int blen = strlen(b->Name);
+    int minlen = alen < blen ? alen : blen;
+    int result = strncmp(a->Name, b->Name, minlen);
+    if (result < 0)
+        return true;
+    if (result == 0)
+        return alen < blen;
+    return false;
+}
+
 void RunTests()
 {
     vector<TestFixture*> tests;
@@ -135,6 +155,13 @@ void RunTests()
     tests.push_back(new CameraTest());
     tests.push_back(new LayerTest());
     tests.push_back(new FbxImporterTest());
+
+    sort(tests.begin(), tests.end(), CompareTestFixturesByName);
+
+    // Some classes need the SDK library to be initialized before we can use
+    // them. For example, the AnimCurveKey constructors will segfault without
+    // the following:
+    FbxManager* manager = FbxManager::Create();
 
     cout << "Running tests..." << endl;
 
