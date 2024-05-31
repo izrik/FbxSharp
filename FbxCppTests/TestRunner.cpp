@@ -109,16 +109,9 @@ public:
 
 bool CompareTestFixturesByName(TestFixture* a, TestFixture* b)
 {
-    if (a == NULL && b == NULL) return false;
-    if (a == NULL) return true;
-    if (b == NULL) return false;
-    if (a->Name == NULL && b->Name == NULL) return false;
-    if (a->Name == NULL) return true;
-    if (b->Name == NULL) return false;
-    int alen = strlen(a->Name);
-    int blen = strlen(b->Name);
-    int minlen = alen < blen ? alen : blen;
-    int result = strncmp(a->Name, b->Name, minlen);
+    int alen = a->Name.size();
+    int blen = b->Name.size();
+    int result = a->Name.compare(b->Name);
     if (result < 0)
         return true;
     if (result == 0)
@@ -128,33 +121,64 @@ bool CompareTestFixturesByName(TestFixture* a, TestFixture* b)
 
 void RunTests()
 {
+    vector<string> args;
+    RunTestsWithArgs(args);
+}
+void RunTestsWithArgs(vector<string>& args)
+{
+    if (args.size() > 0)
+    {
+        cout << "Args:" << endl;
+        for (auto iter = args.begin(); iter != args.end(); iter++)
+            cout << "  " << *iter << endl;
+        cout << endl;
+    }
+
+    vector<TestFixture*> all_tests;
+
+    all_tests.push_back(new NodeTest());
+    all_tests.push_back(new SceneTest());
+    all_tests.push_back(new LayerContainerTest());
+    all_tests.push_back(new GeometryBaseTest());
+    all_tests.push_back(new GeometryTest());
+    all_tests.push_back(new MeshTest());
+    all_tests.push_back(new FbxObjectTest());
+    all_tests.push_back(new SurfacePhongTest());
+    all_tests.push_back(new PropertyTest());
+    all_tests.push_back(new DeformerTest());
+    all_tests.push_back(new SubDeformerTest());
+    all_tests.push_back(new SkinTest());
+    all_tests.push_back(new ClusterTest());
+    all_tests.push_back(new FbxTimeTest());
+    all_tests.push_back(new AnimCurveNodeTest());
+    all_tests.push_back(new AnimCurveTest());
+    all_tests.push_back(new AnimLayerTest());
+    all_tests.push_back(new AnimStackTest());
+    all_tests.push_back(new NodeTransformsTest());
+    all_tests.push_back(new MatrixTest());
+    all_tests.push_back(new AnimCurveKeyTest());
+    all_tests.push_back(new LightTest());
+    all_tests.push_back(new CameraTest());
+    all_tests.push_back(new LayerTest());
+    all_tests.push_back(new FbxImporterTest());
+
     vector<TestFixture*> tests;
 
-    tests.push_back(new NodeTest());
-    tests.push_back(new SceneTest());
-    tests.push_back(new LayerContainerTest());
-    tests.push_back(new GeometryBaseTest());
-    tests.push_back(new GeometryTest());
-    tests.push_back(new MeshTest());
-    tests.push_back(new FbxObjectTest());
-    tests.push_back(new SurfacePhongTest());
-    tests.push_back(new PropertyTest());
-    tests.push_back(new DeformerTest());
-    tests.push_back(new SubDeformerTest());
-    tests.push_back(new SkinTest());
-    tests.push_back(new ClusterTest());
-    tests.push_back(new FbxTimeTest());
-    tests.push_back(new AnimCurveNodeTest());
-    tests.push_back(new AnimCurveTest());
-    tests.push_back(new AnimLayerTest());
-    tests.push_back(new AnimStackTest());
-    tests.push_back(new NodeTransformsTest());
-    tests.push_back(new MatrixTest());
-    tests.push_back(new AnimCurveKeyTest());
-    tests.push_back(new LightTest());
-    tests.push_back(new CameraTest());
-    tests.push_back(new LayerTest());
-    tests.push_back(new FbxImporterTest());
+    if (args.size() > 0)
+    {
+        for (auto iter = all_tests.begin(); iter != all_tests.end(); iter++)
+        {
+            auto it = std::find(args.begin(), args.end(), (*iter)->Name);
+            if (it != std::end(args))
+                tests.push_back(*iter);
+        }
+        // TODO: Warn when an arg is not found among the tests
+        // TODO: Warn when no tests were selected
+    }
+    else
+    {
+        tests.insert(tests.end(), all_tests.begin(), all_tests.end());
+    }
 
     sort(tests.begin(), tests.end(), CompareTestFixturesByName);
 

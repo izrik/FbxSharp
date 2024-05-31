@@ -3,6 +3,7 @@
 #define __FBXCPPTESTS_TESTS_H
 
 #include <vector>
+#include <string>
 
 #include "objects.h"
 #include "print.h"
@@ -10,6 +11,7 @@
 #include "Assertions.h"
 
 void RunTests();
+void RunTestsWithArgs(std::vector<std::string>& args);
 
 typedef void (*TestFunction)();
 
@@ -39,7 +41,7 @@ public:
     virtual void TearDown();
     virtual void TearDownFixture();
 
-    const char* Name;
+    std::string Name;
 
     std::vector<TestCase*> TestCases;
 };
