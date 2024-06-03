@@ -5,16 +5,16 @@ namespace FbxSharp
     public class FbxPropertyT<T> : FbxProperty
     {
         public FbxPropertyT(string name="")
-            : base(name)
+            : base(name, typeof(T).ToFbxType())
         {
         }
         public FbxPropertyT(string name, T initialValue)
-            : base(name)
+            : base(name, typeof(T).ToFbxType())
         {
             Value = initialValue;
         }
 
-        public override Type PropertyDataType { get { return typeof(T); } }
+        public override Type GetDotnetType() => typeof(T);
 
         public T Value { get; set; }
 
@@ -31,6 +31,11 @@ namespace FbxSharp
 
         public override U Get<U>()
         {
+            if (Value is U uValue)
+                return uValue;
+            if (Value == null)
+                return default;
+
             if (!(Value is U))
             {
                 var tuple = new Tuple<Type, Type>(typeof(T), typeof(U));

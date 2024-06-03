@@ -1,0 +1,10 @@
+#use constraints
+
+fixture FbxDataTypeTest
+test FbxDataType_DefaultConstructor_AttributesSet
+    when
+    FbxDataType! dt = FbxDataType::Create("int", EFbxType::eFbxInt);
+    then
+    AssertTrue(dt&.Valid())
+    AssertEqual("int", dt&.GetName())
+    AssertEqual(EFbxType::eFbxInt, dt&.GetType())

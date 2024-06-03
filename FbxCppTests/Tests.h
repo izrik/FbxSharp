@@ -78,5 +78,9 @@ TestClass(LightTest);
 TestClass(CameraTest);
 TestClass(LayerTest);
 TestClass(FbxImporterTest);
+TestClass(EFbxTypeTest);
+TestClass(FbxPropertyFlagsTest);
+TestClass(FbxDataTypeTest);
+TestClass(FbxPropertyTest);
 
 #endif // __FBXCPPTESTS_TESTS_H

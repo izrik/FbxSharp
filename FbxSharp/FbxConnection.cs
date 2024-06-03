@@ -15,6 +15,7 @@ namespace FbxSharp
             Data,
             LinkType,
             Default,
+            eDefault = Default,
             Unidirectional,
         }
     }

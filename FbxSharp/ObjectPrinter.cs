@@ -178,7 +178,7 @@ namespace FbxSharp
             string prefix = indent ? "            " : "        ";
 
             writer.WriteLine("{0}Name = {1}", prefix, prop.GetName());
-            var type = prop.GetPropertyDataType();
+            var type = prop.GetPropertyDataType().GetDotnetType();
             writer.WriteLine("{0}Type = {1}", prefix, type.GetName());
 //            writer.WriteLine("{0}HierName = {1}", prefix, prop.GetHierarchicalName());
 //            writer.WriteLine("{0}Label = {1}", prefix, prop.GetLabel());
@@ -217,7 +217,7 @@ namespace FbxSharp
 //            case eFbxChar:
             if (type == typeof(sbyte))
             {
-                ch = prop.Get<sbyte>();
+                ch = ((FbxPropertyT<sbyte>)prop).Get();
                 sb.AppendFormat("%i ('%c')", (int)ch, ch);
             }
 //                break;

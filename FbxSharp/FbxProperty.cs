@@ -1,30 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace FbxSharp
 {
     public abstract class FbxProperty
     {
+        [NotSdk]
+        public class NotValidT
+        {
+        }
+
+        [NotSdk]
+        public static readonly FbxProperty NotValid =
+            new FbxPropertyT<NotValidT>();
+
+        [NotSdk]
         static FbxProperty()
         {
             AddConverter(typeof(FbxVector4), typeof(FbxVector3), (v4) => ((FbxVector4)v4).ToVector3());
             AddConverter(typeof(FbxVector3), typeof(FbxVector4), (v3) => ((FbxVector3)v3).ToVector4());
         }
 
-        protected FbxProperty(string name)
-        {
-            Name = name;
-
-            Children = new PropertyChildrenCollection(this);
-            SrcObjects = new PropertySrcObjectCollection(this);
-            DstObjects = new PropertyDstObjectCollection(this);
-        }
-
+        [NotSdk]
         public override string ToString()
         {
             return string.Format("{0}: {1}", Name, GetValue());
         }
+
+        #region Public Member Functions
+
+        public bool CopyValue(FbxProperty pProperty) =>
+            throw new NotImplementedException();
+
+        #endregion
 
         #region Static Public Attributes
 
@@ -32,15 +42,348 @@ namespace FbxSharp
 
         #endregion
 
+        #region Constructor and Destructor
+
+        [DeviationFromSdk(
+            "static FbxProperty Create(" +
+            "const FbxProperty &pCompoundProperty, " +
+            "const FbxDataType &pDataType, " +
+            "const char *pName, " +
+            "const char *pLabel=\"\", " +
+            "bool pCheckForDup=true, " +
+            "bool *pWasFound=((void *) 0))")]
+        public static FbxProperty Create(FbxProperty pCompoundProperty,
+            FbxDataType pDataType, string pName, string pLabel = "",
+            bool pCheckForDup = true) =>
+            Create(pCompoundProperty, pDataType, pName, pLabel,
+                pCheckForDup, out _);
+
+        [DeviationFromSdk(
+            "static FbxProperty Create(" +
+            "const FbxProperty &pCompoundProperty, " +
+            "const FbxDataType &pDataType, " +
+            "const char *pName, " +
+            "const char *pLabel=\"\", " +
+            "bool pCheckForDup=true, " +
+            "bool *pWasFound=((void *) 0))")]
+        public static FbxProperty Create(FbxProperty pCompoundProperty,
+            FbxDataType pDataType, string pName, out bool pWasFound) =>
+            Create(pCompoundProperty, pDataType, pName, "",
+                true, out pWasFound);
+
+        [DeviationFromSdk(
+            "static FbxProperty Create(" +
+            "const FbxProperty &pCompoundProperty, " +
+            "const FbxDataType &pDataType, " +
+            "const char *pName, " +
+            "const char *pLabel=\"\", " +
+            "bool pCheckForDup=true, " +
+            "bool *pWasFound=((void *) 0))")]
+        public static FbxProperty Create(FbxProperty pCompoundProperty,
+            FbxDataType pDataType, string pName, bool pCheckForDup,
+            out bool pWasFound) =>
+            Create(pCompoundProperty, pDataType, pName, "",
+                pCheckForDup, out pWasFound);
+
+        [DeviationFromSdk(
+            "static FbxProperty Create(" +
+            "const FbxProperty &pCompoundProperty, " +
+            "const FbxDataType &pDataType, " +
+            "const char *pName, " +
+            "const char *pLabel=\"\", " +
+            "bool pCheckForDup=true, " +
+            "bool *pWasFound=((void *) 0))")]
+        public static FbxProperty Create(FbxProperty pCompoundProperty,
+            FbxDataType pDataType, string pName, string pLabel,
+            out bool pWasFound) =>
+            Create(pCompoundProperty, pDataType, pName, pLabel,
+                true, out pWasFound);
+
+        [DeviationFromSdk(
+            "static FbxProperty Create(" +
+            "const FbxProperty &pCompoundProperty, " +
+            "const FbxDataType &pDataType, " +
+            "const char *pName, " +
+            "const char *pLabel=\"\", " +
+            "bool pCheckForDup=true, " +
+            "bool *pWasFound=((void *) 0))")]
+        public static FbxProperty Create(FbxProperty pCompoundProperty,
+            FbxDataType pDataType, string pName, string pLabel,
+            bool pCheckForDup, out bool pWasFound)
+        {
+            var prop = FromEFbxType(pDataType.GetFbxType(), pName);
+            prop.SetLabel(pLabel);
+            prop.SetParent(pCompoundProperty);
+            pWasFound = false;
+            return prop;
+        }
+
+        [DeviationFromSdk(
+            "static FbxProperty Create(" +
+            "FbxObject *pObject, " +
+            "const FbxDataType &pDataType, " +
+            "const char *pName, " +
+            "const char *pLabel=\"\", " +
+            "bool pCheckForDup=true, " +
+            "bool *pWasFound=((void *) 0))")]
+        public static FbxProperty Create(FbxObject pObject,
+            FbxDataType pDataType, string pName, string pLabel = "",
+            bool pCheckForDup = true) =>
+            Create(pObject, pDataType, pName, pLabel, pCheckForDup,
+                out _);
+
+        [DeviationFromSdk(
+            "static FbxProperty Create(" +
+            "FbxObject *pObject, " +
+            "const FbxDataType &pDataType, " +
+            "const char *pName, " +
+            "const char *pLabel=\"\", " +
+            "bool pCheckForDup=true, " +
+            "bool *pWasFound=((void *) 0))")]
+        public static FbxProperty Create(FbxObject pObject,
+            FbxDataType pDataType, string pName, out bool pWasFound) =>
+            Create(pObject, pDataType, pName, "", true,
+                out pWasFound);
+
+        [DeviationFromSdk(
+            "static FbxProperty Create(" +
+            "FbxObject *pObject, " +
+            "const FbxDataType &pDataType, " +
+            "const char *pName, " +
+            "const char *pLabel=\"\", " +
+            "bool pCheckForDup=true, " +
+            "bool *pWasFound=((void *) 0))")]
+        public static FbxProperty Create(FbxObject pObject,
+            FbxDataType pDataType, string pName, string pLabel,
+            out bool pWasFound) =>
+            Create(pObject, pDataType, pName, pLabel, true,
+                out pWasFound);
+
+        [DeviationFromSdk(
+            "static FbxProperty Create(" +
+            "FbxObject *pObject, " +
+            "const FbxDataType &pDataType, " +
+            "const char *pName, " +
+            "const char *pLabel=\"\", " +
+            "bool pCheckForDup=true, " +
+            "bool *pWasFound=((void *) 0))")]
+        public static FbxProperty Create(FbxObject pObject,
+            FbxDataType pDataType, string pName, bool pCheckForDup,
+            out bool pWasFound) =>
+            Create(pObject, pDataType, pName, "", pCheckForDup,
+                out pWasFound);
+
+        [DeviationFromSdk(
+            "static FbxProperty Create(" +
+            "FbxObject *pObject, " +
+            "const FbxDataType &pDataType, " +
+            "const char *pName, " +
+            "const char *pLabel=\"\", " +
+            "bool pCheckForDup=true, " +
+            "bool *pWasFound=((void *) 0))")]
+        public static FbxProperty Create(FbxObject pObject,
+            FbxDataType pDataType, string pName, string pLabel,
+            bool pCheckForDup, out bool pWasFound)
+        {
+            var prop = FromEFbxType(pDataType.GetFbxType(), pName);
+            prop.SetLabel(pLabel);
+            prop.SetParent(pObject.RootProperty);
+            pWasFound = false;
+            return prop;
+        }
+
+        public static FbxProperty CreateFrom(FbxProperty pCompoundProperty,
+            FbxProperty pFromProperty, bool pCheckForDup = true)
+        {
+            var prop = FromEFbxType(
+                pFromProperty.GetPropertyDataType().GetFbxType(),
+                pFromProperty.GetName());
+            prop.SetParent(pCompoundProperty);
+            return prop;
+        }
+
+        public static FbxProperty CreateFrom(FbxObject pObject,
+            FbxProperty pFromProperty, bool pCheckForDup = true) =>
+            throw new NotImplementedException();
+
+        public void Destroy() => throw new NotImplementedException();
+
+        public void DestroyRecursively() => throw new NotImplementedException();
+
+        public void DestroyChildren() => throw new NotImplementedException();
+
+        public FbxProperty() => throw new NotImplementedException();
+
+        public FbxProperty(FbxProperty pProperty) =>
+            throw new NotImplementedException();
+
+        public FbxProperty(FbxPropertyHandle pPropertyHandle) =>
+            throw new NotImplementedException();
+
+        [NotSdk]
+        protected FbxProperty(string name, EFbxType fbxType)
+        {
+            Name = name;
+            fbxDataType = new FbxDataType("", fbxType);
+
+            Children = new PropertyChildrenCollection(this);
+            SrcObjects = new PropertySrcObjectCollection(this);
+            DstObjects = new PropertyDstObjectCollection(this);
+        }
+
+        [NotSdk]
+        public static FbxProperty FromEFbxType(EFbxType fbxType, string name)
+        {
+            switch (fbxType)
+            {
+                case EFbxType.eFbxChar:
+                    return new FbxPropertyT<char>(name);
+                case EFbxType.eFbxUChar:
+                    return new FbxPropertyT<byte>(name);
+                case EFbxType.eFbxShort:
+                    return new FbxPropertyT<short>(name);
+                case EFbxType.eFbxUShort:
+                    return new FbxPropertyT<ushort>(name);
+                case EFbxType.eFbxUInt:
+                    return new FbxPropertyT<uint>(name);
+                case EFbxType.eFbxLongLong:
+                    return new FbxPropertyT<long>(name);
+                case EFbxType.eFbxULongLong:
+                    return new FbxPropertyT<ulong>(name);
+                case EFbxType.eFbxHalfFloat:
+                    return new FbxPropertyT<Half>(name);
+                case EFbxType.eFbxBool:
+                    return new FbxPropertyT<bool>(name);
+                case EFbxType.eFbxInt:
+                    return new FbxPropertyT<int>(name);
+                case EFbxType.eFbxFloat:
+                    return new FbxPropertyT<float>(name);
+                case EFbxType.eFbxDouble:
+                    return new FbxPropertyT<double>(name);
+                case EFbxType.eFbxDouble2:
+                    return new FbxPropertyT<FbxVector2>(name);
+                case EFbxType.eFbxDouble3:
+                    return new FbxPropertyT<FbxVector3>(name);
+                case EFbxType.eFbxDouble4:
+                    return new FbxPropertyT<FbxVector4>(name);
+                case EFbxType.eFbxDouble4x4:
+                    return new FbxPropertyT<FbxMatrix>(name);
+
+                case EFbxType.eFbxEnum:
+                case EFbxType.eFbxEnumM:
+                    return new FbxPropertyTEnum(name);
+
+                case EFbxType.eFbxString:
+                    return new FbxPropertyT<string>(name);
+                case EFbxType.eFbxTime:
+                    return new FbxPropertyT<FbxTime>(name);
+                case EFbxType.eFbxReference:
+                    return new FbxPropertyT<FbxObject>(name);
+
+                case EFbxType.eFbxBlob:
+                case EFbxType.eFbxDistance:
+                case EFbxType.eFbxDateTime:
+                    throw new NotImplementedException();
+
+                case EFbxType.eFbxUndefined:
+                    // TODO: FbxPropertyTUndefined
+                    return new FbxPropertyT<object>(name);
+
+                case EFbxType.eFbxTypeCount:
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(fbxType),
+                        fbxType, null);
+            }
+        }
+
+        [NotSdk]
+        public static FbxProperty FromEFbxType(EFbxType fbxType, string name,
+            object value)
+        {
+            switch (fbxType)
+            {
+                case EFbxType.eFbxChar:
+                    return new FbxPropertyT<char>(name, (char)value);
+                case EFbxType.eFbxUChar:
+                    return new FbxPropertyT<byte>(name, (byte)value);
+                case EFbxType.eFbxShort:
+                    return new FbxPropertyT<short>(name, (short)value);
+                case EFbxType.eFbxUShort:
+                    return new FbxPropertyT<ushort>(name, (ushort)value);
+                case EFbxType.eFbxUInt:
+                    return new FbxPropertyT<uint>(name, (uint)value);
+                case EFbxType.eFbxLongLong:
+                    return new FbxPropertyT<long>(name, (long)value);
+                case EFbxType.eFbxULongLong:
+                    return new FbxPropertyT<ulong>(name, (ulong)value);
+                case EFbxType.eFbxHalfFloat:
+                    return new FbxPropertyT<Half>(name, (Half)value);
+                case EFbxType.eFbxBool:
+                    return new FbxPropertyT<bool>(name, (bool)value);
+                case EFbxType.eFbxInt:
+                    return new FbxPropertyT<int>(name, (int)value);
+                case EFbxType.eFbxFloat:
+                    return new FbxPropertyT<float>(name, (float)value);
+                case EFbxType.eFbxDouble:
+                    return new FbxPropertyT<double>(name, (double)value);
+                case EFbxType.eFbxDouble2:
+                    return new FbxPropertyT<FbxVector2>(name,
+                        (FbxVector2)value);
+                case EFbxType.eFbxDouble3:
+                    return new FbxPropertyT<FbxVector3>(name,
+                        (FbxVector3)value);
+                case EFbxType.eFbxDouble4:
+                    return new FbxPropertyT<FbxVector4>(name,
+                        (FbxVector4)value);
+                case EFbxType.eFbxDouble4x4:
+                    return new FbxPropertyT<FbxMatrix>(name, (FbxMatrix)value);
+
+                case EFbxType.eFbxEnum:
+                case EFbxType.eFbxEnumM:
+                    return new FbxPropertyTEnum(name, (int)value);
+
+                case EFbxType.eFbxString:
+                    return new FbxPropertyT<string>(name, (string)value);
+                case EFbxType.eFbxTime:
+                    return new FbxPropertyT<FbxTime>(name, (FbxTime)value);
+                case EFbxType.eFbxReference:
+                    return new FbxPropertyT<FbxObject>(name, (FbxObject)value);
+
+                case EFbxType.eFbxBlob:
+                case EFbxType.eFbxDistance:
+                case EFbxType.eFbxDateTime:
+                    throw new NotImplementedException();
+
+                case EFbxType.eFbxUndefined:
+                case EFbxType.eFbxTypeCount:
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(fbxType),
+                        fbxType, null);
+            }
+        }
+
+
+        ~FbxProperty()
+        {
+            // Note: C# finalizers are not the same thing as C++ destructors.
+        }
+
+        # endregion
+
         #region Property Identification
 
-        public string Name { get; protected set; }
+        [NotSdk] public string Name { get; }
 
-        public abstract Type PropertyDataType { get; }
-        public Type GetPropertyDataType()
-        {
-            return PropertyDataType;
-        }
+        [NotSdk]
+        public Type PropertyDataType =>
+            GetPropertyDataType().GetFbxType().ToDotnetType();
+
+        private readonly FbxDataType fbxDataType;
+        public FbxDataType GetPropertyDataType() => fbxDataType;
+
+        [NotSdk]
+        public abstract Type GetDotnetType();
+
         //public Object FbxObject { get; protected set; }
 
         //FbxDataType GetPropertyDataType()
@@ -52,20 +395,44 @@ namespace FbxSharp
 
         public string GetHierarchicalName()
         {
-            throw new NotImplementedException();
+            var names = new List<string>();
+            var p = this;
+            names.Add(p.GetName());
+            while (p.GetParent() != null &&
+                   p.GetParent().IsValid() &&
+                   !p.GetParent().IsRoot())
+            {
+                p = p.GetParent();
+                names.Insert(0, p.GetName());
+            }
+
+            var sb = new StringBuilder();
+            var first = true;
+            foreach (var name in names)
+            {
+                if (!first)
+                    sb.Append(sHierarchicalSeparator);
+                first = false;
+                sb.Append(name);
+            }
+
+            return sb.ToString();
         }
 
+        private string label;
         public string GetLabel(bool pReturnNameIfEmpty = true)
         {
-            throw new NotImplementedException();
+            return label ?? "";
         }
 
         public void SetLabel(string pLabel)
         {
-            throw new NotImplementedException();
+            label = pLabel ?? "";
         }
 
         private FbxObject _parentFbxObject;
+
+        [NotSdk]
         public FbxObject ParentFbxObject
         {
             get { return _parentFbxObject; }
@@ -87,6 +454,7 @@ namespace FbxSharp
                 }
             }
         }
+
         public FbxObject GetFbxObject()
         {
             return ParentFbxObject;
@@ -94,9 +462,76 @@ namespace FbxSharp
 
         #endregion
 
+        #region User data
+
+        public void SetUserTag(int pTag) => throw new NotImplementedException();
+        public int GetUserTag() => throw new NotImplementedException();
+
+        public void SetUserDataPtr(object pUserData) =>
+            throw new NotImplementedException();
+
+        public object GetUserDataPtr() => throw new NotImplementedException();
+
+        #endregion
+
+        #region Property Flags.
+
+        public void ModifyFlag(FbxPropertyFlags.EFlags pFlag, bool pValue) =>
+            throw new NotImplementedException();
+
+        public bool GetFlag(FbxPropertyFlags.EFlags pFlag) =>
+            throw new NotImplementedException();
+
+        public FbxPropertyFlags.EFlags GetFlags() =>
+            throw new NotImplementedException();
+
+        public FbxPropertyFlags.EInheritType GetFlagInheritType(
+            FbxPropertyFlags.EFlags pFlag) =>
+            throw new NotImplementedException();
+
+        public bool SetFlagInheritType(FbxPropertyFlags.EFlags pFlag,
+            FbxPropertyFlags.EInheritType pType) =>
+            throw new NotImplementedException();
+
+        public bool ModifiedFlag(FbxPropertyFlags.EFlags pFlag) =>
+            throw new NotImplementedException();
+
+        #endregion
+
+        #region Assignment and comparison operators
+
+        // public FbxProperty operator= (FbxProperty pProperty) =>
+        //     throw new NotImplementedException();
+        //
+        // public bool operator ==(FbxProperty &pProperty) =>
+        //     throw new NotImplementedException();
+        //
+        // public bool operator !=(FbxProperty &pProperty) =>
+        //     throw new NotImplementedException();
+        //
+        // public bool operator <(FbxProperty &pProperty) =>
+        //     throw new NotImplementedException();
+        //
+        // public bool operator >(FbxProperty &pProperty) =>
+        //     throw new NotImplementedException();
+        //
+        // public bool operator ==(int pValue) =>
+        //     throw new NotImplementedException();
+        //
+        // public bool operator !=(int pValue) =>
+        //     throw new NotImplementedException();
+
+        public bool CompareValue(FbxProperty pProperty) =>
+            throw new NotImplementedException();
+
+        #endregion
+
         #region Value Management
 
-        public static readonly Dictionary<Tuple<Type,Type>, Func<object, object>> Converters = new Dictionary<Tuple<Type, Type>, Func<object, object>>();
+        public static readonly
+            Dictionary<Tuple<Type, Type>, Func<object, object>> Converters =
+                new();
+        [NotSdk]
         public static void AddConverter(Type from, Type to, Func<object, object> converter)
         {
             Converters.Add(new Tuple<Type, Type>(from, to), converter);
@@ -129,6 +564,8 @@ namespace FbxSharp
 
         public virtual bool IsValid()
         {
+            if (this == FbxProperty.NotValid)
+                return false;
             return true;
         }
 
@@ -146,6 +583,49 @@ namespace FbxSharp
         {
             throw new NotImplementedException();
         }
+
+        #endregion
+
+        #region Property Limits.
+
+        public bool SupportSetLimitAsDouble() =>
+            throw new NotImplementedException();
+
+        public bool SetMinLimit(double pMin) =>
+            throw new NotImplementedException();
+
+        public bool HasMinLimit() => throw new NotImplementedException();
+        public double GetMinLimit() => throw new NotImplementedException();
+        public bool HasMaxLimit() => throw new NotImplementedException();
+
+        public bool SetMaxLimit(double pMax) =>
+            throw new NotImplementedException();
+
+        public double GetMaxLimit() => throw new NotImplementedException();
+
+        public bool SetLimits(double pMin, double pMax) =>
+            throw new NotImplementedException();
+
+        #endregion
+
+        #region Enum and property list
+
+        public virtual int AddEnumValue(string pStringValue) =>
+            throw new NotImplementedException();
+
+        public virtual void InsertEnumValue(int pIndex, string pStringValue) =>
+            throw new NotImplementedException();
+
+        public virtual int GetEnumCount() => throw new NotImplementedException();
+
+        public virtual void SetEnumValue(int pIndex, string pStringValue) =>
+            throw new NotImplementedException();
+
+        public virtual void RemoveEnumValue(int pIndex) =>
+            throw new NotImplementedException();
+
+        public virtual string GetEnumValue(int pIndex) =>
+            throw new NotImplementedException();
 
         #endregion
 
@@ -201,41 +681,42 @@ namespace FbxSharp
 
         public FbxProperty GetParent()
         {
-            return ParentProperty;
+            return ParentProperty ?? NotValid;
         }
 
-        public /*FBX_DEPRECATED*/ bool SetParent(FbxProperty pOther)
+        [NotSdk]
+        public void SetParent(FbxProperty pOther)
         {
-            //throw new NotImplementedException();
-            //ParentProperty = pOther;
-            return false;
+            ParentProperty = pOther;
         }
 
         public FbxProperty GetChild()
         {
-            return Children.FirstOrDefault();
+            return Children.FirstOrDefault() ?? NotValid;
         }
 
         public FbxProperty GetSibling()
         {
-            if (GetParent() == null) return null;
+            if (GetParent() == null) return NotValid;
 
-            return GetParent().GetNextDescendent(this);
+            return GetParent().GetNextDescendent(this) ?? NotValid;
         }
 
         public FbxProperty GetFirstDescendent()
         {
-            return Children.FirstOrDefault();
+            return Children.FirstOrDefault() ?? NotValid;
         }
 
         public FbxProperty GetNextDescendent(FbxProperty pProperty)
         {
-            if (pProperty.ParentProperty != this) return null;
+            if (pProperty.ParentProperty != this)
+                return NotValid;
 
             var index = Children.IndexOf(pProperty);
-            if (index + 1 >= Children.Count) return null;
+            if (index + 1 >= Children.Count)
+                return NotValid;
 
-            return Children[index + 1];
+            return Children[index + 1] ?? NotValid;
         }
 
         public FbxProperty Find(string pName, bool pCaseSensitive = true)

@@ -161,6 +161,10 @@ void RunTestsWithArgs(vector<string>& args)
     all_tests.push_back(new CameraTest());
     all_tests.push_back(new LayerTest());
     all_tests.push_back(new FbxImporterTest());
+    all_tests.push_back(new EFbxTypeTest());
+    all_tests.push_back(new FbxPropertyFlagsTest());
+    all_tests.push_back(new FbxDataTypeTest());
+    all_tests.push_back(new FbxPropertyTest());
 
     vector<TestFixture*> tests;
 
