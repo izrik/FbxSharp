@@ -296,29 +296,32 @@ namespace TestCaseGenerator
                             break;
                         default:
                             var outline = stmt;
-                            if ((testFile.UseConstraints||fixture.UseConstraints||testcase.UseConstraints) && outline.StartsWith("Assert"))
+                            if ((testFile.UseConstraints ||
+                                 fixture.UseConstraints ||
+                                 testcase.UseConstraints) &&
+                                outline.StartsWith("Assert"))
                             {
                                 var outline2 = outline[12..^1];
-                                var parts1 = outline2.Split(",", 2);
-                                var parts2 = string.Join(",", parts1[1..]);
-                                parts2 = parts2.Trim();
+                                var parts1 = outline2.Split(",");
+                                var new_rhs = string.Join(",", parts1[..^1]).Trim();
+                                var new_lhs = parts1[^1].Trim();
                                 if (outline.StartsWith("AssertEqual"))
                                 {
                                     outline = string.Format(
-                                        "Assert.That({0}, Is.EqualTo({1}));",
-                                        parts2, parts1[0].Trim());
+                                        "Assert.That({0}, Is.EqualTo({1}))",
+                                        new_lhs, new_rhs);
                                 }
                                 else if (outline.StartsWith("AssertNotEqual"))
                                 {
                                     outline = string.Format(
-                                        "Assert.That({0}, Is.Not.EqualTo({1}));",
-                                        parts2, parts1[0].Trim());
+                                        "Assert.That({0}, Is.Not.EqualTo({1}))",
+                                        new_lhs, new_rhs);
                                 }
                                 else if (outline.StartsWith("AssertSame"))
                                 {
                                     outline = string.Format(
-                                        "Assert.That({0}, Is.SameAs({1}));",
-                                        parts2, parts1[0].Trim());
+                                        "Assert.That({0}, Is.SameAs({1}))",
+                                        new_lhs, new_rhs);
                                 }
                                 else
                                 {
@@ -418,6 +421,12 @@ namespace TestCaseGenerator
                                         @"\bFbxVector(\d)\(",
                                         m => "new FbxVector" + m.Groups[1].Value + "(");
                             }
+
+                            outline = outline.Replace("Get<FbxString>()",
+                                "Get<string>()");
+
+                            outline = outline.Replace("GetType()",
+                                "GetFbxType()");
 
                             if (Regex.IsMatch(outline, @"\bNULL\b"))
                             {
@@ -582,6 +591,12 @@ namespace TestCaseGenerator
                             outline = Regex.Replace(outline, @"\bFbxAnimCurveDef\.s", "FbxAnimCurveDef::s");
 
                             outline = Regex.Replace(outline, @"\bFbx\$", "Fbx");
+                            outline = Regex.Replace(outline,
+                                @"\bFbxIOSettingsPath.\b", "");
+
+                            outline = outline.Replace(
+                                "GetPropertyDataType()&.GetFbxType()",
+                                "GetPropertyDataType()&.GetType()");
 
                             parts = outline.Split(' ').ToList();
                             if (parts.Count == 2)

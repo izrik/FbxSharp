@@ -30,12 +30,11 @@ ifeq ($(UNAME_S),Darwin)
 	LDFLAGS=-framework Cocoa $(COMMON_LDFLAGS)
 endif
 
-TC_SOURCES=AnimCurveKeyTest.tc AnimCurveNodeTest.tc AnimCurveTest.tc AnimLayerTest.tc AnimStackTest.tc Assertions.tc CameraTest.tc ClusterTest.tc DeformerTest.tc FbxObjectTest.tc FbxTimeTest.tc GeometryBaseTest.tc GeometryTest.tc LayerContainerTest.tc LightTest.tc MatrixTest.tc MeshTest.tc NodeTest.tc NodeTransformsTest.tc PropertyTest.tc SceneTest.tc SkinTest.tc SubDeformerTest.tc SurfacePhongTest.tc TestFixture.tc TestRunner.tc main.tc LayerTest.tc FbxImporterTest.tc EFbxTypeTest.tc FbxPropertyFlagsTest.tc FbxDataTypeTest.tc FbxPropertyTest.tc
+TC_SOURCES=AnimCurveKeyTest.tc AnimCurveNodeTest.tc AnimCurveTest.tc AnimLayerTest.tc AnimStackTest.tc Assertions.tc CameraTest.tc ClusterTest.tc DeformerTest.tc FbxObjectTest.tc FbxTimeTest.tc GeometryBaseTest.tc GeometryTest.tc LayerContainerTest.tc LightTest.tc MatrixTest.tc MeshTest.tc NodeTest.tc NodeTransformsTest.tc PropertyTest.tc SceneTest.tc SkinTest.tc SubDeformerTest.tc SurfacePhongTest.tc TestFixture.tc TestRunner.tc main.tc LayerTest.tc FbxImporterTest.tc EFbxTypeTest.tc FbxPropertyFlagsTest.tc FbxDataTypeTest.tc FbxPropertyTest.tc FbxIOSettingsTest.tc
 SOURCES=$(TC_SOURCES:%.tc=%.cpp)
 HEADERS=Assertions.h OutputDebugStringBuf.h Tests.h
 OBJECTS=$(SOURCES:%.cpp=obj/%.o)
 EXECUTABLE=FbxCppTests
-# TODO: TC_SOURCES FbxIOSettingsTest.tc 
 
 .PHONY: all directories clean
 
