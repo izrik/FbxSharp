@@ -28,10 +28,10 @@ namespace FbxSharp
         int index = 0;
         int line = 1;
         int column = 0;
-	public InputLocation CurrentLocation
-	{
-		get { return new InputLocation(index, line, column, Filename); }
-	}
+        public InputLocation CurrentLocation
+        {
+	        get { return new InputLocation(index, line, column, Filename); }
+        }
         TokenType currentTokenType = TokenType.None;
         readonly StringBuilder newTokenChars = new StringBuilder();
         InputLocation tokenLocation;
