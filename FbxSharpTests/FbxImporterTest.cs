@@ -15,7 +15,7 @@ namespace FbxSharpTests
 
             // expect:
             Assert.False(importer.IsFBX());
-            Assert.AreEqual(-1, importer.GetFileFormat());
+            Assert.That(importer.GetFileFormat(), Is.EqualTo(-1));
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace FbxSharpTests
             var importer = new FbxImporter("");
 
             // expect:
-            Assert.AreEqual(0.0, importer.GetProgress(null));
+            Assert.That(importer.GetProgress(null), Is.EqualTo(0.0));
         }
 
         [Test]
@@ -53,9 +53,9 @@ namespace FbxSharpTests
             importer.GetFileVersion(out major, out minor, out revision);
 
             // then:
-            Assert.AreEqual(0, major);
-            Assert.AreEqual(0, minor);
-            Assert.AreEqual(0, revision);
+            Assert.That(major, Is.EqualTo(0));
+            Assert.That(minor, Is.EqualTo(0));
+            Assert.That(revision, Is.EqualTo(0));
         }
 
         [Test]
@@ -70,24 +70,24 @@ namespace FbxSharpTests
 
             // then:
             Assert.NotNull(header);
-            Assert.AreEqual(false, header.mDefaultRenderResolution.mIsOK);
-            Assert.AreEqual("", header.mDefaultRenderResolution.mCameraName);
-            Assert.AreEqual("", header.mDefaultRenderResolution.mResolutionMode);
-            Assert.AreEqual(0.0, header.mDefaultRenderResolution.mResolutionW);
-            Assert.AreEqual(0.0, header.mDefaultRenderResolution.mResolutionH);
-            Assert.AreEqual(false, header.mBinary);
-            Assert.AreEqual(0, header.mFileVersion);
-            Assert.AreEqual(false, header.mCreationTimeStampPresent);
-            Assert.AreEqual(0, header.mCreationTimeStamp.mYear);
-            Assert.AreEqual(0, header.mCreationTimeStamp.mMonth);
-            Assert.AreEqual(0, header.mCreationTimeStamp.mDay);
-            Assert.AreEqual(0, header.mCreationTimeStamp.mHour);
-            Assert.AreEqual(0, header.mCreationTimeStamp.mMinute);
-            Assert.AreEqual(0, header.mCreationTimeStamp.mSecond);
-            Assert.AreEqual(0, header.mCreationTimeStamp.mMillisecond);
-            Assert.AreEqual("", header.mCreator);
-            Assert.AreEqual(false, header.mIOPlugin);
-            Assert.AreEqual(false, header.mPLE);
+            Assert.That(header.mDefaultRenderResolution.mIsOK, Is.EqualTo(false));
+            Assert.That(header.mDefaultRenderResolution.mCameraName, Is.EqualTo(""));
+            Assert.That(header.mDefaultRenderResolution.mResolutionMode, Is.EqualTo(""));
+            Assert.That(header.mDefaultRenderResolution.mResolutionW, Is.EqualTo(0.0));
+            Assert.That(header.mDefaultRenderResolution.mResolutionH, Is.EqualTo(0.0));
+            Assert.That(header.mBinary, Is.EqualTo(false));
+            Assert.That(header.mFileVersion, Is.EqualTo(0));
+            Assert.That(header.mCreationTimeStampPresent, Is.EqualTo(false));
+            Assert.That(header.mCreationTimeStamp.mYear, Is.EqualTo(0));
+            Assert.That(header.mCreationTimeStamp.mMonth, Is.EqualTo(0));
+            Assert.That(header.mCreationTimeStamp.mDay, Is.EqualTo(0));
+            Assert.That(header.mCreationTimeStamp.mHour, Is.EqualTo(0));
+            Assert.That(header.mCreationTimeStamp.mMinute, Is.EqualTo(0));
+            Assert.That(header.mCreationTimeStamp.mSecond, Is.EqualTo(0));
+            Assert.That(header.mCreationTimeStamp.mMillisecond, Is.EqualTo(0));
+            Assert.That(header.mCreator, Is.EqualTo(""));
+            Assert.That(header.mIOPlugin, Is.EqualTo(false));
+            Assert.That(header.mPLE, Is.EqualTo(false));
         }
 
         [Test]
@@ -129,7 +129,7 @@ namespace FbxSharpTests
             result = importer.Initialize("../samples/monolith.fbx");
 
             // then:
-            Assert.AreEqual(FbxStatus.EStatusCode.eSuccess, importer.GetStatus().GetCode());
+            Assert.That(importer.GetStatus().GetCode(), Is.EqualTo(FbxStatus.EStatusCode.eSuccess));
         }
 
         [Test]
@@ -167,7 +167,7 @@ namespace FbxSharpTests
             importer.Initialize("../samples/monolith.fbx");
 
             // expect:
-            Assert.AreEqual(0.0, importer.GetProgress(null));
+            Assert.That(importer.GetProgress(null), Is.EqualTo(0.0));
         }
 
         [Test]
@@ -184,9 +184,85 @@ namespace FbxSharpTests
             importer.GetFileVersion(out major, out minor, out revision);
 
             // then:
-            Assert.AreEqual(7, major);
-            Assert.AreEqual(4, minor);
-            Assert.AreEqual(0, revision);
+            Assert.That(major, Is.EqualTo(7));
+            Assert.That(minor, Is.EqualTo(4));
+            Assert.That(revision, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile6a()
+        {
+            // given:
+            var importer = new FbxImporter("");
+            var major = 0;
+            var minor = 0;
+            var revision = 0;
+            importer.Initialize("../samples/monolith_fbx6ascii.fbx");
+
+            // when:
+            importer.GetFileVersion(out major, out minor, out revision);
+
+            // then:
+            Assert.That(major, Is.EqualTo(6));
+            Assert.That(minor, Is.EqualTo(1));
+            Assert.That(revision, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile6b()
+        {
+            // given:
+            var importer = new FbxImporter("");
+            var major = 0;
+            var minor = 0;
+            var revision = 0;
+            importer.Initialize("../samples/monolith_fbx6binary.fbx");
+
+            // when:
+            importer.GetFileVersion(out major, out minor, out revision);
+
+            // then:
+            Assert.That(major, Is.EqualTo(6));
+            Assert.That(minor, Is.EqualTo(1));
+            Assert.That(revision, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile7a()
+        {
+            // given:
+            var importer = new FbxImporter("");
+            var major = 0;
+            var minor = 0;
+            var revision = 0;
+            importer.Initialize("../samples/monolith_fbx7ascii.fbx");
+
+            // when:
+            importer.GetFileVersion(out major, out minor, out revision);
+
+            // then:
+            Assert.That(major, Is.EqualTo(7));
+            Assert.That(minor, Is.EqualTo(7));
+            Assert.That(revision, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile7b()
+        {
+            // given:
+            var importer = new FbxImporter("");
+            var major = 0;
+            var minor = 0;
+            var revision = 0;
+            importer.Initialize("../samples/monolith_fbx7binary.fbx");
+
+            // when:
+            importer.GetFileVersion(out major, out minor, out revision);
+
+            // then:
+            Assert.That(major, Is.EqualTo(7));
+            Assert.That(minor, Is.EqualTo(7));
+            Assert.That(revision, Is.EqualTo(0));
         }
 
         [Test]
@@ -202,24 +278,156 @@ namespace FbxSharpTests
 
             // then:
             Assert.NotNull(header);
-            Assert.AreEqual(false, header.mDefaultRenderResolution.mIsOK);
-            Assert.AreEqual("", header.mDefaultRenderResolution.mCameraName);
-            Assert.AreEqual("", header.mDefaultRenderResolution.mResolutionMode);
-            Assert.AreEqual(0.0, header.mDefaultRenderResolution.mResolutionW);
-            Assert.AreEqual(0.0, header.mDefaultRenderResolution.mResolutionH);
-            Assert.AreEqual(true, header.mBinary);
-            Assert.AreEqual(7400, header.mFileVersion);
-            Assert.AreEqual(true, header.mCreationTimeStampPresent);
-            Assert.AreEqual(2024, header.mCreationTimeStamp.mYear);
-            Assert.AreEqual(5, header.mCreationTimeStamp.mMonth);
-            Assert.AreEqual(13, header.mCreationTimeStamp.mDay);
-            Assert.AreEqual(22, header.mCreationTimeStamp.mHour);
-            Assert.AreEqual(30, header.mCreationTimeStamp.mMinute);
-            Assert.AreEqual(25, header.mCreationTimeStamp.mSecond);
-            Assert.AreEqual(938, header.mCreationTimeStamp.mMillisecond);
-            Assert.AreEqual("Blender (stable FBX IO) - 4.0.1 - 5.8.12", header.mCreator);
-            Assert.AreEqual(false, header.mIOPlugin);
-            Assert.AreEqual(false, header.mPLE);
+            Assert.That(header.mDefaultRenderResolution.mIsOK, Is.EqualTo(false));
+            Assert.That(header.mDefaultRenderResolution.mCameraName, Is.EqualTo(""));
+            Assert.That(header.mDefaultRenderResolution.mResolutionMode, Is.EqualTo(""));
+            Assert.That(header.mDefaultRenderResolution.mResolutionW, Is.EqualTo(0.0));
+            Assert.That(header.mDefaultRenderResolution.mResolutionH, Is.EqualTo(0.0));
+            Assert.That(header.mBinary, Is.EqualTo(true));
+            Assert.That(header.mFileVersion, Is.EqualTo(7400));
+            Assert.That(header.mCreationTimeStampPresent, Is.EqualTo(true));
+            Assert.That(header.mCreationTimeStamp.mYear, Is.EqualTo(2024));
+            Assert.That(header.mCreationTimeStamp.mMonth, Is.EqualTo(5));
+            Assert.That(header.mCreationTimeStamp.mDay, Is.EqualTo(13));
+            Assert.That(header.mCreationTimeStamp.mHour, Is.EqualTo(22));
+            Assert.That(header.mCreationTimeStamp.mMinute, Is.EqualTo(30));
+            Assert.That(header.mCreationTimeStamp.mSecond, Is.EqualTo(25));
+            Assert.That(header.mCreationTimeStamp.mMillisecond, Is.EqualTo(938));
+            Assert.That(header.mCreator, Is.EqualTo("Blender (stable FBX IO) - 4.0.1 - 5.8.12"));
+            Assert.That(header.mIOPlugin, Is.EqualTo(false));
+            Assert.That(header.mPLE, Is.EqualTo(false));
+        }
+
+        [Test]
+        public void FbxImporter_GetFileHeaderInfo_InitializedYieldsValues6a()
+        {
+            // given:
+            var importer = new FbxImporter("");
+            FbxIOFileHeaderInfo header;
+            importer.Initialize("../samples/monolith_fbx6ascii.fbx");
+
+            // when:
+            header = importer.GetFileHeaderInfo();
+
+            // then:
+            Assert.NotNull(header);
+            Assert.That(header.mDefaultRenderResolution.mIsOK, Is.EqualTo(false));
+            Assert.That(header.mDefaultRenderResolution.mCameraName, Is.EqualTo(""));
+            Assert.That(header.mDefaultRenderResolution.mResolutionMode, Is.EqualTo(""));
+            Assert.That(header.mDefaultRenderResolution.mResolutionW, Is.EqualTo(0.0));
+            Assert.That(header.mDefaultRenderResolution.mResolutionH, Is.EqualTo(0.0));
+            Assert.That(header.mBinary, Is.EqualTo(false));
+            Assert.That(header.mFileVersion, Is.EqualTo(6100));
+            Assert.That(header.mCreationTimeStampPresent, Is.EqualTo(true));
+            Assert.That(header.mCreationTimeStamp.mYear, Is.EqualTo(2024));
+            Assert.That(header.mCreationTimeStamp.mMonth, Is.EqualTo(6));
+            Assert.That(header.mCreationTimeStamp.mDay, Is.EqualTo(4));
+            Assert.That(header.mCreationTimeStamp.mHour, Is.EqualTo(2));
+            Assert.That(header.mCreationTimeStamp.mMinute, Is.EqualTo(59));
+            Assert.That(header.mCreationTimeStamp.mSecond, Is.EqualTo(23));
+            Assert.That(header.mCreationTimeStamp.mMillisecond, Is.EqualTo(0));
+            Assert.That(header.mCreator, Is.EqualTo("FBX SDK/FBX Plugins version 2020.3.4"));
+            Assert.That(header.mIOPlugin, Is.EqualTo(false));
+            Assert.That(header.mPLE, Is.EqualTo(false));
+        }
+
+        [Test]
+        public void FbxImporter_GetFileHeaderInfo_InitializedYieldsValues6b()
+        {
+            // given:
+            var importer = new FbxImporter("");
+            FbxIOFileHeaderInfo header;
+            importer.Initialize("../samples/monolith_fbx6binary.fbx");
+
+            // when:
+            header = importer.GetFileHeaderInfo();
+
+            // then:
+            Assert.NotNull(header);
+            Assert.That(header.mDefaultRenderResolution.mIsOK, Is.EqualTo(false));
+            Assert.That(header.mDefaultRenderResolution.mCameraName, Is.EqualTo(""));
+            Assert.That(header.mDefaultRenderResolution.mResolutionMode, Is.EqualTo(""));
+            Assert.That(header.mDefaultRenderResolution.mResolutionW, Is.EqualTo(0.0));
+            Assert.That(header.mDefaultRenderResolution.mResolutionH, Is.EqualTo(0.0));
+            Assert.That(header.mBinary, Is.EqualTo(true));
+            Assert.That(header.mFileVersion, Is.EqualTo(6100));
+            Assert.That(header.mCreationTimeStampPresent, Is.EqualTo(true));
+            Assert.That(header.mCreationTimeStamp.mYear, Is.EqualTo(2024));
+            Assert.That(header.mCreationTimeStamp.mMonth, Is.EqualTo(6));
+            Assert.That(header.mCreationTimeStamp.mDay, Is.EqualTo(4));
+            Assert.That(header.mCreationTimeStamp.mHour, Is.EqualTo(2));
+            Assert.That(header.mCreationTimeStamp.mMinute, Is.EqualTo(59));
+            Assert.That(header.mCreationTimeStamp.mSecond, Is.EqualTo(23));
+            Assert.That(header.mCreationTimeStamp.mMillisecond, Is.EqualTo(0));
+            Assert.That(header.mCreator, Is.EqualTo("FBX SDK/FBX Plugins version 2020.3.4"));
+            Assert.That(header.mIOPlugin, Is.EqualTo(false));
+            Assert.That(header.mPLE, Is.EqualTo(false));
+        }
+
+        [Test]
+        public void FbxImporter_GetFileHeaderInfo_InitializedYieldsValues7a()
+        {
+            // given:
+            var importer = new FbxImporter("");
+            FbxIOFileHeaderInfo header;
+            importer.Initialize("../samples/monolith_fbx7ascii.fbx");
+
+            // when:
+            header = importer.GetFileHeaderInfo();
+
+            // then:
+            Assert.NotNull(header);
+            Assert.That(header.mDefaultRenderResolution.mIsOK, Is.EqualTo(false));
+            Assert.That(header.mDefaultRenderResolution.mCameraName, Is.EqualTo(""));
+            Assert.That(header.mDefaultRenderResolution.mResolutionMode, Is.EqualTo(""));
+            Assert.That(header.mDefaultRenderResolution.mResolutionW, Is.EqualTo(0.0));
+            Assert.That(header.mDefaultRenderResolution.mResolutionH, Is.EqualTo(0.0));
+            Assert.That(header.mBinary, Is.EqualTo(false));
+            Assert.That(header.mFileVersion, Is.EqualTo(7700));
+            Assert.That(header.mCreationTimeStampPresent, Is.EqualTo(true));
+            Assert.That(header.mCreationTimeStamp.mYear, Is.EqualTo(2024));
+            Assert.That(header.mCreationTimeStamp.mMonth, Is.EqualTo(6));
+            Assert.That(header.mCreationTimeStamp.mDay, Is.EqualTo(4));
+            Assert.That(header.mCreationTimeStamp.mHour, Is.EqualTo(2));
+            Assert.That(header.mCreationTimeStamp.mMinute, Is.EqualTo(59));
+            Assert.That(header.mCreationTimeStamp.mSecond, Is.EqualTo(23));
+            Assert.That(header.mCreationTimeStamp.mMillisecond, Is.EqualTo(0));
+            Assert.That(header.mCreator, Is.EqualTo("FBX SDK/FBX Plugins version 2020.3.4"));
+            Assert.That(header.mIOPlugin, Is.EqualTo(false));
+            Assert.That(header.mPLE, Is.EqualTo(false));
+        }
+
+        [Test]
+        public void FbxImporter_GetFileHeaderInfo_InitializedYieldsValues7b()
+        {
+            // given:
+            var importer = new FbxImporter("");
+            FbxIOFileHeaderInfo header;
+            importer.Initialize("../samples/monolith_fbx7binary.fbx");
+
+            // when:
+            header = importer.GetFileHeaderInfo();
+
+            // then:
+            Assert.NotNull(header);
+            Assert.That(header.mDefaultRenderResolution.mIsOK, Is.EqualTo(false));
+            Assert.That(header.mDefaultRenderResolution.mCameraName, Is.EqualTo(""));
+            Assert.That(header.mDefaultRenderResolution.mResolutionMode, Is.EqualTo(""));
+            Assert.That(header.mDefaultRenderResolution.mResolutionW, Is.EqualTo(0.0));
+            Assert.That(header.mDefaultRenderResolution.mResolutionH, Is.EqualTo(0.0));
+            Assert.That(header.mBinary, Is.EqualTo(true));
+            Assert.That(header.mFileVersion, Is.EqualTo(7700));
+            Assert.That(header.mCreationTimeStampPresent, Is.EqualTo(true));
+            Assert.That(header.mCreationTimeStamp.mYear, Is.EqualTo(2024));
+            Assert.That(header.mCreationTimeStamp.mMonth, Is.EqualTo(6));
+            Assert.That(header.mCreationTimeStamp.mDay, Is.EqualTo(4));
+            Assert.That(header.mCreationTimeStamp.mHour, Is.EqualTo(2));
+            Assert.That(header.mCreationTimeStamp.mMinute, Is.EqualTo(59));
+            Assert.That(header.mCreationTimeStamp.mSecond, Is.EqualTo(23));
+            Assert.That(header.mCreationTimeStamp.mMillisecond, Is.EqualTo(0));
+            Assert.That(header.mCreator, Is.EqualTo("FBX SDK/FBX Plugins version 2020.3.4"));
+            Assert.That(header.mIOPlugin, Is.EqualTo(false));
+            Assert.That(header.mPLE, Is.EqualTo(false));
         }
 
         [Test]
@@ -242,7 +450,7 @@ namespace FbxSharpTests
 
             // then:
             // it's the same object;
-            Assert.AreEqual(result, result2);
+            Assert.That(result2, Is.EqualTo(result));
         }
     }
 }

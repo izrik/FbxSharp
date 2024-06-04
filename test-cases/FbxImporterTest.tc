@@ -1,4 +1,6 @@
-﻿fixture FbxImporterTest
+﻿#use constraints
+
+fixture FbxImporterTest
 test FbxImporter_Create_AllZero
     given
     FbxImporter importer = new("")
@@ -150,6 +152,74 @@ test FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile
     AssertEqual(4, minor)
     AssertEqual(0, revision)
 
+test FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile6a
+    given
+    FbxImporter importer = new("")
+    int major = 0
+    int minor = 0
+    int revision = 0
+    importer.Initialize("../samples/monolith_fbx6ascii&.fbx")
+
+    when
+#cpp importer.GetFileVersion(major, minor, revision)
+#cs importer.GetFileVersion(out major, out minor, out revision)
+
+    then
+    AssertEqual(6, major)
+    AssertEqual(1, minor)
+    AssertEqual(0, revision)
+
+test FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile6b
+    given
+    FbxImporter importer = new("")
+    int major = 0
+    int minor = 0
+    int revision = 0
+    importer.Initialize("../samples/monolith_fbx6binary&.fbx")
+
+    when
+#cpp importer.GetFileVersion(major, minor, revision)
+#cs importer.GetFileVersion(out major, out minor, out revision)
+
+    then
+    AssertEqual(6, major)
+    AssertEqual(1, minor)
+    AssertEqual(0, revision)
+
+test FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile7a
+    given
+    FbxImporter importer = new("")
+    int major = 0
+    int minor = 0
+    int revision = 0
+    importer.Initialize("../samples/monolith_fbx7ascii&.fbx")
+
+    when
+#cpp importer.GetFileVersion(major, minor, revision)
+#cs importer.GetFileVersion(out major, out minor, out revision)
+
+    then
+    AssertEqual(7, major)
+    AssertEqual(7, minor)
+    AssertEqual(0, revision)
+
+test FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile7b
+    given
+    FbxImporter importer = new("")
+    int major = 0
+    int minor = 0
+    int revision = 0
+    importer.Initialize("../samples/monolith_fbx7binary&.fbx")
+
+    when
+#cpp importer.GetFileVersion(major, minor, revision)
+#cs importer.GetFileVersion(out major, out minor, out revision)
+
+    then
+    AssertEqual(7, major)
+    AssertEqual(7, minor)
+    AssertEqual(0, revision)
+
 test FbxImporter_GetFileHeaderInfo_InitializedYieldsValues
     given
     FbxImporter importer = new("")
@@ -177,6 +247,126 @@ test FbxImporter_GetFileHeaderInfo_InitializedYieldsValues
     AssertEqual(25, header.mCreationTimeStamp&.mSecond)
     AssertEqual(938, header.mCreationTimeStamp&.mMillisecond)
     AssertEqual("Blender (stable FBX IO) - 4.0.1 - 5.8.12", header.mCreator)
+    AssertEqual(false, header.mIOPlugin)
+    AssertEqual(false, header.mPLE)
+
+test FbxImporter_GetFileHeaderInfo_InitializedYieldsValues6a
+    given
+    FbxImporter importer = new("")
+    FbxIOFileHeaderInfo* header
+    importer.Initialize("../samples/monolith_fbx6ascii&.fbx")
+
+    when
+    header = importer.GetFileHeaderInfo()
+
+    then
+    AssertNotNull(header)
+    AssertEqual(false, header.mDefaultRenderResolution&.mIsOK)
+    AssertEqual("", header.mDefaultRenderResolution&.mCameraName)
+    AssertEqual("", header.mDefaultRenderResolution&.mResolutionMode)
+    AssertEqual(0.0, header.mDefaultRenderResolution&.mResolutionW)
+    AssertEqual(0.0, header.mDefaultRenderResolution&.mResolutionH)
+    AssertEqual(false, header.mBinary)
+    AssertEqual(6100, header.mFileVersion)
+    AssertEqual(true, header.mCreationTimeStampPresent)
+    AssertEqual(2024, header.mCreationTimeStamp&.mYear)
+    AssertEqual(6, header.mCreationTimeStamp&.mMonth)
+    AssertEqual(4, header.mCreationTimeStamp&.mDay)
+    AssertEqual(2, header.mCreationTimeStamp&.mHour)
+    AssertEqual(59, header.mCreationTimeStamp&.mMinute)
+    AssertEqual(23, header.mCreationTimeStamp&.mSecond)
+    AssertEqual(0, header.mCreationTimeStamp&.mMillisecond)
+    AssertEqual("FBX SDK/FBX Plugins version 2020.3.4", header.mCreator)
+    AssertEqual(false, header.mIOPlugin)
+    AssertEqual(false, header.mPLE)
+
+test FbxImporter_GetFileHeaderInfo_InitializedYieldsValues6b
+    given
+    FbxImporter importer = new("")
+    FbxIOFileHeaderInfo* header
+    importer.Initialize("../samples/monolith_fbx6binary&.fbx")
+
+    when
+    header = importer.GetFileHeaderInfo()
+
+    then
+    AssertNotNull(header)
+    AssertEqual(false, header.mDefaultRenderResolution&.mIsOK)
+    AssertEqual("", header.mDefaultRenderResolution&.mCameraName)
+    AssertEqual("", header.mDefaultRenderResolution&.mResolutionMode)
+    AssertEqual(0.0, header.mDefaultRenderResolution&.mResolutionW)
+    AssertEqual(0.0, header.mDefaultRenderResolution&.mResolutionH)
+    AssertEqual(true, header.mBinary)
+    AssertEqual(6100, header.mFileVersion)
+    AssertEqual(true, header.mCreationTimeStampPresent)
+    AssertEqual(2024, header.mCreationTimeStamp&.mYear)
+    AssertEqual(6, header.mCreationTimeStamp&.mMonth)
+    AssertEqual(4, header.mCreationTimeStamp&.mDay)
+    AssertEqual(2, header.mCreationTimeStamp&.mHour)
+    AssertEqual(59, header.mCreationTimeStamp&.mMinute)
+    AssertEqual(23, header.mCreationTimeStamp&.mSecond)
+    AssertEqual(0, header.mCreationTimeStamp&.mMillisecond)
+    AssertEqual("FBX SDK/FBX Plugins version 2020.3.4", header.mCreator)
+    AssertEqual(false, header.mIOPlugin)
+    AssertEqual(false, header.mPLE)
+
+test FbxImporter_GetFileHeaderInfo_InitializedYieldsValues7a
+    given
+    FbxImporter importer = new("")
+    FbxIOFileHeaderInfo* header
+    importer.Initialize("../samples/monolith_fbx7ascii&.fbx")
+
+    when
+    header = importer.GetFileHeaderInfo()
+
+    then
+    AssertNotNull(header)
+    AssertEqual(false, header.mDefaultRenderResolution&.mIsOK)
+    AssertEqual("", header.mDefaultRenderResolution&.mCameraName)
+    AssertEqual("", header.mDefaultRenderResolution&.mResolutionMode)
+    AssertEqual(0.0, header.mDefaultRenderResolution&.mResolutionW)
+    AssertEqual(0.0, header.mDefaultRenderResolution&.mResolutionH)
+    AssertEqual(false, header.mBinary)
+    AssertEqual(7700, header.mFileVersion)
+    AssertEqual(true, header.mCreationTimeStampPresent)
+    AssertEqual(2024, header.mCreationTimeStamp&.mYear)
+    AssertEqual(6, header.mCreationTimeStamp&.mMonth)
+    AssertEqual(4, header.mCreationTimeStamp&.mDay)
+    AssertEqual(2, header.mCreationTimeStamp&.mHour)
+    AssertEqual(59, header.mCreationTimeStamp&.mMinute)
+    AssertEqual(23, header.mCreationTimeStamp&.mSecond)
+    AssertEqual(0, header.mCreationTimeStamp&.mMillisecond)
+    AssertEqual("FBX SDK/FBX Plugins version 2020.3.4", header.mCreator)
+    AssertEqual(false, header.mIOPlugin)
+    AssertEqual(false, header.mPLE)
+
+test FbxImporter_GetFileHeaderInfo_InitializedYieldsValues7b
+    given
+    FbxImporter importer = new("")
+    FbxIOFileHeaderInfo* header
+    importer.Initialize("../samples/monolith_fbx7binary&.fbx")
+
+    when
+    header = importer.GetFileHeaderInfo()
+
+    then
+    AssertNotNull(header)
+    AssertEqual(false, header.mDefaultRenderResolution&.mIsOK)
+    AssertEqual("", header.mDefaultRenderResolution&.mCameraName)
+    AssertEqual("", header.mDefaultRenderResolution&.mResolutionMode)
+    AssertEqual(0.0, header.mDefaultRenderResolution&.mResolutionW)
+    AssertEqual(0.0, header.mDefaultRenderResolution&.mResolutionH)
+    AssertEqual(true, header.mBinary)
+    AssertEqual(7700, header.mFileVersion)
+    AssertEqual(true, header.mCreationTimeStampPresent)
+    AssertEqual(2024, header.mCreationTimeStamp&.mYear)
+    AssertEqual(6, header.mCreationTimeStamp&.mMonth)
+    AssertEqual(4, header.mCreationTimeStamp&.mDay)
+    AssertEqual(2, header.mCreationTimeStamp&.mHour)
+    AssertEqual(59, header.mCreationTimeStamp&.mMinute)
+    AssertEqual(23, header.mCreationTimeStamp&.mSecond)
+    AssertEqual(0, header.mCreationTimeStamp&.mMillisecond)
+    AssertEqual("FBX SDK/FBX Plugins version 2020.3.4", header.mCreator)
     AssertEqual(false, header.mIOPlugin)
     AssertEqual(false, header.mPLE)
 

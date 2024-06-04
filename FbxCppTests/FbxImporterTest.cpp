@@ -185,6 +185,82 @@ void FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile()
     AssertEqual(0, revision);
 }
 
+void FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile6a()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxImporter* importer = FbxImporter::Create(manager, "");
+    int major = 0;
+    int minor = 0;
+    int revision = 0;
+    importer->Initialize("../samples/monolith_fbx6ascii.fbx");
+
+    // when:
+    importer->GetFileVersion(major, minor, revision);
+
+    // then:
+    AssertEqual(6, major);
+    AssertEqual(1, minor);
+    AssertEqual(0, revision);
+}
+
+void FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile6b()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxImporter* importer = FbxImporter::Create(manager, "");
+    int major = 0;
+    int minor = 0;
+    int revision = 0;
+    importer->Initialize("../samples/monolith_fbx6binary.fbx");
+
+    // when:
+    importer->GetFileVersion(major, minor, revision);
+
+    // then:
+    AssertEqual(6, major);
+    AssertEqual(1, minor);
+    AssertEqual(0, revision);
+}
+
+void FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile7a()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxImporter* importer = FbxImporter::Create(manager, "");
+    int major = 0;
+    int minor = 0;
+    int revision = 0;
+    importer->Initialize("../samples/monolith_fbx7ascii.fbx");
+
+    // when:
+    importer->GetFileVersion(major, minor, revision);
+
+    // then:
+    AssertEqual(7, major);
+    AssertEqual(7, minor);
+    AssertEqual(0, revision);
+}
+
+void FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile7b()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxImporter* importer = FbxImporter::Create(manager, "");
+    int major = 0;
+    int minor = 0;
+    int revision = 0;
+    importer->Initialize("../samples/monolith_fbx7binary.fbx");
+
+    // when:
+    importer->GetFileVersion(major, minor, revision);
+
+    // then:
+    AssertEqual(7, major);
+    AssertEqual(7, minor);
+    AssertEqual(0, revision);
+}
+
 void FbxImporter_GetFileHeaderInfo_InitializedYieldsValues()
 {
     // given:
@@ -214,6 +290,138 @@ void FbxImporter_GetFileHeaderInfo_InitializedYieldsValues()
     AssertEqual(25, header->mCreationTimeStamp.mSecond);
     AssertEqual(938, header->mCreationTimeStamp.mMillisecond);
     AssertEqual("Blender (stable FBX IO) - 4.0.1 - 5.8.12", header->mCreator);
+    AssertEqual(false, header->mIOPlugin);
+    AssertEqual(false, header->mPLE);
+}
+
+void FbxImporter_GetFileHeaderInfo_InitializedYieldsValues6a()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxImporter* importer = FbxImporter::Create(manager, "");
+    FbxIOFileHeaderInfo* header;
+    importer->Initialize("../samples/monolith_fbx6ascii.fbx");
+
+    // when:
+    header = importer->GetFileHeaderInfo();
+
+    // then:
+    AssertNotNull(header);
+    AssertEqual(false, header->mDefaultRenderResolution.mIsOK);
+    AssertEqual("", header->mDefaultRenderResolution.mCameraName);
+    AssertEqual("", header->mDefaultRenderResolution.mResolutionMode);
+    AssertEqual(0.0, header->mDefaultRenderResolution.mResolutionW);
+    AssertEqual(0.0, header->mDefaultRenderResolution.mResolutionH);
+    AssertEqual(false, header->mBinary);
+    AssertEqual(6100, header->mFileVersion);
+    AssertEqual(true, header->mCreationTimeStampPresent);
+    AssertEqual(2024, header->mCreationTimeStamp.mYear);
+    AssertEqual(6, header->mCreationTimeStamp.mMonth);
+    AssertEqual(4, header->mCreationTimeStamp.mDay);
+    AssertEqual(2, header->mCreationTimeStamp.mHour);
+    AssertEqual(59, header->mCreationTimeStamp.mMinute);
+    AssertEqual(23, header->mCreationTimeStamp.mSecond);
+    AssertEqual(0, header->mCreationTimeStamp.mMillisecond);
+    AssertEqual("FBX SDK/FBX Plugins version 2020.3.4", header->mCreator);
+    AssertEqual(false, header->mIOPlugin);
+    AssertEqual(false, header->mPLE);
+}
+
+void FbxImporter_GetFileHeaderInfo_InitializedYieldsValues6b()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxImporter* importer = FbxImporter::Create(manager, "");
+    FbxIOFileHeaderInfo* header;
+    importer->Initialize("../samples/monolith_fbx6binary.fbx");
+
+    // when:
+    header = importer->GetFileHeaderInfo();
+
+    // then:
+    AssertNotNull(header);
+    AssertEqual(false, header->mDefaultRenderResolution.mIsOK);
+    AssertEqual("", header->mDefaultRenderResolution.mCameraName);
+    AssertEqual("", header->mDefaultRenderResolution.mResolutionMode);
+    AssertEqual(0.0, header->mDefaultRenderResolution.mResolutionW);
+    AssertEqual(0.0, header->mDefaultRenderResolution.mResolutionH);
+    AssertEqual(true, header->mBinary);
+    AssertEqual(6100, header->mFileVersion);
+    AssertEqual(true, header->mCreationTimeStampPresent);
+    AssertEqual(2024, header->mCreationTimeStamp.mYear);
+    AssertEqual(6, header->mCreationTimeStamp.mMonth);
+    AssertEqual(4, header->mCreationTimeStamp.mDay);
+    AssertEqual(2, header->mCreationTimeStamp.mHour);
+    AssertEqual(59, header->mCreationTimeStamp.mMinute);
+    AssertEqual(23, header->mCreationTimeStamp.mSecond);
+    AssertEqual(0, header->mCreationTimeStamp.mMillisecond);
+    AssertEqual("FBX SDK/FBX Plugins version 2020.3.4", header->mCreator);
+    AssertEqual(false, header->mIOPlugin);
+    AssertEqual(false, header->mPLE);
+}
+
+void FbxImporter_GetFileHeaderInfo_InitializedYieldsValues7a()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxImporter* importer = FbxImporter::Create(manager, "");
+    FbxIOFileHeaderInfo* header;
+    importer->Initialize("../samples/monolith_fbx7ascii.fbx");
+
+    // when:
+    header = importer->GetFileHeaderInfo();
+
+    // then:
+    AssertNotNull(header);
+    AssertEqual(false, header->mDefaultRenderResolution.mIsOK);
+    AssertEqual("", header->mDefaultRenderResolution.mCameraName);
+    AssertEqual("", header->mDefaultRenderResolution.mResolutionMode);
+    AssertEqual(0.0, header->mDefaultRenderResolution.mResolutionW);
+    AssertEqual(0.0, header->mDefaultRenderResolution.mResolutionH);
+    AssertEqual(false, header->mBinary);
+    AssertEqual(7700, header->mFileVersion);
+    AssertEqual(true, header->mCreationTimeStampPresent);
+    AssertEqual(2024, header->mCreationTimeStamp.mYear);
+    AssertEqual(6, header->mCreationTimeStamp.mMonth);
+    AssertEqual(4, header->mCreationTimeStamp.mDay);
+    AssertEqual(2, header->mCreationTimeStamp.mHour);
+    AssertEqual(59, header->mCreationTimeStamp.mMinute);
+    AssertEqual(23, header->mCreationTimeStamp.mSecond);
+    AssertEqual(0, header->mCreationTimeStamp.mMillisecond);
+    AssertEqual("FBX SDK/FBX Plugins version 2020.3.4", header->mCreator);
+    AssertEqual(false, header->mIOPlugin);
+    AssertEqual(false, header->mPLE);
+}
+
+void FbxImporter_GetFileHeaderInfo_InitializedYieldsValues7b()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxImporter* importer = FbxImporter::Create(manager, "");
+    FbxIOFileHeaderInfo* header;
+    importer->Initialize("../samples/monolith_fbx7binary.fbx");
+
+    // when:
+    header = importer->GetFileHeaderInfo();
+
+    // then:
+    AssertNotNull(header);
+    AssertEqual(false, header->mDefaultRenderResolution.mIsOK);
+    AssertEqual("", header->mDefaultRenderResolution.mCameraName);
+    AssertEqual("", header->mDefaultRenderResolution.mResolutionMode);
+    AssertEqual(0.0, header->mDefaultRenderResolution.mResolutionW);
+    AssertEqual(0.0, header->mDefaultRenderResolution.mResolutionH);
+    AssertEqual(true, header->mBinary);
+    AssertEqual(7700, header->mFileVersion);
+    AssertEqual(true, header->mCreationTimeStampPresent);
+    AssertEqual(2024, header->mCreationTimeStamp.mYear);
+    AssertEqual(6, header->mCreationTimeStamp.mMonth);
+    AssertEqual(4, header->mCreationTimeStamp.mDay);
+    AssertEqual(2, header->mCreationTimeStamp.mHour);
+    AssertEqual(59, header->mCreationTimeStamp.mMinute);
+    AssertEqual(23, header->mCreationTimeStamp.mSecond);
+    AssertEqual(0, header->mCreationTimeStamp.mMillisecond);
+    AssertEqual("FBX SDK/FBX Plugins version 2020.3.4", header->mCreator);
     AssertEqual(false, header->mIOPlugin);
     AssertEqual(false, header->mPLE);
 }
@@ -255,7 +463,15 @@ void FbxImporterTest::RegisterTestCases()
     AddTestCase(FbxImporter_IsImporting_InitializedYieldsFalse);
     AddTestCase(FbxImporter_GetProgress_InitializedYieldsZero);
     AddTestCase(FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile);
+    AddTestCase(FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile6a);
+    AddTestCase(FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile6b);
+    AddTestCase(FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile7a);
+    AddTestCase(FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile7b);
     AddTestCase(FbxImporter_GetFileHeaderInfo_InitializedYieldsValues);
+    AddTestCase(FbxImporter_GetFileHeaderInfo_InitializedYieldsValues6a);
+    AddTestCase(FbxImporter_GetFileHeaderInfo_InitializedYieldsValues6b);
+    AddTestCase(FbxImporter_GetFileHeaderInfo_InitializedYieldsValues7a);
+    AddTestCase(FbxImporter_GetFileHeaderInfo_InitializedYieldsValues7b);
     AddTestCase(FbxImporter_GetIOSettings_InitializedYieldsAnObject);
 }
 
