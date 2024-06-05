@@ -112,7 +112,7 @@ namespace FbxSharpTests
             bool result;
 
             // when:
-            result = importer.Initialize("../samples/monolith.fbx");
+            result = importer.Initialize(GetSample("monolith.fbx"));
 
             // then:
             Assert.True(result);
@@ -126,7 +126,7 @@ namespace FbxSharpTests
             bool result;
 
             // when:
-            result = importer.Initialize("../samples/monolith.fbx");
+            result = importer.Initialize(GetSample("monolith.fbx"));
 
             // then:
             Assert.That(importer.GetStatus().GetCode(), Is.EqualTo(FbxStatus.EStatusCode.eSuccess));
@@ -140,10 +140,24 @@ namespace FbxSharpTests
             bool result;
 
             // when:
-            result = importer.Initialize("../samples/monolith.fbx");
+            result = importer.Initialize(GetSample("monolith.fbx"));
 
             // then:
             Assert.False(importer.GetStatus().Error());
+        }
+
+        [Test]
+        public void FbxImporter_Initialize_ValidFile_Succeeds4()
+        {
+            // given:
+            var importer = new FbxImporter("");
+            bool result;
+
+            // when:
+            result = importer.Initialize(GetSample("monolith.fbx"));
+
+            // then:
+            Assert.That(importer.GetStatus().GetErrorString(), Is.EqualTo(""));
         }
 
         [Test]
@@ -152,7 +166,7 @@ namespace FbxSharpTests
             // given:
             var importer = new FbxImporter("");
             var result = false;
-            importer.Initialize("../samples/monolith.fbx");
+            importer.Initialize(GetSample("monolith.fbx"));
 
             // expect:
             Assert.False(importer.IsImporting(out result));
@@ -164,7 +178,7 @@ namespace FbxSharpTests
         {
             // given:
             var importer = new FbxImporter("");
-            importer.Initialize("../samples/monolith.fbx");
+            importer.Initialize(GetSample("monolith.fbx"));
 
             // expect:
             Assert.That(importer.GetProgress(null), Is.EqualTo(0.0));
@@ -178,7 +192,7 @@ namespace FbxSharpTests
             var major = 0;
             var minor = 0;
             var revision = 0;
-            importer.Initialize("../samples/monolith.fbx");
+            importer.Initialize(GetSample("monolith.fbx"));
 
             // when:
             importer.GetFileVersion(out major, out minor, out revision);
@@ -197,7 +211,7 @@ namespace FbxSharpTests
             var major = 0;
             var minor = 0;
             var revision = 0;
-            importer.Initialize("../samples/monolith_fbx6ascii.fbx");
+            importer.Initialize(GetSample("monolith_fbx6ascii.fbx"));
 
             // when:
             importer.GetFileVersion(out major, out minor, out revision);
@@ -216,7 +230,7 @@ namespace FbxSharpTests
             var major = 0;
             var minor = 0;
             var revision = 0;
-            importer.Initialize("../samples/monolith_fbx6binary.fbx");
+            importer.Initialize(GetSample("monolith_fbx6binary.fbx"));
 
             // when:
             importer.GetFileVersion(out major, out minor, out revision);
@@ -235,7 +249,7 @@ namespace FbxSharpTests
             var major = 0;
             var minor = 0;
             var revision = 0;
-            importer.Initialize("../samples/monolith_fbx7ascii.fbx");
+            importer.Initialize(GetSample("monolith_fbx7ascii.fbx"));
 
             // when:
             importer.GetFileVersion(out major, out minor, out revision);
@@ -254,7 +268,7 @@ namespace FbxSharpTests
             var major = 0;
             var minor = 0;
             var revision = 0;
-            importer.Initialize("../samples/monolith_fbx7binary.fbx");
+            importer.Initialize(GetSample("monolith_fbx7binary.fbx"));
 
             // when:
             importer.GetFileVersion(out major, out minor, out revision);
@@ -271,7 +285,7 @@ namespace FbxSharpTests
             // given:
             var importer = new FbxImporter("");
             FbxIOFileHeaderInfo header;
-            importer.Initialize("../samples/monolith.fbx");
+            importer.Initialize(GetSample("monolith.fbx"));
 
             // when:
             header = importer.GetFileHeaderInfo();
@@ -304,7 +318,7 @@ namespace FbxSharpTests
             // given:
             var importer = new FbxImporter("");
             FbxIOFileHeaderInfo header;
-            importer.Initialize("../samples/monolith_fbx6ascii.fbx");
+            importer.Initialize(GetSample("monolith_fbx6ascii.fbx"));
 
             // when:
             header = importer.GetFileHeaderInfo();
@@ -337,7 +351,7 @@ namespace FbxSharpTests
             // given:
             var importer = new FbxImporter("");
             FbxIOFileHeaderInfo header;
-            importer.Initialize("../samples/monolith_fbx6binary.fbx");
+            importer.Initialize(GetSample("monolith_fbx6binary.fbx"));
 
             // when:
             header = importer.GetFileHeaderInfo();
@@ -370,7 +384,7 @@ namespace FbxSharpTests
             // given:
             var importer = new FbxImporter("");
             FbxIOFileHeaderInfo header;
-            importer.Initialize("../samples/monolith_fbx7ascii.fbx");
+            importer.Initialize(GetSample("monolith_fbx7ascii.fbx"));
 
             // when:
             header = importer.GetFileHeaderInfo();
@@ -403,7 +417,7 @@ namespace FbxSharpTests
             // given:
             var importer = new FbxImporter("");
             FbxIOFileHeaderInfo header;
-            importer.Initialize("../samples/monolith_fbx7binary.fbx");
+            importer.Initialize(GetSample("monolith_fbx7binary.fbx"));
 
             // when:
             header = importer.GetFileHeaderInfo();
@@ -437,7 +451,7 @@ namespace FbxSharpTests
             var importer = new FbxImporter("");
             FbxIOSettings result;
             FbxIOSettings result2;
-            importer.Initialize("../samples/monolith.fbx");
+            importer.Initialize(GetSample("monolith.fbx"));
 
             // when:
             result = importer.GetIOSettings();

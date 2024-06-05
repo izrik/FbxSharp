@@ -88,7 +88,7 @@ test FbxImporter_Initialize_ValidFile_Succeeds1
     bool result
 
     when
-    result = importer.Initialize("../samples/monolith&.fbx")
+    result = importer.Initialize(GetSample("monolith&.fbx"))
 
     then
     AssertTrue(result)
@@ -99,7 +99,7 @@ test FbxImporter_Initialize_ValidFile_Succeeds2
     bool result
 
     when
-    result = importer.Initialize("../samples/monolith&.fbx")
+    result = importer.Initialize(GetSample("monolith&.fbx"))
 
     then
     AssertEqual(FbxStatus::EStatusCode::eSuccess, importer.GetStatus()&.GetCode())
@@ -110,17 +110,27 @@ test FbxImporter_Initialize_ValidFile_Succeeds3
     bool result
 
     when
-    result = importer.Initialize("../samples/monolith&.fbx")
+    result = importer.Initialize(GetSample("monolith&.fbx"))
 
     then
     AssertFalse(importer.GetStatus()&.Error())
 
+test FbxImporter_Initialize_ValidFile_Succeeds4
+    given
+    FbxImporter importer = new("")
+    bool result
+
+    when
+    result = importer.Initialize(GetSample("monolith&.fbx"))
+
+    then
+    AssertEqual("", importer.GetStatus()&.GetErrorString())
 
 test FbxImporter_IsImporting_InitializedYieldsFalse
     given
     FbxImporter importer = new("")
     bool result = false
-    importer.Initialize("../samples/monolith&.fbx")
+    importer.Initialize(GetSample("monolith&.fbx"))
 
     expect
 #cpp AssertFalse(importer.IsImporting(result))
@@ -130,7 +140,7 @@ test FbxImporter_IsImporting_InitializedYieldsFalse
 test FbxImporter_GetProgress_InitializedYieldsZero
     given
     FbxImporter importer = new("")
-    importer.Initialize("../samples/monolith&.fbx")
+    importer.Initialize(GetSample("monolith&.fbx"))
 
     expect
     AssertEqual(0.0, importer.GetProgress(NULL))
@@ -141,7 +151,7 @@ test FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile
     int major = 0
     int minor = 0
     int revision = 0
-    importer.Initialize("../samples/monolith&.fbx")
+    importer.Initialize(GetSample("monolith&.fbx"))
 
     when
 #cpp importer.GetFileVersion(major, minor, revision)
@@ -158,7 +168,7 @@ test FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile6a
     int major = 0
     int minor = 0
     int revision = 0
-    importer.Initialize("../samples/monolith_fbx6ascii&.fbx")
+    importer.Initialize(GetSample("monolith_fbx6ascii&.fbx"))
 
     when
 #cpp importer.GetFileVersion(major, minor, revision)
@@ -175,7 +185,7 @@ test FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile6b
     int major = 0
     int minor = 0
     int revision = 0
-    importer.Initialize("../samples/monolith_fbx6binary&.fbx")
+    importer.Initialize(GetSample("monolith_fbx6binary&.fbx"))
 
     when
 #cpp importer.GetFileVersion(major, minor, revision)
@@ -192,7 +202,7 @@ test FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile7a
     int major = 0
     int minor = 0
     int revision = 0
-    importer.Initialize("../samples/monolith_fbx7ascii&.fbx")
+    importer.Initialize(GetSample("monolith_fbx7ascii&.fbx"))
 
     when
 #cpp importer.GetFileVersion(major, minor, revision)
@@ -209,7 +219,7 @@ test FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile7b
     int major = 0
     int minor = 0
     int revision = 0
-    importer.Initialize("../samples/monolith_fbx7binary&.fbx")
+    importer.Initialize(GetSample("monolith_fbx7binary&.fbx"))
 
     when
 #cpp importer.GetFileVersion(major, minor, revision)
@@ -224,7 +234,7 @@ test FbxImporter_GetFileHeaderInfo_InitializedYieldsValues
     given
     FbxImporter importer = new("")
     FbxIOFileHeaderInfo* header
-    importer.Initialize("../samples/monolith&.fbx")
+    importer.Initialize(GetSample("monolith&.fbx"))
 
     when
     header = importer.GetFileHeaderInfo()
@@ -254,7 +264,7 @@ test FbxImporter_GetFileHeaderInfo_InitializedYieldsValues6a
     given
     FbxImporter importer = new("")
     FbxIOFileHeaderInfo* header
-    importer.Initialize("../samples/monolith_fbx6ascii&.fbx")
+    importer.Initialize(GetSample("monolith_fbx6ascii&.fbx"))
 
     when
     header = importer.GetFileHeaderInfo()
@@ -284,7 +294,7 @@ test FbxImporter_GetFileHeaderInfo_InitializedYieldsValues6b
     given
     FbxImporter importer = new("")
     FbxIOFileHeaderInfo* header
-    importer.Initialize("../samples/monolith_fbx6binary&.fbx")
+    importer.Initialize(GetSample("monolith_fbx6binary&.fbx"))
 
     when
     header = importer.GetFileHeaderInfo()
@@ -314,7 +324,7 @@ test FbxImporter_GetFileHeaderInfo_InitializedYieldsValues7a
     given
     FbxImporter importer = new("")
     FbxIOFileHeaderInfo* header
-    importer.Initialize("../samples/monolith_fbx7ascii&.fbx")
+    importer.Initialize(GetSample("monolith_fbx7ascii&.fbx"))
 
     when
     header = importer.GetFileHeaderInfo()
@@ -344,7 +354,7 @@ test FbxImporter_GetFileHeaderInfo_InitializedYieldsValues7b
     given
     FbxImporter importer = new("")
     FbxIOFileHeaderInfo* header
-    importer.Initialize("../samples/monolith_fbx7binary&.fbx")
+    importer.Initialize(GetSample("monolith_fbx7binary&.fbx"))
 
     when
     header = importer.GetFileHeaderInfo()
@@ -375,7 +385,7 @@ test FbxImporter_GetIOSettings_InitializedYieldsAnObject
     FbxImporter importer = new("")
     FbxIOSettings* result
     FbxIOSettings* result2
-    importer.Initialize("../samples/monolith&.fbx")
+    importer.Initialize(GetSample("monolith&.fbx"))
 
     when
     result = importer.GetIOSettings()

@@ -108,7 +108,7 @@ void FbxImporter_Initialize_ValidFile_Succeeds1()
     bool result;
 
     // when:
-    result = importer->Initialize("../samples/monolith.fbx");
+    result = importer->Initialize(GetSample("monolith.fbx").c_str());
 
     // then:
     AssertTrue(result);
@@ -122,7 +122,7 @@ void FbxImporter_Initialize_ValidFile_Succeeds2()
     bool result;
 
     // when:
-    result = importer->Initialize("../samples/monolith.fbx");
+    result = importer->Initialize(GetSample("monolith.fbx").c_str());
 
     // then:
     AssertEqual(FbxStatus::EStatusCode::eSuccess, importer->GetStatus().GetCode());
@@ -136,10 +136,24 @@ void FbxImporter_Initialize_ValidFile_Succeeds3()
     bool result;
 
     // when:
-    result = importer->Initialize("../samples/monolith.fbx");
+    result = importer->Initialize(GetSample("monolith.fbx").c_str());
 
     // then:
     AssertFalse(importer->GetStatus().Error());
+}
+
+void FbxImporter_Initialize_ValidFile_Succeeds4()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxImporter* importer = FbxImporter::Create(manager, "");
+    bool result;
+
+    // when:
+    result = importer->Initialize(GetSample("monolith.fbx").c_str());
+
+    // then:
+    AssertEqual("", importer->GetStatus().GetErrorString());
 }
 
 void FbxImporter_IsImporting_InitializedYieldsFalse()
@@ -148,7 +162,7 @@ void FbxImporter_IsImporting_InitializedYieldsFalse()
     FbxManager* manager = FbxManager::Create();
     FbxImporter* importer = FbxImporter::Create(manager, "");
     bool result = false;
-    importer->Initialize("../samples/monolith.fbx");
+    importer->Initialize(GetSample("monolith.fbx").c_str());
 
     // expect:
     AssertFalse(importer->IsImporting(result));
@@ -160,7 +174,7 @@ void FbxImporter_GetProgress_InitializedYieldsZero()
     // given:
     FbxManager* manager = FbxManager::Create();
     FbxImporter* importer = FbxImporter::Create(manager, "");
-    importer->Initialize("../samples/monolith.fbx");
+    importer->Initialize(GetSample("monolith.fbx").c_str());
 
     // expect:
     AssertEqual(0.0, importer->GetProgress(NULL));
@@ -174,7 +188,7 @@ void FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile()
     int major = 0;
     int minor = 0;
     int revision = 0;
-    importer->Initialize("../samples/monolith.fbx");
+    importer->Initialize(GetSample("monolith.fbx").c_str());
 
     // when:
     importer->GetFileVersion(major, minor, revision);
@@ -193,7 +207,7 @@ void FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile6a()
     int major = 0;
     int minor = 0;
     int revision = 0;
-    importer->Initialize("../samples/monolith_fbx6ascii.fbx");
+    importer->Initialize(GetSample("monolith_fbx6ascii.fbx").c_str());
 
     // when:
     importer->GetFileVersion(major, minor, revision);
@@ -212,7 +226,7 @@ void FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile6b()
     int major = 0;
     int minor = 0;
     int revision = 0;
-    importer->Initialize("../samples/monolith_fbx6binary.fbx");
+    importer->Initialize(GetSample("monolith_fbx6binary.fbx").c_str());
 
     // when:
     importer->GetFileVersion(major, minor, revision);
@@ -231,7 +245,7 @@ void FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile7a()
     int major = 0;
     int minor = 0;
     int revision = 0;
-    importer->Initialize("../samples/monolith_fbx7ascii.fbx");
+    importer->Initialize(GetSample("monolith_fbx7ascii.fbx").c_str());
 
     // when:
     importer->GetFileVersion(major, minor, revision);
@@ -250,7 +264,7 @@ void FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile7b()
     int major = 0;
     int minor = 0;
     int revision = 0;
-    importer->Initialize("../samples/monolith_fbx7binary.fbx");
+    importer->Initialize(GetSample("monolith_fbx7binary.fbx").c_str());
 
     // when:
     importer->GetFileVersion(major, minor, revision);
@@ -267,7 +281,7 @@ void FbxImporter_GetFileHeaderInfo_InitializedYieldsValues()
     FbxManager* manager = FbxManager::Create();
     FbxImporter* importer = FbxImporter::Create(manager, "");
     FbxIOFileHeaderInfo* header;
-    importer->Initialize("../samples/monolith.fbx");
+    importer->Initialize(GetSample("monolith.fbx").c_str());
 
     // when:
     header = importer->GetFileHeaderInfo();
@@ -300,7 +314,7 @@ void FbxImporter_GetFileHeaderInfo_InitializedYieldsValues6a()
     FbxManager* manager = FbxManager::Create();
     FbxImporter* importer = FbxImporter::Create(manager, "");
     FbxIOFileHeaderInfo* header;
-    importer->Initialize("../samples/monolith_fbx6ascii.fbx");
+    importer->Initialize(GetSample("monolith_fbx6ascii.fbx").c_str());
 
     // when:
     header = importer->GetFileHeaderInfo();
@@ -333,7 +347,7 @@ void FbxImporter_GetFileHeaderInfo_InitializedYieldsValues6b()
     FbxManager* manager = FbxManager::Create();
     FbxImporter* importer = FbxImporter::Create(manager, "");
     FbxIOFileHeaderInfo* header;
-    importer->Initialize("../samples/monolith_fbx6binary.fbx");
+    importer->Initialize(GetSample("monolith_fbx6binary.fbx").c_str());
 
     // when:
     header = importer->GetFileHeaderInfo();
@@ -366,7 +380,7 @@ void FbxImporter_GetFileHeaderInfo_InitializedYieldsValues7a()
     FbxManager* manager = FbxManager::Create();
     FbxImporter* importer = FbxImporter::Create(manager, "");
     FbxIOFileHeaderInfo* header;
-    importer->Initialize("../samples/monolith_fbx7ascii.fbx");
+    importer->Initialize(GetSample("monolith_fbx7ascii.fbx").c_str());
 
     // when:
     header = importer->GetFileHeaderInfo();
@@ -399,7 +413,7 @@ void FbxImporter_GetFileHeaderInfo_InitializedYieldsValues7b()
     FbxManager* manager = FbxManager::Create();
     FbxImporter* importer = FbxImporter::Create(manager, "");
     FbxIOFileHeaderInfo* header;
-    importer->Initialize("../samples/monolith_fbx7binary.fbx");
+    importer->Initialize(GetSample("monolith_fbx7binary.fbx").c_str());
 
     // when:
     header = importer->GetFileHeaderInfo();
@@ -433,7 +447,7 @@ void FbxImporter_GetIOSettings_InitializedYieldsAnObject()
     FbxImporter* importer = FbxImporter::Create(manager, "");
     FbxIOSettings* result;
     FbxIOSettings* result2;
-    importer->Initialize("../samples/monolith.fbx");
+    importer->Initialize(GetSample("monolith.fbx").c_str());
 
     // when:
     result = importer->GetIOSettings();
@@ -460,6 +474,7 @@ void FbxImporterTest::RegisterTestCases()
     AddTestCase(FbxImporter_Initialize_ValidFile_Succeeds1);
     AddTestCase(FbxImporter_Initialize_ValidFile_Succeeds2);
     AddTestCase(FbxImporter_Initialize_ValidFile_Succeeds3);
+    AddTestCase(FbxImporter_Initialize_ValidFile_Succeeds4);
     AddTestCase(FbxImporter_IsImporting_InitializedYieldsFalse);
     AddTestCase(FbxImporter_GetProgress_InitializedYieldsZero);
     AddTestCase(FbxImporter_GetFileVersion_InitializedYieldsVersionNumbersFromTheFile);

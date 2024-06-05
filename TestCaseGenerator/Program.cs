@@ -660,6 +660,10 @@ namespace TestCaseGenerator
                                 outline = Regex.Replace(outline, @"\bnull\b", "NULL");
                             }
 
+                            outline = Regex.Replace(outline,
+                                @"\b(GetSample\(""[^""]+""\))\)",
+                                "$1.c_str())");
+
                             if (!string.IsNullOrWhiteSpace(outline))
                             {
                                 writer.Write("    {0};", outline);

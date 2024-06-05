@@ -16,4 +16,8 @@
         </DefaultItemExcludes>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ClCompile Include="Utils.cpp" />
+    </ItemGroup>
+
 </Project>

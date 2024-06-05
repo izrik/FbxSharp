@@ -14,7 +14,7 @@ ifeq ($(FBXSDK_HOME),)
 endif
 $(info FBXSDK_HOME is [$(FBXSDK_HOME)])
 
-COMMON_CFLAGS :=-c -Wall -std=c++11 -I$(FBXSDK_HOME)/include -I/usr/local/opt/libxml2/include -I/usr/local/opt/zlib/include -I../fbxcppcommon
+COMMON_CFLAGS :=-c -Wall -std=c++17 -I$(FBXSDK_HOME)/include -I/usr/local/opt/libxml2/include -I/usr/local/opt/zlib/include -I../fbxcppcommon
 COMMON_STATIC_LIBS := ../fbxcppcommon/bin/fbxcppcommon.a
 COMMON_LDFLAGS := -L/usr/lib -lz -lxml2 -liconv
 
@@ -30,9 +30,9 @@ ifeq ($(UNAME_S),Darwin)
 	LDFLAGS=-framework Cocoa $(COMMON_LDFLAGS)
 endif
 
-TC_SOURCES=AnimCurveKeyTest.tc AnimCurveNodeTest.tc AnimCurveTest.tc AnimLayerTest.tc AnimStackTest.tc Assertions.tc CameraTest.tc ClusterTest.tc DeformerTest.tc FbxObjectTest.tc FbxTimeTest.tc GeometryBaseTest.tc GeometryTest.tc LayerContainerTest.tc LightTest.tc MatrixTest.tc MeshTest.tc NodeTest.tc NodeTransformsTest.tc PropertyTest.tc SceneTest.tc SkinTest.tc SubDeformerTest.tc SurfacePhongTest.tc TestFixture.tc TestRunner.tc main.tc LayerTest.tc FbxImporterTest.tc EFbxTypeTest.tc FbxPropertyFlagsTest.tc FbxDataTypeTest.tc FbxPropertyTest.tc FbxIOSettingsTest.tc
-SOURCES=$(TC_SOURCES:%.tc=%.cpp)
-HEADERS=Assertions.h OutputDebugStringBuf.h Tests.h
+TC_SOURCES=AnimCurveKeyTest.tc AnimCurveNodeTest.tc AnimCurveTest.tc AnimLayerTest.tc AnimStackTest.tc CameraTest.tc ClusterTest.tc DeformerTest.tc FbxObjectTest.tc FbxTimeTest.tc GeometryBaseTest.tc GeometryTest.tc LayerContainerTest.tc LightTest.tc MatrixTest.tc MeshTest.tc NodeTest.tc NodeTransformsTest.tc PropertyTest.tc SceneTest.tc SkinTest.tc SubDeformerTest.tc SurfacePhongTest.tc LayerTest.tc FbxImporterTest.tc EFbxTypeTest.tc FbxPropertyFlagsTest.tc FbxDataTypeTest.tc FbxPropertyTest.tc FbxIOSettingsTest.tc
+SOURCES=Assertions.cpp TestFixture.cpp TestRunner.cpp main.cpp Utils.cpp $(TC_SOURCES:%.tc=%.cpp)
+HEADERS=Assertions.h OutputDebugStringBuf.h Tests.h Utils.h
 OBJECTS=$(SOURCES:%.cpp=obj/%.o)
 EXECUTABLE=FbxCppTests
 

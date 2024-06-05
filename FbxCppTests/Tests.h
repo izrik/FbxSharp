@@ -9,6 +9,7 @@
 #include "print.h"
 #include "properties.h"
 #include "Assertions.h"
+#include "Utils.h"
 
 void RunTests();
 void RunTestsWithArgs(std::vector<std::string>& args);
