@@ -218,9 +218,9 @@ namespace FbxSharp
         public void GetFileVersion(out int major, out int minor,
             out int revision)
         {
-            major = 0;
-            minor = 0;
-            revision = 0;
+            major = (fileHeaderInfo.mFileVersion / 1000) % 10;
+            minor = (fileHeaderInfo.mFileVersion / 100) % 10;
+            revision = (fileHeaderInfo.mFileVersion / 10) % 10;
         }
 
         private FbxIOFileHeaderInfo fileHeaderInfo = new();
