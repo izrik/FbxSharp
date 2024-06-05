@@ -29,7 +29,11 @@ namespace FbxSharp
         public bool Initialize(string fileName, int fileFormat = -1,
             FbxIOSettings ioSettings = null)
         {
+            if (ioSettings == null)
+                ioSettings = new FbxIOSettings("IOSRoot");
+
             initializedFilename = fileName;
+            this.ioSettings = ioSettings;
 
             // open the file
             var fhi = new FbxIOFileHeaderInfo();
@@ -226,9 +230,10 @@ namespace FbxSharp
             return fileHeaderInfo;
         }
 
+        private FbxIOSettings ioSettings;
         public FbxIOSettings GetIOSettings()
         {
-            return null;
+            return ioSettings;
         }
 
         public FbxStatus GetStatus()

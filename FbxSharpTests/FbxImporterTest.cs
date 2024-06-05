@@ -458,6 +458,7 @@ namespace FbxSharpTests
 
             // then:
             Assert.NotNull(result);
+            Assert.That(result.GetName(), Is.EqualTo("IOSRoot"));
 
             // when:
             result2 = importer.GetIOSettings();

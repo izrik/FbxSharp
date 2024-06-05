@@ -454,6 +454,7 @@ void FbxImporter_GetIOSettings_InitializedYieldsAnObject()
 
     // then:
     AssertNotNull(result);
+    AssertEqual("IOSRoot", result->GetName());
 
     // when:
     result2 = importer->GetIOSettings();
