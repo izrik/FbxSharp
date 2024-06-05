@@ -5,7 +5,7 @@ namespace FbxSharp
     /// <summary>
     /// Base class for FBX file importer and exporter.
     /// </summary>
-    public class FbxIOBase : FbxObject
+    public abstract class FbxIOBase : FbxObject
     {
         #region Public Types
 
@@ -16,14 +16,12 @@ namespace FbxSharp
         #region Public Member Functions
 
         // virtual FbxClassId GetClassId () const override
-        public virtual bool Initialize(string pFileName, int pFileFormat = -1,
-            FbxIOSettings pIOSettings = null) =>
-            throw new NotImplementedException();
+        public abstract bool Initialize(string pFileName, int pFileFormat = -1,
+            FbxIOSettings pIOSettings = null);
 
-        public virtual string GetFileName() =>
-            throw new NotImplementedException();
+        public abstract string GetFileName();
 
-        public FbxStatus GetStatus() => throw new NotImplementedException();
+        public abstract FbxStatus GetStatus();
 
         #endregion
 

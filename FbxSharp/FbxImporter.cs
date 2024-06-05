@@ -26,7 +26,9 @@ namespace FbxSharp
             return true;
         }
 
-        public bool Initialize(string fileName, int fileFormat = -1,
+        public override string GetFileName() => initializedFilename;
+
+        public override bool Initialize(string fileName, int fileFormat = -1,
             FbxIOSettings ioSettings = null)
         {
             if (ioSettings == null)
@@ -237,7 +239,7 @@ namespace FbxSharp
             return ioSettings;
         }
 
-        public FbxStatus GetStatus()
+        public override FbxStatus GetStatus()
         {
             return currentStatus;
         }
