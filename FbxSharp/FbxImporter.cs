@@ -231,6 +231,7 @@ namespace FbxSharp
         }
 
         private FbxIOSettings ioSettings;
+
         public FbxIOSettings GetIOSettings()
         {
             return ioSettings;
