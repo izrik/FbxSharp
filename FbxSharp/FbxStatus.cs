@@ -68,7 +68,7 @@ public class FbxStatus
         switch (code)
         {
             case EStatusCode.eSuccess:
-                return "eSuccess";
+                return "";
             case EStatusCode.eFailure:
                 return "eFailure";
             case EStatusCode.eInsufficientMemory:
