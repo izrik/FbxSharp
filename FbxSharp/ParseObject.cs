@@ -4,6 +4,7 @@ using System.Text;
 
 namespace FbxSharp
 {
+    [NotSdk]
     public class ParseObject
     {
         public string Name;
@@ -50,6 +51,40 @@ namespace FbxSharp
             // Returns the first property found with the given name, or null if
             // no such property was found.
             return this.Properties.Find(p => p.Name == name);
+        }
+
+        public string GetStringValue(int index=0)
+        {
+            // TODO: various checks
+            return (string)Values[index];
+        }
+
+        public int GetIntValue(int index=0)
+        {
+            // TODO: various checks
+            var value = Values[index];
+            switch (value)
+            {
+                case int i:
+                    return i;
+                case Number n:
+                {
+                    if (n.AsLong != null)
+                        return (int)n.AsLong.Value;
+                    throw new NotImplementedException();
+                }
+                default:
+                {
+                    var s = value.ToString();
+                    if (!int.TryParse(s, out var x))
+                        throw new ArgumentException(
+                            $"Could not parse " +
+                            $"value \"{s}\" as int");
+                    return x;
+                }
+            }
+
+            throw new NotImplementedException();
         }
     }
 }
