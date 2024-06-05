@@ -214,6 +214,7 @@ public class FbxIOSettings : FbxObject
     [DeviationFromSdk(
         "protected FbxIOSettings(FbxManager *pManager, const char *pName) ")]
     public FbxIOSettings( /*FbxManager pManager,*/ string pName)
+        : base(pName)
     {
         // TODO: use public static Create() to create instances, instead of
         //       constructor.

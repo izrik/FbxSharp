@@ -8,8 +8,8 @@ namespace FbxSharp
     public class FbxImporter : FbxIOBase
     {
         public FbxImporter(string name = null)
+            : base(name)
         {
-            Name = name;
         }
 
         public string Name;
