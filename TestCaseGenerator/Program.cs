@@ -366,7 +366,11 @@ namespace TestCaseGenerator
                                 outline = outline.Replace('*', ' ');
                             }
 
-                            if (Regex.IsMatch(outline, @"\bnew\b"))
+                            if (Regex.IsMatch(outline, @"new&"))
+                            {
+                                outline = outline.Replace("new&", "new");
+                            }
+                            else if (Regex.IsMatch(outline, @"\bnew\b"))
                             {
                                 parts = outline.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                                 parts[0] = parts[0].Replace("!", "");
