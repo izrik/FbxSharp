@@ -29,6 +29,20 @@ namespace FbxSharp
             }
         }
 
+        public Number(long value)
+        {
+            StringRepresentation = value.ToString();
+            AsDouble = (double)value;
+            AsLong = value;
+        }
+
+        public Number(double value)
+        {
+            StringRepresentation = value.ToString();
+            AsDouble = value;
+            AsLong = (long)value;
+        }
+
         public readonly string StringRepresentation;
         public readonly double? AsDouble;
         public readonly long? AsLong;
@@ -44,6 +58,24 @@ namespace FbxSharp
                 return AsDouble.Value.ToString();
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj switch
+            {
+                sbyte or byte or short or ushort or int or uint or long =>
+                    AsLong.HasValue && AsLong.Value.Equals(obj),
+                ulong ul => AsLong.HasValue && ul <= long.MaxValue &&
+                            AsLong.Value.Equals((long)ul),
+                float f => AsDouble.HasValue && AsDouble.Equals((double)f),
+                double d => AsDouble.HasValue && AsDouble.Equals(d),
+                string s => StringRepresentation != null &&
+                            StringRepresentation == s,
+                _ => false
+            };
+        }
+
+        public override int GetHashCode() =>
+            HashCode.Combine(StringRepresentation, AsLong, AsDouble);
     }
 }
-
