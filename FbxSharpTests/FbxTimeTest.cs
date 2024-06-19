@@ -389,47 +389,47 @@ namespace FbxSharpTests
             // when:
             var time = new FbxTime(0L);
             // then:
-            Assert.That(time.Get(), Is.EqualTo(0L));;
+            Assert.That(time.Get(), Is.EqualTo(0L));
             // when:
             time = new FbxTime(1L);
             // then:
-            Assert.That(time.Get(), Is.EqualTo(1L));;
+            Assert.That(time.Get(), Is.EqualTo(1L));
             // when:
             time = new FbxTime(2L);
             // then:
-            Assert.That(time.Get(), Is.EqualTo(2L));;
+            Assert.That(time.Get(), Is.EqualTo(2L));
             // when:
             time = new FbxTime(141119999L);
             // then:
-            Assert.That(time.Get(), Is.EqualTo(141119999L));;
+            Assert.That(time.Get(), Is.EqualTo(141119999L));
             // when:
             time = new FbxTime(141120000L);
             // then:
-            Assert.That(time.Get(), Is.EqualTo(141120000L));;
+            Assert.That(time.Get(), Is.EqualTo(141120000L));
             // when:
             time = new FbxTime(141120001L);
             // then:
-            Assert.That(time.Get(), Is.EqualTo(141120001L));;
+            Assert.That(time.Get(), Is.EqualTo(141120001L));
             // when:
             time = new FbxTime(-1L);
             // then:
-            Assert.That(time.Get(), Is.EqualTo(-1L));;
+            Assert.That(time.Get(), Is.EqualTo(-1L));
             // when:
             time = new FbxTime(-2L);
             // then:
-            Assert.That(time.Get(), Is.EqualTo(-2L));;
+            Assert.That(time.Get(), Is.EqualTo(-2L));
             // when:
             time = new FbxTime(-141119999L);
             // then:
-            Assert.That(time.Get(), Is.EqualTo(-141119999L));;
+            Assert.That(time.Get(), Is.EqualTo(-141119999L));
             // when:
             time = new FbxTime(-141120000L);
             // then:
-            Assert.That(time.Get(), Is.EqualTo(-141120000L));;
+            Assert.That(time.Get(), Is.EqualTo(-141120000L));
             // when:
             time = new FbxTime(-141120001L);
             // then:
-            Assert.That(time.Get(), Is.EqualTo(-141120001L));;
+            Assert.That(time.Get(), Is.EqualTo(-141120001L));
         }
 
         [Test]
@@ -438,19 +438,19 @@ namespace FbxSharpTests
             // when:
             var time = new FbxTime(516640320000L);
             // then:
-            Assert.That(time.GetMilliSeconds(), Is.EqualTo(3661000L));;
-            Assert.That(time.GetSecondCount(), Is.EqualTo(3661));;
-            Assert.That(time.GetMinuteCount(), Is.EqualTo(61));;
-            Assert.That(time.GetHourCount(), Is.EqualTo(1));;
-            Assert.That(time.GetSecondDouble(), Is.EqualTo(3661.0));;
+            Assert.That(time.GetMilliSeconds(), Is.EqualTo(3661000L));
+            Assert.That(time.GetSecondCount(), Is.EqualTo(3661));
+            Assert.That(time.GetMinuteCount(), Is.EqualTo(61));
+            Assert.That(time.GetHourCount(), Is.EqualTo(1));
+            Assert.That(time.GetSecondDouble(), Is.EqualTo(3661.0));
 
             // when:
             time = new FbxTime(516640461120L);
-            Assert.That(time.GetMilliSeconds(), Is.EqualTo(3661001L));;
-            Assert.That(time.GetSecondCount(), Is.EqualTo(3661));;
-            Assert.That(time.GetMinuteCount(), Is.EqualTo(61));;
-            Assert.That(time.GetHourCount(), Is.EqualTo(1));;
-            Assert.That(time.GetSecondDouble(), Is.EqualTo(3661.001));;
+            Assert.That(time.GetMilliSeconds(), Is.EqualTo(3661001L));
+            Assert.That(time.GetSecondCount(), Is.EqualTo(3661));
+            Assert.That(time.GetMinuteCount(), Is.EqualTo(61));
+            Assert.That(time.GetHourCount(), Is.EqualTo(1));
+            Assert.That(time.GetSecondDouble(), Is.EqualTo(3661.001));
         }
     }
 }
