@@ -14,6 +14,6 @@ do
   if [[ -n "$DEBUG" ]]; then
     echo "Generating $g in C++"
   fi
-  dotnet "$__ROOT_DIR__/TestCaseGenerator/bin/Debug/net8.0/TestCaseGenerator.dll" cpp $f "$__DIR__/$g.cpp"
+  dotnet "$__ROOT_DIR__/TestCaseGenerator/bin/Debug/net8.0/TestCaseGenerator.dll" cpp $f "$__DIR__/$g.cpp" "$@"
 done
 
