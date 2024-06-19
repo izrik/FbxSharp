@@ -1,6 +1,8 @@
 #!/bin/bash
 
-(cd FbxSharpTests ; ./gen_tests.sh "$@" )
+__DIR__="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 
-(cd FbxCppTests ; ./gen_tests.sh "$@" )
+(cd "$__DIR__/FbxSharpTests" ; ./gen_tests.sh "$@" )
+
+(cd "$__DIR__/FbxCppTests" ; ./gen_tests.sh "$@" )
 
