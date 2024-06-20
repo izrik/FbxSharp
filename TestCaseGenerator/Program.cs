@@ -388,7 +388,9 @@ namespace TestCaseGenerator
                                     targetTypeName = "FbxMatrix";
                                 }
 
-                                parts[3] = parts[3].Replace("new", "new " + targetTypeName);
+                                if (parts.Count > 3)
+                                    parts[3] = parts[3].Replace("new",
+                                        "new " + targetTypeName);
                                 outline = string.Join(" ", parts);
                             }
 
