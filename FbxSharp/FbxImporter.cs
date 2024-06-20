@@ -214,12 +214,13 @@ namespace FbxSharp
 
         public bool IsImporting(out bool importResult)
         {
-            throw new NotImplementedException();
+            importResult = false;
+            return false;
         }
 
         public float GetProgress(object param)
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
         public void GetFileVersion(out int major, out int minor,
