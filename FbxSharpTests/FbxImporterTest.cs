@@ -623,6 +623,7 @@ namespace FbxSharpTests
             // then:
             Assert.True(result);
             var prop = scene.GetDocumentInfo().FindProperty("CustomProp");
+            Assert.True(prop.IsValid());
             Assert.That(prop.Get<string>(), Is.EqualTo("Abc.Def"));
         }
     }

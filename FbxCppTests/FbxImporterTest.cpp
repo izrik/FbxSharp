@@ -619,6 +619,7 @@ void FbxImporter_Import_DoubleColonInStringHasOddEncoding()
     // then:
     AssertTrue(result);
     FbxProperty prop = scene->GetDocumentInfo()->FindProperty("CustomProp");
+    AssertTrue(prop.IsValid());
     AssertEqual("Abc::Def", prop.Get<FbxString>());
 }
 
