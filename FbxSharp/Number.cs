@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace FbxSharp
 {
-    public struct Number
+    public readonly struct Number : IEquatable<Number>
     {
         public Number(string str)
         {
@@ -61,10 +61,19 @@ namespace FbxSharp
 
         public override bool Equals(object obj)
         {
+            var n = new Number(1);
+            if (obj is Number number)
+                n = number;
             return obj switch
             {
-                sbyte or byte or short or ushort or int or uint or long =>
-                    AsLong.HasValue && AsLong.Value.Equals(obj),
+                Number => Equals(n),
+                sbyte sb => AsLong.HasValue && AsLong.Value.Equals(sb),
+                byte b => AsLong.HasValue && AsLong.Value.Equals(b),
+                short s => AsLong.HasValue && AsLong.Value.Equals(s),
+                ushort us => AsLong.HasValue && AsLong.Value.Equals(us),
+                int i => AsLong.HasValue && AsLong.Value.Equals(i),
+                uint ui => AsLong.HasValue && AsLong.Value.Equals(ui),
+                long l => AsLong.HasValue && AsLong.Value.Equals(l),
                 ulong ul => AsLong.HasValue && ul <= long.MaxValue &&
                             AsLong.Value.Equals((long)ul),
                 float f => AsDouble.HasValue && AsDouble.Equals((double)f),
@@ -73,6 +82,20 @@ namespace FbxSharp
                             StringRepresentation == s,
                 _ => false
             };
+        }
+
+        public bool Equals(Number n)
+        {
+            if (AsDouble.HasValue && n.AsDouble.HasValue)
+                return AsDouble.Value.Equals(n.AsDouble.Value) &&
+                       StringRepresentation == n.StringRepresentation;
+            if (AsLong.HasValue && n.AsLong.HasValue)
+                return AsLong.Value.Equals(n.AsLong.Value) &&
+                       StringRepresentation == n.StringRepresentation;
+            if (!AsDouble.HasValue && !n.AsDouble.HasValue &&
+                !AsLong.HasValue && !n.AsLong.HasValue)
+                return StringRepresentation == n.StringRepresentation;
+            return false;
         }
 
         public override int GetHashCode() =>
