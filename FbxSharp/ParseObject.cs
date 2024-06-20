@@ -33,13 +33,15 @@ namespace FbxSharp
                     sb.AppendFormat("{0} values", Values.Count);
                 }
             }
-            if (Properties != null || HasEmptyBlock)
+
+            if ((Properties != null && Properties.Count > 0) || HasEmptyBlock)
             {
                 sb.Append(" { ");
                 if (!HasEmptyBlock && Properties.Count > 0)
                 {
                     sb.AppendFormat("{0} properties", Properties.Count);
                 }
+
                 sb.Append(" }");
             }
 
