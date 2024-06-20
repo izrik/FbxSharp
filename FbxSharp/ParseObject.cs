@@ -55,13 +55,13 @@ namespace FbxSharp
             return this.Properties.Find(p => p.Name == name);
         }
 
-        public string GetStringValue(int index=0)
+        public string GetStringValue(int index = 0)
         {
             // TODO: various checks
             return (string)Values[index];
         }
 
-        public int GetIntValue(int index=0)
+        public int GetIntValue(int index = 0)
         {
             // TODO: various checks
             var value = Values[index];
