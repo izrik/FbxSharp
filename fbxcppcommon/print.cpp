@@ -972,6 +972,7 @@ void PrintAnimStack(FbxAnimStack* animStack)
 }
 
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentMode& value)
+
 {
 //    os << (int)value << ":";
     if ((value & FbxAnimCurveDef::eTangentAuto) == FbxAnimCurveDef::eTangentAuto) os << "eTangentAuto";
@@ -2208,6 +2209,12 @@ ostream& operator<<(ostream& os, const EFbxType& value)
 ostream& operator<<(ostream& os, const FbxPropertyHandle& value)
 {
     os << "FbxPropertyHandle(" << value.GetName() << ":" << value.GetType() << ")";
+    return os;
+}
+
+ostream& operator<<(ostream& os, const FbxDateTime& value)
+{
+    os << "FbxDateTime(" << value.toString() << ")";
     return os;
 }
 

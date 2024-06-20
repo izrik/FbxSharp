@@ -59,6 +59,7 @@ std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EConstantMode&
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EVelocityMode& value);
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentVisibility& value);
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EDataIndex& value);
+std::ostream& operator<<(std::ostream& os, const FbxDateTime& value);
 
 std::string quote(const char* s);
 
