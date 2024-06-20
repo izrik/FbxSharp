@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Buffers.Binary;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -42,7 +43,7 @@ namespace FbxSharp
             using (var fs = File.OpenRead(initializedFilename))
             {
                 // determine if it's ascii or binary
-                var buffer = new byte[1024];
+                var buffer = new byte[4096];  // TODO: buffer overflow
                 int count = fs.Read(buffer, 0, 20);
                 if (count < 20)
                     throw new InvalidOperationException();
@@ -72,10 +73,28 @@ namespace FbxSharp
                     count = fs.Read(buffer, 20, 7);
                     if (count != 7)
                         throw new InvalidOperationException("Unexpected EOF");
+                    if (buffer[20] != 0)
+                        throw new InvalidOperationException("Bad magic number");
+                    if (buffer[21] != 0x1a)
+                        throw new InvalidOperationException("Bad magic number");
+                    if (buffer[22] != 0)
+                        throw new InvalidOperationException("Bad magic number");
                     int value =
                         BinaryPrimitives.ReadInt32LittleEndian(
                             new Span<byte>(buffer, 23, 4));
                     fhi.mFileVersion = value;
+
+                    count = fs.Read(buffer, 0, 4);
+                    if (count != 4)
+                        throw new InvalidOperationException("Unexpected EOF");
+                    int sectionLength =
+                        BinaryPrimitives.ReadInt32LittleEndian(
+                            new Span<byte>(buffer, 0, 4));
+
+                    count = fs.Read(buffer, 0, sectionLength);
+                    if (count!=sectionLength)
+                        throw new InvalidOperationException("Unexpected EOF");
+                    count = 0;
                 }
                 else
                 {
@@ -144,44 +163,63 @@ namespace FbxSharp
 
         public bool Import(FbxDocument document, bool pNonBlocking = false)
         {
-            throw new NotImplementedException();
+            if (pNonBlocking)
+                throw new NotImplementedException();
+
+            using var stream = File.Open(initializedFilename, FileMode.Open);
+            List<ParseObject> pobjects;
+            if (fileHeaderInfo.mBinary)
+            {
+                stream.Seek(27, SeekOrigin.Begin);
+                var parser = new BinaryParser(stream, initializedFilename);
+                pobjects = parser.ReadFile();
+            }
+            else
+            {
+                using var reader = new StreamReader(stream);
+                var parser = new Parser(new Tokenizer(reader,
+                    filename: initializedFilename));
+                pobjects = parser.ReadFile();
+            }
+
+            var converter = new Converter();
+            converter.ConvertScene(pobjects, (FbxScene)document);
+            return true;
         }
 
         [NotSdk]
         public FbxScene Import(string filename)
         {
-            using (var reader = new StreamReader(filename))
-            {
-                var parser =
-                    new Parser(new Tokenizer(reader, filename: filename));
-                var converter = new Converter();
-
-                var pobjects = parser.ReadFile();
-                var scene = converter.ConvertScene(pobjects);
-
-                return scene;
-            }
+            var success = Initialize(filename);
+            if (!success)
+                throw new InvalidOperationException("Failed to initialize");
+            var scene = new FbxScene();
+            success = Import(scene);
+            if (!success)
+                throw new InvalidOperationException("Failed to import");
+            return scene;
         }
 
         public bool IsFBX()
         {
+            // TODO: this should return a value after initialization
             return false;
         }
 
         public int GetFileFormat()
         {
+            // TODO: this should return a value after initialization
             return -1;
         }
 
         public bool IsImporting(out bool importResult)
         {
-            importResult = false;
-            return false;
+            throw new NotImplementedException();
         }
 
         public float GetProgress(object param)
         {
-            return 0;
+            throw new NotImplementedException();
         }
 
         public void GetFileVersion(out int major, out int minor,

@@ -13,6 +13,8 @@ namespace FbxSharp
         public bool HasEmptyBlock = true;
         public InputLocation Location;
 
+        public BinaryParseInfo Extra = null;
+
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -88,6 +90,18 @@ namespace FbxSharp
 
             throw new NotImplementedException();
         }
+
+        public class BinaryParseInfo
+        {
+            public int nextItemOffset = 0;
+            public uint reserved0 = 0;
+            public uint numValues = 0;
+            public uint reserved2 = 0;
+            public uint numValuesBytes = 0;
+            public uint reserved4 = 0;
+            public byte namelen = 0;
+            public readonly List<byte> valuesTypes = [];
+            public readonly List<uint?> valuesLengths = [];
+        }
     }
 }
-

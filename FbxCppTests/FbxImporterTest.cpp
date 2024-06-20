@@ -464,6 +464,164 @@ void FbxImporter_GetIOSettings_InitializedYieldsAnObject()
     AssertEqual(result, result2);
 }
 
+void FbxImporter_ImportAsciiFile_DoesNotFail_1()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxImporter* importer = FbxImporter::Create(manager, "");
+    importer->Initialize(GetSample("empty_7a.fbx").c_str());
+    FbxScene* scene = FbxScene::Create(manager, "");
+    bool result;
+
+    // when:
+    result = importer->Import(scene);
+    // then:
+    AssertTrue(result);
+    FbxDocumentInfo* docinfo = scene->GetDocumentInfo();
+    AssertEqual(15, CountProperties(docinfo));
+    FbxProperty prop;
+
+    prop = docinfo->FindProperty("DocumentUrl");
+    AssertTrue(prop.IsValid());
+    AssertEqual("DocumentUrl", prop.GetName());
+    AssertEqual("DocumentUrl", prop.GetHierarchicalName());
+    AssertEqual(EFbxType::eFbxString, prop.GetPropertyDataType().GetType());
+    AssertEqual("empty_7a.fbx", prop.Get<FbxString>());
+
+    prop = docinfo->FindProperty("SrcDocumentUrl");
+    AssertTrue(prop.IsValid());
+    AssertEqual("SrcDocumentUrl", prop.GetName());
+    AssertEqual("SrcDocumentUrl", prop.GetHierarchicalName());
+    AssertEqual(EFbxType::eFbxString, prop.GetPropertyDataType().GetType());
+    AssertEqual(FbxString(GetSample("empty_7a.fbx").c_str()), prop.Get<FbxString>());
+
+    prop = docinfo->FindProperty("Original");
+    AssertTrue(prop.IsValid());
+    AssertEqual("Original", prop.GetName());
+    AssertEqual("Original", prop.GetHierarchicalName());
+    AssertEqual(EFbxType::eFbxUndefined, prop.GetPropertyDataType().GetType());
+    AssertEqual("", prop.Get<FbxString>());
+
+    prop = docinfo->FindPropertyHierarchical("Original|ApplicationVendor");
+    AssertTrue(prop.IsValid());
+    AssertEqual("ApplicationVendor", prop.GetName());
+    AssertEqual("Original|ApplicationVendor", prop.GetHierarchicalName());
+    AssertEqual(EFbxType::eFbxString, prop.GetPropertyDataType().GetType());
+    AssertEqual("", prop.Get<FbxString>());
+
+    prop = docinfo->FindPropertyHierarchical("Original|ApplicationName");
+    AssertTrue(prop.IsValid());
+    AssertEqual("ApplicationName", prop.GetName());
+    AssertEqual("Original|ApplicationName", prop.GetHierarchicalName());
+    AssertEqual(EFbxType::eFbxString, prop.GetPropertyDataType().GetType());
+    AssertEqual("", prop.Get<FbxString>());
+
+    prop = docinfo->FindPropertyHierarchical("Original|ApplicationVersion");
+    AssertTrue(prop.IsValid());
+    AssertEqual("ApplicationVersion", prop.GetName());
+    AssertEqual("Original|ApplicationVersion", prop.GetHierarchicalName());
+    AssertEqual(EFbxType::eFbxString, prop.GetPropertyDataType().GetType());
+    AssertEqual("", prop.Get<FbxString>());
+
+    prop = docinfo->FindPropertyHierarchical("Original|DateTime_GMT");
+    AssertTrue(prop.IsValid());
+    AssertEqual("DateTime_GMT", prop.GetName());
+    AssertEqual("Original|DateTime_GMT", prop.GetHierarchicalName());
+    AssertEqual(EFbxType::eFbxDateTime, prop.GetPropertyDataType().GetType());
+    AssertEqual(FbxDateTime(), prop.Get<FbxDateTime>());
+
+    prop = docinfo->FindPropertyHierarchical("Original|FileName");
+    AssertTrue(prop.IsValid());
+    AssertEqual("FileName", prop.GetName());
+    AssertEqual("Original|FileName", prop.GetHierarchicalName());
+    AssertEqual(EFbxType::eFbxString, prop.GetPropertyDataType().GetType());
+    AssertEqual("", prop.Get<FbxString>());
+
+    prop = docinfo->FindProperty("LastSaved");
+    AssertTrue(prop.IsValid());
+    AssertEqual("LastSaved", prop.GetName());
+    AssertEqual("LastSaved", prop.GetHierarchicalName());
+    AssertEqual(EFbxType::eFbxUndefined, prop.GetPropertyDataType().GetType());
+    AssertEqual("", prop.Get<FbxString>());
+
+    prop = docinfo->FindPropertyHierarchical("LastSaved|ApplicationVendor");
+    AssertTrue(prop.IsValid());
+    AssertEqual("ApplicationVendor", prop.GetName());
+    AssertEqual("LastSaved|ApplicationVendor", prop.GetHierarchicalName());
+    AssertEqual(EFbxType::eFbxString, prop.GetPropertyDataType().GetType());
+    AssertEqual("", prop.Get<FbxString>());
+
+    prop = docinfo->FindPropertyHierarchical("LastSaved|ApplicationName");
+    AssertTrue(prop.IsValid());
+    AssertEqual("ApplicationName", prop.GetName());
+    AssertEqual("LastSaved|ApplicationName", prop.GetHierarchicalName());
+    AssertEqual(EFbxType::eFbxString, prop.GetPropertyDataType().GetType());
+    AssertEqual("", prop.Get<FbxString>());
+
+    prop = docinfo->FindPropertyHierarchical("LastSaved|ApplicationVersion");
+    AssertTrue(prop.IsValid());
+    AssertEqual("ApplicationVersion", prop.GetName());
+    AssertEqual("LastSaved|ApplicationVersion", prop.GetHierarchicalName());
+    AssertEqual(EFbxType::eFbxString, prop.GetPropertyDataType().GetType());
+    AssertEqual("", prop.Get<FbxString>());
+
+    prop = docinfo->FindPropertyHierarchical("LastSaved|DateTime_GMT");
+    AssertTrue(prop.IsValid());
+    AssertEqual("DateTime_GMT", prop.GetName());
+    AssertEqual("LastSaved|DateTime_GMT", prop.GetHierarchicalName());
+    AssertEqual(EFbxType::eFbxDateTime, prop.GetPropertyDataType().GetType());
+    AssertEqual(FbxDateTime(), prop.Get<FbxDateTime>());
+
+    prop = docinfo->FindProperty("DocumentEmbeddedUrl");
+    AssertTrue(prop.IsValid());
+    AssertEqual("DocumentEmbeddedUrl", prop.GetName());
+    AssertEqual("DocumentEmbeddedUrl", prop.GetHierarchicalName());
+    AssertEqual(EFbxType::eFbxString, prop.GetPropertyDataType().GetType());
+    AssertEqual("", prop.Get<FbxString>());
+
+    prop = docinfo->FindProperty("SceneThumbnail");
+    AssertTrue(prop.IsValid());
+    AssertEqual("SceneThumbnail", prop.GetName());
+    AssertEqual("SceneThumbnail", prop.GetHierarchicalName());
+    AssertEqual(EFbxType::eFbxReference, prop.GetPropertyDataType().GetType());
+    AssertEqual(NULL, prop.Get<FbxObject*>());
+}
+
+void FbxImporter_ImportBinaryFile_DoesNotFail_1()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxImporter* importer = FbxImporter::Create(manager, "");
+    importer->Initialize(GetSample("empty_7b.fbx").c_str());
+    FbxScene* scene = FbxScene::Create(manager, "");
+    bool result;
+
+    // when:
+    result = importer->Import(scene);
+    // then:
+    AssertTrue(result);
+    FbxDocumentInfo* docinfo = scene->GetDocumentInfo();
+    AssertEqual(15, CountProperties(docinfo));
+    FbxProperty prop;
+}
+
+void FbxImporter_Import_DoubleColonInStringHasOddEncoding()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxImporter* importer = FbxImporter::Create(manager, "");
+    importer->Initialize(GetSample("hierarchy_string_1_7b.fbx").c_str());
+    FbxScene* scene = FbxScene::Create(manager, "");
+    bool result;
+
+    // when:
+    result = importer->Import(scene);
+    // then:
+    AssertTrue(result);
+    FbxProperty prop = scene->GetDocumentInfo()->FindProperty("CustomProp");
+    AssertEqual("Abc::Def", prop.Get<FbxString>());
+}
+
 void FbxImporterTest::RegisterTestCases()
 {
     AddTestCase(FbxImporter_Create_AllZero);
@@ -489,5 +647,8 @@ void FbxImporterTest::RegisterTestCases()
     AddTestCase(FbxImporter_GetFileHeaderInfo_InitializedYieldsValues7a);
     AddTestCase(FbxImporter_GetFileHeaderInfo_InitializedYieldsValues7b);
     AddTestCase(FbxImporter_GetIOSettings_InitializedYieldsAnObject);
+    AddTestCase(FbxImporter_ImportAsciiFile_DoesNotFail_1);
+    AddTestCase(FbxImporter_ImportBinaryFile_DoesNotFail_1);
+    AddTestCase(FbxImporter_Import_DoubleColonInStringHasOddEncoding);
 }
 
