@@ -6,7 +6,8 @@ namespace FbxSharp
 {
     public class Converter
     {
-        public FbxScene ConvertScene(List<ParseObject> parsedObjects)
+        public FbxScene ConvertScene(List<ParseObject> parsedObjects,
+            FbxScene scene = null)
         {
             var header = GetHeader(parsedObjects);
             if (header != null)

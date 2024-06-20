@@ -6,14 +6,16 @@ namespace FbxSharp
 {
     public class Converter7300 : IConverter
     {
-        public FbxScene ConvertScene(List<ParseObject> parsedObjects)
+        public FbxScene ConvertScene(List<ParseObject> parsedObjects,
+            FbxScene scene = null)
         {
             var parsed = new ParseObject {
                 Name = "Parsed Scene",
                 Properties = parsedObjects,
             };
 
-            var scene = new FbxScene();
+            if (scene == null)
+                scene = new FbxScene();
 
             var docs = parsed.FindPropertyByName("Documents");
             if (docs != null)
