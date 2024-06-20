@@ -274,8 +274,10 @@ namespace TestCaseGenerator
                     writer.WriteLine("        {");
                     int blanks = 0;
                     List<String> parts;
+                    var lineno = 0;
                     foreach (var stmt in testcase.Statements)
                     {
+                        lineno++;
                         if (string.IsNullOrWhiteSpace(stmt))
                         {
                             blanks++;
