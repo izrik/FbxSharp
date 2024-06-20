@@ -349,12 +349,12 @@ namespace TestCaseGenerator
                             outline =
                                 Regex.Replace(
                                     outline,
-                                    @"(\s)\*([\w])",
+                                    @"(\s)\*([\w>])",
                                     m => m.Groups[1].Value + m.Groups[2].Value);
                             outline =
                                 Regex.Replace(
                                     outline,
-                                    @"([\w()])\*([\w])",
+                                    @"([\w()])\*([\w>])",
                                     m => m.Groups[1].Value + m.Groups[2].Value);
                             outline = outline.Replace("::", ".");
                             outline = outline.Replace(":\\:", "::");

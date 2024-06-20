@@ -588,7 +588,7 @@ namespace FbxSharpTests
             Assert.That(prop.GetName(), Is.EqualTo("SceneThumbnail"));
             Assert.That(prop.GetHierarchicalName(), Is.EqualTo("SceneThumbnail"));
             Assert.That(prop.GetPropertyDataType().GetFbxType(), Is.EqualTo(EFbxType.eFbxReference));
-            Assert.That(prop.Get<FbxObject*>(), Is.EqualTo(null));
+            Assert.That(prop.Get<FbxObject>(), Is.EqualTo(null));
         }
 
         [Test]
