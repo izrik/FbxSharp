@@ -29,15 +29,47 @@ namespace TestCaseGenerator
                     "Print additional information during execution",
                 Type = ParameterType.Flag,
             };
+            var inputOption = new Option
+            {
+                Name = "input",
+                Description =
+                    "Path to the input directory where test case files are " +
+                    "located",
+                Type = ParameterType.String,
+            };
+            var outputOption = new Option
+            {
+                Name = "output",
+                Description =
+                    "Path to the output directory where the resulting test " +
+                    "files will be placed",
+                Type = ParameterType.String,
+            };
 
             var csCmd = CreateCommand(
-                "cs", "Generate C# tests", GenerateCs,
-                options: new[] { forceOption, verboseOption });
+                "cs",
+                "Generate C# tests",
+                GenerateCs,
+                options: new[]
+                {
+                    forceOption,
+                    verboseOption,
+                    inputOption,
+                    outputOption,
+                });
             commander.Commands.Add("cs", csCmd);
 
             var cppCmd = CreateCommand(
-                "cpp", "Generate C++ tests", GenerateCpp,
-                options: new[] { forceOption, verboseOption });
+                "cpp",
+                "Generate C++ tests",
+                GenerateCpp,
+                options: new[]
+                {
+                    forceOption,
+                    verboseOption,
+                    inputOption,
+                    outputOption,
+                });
             commander.Commands.Add("cpp", cppCmd);
 
             try
@@ -88,15 +120,12 @@ namespace TestCaseGenerator
             IEnumerable<Parameter> extraParams = null,
             IEnumerable<Option> options = null)
         {
-            var paramlist = new List<Parameter> {
-                new Parameter {
-                    Name = "input-filename",
-                    ParameterType = ParameterType.String,
-                },
-                new Parameter {
-                    Name = "output-filename",
-                    ParameterType = ParameterType.String,
-                    IsOptional = true,
+            var paramlist = new List<Parameter>
+            {
+                new Parameter
+                {
+                    Name = "test-files",
+                    ParameterType = ParameterType.StringArray,
                 }
             };
             if (extraParams != null)
@@ -121,20 +150,67 @@ namespace TestCaseGenerator
         static void ExecuteDelegate(Dictionary<string, object> args,
             Action<TestFile, TextWriter> generator, string language)
         {
-            var input = (string)args["input-filename"];
-            var testFile = new TestFile();
+            var inputFolder = (string)args["input"];
+            var inputDi = new DirectoryInfo(inputFolder);
+            if (!inputDi.Exists)
+                throw new DirectoryNotFoundException(
+                    $"Could not find input directory \"{inputFolder}\"");
+            var outputFolder = (string)args["output"];
             bool force = args.ContainsKey("force") && (bool)args["force"];
             bool verbose = args.ContainsKey("verbose") &&
                            (bool)args["verbose"];
-            bool isStdout = !args.ContainsKey("output-filename") ||
-                            args["output-filename"] == null;
-            string outputFilename = null;
-            if (!isStdout)
-                outputFilename = (string)args["output-filename"];
 
-            if (!isStdout)
+            var testFiles = (string[])args["test-files"];
+            var allInputFiles = inputDi.GetFiles();
+            var testFiles2 = new List<FileInfo>();
+            if (testFiles != null && testFiles.Length > 0)
             {
-                var inmod = File.GetLastWriteTime(input);
+                foreach (var tf in testFiles)
+                {
+                    var fi = allInputFiles.FirstOrDefault(
+                        fi2 => fi2.Name == tf);
+                    if (fi != null)
+                    {
+                        testFiles2.Add(fi);
+                        continue;
+                    }
+
+                    if (!tf.Contains('.'))
+                    {
+                        var tf2 = tf + ".tc";
+                        fi = allInputFiles.FirstOrDefault(
+                            fi2 => fi2.Name == tf2);
+                        if (fi != null)
+                        {
+                            testFiles2.Add(fi);
+                            continue;
+                        }
+
+                        throw new FileNotFoundException(
+                            $"Could not find input test case file \"{tf}.tc\"");
+                    }
+
+                    throw new FileNotFoundException(
+                        $"Could not find input test case file \"{tf}\"");
+                }
+            }
+            else
+            {
+                foreach (var fi in allInputFiles)
+                {
+                    if (fi.Name.EndsWith(".tc"))
+                        testFiles2.Add(fi);
+                }
+            }
+
+            foreach (var fi in testFiles2)
+            {
+                var inputFilename = fi.FullName;
+                var testFile = new TestFile();
+                var outputBasename = Path.ChangeExtension(fi.Name, language);
+                var outputFilename = Path.Join(outputFolder, outputBasename);
+
+                var inmod = File.GetLastWriteTime(inputFilename);
                 var outmod = File.GetLastWriteTime(outputFilename);
                 if (outmod > inmod)
                 {
@@ -143,106 +219,114 @@ namespace TestCaseGenerator
                         if (verbose)
                             Console.WriteLine(
                                 $"Forced overwrite even though " +
-                                $"{outputFilename} is newer than {input}");
+                                $"{outputFilename} is newer than {inputFilename}");
                     }
                     else
                     {
                         if (verbose)
                             Console.WriteLine(
-                                $"{outputFilename} is newer than {input}, " +
+                                $"{outputFilename} is newer than {inputFilename}, " +
                                 $"skipping...");
-                        return;
+                        continue;
                     }
                 }
-            }
-
-            using (var reader = new StreamReader(input))
-            {
-                TestFixture currentFixture = null;
-                TestCase currentTest = null;
-
-                while (!reader.EndOfStream)
+                else
                 {
-                    var line = reader.ReadLine();
-                    if (string.IsNullOrWhiteSpace(line))
-                    {
-                        if (currentTest != null)
-                            currentTest.Statements.Add(string.Empty);
-                        continue;
-                    }
+                    if (verbose)
+                        Console.WriteLine(
+                            $"{inputFilename} -> {outputFilename}");
+                }
 
-                    var trimmed = line.Trim();
-                    if (trimmed == "#use constraints")
-                    {
-                        if (currentTest != null)
-                            currentTest.UseConstraints = true;
-                        else if (currentFixture != null)
-                            currentFixture.UseConstraints = true;
-                        else
-                            testFile.UseConstraints = true;
-                        continue;
-                    }
+                using (var reader = new StreamReader(inputFilename))
+                {
+                    TestFixture currentFixture = null;
+                    TestCase currentTest = null;
 
-                    var parts = trimmed.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    if (parts[0].StartsWith("#"))
+                    while (!reader.EndOfStream)
                     {
-                        var targets = parts[0].Substring(1).Split(',');
-                        if (!targets.Contains(language))
+                        var line = reader.ReadLine();
+                        if (string.IsNullOrWhiteSpace(line))
+                        {
+                            if (currentTest != null)
+                                currentTest.Statements.Add(string.Empty);
+                            continue;
+                        }
+
+                        var trimmed = line.Trim();
+                        if (trimmed == "#use constraints")
+                        {
+                            if (currentTest != null)
+                                currentTest.UseConstraints = true;
+                            else if (currentFixture != null)
+                                currentFixture.UseConstraints = true;
+                            else
+                                testFile.UseConstraints = true;
+                            continue;
+                        }
+
+                        var parts = trimmed.Split(new char[] { ' ', '\t' },
+                            StringSplitOptions.RemoveEmptyEntries);
+
+                        if (parts[0].StartsWith("#"))
+                        {
+                            var targets = parts[0].Substring(1).Split(',');
+                            if (!targets.Contains(language))
+                            {
+                                continue;
+                            }
+
+                            trimmed = trimmed.Replace(parts[0], string.Empty)
+                                .Trim();
+                            parts = trimmed.Split(new char[] { ' ', '\t' },
+                                StringSplitOptions.RemoveEmptyEntries);
+                        }
+                        else if (parts[0].StartsWith("//"))
                         {
                             continue;
                         }
 
-                        trimmed = trimmed.Replace(parts[0], string.Empty).Trim();
-                        parts = trimmed.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                    }
-                    else if (parts[0].StartsWith("//"))
-                    {
-                        continue;
-                    }
-
-                    string name;
-                    switch (parts[0].ToLower())
-                    {
-                        case "fixture":
-                            name = parts[1];
-                            currentFixture = new TestFixture { Name = name };
-                            testFile.TestFixtures.Add(currentFixture);
-                            break;
-                        case "test":
-                            name = parts[1];
-                            if (currentFixture == null)
-                                throw new InvalidOperationException(
-                                    "Test defined outside of a fixture");
-                            currentTest = new TestCase(name);
-                            currentFixture.TestCases.Add(currentTest);
-                            break;
-                        case "given":
-                        case "require":
-                        case "when":
-                        case "then":
-                        case "expect":
-                            if (currentTest!=null)
-                                currentTest.Statements.Add(parts[0].ToLower());
-                            break;
-                        default:
-                            if (currentTest != null)
-                                currentTest.Statements.Add(trimmed);
-                            else if (currentFixture != null)
-                                currentFixture.Epilogue.Add(trimmed);
-                            else
-                                testFile.Prologue.Add(trimmed);
-                            break;
+                        string name;
+                        switch (parts[0].ToLower())
+                        {
+                            case "fixture":
+                                name = parts[1];
+                                currentFixture = new TestFixture
+                                    { Name = name };
+                                testFile.TestFixtures.Add(currentFixture);
+                                break;
+                            case "test":
+                                name = parts[1];
+                                if (currentFixture == null)
+                                    throw new InvalidOperationException(
+                                        "Test defined outside of a fixture");
+                                currentTest = new TestCase(name);
+                                currentFixture.TestCases.Add(currentTest);
+                                break;
+                            case "given":
+                            case "require":
+                            case "when":
+                            case "then":
+                            case "expect":
+                                if (currentTest != null)
+                                    currentTest.Statements.Add(parts[0]
+                                        .ToLower());
+                                break;
+                            default:
+                                if (currentTest != null)
+                                    currentTest.Statements.Add(trimmed);
+                                else if (currentFixture != null)
+                                    currentFixture.Epilogue.Add(trimmed);
+                                else
+                                    testFile.Prologue.Add(trimmed);
+                                break;
+                        }
                     }
                 }
-            }
 
-            using (var writer = 
-                   (isStdout ?
-                       Console.Out :
-                       new StreamWriter(outputFilename)))
-            {
-                generator(testFile, writer);
+                using (var writer = new StreamWriter(outputFilename))
+                {
+                    generator(testFile, writer);
+                }
             }
         }
 
