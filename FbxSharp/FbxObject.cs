@@ -424,7 +424,10 @@ namespace FbxSharp
 
         public FbxProperty FindProperty(string pName, bool pCaseSensitive=true)
         {
-            var prop = Properties.FirstOrDefault(
+            var prop = RootProperty.Find(pName, pCaseSensitive);
+            if (prop.IsValid())
+                return prop;
+            prop = Properties.FirstOrDefault(
                 p =>
                     string.Compare(p.Name, pName,
                         ignoreCase: !pCaseSensitive) == 0);
@@ -451,7 +454,7 @@ namespace FbxSharp
 
         public FbxProperty FindPropertyHierarchical(string pName, bool pCaseSensitive=true)
         {
-            throw new NotImplementedException();
+            return RootProperty.FindHierarchical(pName, pCaseSensitive);
         }
 
         //public Property FindPropertyHierarchical(string pName, FbxDataType pDataType, bool pCaseSensitive=true)

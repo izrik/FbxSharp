@@ -49,9 +49,96 @@ void FbxProperty_Create_WithParentSetsParent()
     AssertEqual("parent|prop", parent.GetFirstDescendent().GetHierarchicalName());
 }
 
+void FbxProperty_Find_FindsChildren()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "");
+    FbxDataType dt = FbxIntDT;
+    FbxProperty parent = FbxProperty::Create(obj, dt, "parent");
+    FbxProperty child = FbxProperty::Create(parent, dt, "child");
+
+    // when:
+    FbxProperty prop = parent.Find("child");
+
+    // then:
+    AssertTrue(prop.IsValid());
+    AssertTrue(prop == child);
+
+    // when:
+    prop = parent.Find("something else");
+
+    // then:
+    AssertFalse(prop.IsValid());
+}
+
+void FbxProperty_Find_DoesNotFindGrandchildren()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "");
+    FbxDataType dt = FbxIntDT;
+    FbxProperty parent = FbxProperty::Create(obj, dt, "parent");
+    FbxProperty child = FbxProperty::Create(parent, dt, "child");
+    FbxProperty grandchild = FbxProperty::Create(child, dt, "grandchild");
+
+    // when:
+    FbxProperty prop = parent.Find("grandchild");
+
+    // then:
+    AssertFalse(prop.IsValid());
+}
+
+void FbxProperty_FindHierarchical_FindsDescendants()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "");
+    FbxDataType dt = FbxIntDT;
+    FbxProperty parent = FbxProperty::Create(obj, dt, "parent");
+    FbxProperty child = FbxProperty::Create(parent, dt, "child");
+    FbxProperty grandchild = FbxProperty::Create(child, dt, "grandchild");
+
+    // when:
+    FbxProperty prop = parent.FindHierarchical("child");
+
+    // then:
+    AssertTrue(prop.IsValid());
+    AssertTrue(prop == child);
+
+    // when:
+    prop = parent.FindHierarchical("child|grandchild");
+
+    // then:
+    AssertTrue(prop.IsValid());
+    AssertTrue(prop == grandchild);
+
+    // when:
+    prop = parent.FindHierarchical("parent|child|grandchild");
+
+    // then:
+    AssertFalse(prop.IsValid());
+
+    // when:
+    prop = parent.FindHierarchical("grandchild");
+
+    // then:
+    AssertFalse(prop.IsValid());
+
+    // when:
+    prop = child.FindHierarchical("grandchild");
+
+    // then:
+    AssertTrue(prop.IsValid());
+    AssertTrue(prop == grandchild);
+}
+
 void FbxPropertyTest::RegisterTestCases()
 {
     AddTestCase(FbxProperty_Create_HasDefaults);
     AddTestCase(FbxProperty_Create_WithParentSetsParent);
+    AddTestCase(FbxProperty_Find_FindsChildren);
+    AddTestCase(FbxProperty_Find_DoesNotFindGrandchildren);
+    AddTestCase(FbxProperty_FindHierarchical_FindsDescendants);
 }
 

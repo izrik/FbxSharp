@@ -826,13 +826,192 @@ void FbxObject_FindPropertyHierarchical_FindsChildren()
     AssertEqual("Abc|Def|Ghi", prop3.GetHierarchicalName());
 
     // when:
-    FbxProperty prop = obj->FindPropertyHierarchical("Abc|Def|Ghi");
+    FbxProperty prop = obj->FindPropertyHierarchical("Abc");
+
+    // then:
+    AssertTrue(prop.IsValid());
+    AssertEqual("Abc", prop.GetName());
+    AssertEqual("Abc", prop.GetHierarchicalName());
+    AssertTrue(prop == prop1);
+
+    // when:
+    prop = obj->FindProperty("Abc");
+
+    // then:
+    AssertTrue(prop.IsValid());
+    AssertTrue(prop == prop1);
+
+    // when:
+    prop = obj->FindPropertyHierarchical("Abc|Def");
+
+    // then:
+    AssertTrue(prop.IsValid());
+    AssertEqual("Def", prop.GetName());
+    AssertEqual("Abc|Def", prop.GetHierarchicalName());
+    AssertTrue(prop == prop2);
+
+    // when:
+    prop = obj->FindProperty("Def");
+
+    // then:
+    AssertFalse(prop.IsValid());
+
+    // when:
+    prop = obj->FindPropertyHierarchical("Abc|Def|Ghi");
 
     // then:
     AssertTrue(prop.IsValid());
     AssertEqual("Ghi", prop.GetName());
     AssertEqual("Abc|Def|Ghi", prop.GetHierarchicalName());
     AssertTrue(prop == prop3);
+
+    // when:
+    prop = obj->FindProperty("Ghi");
+
+    // then:
+    AssertFalse(prop.IsValid());
+}
+
+void FbxObject_FindProperty_DoesNotFindsChildren()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "");
+    FbxProperty prop1 = FbxProperty::Create(obj, FbxStringDT, "Abc");
+    FbxProperty prop2 = FbxProperty::Create(prop1, FbxStringDT, "Def");
+    FbxProperty prop3 = FbxProperty::Create(prop2, FbxStringDT, "Ghi");
+
+    // require:
+    AssertEqual("Abc", prop1.GetName());
+    AssertEqual("Abc", prop1.GetHierarchicalName());
+    AssertEqual("Def", prop2.GetName());
+    AssertEqual("Abc|Def", prop2.GetHierarchicalName());
+    AssertEqual("Ghi", prop3.GetName());
+    AssertEqual("Abc|Def|Ghi", prop3.GetHierarchicalName());
+
+    // when:
+    FbxProperty prop = obj->FindProperty("Abc");
+
+    // then:
+    AssertTrue(prop.IsValid());
+    AssertEqual("Abc", prop.GetName());
+    AssertEqual("Abc", prop.GetHierarchicalName());
+    AssertTrue(prop == prop1);
+
+    // when:
+    prop = obj->FindProperty("Def");
+
+    // then:
+    AssertFalse(prop.IsValid());
+
+    // when:
+    prop = obj->FindProperty("Ghi");
+
+    // then:
+    AssertFalse(prop.IsValid());
+}
+
+void FbxObject_RootProperty_FindHierarchical_FindsChildren()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "");
+    FbxProperty prop1 = FbxProperty::Create(obj, FbxStringDT, "Abc");
+    FbxProperty prop2 = FbxProperty::Create(prop1, FbxStringDT, "Def");
+    FbxProperty prop3 = FbxProperty::Create(prop2, FbxStringDT, "Ghi");
+
+    // require:
+    AssertEqual("Abc", prop1.GetName());
+    AssertEqual("Abc", prop1.GetHierarchicalName());
+    AssertEqual("Def", prop2.GetName());
+    AssertEqual("Abc|Def", prop2.GetHierarchicalName());
+    AssertEqual("Ghi", prop3.GetName());
+    AssertEqual("Abc|Def|Ghi", prop3.GetHierarchicalName());
+
+    // when:
+    FbxProperty prop = obj->RootProperty.FindHierarchical("Abc");
+
+    // then:
+    AssertTrue(prop.IsValid());
+    AssertEqual("Abc", prop.GetName());
+    AssertEqual("Abc", prop.GetHierarchicalName());
+    AssertTrue(prop == prop1);
+
+    // when:
+    prop = obj->RootProperty.Find("Abc");
+
+    // then:
+    AssertTrue(prop.IsValid());
+    AssertTrue(prop == prop1);
+
+    // when:
+    prop = obj->RootProperty.FindHierarchical("Abc|Def");
+
+    // then:
+    AssertTrue(prop.IsValid());
+    AssertEqual("Def", prop.GetName());
+    AssertEqual("Abc|Def", prop.GetHierarchicalName());
+    AssertTrue(prop == prop2);
+
+    // when:
+    prop = obj->RootProperty.Find("Def");
+
+    // then:
+    AssertFalse(prop.IsValid());
+
+    // when:
+    prop = obj->RootProperty.FindHierarchical("Abc|Def|Ghi");
+
+    // then:
+    AssertTrue(prop.IsValid());
+    AssertEqual("Ghi", prop.GetName());
+    AssertEqual("Abc|Def|Ghi", prop.GetHierarchicalName());
+    AssertTrue(prop == prop3);
+
+    // when:
+    prop = obj->RootProperty.Find("Ghi");
+
+    // then:
+    AssertFalse(prop.IsValid());
+}
+
+void FbxObject_RootProperty_Find_DoesNotFindsChildren()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "");
+    FbxProperty prop1 = FbxProperty::Create(obj, FbxStringDT, "Abc");
+    FbxProperty prop2 = FbxProperty::Create(prop1, FbxStringDT, "Def");
+    FbxProperty prop3 = FbxProperty::Create(prop2, FbxStringDT, "Ghi");
+
+    // require:
+    AssertEqual("Abc", prop1.GetName());
+    AssertEqual("Abc", prop1.GetHierarchicalName());
+    AssertEqual("Def", prop2.GetName());
+    AssertEqual("Abc|Def", prop2.GetHierarchicalName());
+    AssertEqual("Ghi", prop3.GetName());
+    AssertEqual("Abc|Def|Ghi", prop3.GetHierarchicalName());
+
+    // when:
+    FbxProperty prop = obj->RootProperty.Find("Abc");
+
+    // then:
+    AssertTrue(prop.IsValid());
+    AssertEqual("Abc", prop.GetName());
+    AssertEqual("Abc", prop.GetHierarchicalName());
+    AssertTrue(prop == prop1);
+
+    // when:
+    prop = obj->RootProperty.Find("Def");
+
+    // then:
+    AssertFalse(prop.IsValid());
+
+    // when:
+    prop = obj->RootProperty.Find("Ghi");
+
+    // then:
+    AssertFalse(prop.IsValid());
 }
 
 void FbxObjectTest::RegisterTestCases()
@@ -878,5 +1057,8 @@ void FbxObjectTest::RegisterTestCases()
     AddTestCase(FbxObject_TypedDisconnectAllDstObject_DisconnectsAllDstObjectOfThatType);
     AddTestCase(FbxObject_TypedDisconnectAllDstObjectWithInheritance_DisconnectsAllDstObjectOfThatType);
     AddTestCase(FbxObject_FindPropertyHierarchical_FindsChildren);
+    AddTestCase(FbxObject_FindProperty_DoesNotFindsChildren);
+    AddTestCase(FbxObject_RootProperty_FindHierarchical_FindsChildren);
+    AddTestCase(FbxObject_RootProperty_Find_DoesNotFindsChildren);
 }
 

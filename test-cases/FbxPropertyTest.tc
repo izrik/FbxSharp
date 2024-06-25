@@ -40,3 +40,79 @@ test FbxProperty_Create_WithParentSetsParent
     AssertEqual("parent|prop", parent&.GetChild()&.GetHierarchicalName())
     AssertTrue(parent&.GetFirstDescendent()&.IsValid())
     AssertEqual("parent|prop", parent&.GetFirstDescendent()&.GetHierarchicalName())
+
+test FbxProperty_Find_FindsChildren
+    given
+    FbxObject obj = new("")
+    FbxDataType! dt = FbxDataTypes.FbxIntDT
+    FbxProperty! parent = FbxProperty::Create(obj, dt, "parent")
+    FbxProperty! child = FbxProperty::Create(parent, dt, "child")
+
+    when
+    FbxProperty! prop = parent&.Find("child")
+
+    then
+    AssertTrue(prop&.IsValid())
+    AssertTrue(prop == child)
+
+    when
+    prop = parent&.Find("something else")
+
+    then
+    AssertFalse(prop&.IsValid())
+
+
+test FbxProperty_Find_DoesNotFindGrandchildren
+    given
+    FbxObject obj = new("")
+    FbxDataType! dt = FbxDataTypes.FbxIntDT
+    FbxProperty! parent = FbxProperty::Create(obj, dt, "parent")
+    FbxProperty! child = FbxProperty::Create(parent, dt, "child")
+    FbxProperty! grandchild = FbxProperty::Create(child, dt, "grandchild")
+
+    when
+    FbxProperty! prop = parent&.Find("grandchild")
+
+    then
+    AssertFalse(prop&.IsValid())
+
+test FbxProperty_FindHierarchical_FindsDescendants
+    given
+    FbxObject obj = new("")
+    FbxDataType! dt = FbxDataTypes.FbxIntDT
+    FbxProperty! parent = FbxProperty::Create(obj, dt, "parent")
+    FbxProperty! child = FbxProperty::Create(parent, dt, "child")
+    FbxProperty! grandchild = FbxProperty::Create(child, dt, "grandchild")
+
+    when
+    FbxProperty! prop = parent&.FindHierarchical("child")
+
+    then
+    AssertTrue(prop&.IsValid())
+    AssertTrue(prop == child)
+
+    when
+    prop = parent&.FindHierarchical("child|grandchild")
+
+    then
+    AssertTrue(prop&.IsValid())
+    AssertTrue(prop == grandchild)
+
+    when
+    prop = parent&.FindHierarchical("parent|child|grandchild")
+
+    then
+    AssertFalse(prop&.IsValid())
+
+    when
+    prop = parent&.FindHierarchical("grandchild")
+
+    then
+    AssertFalse(prop&.IsValid())
+
+    when
+    prop = child&.FindHierarchical("grandchild")
+
+    then
+    AssertTrue(prop&.IsValid())
+    AssertTrue(prop == grandchild)

@@ -52,5 +52,89 @@ namespace FbxSharpTests
             Assert.True(parent.GetFirstDescendent().IsValid());
             Assert.That(parent.GetFirstDescendent().GetHierarchicalName(), Is.EqualTo("parent|prop"));
         }
+
+        [Test]
+        public void FbxProperty_Find_FindsChildren()
+        {
+            // given:
+            var obj = new FbxObject("");
+            var dt = FbxDataTypes.FbxIntDT;
+            var parent = FbxProperty.Create(obj, dt, "parent");
+            var child = FbxProperty.Create(parent, dt, "child");
+
+            // when:
+            var prop = parent.Find("child");
+
+            // then:
+            Assert.True(prop.IsValid());
+            Assert.True(prop == child);
+
+            // when:
+            prop = parent.Find("something else");
+
+            // then:
+            Assert.False(prop.IsValid());
+        }
+
+        [Test]
+        public void FbxProperty_Find_DoesNotFindGrandchildren()
+        {
+            // given:
+            var obj = new FbxObject("");
+            var dt = FbxDataTypes.FbxIntDT;
+            var parent = FbxProperty.Create(obj, dt, "parent");
+            var child = FbxProperty.Create(parent, dt, "child");
+            var grandchild = FbxProperty.Create(child, dt, "grandchild");
+
+            // when:
+            var prop = parent.Find("grandchild");
+
+            // then:
+            Assert.False(prop.IsValid());
+        }
+
+        [Test]
+        public void FbxProperty_FindHierarchical_FindsDescendants()
+        {
+            // given:
+            var obj = new FbxObject("");
+            var dt = FbxDataTypes.FbxIntDT;
+            var parent = FbxProperty.Create(obj, dt, "parent");
+            var child = FbxProperty.Create(parent, dt, "child");
+            var grandchild = FbxProperty.Create(child, dt, "grandchild");
+
+            // when:
+            var prop = parent.FindHierarchical("child");
+
+            // then:
+            Assert.True(prop.IsValid());
+            Assert.True(prop == child);
+
+            // when:
+            prop = parent.FindHierarchical("child|grandchild");
+
+            // then:
+            Assert.True(prop.IsValid());
+            Assert.True(prop == grandchild);
+
+            // when:
+            prop = parent.FindHierarchical("parent|child|grandchild");
+
+            // then:
+            Assert.False(prop.IsValid());
+
+            // when:
+            prop = parent.FindHierarchical("grandchild");
+
+            // then:
+            Assert.False(prop.IsValid());
+
+            // when:
+            prop = child.FindHierarchical("grandchild");
+
+            // then:
+            Assert.True(prop.IsValid());
+            Assert.True(prop == grandchild);
+        }
     }
 }

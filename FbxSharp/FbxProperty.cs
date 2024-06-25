@@ -721,7 +721,14 @@ namespace FbxSharp
 
         public FbxProperty Find(string pName, bool pCaseSensitive = true)
         {
-            throw new NotImplementedException();
+            foreach (var child in Children)
+            {
+                // TODO: case-insensitive
+                if (child.Name == pName)
+                    return child;
+            }
+
+            return NotValid;
         }
 
         //public Property Find(string pName, FbxDataType &pDataType, bool pCaseSensitive=true)
@@ -729,9 +736,29 @@ namespace FbxSharp
         //    throw new NotImplementedException();
         //}
 
-        public FbxProperty FindHierarchical(string pName, bool pCaseSensitive = true)
+        public FbxProperty FindHierarchical(string pName,
+            bool pCaseSensitive = true)
         {
-            throw new NotImplementedException();
+            var nameComponents = pName.Split(sHierarchicalSeparator);
+            return FindHierarchical(nameComponents, 0, pCaseSensitive);
+        }
+
+        protected FbxProperty FindHierarchical(string[] nameComponents,
+            int index, bool pCaseSensitive = true)
+        {
+            foreach (var child in Children)
+            {
+                // TODO: case-insensitive
+                if (child.Name == nameComponents[index])
+                {
+                    if (index < nameComponents.Length - 1)
+                        return child.FindHierarchical(nameComponents, index + 1,
+                            pCaseSensitive);
+                    return child;
+                }
+            }
+
+            return NotValid;
         }
 
         //public Property FindHierarchical(string pName, FbxDataType &pDataType, bool pCaseSensitive=true)
