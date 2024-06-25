@@ -813,9 +813,9 @@ void FbxObject_FindPropertyHierarchical_FindsChildren()
     // given:
     FbxManager* manager = FbxManager::Create();
     FbxObject* obj = FbxObject::Create(manager, "");
-    FbxProperty prop1 = FbxProperty::Create(obj, FbxStringDT, "Abc");;
-    FbxProperty prop2 = FbxProperty::Create(prop1, FbxStringDT, "Def");;
-    FbxProperty prop3 = FbxProperty::Create(prop2, FbxStringDT, "Ghi");;
+    FbxProperty prop1 = FbxProperty::Create(obj, FbxStringDT, "Abc");
+    FbxProperty prop2 = FbxProperty::Create(prop1, FbxStringDT, "Def");
+    FbxProperty prop3 = FbxProperty::Create(prop2, FbxStringDT, "Ghi");
 
     // require:
     AssertEqual("Abc", prop1.GetName());

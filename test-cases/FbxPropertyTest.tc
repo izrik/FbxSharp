@@ -4,7 +4,7 @@ fixture FbxPropertyTest
 test FbxProperty_Create_HasDefaults
     given
     FbxObject obj = new("")
-    FbxDataType! dt = FbxDataType::Create("int", EFbxType::eFbxInt);
+    FbxDataType! dt = FbxDataTypes.FbxIntDT
     when
     FbxProperty! prop = FbxProperty::Create(obj, dt, "prop")
     then
@@ -17,11 +17,11 @@ test FbxProperty_Create_HasDefaults
     AssertFalse(prop&.GetChild()&.IsValid())
     AssertFalse(prop&.GetSibling()&.IsValid())
     AssertFalse(prop&.GetFirstDescendent()&.IsValid())
-    
+
 test FbxProperty_Create_WithParentSetsParent
     given
     FbxObject obj = new("")
-    FbxDataType! dt = FbxDataType::Create("int", EFbxType::eFbxInt);
+    FbxDataType! dt = FbxDataTypes.FbxIntDT
     FbxProperty! parent = FbxProperty::Create(obj, dt, "parent")
     when
     FbxProperty! prop = FbxProperty::Create(parent, dt, "prop")

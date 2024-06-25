@@ -6,7 +6,7 @@ using namespace std;
 void FbxDataType_DefaultConstructor_AttributesSet()
 {
     // when:
-    FbxDataType dt = FbxDataType::Create("int", EFbxType::eFbxInt);;
+    FbxDataType dt = FbxDataType::Create("int", EFbxType::eFbxInt);
     // then:
     AssertTrue(dt.Valid());
     AssertEqual("int", dt.GetName());

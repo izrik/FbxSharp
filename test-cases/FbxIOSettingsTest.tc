@@ -2194,7 +2194,7 @@ test FbxIOSettings_ELanguage_IdentifiersHaveSpecificValues
 test FbxIOSettings_AddPropertyGroup_CreatesPropertyGroupNotUnderIOSROOT
     given
     FbxIOSettings settings = new("")
-    FbxDataType! dt = FbxDataType::Create("int", EFbxType::eFbxInt);
+    FbxDataType! dt = FbxDataTypes.FbxIntDT
 
     when
     FbxProperty! prop = settings.AddPropertyGroup("something", dt)
@@ -2209,7 +2209,7 @@ test FbxIOSettings_AddPropertyGroup_CreatesPropertyGroupNotUnderIOSROOT
 test FbxIOSettings_AddPropertGroup_UnderParentCreatesPropertyUnderParent
     given
     FbxIOSettings settings = new("")
-    FbxDataType! dt = FbxDataType::Create("int", EFbxType::eFbxInt);
+    FbxDataType! dt = FbxDataTypes.FbxIntDT
     FbxProperty! parent = settings.AddPropertyGroup("something", dt)
 
     when
@@ -2223,7 +2223,7 @@ test FbxIOSettings_AddPropertGroup_UnderParentCreatesPropertyUnderParent
 test FbxIOSettings_AddPropertGroup_UnderParentParent
     given
     FbxIOSettings settings = new("")
-    FbxDataType! dt = FbxDataType::Create("int", EFbxType::eFbxInt);
+    FbxDataType! dt = FbxDataTypes.FbxIntDT
     FbxProperty! parent1 = settings.AddPropertyGroup("something", dt)
     FbxProperty! parent2 = settings.AddPropertyGroup(parent1, "else", dt)
 

@@ -8,7 +8,7 @@ void FbxProperty_Create_HasDefaults()
     // given:
     FbxManager* manager = FbxManager::Create();
     FbxObject* obj = FbxObject::Create(manager, "");
-    FbxDataType dt = FbxDataType::Create("int", EFbxType::eFbxInt);;
+    FbxDataType dt = FbxIntDT;
     // when:
     FbxProperty prop = FbxProperty::Create(obj, dt, "prop");
     // then:
@@ -28,7 +28,7 @@ void FbxProperty_Create_WithParentSetsParent()
     // given:
     FbxManager* manager = FbxManager::Create();
     FbxObject* obj = FbxObject::Create(manager, "");
-    FbxDataType dt = FbxDataType::Create("int", EFbxType::eFbxInt);;
+    FbxDataType dt = FbxIntDT;
     FbxProperty parent = FbxProperty::Create(obj, dt, "parent");
     // when:
     FbxProperty prop = FbxProperty::Create(parent, dt, "prop");

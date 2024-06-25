@@ -705,9 +705,9 @@ test FbxObject_TypedDisconnectAllDstObjectWithInheritance_DisconnectsAllDstObjec
 test FbxObject_FindPropertyHierarchical_FindsChildren
     given
     FbxObject obj = new("")
-    FbxProperty! prop1 = FbxProperty::Create(obj, FbxStringDT, "Abc");
-    FbxProperty! prop2 = FbxProperty::Create(prop1, FbxStringDT, "Def");
-    FbxProperty! prop3 = FbxProperty::Create(prop2, FbxStringDT, "Ghi");
+    FbxProperty! prop1 = FbxProperty::Create(obj, FbxDataTypes.FbxStringDT, "Abc")
+    FbxProperty! prop2 = FbxProperty::Create(prop1, FbxDataTypes.FbxStringDT, "Def")
+    FbxProperty! prop3 = FbxProperty::Create(prop2, FbxDataTypes.FbxStringDT, "Ghi")
 
     require
     AssertEqual("Abc", prop1&.GetName())

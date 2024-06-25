@@ -2207,7 +2207,7 @@ namespace FbxSharpTests
         {
             // given:
             var settings = new FbxIOSettings("");
-            var dt = FbxDataType.Create("int", EFbxType.eFbxInt);;
+            var dt = FbxDataTypes.FbxIntDT;
 
             // when:
             var prop = settings.AddPropertyGroup("something", dt);
@@ -2225,7 +2225,7 @@ namespace FbxSharpTests
         {
             // given:
             var settings = new FbxIOSettings("");
-            var dt = FbxDataType.Create("int", EFbxType.eFbxInt);;
+            var dt = FbxDataTypes.FbxIntDT;
             var parent = settings.AddPropertyGroup("something", dt);
 
             // when:
@@ -2242,7 +2242,7 @@ namespace FbxSharpTests
         {
             // given:
             var settings = new FbxIOSettings("");
-            var dt = FbxDataType.Create("int", EFbxType.eFbxInt);;
+            var dt = FbxDataTypes.FbxIntDT;
             var parent1 = settings.AddPropertyGroup("something", dt);
             var parent2 = settings.AddPropertyGroup(parent1, "else", dt);
 

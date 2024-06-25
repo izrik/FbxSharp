@@ -2203,7 +2203,7 @@ void FbxIOSettings_AddPropertyGroup_CreatesPropertyGroupNotUnderIOSROOT()
     // given:
     FbxManager* manager = FbxManager::Create();
     FbxIOSettings* settings = FbxIOSettings::Create(manager, "");
-    FbxDataType dt = FbxDataType::Create("int", EFbxType::eFbxInt);;
+    FbxDataType dt = FbxIntDT;
 
     // when:
     FbxProperty prop = settings->AddPropertyGroup("something", dt);
@@ -2221,7 +2221,7 @@ void FbxIOSettings_AddPropertGroup_UnderParentCreatesPropertyUnderParent()
     // given:
     FbxManager* manager = FbxManager::Create();
     FbxIOSettings* settings = FbxIOSettings::Create(manager, "");
-    FbxDataType dt = FbxDataType::Create("int", EFbxType::eFbxInt);;
+    FbxDataType dt = FbxIntDT;
     FbxProperty parent = settings->AddPropertyGroup("something", dt);
 
     // when:
@@ -2238,7 +2238,7 @@ void FbxIOSettings_AddPropertGroup_UnderParentParent()
     // given:
     FbxManager* manager = FbxManager::Create();
     FbxIOSettings* settings = FbxIOSettings::Create(manager, "");
-    FbxDataType dt = FbxDataType::Create("int", EFbxType::eFbxInt);;
+    FbxDataType dt = FbxIntDT;
     FbxProperty parent1 = settings->AddPropertyGroup("something", dt);
     FbxProperty parent2 = settings->AddPropertyGroup(parent1, "else", dt);
 

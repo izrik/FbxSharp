@@ -11,7 +11,7 @@ namespace FbxSharpTests
         public void FbxDataType_DefaultConstructor_AttributesSet()
         {
             // when:
-            var dt = FbxDataType.Create("int", EFbxType.eFbxInt);;
+            var dt = FbxDataType.Create("int", EFbxType.eFbxInt);
             // then:
             Assert.True(dt.Valid());
             Assert.That(dt.GetName(), Is.EqualTo("int"));

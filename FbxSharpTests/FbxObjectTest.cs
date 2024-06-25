@@ -821,9 +821,9 @@ namespace FbxSharpTests
         {
             // given:
             var obj = new FbxObject("");
-            var prop1 = FbxProperty.Create(obj, FbxDataTypes.FbxStringDT, "Abc");;
-            var prop2 = FbxProperty.Create(prop1, FbxDataTypes.FbxStringDT, "Def");;
-            var prop3 = FbxProperty.Create(prop2, FbxDataTypes.FbxStringDT, "Ghi");;
+            var prop1 = FbxProperty.Create(obj, FbxDataTypes.FbxStringDT, "Abc");
+            var prop2 = FbxProperty.Create(prop1, FbxDataTypes.FbxStringDT, "Def");
+            var prop3 = FbxProperty.Create(prop2, FbxDataTypes.FbxStringDT, "Ghi");
 
             // require:
             Assert.AreEqual("Abc", prop1.GetName());

@@ -12,7 +12,7 @@ namespace FbxSharpTests
         {
             // given:
             var obj = new FbxObject("");
-            var dt = FbxDataType.Create("int", EFbxType.eFbxInt);;
+            var dt = FbxDataTypes.FbxIntDT;
             // when:
             var prop = FbxProperty.Create(obj, dt, "prop");
             // then:
@@ -32,7 +32,7 @@ namespace FbxSharpTests
         {
             // given:
             var obj = new FbxObject("");
-            var dt = FbxDataType.Create("int", EFbxType.eFbxInt);;
+            var dt = FbxDataTypes.FbxIntDT;
             var parent = FbxProperty.Create(obj, dt, "parent");
             // when:
             var prop = FbxProperty.Create(parent, dt, "prop");
