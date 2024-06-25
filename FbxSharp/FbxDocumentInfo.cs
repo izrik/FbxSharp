@@ -55,14 +55,14 @@ public class FbxDocumentInfo : FbxObject
 
     public FbxPropertyT<string> Original_FileName;
 
-    // public FbxPropertyT<FbxDateTime> Original_DateTime_GMT;
+    public FbxPropertyT<FbxDateTime> Original_DateTime_GMT;
     public FbxProperty LastSaved;
     public FbxPropertyT<string> LastSaved_ApplicationVendor;
     public FbxPropertyT<string> LastSaved_ApplicationName;
 
     public FbxPropertyT<string> LastSaved_ApplicationVersion;
 
-    // public FbxPropertyT<FbxDateTime> LastSaved_DateTime_GMT;
+    public FbxPropertyT<FbxDateTime> LastSaved_DateTime_GMT;
     public FbxPropertyT<string> EmbeddedUrl;
 
     #endregion
@@ -93,6 +93,46 @@ public class FbxDocumentInfo : FbxObject
     protected FbxDocumentInfo( /*FbxManager pManager,*/ string pName)
         : base(pName)
     {
+        LastSavedUrl = new FbxPropertyT<string>("DocumentUrl", "");
+        Properties.Add(LastSavedUrl);
+        Url = new FbxPropertyT<string>("SrcDocumentUrl", "");
+        Properties.Add(Url);
+
+        Original = FbxProperty.FromEFbxType(EFbxType.eFbxUndefined,
+            "Original");
+        Properties.Add(Original);
+        Original_ApplicationVendor =
+            new FbxPropertyT<string>("Original|ApplicationVendor", "");
+        Properties.Add(Original_ApplicationVendor);
+        Original_ApplicationName =
+            new FbxPropertyT<string>("Original|ApplicationName", "");
+        Properties.Add(Original_ApplicationName);
+        Original_ApplicationVersion =
+            new FbxPropertyT<string>("Original|ApplicationVersion", "");
+        Properties.Add(Original_ApplicationVersion);
+        Original_FileName = new FbxPropertyT<string>("Original|FileName", "");
+        Properties.Add(Original_FileName);
+        Original_DateTime_GMT =
+            new FbxPropertyT<FbxDateTime>("Original|DateTime_GMT");
+        Properties.Add(Original_DateTime_GMT);
+
+        LastSaved = new FbxPropertyT<string>("LastSaved");
+        Properties.Add(LastSaved);
+        LastSaved_ApplicationVendor =
+            new FbxPropertyT<string>("LastSaved|ApplicationVendor", "");
+        Properties.Add(LastSaved_ApplicationVendor);
+        LastSaved_ApplicationName =
+            new FbxPropertyT<string>("LastSaved|ApplicationName", "");
+        Properties.Add(LastSaved_ApplicationName);
+        LastSaved_ApplicationVersion =
+            new FbxPropertyT<string>("LastSaved|ApplicationVersion", "");
+        Properties.Add(LastSaved_ApplicationVersion);
+        LastSaved_DateTime_GMT =
+            new FbxPropertyT<FbxDateTime>("LastSaved|DateTime_GMT");
+        Properties.Add(LastSaved_DateTime_GMT);
+
+        EmbeddedUrl = new FbxPropertyT<string>("DocumentEmbeddedUrl");
+        Properties.Add(EmbeddedUrl);
     }
 
     #endregion

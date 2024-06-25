@@ -78,8 +78,9 @@ public static class EFbxTypeHelper
             case EFbxType.eFbxReference:
             case EFbxType.eFbxBlob:
             case EFbxType.eFbxDistance:
-            case EFbxType.eFbxDateTime:
                 throw new NotImplementedException();
+            case EFbxType.eFbxDateTime:
+                return typeof(FbxDateTime);
             case EFbxType.eFbxTypeCount:
             default:
                 throw new ArgumentOutOfRangeException();
@@ -137,7 +138,10 @@ public static class EFbxTypeHelper
 
         // TODO: EFbxType.eFbxBlob
         // TODO: EFbxType.eFbxDistance
-        // TODO: EFbxType.eFbxDateTime
+
+        if (type == typeof(FbxDateTime))
+            return EFbxType.eFbxDateTime;
+
         if (type == typeof(object) ||
             type == typeof(FbxProperty.NotValidT))
             return EFbxType.eFbxUndefined;
