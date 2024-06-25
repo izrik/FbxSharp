@@ -85,5 +85,6 @@ TestClass(FbxDataTypeTest);
 TestClass(FbxPropertyTest);
 TestClass(FbxIOSettingsTest);
 TestClass(FbxDocumentInfoTest);
+TestClass(FbxDataTypesTest);
 
 #endif // __FBXCPPTESTS_TESTS_H
