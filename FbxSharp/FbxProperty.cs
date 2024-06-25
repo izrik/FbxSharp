@@ -224,7 +224,7 @@ namespace FbxSharp
         protected FbxProperty(string name, EFbxType fbxType)
         {
             Name = name;
-            fbxDataType = new FbxDataType("", fbxType);
+            fbxDataType = FbxDataType.FbxGetDataTypeFromEnum(fbxType);
 
             Children = new PropertyChildrenCollection(this);
             SrcObjects = new PropertySrcObjectCollection(this);

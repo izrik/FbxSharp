@@ -102,7 +102,61 @@ public class FbxDataType
         "Function in global namespace converted to static method")]
     public static FbxDataType FbxGetDataTypeFromEnum(EFbxType pType)
     {
-        throw new NotImplementedException();
+        switch (pType)
+        {
+            case EFbxType.eFbxUndefined:
+                throw new NotImplementedException();
+            case EFbxType.eFbxChar:
+                return FbxDataTypes.FbxCharDT;
+            case EFbxType.eFbxUChar:
+                return FbxDataTypes.FbxUCharDT;
+            case EFbxType.eFbxShort:
+                return FbxDataTypes.FbxShortDT;
+            case EFbxType.eFbxUShort:
+                return FbxDataTypes.FbxUShortDT;
+            case EFbxType.eFbxUInt:
+                return FbxDataTypes.FbxUIntDT;
+            case EFbxType.eFbxLongLong:
+                return FbxDataTypes.FbxLongLongDT;
+            case EFbxType.eFbxULongLong:
+                return FbxDataTypes.FbxULongLongDT;
+            case EFbxType.eFbxHalfFloat:
+                return FbxDataTypes.FbxHalfFloatDT;
+            case EFbxType.eFbxBool:
+                return FbxDataTypes.FbxBoolDT;
+            case EFbxType.eFbxInt:
+                return FbxDataTypes.FbxIntDT;
+            case EFbxType.eFbxFloat:
+                return FbxDataTypes.FbxFloatDT;
+            case EFbxType.eFbxDouble:
+                return FbxDataTypes.FbxDoubleDT;
+            case EFbxType.eFbxDouble2:
+                return FbxDataTypes.FbxDouble2DT;
+            case EFbxType.eFbxDouble3:
+                return FbxDataTypes.FbxDouble3DT;
+            case EFbxType.eFbxDouble4:
+                return FbxDataTypes.FbxDouble4DT;
+            case EFbxType.eFbxDouble4x4:
+                return FbxDataTypes.FbxDouble4x4DT;
+            case EFbxType.eFbxEnum:
+                return FbxDataTypes.FbxEnumDT;
+            case EFbxType.eFbxEnumM:
+                return FbxDataTypes.FbxEnumDT;
+            case EFbxType.eFbxString:
+                return FbxDataTypes.FbxStringDT;
+            case EFbxType.eFbxTime:
+                return FbxDataTypes.FbxTimeDT;
+            case EFbxType.eFbxReference:
+                return FbxDataTypes.FbxReferenceDT;
+            case EFbxType.eFbxBlob:
+                return FbxDataTypes.FbxBlobDT;
+            case EFbxType.eFbxDistance:
+                return FbxDataTypes.FbxDistanceDT;
+            case EFbxType.eFbxDateTime:
+                return FbxDataTypes.FbxDateTimeDT;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(pType), pType, null);
+        }
     }
 
     /// <summary>
