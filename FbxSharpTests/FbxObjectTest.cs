@@ -815,5 +815,32 @@ namespace FbxSharpTests
             Assert.AreEqual(1, node.GetSrcObjectCount());
             Assert.AreEqual(0, light.GetSrcObjectCount());
         }
+
+        [Test]
+        public void FbxObject_FindPropertyHierarchical_FindsChildren()
+        {
+            // given:
+            var obj = new FbxObject("");
+            var prop1 = FbxProperty.Create(obj, FbxDataTypes.FbxStringDT, "Abc");;
+            var prop2 = FbxProperty.Create(prop1, FbxDataTypes.FbxStringDT, "Def");;
+            var prop3 = FbxProperty.Create(prop2, FbxDataTypes.FbxStringDT, "Ghi");;
+
+            // require:
+            Assert.AreEqual("Abc", prop1.GetName());
+            Assert.AreEqual("Abc", prop1.GetHierarchicalName());
+            Assert.AreEqual("Def", prop2.GetName());
+            Assert.AreEqual("Abc|Def", prop2.GetHierarchicalName());
+            Assert.AreEqual("Ghi", prop3.GetName());
+            Assert.AreEqual("Abc|Def|Ghi", prop3.GetHierarchicalName());
+
+            // when:
+            var prop = obj.FindPropertyHierarchical("Abc|Def|Ghi");
+
+            // then:
+            Assert.True(prop.IsValid());
+            Assert.AreEqual("Ghi", prop.GetName());
+            Assert.AreEqual("Abc|Def|Ghi", prop.GetHierarchicalName());
+            Assert.True(prop == prop3);
+        }
     }
 }

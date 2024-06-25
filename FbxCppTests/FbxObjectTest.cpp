@@ -808,6 +808,33 @@ void FbxObject_TypedDisconnectAllDstObjectWithInheritance_DisconnectsAllDstObjec
     AssertEqual(0, light->GetSrcObjectCount());
 }
 
+void FbxObject_FindPropertyHierarchical_FindsChildren()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxObject* obj = FbxObject::Create(manager, "");
+    FbxProperty prop1 = FbxProperty::Create(obj, FbxStringDT, "Abc");;
+    FbxProperty prop2 = FbxProperty::Create(prop1, FbxStringDT, "Def");;
+    FbxProperty prop3 = FbxProperty::Create(prop2, FbxStringDT, "Ghi");;
+
+    // require:
+    AssertEqual("Abc", prop1.GetName());
+    AssertEqual("Abc", prop1.GetHierarchicalName());
+    AssertEqual("Def", prop2.GetName());
+    AssertEqual("Abc|Def", prop2.GetHierarchicalName());
+    AssertEqual("Ghi", prop3.GetName());
+    AssertEqual("Abc|Def|Ghi", prop3.GetHierarchicalName());
+
+    // when:
+    FbxProperty prop = obj->FindPropertyHierarchical("Abc|Def|Ghi");
+
+    // then:
+    AssertTrue(prop.IsValid());
+    AssertEqual("Ghi", prop.GetName());
+    AssertEqual("Abc|Def|Ghi", prop.GetHierarchicalName());
+    AssertTrue(prop == prop3);
+}
+
 void FbxObjectTest::RegisterTestCases()
 {
     AddTestCase(FbxObject_Create_HasZeroProperties);
@@ -850,5 +877,6 @@ void FbxObjectTest::RegisterTestCases()
     AddTestCase(FbxObject_TypedGetDstObject_GetsObjectOfThatType);
     AddTestCase(FbxObject_TypedDisconnectAllDstObject_DisconnectsAllDstObjectOfThatType);
     AddTestCase(FbxObject_TypedDisconnectAllDstObjectWithInheritance_DisconnectsAllDstObjectOfThatType);
+    AddTestCase(FbxObject_FindPropertyHierarchical_FindsChildren);
 }
 
