@@ -282,8 +282,10 @@ namespace FbxSharp
 
                 case EFbxType.eFbxBlob:
                 case EFbxType.eFbxDistance:
-                case EFbxType.eFbxDateTime:
                     throw new NotImplementedException();
+
+                case EFbxType.eFbxDateTime:
+                    return new FbxPropertyT<FbxDateTime>(name);
 
                 case EFbxType.eFbxUndefined:
                     // TODO: FbxPropertyTUndefined

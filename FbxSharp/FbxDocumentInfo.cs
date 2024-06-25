@@ -93,46 +93,62 @@ public class FbxDocumentInfo : FbxObject
     protected FbxDocumentInfo( /*FbxManager pManager,*/ string pName)
         : base(pName)
     {
-        LastSavedUrl = new FbxPropertyT<string>("DocumentUrl", "");
-        Properties.Add(LastSavedUrl);
-        Url = new FbxPropertyT<string>("SrcDocumentUrl", "");
-        Properties.Add(Url);
+        LastSavedUrl = (FbxPropertyT<string>)FbxProperty.Create(RootProperty,
+            FbxDataTypes.FbxStringDT, "DocumentUrl");
+        LastSavedUrl.Set("");
+        Url = (FbxPropertyT<string>)FbxProperty.Create(RootProperty,
+            FbxDataTypes.FbxStringDT, "SrcDocumentUrl");
+        Url.Set("");
 
-        Original = FbxProperty.FromEFbxType(EFbxType.eFbxUndefined,
+        Original = FbxProperty.Create(RootProperty, FbxDataTypes.FbxUndefinedDT,
             "Original");
-        Properties.Add(Original);
+        Original.Set<object>("");
         Original_ApplicationVendor =
-            new FbxPropertyT<string>("Original|ApplicationVendor", "");
-        Properties.Add(Original_ApplicationVendor);
+            (FbxPropertyT<string>)FbxProperty.Create(Original,
+                FbxDataTypes.FbxStringDT, "ApplicationVendor");
+        Original_ApplicationVendor.Set("");
         Original_ApplicationName =
-            new FbxPropertyT<string>("Original|ApplicationName", "");
-        Properties.Add(Original_ApplicationName);
+            (FbxPropertyT<string>)FbxProperty.Create(Original,
+                FbxDataTypes.FbxStringDT, "ApplicationName");
+        Original_ApplicationName.Set("");
         Original_ApplicationVersion =
-            new FbxPropertyT<string>("Original|ApplicationVersion", "");
-        Properties.Add(Original_ApplicationVersion);
-        Original_FileName = new FbxPropertyT<string>("Original|FileName", "");
-        Properties.Add(Original_FileName);
+            (FbxPropertyT<string>)FbxProperty.Create(Original,
+                FbxDataTypes.FbxStringDT, "ApplicationVersion");
+        Original_ApplicationVersion.Set("");
+        Original_FileName = (FbxPropertyT<string>)FbxProperty.Create(Original,
+            FbxDataTypes.FbxStringDT, "FileName");
+        Original_FileName.Set("");
         Original_DateTime_GMT =
-            new FbxPropertyT<FbxDateTime>("Original|DateTime_GMT");
-        Properties.Add(Original_DateTime_GMT);
+            (FbxPropertyT<FbxDateTime>)FbxProperty.Create(Original,
+                FbxDataTypes.FbxDateTimeDT, "DateTime_GMT");
+        // Original_DateTime_GMT.Set();
 
-        LastSaved = new FbxPropertyT<string>("LastSaved");
-        Properties.Add(LastSaved);
+        LastSaved = FbxProperty.Create(RootProperty,
+            FbxDataTypes.FbxUndefinedDT, "LastSaved");
+        LastSaved.Set<object>("");
         LastSaved_ApplicationVendor =
-            new FbxPropertyT<string>("LastSaved|ApplicationVendor", "");
-        Properties.Add(LastSaved_ApplicationVendor);
+            (FbxPropertyT<string>)FbxProperty.Create(LastSaved,
+                FbxDataTypes.FbxStringDT, "ApplicationVendor");
+        LastSaved_ApplicationVendor.Set("");
         LastSaved_ApplicationName =
-            new FbxPropertyT<string>("LastSaved|ApplicationName", "");
-        Properties.Add(LastSaved_ApplicationName);
+            (FbxPropertyT<string>)FbxProperty.Create(LastSaved,
+                FbxDataTypes.FbxStringDT, "ApplicationName");
+        LastSaved_ApplicationName.Set("");
         LastSaved_ApplicationVersion =
-            new FbxPropertyT<string>("LastSaved|ApplicationVersion", "");
-        Properties.Add(LastSaved_ApplicationVersion);
+            (FbxPropertyT<string>)FbxProperty.Create(LastSaved,
+                FbxDataTypes.FbxStringDT, "ApplicationVersion");
+        LastSaved_ApplicationVersion.Set("");
         LastSaved_DateTime_GMT =
-            new FbxPropertyT<FbxDateTime>("LastSaved|DateTime_GMT");
-        Properties.Add(LastSaved_DateTime_GMT);
+            (FbxPropertyT<FbxDateTime>)FbxProperty.Create(LastSaved,
+                FbxDataTypes.FbxDateTimeDT, "DateTime_GMT");
+        // LastSaved_DateTime_GMT.Set();
 
-        EmbeddedUrl = new FbxPropertyT<string>("DocumentEmbeddedUrl");
-        Properties.Add(EmbeddedUrl);
+        EmbeddedUrl = (FbxPropertyT<string>)FbxProperty.Create(RootProperty,
+            FbxDataTypes.FbxStringDT, "DocumentEmbeddedUrl");
+        EmbeddedUrl.Set("");
+
+        var sceneThumbnailProp = FbxProperty.Create(RootProperty,
+                FbxDataTypes.FbxReferenceDT, "SceneThumbnail");
     }
 
     #endregion
