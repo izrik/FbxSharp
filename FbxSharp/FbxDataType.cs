@@ -37,8 +37,9 @@ public class FbxDataType
 
     #region Static Public Member Functions
 
-    public static FbxDataType Create(string pName, EFbxType pType) =>
-        new(pName, pType);
+    public static FbxDataType Create(string pName, EFbxType pType,
+        bool valid = true) =>
+        new(pName, pType, valid);
 
     public static FbxDataType Create(string pName, FbxDataType pDataType) =>
         Create(pName, pDataType.GetFbxType());
@@ -69,11 +70,11 @@ public class FbxDataType
     // }
 
     [NotSdk]
-    public FbxDataType(string name, EFbxType fbxType)
+    public FbxDataType(string name, EFbxType fbxType, bool valid = true)
     {
         this.name = name;
         this.fbxType = fbxType;
-        this.valid = fbxType != EFbxType.eFbxUndefined;
+        this.valid = valid;
     }
 
     #endregion
@@ -105,7 +106,7 @@ public class FbxDataType
         switch (pType)
         {
             case EFbxType.eFbxUndefined:
-                throw new NotImplementedException();
+                return FbxDataTypes.FbxUndefinedDT;
             case EFbxType.eFbxChar:
                 return FbxDataTypes.FbxCharDT;
             case EFbxType.eFbxUChar:

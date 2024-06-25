@@ -5,7 +5,7 @@ public static class FbxDataTypes
     #region Basic Data Types
 
     public static readonly FbxDataType FbxUndefinedDT =
-        FbxDataType.Create("", EFbxType.eFbxUndefined);
+        FbxDataType.Create("", EFbxType.eFbxUndefined, false);
 
     public static readonly FbxDataType FbxBoolDT =
         FbxDataType.Create("Bool", EFbxType.eFbxBool);
