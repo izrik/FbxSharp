@@ -193,14 +193,8 @@ namespace FbxSharp
         }
 
         public static FbxProperty CreateFrom(FbxProperty pCompoundProperty,
-            FbxProperty pFromProperty, bool pCheckForDup = true)
-        {
-            var prop = FromEFbxType(
-                pFromProperty.GetPropertyDataType().GetFbxType(),
-                pFromProperty.GetName());
-            prop.SetParent(pCompoundProperty);
-            return prop;
-        }
+            FbxProperty pFromProperty, bool pCheckForDup = true) =>
+            throw new NotImplementedException();
 
         public static FbxProperty CreateFrom(FbxObject pObject,
             FbxProperty pFromProperty, bool pCheckForDup = true) =>
