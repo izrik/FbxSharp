@@ -6,14 +6,9 @@ namespace FbxSharp
 {
     public class Converter7700 : IConverter
     {
-        public class ConversionState
+        public class ConversionState(bool legacyTimeCode)
         {
-            public ConversionState(bool legacyTimeCode)
-            {
-                LegacyTimeCode = legacyTimeCode;
-            }
-
-            public readonly bool LegacyTimeCode;
+            public readonly bool LegacyTimeCode = legacyTimeCode;
         }
 
         public FbxScene ConvertScene(List<ParseObject> parsedObjects,
