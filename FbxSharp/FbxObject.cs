@@ -437,9 +437,13 @@ namespace FbxSharp
         //public Property FindProperty(string pName, FbxDataType pDataType, bool pCaseSensitive=true)
         public FbxProperty FindProperty(string pName, Type pDataType, bool pCaseSensitive=true)
         {
-            return FindProperty(prop =>
+            var prop = RootProperty.Find(pName, pCaseSensitive);
+            if (prop.IsValid() && prop.GetDotnetType() == pDataType)
+                return prop;
+            prop= FindProperty(prop =>
                 string.Compare(prop.Name, pName, ignoreCase: !pCaseSensitive) == 0 &&
                 prop.PropertyDataType == pDataType);
+            return prop ?? FbxProperty.NotValid;
         }
 
         public FbxProperty FindProperty(Func<FbxProperty, bool> predicate)

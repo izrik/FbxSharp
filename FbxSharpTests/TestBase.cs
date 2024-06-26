@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using FbxSharp;
 using NUnit.Framework;
@@ -9,7 +10,20 @@ namespace FbxSharpTests
     {
         public static int CountProperties(FbxObject obj)
         {
-            return obj.Properties.Count;
+            var allProps = new HashSet<FbxProperty>(obj.Properties);
+            GatherDescendantProperties(obj.RootProperty, allProps);
+            allProps.Remove(obj.RootProperty);
+            return allProps.Count;
+        }
+
+        public static void GatherDescendantProperties(FbxProperty prop,
+            ISet<FbxProperty> allProps)
+        {
+            if (allProps.Contains(prop))
+                return;
+            allProps.Add(prop);
+            foreach (var child in prop.Children)
+                GatherDescendantProperties(child, allProps);
         }
 
         public static string GetRootFolder()
