@@ -11,16 +11,20 @@ namespace FbxSharpTests
         public void FbxDocumentInfo_Create_HasDefaults()
         {
             // given:
-            var docinfo = FbxDocumentInfo.Create("");
             var dt0 = new FbxDateTime();
             FbxProperty prop;
 
-            // expect:
+            // when:
+            var docinfo = FbxDocumentInfo.Create("");
+
+            // then:
+            Assert.AreEqual(15, CountProperties(docinfo));
+
             prop = docinfo.FindProperty("DocumentUrl");
             Assert.True(prop.IsValid());
             Assert.AreEqual("DocumentUrl", prop.GetName());
             Assert.AreEqual("DocumentUrl", prop.GetHierarchicalName());
-            Assert.AreEqual(EFbxType.eFbxString, prop.GetPropertyDataType().GetFbxType());
+            Assert.AreEqual(FbxDataTypes.FbxUrlDT, prop.GetPropertyDataType());
             Assert.AreEqual("", prop.Get<string>());
             Assert.True(prop == docinfo.LastSavedUrl);
 
@@ -28,7 +32,7 @@ namespace FbxSharpTests
             Assert.True(prop.IsValid());
             Assert.AreEqual("SrcDocumentUrl", prop.GetName());
             Assert.AreEqual("SrcDocumentUrl", prop.GetHierarchicalName());
-            Assert.AreEqual(EFbxType.eFbxString, prop.GetPropertyDataType().GetFbxType());
+            Assert.AreEqual(FbxDataTypes.FbxUrlDT, prop.GetPropertyDataType());
             Assert.AreEqual("", prop.Get<string>());
             Assert.True(prop == docinfo.Url);
 
@@ -36,7 +40,7 @@ namespace FbxSharpTests
             Assert.True(prop.IsValid());
             Assert.AreEqual("Original", prop.GetName());
             Assert.AreEqual("Original", prop.GetHierarchicalName());
-            Assert.AreEqual(EFbxType.eFbxUndefined, prop.GetPropertyDataType().GetFbxType());
+            Assert.AreEqual(FbxDataTypes.FbxCompoundDT, prop.GetPropertyDataType());
             Assert.AreEqual("", prop.Get<string>());
             Assert.True(prop == docinfo.Original);
 
@@ -44,7 +48,7 @@ namespace FbxSharpTests
             Assert.True(prop.IsValid());
             Assert.AreEqual("ApplicationVendor", prop.GetName());
             Assert.AreEqual("Original|ApplicationVendor", prop.GetHierarchicalName());
-            Assert.AreEqual(EFbxType.eFbxString, prop.GetPropertyDataType().GetFbxType());
+            Assert.AreEqual(FbxDataTypes.FbxStringDT, prop.GetPropertyDataType());
             Assert.AreEqual("", prop.Get<string>());
             Assert.True(prop == docinfo.Original_ApplicationVendor);
 
@@ -52,7 +56,7 @@ namespace FbxSharpTests
             Assert.True(prop.IsValid());
             Assert.AreEqual("ApplicationName", prop.GetName());
             Assert.AreEqual("Original|ApplicationName", prop.GetHierarchicalName());
-            Assert.AreEqual(EFbxType.eFbxString, prop.GetPropertyDataType().GetFbxType());
+            Assert.AreEqual(FbxDataTypes.FbxStringDT, prop.GetPropertyDataType());
             Assert.AreEqual("", prop.Get<string>());
             Assert.True(prop == docinfo.Original_ApplicationName);
 
@@ -60,7 +64,7 @@ namespace FbxSharpTests
             Assert.True(prop.IsValid());
             Assert.AreEqual("ApplicationVersion", prop.GetName());
             Assert.AreEqual("Original|ApplicationVersion", prop.GetHierarchicalName());
-            Assert.AreEqual(EFbxType.eFbxString, prop.GetPropertyDataType().GetFbxType());
+            Assert.AreEqual(FbxDataTypes.FbxStringDT, prop.GetPropertyDataType());
             Assert.AreEqual("", prop.Get<string>());
             Assert.True(prop == docinfo.Original_ApplicationVersion);
 
@@ -68,7 +72,7 @@ namespace FbxSharpTests
             Assert.True(prop.IsValid());
             Assert.AreEqual("DateTime_GMT", prop.GetName());
             Assert.AreEqual("Original|DateTime_GMT", prop.GetHierarchicalName());
-            Assert.AreEqual(EFbxType.eFbxDateTime, prop.GetPropertyDataType().GetFbxType());
+            Assert.AreEqual(FbxDataTypes.FbxDateTimeDT, prop.GetPropertyDataType());
             Assert.AreEqual(dt0, prop.Get<FbxDateTime>());
             Assert.True(prop == docinfo.Original_DateTime_GMT);
 
@@ -76,7 +80,7 @@ namespace FbxSharpTests
             Assert.True(prop.IsValid());
             Assert.AreEqual("FileName", prop.GetName());
             Assert.AreEqual("Original|FileName", prop.GetHierarchicalName());
-            Assert.AreEqual(EFbxType.eFbxString, prop.GetPropertyDataType().GetFbxType());
+            Assert.AreEqual(FbxDataTypes.FbxStringDT, prop.GetPropertyDataType());
             Assert.AreEqual("", prop.Get<string>());
             Assert.True(prop == docinfo.Original_FileName);
 
@@ -84,7 +88,7 @@ namespace FbxSharpTests
             Assert.True(prop.IsValid());
             Assert.AreEqual("LastSaved", prop.GetName());
             Assert.AreEqual("LastSaved", prop.GetHierarchicalName());
-            Assert.AreEqual(EFbxType.eFbxUndefined, prop.GetPropertyDataType().GetFbxType());
+            Assert.AreEqual(FbxDataTypes.FbxCompoundDT, prop.GetPropertyDataType());
             Assert.AreEqual("", prop.Get<string>());
             Assert.True(prop == docinfo.LastSaved);
 
@@ -92,7 +96,7 @@ namespace FbxSharpTests
             Assert.True(prop.IsValid());
             Assert.AreEqual("ApplicationVendor", prop.GetName());
             Assert.AreEqual("LastSaved|ApplicationVendor", prop.GetHierarchicalName());
-            Assert.AreEqual(EFbxType.eFbxString, prop.GetPropertyDataType().GetFbxType());
+            Assert.AreEqual(FbxDataTypes.FbxStringDT, prop.GetPropertyDataType());
             Assert.AreEqual("", prop.Get<string>());
             Assert.True(prop == docinfo.LastSaved_ApplicationVendor);
 
@@ -100,7 +104,7 @@ namespace FbxSharpTests
             Assert.True(prop.IsValid());
             Assert.AreEqual("ApplicationName", prop.GetName());
             Assert.AreEqual("LastSaved|ApplicationName", prop.GetHierarchicalName());
-            Assert.AreEqual(EFbxType.eFbxString, prop.GetPropertyDataType().GetFbxType());
+            Assert.AreEqual(FbxDataTypes.FbxStringDT, prop.GetPropertyDataType());
             Assert.AreEqual("", prop.Get<string>());
             Assert.True(prop == docinfo.LastSaved_ApplicationName);
 
@@ -108,7 +112,7 @@ namespace FbxSharpTests
             Assert.True(prop.IsValid());
             Assert.AreEqual("ApplicationVersion", prop.GetName());
             Assert.AreEqual("LastSaved|ApplicationVersion", prop.GetHierarchicalName());
-            Assert.AreEqual(EFbxType.eFbxString, prop.GetPropertyDataType().GetFbxType());
+            Assert.AreEqual(FbxDataTypes.FbxStringDT, prop.GetPropertyDataType());
             Assert.AreEqual("", prop.Get<string>());
             Assert.True(prop == docinfo.LastSaved_ApplicationVersion);
 
@@ -116,7 +120,7 @@ namespace FbxSharpTests
             Assert.True(prop.IsValid());
             Assert.AreEqual("DateTime_GMT", prop.GetName());
             Assert.AreEqual("LastSaved|DateTime_GMT", prop.GetHierarchicalName());
-            Assert.AreEqual(EFbxType.eFbxDateTime, prop.GetPropertyDataType().GetFbxType());
+            Assert.AreEqual(FbxDataTypes.FbxDateTimeDT, prop.GetPropertyDataType());
             Assert.AreEqual(dt0, prop.Get<FbxDateTime>());
             Assert.True(prop == docinfo.LastSaved_DateTime_GMT);
 
@@ -124,7 +128,7 @@ namespace FbxSharpTests
             Assert.True(prop.IsValid());
             Assert.AreEqual("DocumentEmbeddedUrl", prop.GetName());
             Assert.AreEqual("DocumentEmbeddedUrl", prop.GetHierarchicalName());
-            Assert.AreEqual(EFbxType.eFbxString, prop.GetPropertyDataType().GetFbxType());
+            Assert.AreEqual(FbxDataTypes.FbxUrlDT, prop.GetPropertyDataType());
             Assert.AreEqual("", prop.Get<string>());
             Assert.True(prop == docinfo.EmbeddedUrl);
 
@@ -132,7 +136,7 @@ namespace FbxSharpTests
             Assert.True(prop.IsValid());
             Assert.AreEqual("SceneThumbnail", prop.GetName());
             Assert.AreEqual("SceneThumbnail", prop.GetHierarchicalName());
-            Assert.AreEqual(EFbxType.eFbxReference, prop.GetPropertyDataType().GetFbxType());
+            Assert.AreEqual(FbxDataTypes.FbxReferenceObjectDT, prop.GetPropertyDataType());
             Assert.AreEqual(null, prop.Get<FbxObject>());
         }
     }
