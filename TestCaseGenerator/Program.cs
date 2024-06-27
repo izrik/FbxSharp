@@ -387,7 +387,8 @@ namespace TestCaseGenerator
                                  testcase.UseConstraints) &&
                                 outline.StartsWith("Assert"))
                             {
-                                var outline2 = outline[12..^1];
+                                var paren = outline.IndexOf('(') + 1;
+                                var outline2 = outline[paren..^1];
                                 var parts1 = outline2.Split(",");
                                 var new_rhs = string.Join(",", parts1[..^1]).Trim();
                                 var new_lhs = parts1[^1].Trim();
