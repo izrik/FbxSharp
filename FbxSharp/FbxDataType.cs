@@ -175,4 +175,10 @@ public class FbxDataType
         "Function in global namespace converted to static method")]
     public static string FbxGetDataTypeNameForIO(FbxDataType pDataType) =>
         throw new NotImplementedException();
+
+    [NotSdk]
+    public override string ToString()
+    {
+        return $"FbxDataType(\"{name}\")";
+    }
 }
