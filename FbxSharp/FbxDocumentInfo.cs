@@ -94,13 +94,13 @@ public class FbxDocumentInfo : FbxObject
         : base(pName)
     {
         LastSavedUrl = (FbxPropertyT<string>)FbxProperty.Create(RootProperty,
-            FbxDataTypes.FbxStringDT, "DocumentUrl");
+            FbxDataTypes.FbxUrlDT, "DocumentUrl");
         LastSavedUrl.Set("");
         Url = (FbxPropertyT<string>)FbxProperty.Create(RootProperty,
-            FbxDataTypes.FbxStringDT, "SrcDocumentUrl");
+            FbxDataTypes.FbxUrlDT, "SrcDocumentUrl");
         Url.Set("");
 
-        Original = FbxProperty.Create(RootProperty, FbxDataTypes.FbxUndefinedDT,
+        Original = FbxProperty.Create(RootProperty, FbxDataTypes.FbxCompoundDT,
             "Original");
         Original.Set<object>("");
         Original_ApplicationVendor =
@@ -124,7 +124,7 @@ public class FbxDocumentInfo : FbxObject
         // Original_DateTime_GMT.Set();
 
         LastSaved = FbxProperty.Create(RootProperty,
-            FbxDataTypes.FbxUndefinedDT, "LastSaved");
+            FbxDataTypes.FbxCompoundDT, "LastSaved");
         LastSaved.Set<object>("");
         LastSaved_ApplicationVendor =
             (FbxPropertyT<string>)FbxProperty.Create(LastSaved,
@@ -144,11 +144,11 @@ public class FbxDocumentInfo : FbxObject
         // LastSaved_DateTime_GMT.Set();
 
         EmbeddedUrl = (FbxPropertyT<string>)FbxProperty.Create(RootProperty,
-            FbxDataTypes.FbxStringDT, "DocumentEmbeddedUrl");
+            FbxDataTypes.FbxUrlDT, "DocumentEmbeddedUrl");
         EmbeddedUrl.Set("");
 
         var sceneThumbnailProp = FbxProperty.Create(RootProperty,
-                FbxDataTypes.FbxReferenceDT, "SceneThumbnail");
+                FbxDataTypes.FbxReferenceObjectDT, "SceneThumbnail");
     }
 
     #endregion
