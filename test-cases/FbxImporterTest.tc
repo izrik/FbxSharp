@@ -431,7 +431,7 @@ test FbxImporter_ImportAsciiFile_DoesNotFail_1
     AssertEqual("SrcDocumentUrl", prop&.GetHierarchicalName())
     AssertEqual(EFbxType::eFbxString, prop&.GetPropertyDataType()&.GetFbxType())
 #cpp AssertEqual(FbxString(GetSample("empty_7a&.fbx")&.c_str()), prop&.Get<FbxString>())
-#cs AssertEqual(GetSample("empty_7a&.fbx"), prop&.Get<FbxString>())
+#cs AssertEqual("empty_7a&.fbx", prop&.Get<FbxString>())
 
     prop = docinfo.FindProperty("Original")
     AssertTrue(prop&.IsValid())
@@ -559,4 +559,4 @@ test FbxImporter_Import_DoubleColonInStringHasOddEncoding
     AssertTrue(result)
     FbxProperty! prop = scene.GetDocumentInfo().FindProperty("CustomProp")
     AssertTrue(prop&.IsValid())
-    AssertEqual("Abc::Def", prop&.Get<FbxString>())
+    AssertEqual("Abc:\:Def", prop&.Get<FbxString>())

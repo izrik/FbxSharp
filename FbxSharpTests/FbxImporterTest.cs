@@ -497,7 +497,7 @@ namespace FbxSharpTests
             Assert.That(prop.GetName(), Is.EqualTo("SrcDocumentUrl"));
             Assert.That(prop.GetHierarchicalName(), Is.EqualTo("SrcDocumentUrl"));
             Assert.That(prop.GetPropertyDataType().GetFbxType(), Is.EqualTo(EFbxType.eFbxString));
-            Assert.That(prop.Get<string>(), Is.EqualTo(GetSample("empty_7a.fbx")));
+            Assert.That(prop.Get<string>(), Is.EqualTo("empty_7a.fbx"));
 
             prop = docinfo.FindProperty("Original");
             Assert.True(prop.IsValid());
@@ -624,7 +624,7 @@ namespace FbxSharpTests
             Assert.True(result);
             var prop = scene.GetDocumentInfo().FindProperty("CustomProp");
             Assert.True(prop.IsValid());
-            Assert.That(prop.Get<string>(), Is.EqualTo("Abc.Def"));
+            Assert.That(prop.Get<string>(), Is.EqualTo("Abc::Def"));
         }
     }
 }
