@@ -169,12 +169,32 @@ void _AssertEqual(FbxDateTime expected, FbxDateTime actual, const char* filename
     }
 }
 
-void _AssertNotEqual(void* expected, void* actual, const char* filename, int line)
+void _AssertEqual(FbxDataType expected, FbxDataType actual, const char* filename, int line)
 {
-    if (expected == actual)
+    if (!(expected == actual))
     {
         stringstream ss;
-        ss << "Expected not(" << expected << ") but got " << actual << ", at " << filename << ":" << line;
+        ss << "Expected " << expected << " but got " << actual << ", at " << filename << ":" << line;
+        throw new string(ss.str());
+    }
+}
+
+void _AssertNotEqual(void* not_expected, void* actual, const char* filename, int line)
+{
+    if (not_expected == actual)
+    {
+        stringstream ss;
+        ss << "Expected not(" << not_expected << ") but got " << actual << ", at " << filename << ":" << line;
+        throw new string(ss.str());
+    }
+}
+
+void _AssertNotEqual(FbxDataType not_expected, FbxDataType actual, const char* filename, int line)
+{
+    if (not_expected == actual)
+    {
+        stringstream ss;
+        ss << "Expected not equal to " << not_expected << " but got " << actual << ", at " << filename << ":" << line;
         throw new string(ss.str());
     }
 }

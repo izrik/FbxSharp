@@ -16,7 +16,9 @@ void _AssertEqual(FbxMatrix expected, FbxMatrix actual, const char* filename, in
 void _AssertEqual(FbxAMatrix expected, FbxAMatrix actual, const char* filename, int line, double epsilon=0);
 void _AssertEqual(FbxLongLong expected, FbxLongLong actual, const char* filename, int line);
 void _AssertEqual(FbxDateTime expected, FbxDateTime actual, const char* filename, int line);
+void _AssertEqual(FbxDataType expected, FbxDataType actual, const char* filename, int line);
 void _AssertNotEqual(void* expected, void* actual, const char* filename, int line);
+void _AssertNotEqual(FbxDataType expected, FbxDataType actual, const char* filename, int line);
 void _AssertNull(void* actual, const char* filename, int line);
 void _AssertNotNull(void* actual, const char* filename, int line);
 void _AssertTrue(bool condition, const char* filename, int line);
