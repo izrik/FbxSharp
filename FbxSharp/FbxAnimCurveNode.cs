@@ -8,12 +8,13 @@ namespace FbxSharp
         public FbxAnimCurveNode(String name="")
             : base(name)
         {
-            Properties.Add(channelRootProperty);
+            channelRootProperty = FbxPropertyT<float>.StaticInit(this, "d",
+                0f, false);
         }
 
         #region Utility Functions
 
-        protected readonly FbxPropertyT<float> channelRootProperty = new FbxPropertyT<float>("d");
+        protected readonly FbxPropertyT<float> channelRootProperty;
 
         protected class Channel
         {
@@ -71,9 +72,9 @@ namespace FbxSharp
 
         public bool AddChannel<T>(string pChnlName, T pValue)
         {
-            var prop = new FbxPropertyT<T>(pChnlName, pValue);
+            var prop = FbxPropertyT<T>.StaticInit(this, pChnlName, pValue,
+                false);
             var ch = new Channel(prop);
-            Properties.Add(prop);
             channels.Add(ch);
             return true;
         }

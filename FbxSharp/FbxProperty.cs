@@ -14,7 +14,8 @@ namespace FbxSharp
 
         [NotSdk]
         public static readonly FbxProperty NotValid =
-            new FbxPropertyT<NotValidT>();
+            FbxPropertyT<NotValidT>.StaticInit((FbxProperty)null, null, null,
+                null, false);
 
         [NotSdk]
         static FbxProperty()
@@ -111,7 +112,7 @@ namespace FbxSharp
             FbxDataType pDataType, string pName, string pLabel,
             bool pCheckForDup, out bool pWasFound)
         {
-            var prop = FromEFbxType(pDataType.GetFbxType(), pName);
+            var prop = FromFbxDataType(pCompoundProperty, pDataType, pName, default);
             prop.SetLabel(pLabel);
             prop.SetParent(pCompoundProperty);
             pWasFound = false;
@@ -185,9 +186,9 @@ namespace FbxSharp
             FbxDataType pDataType, string pName, string pLabel,
             bool pCheckForDup, out bool pWasFound)
         {
-            var prop = FromEFbxType(pDataType.GetFbxType(), pName);
+            var prop = FromFbxDataType(pObject.RootProperty, pDataType,
+                pName);
             prop.SetLabel(pLabel);
-            prop.SetParent(pObject.RootProperty);
             pWasFound = false;
             return prop;
         }
@@ -216,9 +217,15 @@ namespace FbxSharp
 
         [NotSdk]
         protected FbxProperty(string name, EFbxType fbxType)
+            : this(name, FbxDataType.FbxGetDataTypeFromEnum(fbxType))
+        {
+        }
+
+        [NotSdk]
+        protected FbxProperty(string name, FbxDataType dataType)
         {
             Name = name;
-            fbxDataType = FbxDataType.FbxGetDataTypeFromEnum(fbxType);
+            fbxDataType = dataType;
 
             Children = new PropertyChildrenCollection(this);
             SrcObjects = new PropertySrcObjectCollection(this);
@@ -226,138 +233,182 @@ namespace FbxSharp
         }
 
         [NotSdk]
-        public static FbxProperty FromEFbxType(EFbxType fbxType, string name)
+        protected static FbxProperty FromFbxDataType(FbxProperty parent,
+            FbxDataType dataType, string name)
         {
-            switch (fbxType)
+            switch (dataType.GetFbxType())
             {
                 case EFbxType.eFbxChar:
-                    return new FbxPropertyT<char>(name);
+                    return FbxPropertyT<char>.StaticInit(parent, name, dataType,
+                        default);
                 case EFbxType.eFbxUChar:
-                    return new FbxPropertyT<byte>(name);
+                    return FbxPropertyT<byte>.StaticInit(parent, name, dataType,
+                        default);
                 case EFbxType.eFbxShort:
-                    return new FbxPropertyT<short>(name);
+                    return FbxPropertyT<short>.StaticInit(parent, name,
+                        dataType, default);
                 case EFbxType.eFbxUShort:
-                    return new FbxPropertyT<ushort>(name);
+                    return FbxPropertyT<ushort>.StaticInit(parent, name,
+                        dataType, default);
                 case EFbxType.eFbxUInt:
-                    return new FbxPropertyT<uint>(name);
+                    return FbxPropertyT<uint>.StaticInit(parent, name, dataType,
+                        default);
                 case EFbxType.eFbxLongLong:
-                    return new FbxPropertyT<long>(name);
+                    return FbxPropertyT<long>.StaticInit(parent, name, dataType,
+                        default);
                 case EFbxType.eFbxULongLong:
-                    return new FbxPropertyT<ulong>(name);
+                    return FbxPropertyT<ulong>.StaticInit(parent, name,
+                        dataType, default);
                 case EFbxType.eFbxHalfFloat:
-                    return new FbxPropertyT<Half>(name);
+                    return FbxPropertyT<Half>.StaticInit(parent, name, dataType,
+                        default);
                 case EFbxType.eFbxBool:
-                    return new FbxPropertyT<bool>(name);
+                    return FbxPropertyT<bool>.StaticInit(parent, name, dataType,
+                        default);
                 case EFbxType.eFbxInt:
-                    return new FbxPropertyT<int>(name);
+                    return FbxPropertyT<int>.StaticInit(parent, name, dataType,
+                        default);
                 case EFbxType.eFbxFloat:
-                    return new FbxPropertyT<float>(name);
+                    return FbxPropertyT<float>.StaticInit(parent, name,
+                        dataType, default);
                 case EFbxType.eFbxDouble:
-                    return new FbxPropertyT<double>(name);
+                    return FbxPropertyT<double>.StaticInit(parent, name,
+                        dataType, default);
                 case EFbxType.eFbxDouble2:
-                    return new FbxPropertyT<FbxVector2>(name);
+                    return FbxPropertyT<FbxVector2>.StaticInit(parent, name,
+                        dataType, default);
                 case EFbxType.eFbxDouble3:
-                    return new FbxPropertyT<FbxVector3>(name);
+                    return FbxPropertyT<FbxVector3>.StaticInit(parent, name,
+                        dataType, default);
                 case EFbxType.eFbxDouble4:
-                    return new FbxPropertyT<FbxVector4>(name);
+                    return FbxPropertyT<FbxVector4>.StaticInit(parent, name,
+                        dataType, default);
                 case EFbxType.eFbxDouble4x4:
-                    return new FbxPropertyT<FbxMatrix>(name);
+                    return FbxPropertyT<FbxMatrix>.StaticInit(parent, name,
+                        dataType, default);
 
                 case EFbxType.eFbxEnum:
                 case EFbxType.eFbxEnumM:
                     return new FbxPropertyTEnum(name);
 
                 case EFbxType.eFbxString:
-                    return new FbxPropertyT<string>(name);
+                    return FbxPropertyT<string>.StaticInit(parent, name,
+                        dataType, default);
                 case EFbxType.eFbxTime:
-                    return new FbxPropertyT<FbxTime>(name);
+                    return FbxPropertyT<FbxTime>.StaticInit(parent, name,
+                        dataType, default);
                 case EFbxType.eFbxReference:
-                    return new FbxPropertyT<FbxObject>(name);
+                    return FbxPropertyT<FbxObject>.StaticInit(parent, name,
+                        dataType, default);
 
                 case EFbxType.eFbxBlob:
                 case EFbxType.eFbxDistance:
                     throw new NotImplementedException();
 
                 case EFbxType.eFbxDateTime:
-                    return new FbxPropertyT<FbxDateTime>(name);
+                    return FbxPropertyT<FbxDateTime>.StaticInit(parent, name,
+                        dataType, default);
 
                 case EFbxType.eFbxUndefined:
                     // TODO: FbxPropertyTUndefined
-                    return new FbxPropertyT<object>(name);
+                    return FbxPropertyT<object>.StaticInit(parent, name,
+                        dataType, default);
 
                 case EFbxType.eFbxTypeCount:
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(fbxType),
-                        fbxType, null);
+                    throw new ArgumentOutOfRangeException(
+                        paramName: nameof(dataType), dataType, null);
             }
         }
 
         [NotSdk]
-        public static FbxProperty FromEFbxType(EFbxType fbxType, string name,
-            object value)
+        protected static FbxProperty FromFbxDataType(FbxProperty parent,
+            FbxDataType dataType, string name, object value)
         {
-            switch (fbxType)
+            switch (dataType.GetFbxType())
             {
                 case EFbxType.eFbxChar:
-                    return new FbxPropertyT<char>(name, (char)value);
+                    return FbxPropertyT<char>.StaticInit(parent, name, dataType,
+                        value == null ? default : (char)value);
                 case EFbxType.eFbxUChar:
-                    return new FbxPropertyT<byte>(name, (byte)value);
+                    return FbxPropertyT<byte>.StaticInit(parent, name, dataType,
+                        value == null ? default : (byte)value);
                 case EFbxType.eFbxShort:
-                    return new FbxPropertyT<short>(name, (short)value);
+                    return FbxPropertyT<short>.StaticInit(parent, name,
+                        dataType, value == null ? default : (short)value);
                 case EFbxType.eFbxUShort:
-                    return new FbxPropertyT<ushort>(name, (ushort)value);
+                    return FbxPropertyT<ushort>.StaticInit(parent, name,
+                        dataType, value == null ? default : (ushort)value);
                 case EFbxType.eFbxUInt:
-                    return new FbxPropertyT<uint>(name, (uint)value);
+                    return FbxPropertyT<uint>.StaticInit(parent, name, dataType,
+                        value == null ? default : (uint)value);
                 case EFbxType.eFbxLongLong:
-                    return new FbxPropertyT<long>(name, (long)value);
+                    return FbxPropertyT<long>.StaticInit(parent, name, dataType,
+                        value == null ? default : (long)value);
                 case EFbxType.eFbxULongLong:
-                    return new FbxPropertyT<ulong>(name, (ulong)value);
+                    return FbxPropertyT<ulong>.StaticInit(parent, name,
+                        dataType, value == null ? default : (ulong)value);
                 case EFbxType.eFbxHalfFloat:
-                    return new FbxPropertyT<Half>(name, (Half)value);
+                    return FbxPropertyT<Half>.StaticInit(parent, name, dataType,
+                        value == null ? default : (Half)value);
                 case EFbxType.eFbxBool:
-                    return new FbxPropertyT<bool>(name, (bool)value);
+                    return FbxPropertyT<bool>.StaticInit(parent, name, dataType,
+                        value == null ? default : (bool)value);
                 case EFbxType.eFbxInt:
-                    return new FbxPropertyT<int>(name, (int)value);
+                    return FbxPropertyT<int>.StaticInit(parent, name, dataType,
+                        value == null ? default : value == null ? default : (int)value);
                 case EFbxType.eFbxFloat:
-                    return new FbxPropertyT<float>(name, (float)value);
+                    return FbxPropertyT<float>.StaticInit(parent, name,
+                        dataType, value == null ? default : (float)value);
                 case EFbxType.eFbxDouble:
-                    return new FbxPropertyT<double>(name, (double)value);
+                    return FbxPropertyT<double>.StaticInit(parent, name,
+                        dataType, value == null ? default : (double)value);
                 case EFbxType.eFbxDouble2:
-                    return new FbxPropertyT<FbxVector2>(name,
-                        (FbxVector2)value);
+                    return FbxPropertyT<FbxVector2>.StaticInit(parent, name,
+                        dataType, value == null ? default : (FbxVector2)value);
                 case EFbxType.eFbxDouble3:
-                    return new FbxPropertyT<FbxVector3>(name,
-                        (FbxVector3)value);
+                    return FbxPropertyT<FbxVector3>.StaticInit(parent, name,
+                        dataType, value == null ? default : (FbxVector3)value);
                 case EFbxType.eFbxDouble4:
-                    return new FbxPropertyT<FbxVector4>(name,
-                        (FbxVector4)value);
+                    return FbxPropertyT<FbxVector4>.StaticInit(parent, name,
+                        dataType, value == null ? default : (FbxVector4)value);
                 case EFbxType.eFbxDouble4x4:
-                    return new FbxPropertyT<FbxMatrix>(name, (FbxMatrix)value);
+                    return FbxPropertyT<FbxMatrix>.StaticInit(parent, name,
+                        dataType, value == null ? default : (FbxMatrix)value);
 
                 case EFbxType.eFbxEnum:
                 case EFbxType.eFbxEnumM:
-                    return new FbxPropertyTEnum(name, (int)value);
+                    return new FbxPropertyTEnum(name);
 
                 case EFbxType.eFbxString:
-                    return new FbxPropertyT<string>(name, (string)value);
+                    return FbxPropertyT<string>.StaticInit(parent, name,
+                        dataType, (string)value );
                 case EFbxType.eFbxTime:
-                    return new FbxPropertyT<FbxTime>(name, (FbxTime)value);
+                    return FbxPropertyT<FbxTime>.StaticInit(parent, name,
+                        dataType, value == null ? default : (FbxTime)value);
                 case EFbxType.eFbxReference:
-                    return new FbxPropertyT<FbxObject>(name, (FbxObject)value);
+                    return FbxPropertyT<FbxObject>.StaticInit(parent, name,
+                        dataType,(FbxObject)value);
 
                 case EFbxType.eFbxBlob:
                 case EFbxType.eFbxDistance:
-                case EFbxType.eFbxDateTime:
                     throw new NotImplementedException();
 
+                case EFbxType.eFbxDateTime:
+                    return FbxPropertyT<FbxDateTime>.StaticInit(parent, name,
+                        dataType, value == null ? default : (FbxDateTime)value);
+
                 case EFbxType.eFbxUndefined:
+                    // TODO: FbxPropertyTUndefined
+                    return FbxPropertyT<object>.StaticInit(parent, name,
+                        dataType, (object)value);
+
                 case EFbxType.eFbxTypeCount:
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(fbxType),
-                        fbxType, null);
+                    throw new ArgumentOutOfRangeException(
+                        paramName: nameof(dataType), dataType, null);
             }
         }
-
 
         ~FbxProperty()
         {
@@ -381,8 +432,6 @@ namespace FbxSharp
         public abstract Type GetDotnetType();
 
         //public Object FbxObject { get; protected set; }
-
-        //FbxDataType GetPropertyDataType()
 
         public string GetName()
         {
@@ -715,7 +764,10 @@ namespace FbxSharp
             return Children[index + 1] ?? NotValid;
         }
 
-        public FbxProperty Find(string pName, bool pCaseSensitive = true)
+        public FbxProperty Find(string pName, bool pCaseSensitive = true) =>
+            Find(pName, null, pCaseSensitive);
+
+        public FbxProperty Find(string pName, FbxDataType pDataType, bool pCaseSensitive=true)
         {
             foreach (var child in Children)
             {
@@ -727,20 +779,24 @@ namespace FbxSharp
             return NotValid;
         }
 
-        //public Property Find(string pName, FbxDataType &pDataType, bool pCaseSensitive=true)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         public FbxProperty FindHierarchical(string pName,
             bool pCaseSensitive = true)
         {
             var nameComponents = pName.Split(sHierarchicalSeparator);
-            return FindHierarchical(nameComponents, 0, pCaseSensitive);
+            return FindHierarchical(nameComponents, 0, null, pCaseSensitive);
         }
 
-        protected FbxProperty FindHierarchical(string[] nameComponents,
-            int index, bool pCaseSensitive = true)
+        public FbxProperty FindHierarchical(string pName,
+            FbxDataType pDataType, bool pCaseSensitive = true)
+        {
+            var nameComponents = pName.Split(sHierarchicalSeparator);
+            return FindHierarchical(nameComponents, 0, pDataType, pCaseSensitive);
+        }
+
+        [NotSdk]
+        protected FbxProperty FindHierarchical(
+            string[] nameComponents, int index,
+            FbxDataType pDataType=null, bool pCaseSensitive = true)
         {
             foreach (var child in Children)
             {
@@ -749,18 +805,21 @@ namespace FbxSharp
                 {
                     if (index < nameComponents.Length - 1)
                         return child.FindHierarchical(nameComponents, index + 1,
-                            pCaseSensitive);
-                    return child;
+                            pDataType, pCaseSensitive);
+
+                    if (pDataType != null)
+                    {
+                        if (child.IsValid() &&
+                            child.GetPropertyDataType() == pDataType)
+                            return child;
+                    }
+                    else
+                        return child;
                 }
             }
 
             return NotValid;
         }
-
-        //public Property FindHierarchical(string pName, FbxDataType &pDataType, bool pCaseSensitive=true)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         #endregion
 

@@ -35,7 +35,7 @@ namespace FbxSharp
                     this.ConnectSrcObject(srcobj);
             }
 
-            foreach (FbxProperty prop in fbxObject.Properties)
+            foreach (var prop in fbxObject.RootProperty.Children)
             {
                 foreach (var srcobj in prop.SrcObjects)
                 {

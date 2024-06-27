@@ -4,6 +4,15 @@ namespace FbxSharp
 {
     public class FbxSkeleton : FbxNodeAttribute
     {
+        public FbxSkeleton(string name = "")
+            : base(name)
+        {
+            Size = FbxPropertyT<double>.StaticInit(
+                this, "Size", 0, false);
+            LimbLength = FbxPropertyT<double>.StaticInit(
+                this, "LimbLength", 0, false);
+        }
+
         public override EAttributeType AttributeType { get { return EAttributeType.Skeleton; } }
 
         public void Reset()
@@ -59,8 +68,8 @@ namespace FbxSharp
         public const double sDefaultSize = 100;
         public const double sDefaultLimbLength = 1;
 
-        public readonly FbxPropertyT<double> Size = new FbxPropertyT<double>("Size");
-        public readonly FbxPropertyT<double> LimbLength = new FbxPropertyT<double>("LimbLength");
+        public readonly FbxPropertyT<double> Size;
+        public readonly FbxPropertyT<double> LimbLength;
 
         #endregion
     }

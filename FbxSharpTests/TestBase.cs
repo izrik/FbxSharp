@@ -10,7 +10,7 @@ namespace FbxSharpTests
     {
         public static int CountProperties(FbxObject obj)
         {
-            var allProps = new HashSet<FbxProperty>(obj.Properties);
+            var allProps = new HashSet<FbxProperty>();
             GatherDescendantProperties(obj.RootProperty, allProps);
             allProps.Remove(obj.RootProperty);
             return allProps.Count;

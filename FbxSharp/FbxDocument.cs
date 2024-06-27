@@ -7,8 +7,10 @@ namespace FbxSharp
         public FbxDocument(string name = "")
             : base(name)
         {
-            this.Properties.Add(Roots);
-            this.Properties.Add(ActiveAnimStackName);
+            Roots = FbxPropertyT<FbxObject>.StaticInit(this, "SourceObject",
+                null, null, false);
+            ActiveAnimStackName = FbxPropertyT<string>.StaticInit(this,
+                "ActiveAnimStackName", "", false);
         }
 
         #region Public Types
@@ -55,8 +57,7 @@ namespace FbxSharp
 
         #region Properties
 
-        public readonly FbxPropertyT<FbxObject> Roots =
-            new FbxPropertyT<FbxObject>("SourceObject");
+        public readonly FbxPropertyT<FbxObject> Roots;
 
         #endregion
 
@@ -149,8 +150,7 @@ namespace FbxSharp
 
         #region Animation Stack Management
 
-        public readonly FbxPropertyT<string> ActiveAnimStackName =
-            new FbxPropertyT<string>("ActiveAnimStackName");
+        public readonly FbxPropertyT<string> ActiveAnimStackName;
 
         bool CreateAnimStack(string pName /*, FbxStatus *pStatus=NULL*/)
         {

@@ -4,12 +4,53 @@ namespace FbxSharp
 {
     public class FbxPropertyT<T> : FbxProperty
     {
-        public FbxPropertyT(string name="")
-            : base(name, typeof(T).ToFbxType())
+        #region Public Types
+
+        // typedef T ValueType
+
+        #endregion
+
+        #region Static Initialization
+
+        [DeviationFromSdk(notes: "Changed return type to generic to " +
+                                 "avoid type casts.")]
+        public static FbxPropertyT<T> StaticInit(FbxObject pObject,
+            string pName,
+            T pValue, bool pForceSet,
+            FbxPropertyFlags.EFlags pFlags = FbxPropertyFlags.EFlags.eNone) =>
+            StaticInit(pObject.RootProperty, pName, null, pValue, pForceSet,
+                pFlags);
+
+        [DeviationFromSdk(notes: "Changed return type to generic to " +
+                                 "avoid type casts.")]
+        public static FbxPropertyT<T> StaticInit(FbxObject pObject,
+            string pName, FbxDataType pDataType, T pValue, bool pForceSet,
+            FbxPropertyFlags.EFlags pFlags = FbxPropertyFlags.EFlags.eNone) =>
+            StaticInit(pObject.RootProperty, pName, pDataType, pValue,
+                pForceSet, pFlags);
+
+        [DeviationFromSdk(notes: "Changed return type to generic to " +
+                                 "avoid type casts.")]
+        public static FbxPropertyT<T> StaticInit(FbxProperty pCompound,
+            string pName, FbxDataType pDataType, T pValue,
+            bool pForceSet = true,
+            FbxPropertyFlags.EFlags pFlags = FbxPropertyFlags.EFlags.eNone)
         {
+            var prop = new FbxPropertyT<T>(pName, pDataType);
+            prop.SetParent(pCompound);
+            if (pValue != null)
+                prop.Set(pValue);
+            return prop;
         }
-        public FbxPropertyT(string name, T initialValue)
-            : base(name, typeof(T).ToFbxType())
+
+        #endregion
+
+        protected FbxPropertyT(string name="", FbxDataType dataType = null,
+            T initialValue = default)
+            : base(
+                name,
+                dataType ?? FbxDataType.FbxGetDataTypeFromEnum(
+                    typeof(T).ToFbxType()))
         {
             Value = initialValue;
         }

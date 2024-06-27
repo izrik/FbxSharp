@@ -4,23 +4,28 @@ namespace FbxSharp
 {
     public class FbxAnimStack : FbxCollection
     {
-        public FbxAnimStack(String name="")
+        public FbxAnimStack(String name = "")
             : base(name)
         {
-            Properties.Add(Description);
-            Properties.Add(LocalStart);
-            Properties.Add(LocalStop);
-            Properties.Add(ReferenceStart);
-            Properties.Add(ReferenceStop);
+            Description = FbxPropertyT<string>.StaticInit(this, "Description",
+                null, default, false);
+            LocalStart = FbxPropertyT<FbxTime>.StaticInit(this, "LocalStart",
+                null, default, false);
+            LocalStop = FbxPropertyT<FbxTime>.StaticInit(this, "LocalStop",
+                null, default, false);
+            ReferenceStart = FbxPropertyT<FbxTime>.StaticInit(this,
+                "ReferenceStart", null, default, false);
+            ReferenceStop = FbxPropertyT<FbxTime>.StaticInit(this,
+                "ReferenceStop", null, default, false);
         }
 
         #region Public Attributes
 
-        public readonly FbxPropertyT<string>   Description     = new FbxPropertyT<string>( "Description");
-        public readonly FbxPropertyT<FbxTime>  LocalStart      = new FbxPropertyT<FbxTime>("LocalStart");
-        public readonly FbxPropertyT<FbxTime>  LocalStop       = new FbxPropertyT<FbxTime>("LocalStop");
-        public readonly FbxPropertyT<FbxTime>  ReferenceStart  = new FbxPropertyT<FbxTime>("ReferenceStart");
-        public readonly FbxPropertyT<FbxTime>  ReferenceStop   = new FbxPropertyT<FbxTime>("ReferenceStop");
+        public readonly FbxPropertyT<string> Description;
+        public readonly FbxPropertyT<FbxTime> LocalStart;
+        public readonly FbxPropertyT<FbxTime> LocalStop;
+        public readonly FbxPropertyT<FbxTime> ReferenceStart;
+        public readonly FbxPropertyT<FbxTime> ReferenceStop;
 
         #endregion
 

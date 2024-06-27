@@ -35,15 +35,11 @@ public class FbxIOSettings : FbxObject
         string pName, FbxDataType pDataType = null, string pLabel = "",
         bool pVisible = true, bool pSavable = true, bool pEnabled = true)
     {
-        var prop =
-            FbxProperty.FromEFbxType(pDataType.GetFbxType(), pName);
+        pParentProperty ??= RootProperty;
+        var prop = FbxProperty.Create(pParentProperty,pDataType,pName);
         if (prop is FbxPropertyT<string> propt)
             propt.Set("");
-        if (pParentProperty == null)
-            pParentProperty = RootProperty;
-        prop.SetParent(pParentProperty);
         prop.SetLabel(pLabel);
-        Properties.Add(prop);
         return prop;
     }
 
@@ -52,17 +48,11 @@ public class FbxIOSettings : FbxObject
         object pValue = null, bool pVisible = true, bool pSavable = true,
         bool pEnabled = true)
     {
-        FbxProperty prop;
-        if (pValue == null)
-            prop = FbxProperty.FromEFbxType(pDataType.GetFbxType(), pName);
-        else
-            prop = FbxProperty.FromEFbxType(pDataType.GetFbxType(), pName,
-                pValue);
-        if (pParentProperty == null)
-            pParentProperty = RootProperty;
-        prop.SetParent(pParentProperty);
+        pParentProperty ??= RootProperty;
+        var prop = FbxProperty.Create(pParentProperty, pDataType, pName);
         prop.SetLabel(pLabel);
-        Properties.Add(prop);
+        if (pValue != null)
+            prop.Set(pValue);
         return prop;
     }
 
@@ -77,11 +67,10 @@ public class FbxIOSettings : FbxObject
     {
         if (pName == FbxIOSettingsPath.IOSROOT)
             return RootProperty;
-        foreach (var p in Properties)
-        {
-            if (p.GetHierarchicalName() == pName)
-                return p;
-        }
+
+        var p2 = FindPropertyHierarchical(pName);
+        if (p2 != null)
+            return p2;
 
         return FbxProperty.NotValid;
     }
