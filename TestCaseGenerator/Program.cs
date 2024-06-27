@@ -688,6 +688,9 @@ namespace TestCaseGenerator
                                 @"\bFbxIOSettingsPath.\b", "");
                             outline = Regex.Replace(outline,
                                 @"\bFbxDataTypes\.\b", "");
+                            outline = outline.Replace(
+                                "FbxDataType.FbxGetDataTypeFromEnum",
+                                "FbxGetDataTypeFromEnum");
 
                             outline = outline.Replace(
                                 "GetPropertyDataType()&.GetFbxType()",
