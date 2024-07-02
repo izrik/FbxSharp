@@ -475,34 +475,12 @@ namespace FbxSharp
             label = pLabel ?? "";
         }
 
-        private FbxObject _parentFbxObject;
-
-        [NotSdk]
-        public FbxObject ParentFbxObject
+        public virtual FbxObject GetFbxObject()
         {
-            get { return _parentFbxObject; }
-            set
-            {
-                if (value != _parentFbxObject)
-                {
-                    if (_parentFbxObject != null)
-                    {
-                        _parentFbxObject.Properties.Remove(this);
-                    }
-
-                    _parentFbxObject = value;
-
-                    if (_parentFbxObject != null)
-                    {
-                        _parentFbxObject.Properties.Add(this);
-                    }
-                }
-            }
-        }
-
-        public FbxObject GetFbxObject()
-        {
-            return ParentFbxObject;
+            var parent = GetParent();
+            if (parent != null && parent.IsValid())
+                return GetParent().GetFbxObject();
+            return null;
         }
 
         #endregion
@@ -701,10 +679,7 @@ namespace FbxSharp
 
         public readonly PropertyChildrenCollection Children;
 
-        public bool IsRoot()
-        {
-            return (ParentProperty == null);
-        }
+        public virtual bool IsRoot() => false;
 
         public bool IsChildOf(FbxProperty pParent)
         {
@@ -902,8 +877,10 @@ namespace FbxSharp
 
         public FbxAnimCurveNode GetCurveNode(bool pCreate=false)
         {
-            if (this.ParentFbxObject == null || this.ParentFbxObject.Scene == null) return null;
-            var stack = this.ParentFbxObject.Scene.GetCurrentAnimationStack();
+            var obj = GetFbxObject();
+            if (obj?.Scene == null)
+                return null;
+            var stack = obj.Scene.GetCurrentAnimationStack();
             return GetCurveNode(stack);
         }
 

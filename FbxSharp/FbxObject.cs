@@ -10,16 +10,14 @@ namespace FbxSharp
 
         static FbxObject()
         {
-            classRootProperty = FbxPropertyT<object>.StaticInit(
-                (FbxProperty)null, null, null, false);
+            classRootProperty = new FbxPropertyRoot(null);
         }
 
         public FbxObject(String name="")
         {
             SetInitialName(name ?? "");
 
-            RootProperty = FbxPropertyT<object>.StaticInit(
-                (FbxProperty)null, "", null, null, false);
+            RootProperty = new FbxPropertyRoot(this);
 
             SrcObjects = new ObjectSrcObjectCollection(this);
             DstObjects = new ObjectDstObjectCollection(this);
@@ -403,10 +401,6 @@ namespace FbxSharp
         #region Property Management
 
         [NotSdk]
-        public PropertyChildrenCollection Properties =>
-            RootProperty.Children;
-
-        [NotSdk]
         public readonly ObjectSrcPropertyCollection SrcProperties;
         [NotSdk]
         public readonly ObjectDstPropertyCollection DstProperties;
@@ -453,11 +447,8 @@ namespace FbxSharp
             FbxDataType pDataType, bool pCaseSensitive = true) =>
             RootProperty.FindHierarchical(pName, pDataType, pCaseSensitive);
 
-        private static readonly FbxPropertyT<object> classRootProperty;
-        public FbxProperty GetClassRootProperty()
-        {
-            return classRootProperty;
-        }
+        private static readonly FbxProperty classRootProperty;
+        public FbxProperty GetClassRootProperty() => classRootProperty;
 
         public bool ConnectSrcProperty(FbxProperty pProperty)
         {
