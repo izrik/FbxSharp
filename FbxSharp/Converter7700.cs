@@ -56,6 +56,20 @@ namespace FbxSharp
 
             var state = new ConversionState(legacyTimeCode);
 
+
+            if (headerExt != null)
+            {
+                var sceneInfo = headerExt.FindPropertyByName("SceneInfo");
+                if (sceneInfo != null)
+                {
+                    var sceneInfoProps =
+                        sceneInfo.FindPropertyByName("Properties70");
+                    var docInfo = scene.GetDocumentInfo();
+                    ImportProperties(docInfo,
+                        ConvertProperties70(sceneInfoProps, state));
+                }
+            }
+
             var defs = parsed.FindPropertyByName("Definitions");
             CheckDefinitions(defs);
 
@@ -814,9 +828,21 @@ namespace FbxSharp
             }
         }
 
-        public static List<Tuple<string, Type, object>> ConvertProperties70(ParseObject props70, ConversionState state)
+        public struct PropInfo(
+            string name,
+            Type propType,
+            FbxDataType propType2,
+            object value)
         {
-            var propNamesTypesValues = new List<Tuple<string, Type, object>>();
+            public readonly string Name = name;
+            public readonly Type PropType = propType;
+            public readonly FbxDataType PropType2 = propType2;
+            public readonly object Value = value;
+        }
+
+        public static List<PropInfo> ConvertProperties70(ParseObject props70, ConversionState state)
+        {
+            var propNamesTypesValues = new List<PropInfo>();
 
             foreach (var p in props70.Properties)
             {
@@ -830,6 +856,7 @@ namespace FbxSharp
                 var comment = ((string)p.Values[3]); // ???
 
                 Type propType;
+                FbxDataType propType2;
                 object propValue;
 
                 switch (type1)
@@ -840,21 +867,25 @@ namespace FbxSharp
                     var g = ((Number)p.Values[5]).AsDouble.Value;
                     var b = ((Number)p.Values[6]).AsDouble.Value;
                     propType = typeof(FbxColor);
+                    propType2 = FbxDataTypes.FbxColor3DT;
                     propValue = new FbxColor(r, g, b);
                     break;
                 case "Visibility":
                 case "bool":
                     propType = typeof(bool);
+                    propType2 = FbxDataTypes.FbxBoolDT;
                     propValue = (((Number)p.Values[4]).AsLong.Value != 0);
                     break;
                 case "enum":
                     propType = typeof(long);
+                    propType2 = FbxDataTypes.FbxEnumDT;
                     propValue = ((Number)p.Values[4]).AsLong.Value;
                     break;
                 case "Vector":
                 case "Vector3":
                 case "Vector3D":
                     propType = typeof(FbxVector3);
+                    propType2 = FbxDataTypes.FbxDouble3DT;
                     var x = ((Number)p.Values[4]).AsDouble.Value;
                     var y = ((Number)p.Values[5]).AsDouble.Value;
                     var z = ((Number)p.Values[6]).AsDouble.Value;
@@ -862,12 +893,14 @@ namespace FbxSharp
                     break;
                 case "int":
                     propType = typeof(int);
+                    propType2 = FbxDataTypes.FbxIntDT;
                     propValue = (int)((Number)p.Values[4]).AsLong.Value;
                     break;
                 case "Lcl Translation":
                 case "Lcl Rotation":
                 case "Lcl Scaling":
                     propType = typeof(FbxVector3);
+                    propType2 = FbxDataTypes.FbxDouble3DT;
                     x = ((Number)p.Values[4]).AsDouble.Value;
                     y = ((Number)p.Values[5]).AsDouble.Value;
                     z = ((Number)p.Values[6]).AsDouble.Value;
@@ -877,6 +910,9 @@ namespace FbxSharp
                     break;
                 case "KString":
                     propType = typeof(string);
+                    propType2 = FbxDataTypes.FbxStringDT;
+                    if (type2 == "Url")
+                        propType2 = FbxDataTypes.FbxUrlDT;
                     propValue = (string)p.Values[4];
                     break;
                 case "FieldOfView":
@@ -884,10 +920,12 @@ namespace FbxSharp
                 case "FieldOfViewY":
                 case "double":
                     propType = typeof(double);
+                    propType2 = FbxDataTypes.FbxDoubleDT;
                     propValue = ((Number)p.Values[4]).AsDouble.Value;
                     break;
                 case "KTime":
                     propType = typeof(FbxTime);
+                    propType2 = FbxDataTypes.FbxTimeDT;
                     long rawValue = ((Number)p.Values[4]).AsLong.Value;
                     long rawValue7700 = rawValue;
                     if (state.LegacyTimeCode)
@@ -898,21 +936,28 @@ namespace FbxSharp
                     break;
                 case "Compound":
                     propType = typeof(string);
+                    propType2 = FbxDataTypes.FbxCompoundDT;
                     propValue = "";
                     break;
                 case "Number":
                     if (comment != "A")
                         throw new ConversionException(p.Location, string.Format("Invalid indicator for Number. Expected 'A'. Got '{0}' instead.", comment));
                     propType = typeof(double);
+                    propType2 = FbxDataTypes.FbxDoubleDT;
                     propValue = ((Number)p.Values[4]).AsDouble.Value;
+                    break;
+                case "DateTime":
+                    propType = typeof(FbxDateTime);
+                    propType2 = FbxDataTypes.FbxDateTimeDT;
+                    propValue = new FbxDateTime();
                     break;
                 default:
                     throw new ConversionException(p.Location, "Unknown property type: " + type1);
                 }
 
                 propNamesTypesValues.Add(
-                    new Tuple<string, Type, object>(
-                        propName, propType, propValue));
+                    new PropInfo(
+                        propName, propType, propType2, propValue));
             }
 
             return propNamesTypesValues;
@@ -1010,26 +1055,27 @@ namespace FbxSharp
             return node;
         }
 
-        public static void ImportProperty(FbxObject obj, string name, Type type, object value)
+        public static void ImportProperty(FbxObject obj, string name, Type type, FbxDataType type2, object value)
         {
-            var pprop = obj.FindProperty(name, type);
-
+            var pprop = obj.FindProperty(name, type2);
             if (pprop == null || !pprop.IsValid())
-            {
-                pprop = obj.CreateProperty(name, type);
-            }
+                pprop = obj.FindPropertyHierarchical(name, type2);
+            if (pprop == null || !pprop.IsValid())
+                pprop = FbxProperty.Create(obj, type2, name);
             pprop.Set(value);
         }
 
-        public static void ImportProperties(FbxObject obj, IEnumerable<Tuple<string, Type, object>> propinfos)
+        public static void ImportProperties(FbxObject obj, 
+            IEnumerable<PropInfo> propinfos)
         {
             foreach (var propinfo in propinfos)
             {
-                var pname = propinfo.Item1;
-                var ptype = propinfo.Item2;
-                var pvalue = propinfo.Item3;
+                var pname = propinfo.Name;
+                var ptype = propinfo.PropType;
+                var ptype2 = propinfo.PropType2;
+                var pvalue = propinfo.Value;
 
-                ImportProperty(obj, pname, ptype, pvalue);
+                ImportProperty(obj, pname, ptype, ptype2, pvalue);
             }
         }
 
@@ -1166,7 +1212,8 @@ namespace FbxSharp
                     break;
                 case "MultiLayer":
                     var multilayer = (((Number)prop.Values[0]).AsLong.Value != 0);
-                    ImportProperty(material, "MultiLayer", typeof(bool), multilayer);
+                    ImportProperty(material, "MultiLayer", typeof(bool),
+                        FbxDataTypes.FbxBoolDT, multilayer);
                     break;
                 case "Properties70":
                     ImportProperties(material, ConvertProperties70(prop, state));
@@ -1470,9 +1517,10 @@ namespace FbxSharp
                     var propinfos = ConvertProperties70(prop, state);
                     foreach (var propinfo in propinfos)
                     {
-                        var pname = propinfo.Item1;
-                        var ptype = propinfo.Item2;
-                        var pvalue = propinfo.Item3;
+                        var pname = propinfo.Name;
+                        var ptype = propinfo.PropType;
+                        var ptype2 = propinfo.PropType2;
+                        var pvalue = propinfo.Value;
 
                         if (pname == "d")
                         {
@@ -1486,7 +1534,7 @@ namespace FbxSharp
                         }
                         else
                         {
-                            ImportProperty(animCurveNode, pname, ptype, pvalue);
+                            ImportProperty(animCurveNode, pname, ptype, ptype2, pvalue);
                         }
                     }
                     break;
