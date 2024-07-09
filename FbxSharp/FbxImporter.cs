@@ -68,6 +68,7 @@ namespace FbxSharp
                 //      6100 = 0x17d4
                 //      7400 = 0x1ce8
                 //      7700 = 0x1e14
+                ParseObject po;
                 if (fhi.mBinary)
                 {
                     count = fs.Read(buffer, 20, 7);
@@ -84,17 +85,8 @@ namespace FbxSharp
                             new Span<byte>(buffer, 23, 4));
                     fhi.mFileVersion = value;
 
-                    count = fs.Read(buffer, 0, 4);
-                    if (count != 4)
-                        throw new InvalidOperationException("Unexpected EOF");
-                    int sectionLength =
-                        BinaryPrimitives.ReadInt32LittleEndian(
-                            new Span<byte>(buffer, 0, 4));
-
-                    count = fs.Read(buffer, 0, sectionLength);
-                    if (count!=sectionLength)
-                        throw new InvalidOperationException("Unexpected EOF");
-                    count = 0;
+                    var parser = new BinaryParser(fs, initializedFilename);
+                    po = parser.ReadObject();
                 }
                 else
                 {
@@ -103,54 +95,54 @@ namespace FbxSharp
                     var t = new Tokenizer(reader);
                     var parser = new Parser(t);
 
-                    var po = parser.ReadObject();
-                    if (po == null)
-                        throw new InvalidOperationException(
-                            "No object read from file");
-                    if (po.Name != "FBXHeaderExtension")
-                        throw new InvalidOperationException(
-                            $"Expected FBXHeaderExtension object, " +
-                            $"got {po.Name}");
-
-                    var prop = po.FindPropertyByName("FBXHeaderVersion");
-                    if (prop == null)
-                        throw new InvalidOperationException(
-                            "No FBXHeaderVersion found");
-                    int fbxHeaderVersion = prop.GetIntValue();
-
-                    prop = po.FindPropertyByName("FBXVersion");
-                    if (prop == null)
-                        throw new InvalidOperationException(
-                            "No FBXVersion found");
-                    fhi.mFileVersion = prop.GetIntValue();
-
-                    prop = po.FindPropertyByName("CreationTimeStamp");
-                    if (prop != null)
-                    {
-                        var lt = new FbxLocalTime();
-                        fhi.mCreationTimeStampPresent = true;
-                        var prop2 = prop.FindPropertyByName("Version");
-                        prop2 = prop.FindPropertyByName("Year");
-                        lt.mYear = prop2.GetIntValue();
-                        prop2 = prop.FindPropertyByName("Month");
-                        lt.mMonth = prop2.GetIntValue();
-                        prop2 = prop.FindPropertyByName("Day");
-                        lt.mDay = prop2.GetIntValue();
-                        prop2 = prop.FindPropertyByName("Hour");
-                        lt.mHour = prop2.GetIntValue();
-                        prop2 = prop.FindPropertyByName("Minute");
-                        lt.mMinute = prop2.GetIntValue();
-                        prop2 = prop.FindPropertyByName("Second");
-                        lt.mSecond = prop2.GetIntValue();
-                        prop2 = prop.FindPropertyByName("Millisecond");
-                        lt.mMillisecond = prop2.GetIntValue();
-
-                        fhi.mCreationTimeStamp = lt;
-                    }
-
-                    prop = po.FindPropertyByName("Creator");
-                    fhi.mCreator = prop.GetStringValue();
+                    po = parser.ReadObject();
                 }
+                if (po == null)
+                    throw new InvalidOperationException(
+                        "No object read from file");
+                if (po.Name != "FBXHeaderExtension")
+                    throw new InvalidOperationException(
+                        $"Expected FBXHeaderExtension object, " +
+                        $"got {po.Name}");
+
+                var prop = po.FindPropertyByName("FBXHeaderVersion");
+                if (prop == null)
+                    throw new InvalidOperationException(
+                        "No FBXHeaderVersion found");
+                int fbxHeaderVersion = prop.GetIntValue();
+
+                prop = po.FindPropertyByName("FBXVersion");
+                if (prop == null)
+                    throw new InvalidOperationException(
+                        "No FBXVersion found");
+                fhi.mFileVersion = prop.GetIntValue();
+
+                prop = po.FindPropertyByName("CreationTimeStamp");
+                if (prop != null)
+                {
+                    var lt = new FbxLocalTime();
+                    fhi.mCreationTimeStampPresent = true;
+                    var prop2 = prop.FindPropertyByName("Version");
+                    prop2 = prop.FindPropertyByName("Year");
+                    lt.mYear = prop2.GetIntValue();
+                    prop2 = prop.FindPropertyByName("Month");
+                    lt.mMonth = prop2.GetIntValue();
+                    prop2 = prop.FindPropertyByName("Day");
+                    lt.mDay = prop2.GetIntValue();
+                    prop2 = prop.FindPropertyByName("Hour");
+                    lt.mHour = prop2.GetIntValue();
+                    prop2 = prop.FindPropertyByName("Minute");
+                    lt.mMinute = prop2.GetIntValue();
+                    prop2 = prop.FindPropertyByName("Second");
+                    lt.mSecond = prop2.GetIntValue();
+                    prop2 = prop.FindPropertyByName("Millisecond");
+                    lt.mMillisecond = prop2.GetIntValue();
+
+                    fhi.mCreationTimeStamp = lt;
+                }
+
+                prop = po.FindPropertyByName("Creator");
+                fhi.mCreator = prop.GetStringValue();
             }
 
             fileHeaderInfo = fhi;
