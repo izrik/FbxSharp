@@ -43,7 +43,7 @@ namespace FbxSharp
             using (var fs = File.OpenRead(initializedFilename))
             {
                 // determine if it's ascii or binary
-                var buffer = new byte[4096];  // TODO: buffer overflow
+                var buffer = new byte[4096]; // TODO: buffer overflow
                 int count = fs.Read(buffer, 0, 20);
                 if (count < 20)
                     throw new InvalidOperationException();
@@ -66,7 +66,11 @@ namespace FbxSharp
                 //  reserved/unknown        2 bytes 0x1a 0x00
                 //  format version          4 bytes little endian uint32
                 //      6100 = 0x17d4
+                //      7100 = 0x1bbc
+                //      7200 = 0x1c20
+                //      7300 = 0x1c84
                 //      7400 = 0x1ce8
+                //      7500 = 0x1d4c
                 //      7700 = 0x1e14
                 ParseObject po;
                 if (fhi.mBinary)
