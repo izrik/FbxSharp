@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace FbxSharp;
 
+[NotSdk]
 public class BinaryParser(Stream stream, string filename = null)
 {
     private Stream stream = stream;
