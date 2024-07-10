@@ -89,7 +89,8 @@ namespace FbxSharp
                             new Span<byte>(buffer, 23, 4));
                     fhi.mFileVersion = value;
 
-                    var parser = new BinaryParser(fs, initializedFilename);
+                    var parser = BinaryParser.FromFileVersion(
+                        fhi.mFileVersion, fs, initializedFilename);
                     po = parser.ReadObject();
                 }
                 else
@@ -167,7 +168,8 @@ namespace FbxSharp
             if (fileHeaderInfo.mBinary)
             {
                 stream.Seek(27, SeekOrigin.Begin);
-                var parser = new BinaryParser(stream, initializedFilename);
+                var parser = BinaryParser.FromFileVersion(
+                    fileHeaderInfo.mFileVersion, stream, initializedFilename);
                 pobjects = parser.ReadFile();
             }
             else

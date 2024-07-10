@@ -6,7 +6,7 @@ using FbxSharp;
 namespace FbxSharpTests;
 
 [TestFixture]
-public class BinaryParserTest : TestBase
+public class BinaryParser7700Test : TestBase
 {
     [Test]
     public void TestReadObject()
@@ -15,7 +15,7 @@ public class BinaryParserTest : TestBase
         var filename = GetSample("empty_7b.fbx");
         using var fs = File.Open(filename, FileMode.Open);
         fs.Seek(27, SeekOrigin.Begin);
-        var parser = new BinaryParser(fs, filename);
+        var parser = new BinaryParser7700(fs, filename);
         var pos = new List<ParseObject>();
 
         // when
@@ -45,16 +45,15 @@ public class BinaryParserTest : TestBase
     [Test]
     public void Test_Read7500FileWith7700Parser()
     {
-        
         // given
         var filename = GetSample("empty_7b_FBX201800.fbx");
         using var fs = File.Open(filename, FileMode.Open);
         fs.Seek(27, SeekOrigin.Begin);
-        var parser = new BinaryParser(fs, filename);
+        var parser = new BinaryParser7700(fs, filename);
 
         // when
         var pos = parser.ReadFile();
         // then
-        Assert.That(pos.Count, Is.EqualTo(6));
+        Assert.That(pos.Count, Is.EqualTo(11));
     }
 }
