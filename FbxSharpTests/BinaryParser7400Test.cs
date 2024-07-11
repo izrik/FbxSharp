@@ -39,4 +39,19 @@ public class BinaryParser7400Test : TestBase
         Assert.That(po.Properties[5].Values[0], Is.EqualTo("SceneInfo::GlobalInfo"));
         Assert.That(po.Properties[5].Values[1], Is.EqualTo("UserData"));
     }
+
+    [Test]
+    public void Test_Read7300FileWith7400Parser()
+    {
+        // given
+        var filename = GetSample("empty_7b_FBX201300.fbx");
+        using var fs = File.Open(filename, FileMode.Open);
+        fs.Seek(27, SeekOrigin.Begin);
+        var parser = new BinaryParser7400(fs, filename);
+
+        // when
+        var pos = parser.ReadFile();
+        // then
+        Assert.That(pos.Count, Is.EqualTo(11));
+    }
 }

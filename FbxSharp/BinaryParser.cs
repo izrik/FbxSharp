@@ -18,6 +18,7 @@ public abstract class BinaryParser(Stream stream, string filename = null)
             case 7500:
                 return new BinaryParser7700(stream, filename);
             case 7400:
+            case 7300:
                 return new BinaryParser7400(stream, filename);
             default:
                 throw new ArgumentException(
