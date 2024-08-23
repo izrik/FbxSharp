@@ -43,6 +43,7 @@ public class BinaryParser7400(Stream stream, string filename = null)
         int i;
         for (i = 0; i < numValues; i++)
         {
+            var _typePosition = stream.Position;
             var type = (byte)stream.ReadByte();
             object value = type switch
             {
@@ -51,6 +52,8 @@ public class BinaryParser7400(Stream stream, string filename = null)
                 0x4c => new Number(ReadInt64()),
                 0x52 => ReadByteSequence(),
                 0x53 => ReadStringN(),
+                0x64 => ReadFloatingPointArray(),
+                069 => ReadInt32Array(),
                 _ => throw new InvalidOperationException(
                     $"Unknown value type 0x{type:x8}")
             };
@@ -68,8 +71,10 @@ public class BinaryParser7400(Stream stream, string filename = null)
         {
             po.HasEmptyBlock = true;
             // read sub-objects
+            var _firstSubObjectPosition = stream.Position;
             while (true)
             {
+                var _subObjectPosition = stream.Position;
                 var child = ReadObject();
                 if (child == null)
                     break;

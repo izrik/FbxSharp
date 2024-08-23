@@ -54,6 +54,16 @@ public abstract class BinaryParser(Stream stream, string filename = null)
         return BinaryPrimitives.ReadDoubleLittleEndian(buffer);
     }
 
+    protected float ReadFloat()
+    {
+        const int length = 4;
+        Span<byte> buffer = stackalloc byte[length];
+        var count = stream.Read(buffer);
+        if (count != length)
+            throw new InvalidOperationException("count != length");
+        return BinaryPrimitives.ReadSingleLittleEndian(buffer);
+    }
+
     protected int ReadInt32()
     {
         // Little-endian
@@ -121,6 +131,68 @@ public abstract class BinaryParser(Stream stream, string filename = null)
         while (rv.Length < length)
             rv += s;
         rv = rv.Substring(0, length);
+        return rv;
+    }
+
+    protected object ReadFloatingPointArray()
+    {
+        var _arrayPosition = stream.Position;
+        var numElements = ReadInt32();
+        var elementType = ReadInt32();
+        switch (elementType)
+        {
+            case 0: return ReadDoubleArrayElements(numElements);
+            case 1: return ReadFloatArrayElements(numElements);
+            default:
+                throw new InvalidOperationException(
+                    $"Unrecognized element type:" +
+                    $" {elementType} {elementType:x8}");
+        }
+    }
+
+    protected double[] ReadDoubleArrayElements(int numElements)
+    {
+        var _elementsPosition = stream.Position;
+        var numBytes = ReadInt32();
+        if (numBytes != numElements * 8)
+            throw new InvalidOperationException(
+                "numBytes != numElements * 8");
+        var rv = new double[numElements];
+        for (var i = 0; i < numElements; i++)
+            rv[i] = ReadDouble();
+        return rv;
+    }
+
+    protected float[] ReadFloatArrayElements(int numElements)
+    {
+        var _elementsPosition = stream.Position;
+        var numBytes = ReadInt32();
+        if (numBytes != numElements * 4)
+            throw new InvalidOperationException(
+                $"numBytes != numElements * 4 " +
+                $"({numBytes} != {numElements * 4})");
+        var rv = new float[numElements];
+        for (var i = 0; i < numElements; i++)
+            rv[i] = ReadFloat();
+        return rv;
+    }
+
+    protected int[] ReadInt32Array()
+    {
+        var numElements = ReadInt32();
+        var reserved = ReadInt32();
+        if (reserved != 0)
+            throw new InvalidOperationException("reserved != 0");
+        // alternately, the number of elements might be an int64, and the
+        // reserved field is not actually a field of its own.
+
+        var numBytes = ReadInt32();
+        if (numBytes != numElements * 4)
+            throw new InvalidOperationException(
+                "numBytes != numElements * 4");
+        var rv = new int[numElements];
+        for (var i = 0; i < numElements; i++)
+            rv[i] = ReadInt32();
         return rv;
     }
 
