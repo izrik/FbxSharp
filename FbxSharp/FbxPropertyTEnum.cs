@@ -64,13 +64,14 @@ public class FbxPropertyTEnum : FbxProperty
         //  then use that
         // else
         //  throw
-        if ((typeof(U).IsAssignableFrom(typeof(int))))
+        var actualType = value.GetType();
+        if ((typeof(int).IsAssignableFrom(actualType)))
         {
             Value = (int)(object)value;
             return true;
         }
 
-        var tuple = new Tuple<Type, Type>(typeof(U), typeof(int));
+        var tuple = new Tuple<Type, Type>(actualType, typeof(int));
         if (Converters.ContainsKey(tuple))
         {
             var converter = Converters[tuple];
@@ -81,9 +82,56 @@ public class FbxPropertyTEnum : FbxProperty
         throw new InvalidCastException(); // maybe find a better exception to throw
     }
 
-    public override bool Set(object value)
+    public /*override*/ bool Set(object value)
     {
-        return Set<object>(value);
+        var actualType = value.GetType();
+        if (typeof(int).IsAssignableFrom(actualType))
+        {
+            Value = (int)value;
+            return true;
+        }
+
+        if (typeof(long).IsAssignableFrom(actualType))
+        {
+            Value = Convert.ToInt32((long)value);
+            return true;
+        }
+
+        if (typeof(int).IsEnum)
+        {
+            object v = null;
+            if (actualType == typeof(long))
+                v = (int)Enum.ToObject(typeof(int), (long)(object)value);
+            else if (actualType == typeof(ulong))
+                v = (int)Enum.ToObject(typeof(int), (ulong)(object)value);
+            else if (actualType == typeof(int))
+                v = (int)Enum.ToObject(typeof(int), (int)(object)value);
+            else if (actualType == typeof(uint))
+                v = (int)Enum.ToObject(typeof(int), (uint)(object)value);
+            else if (actualType == typeof(short))
+                v = (int)Enum.ToObject(typeof(int), (short)(object)value);
+            else if (actualType == typeof(ushort))
+                v = (int)Enum.ToObject(typeof(int), (ushort)(object)value);
+            else if (actualType == typeof(byte))
+                v = (int)Enum.ToObject(typeof(int), (byte)(object)value);
+            else if (actualType == typeof(sbyte))
+                v = (int)Enum.ToObject(typeof(int), (sbyte)(object)value);
+            if (v != null)
+            {
+                Value = (int)v;
+                return true;
+            }
+        }
+
+        var tuple = new Tuple<Type, Type>(actualType, typeof(int));
+        if (Converters.TryGetValue(tuple, out Func<object, object> converter))
+        {
+            Value = (int)converter(value);
+            return true;
+        }
+
+        throw new NotImplementedException();
+        // return Set<object>(value);
     }
 
     #region Enum and property list

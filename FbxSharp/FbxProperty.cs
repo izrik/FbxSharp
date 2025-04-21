@@ -587,7 +587,8 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public virtual bool Set(object value)
+        [DeviationFromSdk("change parameter type to object from void*")]
+        protected virtual bool Set(object pValue, EFbxType pValueType, bool pCheckForValueEquality=true)
         {
             throw new NotImplementedException();
         }
