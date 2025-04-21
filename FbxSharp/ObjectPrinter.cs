@@ -44,8 +44,8 @@ namespace FbxSharp
             writer.WriteLine("    ClassId = {0}", obj.GetType().Name/*obj.GetRuntimeClassId().GetName()*/);
             writer.WriteLine("    UniqueId = {0}", obj.GetUniqueID());
             writer.WriteLine("    GetScene() = {0}", PrintObjectID(obj.GetScene()));
-//            writer.Write("    GetDocument() = {0}", PrintObjectID(obj.GetDocument()));
-//            writer.Write("    GetRootDocument() = {0}", PrintObjectID(obj.GetRootDocument()));
+            // writer.WriteLine("    GetDocument() = {0}", PrintObjectID(obj.GetDocument()));
+            // writer.WriteLine("    GetRootDocument() = {0}", PrintObjectID(obj.GetRootDocument()));
             writer.WriteLine("    SrcObjectCount = {0}", obj.GetSrcObjectCount());
 
             int i;
@@ -178,10 +178,10 @@ namespace FbxSharp
             string prefix = indent ? "            " : "        ";
 
             writer.WriteLine("{0}Name = {1}", prefix, prop.GetName());
-            var type = prop.GetPropertyDataType().GetDotnetType();
-            writer.WriteLine("{0}Type = {1}", prefix, type.GetName());
-//            writer.WriteLine("{0}HierName = {1}", prefix, prop.GetHierarchicalName());
-//            writer.WriteLine("{0}Label = {1}", prefix, prop.GetLabel());
+            var type = prop.GetPropertyDataType().GetFbxType();
+            writer.WriteLine("{0}Type = {1}", prefix, type);
+            writer.WriteLine("{0}HierName = {1}", prefix, prop.GetHierarchicalName());
+            writer.WriteLine("{0}Label = {1}", prefix, prop.GetLabel());
 
 //            char n[1024];
             int i;
@@ -209,144 +209,98 @@ namespace FbxSharp
 
             bool printValue = true;
 
-//            switch (type.GetType())
-//            {
-//            case eFbxUndefined:
-//                printValue = false;
-//                break;
-//            case eFbxChar:
-            if (type == typeof(sbyte))
+            switch (type)
             {
-                ch = ((FbxPropertyT<sbyte>)prop).Get();
-                sb.AppendFormat("%i ('%c')", (int)ch, ch);
-            }
-//                break;
-//            case eFbxUChar:
-            if (type == typeof(byte))
-            {
-                uch = prop.Get<byte>();
-                sb.AppendFormat("%i ('%c')", (uint)uch, uch);
-            }
-//                break;
-//            case eFbxShort:
-            if (type == typeof(short))
-            {
-                sh = prop.Get<short>();
-                sb.AppendFormat("%i", (int)sh);
-            }
-//                break;
-//            case eFbxUShort:
-            if (type == typeof(ushort))
-            {
-                ush = prop.Get<ushort>();
-                sb.AppendFormat("%ui", (uint)ush);
-            }
-//                break;
-//            case eFbxUInt:
-            if (type == typeof(uint))
-            {
-                ui = prop.Get<uint>();
-                sb.AppendFormat("%ui", ui);
-            }
-//                break;
-//            case eFbxLongLong:
-            if (type == typeof(long))
-            {
-                ll = prop.Get<long>();
-                sb.AppendFormat("%lli", ll);
-            }
-//                break;
-//            case eFbxULongLong:
-            if (type == typeof(ulong))
-            {
-                ull = prop.Get<ulong>();
-                sb.AppendFormat("%llu", ull);
-            }
-//                break;
-//            case eFbxHalfFloat:
-//                printValue = false;
-//                break;
-//            case eFbxBool:
-            if (type == typeof(bool))
-            {
-                b = prop.Get<bool>();
-                if (b)
-                    sb.AppendFormat("true");
-                else
-                    sb.AppendFormat("false");
-            }
-//                break;
-//            case eFbxInt:
-            if (type == typeof(int))
-            {
-                i = prop.Get<int>();
-                sb.AppendFormat("%i", i);
-            }
-//                break;
-//            case eFbxFloat:
-            if (type == typeof(float))
-            {
-                f = prop.Get<float>();
-                sb.AppendFormat("%f", f);
-            }
-//                break;
-//            case eFbxDouble:
-            if (type == typeof(double))
-            {
-                d = prop.Get<double>();
-                sb.AppendFormat("{0}", d);
-            }
-//                break;
-//            case eFbxDouble2:
-            if (type == typeof(FbxVector2))
-            {
-                v2 = prop.Get<FbxVector2>();
-                sb.AppendFormat("{0}, {1}", v2.X, v2.Y);
-            }
-//                break;
-//            case eFbxDouble3:
-            if (type == typeof(FbxVector3))
-            {
-                v3 = prop.Get<FbxVector3>();
-                sb.AppendFormat("{0}, {1}, {2}", v3.X, v3.Y, v3.Z);
-            }
-//                break;
-//            case eFbxDouble4:
-            if (type == typeof(FbxVector4))
-            {
-                v4 = prop.Get<FbxVector4>();
-                sb.AppendFormat("{0}, {1}, {2}, {3}", v4.X, v4.Y, v4.Z, v4.W);
-            }
-//                break;
-//            case eFbxDouble4x4:
-//            case eFbxEnum:
-//                printValue = false;
-//                break;
-//            case eFbxString:
-            if (type == typeof(string))
-            {
-                fstr = prop.Get<string>();
-                sb.Append(quote(fstr));
-            }
-//                break;
-//            case eFbxTime:
-            if (type == typeof(FbxTime))
-            {
-                t = prop.Get<FbxTime>();
-                sb.AppendFormat("{0}", t);
-            }
-//                break;
-//            case eFbxReference:
+                case EFbxType.eFbxUndefined:
+                    printValue = false;
+                    break;
+                case EFbxType.eFbxChar:
+                    ch = ((FbxPropertyT<sbyte>)prop).Get();
+                    sb.AppendFormat("%i ('%c')", (int)ch, ch);
+                    break;
+                case EFbxType.eFbxUChar:
+                    uch = prop.Get<byte>();
+                    sb.AppendFormat("%i ('%c')", (uint)uch, uch);
+                    break;
+                case EFbxType.eFbxShort:
+                    sh = prop.Get<short>();
+                    sb.AppendFormat("%i", (int)sh);
+                    break;
+                case EFbxType.eFbxUShort:
+                    ush = prop.Get<ushort>();
+                    sb.AppendFormat("%ui", (uint)ush);
+                    break;
+                case EFbxType.eFbxUInt:
+                    ui = prop.Get<uint>();
+                    sb.AppendFormat("%ui", ui);
+                    break;
+                case EFbxType.eFbxLongLong:
+                    ll = prop.Get<long>();
+                    sb.AppendFormat("%lli", ll);
+                    break;
+                case EFbxType.eFbxULongLong:
+                    ull = prop.Get<ulong>();
+                    sb.AppendFormat("%llu", ull);
+                    break;
+                case EFbxType.eFbxHalfFloat:
+                    printValue = false;
+                    break;
+                case EFbxType.eFbxBool:
+                    b = prop.Get<bool>();
+                    if (b)
+                        sb.AppendFormat("true");
+                    else
+                        sb.AppendFormat("false");
+                    break;
+                case EFbxType.eFbxInt:
+                    i = prop.Get<int>();
+                    sb.AppendFormat("%i", i);
+                    break;
+                case EFbxType.eFbxFloat:
+                    f = prop.Get<float>();
+                    sb.AppendFormat("%f", f);
+                    break;
+                case EFbxType.eFbxDouble:
+                    d = prop.Get<double>();
+                    sb.AppendFormat("{0}", d);
+                    break;
+                case EFbxType.eFbxDouble2:
+                    v2 = prop.Get<FbxVector2>();
+                    sb.AppendFormat("{0}, {1}", v2.X, v2.Y);
+                    break;
+                case EFbxType.eFbxDouble3:
+                    v3 = prop.Get<FbxVector3>();
+                    sb.AppendFormat("{0}, {1}, {2}", v3.X, v3.Y, v3.Z);
+                    break;
+                case EFbxType.eFbxDouble4:
+                    v4 = prop.Get<FbxVector4>();
+                    sb.AppendFormat("{0}, {1}, {2}, {3}", v4.X, v4.Y, v4.Z,
+                        v4.W);
+                    break;
+                case EFbxType.eFbxDouble4x4:
+                case EFbxType.eFbxEnum:
+                    printValue = false;
+                    break;
+                case EFbxType.eFbxString:
+                    fstr = prop.Get<string>();
+                    sb.Append(quote(fstr));
+                    break;
+                case EFbxType.eFbxTime:
+                    t = prop.Get<FbxTime>();
+                    sb.AppendFormat("{0}", t);
+                    break;
+                case EFbxType.eFbxReference:
                 //            FbxObject* obj;
                 //            obj = prop.Get<FbxObject*>();
                 //            cout << prefix << ".Value = " << obj.GetRuntimeClassId().GetName() << ", uid=" << obj.GetUniqueID() << endl;
                 //            break;
-//            case eFbxBlob:
-//            case eFbxDistance:
-//            case eFbxDateTime:
-//            case eFbxTypeCount:
-//                printValue = false;
-//                break;
+                case EFbxType.eFbxBlob:
+                case EFbxType.eFbxDistance:
+                case EFbxType.eFbxDateTime:
+                case EFbxType.eFbxTypeCount:
+                    printValue = false;
+                    break;
+            }
 
             if (printValue)
             {
@@ -366,22 +320,22 @@ namespace FbxSharp
                 FbxObject dstObj = prop.GetDstObject(i);
                 writer.WriteLine("{0}    #{1} {2}", prefix , i, PrintObjectID(dstObj));
             }
-//            writer.WriteLine("{0}{1}{2}", prefix , "SrcPropertyCount = " , prop.GetSrcPropertyCount() );
-//            for (i = 0; i < prop.GetSrcPropertyCount(); i++)
-//            {
-//                Property prop2 = prop.GetSrcProperty(i);
-//                writer.Write("{0}{1}{2}", prefix , "    #" , i , " ");
-//                PrintPropertyID(prop2);
-//                writer.WriteLine();
-//            }
-//            writer.WriteLine("{0}{1}{2}", prefix , "DstPropertyCount = " , prop.GetDstPropertyCount() );
-//            for (i = 0; i < prop.GetDstPropertyCount(); i++)
-//            {
-//                Property prop2 = prop.GetDstProperty(i);
-//                writer.Write("{0}{1}{2}", prefix , "    #" , i , " ");
-//                PrintPropertyID(prop2);
-//                writer.WriteLine();
-//            }
+            // writer.WriteLine("{0}{1}{2}", prefix , "SrcPropertyCount = " , prop.GetSrcPropertyCount() );
+            // for (i = 0; i < prop.GetSrcPropertyCount(); i++)
+            // {
+            //     FbxProperty prop2 = prop.GetSrcProperty(i);
+            //     writer.Write("{0}{1}{2}", prefix , "    #" , i , " ");
+            //     PrintPropertyID(prop2);
+            //     writer.WriteLine();
+            // }
+            // writer.WriteLine("{0}{1}{2}", prefix , "DstPropertyCount = " , prop.GetDstPropertyCount() );
+            // for (i = 0; i < prop.GetDstPropertyCount(); i++)
+            // {
+            //     FbxProperty prop2 = prop.GetDstProperty(i);
+            //     writer.Write("{0}{1}{2}", prefix , "    #" , i , " ");
+            //     PrintPropertyID(prop2);
+            //     writer.WriteLine();
+            // }
         }
 
 
