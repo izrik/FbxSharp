@@ -23,7 +23,7 @@ namespace FbxSharp
                 string.Format("{0} . {1} : {2}",
                     PrintObjectID(pobj),
                     quote(prop.GetName()),
-                    prop.PropertyDataType.FullName);
+                    prop.GetPropertyDataType().GetFbxType());
         }
 
         public static string PrintObjectID(FbxObject obj)
