@@ -196,6 +196,17 @@ public abstract class BinaryParser(Stream stream, string filename = null)
         return rv;
     }
 
+    protected bool ReadBoolean()
+    {
+        var value = stream.ReadByte();
+        if (value == 'Y') return true;
+        if (value == 'N') return false;
+        if (value == 1) return true;
+        if (value == 0) return false;
+        throw new ArgumentException(
+            $"Unrecognized boolean value \"{value}\"");
+    }
+
     public abstract ParseObject ReadObject();
 
 

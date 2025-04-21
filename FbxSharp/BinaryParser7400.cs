@@ -47,7 +47,8 @@ public class BinaryParser7400(Stream stream, string filename = null)
             var type = (byte)stream.ReadByte();
             object value = type switch
             {
-                0x44 =>  new Number(ReadDouble()),
+                0x43 => ReadBoolean(),
+                0x44 => new Number(ReadDouble()),
                 0x49 => new Number(ReadInt32()),
                 0x4c => new Number(ReadInt64()),
                 0x52 => ReadByteSequence(),
