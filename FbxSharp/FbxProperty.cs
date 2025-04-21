@@ -22,6 +22,13 @@ namespace FbxSharp
         {
             AddConverter(typeof(FbxVector4), typeof(FbxVector3), (v4) => ((FbxVector4)v4).ToVector3());
             AddConverter(typeof(FbxVector3), typeof(FbxVector4), (v3) => ((FbxVector3)v3).ToVector4());
+            AddConverter(typeof(FbxColor), typeof(FbxVector3), c0 =>
+            {
+                var c = (FbxColor)c0;
+                return new FbxVector3(c.Red, c.Green, c.Blue);
+            });
+            AddConverter(typeof(long), typeof(int), value => (int)(((long)value) & 0xffffffff));
+            AddConverter(typeof(bool), typeof(double), value => (bool)value ? 1d : 0d);
         }
 
         [NotSdk]
