@@ -19,6 +19,8 @@ namespace FbxSharp
 
         public override string ToString()
         {
+            if (Index > 0)
+                return string.Format("{0}[{1} 0x{1:x}]", Filename, Index);
             return string.Format("{0}:{1},{2}", Filename, Line, Column);
         }
     }
