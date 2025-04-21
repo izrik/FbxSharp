@@ -141,14 +141,16 @@ namespace FbxSharp
             return TransformLink;
         }
 
+        public FbxMatrix transformAssociateModelMatrix = FbxMatrix.Identity;
+
         public void SetTransformAssociateModelMatrix(FbxMatrix pMatrix)
         {
-            throw new NotImplementedException();
+            transformAssociateModelMatrix = pMatrix;
         }
 
         public FbxMatrix GetTransformAssociateModelMatrix(FbxMatrix pMatrix)
         {
-            throw new NotImplementedException();
+            return transformAssociateModelMatrix;
         }
 
         public void SetTransformParentMatrix(FbxMatrix pMatrix)
