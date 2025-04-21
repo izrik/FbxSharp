@@ -151,6 +151,54 @@ public abstract class BinaryParser(Stream stream, string filename = null)
         }
     }
 
+    protected double[] ReadDoubleArray()
+    {
+        var _arrayPosition = stream.Position;
+        var numElements = ReadInt32();
+        var flags = ReadInt32();
+        switch (flags)
+        {
+            case 0: return ReadDoubleArrayElements(numElements);
+            case 1:
+                // array data is deflate'd
+                var numBytes = ReadInt32();
+                var _dataStartPosition = stream.Position;
+                var numDecompressedBytes =
+                    sizeof(double) * numElements;
+                var buffer = new byte[numDecompressedBytes];
+                using (
+                    var zs = new ZLibStream(stream, CompressionMode.Decompress,
+                        true))
+                {
+                    var total = 0;
+                    while (total < numDecompressedBytes)
+                    {
+                        var numBytesRead =
+                            zs.Read(buffer, total,
+                                numDecompressedBytes - total);
+                        total += numBytesRead;
+                    }
+
+                    var _dataEndPosition = stream.Position;
+                    // zs.Read may read more from the underlying stream than
+                    // needed, due to buffering. Therefore, we need to rewind
+                    // the location of the stream to the actual end location
+                    // of the compressed array.
+                    stream.Seek(_dataStartPosition + numBytes,
+                        SeekOrigin.Begin);
+                    var elements = new double[numElements];
+                    Buffer.BlockCopy(buffer, 0, elements, 0, numDecompressedBytes);
+                    return elements;
+                }
+
+                break;
+            default:
+                throw new InvalidOperationException(
+                    $"Unrecognized double array flags:" +
+                    $" {flags} {flags:x8}");
+        }
+    }
+
     protected double[] ReadDoubleArrayElements(int numElements)
     {
         var _elementsPosition = stream.Position;

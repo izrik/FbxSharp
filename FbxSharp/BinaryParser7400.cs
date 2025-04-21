@@ -53,7 +53,7 @@ public class BinaryParser7400(Stream stream, string filename = null)
                 0x4c => new Number(ReadInt64()),
                 0x52 => ReadByteSequence(),
                 0x53 => ReadStringN(),
-                0x64 => ReadFloatingPointArray(),
+                0x64 => ReadDoubleArray(),
                 069 => ReadInt32Array(),
                 _ => throw new InvalidOperationException(
                     $"Unknown value type 0x{type:x8}")
