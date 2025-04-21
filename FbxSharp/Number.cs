@@ -100,5 +100,7 @@ namespace FbxSharp
 
         public override int GetHashCode() =>
             HashCode.Combine(StringRepresentation, AsLong, AsDouble);
+
+        public static implicit operator Number(int i) => new Number(i);
     }
 }
