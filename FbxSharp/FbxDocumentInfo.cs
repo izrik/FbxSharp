@@ -102,7 +102,7 @@ public class FbxDocumentInfo : FbxObject
 
         Original = FbxProperty.Create(RootProperty, FbxDataTypes.FbxCompoundDT,
             "Original");
-        Original.Set<object>("");
+        Original.Set("");
         Original_ApplicationVendor =
             (FbxPropertyT<string>)FbxProperty.Create(Original,
                 FbxDataTypes.FbxStringDT, "ApplicationVendor");
@@ -125,7 +125,7 @@ public class FbxDocumentInfo : FbxObject
 
         LastSaved = FbxProperty.Create(RootProperty,
             FbxDataTypes.FbxCompoundDT, "LastSaved");
-        LastSaved.Set<object>("");
+        LastSaved.Set("");
         LastSaved_ApplicationVendor =
             (FbxPropertyT<string>)FbxProperty.Create(LastSaved,
                 FbxDataTypes.FbxStringDT, "ApplicationVendor");
