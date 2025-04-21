@@ -33,7 +33,7 @@ namespace FbxSharpTests
             var r = new FbxVector4(0, 0, 0);
             var s = new FbxVector4(1, 1, 1);
             var expected = new FbxMatrix(t, r, s);
-            node.LclTranslation.Set(t);
+            node.LclTranslation.Set(t.ToVector3());
 
             // when:
             var actual = node.EvaluateGlobalTransform();
@@ -51,7 +51,7 @@ namespace FbxSharpTests
             var r = new FbxVector4(22, 33, 44);
             var s = new FbxVector4(1, 1, 1);
             var expected = new FbxMatrix(t, r, s);
-            node.LclRotation.Set(r);
+            node.LclRotation.Set(r.ToVector3());
 
             // when:
             var actual = node.EvaluateGlobalTransform();
@@ -69,7 +69,7 @@ namespace FbxSharpTests
             var r = new FbxVector4(0, 0, 0);
             var s = new FbxVector4(5, 6, 7);
             var expected = new FbxMatrix(t, r, s);
-            node.LclScaling.Set(s);
+            node.LclScaling.Set(s.ToVector3());
 
             // when:
             var actual = node.EvaluateGlobalTransform();
@@ -87,8 +87,8 @@ namespace FbxSharpTests
             node1.AddChild(node2);
             var t = new FbxVector4(2, 3, 4);
             var r = new FbxVector4(45, 0, 0);
-            node1.LclTranslation.Set(t);
-            node2.LclRotation.Set(r);
+            node1.LclTranslation.Set(t.ToVector3());
+            node2.LclRotation.Set(r.ToVector3());
 
             // when:
             var actual = node1.EvaluateGlobalTransform();
@@ -142,8 +142,8 @@ namespace FbxSharpTests
             node1.AddChild(node2);
             var t = new FbxVector4(2, 3, 4);
             var r = new FbxVector4(45, 0, 0);
-            node1.LclRotation.Set(r);
-            node2.LclTranslation.Set(t);
+            node1.LclRotation.Set(r.ToVector3());
+            node2.LclTranslation.Set(t.ToVector3());
 
             // when:
             var actual = node1.EvaluateGlobalTransform();
@@ -197,8 +197,8 @@ namespace FbxSharpTests
             node1.AddChild(node2);
             var r1 = new FbxVector4(45, 0, 0);
             var r2 = new FbxVector4(0, 60, 0);
-            node1.LclRotation.Set(r1);
-            node2.LclRotation.Set(r2);
+            node1.LclRotation.Set(r1.ToVector3());
+            node2.LclRotation.Set(r2.ToVector3());
 
             // when:
             var g1 = node1.EvaluateGlobalTransform();
