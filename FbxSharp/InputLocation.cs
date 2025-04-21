@@ -9,13 +9,13 @@ namespace FbxSharp
             Line = line;
             Column = column;
             Index = index;
-	    Filename = filename;
+            Filename = filename;
         }
 
         public readonly int Line;
         public readonly int Column;
         public readonly int Index;
-	public readonly string Filename;
+        public readonly string Filename;
 
         public override string ToString()
         {
@@ -23,4 +23,3 @@ namespace FbxSharp
         }
     }
 }
-
