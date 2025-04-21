@@ -75,10 +75,11 @@ public static class EFbxTypeHelper
             case EFbxType.eFbxString:
                 return typeof(string);
             case EFbxType.eFbxTime:
+                return typeof(FbxTime);
             case EFbxType.eFbxReference:
             case EFbxType.eFbxBlob:
             case EFbxType.eFbxDistance:
-                throw new NotImplementedException();
+                throw new NotImplementedException($"Not implemented for type {fbxType}");
             case EFbxType.eFbxDateTime:
                 return typeof(FbxDateTime);
             case EFbxType.eFbxTypeCount:
