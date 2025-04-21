@@ -2,6 +2,7 @@ using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -179,13 +180,55 @@ public abstract class BinaryParser(Stream stream, string filename = null)
 
     protected int[] ReadInt32Array()
     {
+        var _arrayPosition = stream.Position;
         var numElements = ReadInt32();
-        var reserved = ReadInt32();
-        if (reserved != 0)
-            throw new InvalidOperationException("reserved != 0");
-        // alternately, the number of elements might be an int64, and the
-        // reserved field is not actually a field of its own.
+        var flags = ReadInt32();
+        switch (flags)
+        {
+            case 0: return ReadInt32ArrayElements(numElements);
+            case 1:
+                // array data is deflate'd
+                var numBytes = ReadInt32();
+                var _dataStartPosition = stream.Position;
+                var numDecompressedBytes =
+                    sizeof(int) * numElements;
+                var buffer = new byte[numDecompressedBytes];
+                using (
+                    var zs = new ZLibStream(stream, CompressionMode.Decompress,
+                        true))
+                {
+                    var total = 0;
+                    while (total < numDecompressedBytes)
+                    {
+                        var numBytesRead =
+                            zs.Read(buffer, total,
+                                numDecompressedBytes - total);
+                        total += numBytesRead;
+                    }
 
+                    var _dataEndPosition = stream.Position;
+                    // zs.Read may read more from the underlying stream than
+                    // needed, due to buffering. Therefore, we need to rewind
+                    // the location of the stream to the actual end location
+                    // of the compressed array.
+                    stream.Seek(_dataStartPosition + numBytes,
+                        SeekOrigin.Begin);
+                    var elements = new int[numElements];
+                    Buffer.BlockCopy(buffer, 0, elements, 0, numDecompressedBytes);
+                    return elements;
+                }
+
+                break;
+            default:
+                throw new InvalidOperationException(
+                    $"Unrecognized int array flags:" +
+                    $" {flags} {flags:x8}");
+        }
+
+    }
+
+    protected int[] ReadInt32ArrayElements(int numElements)
+    {
         var numBytes = ReadInt32();
         if (numBytes != numElements * 4)
             throw new InvalidOperationException(
