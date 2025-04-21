@@ -904,7 +904,7 @@ namespace FbxSharp
         {
             var pprop = obj.FindProperty(name, type2);
 
-            if (pprop == null)
+            if (pprop == null || !pprop.IsValid())
             {
                 pprop = FbxProperty.Create(obj, type2, name);
             }
