@@ -33,7 +33,9 @@ namespace FbxSharpTests
             var writer = new StringWriter();
             var expected =
 @"        Name = something
-        Type = Double
+        Type = eFbxDouble
+        HierName = something
+        Label = 
         Value = 0
         SrcObjectCount = 0
         DstObjectCount = 0
