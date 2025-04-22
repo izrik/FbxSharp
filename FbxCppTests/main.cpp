@@ -36,7 +36,9 @@ int main (int argc, char *argv[])
     for (int i = 1; i < argc; i++)
         args.push_back(std::string(argv[i]));
 
-    RunTestsWithArgs(args);
+    int nFailures = RunTestsWithArgs(args);
 
+    if (nFailures > 0)
+        return 1;
     return 0;
 }

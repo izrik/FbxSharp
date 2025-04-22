@@ -11,8 +11,8 @@
 #include "Assertions.h"
 #include "Utils.h"
 
-void RunTests();
-void RunTestsWithArgs(std::vector<std::string>& args);
+int RunTests();
+int RunTestsWithArgs(std::vector<std::string>& args);
 
 typedef void (*TestFunction)();
 

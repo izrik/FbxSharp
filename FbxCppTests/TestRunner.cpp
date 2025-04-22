@@ -119,12 +119,12 @@ bool CompareTestFixturesByName(TestFixture* a, TestFixture* b)
     return false;
 }
 
-void RunTests()
+int RunTests()
 {
     vector<string> args;
-    RunTestsWithArgs(args);
+    return RunTestsWithArgs(args);
 }
-void RunTestsWithArgs(vector<string>& args)
+int RunTestsWithArgs(vector<string>& args)
 {
     if (args.size() > 0)
     {
@@ -253,4 +253,6 @@ void RunTestsWithArgs(vector<string>& args)
             cout << "  " << tc->ParentFixture->Name << "." << tc->Name << endl;
         }
     }
+
+    return failures.size();
 }
