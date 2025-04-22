@@ -659,7 +659,6 @@ namespace FbxSharp
 
         protected void _PrintFbxNull(FbxNull obj, TextWriter writer)
         {
-            throw new NotImplementedException();
         }
 
         protected void _PrintFbxSkeleton(FbxSkeleton obj, TextWriter writer)
