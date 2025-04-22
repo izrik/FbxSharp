@@ -293,8 +293,10 @@ namespace FbxSharp
                         v4.W);
                     break;
                 case EFbxType.eFbxDouble4x4:
-                case EFbxType.eFbxEnum:
                     printValue = false;
+                    break;
+                case EFbxType.eFbxEnum:
+                    sb.AppendFormat("{0}", prop.GetValue());
                     break;
                 case EFbxType.eFbxString:
                     fstr = prop.Get<string>();
