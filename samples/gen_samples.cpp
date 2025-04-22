@@ -1269,9 +1269,6 @@ void print_usage(vector<Operation>& ops)
 
 int main(int argc, char** argv)
 {
-// TODO: rename export-old-versions to something like export-all-format-variants
-// TODO: add an export-all-formats command that export to 4 formats: 6a, 6b, 7a, 7b
-//    cout << "Initialize operations" << endl;
     auto operations = vector{
         Operation{.name = "io-settings", .fn = io_settings, .args = {"FILENAME"}},
         Operation{.name = "print-properties", .fn = print_properties},
@@ -1332,7 +1329,3 @@ int main(int argc, char** argv)
     }
     return 0;
 }
-
-// TODO: fill out the gen_samples.cpp file so we can gen samples
-// TODO: gen samples of a basic cube or box (or monolith!) via FbxMesh and
-//       friends, and then export it to all of the different formats.
