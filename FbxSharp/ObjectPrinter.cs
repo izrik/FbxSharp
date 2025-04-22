@@ -41,6 +41,22 @@ namespace FbxSharp
         {
             writer.WriteLine("${0}", PrintObjectID(obj));  // extra $ for easy text search
             writer.WriteLine("    Name = {0}", quote(obj.GetName()));
+
+            writer.WriteLine("      GetNameWithoutNameSpacePrefix = {0}", quote(obj.GetNameWithoutNameSpacePrefix()));
+            writer.WriteLine("      GetNameWithNameSpacePrefix = {0}", quote(obj.GetNameWithNameSpacePrefix()));
+            writer.WriteLine("      GetInitialName = {0}", quote(obj.GetInitialName()));
+            writer.WriteLine("      GetNameSpaceOnly = {0}", quote(obj.GetNameSpaceOnly()));
+            var namespaces = obj.GetNameSpaceArray(':');
+            writer.WriteLine("      GetNameSpaceArray ({0})", namespaces.Length);
+            int i;
+            for (i = 0; i < namespaces.Length; i++)
+            {
+                var ns = namespaces[i];
+                writer.WriteLine("        # {0} {1}", i,quote(ns));
+            }
+            writer.WriteLine("      GetNameOnly = {0}", quote(obj.GetNameOnly()));
+            writer.WriteLine("      GetNameSpacePrefix = {0}", quote(obj.GetNameSpacePrefix()));
+
             writer.WriteLine("    ClassId = {0}", obj.GetType().Name/*obj.GetRuntimeClassId().GetName()*/);
             writer.WriteLine("    UniqueId = {0}", obj.GetUniqueID());
             writer.WriteLine("    GetScene() = {0}", PrintObjectID(obj.GetScene()));
@@ -48,7 +64,6 @@ namespace FbxSharp
             // writer.WriteLine("    GetRootDocument() = {0}", PrintObjectID(obj.GetRootDocument()));
             writer.WriteLine("    SrcObjectCount = {0}", obj.GetSrcObjectCount());
 
-            int i;
             for (i = 0; i < obj.GetSrcObjectCount(); i++)
             {
                 FbxObject srcObj = obj.GetSrcObject(i);
