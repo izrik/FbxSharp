@@ -46,5 +46,15 @@ namespace FbxSharpTests
             Assert.AreEqual(FbxNull.sDefaultSize, n.Size.Get());
             Assert.AreEqual(FbxNull.sDefaultLook, n.Look.Get());
         }
+
+        [Test]
+        public void FbxNull_Create_HasNamespacePrefix()
+        {
+            // given:
+            var obj = new FbxNull("asdf");
+
+            // then:
+            Assert.AreEqual("NodeAttribute::", obj.GetNameSpacePrefix());;
+        }
     }
 }

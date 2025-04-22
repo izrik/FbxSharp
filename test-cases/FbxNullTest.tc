@@ -29,3 +29,10 @@ test FbxNull_Reset_ResetsPropertyValues
     then
       AssertEqual(FbxNull::sDefaultSize, n.Size&.Get())
       AssertEqual(FbxNull::sDefaultLook, n.Look&.Get())
+
+test FbxNull_Create_HasNamespacePrefix
+    given
+    FbxNull obj = new("asdf")
+
+    then
+    AssertEqual("NodeAttribute:\:", obj.GetNameSpacePrefix());

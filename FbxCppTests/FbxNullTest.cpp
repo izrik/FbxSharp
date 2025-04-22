@@ -42,10 +42,21 @@ void FbxNull_Reset_ResetsPropertyValues()
     AssertEqual(FbxNull::sDefaultLook, n->Look.Get());
 }
 
+void FbxNull_Create_HasNamespacePrefix()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxNull* obj = FbxNull::Create(manager, "asdf");
+
+    // then:
+    AssertEqual("NodeAttribute::", obj->GetNameSpacePrefix());;
+}
+
 void FbxNullTest::RegisterTestCases()
 {
     AddTestCase(FbxNull_StaticInitialization);
     AddTestCase(FbxNull_Create_SetsDefaults);
     AddTestCase(FbxNull_Reset_ResetsPropertyValues);
+    AddTestCase(FbxNull_Create_HasNamespacePrefix);
 }
 
