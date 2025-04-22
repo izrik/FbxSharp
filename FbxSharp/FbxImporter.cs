@@ -191,7 +191,7 @@ namespace FbxSharp
             var success = Initialize(filename);
             if (!success)
                 throw new InvalidOperationException("Failed to initialize");
-            var scene = new FbxScene();
+            var scene = new FbxScene("Scene");
             success = Import(scene);
             if (!success)
                 throw new InvalidOperationException("Failed to import");

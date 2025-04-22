@@ -43,7 +43,7 @@ namespace FbxSharp
 
                         if (converter != null)
                         {
-                            return converter.ConvertScene(parsedObjects);
+                            return converter.ConvertScene(parsedObjects, scene);
                         }
                     }
                 }

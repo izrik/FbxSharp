@@ -20,7 +20,7 @@ namespace FbxSharp
             };
 
             if (scene == null)
-                scene = new FbxScene();
+                scene = new FbxScene("Scene");
 
             var docs = parsed.FindPropertyByName("Documents");
             if (docs != null)
