@@ -1,3 +1,6 @@
+
+// Generate FBX files programmatically to test differences in file formats.
+
 #include <iostream>
 #include <cctype>
 #include <vector>
