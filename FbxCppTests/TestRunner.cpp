@@ -168,6 +168,7 @@ int RunTestsWithArgs(vector<string>& args)
     all_tests.push_back(new FbxIOSettingsTest());
     all_tests.push_back(new FbxDocumentInfoTest());
     all_tests.push_back(new FbxDataTypesTest());
+    all_tests.push_back(new FbxNullTest());
 
     vector<TestFixture*> tests;
 
