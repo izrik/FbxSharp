@@ -105,7 +105,9 @@ namespace FbxSharp
                 if (!asLong.HasValue) throw new InvalidOperationException();
                 var inFileSrcId = (ulong)asLong.Value;
                 var srcId = actualIdsByInFileIds[inFileSrcId];
-                var inFileDstId = (ulong)((Number)conn.Values[2]).AsLong.Value;
+                asLong = ((Number)conn.Values[2]).AsLong;
+                if (!asLong.HasValue) throw new InvalidOperationException();
+                var inFileDstId = (ulong)asLong.Value;
                 var dstId = (inFileDstId == 0 ? 0 : actualIdsByInFileIds[inFileDstId]);
                 FbxObject dstObj;
                 FbxObject srcObj;
