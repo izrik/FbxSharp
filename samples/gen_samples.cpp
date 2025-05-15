@@ -15,7 +15,6 @@ using namespace std;
 struct ProgramState
 {
     FbxManager* manager;
-    //FbxIOSettings* ios;
     FbxScene* scene;
 
     ProgramState();
@@ -24,9 +23,7 @@ struct ProgramState
 ProgramState::ProgramState()
 {
     manager = FbxManager::Create();
-//    FbxIOSettings* ios = FbxIOSettings::Create(lSdkManager, IOSROOT);
     scene = FbxScene::Create(manager, "");
-//    FbxExporter* exporter = FbxExporter::Create(lSdkManager, "");
 }
 
 void print_object_properties(FbxObject* obj)
