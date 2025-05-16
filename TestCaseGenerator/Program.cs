@@ -151,6 +151,8 @@ namespace TestCaseGenerator
             Action<TestFile, TextWriter> generator, string language)
         {
             var inputFolder = (string)args["input"];
+            if (string.IsNullOrWhiteSpace(inputFolder))
+                inputFolder = Environment.CurrentDirectory;
             var inputDi = new DirectoryInfo(inputFolder);
             if (!inputDi.Exists)
                 throw new DirectoryNotFoundException(
