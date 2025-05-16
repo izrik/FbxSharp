@@ -1752,19 +1752,44 @@ namespace FbxSharp
                         throw new ConversionException(prop.Location, string.Format("Unknown KeyVer. Expected 4008 or 4009. Got {0} instead.", keyVersion));
                     break;
                 case "KeyTime":
-                    keyTimes = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
+                    if (prop.Properties.Count>0)
+                        keyTimes = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
+                    else if (prop.Values.Count > 0)
+                        keyTimes = (long[])prop.Values[0];
+                    else
+                        throw new NotImplementedException();
                     break;
                 case "KeyValueFloat":
-                    keyValues = prop.Properties[0].Values.Select(n => ((Number)n).AsDouble.Value).ToArray();
+                    if (prop.Properties.Count>0)
+                        keyValues = prop.Properties[0].Values.Select(n => ((Number)n).AsDouble.Value).ToArray();
+                    else if (prop.Values.Count > 0)
+                        keyValues = ((float[])(prop.Values[0])).Select(f => (double)f).ToArray();
+                    else
+                        throw new NotImplementedException();
                     break;
                 case "KeyAttrFlags":
-                    attrFlags = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
+                    if (prop.Properties.Count > 0)
+                        attrFlags = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
+                    else if (prop.Values.Count > 0)
+                        attrFlags = ((int[])(prop.Values[0])).Select(i => (long)i).ToArray();
+                    else
+                        throw new NotImplementedException();
                     break;
                 case "KeyAttrDataFloat":
-                    attrData = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
+                    if (prop.Properties.Count > 0)
+                        attrData = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
+                    else if (prop.Values.Count > 0)
+                        attrData = ((float[])(prop.Values[0])).Select(v => (long)v).ToArray();
+                    else
+                        throw new NotImplementedException();
                     break;
                 case "KeyAttrRefCount":
-                    attrRefCounts = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
+                    if (prop.Properties.Count > 0)
+                        attrRefCounts = prop.Properties[0].Values.Select(n => ((Number)n).AsLong.Value).ToArray();
+                    else if (prop.Values.Count > 0)
+                        attrRefCounts = ((int[])(prop.Values[0])).Select(v => (long)v).ToArray();
+                    else
+                        throw new NotImplementedException();
                     break;
                 default:
                     throw new ConversionException(prop.Location, string.Format("Unknown property in FbxAnimCurve. Expected 'Default', 'KeyVer', 'KeyTime', 'KeyValueFloat', 'KeyAttrFlags', 'KeyAttrDataFloat', or 'KeyAttrRefCount'. Got '{0}' instead.", prop.Name));
