@@ -179,6 +179,31 @@ void _AssertEqual(FbxDataType expected, FbxDataType actual, const char* filename
     }
 }
 
+void _AssertEqual(long expected, long actual, const char* filename, int line)
+{
+    if (!(expected == actual))
+    {
+        stringstream ss;
+        ss << "Expected " << expected << " but got " << actual << ", at " << filename << ":" << line;
+        throw new string(ss.str());
+    }
+}
+
+void _AssertEqual(long expected, FbxLongLong actual, const char* filename, int line)
+{
+    if (!(expected == actual))
+    {
+        stringstream ss;
+        ss << "Expected " << expected << " but got " << actual << ", at " << filename << ":" << line;
+        throw new string(ss.str());
+    }
+}
+
+void _AssertEqual(int expected, long actual, const char* filename, int line)
+{
+    _AssertEqual((long)expected, actual, filename, line);
+}
+
 void _AssertNotEqual(void* not_expected, void* actual, const char* filename, int line)
 {
     if (not_expected == actual)
