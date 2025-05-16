@@ -1082,17 +1082,34 @@ namespace FbxSharp
 
         public static void ConvertVertices(FbxMesh mesh, ParseObject obj, ConversionState state)
         {
-            var values = obj.Values;// Properties[0].Values;
-            mesh.InitControlPoints(values.Count / 3);
-            int i;
-            for (i = 0; i+2 < values.Count; i+=3)
+            var values = obj.Values; // Properties[0].Values;
+            if (values.Count == 1 && values[0] is double[] arr)
             {
-                var v = new FbxVector4(
-                        ((Number)values[i]).AsDouble.Value,
-                        ((Number)values[i+1]).AsDouble.Value,
-                        ((Number)values[i+2]).AsDouble.Value,
+                mesh.InitControlPoints(arr.Length / 3);
+                int i;
+                for (i = 0; i + 2 < arr.Length; i += 3)
+                {
+                    var v = new FbxVector4(
+                        arr[i],
+                        arr[i + 1],
+                        arr[i + 2],
                         0);
-                mesh.SetControlPointAt(v, i/3);
+                    mesh.SetControlPointAt(v, i / 3);
+                }
+            }
+            else
+            {
+                mesh.InitControlPoints(values.Count / 3);
+                int i;
+                for (i = 0; i + 2 < values.Count; i += 3)
+                {
+                    var v = new FbxVector4(
+                        ((Number)values[i]).AsDouble.Value,
+                        ((Number)values[i + 1]).AsDouble.Value,
+                        ((Number)values[i + 2]).AsDouble.Value,
+                        0);
+                    mesh.SetControlPointAt(v, i / 3);
+                }
             }
         }
 
