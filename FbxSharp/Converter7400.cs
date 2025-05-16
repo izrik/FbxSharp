@@ -129,18 +129,10 @@ namespace FbxSharp
                     srcObj = fbxObjectsById[srcId];
                     nonSrcObjs.Remove(srcObj);
                     dstProp.ConnectSrcObject(srcObj);
-                    Console.WriteLine($"Connected from {fbxObjectsById[srcId]} -> {dstProp} of {dstObj}");
                     break;
                 default:
                     throw new ConversionException(conn.Location, string.Format("Unknown connection type. Expected 'OO' or 'OP'. Got '{0}' instead.", connType));
                 }
-            }
-
-            Console.WriteLine("Connections complete");
-            Console.WriteLine("Non-Dst objects:");
-            foreach (var nonDstObj in nonDstObjs)
-            {
-                Console.WriteLine($"  {nonDstObj} ({inFileIdsByActualIds[nonDstObj.UniqueId]})");
             }
 
             // fix-up material layer elements
