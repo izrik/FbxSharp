@@ -11,6 +11,7 @@ namespace FbxCli
                 PrintCommand.Value);
             commander.Commands.Add(ExploreCommand.Value.Name,
                 ExploreCommand.Value);
+            commander.Commands.Add(InflateCommand.Value.Name, InflateCommand.Value);
             if (args == null || args.Length < 1)
             {
                 commander.ProcessArgs("help");
