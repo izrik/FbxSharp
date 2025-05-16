@@ -41,6 +41,7 @@ void print_object_properties(FbxObject* obj)
         prop = obj->GetNextProperty(prop);
     }
 }
+
 void print_io_settings(FbxIOSettings* settings)
 {
     std::cout << "    SrcObjects: " << settings->GetSrcObjectCount() << " (src)" << std::endl;
@@ -94,22 +95,6 @@ void io_settings(ProgramState& state, vector<string>& args)
     string& filename = args[0];
 
     FbxImporter* importer = FbxImporter::Create(state.manager, "");
-    // bool result;
-    //
-    // cout << "Before initialize:" << endl;
-    // cout << "Manager's GetIOSettings: " << manager->GetIOSettings() << endl;
-    // print_importer(importer);
-    // cout << "File: " << filename << endl;
-    //
-    // // when:
-    // result = importer->Initialize(filename, -1,
-    //                               manager->GetIOSettings());
-    //
-    // // then:
-    // cout << "result: " << result << std::endl;
-    // cout << "After initialize:" << endl;
-    // cout << "Manager's GetIOSettings: " << manager->GetIOSettings() << endl;
-    // print_importer(importer);
     FbxIOSettings* settings = FbxIOSettings::Create(state.manager, "");
     std::cout << "    SrcObjects: " << settings->GetSrcObjectCount() << " (src)" << std::endl;
     std::cout << "    DstObjects: " << settings->GetDstObjectCount() << " (dst)" << std::endl;
@@ -158,122 +143,6 @@ void print_properties(ProgramState& state, vector<string>&) {
     // prop3.Set(3.0);
     // cout << "prop2: " << prop2.Get<double>() << endl;
     // cout << "prop3: " << prop3.Get<double>() << endl;
-}
-
-void print_data_types(ProgramState& state, vector<string>&)
-{
-    // FbxAnimLayer* layer = FbxAnimLayer::Create(manager, "anim_layer");
-    // cout << "layer: 0x" << layer << endl;
-    // FbxSurfacePhong* phong = FbxSurfacePhong::Create(manager, "phong");
-    // cout << "phong: 0x" << phong << endl;
-    // FbxProperty* lcolor = &layer->Color;
-    // cout << "lcolor: 0x" << lcolor << endl;
-    // FbxProperty* pcolor = &phong->Specular;
-    // cout << "pcolor: 0x" << pcolor << endl;
-    // FbxDataType ltype = lcolor->GetPropertyDataType();
-    // cout << "ltype: " << ltype << endl;
-    // FbxDataType ptype = pcolor->GetPropertyDataType();
-    // cout << "ptype: " << ptype << endl;
-    // const FbxPropertyHandle* lhandle = &ltype.GetTypeInfoHandle();
-    // cout << "lhandle: 0x" << lhandle << endl;
-    // lhandle = &ltype.GetTypeInfoHandle();
-    // cout << "lhandle: 0x" << lhandle << endl;
-    // const FbxPropertyHandle* phandle = &ptype.GetTypeInfoHandle();
-    // cout << "phandle: 0x" << phandle << endl;
-    // cout << ltype.Is(ptype) << endl;
-
-    // FbxPropertyHandle h1 = FbxPropertyHandle();
-    // cout << "h1: " << h1 << endl;
-    // cout << "h1.GTI: " << h1.GetTypeInfo() << endl;
-    // cout << "h1.GF: " << h1.GetFlags() << endl;
-    // cout << "h1.GUD: " << h1.GetUserData() << endl;
-    // cout << "h1.GUT: " << h1.GetUserTag() << endl;
-    // FbxPropertyHandle h2 = FbxPropertyHandle::Create();
-    // cout << "h2: " << h2 << endl;
-    // cout << "h2.GTI: " << h2.GetTypeInfo() << endl;
-    // cout << "h2.GF: " << h2.GetFlags() << endl;
-    // cout << "h2.GUD: " << h2.GetUserData() << endl;
-    // cout << "h2.GUT: " << h2.GetUserTag() << endl;
-    // FbxPropertyHandle h3 = FbxPropertyHandle::Create("abc", EFbxType::eFbxInt);
-    // cout << "h3: " << h3 << endl;
-    // cout << "h3.GTI: " << h3.GetTypeInfo() << endl;
-    // cout << "h3.GF: " << h3.GetFlags() << endl;
-    // cout << "h3.GUD: " << h3.GetUserData() << endl;
-    // cout << "h3.GUT: " << h3.GetUserTag() << endl;
-
-    // FbxProperty* rprop = &importer->RootProperty;
-    // cout << "rprop: 0x" << rprop << endl;
-    // PrintPropertyID(rprop, true); cout << endl;
-    // cout << "rprop.GPDT: " << rprop->GetPropertyDataType() << endl;
-
-    // FbxProperty prop = settings->GetProperty(IOSN_PLUGIN_GRP);
-    // cout << "prop: 0x" << &prop << endl;
-    // cout << "prop.IsValid(): " << prop.IsValid() << endl;
-    // PrintPropertyID(&prop, true); cout << endl;
-    // cout << "prop.GPDT: " << prop.GetPropertyDataType() << endl;
-
-    // FbxNode* node = FbxNode::Create(manager, "");
-    // FbxProperty* prop = &node->QuaternionInterpolate;
-    // cout << "prop: 0x" << prop << endl;
-    // cout << "prop.IsValid(): " << prop->IsValid() << endl;
-    // PrintPropertyID(prop, true); cout << endl;
-    // cout << "prop.GPDT: " << prop->GetPropertyDataType() << endl;
-    // int n = prop->GetEnumCount();
-    // cout << "prop.GEC: " << n << endl;
-    // int i;
-    // for (i = 0; i < n; i++)
-    // {
-    //     cout << "  " << i << ": " << prop->GetEnumValue(i) << endl;
-    // }
-    //
-    // prop = &node->LookAtProperty;
-    // cout << "prop: 0x" << prop << endl;
-    // cout << "prop.IsValid(): " << prop->IsValid() << endl;
-    // PrintPropertyID(prop, true); cout << endl;
-    // cout << "prop.GPDT: " << prop->GetPropertyDataType() << endl;
-
-
-
-    // FbxNode* obj = FbxNode::Create(manager, "");
-    // FbxProperty prop = obj->DefaultAttributeIndex;
-    // cout << "IsValid: " << prop.IsValid() << endl;
-    // cout << "IsRoot: " << prop.IsRoot() << endl;
-    // cout << "Name: " << prop.GetName() << endl;
-    // cout << "HName: " << prop.GetHierarchicalName() << endl;
-    //
-    // FbxDataType dt = prop.GetPropertyDataType();
-    // cout << "Valid: " << dt.Valid() << endl;
-    // cout << "GetType: " << dt.GetType() << endl;
-    // cout << "GetName: " << dt.GetName() << endl;
-    // cout << "GetTIH: " << dt.GetTypeInfoHandle() << endl;
-    // FbxPropertyHandle tih = dt.GetTypeInfoHandle();
-    // cout << "  Valid: " << tih.Valid() << endl;
-    // cout << "  GetName: " << tih.GetName() << endl;
-    // cout << "  GetLabel: " << tih.GetLabel() << endl;
-    // cout << "  GetType: " << tih.GetType() << endl;
-    // FbxPropertyHandle ti2 = tih.GetTypeInfo();
-    // cout << "  GetTypeInfo: " << ti2 << endl;
-    // cout << "  GetFlags: " << tih.GetFlags() << endl;
-    // cout << "  GetUserData: " << tih.GetUserData() << endl;
-    // cout << "  GetUserTag: " << tih.GetUserTag() << endl;
-    //
-    // cout << "=====" << endl;
-    //
-    // dt = FbxDataType::Create("int", EFbxType::eFbxInt);;
-    // cout << "Valid: " << dt.Valid() << endl;
-    // cout << "GetType: " << dt.GetType() << endl;
-    // cout << "GetName: " << dt.GetName() << endl;
-    // cout << "GetTIH: " << dt.GetTypeInfoHandle() << endl;
-    // /*FbxPropertyHandle*/ tih = dt.GetTypeInfoHandle();
-    // cout << "  Valid: " << tih.Valid() << endl;
-    // cout << "  GetName: " << tih.GetName() << endl;
-    // cout << "  GetLabel: " << tih.GetLabel() << endl;
-    // cout << "  GetType: " << tih.GetType() << endl;
-    // /*FbxPropertyHandle*/ ti2 = tih.GetTypeInfo();
-    // cout << "  GetTypeInfo: " << ti2 << endl;
-    // cout << "  GetFlags: " << tih.GetFlags() << endl;
-    // cout << "  GetUserData: " << tih.GetUserData() << endl;
-    // cout << "  GetUserTag: " << tih.GetUserTag() << endl;
 }
 
 void import_export(ProgramState& state, vector<string>&) {
@@ -1272,7 +1141,6 @@ int main(int argc, char** argv)
     auto operations = vector{
         Operation{.name = "io-settings", .fn = io_settings, .args = {"FILENAME"}},
         Operation{.name = "print-properties", .fn = print_properties},
-        Operation{.name = "data-types", .fn = print_data_types},
         Operation{.name = "import-export", .fn = import_export},
         Operation{.name = "export-all-version-variants", .fn = export_all_version_variants, .args = {"FILENAME_PREFIX"}},
         Operation{.name = "data-types-yaml", .fn = print_data_types_yaml},
