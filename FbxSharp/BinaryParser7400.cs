@@ -47,16 +47,18 @@ public class BinaryParser7400(Stream stream, string filename = null)
             var type = (byte)stream.ReadByte();
             object value = type switch
             {
-                0x43 => ReadBoolean(),
-                0x44 => new Number(ReadDouble()),
-                0x49 => new Number(ReadInt32()),
-                0x4c => new Number(ReadInt64()),
-                0x52 => ReadByteSequence(),
-                0x53 => ReadStringN(),
-                0x64 => ReadDoubleArray(),
-                0x69 => ReadInt32Array(),
+                0x43 /* C */ => ReadBoolean(),
+                0x44 /* D */ => new Number(ReadDouble()),
+                0x49 /* I */ => new Number(ReadInt32()),
+                0x4c /* L */ => new Number(ReadInt64()),
+                0x52 /* R */ => ReadByteSequence(),
+                0x53 /* S */ => ReadStringN(),
+                0x64 /* d */ => ReadDoubleArray(),
+                0x66 /* f */ => ReadFloatArray(),
+                0x69 /* i */ => ReadInt32Array(),
+                0x6c /* l */ => ReadInt64Array(),
                 _ => throw new InvalidOperationException(
-                    $"Unknown value type 0x{type:x8}")
+                    $"Unknown value type 0x{type:x8} at position 0x{_typePosition:x8}")
             };
 
             po.Values.Add(value);
