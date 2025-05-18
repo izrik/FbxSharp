@@ -21,6 +21,8 @@ public abstract class BinaryParser(Stream stream, string filename = null)
             case 7400:
             case 7300:
                 return new BinaryParser7400(stream, filename);
+            case 6100:
+                return new BinaryParser6100(stream, filename);
             default:
                 throw new ArgumentException(
                     $"Unrecognized file version: {fileVersion}",
