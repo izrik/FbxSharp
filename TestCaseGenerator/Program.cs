@@ -384,6 +384,14 @@ namespace TestCaseGenerator
                             break;
                         default:
                             var outline = stmt;
+
+                            outline = Regex.Replace(outline, @"\$ref\s*", "ref ");
+                            outline = Regex.Replace(outline, @"\$out\s*", "out ");
+                            // outline = Regex.Replace(outline, @"\$new\s*", "new ");
+
+                            outline = Regex.Replace(outline, @"\bFbxInt\b", "int");
+                            outline = Regex.Replace(outline, @"\bFbxDouble\b", "double");
+
                             if ((testFile.UseConstraints ||
                                  fixture.UseConstraints ||
                                  testcase.UseConstraints) &&
@@ -482,6 +490,7 @@ namespace TestCaseGenerator
                                         "new " + targetTypeName);
                                 outline = string.Join(" ", parts);
                             }
+                            // outline = outline.Replace("!", "");
 
                             parts = outline.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                             if (parts.Count == 2)
@@ -604,6 +613,10 @@ namespace TestCaseGenerator
                                     outline = string.Join(" ", parts);
                                 }
                             }
+
+                            outline = Regex.Replace(outline, @"\$ref\s*", "");
+                            outline = Regex.Replace(outline, @"\$out\s*", "");
+                            outline = Regex.Replace(outline, @"\$new\s*", "");
 
                             if (Regex.IsMatch(outline, @"\bnew\b"))
                             {
