@@ -244,13 +244,15 @@ namespace TestCaseGenerator
                     TestFixture currentFixture = null;
                     TestCase currentTest = null;
 
+                    bool traceNextStatement = false;
+
                     while (!reader.EndOfStream)
                     {
                         var line = reader.ReadLine();
                         if (string.IsNullOrWhiteSpace(line))
                         {
                             if (currentTest != null)
-                                currentTest.Statements.Add(string.Empty);
+                                currentTest.AddStatement(string.Empty, traceNextStatement);
                             continue;
                         }
 
@@ -263,6 +265,12 @@ namespace TestCaseGenerator
                                 currentFixture.UseConstraints = true;
                             else
                                 testFile.UseConstraints = true;
+                            continue;
+                        }
+
+                        if (trimmed == "#trace")
+                        {
+                            traceNextStatement = true;
                             continue;
                         }
 
@@ -310,12 +318,14 @@ namespace TestCaseGenerator
                             case "then":
                             case "expect":
                                 if (currentTest != null)
-                                    currentTest.Statements.Add(parts[0]
-                                        .ToLower());
+                                    currentTest.AddStatement(
+                                        parts[0].ToLower(),
+                                        traceNextStatement);
                                 break;
                             default:
                                 if (currentTest != null)
-                                    currentTest.Statements.Add(trimmed);
+                                    currentTest.AddStatement(trimmed, 
+                                        traceNextStatement);
                                 else if (currentFixture != null)
                                     currentFixture.Epilogue.Add(trimmed);
                                 else
@@ -361,6 +371,7 @@ namespace TestCaseGenerator
                     int blanks = 0;
                     List<String> parts;
                     var lineno = 0;
+                    bool trace = false;
                     foreach (var stmt in testcase.Statements)
                     {
                         lineno++;
