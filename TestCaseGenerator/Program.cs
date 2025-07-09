@@ -324,7 +324,7 @@ namespace TestCaseGenerator
                                 break;
                             default:
                                 if (currentTest != null)
-                                    currentTest.AddStatement(trimmed, 
+                                    currentTest.AddStatement(trimmed,
                                         traceNextStatement);
                                 else if (currentFixture != null)
                                     currentFixture.Epilogue.Add(trimmed);
@@ -339,6 +339,40 @@ namespace TestCaseGenerator
                 {
                     generator(testFile, writer);
                 }
+            }
+        }
+
+        struct StatementLine(string pValue, bool pTrace = false)
+        {
+            public string Value { get; private set; } = pValue;
+            public readonly bool Trace = pTrace;
+
+            public void Set(string value)
+            {
+                Value = value;
+            }
+
+            public void Replace(string oldValue, string newValue)
+            {
+                var newLine = Value.Replace(oldValue, newValue);
+                Value = newLine;
+            }
+            public void Replace(char oldValue, char newValue)
+            {
+                var newLine = Value.Replace(oldValue, newValue);
+                Value = newLine;
+            }
+
+            public void RegexReplace(string pattern, string replacement)
+            {
+                var newValue = Regex.Replace(Value, pattern, replacement);
+                Value=newValue;
+            }
+
+            public void RegexReplace(string pattern, MatchEvaluator replacement)
+            {
+                var newValue = Regex.Replace(Value, pattern, replacement);
+                Value=newValue;
             }
         }
 
@@ -371,9 +405,12 @@ namespace TestCaseGenerator
                     int blanks = 0;
                     List<String> parts;
                     var lineno = 0;
-                    bool trace = false;
-                    foreach (var stmt in testcase.Statements)
+                    int i;
+                    for (i = 0; i < testcase.Statements.Count; i++)
                     {
+                        var stmt = testcase.Statements[i];
+                        var trace = testcase.StatementsToTraceIndexes.Contains(i);
+
                         lineno++;
                         if (string.IsNullOrWhiteSpace(stmt))
                         {
@@ -394,93 +431,90 @@ namespace TestCaseGenerator
                             writer.WriteLine("            // {0}:", stmt);
                             break;
                         default:
-                            var outline = stmt;
+                            var outline = new StatementLine(stmt, trace);
 
-                            outline = Regex.Replace(outline, @"\$ref\s*", "ref ");
-                            outline = Regex.Replace(outline, @"\$out\s*", "out ");
-                            // outline = Regex.Replace(outline, @"\$new\s*", "new ");
+                            outline.RegexReplace(@"\$ref\s*", "ref ");
+                            outline.RegexReplace(@"\$out\s*", "out ");
+                            // outline.RegexReplace(@"\$new\s*", "new ");
 
-                            outline = Regex.Replace(outline, @"\bFbxInt\b", "int");
-                            outline = Regex.Replace(outline, @"\bFbxDouble\b", "double");
+                            outline.RegexReplace(@"\bFbxInt\b", "int");
+                            outline.RegexReplace(@"\bFbxDouble\b", "double");
 
                             if ((testFile.UseConstraints ||
                                  fixture.UseConstraints ||
                                  testcase.UseConstraints) &&
-                                outline.StartsWith("Assert"))
+                                outline.Value.StartsWith("Assert"))
                             {
-                                var paren = outline.IndexOf('(') + 1;
-                                var outline2 = outline[paren..^1];
+                                var paren = outline.Value.IndexOf('(') + 1;
+                                var outline2 = outline.Value[paren..^1];
                                 var parts1 = outline2.Split(",");
                                 var new_rhs = string.Join(",", parts1[..^1]).Trim();
                                 var new_lhs = parts1[^1].Trim();
-                                if (outline.StartsWith("AssertEqual"))
+                                if (outline.Value.StartsWith("AssertEqual"))
                                 {
-                                    outline = string.Format(
-                                        "Assert.That({0}, Is.EqualTo({1}))",
-                                        new_lhs, new_rhs);
+                                    outline.Set(
+                                        string.Format(
+                                            "Assert.That({0}, Is.EqualTo({1}))",
+                                            new_lhs, new_rhs));
                                 }
-                                else if (outline.StartsWith("AssertNotEqual"))
+                                else if (outline.Value.StartsWith("AssertNotEqual"))
                                 {
-                                    outline = string.Format(
-                                        "Assert.That({0}, Is.Not.EqualTo({1}))",
-                                        new_lhs, new_rhs);
+                                    outline.Set(
+                                        string.Format(
+                                            "Assert.That({0}, Is.Not.EqualTo({1}))",
+                                            new_lhs, new_rhs));
                                 }
-                                else if (outline.StartsWith("AssertSame"))
+                                else if (outline.Value.StartsWith("AssertSame"))
                                 {
-                                    outline = string.Format(
-                                        "Assert.That({0}, Is.SameAs({1}))",
-                                        new_lhs, new_rhs);
+                                    outline.Set(
+                                        string.Format(
+                                            "Assert.That({0}, Is.SameAs({1}))",
+                                            new_lhs, new_rhs));
                                 }
                                 else
                                 {
-                                    outline = Regex.Replace(outline,
-                                        @"Assert(\w)",
-                                        m => "Assert." + m.Groups[1].Value);
+                                    outline.RegexReplace(
+                                            @"Assert(\w)",
+                                            m => "Assert." + m.Groups[1].Value);
                                 }
                             }
                             else
                             {
-                                outline = outline.Replace("AssertEqual", "Assert.AreEqual");
-                                outline = outline.Replace("AssertNotEqual", "Assert.AreNotEqual");
-                                outline = outline.Replace("AssertSame", "Assert.AreSame");
-                                outline = Regex.Replace(outline, @"Assert(\w)", m => "Assert." + m.Groups[1].Value);
+                                outline.Replace("AssertEqual", "Assert.AreEqual");
+                                outline.Replace("AssertNotEqual", "Assert.AreNotEqual");
+                                outline.Replace("AssertSame", "Assert.AreSame");
+                                outline.RegexReplace(@"Assert(\w)", m => "Assert." + m.Groups[1].Value);
                             }
 
-                            outline = outline.Replace("&", "");
-                            outline =
-                                Regex.Replace(
-                                    outline,
-                                    @"([\w])\*(\s)",
-                                    m => m.Groups[1].Value + m.Groups[2].Value);
-                            outline =
-                                Regex.Replace(
-                                    outline,
-                                    @"(\s)\*([\w>])",
-                                    m => m.Groups[1].Value + m.Groups[2].Value);
-                            outline =
-                                Regex.Replace(
-                                    outline,
+                            outline.Replace("&", "");
+                            outline.RegexReplace(
+                                        @"([\w])\*(\s)",
+                                        m => m.Groups[1].Value + m.Groups[2].Value);
+                            outline.RegexReplace(
+                                        @"(\s)\*([\w>])",
+                                        m => m.Groups[1].Value + m.Groups[2].Value);
+                            outline.RegexReplace(
                                     @"([\w()])\*([\w>])",
                                     m => m.Groups[1].Value + m.Groups[2].Value);
-                            outline = outline.Replace("::", ".");
-                            outline = outline.Replace(":\\:", "::");
+                            outline.Replace("::", ".");
+                            outline.Replace(":\\:", "::");
 
-                            outline = Regex.Replace(outline, @"\bFbx\$", "");
+                            outline.RegexReplace(@"\bFbx\$", "");
 
-                            outline = Regex.Replace(outline, @"\b(\d+L)L\b", m => m.Groups[1].Value);
+                            outline.RegexReplace(@"\b(\d+L)L\b", m => m.Groups[1].Value);
 
-                            if (Regex.IsMatch(outline, @"^\w+\s*\*\s*\w+$"))
+                            if (Regex.IsMatch(outline.Value, @"^\w+\s*\*\s*\w+$"))
                             {
-                                outline = outline.Replace('*', ' ');
+                                outline.Replace('*', ' ');
                             }
 
-                            if (Regex.IsMatch(outline, @"new&"))
+                            if (Regex.IsMatch(outline.Value, @"new&"))
                             {
-                                outline = outline.Replace("new&", "new");
+                                outline.Replace("new&", "new");
                             }
-                            else if (Regex.IsMatch(outline, @"\bnew\b"))
+                            else if (Regex.IsMatch(outline.Value, @"\bnew\b"))
                             {
-                                parts = outline.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                                parts = outline.Value.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                                 parts[0] = parts[0].Replace("!", "");
                                 var targetTypeName = parts[0];
                                 if (targetTypeName == "FbxLayerContainer" ||
@@ -499,11 +533,11 @@ namespace TestCaseGenerator
                                 if (parts.Count > 3)
                                     parts[3] = parts[3].Replace("new",
                                         "new " + targetTypeName);
-                                outline = string.Join(" ", parts);
+                                outline.Set(string.Join(" ", parts));
                             }
-                            // outline = outline.Replace("!", "");
+                            // outline.Replace("!", "");
 
-                            parts = outline.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                            parts = outline.Value.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                             if (parts.Count == 2)
                             {
                                 var targetTypeName = parts[0];
@@ -520,37 +554,35 @@ namespace TestCaseGenerator
                                 }
 
                                 parts[0] = targetTypeName;
-                                outline = string.Join(" ", parts);
+                                outline.Set(string.Join(" ", parts));
                             }
                             else if (parts.Count > 3 && parts[2] == "=")
                             {
                                 parts[0] = "var";
-                                outline = string.Join(" ", parts);
+                                outline.Set(string.Join(" ", parts));
                             }
 
-                            if (Regex.IsMatch(outline, @"\bFbxVector(\d)\("))
+                            if (Regex.IsMatch(outline.Value, @"\bFbxVector(\d)\("))
                             {
-                                outline =
-                                    Regex.Replace(
-                                        outline,
+                                outline.RegexReplace(
                                         @"\bFbxVector(\d)\(",
                                         m => "new FbxVector" + m.Groups[1].Value + "(");
                             }
 
-                            outline = outline.Replace("Get<FbxString>()",
+                            outline.Replace("Get<FbxString>()",
                                 "Get<string>()");
 
-                            outline = outline.Replace("GetType()",
+                            outline.Replace("GetType()",
                                 "GetFbxType()");
 
-                            if (Regex.IsMatch(outline, @"\bNULL\b"))
+                            if (Regex.IsMatch(outline.Value, @"\bNULL\b"))
                             {
-                                outline = Regex.Replace(outline, @"\bNULL\b", "null");
+                                outline.RegexReplace(@"\bNULL\b", "null");
                             }
 
-                            if (!string.IsNullOrWhiteSpace(outline))
+                            if (!string.IsNullOrWhiteSpace(outline.Value))
                             {
-                                writer.Write("            {0};", outline);
+                                writer.Write("            {0};", outline.Value);
                                 writer.WriteLine();
                             }
                             break;
