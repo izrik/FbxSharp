@@ -18,7 +18,7 @@ namespace FbxSharp
         private string initializedFilename = null;
         private FbxStatus currentStatus = new();
 
-        bool ArraysEqual(byte[] a1, int offset1, byte[] a2, int offset2,
+        static bool ArraysEqual(byte[] a1, int offset1, byte[] a2, int offset2,
             int count)
         {
             for (var i = 0; i < count; i++)
@@ -38,9 +38,19 @@ namespace FbxSharp
             initializedFilename = fileName;
             this.ioSettings = ioSettings;
 
+            fileHeaderInfo = GetFileHeaderInfo(initializedFilename);
+
+            currentStatus = new FbxStatus()
+            {
+            };
+            return true;
+        }
+
+        public static FbxIOFileHeaderInfo GetFileHeaderInfo(string fileName)
+        {
             // open the file
             var fhi = new FbxIOFileHeaderInfo();
-            using (var fs = File.OpenRead(initializedFilename))
+            using (var fs = File.OpenRead(fileName))
             {
                 // determine if it's ascii or binary
                 var buffer = new byte[4096]; // TODO: buffer overflow
@@ -90,7 +100,7 @@ namespace FbxSharp
                     fhi.mFileVersion = value;
 
                     var parser = BinaryParser.FromFileVersion(
-                        fhi.mFileVersion, fs, initializedFilename);
+                        fhi.mFileVersion, fs, fileName);
                     po = parser.ReadObject();
                 }
                 else
@@ -150,12 +160,7 @@ namespace FbxSharp
                 fhi.mCreator = prop.GetStringValue();
             }
 
-            fileHeaderInfo = fhi;
-
-            currentStatus = new FbxStatus()
-            {
-            };
-            return true;
+            return fhi;
         }
 
         public bool Import(FbxDocument document, bool pNonBlocking = false)
