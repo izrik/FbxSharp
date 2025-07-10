@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using NCommander;
 
 namespace TestCaseGenerator
@@ -252,7 +253,10 @@ namespace TestCaseGenerator
                         if (string.IsNullOrWhiteSpace(line))
                         {
                             if (currentTest != null)
+                            {
                                 currentTest.AddStatement(string.Empty, traceNextStatement);
+                                traceNextStatement = false;
+                            }
                             continue;
                         }
 
@@ -318,14 +322,20 @@ namespace TestCaseGenerator
                             case "then":
                             case "expect":
                                 if (currentTest != null)
+                                {
                                     currentTest.AddStatement(
                                         parts[0].ToLower(),
                                         traceNextStatement);
+                                    traceNextStatement = false;
+                                }
                                 break;
                             default:
                                 if (currentTest != null)
+                                {
                                     currentTest.AddStatement(trimmed,
                                         traceNextStatement);
+                                    traceNextStatement = false;
+                                }
                                 else if (currentFixture != null)
                                     currentFixture.Epilogue.Add(trimmed);
                                 else
@@ -347,32 +357,75 @@ namespace TestCaseGenerator
             public string Value { get; private set; } = pValue;
             public readonly bool Trace = pTrace;
 
+            private void TraceChange(string oldValue, string newValue, string comment = null)
+            {
+                if (Trace && oldValue != newValue)
+                {
+                    if (comment != null)
+                        Console.WriteLine($"Trace: {newValue} ({comment})");
+                    else
+                        Console.WriteLine($"Trace: {newValue}");
+                }
+            }
+
             public void Set(string value)
             {
+                TraceChange(Value, value, "Set");
+                Value = value;
+            }
+
+            public void SetFormat(string format, string arg1, string arg2)
+            {
+                var value = string.Format(format, arg1, arg2);
+                TraceChange(Value, value, $"SetFormat \"{format}\", \"{arg1}\", \"{arg2}\"");
+                Value = value;
+            }
+
+            public void SetJoin(string delimiter, params string[] parts)
+            {
+                var value = string.Join(delimiter, parts);
+                TraceChange(Value, value, $"SetJoin \"{delimiter}\", {parts}");
+                Value = value;
+            }
+
+            public void SetJoin(string delimiter, IEnumerable<string> parts)
+            {
+                var value = string.Join(delimiter, parts);
+                var partsString = new StringBuilder();
+                foreach (var part in parts)
+                {
+                    partsString.Append($"\"{part}\", ");
+                }
+                TraceChange(Value, value, $"SetJoin \"{delimiter}\", {partsString}");
                 Value = value;
             }
 
             public void Replace(string oldValue, string newValue)
             {
                 var newLine = Value.Replace(oldValue, newValue);
+                TraceChange(Value, newLine, $"Replace {oldValue} -> {newValue}");
                 Value = newLine;
             }
+
             public void Replace(char oldValue, char newValue)
             {
                 var newLine = Value.Replace(oldValue, newValue);
+                TraceChange(Value, newLine, $"Replace {oldValue} -> {newValue}");
                 Value = newLine;
             }
 
             public void RegexReplace(string pattern, string replacement)
             {
                 var newValue = Regex.Replace(Value, pattern, replacement);
-                Value=newValue;
+                TraceChange(Value, newValue, $"RegexReplace {pattern}, {replacement}");
+                Value = newValue;
             }
 
             public void RegexReplace(string pattern, MatchEvaluator replacement)
             {
                 var newValue = Regex.Replace(Value, pattern, replacement);
-                Value=newValue;
+                TraceChange(Value, newValue, $"RegexReplace {pattern}, {replacement}");
+                Value = newValue;
             }
         }
 
@@ -452,24 +505,21 @@ namespace TestCaseGenerator
                                 var new_lhs = parts1[^1].Trim();
                                 if (outline.Value.StartsWith("AssertEqual"))
                                 {
-                                    outline.Set(
-                                        string.Format(
+                                    outline.SetFormat(
                                             "Assert.That({0}, Is.EqualTo({1}))",
-                                            new_lhs, new_rhs));
+                                            new_lhs, new_rhs);
                                 }
                                 else if (outline.Value.StartsWith("AssertNotEqual"))
                                 {
-                                    outline.Set(
-                                        string.Format(
+                                    outline.SetFormat(
                                             "Assert.That({0}, Is.Not.EqualTo({1}))",
-                                            new_lhs, new_rhs));
+                                            new_lhs, new_rhs);
                                 }
                                 else if (outline.Value.StartsWith("AssertSame"))
                                 {
-                                    outline.Set(
-                                        string.Format(
+                                    outline.SetFormat(
                                             "Assert.That({0}, Is.SameAs({1}))",
-                                            new_lhs, new_rhs));
+                                            new_lhs, new_rhs);
                                 }
                                 else
                                 {
@@ -512,6 +562,10 @@ namespace TestCaseGenerator
                             {
                                 outline.Replace("new&", "new");
                             }
+                            else if (Regex.IsMatch(outline.Value, @"\$new\b"))
+                            {
+                                outline.Replace("$new", "new");
+                            }
                             else if (Regex.IsMatch(outline.Value, @"\bnew\b"))
                             {
                                 parts = outline.Value.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
@@ -533,7 +587,7 @@ namespace TestCaseGenerator
                                 if (parts.Count > 3)
                                     parts[3] = parts[3].Replace("new",
                                         "new " + targetTypeName);
-                                outline.Set(string.Join(" ", parts));
+                                outline.SetJoin(" ", parts);
                             }
                             // outline.Replace("!", "");
 
@@ -554,12 +608,12 @@ namespace TestCaseGenerator
                                 }
 
                                 parts[0] = targetTypeName;
-                                outline.Set(string.Join(" ", parts));
+                                outline.SetJoin(" ", parts);
                             }
                             else if (parts.Count > 3 && parts[2] == "=")
                             {
                                 parts[0] = "var";
-                                outline.Set(string.Join(" ", parts));
+                                outline.SetJoin(" ", parts);
                             }
 
                             if (Regex.IsMatch(outline.Value, @"\bFbxVector(\d)\("))

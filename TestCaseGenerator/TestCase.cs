@@ -13,7 +13,10 @@ namespace TestCaseGenerator
         public void AddStatement(string statement, bool trace = false)
         {
             if (trace)
+            {
+                Console.WriteLine($"#trace was selected for \"{statement}\" [{Statements.Count}]");
                 StatementsToTraceIndexes.Add(Statements.Count);
+            }
             Statements.Add(statement);
         }
      }
