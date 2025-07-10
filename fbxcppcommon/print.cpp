@@ -883,6 +883,8 @@ void PrintObject(FbxObject* obj, bool branch, bool printProperties)
             PrintTexture(FbxCast<FbxTexture>(obj));
         else if (obj->Is<FbxVideo>())
             PrintVideo(FbxCast<FbxVideo>(obj));
+        else if (obj->Is<FbxGlobalSettings>())
+            PrintGlobalSettings(FbxCast<FbxGlobalSettings>(obj));
         else
             cout << "Unknown object class: " << obj->GetRuntimeClassId().GetName() << endl;
     }
@@ -1761,6 +1763,37 @@ void PrintDocument(FbxDocument* doc)
 
 }
 
+void PrintGlobalSettings(FbxGlobalSettings* obj)
+{
+    cout << "    GetOriginalUpAxis() = " << obj->GetOriginalUpAxis() << endl;
+    cout << "    GetAxisSystem() = " << obj->GetAxisSystem() << endl;
+    cout << "    GetSystemUnit() = " << obj->GetSystemUnit() << endl;
+    cout << "    GetOriginalSystemUnit() = " << obj->GetOriginalSystemUnit() << endl;
+    cout << "    GetAmbientColor() = " << obj->GetAmbientColor() << endl;
+    cout << "    GetDefaultCamera() = " << obj->GetDefaultCamera() << endl;
+    cout << "    GetTimeMode() = " << obj->GetTimeMode() << endl;
+    cout << "    GetDefaultCamera() = " << obj->GetDefaultCamera() << endl;
+    cout << "    GetTimeProtocol() = " << obj->GetTimeProtocol() << endl;
+    cout << "    GetSnapOnFrameMode() = " << obj->GetSnapOnFrameMode() << endl;
+    FbxTimeSpan ts;
+    obj->GetTimelineDefaultTimeSpan(ts);
+    cout << "    GetTimelineDefaultTimeSpan() = " << ts << endl;
+    cout << "    GetCustomFrameRate() = " << obj->GetCustomFrameRate() << endl;
+    int numTimeMarkers = obj->GetTimeMarkerCount(); 
+    cout << "    GetTimeMarkerCount() = " << numTimeMarkers << endl;
+    int i;
+    for (i = 0; i < numTimeMarkers; i++)
+    {
+        FbxStatus status;
+        cout << "    GetTimeMarker(" << i << ") = " << obj->GetTimeMarker(i, &status);
+        if (status.Error())
+            cout << status;
+        cout << endl;
+    }
+    cout << "    GetCurrentTimeMarker() = " << obj->GetCurrentTimeMarker() << endl;
+}
+
+
 std::string quote(const char* s)
 {
     int i;
@@ -1832,7 +1865,12 @@ std::ostream& operator<<(std::ostream& os, const FbxTime& value)
 
 std::ostream& operator<<(std::ostream& os, const FbxTimeSpan& value)
 {
-    os << "(start: " << value.GetStart() << ", stop: " << value.GetStop() << ")";
+    // os << "(start: " << value.GetStart() << ", stop: " << value.GetStop() << ")";
+    os << "FbxTimeSpan(start=" << value.GetStart() <<
+        ", stop=" << value.GetStop() <<
+        ", duration=" << value.GetDuration() <<
+        ", direction=" << value.GetDirection() <<
+        ")";
     return os;
 }
 
@@ -2163,7 +2201,7 @@ ostream& operator<<(ostream& os, const FbxDouble4& value)
 
 ostream& operator<<(ostream& os, const FbxColor& value)
 {
-    os << "(" << value[0] << ", " << value[1] << ", " << value[2] << ", " << value[3] << ")";
+    os << "(R:" << value[0] << ", G:" << value[1] << ", B:" << value[2] << ", A:" << value[3] << ")";
     return os;
 }
 
@@ -2218,6 +2256,75 @@ ostream& operator<<(ostream& os, const FbxPropertyHandle& value)
 ostream& operator<<(ostream& os, const FbxDateTime& value)
 {
     os << "FbxDateTime(" << value.toString() << ")";
+    return os;
+}
+
+ostream& operator<<(ostream& os, const FbxGlobalSettings::TimeMarker& value)
+{
+    os << "FbxGlobalSettings::TimeMarker(mName=" << value.mName << ", mTime=" << value.mTime << ", mLoop=" << value.mLoop << ")";
+    return os;
+}
+
+ostream& operator<<(ostream& os, const FbxSystemUnit& value)
+{
+    os << "FbxSystemUnit("
+        "GetScaleFactor()=" << value.GetScaleFactor() <<
+        ", GetScaleFactorAsString()=" << value.GetScaleFactorAsString() <<
+        ", GetScaleFactorAsString_Plurial()=" << value.GetScaleFactorAsString_Plurial() <<
+        ", GetMultiplier()=" << value.GetMultiplier() <<
+        ")";
+    return os;
+}
+
+ostream& operator<<(ostream& os, const FbxAxisSystem& value)
+{
+    int fvs = 0; 
+    auto fv = value.GetFrontVector(fvs);
+    int fus = 0; 
+    auto fu = value.GetFrontVector(fus);
+    os << "FbxAxisSystem("
+        "GetFrontVector()=" << fv << " [" << fvs << "]" <<
+        ", GetUpVector()=" << fu << " [" << fus << "]" <<
+        ", GetCoorSystem()=" << value.GetCoorSystem() <<
+        ")";
+    return os;
+}
+
+ostream& operator<<(ostream& os, const FbxAxisSystem::EFrontVector& value)
+{
+    os << "EFrontVector::";
+    if (value == FbxAxisSystem::EFrontVector::eParityEven)
+        os << "eParityEven";
+    else if (value == FbxAxisSystem::EFrontVector::eParityOdd)
+        os << "eParityOdd";
+    else
+        os << "unknown";
+    return os;
+}
+
+ostream& operator<<(ostream& os, const FbxAxisSystem::EUpVector& value)
+{
+    os << "EUpVector::";
+    if (value == FbxAxisSystem::EUpVector::eXAxis)
+        os << "eXAxis";
+    else if (value == FbxAxisSystem::EUpVector::eYAxis)
+        os << "eYAxis";
+    else if (value == FbxAxisSystem::EUpVector::eZAxis)
+        os << "eZAxis";
+    else
+        os << "unknown";
+    return os;
+}
+
+ostream& operator<<(ostream& os, const FbxAxisSystem::ECoordSystem& value)
+{
+    os << "ECoordSystem::";
+    if (value == FbxAxisSystem::ECoordSystem::eRightHanded)
+        os << "eRightHanded";
+    else if (value == FbxAxisSystem::ECoordSystem::eLeftHanded)
+        os << "eLeftHanded";
+    else
+        os << "unknown";
     return os;
 }
 

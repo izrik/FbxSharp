@@ -30,7 +30,7 @@ ifeq ($(UNAME_S),Darwin)
 	LDFLAGS=-framework Cocoa $(COMMON_LDFLAGS)
 endif
 
-TC_SOURCES=AnimCurveKeyTest.tc AnimCurveNodeTest.tc AnimCurveTest.tc AnimLayerTest.tc AnimStackTest.tc CameraTest.tc ClusterTest.tc DeformerTest.tc FbxObjectTest.tc FbxTimeTest.tc GeometryBaseTest.tc GeometryTest.tc LayerContainerTest.tc LightTest.tc MatrixTest.tc MeshTest.tc NodeTest.tc NodeTransformsTest.tc PropertyTest.tc SceneTest.tc SkinTest.tc SubDeformerTest.tc SurfacePhongTest.tc LayerTest.tc FbxImporterTest.tc EFbxTypeTest.tc FbxPropertyFlagsTest.tc FbxDataTypeTest.tc FbxPropertyTest.tc FbxIOSettingsTest.tc FbxDocumentInfoTest.tc FbxDataTypesTest.tc FbxNullTest.tc
+TC_SOURCES=AnimCurveKeyTest.tc AnimCurveNodeTest.tc AnimCurveTest.tc AnimLayerTest.tc AnimStackTest.tc CameraTest.tc ClusterTest.tc DeformerTest.tc FbxObjectTest.tc FbxTimeTest.tc GeometryBaseTest.tc GeometryTest.tc LayerContainerTest.tc LightTest.tc MatrixTest.tc MeshTest.tc NodeTest.tc NodeTransformsTest.tc PropertyTest.tc SceneTest.tc SkinTest.tc SubDeformerTest.tc SurfacePhongTest.tc LayerTest.tc FbxImporterTest.tc EFbxTypeTest.tc FbxPropertyFlagsTest.tc FbxDataTypeTest.tc FbxPropertyTest.tc FbxIOSettingsTest.tc FbxDocumentInfoTest.tc FbxDataTypesTest.tc FbxNullTest.tc FbxGlobalSettingsTest.tc FbxAxisSystemTest.tc FbxSystemUnitTest.tc FbxTimeSpanTest.tc
 SOURCES=Assertions.cpp TestFixture.cpp TestRunner.cpp main.cpp Utils.cpp $(TC_SOURCES:%.tc=%.cpp)
 HEADERS=Assertions.h OutputDebugStringBuf.h Tests.h Utils.h
 OBJECTS=$(SOURCES:%.cpp=obj/%.o)

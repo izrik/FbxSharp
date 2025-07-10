@@ -1,0 +1,88 @@
+
+#include "Tests.h"
+
+using namespace std;
+
+void FbxSystemUnit_Create_HasDefaults()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxSystemUnit* obj;
+
+    // when:
+    obj = new FbxSystemUnit();
+
+    // then:
+    AssertEqual(1.0d, obj->GetScaleFactor());
+    AssertEqual("cm", obj->GetScaleFactorAsString());
+    AssertEqual("Centimeters", obj->GetScaleFactorAsString_Plurial());
+    AssertEqual(1.0d, obj->GetMultiplier());
+}
+
+void FbxSystemUnit_StaticBuiltinsHaveDefaults()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxSystemUnit* obj;
+
+    // when:
+    obj = new FbxSystemUnit();
+
+    // then:
+    AssertEqual(0.1d, FbxSystemUnit::mm.GetScaleFactor());
+    AssertEqual("mm", FbxSystemUnit::mm.GetScaleFactorAsString());
+    AssertEqual("Millimeters", FbxSystemUnit::mm.GetScaleFactorAsString_Plurial());
+    AssertEqual(1.0d, FbxSystemUnit::mm.GetMultiplier());
+
+    AssertEqual(10.0d, FbxSystemUnit::dm.GetScaleFactor());
+    AssertEqual("dm", FbxSystemUnit::dm.GetScaleFactorAsString());
+    AssertEqual("Decimeters", FbxSystemUnit::dm.GetScaleFactorAsString_Plurial());
+    AssertEqual(1.0d, FbxSystemUnit::dm.GetMultiplier());
+
+    AssertEqual(1.0d, FbxSystemUnit::cm.GetScaleFactor());
+    AssertEqual("cm", FbxSystemUnit::cm.GetScaleFactorAsString());
+    AssertEqual("Centimeters", FbxSystemUnit::cm.GetScaleFactorAsString_Plurial());
+    AssertEqual(1.0d, FbxSystemUnit::cm.GetMultiplier());
+
+    AssertEqual(100.0d, FbxSystemUnit::m.GetScaleFactor());
+    AssertEqual("m", FbxSystemUnit::m.GetScaleFactorAsString());
+    AssertEqual("Meters", FbxSystemUnit::m.GetScaleFactorAsString_Plurial());
+    AssertEqual(1.0d, FbxSystemUnit::m.GetMultiplier());
+
+    AssertEqual(100000.0d, FbxSystemUnit::km.GetScaleFactor());
+    AssertEqual("km", FbxSystemUnit::km.GetScaleFactorAsString());
+    AssertEqual("Kilometers", FbxSystemUnit::km.GetScaleFactorAsString_Plurial());
+    AssertEqual(1.0d, FbxSystemUnit::km.GetMultiplier());
+
+    AssertEqual(2.54d, FbxSystemUnit::Inch.GetScaleFactor());
+    AssertEqual("in", FbxSystemUnit::Inch.GetScaleFactorAsString());
+    AssertEqual("Inches", FbxSystemUnit::Inch.GetScaleFactorAsString_Plurial());
+    AssertEqual(1.0d, FbxSystemUnit::Inch.GetMultiplier());
+
+    AssertEqual(30.48d, FbxSystemUnit::Foot.GetScaleFactor());
+    AssertEqual("ft", FbxSystemUnit::Foot.GetScaleFactorAsString());
+    AssertEqual("Feet", FbxSystemUnit::Foot.GetScaleFactorAsString_Plurial());
+    AssertEqual(1.0d, FbxSystemUnit::Foot.GetMultiplier());
+
+    AssertEqual(160934.4d, FbxSystemUnit::Mile.GetScaleFactor());
+    AssertEqual("mi", FbxSystemUnit::Mile.GetScaleFactorAsString());
+    AssertEqual("Miles", FbxSystemUnit::Mile.GetScaleFactorAsString_Plurial());
+    AssertEqual(1.0d, FbxSystemUnit::Mile.GetMultiplier());
+
+    AssertEqual(91.44d, FbxSystemUnit::Yard.GetScaleFactor());
+    AssertEqual("yd", FbxSystemUnit::Yard.GetScaleFactorAsString());
+    AssertEqual("Yards", FbxSystemUnit::Yard.GetScaleFactorAsString_Plurial());
+    AssertEqual(1.0d, FbxSystemUnit::Yard.GetMultiplier());
+
+    AssertEqual(0.1d, FbxSystemUnit::sPredefinedUnits->GetScaleFactor());
+    AssertEqual("mm", FbxSystemUnit::sPredefinedUnits->GetScaleFactorAsString());
+    AssertEqual("Millimeters", FbxSystemUnit::sPredefinedUnits->GetScaleFactorAsString_Plurial());
+    AssertEqual(1.0d, FbxSystemUnit::sPredefinedUnits->GetMultiplier());
+}
+
+void FbxSystemUnitTest::RegisterTestCases()
+{
+    AddTestCase(FbxSystemUnit_Create_HasDefaults);
+    AddTestCase(FbxSystemUnit_StaticBuiltinsHaveDefaults);
+}
+

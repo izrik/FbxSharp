@@ -29,7 +29,8 @@ void Collector::Visit(FbxObject* obj, std::vector<FbxObject*>* visited)
         !obj->Is<FbxLight>() &&
         !obj->Is<FbxNull>() &&
         !obj->Is<FbxSkeleton>() &&
-        !obj->Is<FbxVideo>())
+        !obj->Is<FbxVideo>() &&
+        !obj->Is<FbxGlobalSettings>())
     {
         std::cout << "Unknown object class: " << obj->GetRuntimeClassId().GetName() << std::endl;
         return;

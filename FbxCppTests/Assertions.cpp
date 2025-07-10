@@ -204,6 +204,11 @@ void _AssertEqual(int expected, long actual, const char* filename, int line)
     _AssertEqual((long)expected, actual, filename, line);
 }
 
+void _AssertEqual(FbxTime expected, FbxTime actual, const char* filename, int line)
+{
+    _AssertEqual(expected.Get(), actual.Get(), filename, line);
+}
+
 void _AssertNotEqual(void* not_expected, void* actual, const char* filename, int line)
 {
     if (not_expected == actual)

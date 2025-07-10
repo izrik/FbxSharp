@@ -40,6 +40,7 @@ void PrintSurfaceMaterial(FbxSurfaceMaterial* surfaceMaterial);
 void PrintSurfacePhong(FbxSurfacePhong* surfacePhong);
 void PrintTexture(FbxTexture* texture);
 void PrintVideo(FbxVideo* video);
+void PrintGlobalSettings(FbxGlobalSettings* video);
 
 std::ostream& operator<<(std::ostream& os, const FbxDouble2& value);
 std::ostream& operator<<(std::ostream& os, const FbxDouble3& value);
@@ -50,6 +51,7 @@ std::ostream& operator<<(std::ostream& os, const EFbxType& value);
 std::ostream& operator<<(std::ostream& os, const FbxPropertyHandle& value);
 std::ostream& operator<<(std::ostream& os, const FbxTime& value);
 std::ostream& operator<<(std::ostream& os, const FbxTimeSpan& value);
+std::ostream& operator<<(std::ostream& os, const FbxTime::EMode& value);
 std::ostream& operator<<(std::ostream& os, const FbxMatrix& value);
 std::ostream& operator<<(std::ostream& os, const FbxAMatrix& value);
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentMode& value);
@@ -60,6 +62,12 @@ std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EVelocityMode&
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentVisibility& value);
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::EDataIndex& value);
 std::ostream& operator<<(std::ostream& os, const FbxDateTime& value);
+std::ostream& operator<<(std::ostream& os, const FbxGlobalSettings::TimeMarker& value);
+std::ostream& operator<<(std::ostream& os, const FbxSystemUnit& value);
+std::ostream& operator<<(std::ostream& os, const FbxAxisSystem& value);
+std::ostream& operator<<(std::ostream& os, const FbxAxisSystem::EFrontVector& value);
+std::ostream& operator<<(std::ostream& os, const FbxAxisSystem::EUpVector& value);
+std::ostream& operator<<(std::ostream& os, const FbxAxisSystem::ECoordSystem& value);
 
 std::string quote(const char* s);
 

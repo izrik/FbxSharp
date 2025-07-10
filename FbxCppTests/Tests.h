@@ -87,5 +87,9 @@ TestClass(FbxIOSettingsTest);
 TestClass(FbxDocumentInfoTest);
 TestClass(FbxDataTypesTest);
 TestClass(FbxNullTest);
+TestClass(FbxGlobalSettingsTest);
+TestClass(FbxAxisSystemTest);
+TestClass(FbxSystemUnitTest);
+TestClass(FbxTimeSpanTest);
 
 #endif // __FBXCPPTESTS_TESTS_H

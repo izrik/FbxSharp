@@ -20,6 +20,7 @@ void _AssertEqual(FbxDataType expected, FbxDataType actual, const char* filename
 void _AssertEqual(long expected, long actual, const char* filename, int line);
 void _AssertEqual(long expected, FbxLongLong actual, const char* filename, int line);
 void _AssertEqual(int expected, long actual, const char* filename, int line);
+void _AssertEqual(FbxTime expected, FbxTime actual, const char* filename, int line);
 void _AssertNotEqual(void* expected, void* actual, const char* filename, int line);
 void _AssertNotEqual(FbxDataType expected, FbxDataType actual, const char* filename, int line);
 void _AssertNull(void* actual, const char* filename, int line);

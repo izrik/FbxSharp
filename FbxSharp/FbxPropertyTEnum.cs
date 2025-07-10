@@ -19,6 +19,17 @@ public class FbxPropertyTEnum : FbxProperty
         Value = initialValue;
     }
 
+    public static FbxPropertyTEnum StaticInit(FbxObject pObject,
+        string pName, int pValue) =>
+        StaticInit(pObject.RootProperty, pName, pValue);
+    public static FbxPropertyTEnum StaticInit(FbxProperty pCompound,
+        string pName, int pValue)
+    {
+        var prop = new FbxPropertyTEnum(pName, pValue);
+        prop.SetParent(pCompound);
+        return prop;
+    }
+
     public override Type GetDotnetType() => typeof(int);
 
     public int Value { get; set; }

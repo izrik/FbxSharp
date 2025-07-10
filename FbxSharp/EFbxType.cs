@@ -123,6 +123,8 @@ public static class EFbxTypeHelper
         // TODO: EFbxType.eFbxDouble3
         if (type == typeof(FbxVector3))
             return EFbxType.eFbxDouble3;
+        if (type == typeof(FbxColor))
+            return EFbxType.eFbxDouble3;
         // TODO: EFbxType.eFbxDouble4
         // TODO: EFbxType.eFbxDouble4x4
 
@@ -146,7 +148,7 @@ public static class EFbxTypeHelper
         if (type == typeof(object) ||
             type == typeof(FbxProperty.NotValidT))
             return EFbxType.eFbxUndefined;
-        throw new ArgumentOutOfRangeException(nameof(type));
+        throw new ArgumentOutOfRangeException(nameof(type), type, null);
     }
 
     public static EFbxType FbxTypeOf(sbyte value) => EFbxType.eFbxChar;

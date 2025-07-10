@@ -1,0 +1,17 @@
+#use constraints
+
+fixture FbxAxisSystemTest
+test FbxAxisSystem_Create_HasDefaults
+    given
+    FbxAxisSystem* obj
+
+    when
+    obj = new FbxAxisSystem()
+    
+    then
+    int sign = 0
+    AssertEqual(FbxAxisSystem::EFrontVector::eParityOdd, obj.GetFrontVector($ref sign))
+    AssertEqual(1, sign)
+    AssertEqual(FbxAxisSystem::EUpVector::eYAxis, obj.GetUpVector($ref sign))
+    AssertEqual(1, sign)
+    AssertEqual(FbxAxisSystem::ECoordSystem::eRightHanded, obj.GetCoorSystem())
