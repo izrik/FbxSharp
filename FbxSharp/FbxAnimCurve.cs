@@ -10,6 +10,44 @@ namespace FbxSharp
         {
         }
 
+        #region Public Types
+
+        // typedef FbxAnimCurveBase ParentClass
+
+        #endregion
+
+        #region Public Member Functions
+
+        // virtual FbxClassId GetClassId() const override
+
+        #endregion
+
+        #region Static Public Member Functions
+
+        // static FbxAnimCurve * Create(FbxManager *pManager, const char *pName)
+
+        #endregion
+
+        #region Static Public Attributes
+
+        // static FbxClassId ClassId
+
+        #endregion
+
+        #region Protected Member Functions
+
+        // virtual ~FbxAnimCurve()
+
+        // FbxAnimCurve(FbxManager &pManager, const char *pName)
+
+        #endregion
+
+        #region Static Protected Attributes
+
+        // static FbxObjectCreateProc Allocate
+
+        #endregion
+
         #region Animation curve creation.
 
         public static FbxAnimCurve Create(FbxScene pContainer, string pName)
@@ -159,7 +197,7 @@ namespace FbxSharp
 
         public virtual FbxAnimCurveKey KeyGet(int pIndex)
         {
-            throw new NotImplementedException();
+            return (FbxAnimCurveKey)keys.GetValueAtIndex(pIndex);
         }
 
         public virtual float KeyGetValue(int pKeyIndex)

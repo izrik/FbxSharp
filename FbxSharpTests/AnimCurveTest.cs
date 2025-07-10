@@ -500,5 +500,74 @@ namespace FbxSharpTests
             // then:
             Assert.AreEqual("AnimCurve::", obj.GetNameSpacePrefix());
         }
+
+        [Test]
+        public void FbxAnimCurve_KeyGet()
+        {
+            // given:
+            var ac = new FbxAnimCurve("asdf");
+
+            // expect:
+            Assert.AreEqual(0, ac.KeyGetCount());
+
+            // when:
+            FbxTime time;
+            time = new FbxTime(100);
+            var key = new FbxAnimCurveKey(time, 1.5f);
+            int i;
+            i = ac.KeyAdd(time, key);
+            Assert.AreEqual(0, i);
+
+            // then:
+            Assert.AreEqual(1, ac.KeyGetCount());
+            FbxAnimCurveKey key2;
+            key2 = ac.KeyGet(0);
+            Assert.AreEqual(100L, key2.GetTime().Get());
+            Assert.AreEqual(1.5f, key.GetValue());
+        }
+
+        [Test]
+        public void FbxAnimCurve_KeyGet_KeysAreSortedByTimeValue()
+        {
+            // given:
+            var ac = new FbxAnimCurve("asdf");
+            FbxTime time;
+            time = new FbxTime(0);
+            var key1 = new FbxAnimCurveKey(time, 0.5f);
+            int i;
+            i = ac.KeyAdd(time, key1);
+            Assert.AreEqual(0, i);
+            time = new FbxTime(2000);
+            var key2 = new FbxAnimCurveKey(time, 2.5f);
+            i = ac.KeyAdd(time, key2);
+            Assert.AreEqual(1, i);
+
+            // expect:
+            Assert.AreEqual(2, ac.KeyGetCount());
+            var key = ac.KeyGet(0);
+            Assert.AreEqual(0L, key.GetTime().Get());
+            Assert.AreEqual(0.5f, key.GetValue());
+            key = ac.KeyGet(1);
+            Assert.AreEqual(2000L, key.GetTime().Get());
+            Assert.AreEqual(2.5f, key.GetValue());
+
+            // when:
+            time = new FbxTime(1000);
+            var key3 = new FbxAnimCurveKey(time, 1.5f);
+            i = ac.KeyAdd(time, key3);
+            Assert.AreEqual(1, i);
+
+            // then:
+            Assert.AreEqual(3, ac.KeyGetCount());
+            key = ac.KeyGet(0);
+            Assert.AreEqual(0L, key.GetTime().Get());
+            Assert.AreEqual(0.5f, key.GetValue());
+            key = ac.KeyGet(1);
+            Assert.AreEqual(1000L, key.GetTime().Get());
+            Assert.AreEqual(1.5f, key.GetValue());
+            key = ac.KeyGet(2);
+            Assert.AreEqual(2000L, key.GetTime().Get());
+            Assert.AreEqual(2.5f, key.GetValue());
+        }
     }
 }
