@@ -2278,9 +2278,9 @@ ostream& operator<<(ostream& os, const FbxSystemUnit& value)
 
 ostream& operator<<(ostream& os, const FbxAxisSystem& value)
 {
-    int fvs = 0; 
+    int fvs = 0;
     auto fv = value.GetFrontVector(fvs);
-    int fus = 0; 
+    int fus = 0;
     auto fu = value.GetFrontVector(fus);
     os << "FbxAxisSystem("
         "GetFrontVector()=" << fv << " [" << fvs << "]" <<
