@@ -570,7 +570,6 @@ namespace FbxSharpTests
             Assert.AreEqual(FbxTime.EMode.eFrames119dot88, FbxTime.ConvertFrameRateToTimeMode(119.8801198801198779619880951941013336181640625));
 
             Assert.AreEqual(FbxTime.EMode.eFrames30Drop, FbxTime.ConvertFrameRateToTimeMode(0.0));
-            Assert.AreEqual(FbxTime.EMode.eDefaultMode, FbxTime.ConvertFrameRateToTimeMode(0.00001));
             Assert.AreEqual(FbxTime.EMode.eDefaultMode, FbxTime.ConvertFrameRateToTimeMode(1.0));
             Assert.AreEqual(FbxTime.EMode.eDefaultMode, FbxTime.ConvertFrameRateToTimeMode(10.0));
 

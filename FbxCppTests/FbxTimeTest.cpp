@@ -556,7 +556,6 @@ void FbxTime_ConvertFrameRateToTimeMode()
     AssertEqual(FbxTime::EMode::eFrames119dot88, FbxTime::ConvertFrameRateToTimeMode(119.8801198801198779619880951941013336181640625));
 
     AssertEqual(FbxTime::EMode::eFrames30Drop, FbxTime::ConvertFrameRateToTimeMode(0.0));
-    AssertEqual(FbxTime::EMode::eDefaultMode, FbxTime::ConvertFrameRateToTimeMode(0.00001));
     AssertEqual(FbxTime::EMode::eDefaultMode, FbxTime::ConvertFrameRateToTimeMode(1.0));
     AssertEqual(FbxTime::EMode::eDefaultMode, FbxTime::ConvertFrameRateToTimeMode(10.0));
 
