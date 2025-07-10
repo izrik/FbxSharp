@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-RUN apt update ; apt -y install gcc g++ make curl wget libxml2-dev zlib1g-dev
+RUN apt update ; apt -y install gcc g++ make curl wget libxml2-dev zlib1g-dev sudo
 RUN mkdir -p /build/libiconv
 WORKDIR /build/libiconv
 RUN wget http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.11.tar.gz ; tar -xvf libiconv-1.11.tar.gz
@@ -13,4 +13,5 @@ RUN tar -xvf fbx202034_fbxsdk_linux.tar.gz ; \
     mkdir -p /usr/share/fbxsdk/2020.3.4 ; \
     printf 'yes\nn\n' | /build/fbxsdk/fbx202034_fbxsdk_linux /usr/share/fbxsdk/2020.3.4
 RUN apt update ; apt install -y cmake python3 bsdmainutils
+RUN ["bash", "-c", "echo -n 'password\npassword\n' | passwd ubuntu"]
 WORKDIR /
