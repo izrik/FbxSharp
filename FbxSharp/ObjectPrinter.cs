@@ -9,6 +9,8 @@ namespace FbxSharp
     {
         public static string quote(string s)
         {
+            if (s == null)
+                return "<<null>>";
             // TODO: hex escape sequences
             return "\"" + s.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "\"";
         }
