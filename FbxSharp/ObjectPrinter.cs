@@ -142,6 +142,11 @@ namespace FbxSharp
 
             writer.WriteLine();
 
+            writer.WriteLine("================");
+            writer.WriteLine("FbxTime.GetGlobalTimeMode(): {0}", FbxTime.GetGlobalTimeMode());
+            writer.WriteLine("FbxTime.GetGlobalTimeProtocol(): {0}", FbxTime.GetGlobalTimeProtocol());
+            writer.WriteLine("================");
+
             objs.Sort(sort_by_id);
 
             foreach (var o in objs)

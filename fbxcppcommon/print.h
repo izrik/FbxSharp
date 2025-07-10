@@ -52,6 +52,7 @@ std::ostream& operator<<(std::ostream& os, const FbxPropertyHandle& value);
 std::ostream& operator<<(std::ostream& os, const FbxTime& value);
 std::ostream& operator<<(std::ostream& os, const FbxTimeSpan& value);
 std::ostream& operator<<(std::ostream& os, const FbxTime::EMode& value);
+std::ostream& operator<<(std::ostream& os, const FbxTime::EProtocol& value);
 std::ostream& operator<<(std::ostream& os, const FbxMatrix& value);
 std::ostream& operator<<(std::ostream& os, const FbxAMatrix& value);
 std::ostream& operator<<(std::ostream& os, const FbxAnimCurveDef::ETangentMode& value);

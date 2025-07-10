@@ -22,6 +22,11 @@ void PrintObjectGraph(FbxObject* obj)
 
     cout << endl;
 
+    cout << "================" << endl;
+    cout << "FbxTime.GetGlobalTimeMode(): " << FbxTime::GetGlobalTimeMode() << endl;
+    cout << "FbxTime.GetGlobalTimeProtocol(): " << FbxTime::GetGlobalTimeProtocol() << endl;
+    cout << "================" << endl;
+
     std::sort(objs.begin(), objs.end(), sort_by_id);
 
     vector<FbxObject*>::iterator it;
@@ -1854,12 +1859,27 @@ std::ostream& operator<<(std::ostream& os, const FbxTime::EMode& value)
     return os;
 }
 
+std::ostream& operator<<(std::ostream& os, const FbxTime::EProtocol& value)
+{
+    switch (value)
+    {
+    case FbxTime::eSMPTE           : os << "eSMPTE"; break;
+    case FbxTime::eFrameCount      : os << "eFrameCount"; break;
+    case FbxTime::eDefaultProtocol : os << "eDefaultProtocol"; break;
+    default:
+        os << "<<unknown>>";
+        break;
+    }
+    return os;
+}
+
 std::ostream& operator<<(std::ostream& os, const FbxTime& value)
 {
     os << "[" << value.GetSecondDouble() << "s; " <<
                  value.GetSecondCount() << "s; " <<
                  value.GetFrameCount() << "f; " <<
-                 FbxTime::GetGlobalTimeMode() << "tm]";
+                 FbxTime::GetGlobalTimeMode() << " timemode; " <<
+                 value.Get() << " raw]";
     return os;
 }
 
