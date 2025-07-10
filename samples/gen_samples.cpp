@@ -1105,6 +1105,20 @@ void load_scene_from_file(ProgramState& state, vector<string>& args)
     importer->Import(state.scene);
 }
 
+void gen_anim_stack(ProgramState& state, vector<string>& args)
+{
+    gen_empty(state, args);
+
+    auto mesh = FbxMesh::Create(state.scene, "anim_stack");
+    FbxAnimStack* anim_stack = FbxAnimStack::Create(state.scene, "anim_stack");
+    auto t = FbxTime(0);
+    t.SetSecondDouble(3);
+    anim_stack->LocalStop.Set(t);
+    anim_stack->ReferenceStop.Set(t);
+
+    export_all_version_variants(state, args);
+}
+
 typedef void (*OperationFn) (ProgramState&, std::vector<std::string>&);
 struct Operation
 {
@@ -1149,6 +1163,7 @@ int main(int argc, char** argv)
         Operation{.name = "export-all-formats", .fn = export_all_formats, .args = {"FILENAME_PREFIX"}},
         Operation{.name = "gen-empty", .fn = gen_empty},
         Operation{.name = "gen-box", .fn = gen_box, .args = {"DX", "DY", "DZ"}},
+        Operation{.name = "gen-anim-stack", .fn = gen_anim_stack, .args = {"FILENAME_PREFIX"}},
     };
 
     if (argc < 2)
