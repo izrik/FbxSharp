@@ -50,6 +50,7 @@ namespace FbxSharp
         {
             // open the file
             var fhi = new FbxIOFileHeaderInfo();
+            ParseObject po;
             using (var fs = File.OpenRead(fileName))
             {
                 // determine if it's ascii or binary
@@ -82,7 +83,6 @@ namespace FbxSharp
                 //      7400 = 0x1ce8
                 //      7500 = 0x1d4c
                 //      7700 = 0x1e14
-                ParseObject po;
                 if (fhi.mBinary)
                 {
                     count = fs.Read(buffer, 20, 7);
@@ -112,53 +112,54 @@ namespace FbxSharp
 
                     po = parser.ReadObject();
                 }
-                if (po == null)
-                    throw new InvalidOperationException(
-                        "No object read from file");
-                if (po.Name != "FBXHeaderExtension")
-                    throw new InvalidOperationException(
-                        $"Expected FBXHeaderExtension object, " +
-                        $"got {po.Name}");
-
-                var prop = po.FindPropertyByName("FBXHeaderVersion");
-                if (prop == null)
-                    throw new InvalidOperationException(
-                        "No FBXHeaderVersion found");
-                int fbxHeaderVersion = prop.GetIntValue();
-
-                prop = po.FindPropertyByName("FBXVersion");
-                if (prop == null)
-                    throw new InvalidOperationException(
-                        "No FBXVersion found");
-                fhi.mFileVersion = prop.GetIntValue();
-
-                prop = po.FindPropertyByName("CreationTimeStamp");
-                if (prop != null)
-                {
-                    var lt = new FbxLocalTime();
-                    fhi.mCreationTimeStampPresent = true;
-                    var prop2 = prop.FindPropertyByName("Version");
-                    prop2 = prop.FindPropertyByName("Year");
-                    lt.mYear = prop2.GetIntValue();
-                    prop2 = prop.FindPropertyByName("Month");
-                    lt.mMonth = prop2.GetIntValue();
-                    prop2 = prop.FindPropertyByName("Day");
-                    lt.mDay = prop2.GetIntValue();
-                    prop2 = prop.FindPropertyByName("Hour");
-                    lt.mHour = prop2.GetIntValue();
-                    prop2 = prop.FindPropertyByName("Minute");
-                    lt.mMinute = prop2.GetIntValue();
-                    prop2 = prop.FindPropertyByName("Second");
-                    lt.mSecond = prop2.GetIntValue();
-                    prop2 = prop.FindPropertyByName("Millisecond");
-                    lt.mMillisecond = prop2.GetIntValue();
-
-                    fhi.mCreationTimeStamp = lt;
-                }
-
-                prop = po.FindPropertyByName("Creator");
-                fhi.mCreator = prop.GetStringValue();
             }
+
+            if (po == null)
+                throw new InvalidOperationException(
+                    "No object read from file");
+            if (po.Name != "FBXHeaderExtension")
+                throw new InvalidOperationException(
+                    $"Expected FBXHeaderExtension object, " +
+                    $"got {po.Name}");
+
+            var prop = po.FindPropertyByName("FBXHeaderVersion");
+            if (prop == null)
+                throw new InvalidOperationException(
+                    "No FBXHeaderVersion found");
+            int fbxHeaderVersion = prop.GetIntValue();
+
+            prop = po.FindPropertyByName("FBXVersion");
+            if (prop == null)
+                throw new InvalidOperationException(
+                    "No FBXVersion found");
+            fhi.mFileVersion = prop.GetIntValue();
+
+            prop = po.FindPropertyByName("CreationTimeStamp");
+            if (prop != null)
+            {
+                var lt = new FbxLocalTime();
+                fhi.mCreationTimeStampPresent = true;
+                var prop2 = prop.FindPropertyByName("Version");
+                prop2 = prop.FindPropertyByName("Year");
+                lt.mYear = prop2.GetIntValue();
+                prop2 = prop.FindPropertyByName("Month");
+                lt.mMonth = prop2.GetIntValue();
+                prop2 = prop.FindPropertyByName("Day");
+                lt.mDay = prop2.GetIntValue();
+                prop2 = prop.FindPropertyByName("Hour");
+                lt.mHour = prop2.GetIntValue();
+                prop2 = prop.FindPropertyByName("Minute");
+                lt.mMinute = prop2.GetIntValue();
+                prop2 = prop.FindPropertyByName("Second");
+                lt.mSecond = prop2.GetIntValue();
+                prop2 = prop.FindPropertyByName("Millisecond");
+                lt.mMillisecond = prop2.GetIntValue();
+
+                fhi.mCreationTimeStamp = lt;
+            }
+
+            prop = po.FindPropertyByName("Creator");
+            fhi.mCreator = prop.GetStringValue();
 
             return fhi;
         }
