@@ -6,7 +6,8 @@ test AnimCurveNodeTest_Create_NoChannels
     FbxAnimCurveNode acn = new("")
 
     then
-    AssertEqual(0, acn.GetChannelsCount())
+#cpp AssertEqual(0, (signed int)acn.GetChannelsCount())
+#cs AssertEqual(0, (int)acn.GetChannelsCount())
     AssertEqual(1, CountProperties(acn))
     //AssertFalse(acn.IsAnimated())
     //AssertFalse(acn.IsAnimated(false))
@@ -18,7 +19,8 @@ test AnimCurveNodeTest_AddChannel_TwoPropertiesOneChannel
     FbxAnimCurveNode acn = new("")
 
     require
-    AssertEqual(0, acn.GetChannelsCount())
+#cpp AssertEqual(0, (signed int)acn.GetChannelsCount())
+#cs AssertEqual(0, (int)acn.GetChannelsCount())
     AssertEqual(1, CountProperties(acn))
 
     when
@@ -26,7 +28,8 @@ test AnimCurveNodeTest_AddChannel_TwoPropertiesOneChannel
 
     then
     AssertEqual(2, CountProperties(acn))
-    AssertEqual(1, acn.GetChannelsCount())
+#cpp AssertEqual(1, (signed int)acn.GetChannelsCount())
+#cs AssertEqual(1, (int)acn.GetChannelsCount())
     AssertEqual(0, acn.GetCurveCount(0))
 
     Property! prop = acn.GetFirstProperty()
@@ -44,7 +47,8 @@ test AnimCurveNodeTest_ConnectToChannel_AddsSrcConnection
 
     require
     AssertEqual(2, CountProperties(acn))
-    AssertEqual(1, acn.GetChannelsCount())
+#cpp AssertEqual(1, (signed int)acn.GetChannelsCount())
+#cs AssertEqual(1, (int)acn.GetChannelsCount())
     AssertEqual(0, acn.GetCurveCount(0))
 
     when
@@ -52,7 +56,8 @@ test AnimCurveNodeTest_ConnectToChannel_AddsSrcConnection
 
     then
     AssertEqual(2, CountProperties(acn))
-    AssertEqual(1, acn.GetChannelsCount())
+#cpp AssertEqual(1, (signed int)acn.GetChannelsCount())
+#cs AssertEqual(1, (int)acn.GetChannelsCount())
     AssertEqual(1, acn.GetCurveCount(0))
     AssertEqual(1, ac.GetDstPropertyCount())
     AssertEqual("channel1", ac.GetDstProperty(0)&.GetName())

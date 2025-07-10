@@ -16,7 +16,7 @@ namespace FbxSharpTests
             var acn = new FbxAnimCurveNode("");
 
             // then:
-            Assert.AreEqual(0, acn.GetChannelsCount());
+            Assert.AreEqual(0, (int)acn.GetChannelsCount());
             Assert.AreEqual(1, CountProperties(acn));
         }
 
@@ -27,7 +27,7 @@ namespace FbxSharpTests
             var acn = new FbxAnimCurveNode("");
 
             // require:
-            Assert.AreEqual(0, acn.GetChannelsCount());
+            Assert.AreEqual(0, (int)acn.GetChannelsCount());
             Assert.AreEqual(1, CountProperties(acn));
 
             // when:
@@ -35,7 +35,7 @@ namespace FbxSharpTests
 
             // then:
             Assert.AreEqual(2, CountProperties(acn));
-            Assert.AreEqual(1, acn.GetChannelsCount());
+            Assert.AreEqual(1, (int)acn.GetChannelsCount());
             Assert.AreEqual(0, acn.GetCurveCount(0));
 
             var prop = acn.GetFirstProperty();
@@ -55,7 +55,7 @@ namespace FbxSharpTests
 
             // require:
             Assert.AreEqual(2, CountProperties(acn));
-            Assert.AreEqual(1, acn.GetChannelsCount());
+            Assert.AreEqual(1, (int)acn.GetChannelsCount());
             Assert.AreEqual(0, acn.GetCurveCount(0));
 
             // when:
@@ -63,7 +63,7 @@ namespace FbxSharpTests
 
             // then:
             Assert.AreEqual(2, CountProperties(acn));
-            Assert.AreEqual(1, acn.GetChannelsCount());
+            Assert.AreEqual(1, (int)acn.GetChannelsCount());
             Assert.AreEqual(1, acn.GetCurveCount(0));
             Assert.AreEqual(1, ac.GetDstPropertyCount());
             Assert.AreEqual("channel1", ac.GetDstProperty(0).GetName());
