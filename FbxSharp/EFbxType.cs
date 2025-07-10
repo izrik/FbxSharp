@@ -125,7 +125,8 @@ public static class EFbxTypeHelper
             return EFbxType.eFbxDouble3;
         if (type == typeof(FbxColor))
             return EFbxType.eFbxDouble3;
-        // TODO: EFbxType.eFbxDouble4
+        if (type == typeof(FbxVector4))
+            return EFbxType.eFbxDouble4;
         // TODO: EFbxType.eFbxDouble4x4
 
         // TODO: EFbxType.eFbxEnumM
