@@ -70,14 +70,24 @@ namespace FbxCli
                 }
                 if (parse)
                 {
-                    using (var reader = new StreamReader(filename))
+                    var fhi = FbxImporter.GetFileHeaderInfo(filename);
+                    List<ParseObject> parseObjects = null;
+                    if (fhi.mBinary)
                     {
+                        using var fs = File.OpenRead(filename);
+                        var bp = BinaryParser.FromFileVersion(fhi.mFileVersion, fs, filename);
+                        fs.Seek(27, SeekOrigin.Begin);
+                        parseObjects = bp.ReadFile();
+                    }
+                    else
+                    {
+                        using var reader = new StreamReader(filename);
                         var p = new Parser(new Tokenizer(reader, filename:filename));
-                        var objs = p.ReadFile();
-                        foreach (var obj in objs)
-                        {
-                            PrintParseObject(obj);
-                        }
+                        parseObjects = p.ReadFile();
+                    }
+                    foreach (var obj in parseObjects)
+                    {
+                        PrintParseObject(obj);
                     }
                     continue;
                 }
