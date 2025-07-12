@@ -46,6 +46,7 @@ namespace FbxSharp
             return true;
         }
 
+        [NotSdk]
         public static FbxIOFileHeaderInfo GetFileHeaderInfo(string fileName)
         {
             // open the file
