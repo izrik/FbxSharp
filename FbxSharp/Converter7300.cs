@@ -781,7 +781,7 @@ namespace FbxSharp
                     propType = typeof(FbxTime);
                     propType2 = FbxDataTypes.FbxTimeDT;
                     long rawValue = ((Number)p.Values[4]).AsLong.Value;
-                    long rawValue7700 = rawValue * FbxTime.FBXSDK_TC_MILLISECOND / FbxTime.FBXSDK_TC_LEGACY_MILLISECOND;
+                    long rawValue7700 = rawValue * FbxTimeCode.FBXSDK_TC_MILLISECOND / FbxTimeCode.FBXSDK_TC_LEGACY_MILLISECOND;
                     propValue = new FbxTime(rawValue7700);
                     break;
                 case "Compound":
@@ -1444,7 +1444,7 @@ namespace FbxSharp
             for (i = 0; i < Math.Min(keyTimes.Length, keyValues.Length); i++)
             {
                 var rawValue = keyTimes[i];
-                rawValue = rawValue * FbxTime.FBXSDK_TC_MILLISECOND / FbxTime.FBXSDK_TC_LEGACY_MILLISECOND;
+                rawValue = rawValue * FbxTimeCode.FBXSDK_TC_MILLISECOND / FbxTimeCode.FBXSDK_TC_LEGACY_MILLISECOND;
                 var time = new FbxTime(rawValue);
                 keys[i] = new FbxAnimCurveKey(time, (float)keyValues[i]);
             }

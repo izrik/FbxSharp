@@ -3,13 +3,6 @@
 
 using namespace std;
 
-void FbxTime_Constants()
-{
-    // expect:
-    AssertEqual(141120L, FBXSDK_TC_MILLISECOND);
-    AssertEqual(141120000L, FBXSDK_TC_SECOND);
-}
-
 void FbxTime_CreateLongLong_HasSeconds()
 {
     // given:
@@ -573,7 +566,6 @@ void FbxTime_ConvertFrameRateToTimeMode()
 
 void FbxTimeTest::RegisterTestCases()
 {
-    AddTestCase(FbxTime_Constants);
     AddTestCase(FbxTime_CreateLongLong_HasSeconds);
     AddTestCase(FbxTime_GetSecondCount_ZeroYieldsCount);
     AddTestCase(FbxTime_GetSecondCount_OneYieldsCount);

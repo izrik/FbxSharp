@@ -46,7 +46,7 @@ namespace FbxSharp
                         if (timeCodeDefinition.Values.Count > 0 &&
                             timeCodeDefinition.Values[0] != null &&
                             timeCodeDefinition.Values[0] is Number &&
-                            ((Number)timeCodeDefinition.Values[0]).AsLong == FbxTime.FBXSDK_TC_LEGACY_DEFINITION)
+                            ((Number)timeCodeDefinition.Values[0]).AsLong == FbxTimeCode.FBXSDK_TC_LEGACY_DEFINITION)
                         {
                             legacyTimeCode = true;
                         }
@@ -930,7 +930,7 @@ namespace FbxSharp
                     long rawValue7700 = rawValue;
                     if (state.LegacyTimeCode)
                     {
-                        rawValue7700 = rawValue * FbxTime.FBXSDK_TC_MILLISECOND / FbxTime.FBXSDK_TC_LEGACY_MILLISECOND;
+                        rawValue7700 = rawValue * FbxTimeCode.FBXSDK_TC_MILLISECOND / FbxTimeCode.FBXSDK_TC_LEGACY_MILLISECOND;
                     }
                     propValue = new FbxTime(rawValue7700);
                     break;
@@ -1602,7 +1602,7 @@ namespace FbxSharp
                 var rawValue = keyTimes[i];
                 if (state.LegacyTimeCode)
                 {
-                    rawValue = rawValue * FbxTime.FBXSDK_TC_MILLISECOND / FbxTime.FBXSDK_TC_LEGACY_MILLISECOND;
+                    rawValue = rawValue * FbxTimeCode.FBXSDK_TC_MILLISECOND / FbxTimeCode.FBXSDK_TC_LEGACY_MILLISECOND;
                 }
                 var time = new FbxTime(rawValue);
                 keys[i] = new FbxAnimCurveKey(time, (float)keyValues[i]);

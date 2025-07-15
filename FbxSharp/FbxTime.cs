@@ -7,15 +7,6 @@ namespace FbxSharp
         public static readonly FbxTime Infinite = new FbxTime(0x7fffffffffffffffL);
         public static readonly FbxTime Zero = new FbxTime(0);
 
-        public const long UnitsPerSecond = 141120000L;
-
-        public const long FBXSDK_TC_MILLISECOND = 141120L;
-        public const long FBXSDK_TC_SECOND = 141120000L;
-        public const long FBXSDK_TC_LEGACY_MILLISECOND = 46186158L;
-
-        public const int FBXSDK_TC_STANDARD_DEFINITION = 0;
-        public const int FBXSDK_TC_LEGACY_DEFINITION = 127;
-
         #region Public Member Functions
 
         public FbxTime(long time)
@@ -198,7 +189,7 @@ namespace FbxSharp
 
         public long GetMilliSeconds()
         {
-            return Value / FBXSDK_TC_MILLISECOND;
+            return Value / FbxTimeCode.FBXSDK_TC_MILLISECOND;
         }
 
 
@@ -206,7 +197,7 @@ namespace FbxSharp
             throw new NotImplementedException();
 
         public double GetSecondDouble() =>
-            Value / (double)UnitsPerSecond;
+            Value / (double)FbxTimeCode.FBXSDK_TC_LEGACY_SECOND;
 
         public void SetTime(int pHour, int pMinute, int pSecond, int pFrame = 0, int pField = 0,
             EMode pTimeMode = EMode.eDefaultMode) =>
@@ -231,31 +222,31 @@ namespace FbxSharp
             throw new NotImplementedException();
 
         public int GetHourCount() /*const*/ =>
-            (int)(Value / FBXSDK_TC_SECOND / 3600);
+            (int)(Value / FbxTimeCode.FBXSDK_TC_SECOND / 3600);
 
-        public int GetMinuteCount() /*const*/ => (int)(Value / FBXSDK_TC_SECOND / 60);
+        public int GetMinuteCount() /*const*/ => (int)(Value / FbxTimeCode.FBXSDK_TC_SECOND / 60);
 
         public int GetSecondCount()
         {
-            return (int)(Value / UnitsPerSecond);
+            return (int)(Value / FbxTimeCode.FBXSDK_TC_LEGACY_SECOND);
         }
 
         public long GetFrameCount(EMode pTimeMode = EMode.eDefaultMode) /*const*/
         {
             // TODO: take time mode into account
-            return Value / (FBXSDK_TC_SECOND / 30);
+            return Value / (FbxTimeCode.FBXSDK_TC_SECOND / 30);
         }
 
         public double GetFrameCountPrecise(EMode pTimeMode = EMode.eDefaultMode) /*const*/
         {
             // TODO: take time mode into account
-            return Value / (double)(FBXSDK_TC_SECOND / 30);
+            return Value / (double)(FbxTimeCode.FBXSDK_TC_SECOND / 30);
         }
 
         public long GetFieldCount(EMode pTimeMode = EMode.eDefaultMode) /*const*/
         {
             // TODO: take time mode into account
-            return Value / (FBXSDK_TC_SECOND / 60);
+            return Value / (FbxTimeCode.FBXSDK_TC_SECOND / 60);
         }
 
         public int GetResidual(EMode pTimeMode = EMode.eDefaultMode) /*const*/ =>

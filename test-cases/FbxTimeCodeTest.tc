@@ -1,0 +1,13 @@
+﻿#use constraints
+
+fixture FbxTimeCodeTest
+test FbxTimeCode_Constants
+    expect
+#cs AssertEqual(141120L, FbxTimeCode::FBXSDK_TC_MILLISECOND)
+#cpp AssertEqual(141120L, FBXSDK_TC_MILLISECOND)
+#cs AssertEqual(141120000L, FbxTimeCode::FBXSDK_TC_SECOND)
+#cpp AssertEqual(141120000L, FBXSDK_TC_SECOND)
+#cs AssertEqual(46186158L, FbxTimeCode::FBXSDK_TC_LEGACY_MILLISECOND)
+#cpp AssertEqual(46186158L, FBXSDK_TC_LEGACY_MILLISECOND)
+#cs AssertEqual(46186158000L, FbxTimeCode::FBXSDK_TC_LEGACY_SECOND)
+#cpp AssertEqual(46186158000L, FBXSDK_TC_LEGACY_SECOND)

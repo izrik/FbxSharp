@@ -251,8 +251,8 @@ namespace FbxCli
                     Console.WriteLine($"    Frame count precise: {t.GetFrameCountPrecise()}");
                     Console.WriteLine($"    Field count:         {t.GetFieldCount()}");
                     Console.WriteLine($"  Global time mode:      {FbxTime.GetGlobalTimeMode()}");
-                    Console.WriteLine($"  FBXSDK_TC_MILLISECOND: {FbxTime.FBXSDK_TC_MILLISECOND}");
-                    Console.WriteLine($"  FBXSDK_TC_SECOND:      {FbxTime.FBXSDK_TC_SECOND}");
+                    Console.WriteLine($"  FBXSDK_TC_MILLISECOND: {FbxTimeCode.FBXSDK_TC_MILLISECOND}");
+                    Console.WriteLine($"  FBXSDK_TC_SECOND:      {FbxTimeCode.FBXSDK_TC_SECOND}");
                     break;
                 case "sprop":
                     N = obj.GetSrcPropertyCount();

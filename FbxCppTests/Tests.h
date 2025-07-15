@@ -91,5 +91,6 @@ TestClass(FbxGlobalSettingsTest);
 TestClass(FbxAxisSystemTest);
 TestClass(FbxSystemUnitTest);
 TestClass(FbxTimeSpanTest);
+TestClass(FbxTimeCodeTest);
 
 #endif // __FBXCPPTESTS_TESTS_H

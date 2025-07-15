@@ -78,7 +78,7 @@ namespace FbxSharp
             TimeProtocol = FbxPropertyTEnum.StaticInit(this, "TimeProtocol", (int)FbxTime.EProtocol.eDefaultProtocol);
             SnapOnFrameMode = FbxPropertyTEnum.StaticInit(this, "SnapOnFrameMode", (int)FbxGlobalSettings.ESnapOnFrameMode.eNoSnap);
             TimeSpanStart = FbxPropertyT<FbxTime>.StaticInit(this, "TimeSpanStart", new FbxTime(0), false);
-            TimeSpanStop = FbxPropertyT<FbxTime>.StaticInit(this, "TimeSpanStop", new FbxTime(FbxTime.UnitsPerSecond), false);
+            TimeSpanStop = FbxPropertyT<FbxTime>.StaticInit(this, "TimeSpanStop", new FbxTime(FbxTimeCode.FBXSDK_TC_LEGACY_SECOND), false);
             CustomFrameRate = FbxPropertyT<double>.StaticInit(this, "CustomFrameRate", -1, false);
             TimeMarkerP = FbxPropertyT<object>.StaticInit(this, "TimeMarker", null, false);
             CurrentTimeMarker = FbxPropertyT<int>.StaticInit(this, "CurrentTimeMarker", -1, false);
@@ -206,7 +206,7 @@ namespace FbxSharp
         public void GetTimelineDefaultTimeSpan(out FbxTimeSpan pTimeSpan)
         {
             pTimeSpan = new FbxTimeSpan(new FbxTime(0), 
-                new FbxTime(FbxTime.UnitsPerSecond));
+                new FbxTime(FbxTimeCode.FBXSDK_TC_LEGACY_SECOND));
         }
 
         public void SetCustomFrameRate(double pCustomFrameRate) =>

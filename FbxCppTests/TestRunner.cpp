@@ -173,6 +173,7 @@ int RunTestsWithArgs(vector<string>& args)
     all_tests.push_back(new FbxAxisSystemTest());
     all_tests.push_back(new FbxSystemUnitTest());
     all_tests.push_back(new FbxTimeSpanTest());
+    all_tests.push_back(new FbxTimeCodeTest());
 
     vector<TestFixture*> tests;
 
