@@ -815,5 +815,211 @@ namespace FbxSharpTests
             Assert.AreEqual(1, node.GetSrcObjectCount());
             Assert.AreEqual(0, light.GetSrcObjectCount());
         }
+
+        [Test]
+        public void FbxObject_FindPropertyHierarchical_FindsChildren()
+        {
+            // given:
+            var obj = new FbxObject("");
+            var prop1 = FbxProperty.Create(obj, FbxDataTypes.FbxStringDT, "Abc");
+            var prop2 = FbxProperty.Create(prop1, FbxDataTypes.FbxStringDT, "Def");
+            var prop3 = FbxProperty.Create(prop2, FbxDataTypes.FbxStringDT, "Ghi");
+
+            // require:
+            Assert.AreEqual("Abc", prop1.GetName());
+            Assert.AreEqual("Abc", prop1.GetHierarchicalName());
+            Assert.AreEqual("Def", prop2.GetName());
+            Assert.AreEqual("Abc|Def", prop2.GetHierarchicalName());
+            Assert.AreEqual("Ghi", prop3.GetName());
+            Assert.AreEqual("Abc|Def|Ghi", prop3.GetHierarchicalName());
+
+            // when:
+            var prop = obj.FindPropertyHierarchical("Abc");
+
+            // then:
+            Assert.True(prop.IsValid());
+            Assert.AreEqual("Abc", prop.GetName());
+            Assert.AreEqual("Abc", prop.GetHierarchicalName());
+            Assert.True(prop == prop1);
+
+            // when:
+            prop = obj.FindProperty("Abc");
+
+            // then:
+            Assert.True(prop.IsValid());
+            Assert.True(prop == prop1);
+
+            // when:
+            prop = obj.FindPropertyHierarchical("Abc|Def");
+
+            // then:
+            Assert.True(prop.IsValid());
+            Assert.AreEqual("Def", prop.GetName());
+            Assert.AreEqual("Abc|Def", prop.GetHierarchicalName());
+            Assert.True(prop == prop2);
+
+            // when:
+            prop = obj.FindProperty("Def");
+
+            // then:
+            Assert.False(prop.IsValid());
+
+            // when:
+            prop = obj.FindPropertyHierarchical("Abc|Def|Ghi");
+
+            // then:
+            Assert.True(prop.IsValid());
+            Assert.AreEqual("Ghi", prop.GetName());
+            Assert.AreEqual("Abc|Def|Ghi", prop.GetHierarchicalName());
+            Assert.True(prop == prop3);
+
+            // when:
+            prop = obj.FindProperty("Ghi");
+
+            // then:
+            Assert.False(prop.IsValid());
+        }
+
+        [Test]
+        public void FbxObject_FindProperty_DoesNotFindsChildren()
+        {
+            // given:
+            var obj = new FbxObject("");
+            var prop1 = FbxProperty.Create(obj, FbxDataTypes.FbxStringDT, "Abc");
+            var prop2 = FbxProperty.Create(prop1, FbxDataTypes.FbxStringDT, "Def");
+            var prop3 = FbxProperty.Create(prop2, FbxDataTypes.FbxStringDT, "Ghi");
+
+            // require:
+            Assert.AreEqual("Abc", prop1.GetName());
+            Assert.AreEqual("Abc", prop1.GetHierarchicalName());
+            Assert.AreEqual("Def", prop2.GetName());
+            Assert.AreEqual("Abc|Def", prop2.GetHierarchicalName());
+            Assert.AreEqual("Ghi", prop3.GetName());
+            Assert.AreEqual("Abc|Def|Ghi", prop3.GetHierarchicalName());
+
+            // when:
+            var prop = obj.FindProperty("Abc");
+
+            // then:
+            Assert.True(prop.IsValid());
+            Assert.AreEqual("Abc", prop.GetName());
+            Assert.AreEqual("Abc", prop.GetHierarchicalName());
+            Assert.True(prop == prop1);
+
+            // when:
+            prop = obj.FindProperty("Def");
+
+            // then:
+            Assert.False(prop.IsValid());
+
+            // when:
+            prop = obj.FindProperty("Ghi");
+
+            // then:
+            Assert.False(prop.IsValid());
+        }
+
+        [Test]
+        public void FbxObject_RootProperty_FindHierarchical_FindsChildren()
+        {
+            // given:
+            var obj = new FbxObject("");
+            var prop1 = FbxProperty.Create(obj, FbxDataTypes.FbxStringDT, "Abc");
+            var prop2 = FbxProperty.Create(prop1, FbxDataTypes.FbxStringDT, "Def");
+            var prop3 = FbxProperty.Create(prop2, FbxDataTypes.FbxStringDT, "Ghi");
+
+            // require:
+            Assert.AreEqual("Abc", prop1.GetName());
+            Assert.AreEqual("Abc", prop1.GetHierarchicalName());
+            Assert.AreEqual("Def", prop2.GetName());
+            Assert.AreEqual("Abc|Def", prop2.GetHierarchicalName());
+            Assert.AreEqual("Ghi", prop3.GetName());
+            Assert.AreEqual("Abc|Def|Ghi", prop3.GetHierarchicalName());
+
+            // when:
+            var prop = obj.RootProperty.FindHierarchical("Abc");
+
+            // then:
+            Assert.True(prop.IsValid());
+            Assert.AreEqual("Abc", prop.GetName());
+            Assert.AreEqual("Abc", prop.GetHierarchicalName());
+            Assert.True(prop == prop1);
+
+            // when:
+            prop = obj.RootProperty.Find("Abc");
+
+            // then:
+            Assert.True(prop.IsValid());
+            Assert.True(prop == prop1);
+
+            // when:
+            prop = obj.RootProperty.FindHierarchical("Abc|Def");
+
+            // then:
+            Assert.True(prop.IsValid());
+            Assert.AreEqual("Def", prop.GetName());
+            Assert.AreEqual("Abc|Def", prop.GetHierarchicalName());
+            Assert.True(prop == prop2);
+
+            // when:
+            prop = obj.RootProperty.Find("Def");
+
+            // then:
+            Assert.False(prop.IsValid());
+
+            // when:
+            prop = obj.RootProperty.FindHierarchical("Abc|Def|Ghi");
+
+            // then:
+            Assert.True(prop.IsValid());
+            Assert.AreEqual("Ghi", prop.GetName());
+            Assert.AreEqual("Abc|Def|Ghi", prop.GetHierarchicalName());
+            Assert.True(prop == prop3);
+
+            // when:
+            prop = obj.RootProperty.Find("Ghi");
+
+            // then:
+            Assert.False(prop.IsValid());
+        }
+
+        [Test]
+        public void FbxObject_RootProperty_Find_DoesNotFindsChildren()
+        {
+            // given:
+            var obj = new FbxObject("");
+            var prop1 = FbxProperty.Create(obj, FbxDataTypes.FbxStringDT, "Abc");
+            var prop2 = FbxProperty.Create(prop1, FbxDataTypes.FbxStringDT, "Def");
+            var prop3 = FbxProperty.Create(prop2, FbxDataTypes.FbxStringDT, "Ghi");
+
+            // require:
+            Assert.AreEqual("Abc", prop1.GetName());
+            Assert.AreEqual("Abc", prop1.GetHierarchicalName());
+            Assert.AreEqual("Def", prop2.GetName());
+            Assert.AreEqual("Abc|Def", prop2.GetHierarchicalName());
+            Assert.AreEqual("Ghi", prop3.GetName());
+            Assert.AreEqual("Abc|Def|Ghi", prop3.GetHierarchicalName());
+
+            // when:
+            var prop = obj.RootProperty.Find("Abc");
+
+            // then:
+            Assert.True(prop.IsValid());
+            Assert.AreEqual("Abc", prop.GetName());
+            Assert.AreEqual("Abc", prop.GetHierarchicalName());
+            Assert.True(prop == prop1);
+
+            // when:
+            prop = obj.RootProperty.Find("Def");
+
+            // then:
+            Assert.False(prop.IsValid());
+
+            // when:
+            prop = obj.RootProperty.Find("Ghi");
+
+            // then:
+            Assert.False(prop.IsValid());
+        }
     }
 }

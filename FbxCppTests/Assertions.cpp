@@ -1,5 +1,6 @@
 ﻿
 #include "Assertions.h"
+#include "print.h"
 
 #include <sstream>
 
@@ -38,6 +39,11 @@ void _AssertEqual(const char* expected, const char* actual, const char* filename
 void _AssertEqual(const char* expected, FbxString& actual, const char* filename, int line)
 {
     _AssertEqual(expected, actual.Buffer(), filename, line);
+}
+
+void _AssertEqual(string& expected, FbxString& actual, const char* filename, int line)
+{
+    _AssertEqual(expected.c_str(), actual.Buffer(), filename, line);
 }
 
 void _AssertEqual(FbxVector4 expected, FbxVector4 actual, const char* filename, int line)
@@ -153,12 +159,72 @@ void _AssertEqual(FbxLongLong expected, FbxLongLong actual, const char* filename
     }
 }
 
-void _AssertNotEqual(void* expected, void* actual, const char* filename, int line)
+void _AssertEqual(FbxDateTime expected, FbxDateTime actual, const char* filename, int line)
 {
-    if (expected == actual)
+    if (expected != actual)
     {
         stringstream ss;
-        ss << "Expected not(" << expected << ") but got " << actual << ", at " << filename << ":" << line;
+        ss << "Expected " << expected << " but got " << actual << ", at " << filename << ":" << line;
+        throw new string(ss.str());
+    }
+}
+
+void _AssertEqual(FbxDataType expected, FbxDataType actual, const char* filename, int line)
+{
+    if (!(expected == actual))
+    {
+        stringstream ss;
+        ss << "Expected " << expected << " but got " << actual << ", at " << filename << ":" << line;
+        throw new string(ss.str());
+    }
+}
+
+void _AssertEqual(long expected, long actual, const char* filename, int line)
+{
+    if (!(expected == actual))
+    {
+        stringstream ss;
+        ss << "Expected " << expected << " but got " << actual << ", at " << filename << ":" << line;
+        throw new string(ss.str());
+    }
+}
+
+void _AssertEqual(long expected, FbxLongLong actual, const char* filename, int line)
+{
+    if (!(expected == actual))
+    {
+        stringstream ss;
+        ss << "Expected " << expected << " but got " << actual << ", at " << filename << ":" << line;
+        throw new string(ss.str());
+    }
+}
+
+void _AssertEqual(int expected, long actual, const char* filename, int line)
+{
+    _AssertEqual((long)expected, actual, filename, line);
+}
+
+void _AssertEqual(FbxTime expected, FbxTime actual, const char* filename, int line)
+{
+    _AssertEqual(expected.Get(), actual.Get(), filename, line);
+}
+
+void _AssertNotEqual(void* not_expected, void* actual, const char* filename, int line)
+{
+    if (not_expected == actual)
+    {
+        stringstream ss;
+        ss << "Expected not(" << not_expected << ") but got " << actual << ", at " << filename << ":" << line;
+        throw new string(ss.str());
+    }
+}
+
+void _AssertNotEqual(FbxDataType not_expected, FbxDataType actual, const char* filename, int line)
+{
+    if (not_expected == actual)
+    {
+        stringstream ss;
+        ss << "Expected not equal to " << not_expected << " but got " << actual << ", at " << filename << ":" << line;
         throw new string(ss.str());
     }
 }

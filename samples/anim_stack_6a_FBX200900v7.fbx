@@ -1,0 +1,174 @@
+; FBX 6.1.0 project file
+; ----------------------------------------------------
+
+FBXHeaderExtension:  {
+	FBXHeaderVersion: 1003
+	FBXVersion: 6100
+	CreationTimeStamp:  {
+		Version: 1000
+		Year: 2025
+		Month: 6
+		Day: 7
+		Hour: 4
+		Minute: 26
+		Second: 4
+		Millisecond: 0
+	}
+	Creator: "FBX SDK/FBX Plugins version 2020.3.4"
+}
+
+; Document Description
+;------------------------------------------------------------------
+
+Document:  {
+	Name: ""
+}
+
+; Document References
+;------------------------------------------------------------------
+
+References:  {
+}
+
+; Object definitions
+;------------------------------------------------------------------
+
+Definitions:  {
+	Version: 100
+	Count: 3
+	ObjectType: "SceneInfo" {
+		Count: 1
+		PropertyTemplate: "FbxDocumentInfo" {
+			Properties70:  {
+				Property: "DocumentUrl", "KString", "Url", "", ""
+				Property: "SrcDocumentUrl", "KString", "Url", "", ""
+				Property: "Original", "Compound", "", ""
+				Property: "Original|ApplicationVendor", "KString", "", "", ""
+				Property: "Original|ApplicationName", "KString", "", "", ""
+				Property: "Original|ApplicationVersion", "KString", "", "", ""
+				Property: "Original|DateTime_GMT", "DateTime", "", "", ""
+				Property: "Original|FileName", "KString", "", "", ""
+				Property: "LastSaved", "Compound", "", ""
+				Property: "LastSaved|ApplicationVendor", "KString", "", "", ""
+				Property: "LastSaved|ApplicationName", "KString", "", "", ""
+				Property: "LastSaved|ApplicationVersion", "KString", "", "", ""
+				Property: "LastSaved|DateTime_GMT", "DateTime", "", "", ""
+			}
+		}
+	}
+	ObjectType: "GlobalSettings" {
+		Count: 1
+		PropertyTemplate: "FbxGlobalSettings" {
+			Properties70:  {
+				Property: "UpAxis", "int", "Integer", "",1
+				Property: "UpAxisSign", "int", "Integer", "",1
+				Property: "FrontAxis", "int", "Integer", "",2
+				Property: "FrontAxisSign", "int", "Integer", "",1
+				Property: "CoordAxis", "int", "Integer", "",0
+				Property: "CoordAxisSign", "int", "Integer", "",1
+				Property: "OriginalUpAxis", "int", "Integer", "",-1
+				Property: "OriginalUpAxisSign", "int", "Integer", "",1
+				Property: "UnitScaleFactor", "double", "Number", "",1
+				Property: "OriginalUnitScaleFactor", "double", "Number", "",1
+				Property: "AmbientColor", "ColorRGB", "Color", "",0,0,0
+				Property: "DefaultCamera", "KString", "", "", "Producer Perspective"
+				Property: "TimeMode", "enum", "", "",0
+				Property: "TimeProtocol", "enum", "", "",2
+				Property: "SnapOnFrameMode", "enum", "", "",0
+				Property: "TimeSpanStart", "KTime", "Time", "",0
+				Property: "TimeSpanStop", "KTime", "Time", "",46186158000
+				Property: "CustomFrameRate", "double", "Number", "",-1
+				Property: "TimeMarker", "Compound", "", ""
+				Property: "CurrentTimeMarker", "int", "Integer", "",-1
+			}
+		}
+	}
+	ObjectType: "Geometry" {
+		Count: 1
+		PropertyTemplate: "FbxMesh" {
+			Properties70:  {
+				Property: "Color", "ColorRGB", "Color", "N",0.8,0.8,0.8
+				Property: "BBoxMin", "Vector3D", "Vector", "N",0,0,0
+				Property: "BBoxMax", "Vector3D", "Vector", "N",0,0,0
+				Property: "Primary Visibility", "bool", "", "N",1
+				Property: "Casts Shadows", "bool", "", "N",1
+				Property: "Receive Shadows", "bool", "", "N",1
+			}
+		}
+	}
+}
+
+; Object properties
+;------------------------------------------------------------------
+
+Objects:  {
+	Geometry: "Geometry::anim_stack", "Mesh" {
+		Properties70:  {
+		}
+		NodeAttributeName: "Geometry::anim_stack"
+	}
+	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
+		Type: "UserData"
+		Version: 100
+		MetaData:  {
+			Version: 100
+			Title: ""
+			Subject: ""
+			Author: ""
+			Keywords: ""
+			Revision: ""
+			Comment: ""
+		}
+		Properties70:  {
+			Property: "DocumentUrl", "KString", "Url", "", "anim_stack_6a_FBX200900v7.fbx"
+			Property: "SrcDocumentUrl", "KString", "Url", "", "anim_stack_6a_FBX200900v7.fbx"
+		}
+	}
+	GlobalSettings:  {
+		Version: 1000
+		Properties70:  {
+		}
+	}
+}
+
+; Object connections
+;------------------------------------------------------------------
+
+Connections:  {
+}
+;Takes and animation section
+;----------------------------------------------------
+
+Takes:  {
+	Current: ""
+	Take: "anim_stack" {
+		FileName: "anim_stack.tak"
+		;Version 5 settings
+		;------------------------------------------------------------------
+		
+		Version5:  {
+			AmbientRenderSettings:  {
+				Version: 101
+				AmbientLightColor: 0,0,0,1
+			}
+			FogOptions:  {
+				FlogEnable: 0
+				FogMode: 0
+				FogDensity: 0.002
+				FogStart: 0.3
+				FogEnd: 1000
+				FogColor: 1,1,1,1
+			}
+			Settings:  {
+				FrameRate: "30"
+				TimeFormat: 1
+				SnapOnFrames: 0
+				ReferenceTimeIndex: -1
+				TimeLineStartTime: 0
+				TimeLineStopTime: 141120000
+			}
+			RendererSetting:  {
+				DefaultCamera: "Producer Perspective"
+				DefaultViewingMode: 0
+			}
+		}

@@ -6,7 +6,8 @@ namespace FbxSharp
 {
     public class Converter4001 : IConverter
     {
-        public FbxScene ConvertScene(List<ParseObject> parsedObjects)
+        public FbxScene ConvertScene(List<ParseObject> parsedObjects,
+            FbxScene scene = null)
         {
             throw new NotImplementedException();
         }

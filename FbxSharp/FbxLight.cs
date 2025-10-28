@@ -4,36 +4,60 @@ namespace FbxSharp
 {
     public class FbxLight : FbxNodeAttribute
     {
-        public FbxLight(string name="")
+        public FbxLight(string name = "")
             : base(name)
         {
-            Properties.Add(LightType);
-            Properties.Add(CastLight);
-            Properties.Add(DrawVolumetricLight);
-            Properties.Add(DrawGroundProjection);
-            Properties.Add(DrawFrontFacingVolumetricLight);
-            Properties.Add(Color);
-            Properties.Add(Intensity);
-            Properties.Add(InnerAngle);
-            Properties.Add(OuterAngle);
-            Properties.Add(Fog);
-            Properties.Add(DecayType);
-            Properties.Add(DecayStart);
-            Properties.Add(FileName);
-            Properties.Add(EnableNearAttenuation);
-            Properties.Add(NearAttenuationStart);
-            Properties.Add(NearAttenuationEnd);
-            Properties.Add(EnableFarAttenuation);
-            Properties.Add(FarAttenuationStart);
-            Properties.Add(FarAttenuationEnd);
-            Properties.Add(CastShadows);
-            Properties.Add(ShadowColor);
-            Properties.Add(AreaLightShape);
-            Properties.Add(LeftBarnDoor);
-            Properties.Add(RightBarnDoor);
-            Properties.Add(TopBarnDoor);
-            Properties.Add(BottomBarnDoor);
-            Properties.Add(EnableBarnDoor);
+            LightType = FbxPropertyT<EType>.StaticInit(this, "LightType",
+                default, false);
+            CastLight = FbxPropertyT<bool>.StaticInit(this,
+                "CastLightOnObject", false, false);
+            DrawVolumetricLight = FbxPropertyT<bool>.StaticInit(this,
+                "DrawVolumetricLight", false, false);
+            DrawGroundProjection = FbxPropertyT<bool>.StaticInit(this,
+                "DrawGroundProjection", false, false);
+            DrawFrontFacingVolumetricLight = FbxPropertyT<bool>.StaticInit(
+                this, "DrawFrontFacingVolumetricLight", false, false);
+            Intensity = FbxPropertyT<double>.StaticInit(this, "Intensity",
+                0.0, false);
+            InnerAngle = FbxPropertyT<double>.StaticInit(this, "InnerAngle",
+                0.0, false);
+            OuterAngle = FbxPropertyT<double>.StaticInit(this, "OuterAngle",
+                0.0, false);
+            Fog = FbxPropertyT<double>.StaticInit(this, "Fog", 0.0, false);
+            DecayType = FbxPropertyT<EDecayType>.StaticInit(this, "DecayType",
+                default, false);
+            DecayStart = FbxPropertyT<double>.StaticInit(this, "DecayStart",
+                0.0, false);
+            FileName = FbxPropertyT<string>.StaticInit(this, "FileName", "",
+                false);
+            EnableNearAttenuation = FbxPropertyT<bool>.StaticInit(this,
+                "EnableNearAttenuation", false, false);
+            NearAttenuationStart = FbxPropertyT<double>.StaticInit(this,
+                "NearAttenuationStart", 0.0, false);
+            NearAttenuationEnd = FbxPropertyT<double>.StaticInit(this,
+                "NearAttenuationEnd", 0.0, false);
+            EnableFarAttenuation = FbxPropertyT<bool>.StaticInit(this,
+                "EnableFarAttenuation", false, false);
+            FarAttenuationStart = FbxPropertyT<double>.StaticInit(this,
+                "FarAttenuationStart", 0.0, false);
+            FarAttenuationEnd = FbxPropertyT<double>.StaticInit(this,
+                "FarAttenuationEnd", 0.0, false);
+            CastShadows = FbxPropertyT<bool>.StaticInit(this, "CastShadows",
+                false, false);
+            ShadowColor = FbxPropertyT<FbxVector3>.StaticInit(this,
+                "ShadowColor", FbxVector3.Zero, false);
+            AreaLightShape = FbxPropertyT<EAreaLightShape>.StaticInit(this,
+                "AreaLightShape", default, false);
+            LeftBarnDoor = FbxPropertyT<float>.StaticInit(this,
+                "LeftBarnDoor", 0f, false);
+            RightBarnDoor = FbxPropertyT<float>.StaticInit(this,
+                "RightBarnDoor", 0f, false);
+            TopBarnDoor = FbxPropertyT<float>.StaticInit(this, "TopBarnDoor",
+                0f, false);
+            BottomBarnDoor = FbxPropertyT<float>.StaticInit(this,
+                "BottomBarnDoor", 0f, false);
+            EnableBarnDoor = FbxPropertyT<bool>.StaticInit(this,
+                "EnableBarnDoor", false, false);
         }
 
         #region implemented abstract members of NodeAttribute
@@ -85,32 +109,32 @@ namespace FbxSharp
 
         #region Properties
 
-        public FbxPropertyT<EType>             LightType                       = new FbxPropertyT<EType>          ("LightType");
-        public FbxPropertyT<bool>              CastLight                       = new FbxPropertyT<bool>           ("CastLightOnObject");
-        public FbxPropertyT<bool>              DrawVolumetricLight             = new FbxPropertyT<bool>           ("DrawVolumetricLight");
-        public FbxPropertyT<bool>              DrawGroundProjection            = new FbxPropertyT<bool>           ("DrawGroundProjection");
-        public FbxPropertyT<bool>              DrawFrontFacingVolumetricLight  = new FbxPropertyT<bool>           ("DrawFrontFacingVolumetricLight");
-        public FbxPropertyT<double>            Intensity                       = new FbxPropertyT<double>         ("Intensity");
-        public FbxPropertyT<double>            InnerAngle                      = new FbxPropertyT<double>         ("InnerAngle");
-        public FbxPropertyT<double>            OuterAngle                      = new FbxPropertyT<double>         ("OuterAngle");
-        public FbxPropertyT<double>            Fog                             = new FbxPropertyT<double>         ("Fog");
-        public FbxPropertyT<EDecayType>        DecayType                       = new FbxPropertyT<EDecayType>     ("DecayType");
-        public FbxPropertyT<double>            DecayStart                      = new FbxPropertyT<double>         ("DecayStart");
-        public FbxPropertyT<string>            FileName                        = new FbxPropertyT<string>         ("FileName");
-        public FbxPropertyT<bool>              EnableNearAttenuation           = new FbxPropertyT<bool>           ("EnableNearAttenuation");
-        public FbxPropertyT<double>            NearAttenuationStart            = new FbxPropertyT<double>         ("NearAttenuationStart");
-        public FbxPropertyT<double>            NearAttenuationEnd              = new FbxPropertyT<double>         ("NearAttenuationEnd");
-        public FbxPropertyT<bool>              EnableFarAttenuation            = new FbxPropertyT<bool>           ("EnableFarAttenuation");
-        public FbxPropertyT<double>            FarAttenuationStart             = new FbxPropertyT<double>         ("FarAttenuationStart");
-        public FbxPropertyT<double>            FarAttenuationEnd               = new FbxPropertyT<double>         ("FarAttenuationEnd");
-        public FbxPropertyT<bool>              CastShadows                     = new FbxPropertyT<bool>           ("CastShadows");
-        public FbxPropertyT<FbxVector3>           ShadowColor                     = new FbxPropertyT<FbxVector3>        ("ShadowColor");
-        public FbxPropertyT<EAreaLightShape>   AreaLightShape                  = new FbxPropertyT<EAreaLightShape>("AreaLightShape");
-        public FbxPropertyT<float>             LeftBarnDoor                    = new FbxPropertyT<float>          ("LeftBarnDoor");
-        public FbxPropertyT<float>             RightBarnDoor                   = new FbxPropertyT<float>          ("RightBarnDoor");
-        public FbxPropertyT<float>             TopBarnDoor                     = new FbxPropertyT<float>          ("TopBarnDoor");
-        public FbxPropertyT<float>             BottomBarnDoor                  = new FbxPropertyT<float>          ("BottomBarnDoor");
-        public FbxPropertyT<bool>              EnableBarnDoor                  = new FbxPropertyT<bool>           ("EnableBarnDoor");
+        public FbxPropertyT<EType> LightType;
+        public FbxPropertyT<bool> CastLight;
+        public FbxPropertyT<bool> DrawVolumetricLight;
+        public FbxPropertyT<bool> DrawGroundProjection;
+        public FbxPropertyT<bool> DrawFrontFacingVolumetricLight;
+        public FbxPropertyT<double> Intensity;
+        public FbxPropertyT<double> InnerAngle;
+        public FbxPropertyT<double> OuterAngle;
+        public FbxPropertyT<double> Fog;
+        public FbxPropertyT<EDecayType> DecayType;
+        public FbxPropertyT<double> DecayStart;
+        public FbxPropertyT<string> FileName;
+        public FbxPropertyT<bool> EnableNearAttenuation;
+        public FbxPropertyT<double> NearAttenuationStart;
+        public FbxPropertyT<double> NearAttenuationEnd;
+        public FbxPropertyT<bool> EnableFarAttenuation;
+        public FbxPropertyT<double> FarAttenuationStart;
+        public FbxPropertyT<double> FarAttenuationEnd;
+        public FbxPropertyT<bool> CastShadows;
+        public FbxPropertyT<FbxVector3> ShadowColor;
+        public FbxPropertyT<EAreaLightShape> AreaLightShape;
+        public FbxPropertyT<float> LeftBarnDoor;
+        public FbxPropertyT<float> RightBarnDoor;
+        public FbxPropertyT<float> TopBarnDoor;
+        public FbxPropertyT<float> BottomBarnDoor;
+        public FbxPropertyT<bool> EnableBarnDoor;
 
         #endregion
     }

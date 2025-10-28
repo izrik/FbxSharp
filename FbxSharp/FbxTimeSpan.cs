@@ -7,6 +7,10 @@ namespace FbxSharp
         public FbxTime Start;
         public FbxTime Stop;
 
+        #region Public Member Functions
+        
+        // Deviation from SDK: no zero-parameter constructor
+
         public FbxTimeSpan(FbxTime pStart, FbxTime pStop)
         {
             Start = pStart;
@@ -41,17 +45,18 @@ namespace FbxSharp
 
         public FbxTime GetDuration()
         {
-            throw new NotImplementedException();
+            return new FbxTime(GetStop().Get() - GetStart().Get());
         }
 
         public FbxTime GetSignedDuration()
         {
-            throw new NotImplementedException();
+            return new FbxTime(GetStop().Get() - GetStart().Get());
         }
 
         public int GetDirection()
         {
-            throw new NotImplementedException();
+            if (GetStop().Get() >= GetStart().Get()) return 1;
+            return -1;
         }
 
         public bool IsInside(FbxTime pTime)
@@ -63,5 +68,7 @@ namespace FbxSharp
         //public bool operator!=(FbxTimeSpan &pTime)
         //public bool operator==(FbxTimeSpan &pTime)
         //public void UnionAssignment(FbxTimeSpan &pSpan, int pDirection=FBXSDK_TIME_FORWARD)
+        
+        #endregion
     }
 }

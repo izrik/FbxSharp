@@ -2,26 +2,60 @@
 
 namespace FbxSharp
 {
-    public class FbxIOBase : FbxObject
+    /// <summary>
+    /// Base class for FBX file importer and exporter.
+    /// </summary>
+    public abstract class FbxIOBase : FbxObject
     {
-        public FbxIOBase()
-        {
-        }
+        #region Public Types
 
-//        public virtual bool Initialize(string pFilename,  int pFileFormat=-1, FbxIOSettings pIOSettings=null)
-//        {
-//            throw new NotImplementedException();
-//        }
+        //typedef FbxObject ParentClass
 
-        public virtual string GetFilename()
-        {
+        #endregion
+
+        #region Public Member Functions
+
+        // virtual FbxClassId GetClassId () const override
+        public abstract bool Initialize(string pFileName, int pFileFormat = -1,
+            FbxIOSettings pIOSettings = null);
+
+        public abstract string GetFileName();
+
+        public abstract FbxStatus GetStatus();
+
+        #endregion
+
+        #region Static Public Member Functions
+
+        public static FbxIOBase Create(string pName) =>
             throw new NotImplementedException();
+
+        public static FbxIOBase Create(FbxObject pContainer, string pName) =>
+            throw new NotImplementedException();
+
+        #endregion
+
+        #region Static Public Attributes
+
+        // static FbxClassId ClassId
+
+        #endregion
+
+        #region Protected Member Functions
+
+        // virtual ~FbxIOBase()
+
+        protected FbxIOBase(string pName)
+            : base(pName)
+        {
         }
 
-//        public FbxStatus& GetStatus()
-//        {
-//            throw new NotImplementedException();
-//        }
+        #endregion
+
+        #region Static Protected Member Functions
+
+        // static FbxIOBase* Allocate(FbxManager* pManager, const char* pName, const FbxIOBase* pFrom)
+
+        #endregion
     }
 }
-

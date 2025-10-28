@@ -496,6 +496,75 @@ void FbxAnimCurve_Create_HasNamespacePrefix()
     AssertEqual("AnimCurve::", obj->GetNameSpacePrefix());
 }
 
+void FbxAnimCurve_KeyGet()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxAnimCurve* ac = FbxAnimCurve::Create(manager, "asdf");
+
+    // expect:
+    AssertEqual(0, ac->KeyGetCount());
+
+    // when:
+    FbxTime* time;
+    time = new FbxTime(100);
+    FbxAnimCurveKey key = FbxAnimCurveKey(*time, 1.5f);
+    int i;
+    i = ac->KeyAdd(*time, key);
+    AssertEqual(0, i);
+
+    // then:
+    AssertEqual(1, ac->KeyGetCount());
+    FbxAnimCurveKey key2;
+    key2 = ac->KeyGet(0);
+    AssertEqual(100LL, key2.GetTime().Get());
+    AssertEqual(1.5f, key.GetValue());
+}
+
+void FbxAnimCurve_KeyGet_KeysAreSortedByTimeValue()
+{
+    // given:
+    FbxManager* manager = FbxManager::Create();
+    FbxAnimCurve* ac = FbxAnimCurve::Create(manager, "asdf");
+    FbxTime* time;
+    time = new FbxTime(0);
+    FbxAnimCurveKey key1 = FbxAnimCurveKey(*time, 0.5f);
+    int i;
+    i = ac->KeyAdd(*time, key1);
+    AssertEqual(0, i);
+    time = new FbxTime(2000);
+    FbxAnimCurveKey key2 = FbxAnimCurveKey(*time, 2.5f);
+    i = ac->KeyAdd(*time, key2);
+    AssertEqual(1, i);
+
+    // expect:
+    AssertEqual(2, ac->KeyGetCount());
+    FbxAnimCurveKey key = ac->KeyGet(0);
+    AssertEqual(0LL, key.GetTime().Get());
+    AssertEqual(0.5f, key.GetValue());
+    key = ac->KeyGet(1);
+    AssertEqual(2000LL, key.GetTime().Get());
+    AssertEqual(2.5f, key.GetValue());
+
+    // when:
+    time = new FbxTime(1000);
+    FbxAnimCurveKey key3 = FbxAnimCurveKey(*time, 1.5f);
+    i = ac->KeyAdd(*time, key3);
+    AssertEqual(1, i);
+
+    // then:
+    AssertEqual(3, ac->KeyGetCount());
+    key = ac->KeyGet(0);
+    AssertEqual(0LL, key.GetTime().Get());
+    AssertEqual(0.5f, key.GetValue());
+    key = ac->KeyGet(1);
+    AssertEqual(1000LL, key.GetTime().Get());
+    AssertEqual(1.5f, key.GetValue());
+    key = ac->KeyGet(2);
+    AssertEqual(2000LL, key.GetTime().Get());
+    AssertEqual(2.5f, key.GetValue());
+}
+
 void AnimCurveTest::RegisterTestCases()
 {
     AddTestCase(AnimCurveDef_Defaults);
@@ -509,5 +578,7 @@ void AnimCurveTest::RegisterTestCases()
     AddTestCase(AnimCurve_ThreeKeyVaryInTime_EvaluationsAreCorrect);
     AddTestCase(AnimCurve_ThreeKeyVaryInValue_EvaluationsAreCorrect);
     AddTestCase(FbxAnimCurve_Create_HasNamespacePrefix);
+    AddTestCase(FbxAnimCurve_KeyGet);
+    AddTestCase(FbxAnimCurve_KeyGet_KeysAreSortedByTimeValue);
 }
 

@@ -4,14 +4,19 @@ namespace FbxSharp
 {
     public abstract class FbxGeometryBase : FbxLayerContainer
     {
-        protected FbxGeometryBase(string name="")
+        protected FbxGeometryBase(string name = "")
             : base(name)
         {
-            this.Properties.Add(PrimaryVisibility);
-            this.Properties.Add(CastShadow);
-            this.Properties.Add(ReceiveShadow);
-            this.Properties.Add(BBoxMin);
-            this.Properties.Add(BBoxMax);
+            PrimaryVisibility = FbxPropertyT<bool>.StaticInit(this,
+                "Primary Visibility", false, false);
+            CastShadow = FbxPropertyT<bool>.StaticInit(this, "Casts Shadows",
+                false, false);
+            ReceiveShadow = FbxPropertyT<bool>.StaticInit(this,
+                "Receive Shadows", false, false);
+            BBoxMin = FbxPropertyT<FbxVector3>.StaticInit(this, "BBoxMin",
+                FbxVector3.Zero, false);
+            BBoxMax = FbxPropertyT<FbxVector3>.StaticInit(this, "BBoxMax",
+                FbxVector3.Zero, false);
         }
 
         #region Control Points, Normals, Binormals and Tangent Management
@@ -77,11 +82,11 @@ namespace FbxSharp
 
         #region Public and Fast Access Properties
 
-        public readonly FbxPropertyT<bool>     PrimaryVisibility   = new FbxPropertyT<bool>(   "Primary Visibility");
-        public readonly FbxPropertyT<bool>     CastShadow          = new FbxPropertyT<bool>(   "Casts Shadows");
-        public readonly FbxPropertyT<bool>     ReceiveShadow       = new FbxPropertyT<bool>(   "Receive Shadows");
-        public readonly FbxPropertyT<FbxVector3>  BBoxMin             = new FbxPropertyT<FbxVector3>("BBoxMin");
-        public readonly FbxPropertyT<FbxVector3>  BBoxMax             = new FbxPropertyT<FbxVector3>("BBoxMax");
+        public readonly FbxPropertyT<bool> PrimaryVisibility;
+        public readonly FbxPropertyT<bool> CastShadow;
+        public readonly FbxPropertyT<bool> ReceiveShadow;
+        public readonly FbxPropertyT<FbxVector3> BBoxMin;
+        public readonly FbxPropertyT<FbxVector3> BBoxMax;
 
         public void ComputeBBox()
         {

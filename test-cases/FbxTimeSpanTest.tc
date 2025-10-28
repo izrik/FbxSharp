@@ -1,0 +1,37 @@
+﻿#use constraints
+
+fixture FbxTimeSpanTest
+test FbxTimeSpan_Create_HasDefaults
+    given
+    FbxTimeSpan ts
+    ts = $new FbxTimeSpan()
+    
+    expect
+    AssertEqual(0LL, ts&.GetStart()&.Get())
+    AssertEqual(0LL, ts&.GetStop()&.Get())
+    AssertEqual(0LL, ts&.GetDuration()&.Get())
+    AssertEqual(0LL, ts&.GetSignedDuration()&.Get())
+    AssertEqual(1, ts&.GetDirection())
+
+test FbxTimeSpan_Create_WithArguments
+    given
+    FbxTimeSpan ts
+
+    when
+#trace
+    ts = $new FbxTimeSpan($new FbxTime(141120000L), $new FbxTime(423360000L))
+    then
+    AssertEqual(141120000LL, ts&.GetStart()&.Get())
+    AssertEqual(423360000LL, ts&.GetStop()&.Get())
+    AssertEqual(282240000LL, ts&.GetDuration()&.Get())
+    AssertEqual(282240000LL, ts&.GetSignedDuration()&.Get())
+    AssertEqual(1, ts&.GetDirection())
+
+    when
+    ts = $new FbxTimeSpan($new FbxTime(423360000L), $new FbxTime(141120000L))
+    then
+    AssertEqual(423360000LL, ts&.GetStart()&.Get())
+    AssertEqual(141120000LL, ts&.GetStop()&.Get())
+    AssertEqual(282240000LL, ts&.GetDuration()&.Get())
+    AssertEqual(-282240000LL, ts&.GetSignedDuration()&.Get())
+    AssertEqual(-1, ts&.GetDirection())

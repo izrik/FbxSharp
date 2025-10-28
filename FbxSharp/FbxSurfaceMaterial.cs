@@ -6,17 +6,19 @@ namespace FbxSharp
 {
     public abstract class FbxSurfaceMaterial : FbxObject
 	{
-        protected FbxSurfaceMaterial(string name="")
+        protected FbxSurfaceMaterial(string name = "")
             : base(name)
         {
-            this.Properties.Add(ShadingModel);
-            this.Properties.Add(MultiLayer);
+            ShadingModel = FbxPropertyT<string>.StaticInit(this,
+                "ShadingModel", "", false);
+            MultiLayer = FbxPropertyT<bool>.StaticInit(this, "MultiLayer",
+                false, false);
         }
 
         #region Material Properties
 
-        public readonly FbxPropertyT<string> ShadingModel = new FbxPropertyT<string>("ShadingModel");
-        public readonly FbxPropertyT<bool>   MultiLayer   = new FbxPropertyT<bool>("MultiLayer");
+        public readonly FbxPropertyT<string> ShadingModel;
+        public readonly FbxPropertyT<bool> MultiLayer;
 
         #endregion
 

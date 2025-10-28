@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using NCommander;
 
 namespace TestCaseGenerator
@@ -13,8 +14,64 @@ namespace TestCaseGenerator
         public static void Main(string [] args)
         {
             var commander = new Commander("TestCaseGenerator", GetVersionStringFromAssembly());
-            commander.Commands.Add("cs", CreateCommand("cs", "Generate C# tests", GenerateCs));
-            commander.Commands.Add("cpp", CreateCommand("cpp", "Generate C++ tests", GenerateCpp));
+
+            var forceOption = new Option()
+            {
+                Name = "force",
+                Description =
+                    "Generate a test file even if it already exists and is " +
+                    "newer than the source .tc file",
+                Type = ParameterType.Flag,
+            };
+            var verboseOption = new Option()
+            {
+                Name = "verbose",
+                Description =
+                    "Print additional information during execution",
+                Type = ParameterType.Flag,
+            };
+            var inputOption = new Option
+            {
+                Name = "input",
+                Description =
+                    "Path to the input directory where test case files are " +
+                    "located",
+                Type = ParameterType.String,
+            };
+            var outputOption = new Option
+            {
+                Name = "output",
+                Description =
+                    "Path to the output directory where the resulting test " +
+                    "files will be placed",
+                Type = ParameterType.String,
+            };
+
+            var csCmd = CreateCommand(
+                "cs",
+                "Generate C# tests",
+                GenerateCs,
+                options: new[]
+                {
+                    forceOption,
+                    verboseOption,
+                    inputOption,
+                    outputOption,
+                });
+            commander.Commands.Add("cs", csCmd);
+
+            var cppCmd = CreateCommand(
+                "cpp",
+                "Generate C++ tests",
+                GenerateCpp,
+                options: new[]
+                {
+                    forceOption,
+                    verboseOption,
+                    inputOption,
+                    outputOption,
+                });
+            commander.Commands.Add("cpp", cppCmd);
 
             try
             {
@@ -59,23 +116,30 @@ namespace TestCaseGenerator
             return version.ToString(version.Major == 0 ? 2 : 3);
         }
 
-        static Command CreateCommand(string name, string description, Action<List<TestFixture>, TextWriter> generator)
+        static Command CreateCommand(string name, string description,
+            Action<TestFile, TextWriter> generator,
+            IEnumerable<Parameter> extraParams = null,
+            IEnumerable<Option> options = null)
         {
+            var paramlist = new List<Parameter>
+            {
+                new Parameter
+                {
+                    Name = "test-files",
+                    ParameterType = ParameterType.StringArray,
+                }
+            };
+            if (extraParams != null)
+                paramlist.AddRange(extraParams);
+            var optionArray = Array.Empty<Option>();
+            if (options != null)
+                optionArray = options.ToArray();
 
             var cmd = new Command {
                 Name = name,
                 Description = description,
-                Params = new [] {
-                    new Parameter {
-                        Name = "input-filename",
-                        ParameterType = ParameterType.String,
-                    },
-                    new Parameter {
-                        Name = "output-filename",
-                        ParameterType = ParameterType.String,
-                        IsOptional = true,
-                    },
-                },
+                Params = paramlist.ToArray(),
+                Options = optionArray,
                 ExecuteDelegate = args => {
                     ExecuteDelegate(args, generator, name);
                 },
@@ -84,84 +148,291 @@ namespace TestCaseGenerator
             return cmd;
         }
 
-        static void ExecuteDelegate(Dictionary<string, object> args, Action<List<TestFixture>, TextWriter> generator, string language)
+        static void ExecuteDelegate(Dictionary<string, object> args,
+            Action<TestFile, TextWriter> generator, string language)
         {
-            var input = (string)args["input-filename"];
-            var fixtures = new List<TestFixture>();
+            var inputFolder = (string)args["input"];
+            if (string.IsNullOrWhiteSpace(inputFolder))
+                inputFolder = Environment.CurrentDirectory;
+            var inputDi = new DirectoryInfo(inputFolder);
+            if (!inputDi.Exists)
+                throw new DirectoryNotFoundException(
+                    $"Could not find input directory \"{inputFolder}\"");
+            var outputFolder = (string)args["output"];
+            bool force = args.ContainsKey("force") && (bool)args["force"];
+            bool verbose = args.ContainsKey("verbose") &&
+                           (bool)args["verbose"];
 
-            using (var reader = new StreamReader(input))
+            var testFiles = (string[])args["test-files"];
+            var allInputFiles = inputDi.GetFiles();
+            var testFiles2 = new List<FileInfo>();
+            if (testFiles != null && testFiles.Length > 0)
             {
-                TestFixture currentFixture = null;
-                TestCase currentTest = null;
-
-
-                while (!reader.EndOfStream)
+                foreach (var tf in testFiles)
                 {
-                    var line = reader.ReadLine();
-                    if (string.IsNullOrWhiteSpace(line))
+                    var fi = allInputFiles.FirstOrDefault(
+                        fi2 => fi2.Name == tf);
+                    if (fi != null)
                     {
-                        currentTest.Statements.Add(string.Empty);
+                        testFiles2.Add(fi);
                         continue;
                     }
 
-                    var trimmed = line.Trim();
-                    var parts = trimmed.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    if (parts[0].StartsWith("#"))
+                    if (!tf.Contains('.'))
                     {
-                        var targets = parts[0].Substring(1).Split(',');
-                        if (!targets.Contains(language))
+                        var tf2 = tf + ".tc";
+                        fi = allInputFiles.FirstOrDefault(
+                            fi2 => fi2.Name == tf2);
+                        if (fi != null)
+                        {
+                            testFiles2.Add(fi);
+                            continue;
+                        }
+
+                        throw new FileNotFoundException(
+                            $"Could not find input test case file \"{tf}.tc\"");
+                    }
+
+                    throw new FileNotFoundException(
+                        $"Could not find input test case file \"{tf}\"");
+                }
+            }
+            else
+            {
+                foreach (var fi in allInputFiles)
+                {
+                    if (fi.Name.EndsWith(".tc"))
+                        testFiles2.Add(fi);
+                }
+            }
+
+            foreach (var fi in testFiles2)
+            {
+                var inputFilename = fi.FullName;
+                var testFile = new TestFile();
+                var outputBasename = Path.ChangeExtension(fi.Name, language);
+                var outputFilename = Path.Join(outputFolder, outputBasename);
+
+                var inmod = File.GetLastWriteTime(inputFilename);
+                var outmod = File.GetLastWriteTime(outputFilename);
+                if (outmod > inmod)
+                {
+                    if (force)
+                    {
+                        if (verbose)
+                            Console.WriteLine(
+                                $"Forced overwrite even though " +
+                                $"{outputFilename} is newer than {inputFilename}");
+                    }
+                    else
+                    {
+                        if (verbose)
+                            Console.WriteLine(
+                                $"{outputFilename} is newer than {inputFilename}, " +
+                                $"skipping...");
+                        continue;
+                    }
+                }
+                else
+                {
+                    if (verbose)
+                        Console.WriteLine(
+                            $"{inputFilename} -> {outputFilename}");
+                }
+
+                using (var reader = new StreamReader(inputFilename))
+                {
+                    TestFixture currentFixture = null;
+                    TestCase currentTest = null;
+
+                    bool traceNextStatement = false;
+
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+                        if (string.IsNullOrWhiteSpace(line))
+                        {
+                            if (currentTest != null)
+                            {
+                                currentTest.AddStatement(string.Empty, traceNextStatement);
+                                traceNextStatement = false;
+                            }
+                            continue;
+                        }
+
+                        var trimmed = line.Trim();
+                        if (trimmed == "#use constraints")
+                        {
+                            if (currentTest != null)
+                                currentTest.UseConstraints = true;
+                            else if (currentFixture != null)
+                                currentFixture.UseConstraints = true;
+                            else
+                                testFile.UseConstraints = true;
+                            continue;
+                        }
+
+                        if (trimmed == "#trace")
+                        {
+                            traceNextStatement = true;
+                            continue;
+                        }
+
+                        var parts = trimmed.Split(new char[] { ' ', '\t' },
+                            StringSplitOptions.RemoveEmptyEntries);
+
+                        if (parts[0].StartsWith("#"))
+                        {
+                            var targets = parts[0].Substring(1).Split(',');
+                            if (!targets.Contains(language))
+                            {
+                                continue;
+                            }
+
+                            trimmed = trimmed.Replace(parts[0], string.Empty)
+                                .Trim();
+                            parts = trimmed.Split(new char[] { ' ', '\t' },
+                                StringSplitOptions.RemoveEmptyEntries);
+                        }
+                        else if (parts[0].StartsWith("//"))
                         {
                             continue;
                         }
 
-                        trimmed = trimmed.Replace(parts[0], string.Empty).Trim();
-                        parts = trimmed.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                    }
-                    else if (parts[0].StartsWith("//"))
-                    {
-                        continue;
-                    }
-
-                    string name;
-                    switch (parts[0].ToLower())
-                    {
-                    case "fixture":
-                        name = parts[1];
-                        currentFixture = new TestFixture { Name = name };
-                        fixtures.Add(currentFixture);
-                        break;
-                    case "test":
-                        name = parts[1];
-                        currentTest = new TestCase { Name = name };
-                        currentFixture.TestCases.Add(currentTest);
-                        break;
-                    case "given":
-                    case "require":
-                    case "when":
-                    case "then":
-                    case "expect":
-                        currentTest.Statements.Add(parts[0].ToLower());
-                        break;
-                    default:
-                        currentTest.Statements.Add(trimmed);
-                        break;
+                        string name;
+                        switch (parts[0].ToLower())
+                        {
+                            case "fixture":
+                                name = parts[1];
+                                currentFixture = new TestFixture
+                                    { Name = name };
+                                testFile.TestFixtures.Add(currentFixture);
+                                break;
+                            case "test":
+                                name = parts[1];
+                                if (currentFixture == null)
+                                    throw new InvalidOperationException(
+                                        "Test defined outside of a fixture");
+                                currentTest = new TestCase(name);
+                                currentFixture.TestCases.Add(currentTest);
+                                break;
+                            case "given":
+                            case "require":
+                            case "when":
+                            case "then":
+                            case "expect":
+                                if (currentTest != null)
+                                {
+                                    currentTest.AddStatement(
+                                        parts[0].ToLower(),
+                                        traceNextStatement);
+                                    traceNextStatement = false;
+                                }
+                                break;
+                            default:
+                                if (currentTest != null)
+                                {
+                                    currentTest.AddStatement(trimmed,
+                                        traceNextStatement);
+                                    traceNextStatement = false;
+                                }
+                                else if (currentFixture != null)
+                                    currentFixture.Epilogue.Add(trimmed);
+                                else
+                                    testFile.Prologue.Add(trimmed);
+                                break;
+                        }
                     }
                 }
-            }
 
-
-            using (var writer = 
-                (!args.ContainsKey("output-filename") || args["output-filename"] == null ?
-                    Console.Out :
-                    new StreamWriter((string)args["output-filename"])))
-            {
-                generator(fixtures, writer);
+                using (var writer = new StreamWriter(outputFilename))
+                {
+                    generator(testFile, writer);
+                }
             }
         }
 
-        static void GenerateCs(List<TestFixture> fixtures, TextWriter writer)
+        struct StatementLine(string pValue, bool pTrace = false)
         {
+            public string Value { get; private set; } = pValue;
+            public readonly bool Trace = pTrace;
+
+            private void TraceChange(string oldValue, string newValue, string comment = null)
+            {
+                if (Trace && oldValue != newValue)
+                {
+                    if (comment != null)
+                        Console.WriteLine($"Trace: {newValue} ({comment})");
+                    else
+                        Console.WriteLine($"Trace: {newValue}");
+                }
+            }
+
+            public void Set(string value)
+            {
+                TraceChange(Value, value, "Set");
+                Value = value;
+            }
+
+            public void SetFormat(string format, string arg1, string arg2)
+            {
+                var value = string.Format(format, arg1, arg2);
+                TraceChange(Value, value, $"SetFormat \"{format}\", \"{arg1}\", \"{arg2}\"");
+                Value = value;
+            }
+
+            public void SetJoin(string delimiter, params string[] parts)
+            {
+                var value = string.Join(delimiter, parts);
+                TraceChange(Value, value, $"SetJoin \"{delimiter}\", {parts}");
+                Value = value;
+            }
+
+            public void SetJoin(string delimiter, IEnumerable<string> parts)
+            {
+                var value = string.Join(delimiter, parts);
+                var partsString = new StringBuilder();
+                foreach (var part in parts)
+                {
+                    partsString.Append($"\"{part}\", ");
+                }
+                TraceChange(Value, value, $"SetJoin \"{delimiter}\", {partsString}");
+                Value = value;
+            }
+
+            public void Replace(string oldValue, string newValue)
+            {
+                var newLine = Value.Replace(oldValue, newValue);
+                TraceChange(Value, newLine, $"Replace {oldValue} -> {newValue}");
+                Value = newLine;
+            }
+
+            public void Replace(char oldValue, char newValue)
+            {
+                var newLine = Value.Replace(oldValue, newValue);
+                TraceChange(Value, newLine, $"Replace {oldValue} -> {newValue}");
+                Value = newLine;
+            }
+
+            public void RegexReplace(string pattern, string replacement)
+            {
+                var newValue = Regex.Replace(Value, pattern, replacement);
+                TraceChange(Value, newValue, $"RegexReplace {pattern}, {replacement}");
+                Value = newValue;
+            }
+
+            public void RegexReplace(string pattern, MatchEvaluator replacement)
+            {
+                var newValue = Regex.Replace(Value, pattern, replacement);
+                TraceChange(Value, newValue, $"RegexReplace {pattern}, {replacement}");
+                Value = newValue;
+            }
+        }
+
+        static void GenerateCs(TestFile testFile, TextWriter writer)
+        {
+            foreach (var line in testFile.Prologue)
+                writer.WriteLine(line);
             writer.WriteLine("using System;");
             writer.WriteLine("using NUnit.Framework;");
             writer.WriteLine("using FbxSharp;");
@@ -169,7 +440,7 @@ namespace TestCaseGenerator
             writer.WriteLine("namespace FbxSharpTests");
             writer.WriteLine("{");
             var fixturesStarted = false;
-            foreach (var fixture in fixtures)
+            foreach (var fixture in testFile.TestFixtures)
             {
                 if (fixturesStarted)
                     writer.WriteLine();
@@ -186,8 +457,14 @@ namespace TestCaseGenerator
                     writer.WriteLine("        {");
                     int blanks = 0;
                     List<String> parts;
-                    foreach (var stmt in testcase.Statements)
+                    var lineno = 0;
+                    int i;
+                    for (i = 0; i < testcase.Statements.Count; i++)
                     {
+                        var stmt = testcase.Statements[i];
+                        var trace = testcase.StatementsToTraceIndexes.Contains(i);
+
+                        lineno++;
                         if (string.IsNullOrWhiteSpace(stmt))
                         {
                             blanks++;
@@ -207,40 +484,91 @@ namespace TestCaseGenerator
                             writer.WriteLine("            // {0}:", stmt);
                             break;
                         default:
-                            var outline = stmt.Replace("AssertEqual", "Assert.AreEqual");
-                            outline = outline.Replace("AssertNotEqual", "Assert.AreNotEqual");
-                            outline = outline.Replace("AssertSame", "Assert.AreSame");
-                            outline = Regex.Replace(outline, @"Assert(\w)", m => "Assert." + m.Groups[1].Value);
+                            var outline = new StatementLine(stmt, trace);
 
-                            outline = outline.Replace("&", "");
-                            outline =
-                                Regex.Replace(
-                                    outline,
-                                    @"(\S)\*(\s)",
-                                    m => m.Groups[1].Value + m.Groups[2].Value);
-                            outline =
-                                Regex.Replace(
-                                    outline,
-                                    @"(\s)\*(\S)",
-                                    m => m.Groups[1].Value + m.Groups[2].Value);
-                            outline =
-                                Regex.Replace(
-                                    outline,
-                                    @"(\S)\*(\S)",
-                                    m => m.Groups[1].Value + m.Groups[2].Value);
-                            outline = outline.Replace("::", ".");
-                            outline = outline.Replace(":\\:", "::");
+                            outline.RegexReplace(@"\$ref\s*", "ref ");
+                            outline.RegexReplace(@"\$out\s*", "out ");
+                            // outline.RegexReplace(@"\$new\s*", "new ");
 
-                            outline = Regex.Replace(outline, @"\bFbx\$", "");
+                            outline.RegexReplace(@"\bFbxInt\b", "int");
+                            outline.RegexReplace(@"\bFbxDouble\b", "double");
 
-                            if (Regex.IsMatch(outline, @"^\w+\s*\*\s*\w+$"))
+                            if ((testFile.UseConstraints ||
+                                 fixture.UseConstraints ||
+                                 testcase.UseConstraints) &&
+                                outline.Value.StartsWith("Assert"))
                             {
-                                outline = outline.Replace('*', ' ');
+                                var paren = outline.Value.IndexOf('(') + 1;
+                                var outline2 = outline.Value[paren..^1];
+                                var parts1 = outline2.Split(",");
+                                var new_rhs = string.Join(",", parts1[..^1]).Trim();
+                                var new_lhs = parts1[^1].Trim();
+                                if (outline.Value.StartsWith("AssertEqual"))
+                                {
+                                    outline.SetFormat(
+                                            "Assert.That({0}, Is.EqualTo({1}))",
+                                            new_lhs, new_rhs);
+                                }
+                                else if (outline.Value.StartsWith("AssertNotEqual"))
+                                {
+                                    outline.SetFormat(
+                                            "Assert.That({0}, Is.Not.EqualTo({1}))",
+                                            new_lhs, new_rhs);
+                                }
+                                else if (outline.Value.StartsWith("AssertSame"))
+                                {
+                                    outline.SetFormat(
+                                            "Assert.That({0}, Is.SameAs({1}))",
+                                            new_lhs, new_rhs);
+                                }
+                                else
+                                {
+                                    outline.RegexReplace(
+                                            @"Assert(\w)",
+                                            m => "Assert." + m.Groups[1].Value);
+                                }
+                            }
+                            else
+                            {
+                                outline.Replace("AssertEqual", "Assert.AreEqual");
+                                outline.Replace("AssertNotEqual", "Assert.AreNotEqual");
+                                outline.Replace("AssertSame", "Assert.AreSame");
+                                outline.RegexReplace(@"Assert(\w)", m => "Assert." + m.Groups[1].Value);
                             }
 
-                            if (Regex.IsMatch(outline, @"\bnew\b"))
+                            outline.Replace("&", "");
+                            outline.RegexReplace(
+                                        @"([\w])\*(\s)",
+                                        m => m.Groups[1].Value + m.Groups[2].Value);
+                            outline.RegexReplace(
+                                        @"(\s)\*([\w>])",
+                                        m => m.Groups[1].Value + m.Groups[2].Value);
+                            outline.RegexReplace(
+                                    @"([\w()])\*([\w>])",
+                                    m => m.Groups[1].Value + m.Groups[2].Value);
+                            outline.Replace("::", ".");
+                            outline.Replace(":\\:", "::");
+
+                            outline.RegexReplace(@"\bFbx\$", "");
+
+                            outline.RegexReplace(@"\b(\d+L)L\b", m => m.Groups[1].Value);
+
+                            if (Regex.IsMatch(outline.Value, @"^\w+\s*\*\s*\w+$"))
                             {
-                                parts = outline.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                                outline.Replace('*', ' ');
+                            }
+
+                            if (Regex.IsMatch(outline.Value, @"new&"))
+                            {
+                                outline.Replace("new&", "new");
+                            }
+                            else if (Regex.IsMatch(outline.Value, @"\$new\b"))
+                            {
+                                outline.Replace("$new", "new");
+                            }
+                            else if (Regex.IsMatch(outline.Value, @"\bnew\b"))
+                            {
+                                parts = outline.Value.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                                 parts[0] = parts[0].Replace("!", "");
                                 var targetTypeName = parts[0];
                                 if (targetTypeName == "FbxLayerContainer" ||
@@ -256,11 +584,14 @@ namespace TestCaseGenerator
                                     targetTypeName = "FbxMatrix";
                                 }
 
-                                parts[3] = parts[3].Replace("new", "new " + targetTypeName);
-                                outline = string.Join(" ", parts);
+                                if (parts.Count > 3)
+                                    parts[3] = parts[3].Replace("new",
+                                        "new " + targetTypeName);
+                                outline.SetJoin(" ", parts);
                             }
+                            // outline.Replace("!", "");
 
-                            parts = outline.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                            parts = outline.Value.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                             if (parts.Count == 2)
                             {
                                 var targetTypeName = parts[0];
@@ -277,31 +608,35 @@ namespace TestCaseGenerator
                                 }
 
                                 parts[0] = targetTypeName;
-                                outline = string.Join(" ", parts);
+                                outline.SetJoin(" ", parts);
                             }
                             else if (parts.Count > 3 && parts[2] == "=")
                             {
                                 parts[0] = "var";
-                                outline = string.Join(" ", parts);
+                                outline.SetJoin(" ", parts);
                             }
 
-                            if (Regex.IsMatch(outline, @"\bFbxVector(\d)\("))
+                            if (Regex.IsMatch(outline.Value, @"\bFbxVector(\d)\("))
                             {
-                                outline =
-                                    Regex.Replace(
-                                        outline,
+                                outline.RegexReplace(
                                         @"\bFbxVector(\d)\(",
                                         m => "new FbxVector" + m.Groups[1].Value + "(");
                             }
 
-                            if (Regex.IsMatch(outline, @"\bNULL\b"))
+                            outline.Replace("Get<FbxString>()",
+                                "Get<string>()");
+
+                            outline.Replace("GetType()",
+                                "GetFbxType()");
+
+                            if (Regex.IsMatch(outline.Value, @"\bNULL\b"))
                             {
-                                outline = Regex.Replace(outline, @"\bNULL\b", "null");
+                                outline.RegexReplace(@"\bNULL\b", "null");
                             }
 
-                            if (!string.IsNullOrWhiteSpace(outline))
+                            if (!string.IsNullOrWhiteSpace(outline.Value))
                             {
-                                writer.Write("            {0};", outline);
+                                writer.Write("            {0};", outline.Value);
                                 writer.WriteLine();
                             }
                             break;
@@ -310,6 +645,8 @@ namespace TestCaseGenerator
                     writer.WriteLine("        }");
                     casesStarted = true;
                 }
+                foreach (var line in fixture.Epilogue)
+                    writer.WriteLine(line);
                 writer.WriteLine("    }");
                 fixturesStarted = true;
             }
@@ -317,13 +654,15 @@ namespace TestCaseGenerator
             writer.Flush();
         }
 
-        static void GenerateCpp(List<TestFixture> fixtures, TextWriter writer)
+        static void GenerateCpp(TestFile testFile, TextWriter writer)
         {
+            foreach (var line in testFile.Prologue)
+                writer.WriteLine(line);
             writer.WriteLine();
             writer.WriteLine("#include \"Tests.h\"");
             writer.WriteLine();
             writer.WriteLine("using namespace std;");
-            foreach (var fixture in fixtures)
+            foreach (var fixture in testFile.TestFixtures)
             {
                 foreach (var testcase in fixture.TestCases)
                 {
@@ -371,6 +710,10 @@ namespace TestCaseGenerator
                                     outline = string.Join(" ", parts);
                                 }
                             }
+
+                            outline = Regex.Replace(outline, @"\$ref\s*", "");
+                            outline = Regex.Replace(outline, @"\$out\s*", "");
+                            outline = Regex.Replace(outline, @"\$new\s*", "");
 
                             if (Regex.IsMatch(outline, @"\bnew\b"))
                             {
@@ -453,6 +796,17 @@ namespace TestCaseGenerator
                             outline = Regex.Replace(outline, @"\bFbxAnimCurveDef\.s", "FbxAnimCurveDef::s");
 
                             outline = Regex.Replace(outline, @"\bFbx\$", "Fbx");
+                            outline = Regex.Replace(outline,
+                                @"\bFbxIOSettingsPath.\b", "");
+                            outline = Regex.Replace(outline,
+                                @"\bFbxDataTypes\.\b", "");
+                            outline = outline.Replace(
+                                "FbxDataType.FbxGetDataTypeFromEnum",
+                                "FbxGetDataTypeFromEnum");
+
+                            outline = outline.Replace(
+                                "GetPropertyDataType()&.GetFbxType()",
+                                "GetPropertyDataType()&.GetType()");
 
                             parts = outline.Split(' ').ToList();
                             if (parts.Count == 2)
@@ -516,6 +870,10 @@ namespace TestCaseGenerator
                                 outline = Regex.Replace(outline, @"\bnull\b", "NULL");
                             }
 
+                            outline = Regex.Replace(outline,
+                                @"\b(GetSample\(""[^""]+""\))\)",
+                                "$1.c_str())");
+
                             if (!string.IsNullOrWhiteSpace(outline))
                             {
                                 writer.Write("    {0};", outline);
@@ -527,6 +885,8 @@ namespace TestCaseGenerator
                     writer.WriteLine("}");
                 }
 
+                foreach (var line in fixture.Epilogue)
+                    writer.WriteLine(line);
                 writer.WriteLine();
                 writer.WriteLine("void {0}::RegisterTestCases()", fixture.Name);
                 writer.WriteLine("{");

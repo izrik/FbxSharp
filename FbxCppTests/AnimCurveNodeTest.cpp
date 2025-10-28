@@ -12,7 +12,7 @@ void AnimCurveNodeTest_Create_NoChannels()
     FbxAnimCurveNode* acn = FbxAnimCurveNode::Create(manager, "");
 
     // then:
-    AssertEqual(0, acn->GetChannelsCount());
+    AssertEqual(0, (signed int)acn->GetChannelsCount());
     AssertEqual(1, CountProperties(acn));
 }
 
@@ -23,7 +23,7 @@ void AnimCurveNodeTest_AddChannel_TwoPropertiesOneChannel()
     FbxAnimCurveNode* acn = FbxAnimCurveNode::Create(manager, "");
 
     // require:
-    AssertEqual(0, acn->GetChannelsCount());
+    AssertEqual(0, (signed int)acn->GetChannelsCount());
     AssertEqual(1, CountProperties(acn));
 
     // when:
@@ -31,7 +31,7 @@ void AnimCurveNodeTest_AddChannel_TwoPropertiesOneChannel()
 
     // then:
     AssertEqual(2, CountProperties(acn));
-    AssertEqual(1, acn->GetChannelsCount());
+    AssertEqual(1, (signed int)acn->GetChannelsCount());
     AssertEqual(0, acn->GetCurveCount(0));
 
     FbxProperty prop = acn->GetFirstProperty();
@@ -51,7 +51,7 @@ void AnimCurveNodeTest_ConnectToChannel_AddsSrcConnection()
 
     // require:
     AssertEqual(2, CountProperties(acn));
-    AssertEqual(1, acn->GetChannelsCount());
+    AssertEqual(1, (signed int)acn->GetChannelsCount());
     AssertEqual(0, acn->GetCurveCount(0));
 
     // when:
@@ -59,7 +59,7 @@ void AnimCurveNodeTest_ConnectToChannel_AddsSrcConnection()
 
     // then:
     AssertEqual(2, CountProperties(acn));
-    AssertEqual(1, acn->GetChannelsCount());
+    AssertEqual(1, (signed int)acn->GetChannelsCount());
     AssertEqual(1, acn->GetCurveCount(0));
     AssertEqual(1, ac->GetDstPropertyCount());
     AssertEqual("channel1", ac->GetDstProperty(0).GetName());

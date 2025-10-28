@@ -1,0 +1,50 @@
+#use constraints
+
+fixture FbxPropertyFlagsTest
+test FbxPropertyFlags_EInheritType_IdentifiersHaveSpecificValues
+    expect
+    AssertEqual(0, (int)FbxPropertyFlags::EInheritType::eOverride)
+    AssertEqual(1, (int)FbxPropertyFlags::EInheritType::eInherit)
+    AssertEqual(2, (int)FbxPropertyFlags::EInheritType::eDeleted)
+
+test FbxPropertyFlags_EFlags_IdentifiersHaveSpecificValues
+    expect
+    AssertEqual(0, (int)FbxPropertyFlags::EFlags::eNone)
+    AssertEqual(1, (int)FbxPropertyFlags::EFlags::eStatic)
+    AssertEqual(2, (int)FbxPropertyFlags::EFlags::eAnimatable)
+    AssertEqual(4, (int)FbxPropertyFlags::EFlags::eAnimated)
+    AssertEqual(8, (int)FbxPropertyFlags::EFlags::eImported)
+    AssertEqual(16, (int)FbxPropertyFlags::EFlags::eUserDefined)
+    AssertEqual(32, (int)FbxPropertyFlags::EFlags::eHidden)
+    AssertEqual(64, (int)FbxPropertyFlags::EFlags::eNotSavable)
+
+    AssertEqual(128, (int)FbxPropertyFlags::EFlags::eLockedMember0)
+    AssertEqual(256, (int)FbxPropertyFlags::EFlags::eLockedMember1)
+    AssertEqual(512, (int)FbxPropertyFlags::EFlags::eLockedMember2)
+    AssertEqual(1024, (int)FbxPropertyFlags::EFlags::eLockedMember3)
+    AssertEqual(1920, (int)FbxPropertyFlags::EFlags::eLockedAll)
+
+    AssertEqual(2048, (int)FbxPropertyFlags::EFlags::eMutedMember0)
+    AssertEqual(4096, (int)FbxPropertyFlags::EFlags::eMutedMember1)
+    AssertEqual(8192, (int)FbxPropertyFlags::EFlags::eMutedMember2)
+    AssertEqual(16384, (int)FbxPropertyFlags::EFlags::eMutedMember3)
+    AssertEqual(30720, (int)FbxPropertyFlags::EFlags::eMutedAll)
+    
+    AssertEqual(32768, (int)FbxPropertyFlags::EFlags::eUIDisabled)
+    AssertEqual(65536, (int)FbxPropertyFlags::EFlags::eUIGroup)
+    AssertEqual(131072, (int)FbxPropertyFlags::EFlags::eUIBoolGroup)
+    AssertEqual(262144, (int)FbxPropertyFlags::EFlags::eUIExpanded)
+    AssertEqual(524288, (int)FbxPropertyFlags::EFlags::eUINoCaption)
+    AssertEqual(1048576, (int)FbxPropertyFlags::EFlags::eUIPanel)
+    AssertEqual(2097152, (int)FbxPropertyFlags::EFlags::eUILeftLabel)
+    AssertEqual(4194304, (int)FbxPropertyFlags::EFlags::eUIHidden)
+
+    AssertEqual(32767, (int)FbxPropertyFlags::EFlags::eCtrlFlags)
+
+    AssertEqual(8355840, (int)FbxPropertyFlags::EFlags::eUIFlags)
+
+    AssertEqual(8388607, (int)FbxPropertyFlags::EFlags::eAllFlags)
+    
+    AssertEqual(23, (int)FbxPropertyFlags::EFlags::eFlagCount)
+
+// TODO: methods in the "Public Member Functions" section

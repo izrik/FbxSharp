@@ -1,0 +1,800 @@
+fixture FbxDataTypesTest
+test FbxDataTypes_FbxUndefinedDT_HasDefaultsAndIsNotValid
+    expect
+    AssertFalse(FbxDataTypes.FbxUndefinedDT&.Valid())
+    AssertEqual(EFbxType::eFbxUndefined, FbxDataTypes.FbxUndefinedDT&.GetType())
+    AssertEqual("", FbxDataTypes.FbxUndefinedDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxBoolDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxBoolDT&.Valid())
+    AssertEqual(EFbxType::eFbxBool, FbxDataTypes.FbxBoolDT&.GetType())
+    AssertEqual("Bool", FbxDataTypes.FbxBoolDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxCharDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxCharDT&.Valid())
+    AssertEqual(EFbxType::eFbxChar, FbxDataTypes.FbxCharDT&.GetType())
+    AssertEqual("Byte", FbxDataTypes.FbxCharDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxUCharDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxUCharDT&.Valid())
+    AssertEqual(EFbxType::eFbxUChar, FbxDataTypes.FbxUCharDT&.GetType())
+    AssertEqual("UByte", FbxDataTypes.FbxUCharDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxShortDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxShortDT&.Valid())
+    AssertEqual(EFbxType::eFbxShort, FbxDataTypes.FbxShortDT&.GetType())
+    AssertEqual("Short", FbxDataTypes.FbxShortDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxUShortDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxUShortDT&.Valid())
+    AssertEqual(EFbxType::eFbxUShort, FbxDataTypes.FbxUShortDT&.GetType())
+    AssertEqual("UShort", FbxDataTypes.FbxUShortDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxIntDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxIntDT&.Valid())
+    AssertEqual(EFbxType::eFbxInt, FbxDataTypes.FbxIntDT&.GetType())
+    AssertEqual("Integer", FbxDataTypes.FbxIntDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxUIntDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxUIntDT&.Valid())
+    AssertEqual(EFbxType::eFbxUInt, FbxDataTypes.FbxUIntDT&.GetType())
+    AssertEqual("UInteger", FbxDataTypes.FbxUIntDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLongLongDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLongLongDT&.Valid())
+    AssertEqual(EFbxType::eFbxLongLong, FbxDataTypes.FbxLongLongDT&.GetType())
+    AssertEqual("LongLong", FbxDataTypes.FbxLongLongDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxULongLongDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxULongLongDT&.Valid())
+    AssertEqual(EFbxType::eFbxULongLong, FbxDataTypes.FbxULongLongDT&.GetType())
+    AssertEqual("ULongLong", FbxDataTypes.FbxULongLongDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxFloatDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxFloatDT&.Valid())
+    AssertEqual(EFbxType::eFbxFloat, FbxDataTypes.FbxFloatDT&.GetType())
+    AssertEqual("Float", FbxDataTypes.FbxFloatDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxHalfFloatDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxHalfFloatDT&.Valid())
+    AssertEqual(EFbxType::eFbxHalfFloat, FbxDataTypes.FbxHalfFloatDT&.GetType())
+    AssertEqual("HalfFloat", FbxDataTypes.FbxHalfFloatDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxDoubleDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxDoubleDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxDoubleDT&.GetType())
+    AssertEqual("Number", FbxDataTypes.FbxDoubleDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxDouble2DT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxDouble2DT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble2, FbxDataTypes.FbxDouble2DT&.GetType())
+    AssertEqual("Vector2", FbxDataTypes.FbxDouble2DT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxDouble3DT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxDouble3DT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxDouble3DT&.GetType())
+    AssertEqual("Vector", FbxDataTypes.FbxDouble3DT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxDouble4DT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxDouble4DT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble4, FbxDataTypes.FbxDouble4DT&.GetType())
+    AssertEqual("Vector4", FbxDataTypes.FbxDouble4DT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxDouble4x4DT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxDouble4x4DT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble4x4, FbxDataTypes.FbxDouble4x4DT&.GetType())
+    AssertEqual("Matrix", FbxDataTypes.FbxDouble4x4DT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxEnumDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxEnumDT&.Valid())
+    AssertEqual(EFbxType::eFbxEnum, FbxDataTypes.FbxEnumDT&.GetType())
+    AssertEqual("Enum", FbxDataTypes.FbxEnumDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxStringDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxStringDT&.Valid())
+    AssertEqual(EFbxType::eFbxString, FbxDataTypes.FbxStringDT&.GetType())
+    AssertEqual("KString", FbxDataTypes.FbxStringDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxTimeDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxTimeDT&.Valid())
+    AssertEqual(EFbxType::eFbxTime, FbxDataTypes.FbxTimeDT&.GetType())
+    AssertEqual("Time", FbxDataTypes.FbxTimeDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxReferenceDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxReferenceDT&.Valid())
+    AssertEqual(EFbxType::eFbxReference, FbxDataTypes.FbxReferenceDT&.GetType())
+    AssertEqual("Reference", FbxDataTypes.FbxReferenceDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxBlobDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxBlobDT&.Valid())
+    AssertEqual(EFbxType::eFbxBlob, FbxDataTypes.FbxBlobDT&.GetType())
+    AssertEqual("Blob", FbxDataTypes.FbxBlobDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxDistanceDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxDistanceDT&.Valid())
+    AssertEqual(EFbxType::eFbxDistance, FbxDataTypes.FbxDistanceDT&.GetType())
+    AssertEqual("Distance", FbxDataTypes.FbxDistanceDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxDateTimeDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxDateTimeDT&.Valid())
+    AssertEqual(EFbxType::eFbxDateTime, FbxDataTypes.FbxDateTimeDT&.GetType())
+    AssertEqual("DateTime", FbxDataTypes.FbxDateTimeDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxColor3DT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxColor3DT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxColor3DT&.GetType())
+    AssertEqual("Color", FbxDataTypes.FbxColor3DT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxColor4DT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxColor4DT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble4, FbxDataTypes.FbxColor4DT&.GetType())
+    AssertEqual("ColorAndAlpha", FbxDataTypes.FbxColor4DT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxCompoundDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxCompoundDT&.Valid())
+    AssertEqual(EFbxType::eFbxUndefined, FbxDataTypes.FbxCompoundDT&.GetType())
+    AssertEqual("Compound", FbxDataTypes.FbxCompoundDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxReferenceObjectDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxReferenceObjectDT&.Valid())
+    AssertEqual(EFbxType::eFbxReference, FbxDataTypes.FbxReferenceObjectDT&.GetType())
+    AssertEqual("object", FbxDataTypes.FbxReferenceObjectDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxReferencePropertyDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxReferencePropertyDT&.Valid())
+    AssertEqual(EFbxType::eFbxReference, FbxDataTypes.FbxReferencePropertyDT&.GetType())
+    AssertEqual("ReferenceProperty", FbxDataTypes.FbxReferencePropertyDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxVisibilityDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxVisibilityDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxVisibilityDT&.GetType())
+    AssertEqual("Visibility", FbxDataTypes.FbxVisibilityDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxVisibilityInheritanceDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxVisibilityInheritanceDT&.Valid())
+    AssertEqual(EFbxType::eFbxBool, FbxDataTypes.FbxVisibilityInheritanceDT&.GetType())
+    AssertEqual("Visibility Inheritance", FbxDataTypes.FbxVisibilityInheritanceDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxUrlDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxUrlDT&.Valid())
+    AssertEqual(EFbxType::eFbxString, FbxDataTypes.FbxUrlDT&.GetType())
+    AssertEqual("Url", FbxDataTypes.FbxUrlDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxXRefUrlDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxXRefUrlDT&.Valid())
+    AssertEqual(EFbxType::eFbxString, FbxDataTypes.FbxXRefUrlDT&.GetType())
+    AssertEqual("XRefUrl", FbxDataTypes.FbxXRefUrlDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxTranslationDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxTranslationDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxTranslationDT&.GetType())
+    AssertEqual("Translation", FbxDataTypes.FbxTranslationDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxRotationDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxRotationDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxRotationDT&.GetType())
+    AssertEqual("Rotation", FbxDataTypes.FbxRotationDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxScalingDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxScalingDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxScalingDT&.GetType())
+    AssertEqual("Scaling", FbxDataTypes.FbxScalingDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxQuaternionDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxQuaternionDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble4, FbxDataTypes.FbxQuaternionDT&.GetType())
+    AssertEqual("Quaternion", FbxDataTypes.FbxQuaternionDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLocalTranslationDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLocalTranslationDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxLocalTranslationDT&.GetType())
+    AssertEqual("Lcl Translation", FbxDataTypes.FbxLocalTranslationDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLocalRotationDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLocalRotationDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxLocalRotationDT&.GetType())
+    AssertEqual("Lcl Rotation", FbxDataTypes.FbxLocalRotationDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLocalScalingDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLocalScalingDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxLocalScalingDT&.GetType())
+    AssertEqual("Lcl Scaling", FbxDataTypes.FbxLocalScalingDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLocalQuaternionDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLocalQuaternionDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble4, FbxDataTypes.FbxLocalQuaternionDT&.GetType())
+    AssertEqual("Lcl Quaternion", FbxDataTypes.FbxLocalQuaternionDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxTransformMatrixDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxTransformMatrixDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble4x4, FbxDataTypes.FbxTransformMatrixDT&.GetType())
+    AssertEqual("Matrix Transformation", FbxDataTypes.FbxTransformMatrixDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxTranslationMatrixDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxTranslationMatrixDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble4x4, FbxDataTypes.FbxTranslationMatrixDT&.GetType())
+    AssertEqual("Matrix Translation", FbxDataTypes.FbxTranslationMatrixDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxRotationMatrixDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxRotationMatrixDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble4x4, FbxDataTypes.FbxRotationMatrixDT&.GetType())
+    AssertEqual("Matrix Rotation", FbxDataTypes.FbxRotationMatrixDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxScalingMatrixDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxScalingMatrixDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble4x4, FbxDataTypes.FbxScalingMatrixDT&.GetType())
+    AssertEqual("Matrix Scaling", FbxDataTypes.FbxScalingMatrixDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialEmissiveDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialEmissiveDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxMaterialEmissiveDT&.GetType())
+    AssertEqual("Emissive", FbxDataTypes.FbxMaterialEmissiveDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialEmissiveFactorDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialEmissiveFactorDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxMaterialEmissiveFactorDT&.GetType())
+    AssertEqual("EmissiveFactor", FbxDataTypes.FbxMaterialEmissiveFactorDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialAmbientDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialAmbientDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxMaterialAmbientDT&.GetType())
+    AssertEqual("Ambient", FbxDataTypes.FbxMaterialAmbientDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialAmbientFactorDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialAmbientFactorDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxMaterialAmbientFactorDT&.GetType())
+    AssertEqual("AmbientFactor", FbxDataTypes.FbxMaterialAmbientFactorDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialDiffuseDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialDiffuseDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxMaterialDiffuseDT&.GetType())
+    AssertEqual("Diffuse", FbxDataTypes.FbxMaterialDiffuseDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialDiffuseFactorDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialDiffuseFactorDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxMaterialDiffuseFactorDT&.GetType())
+    AssertEqual("DiffuseFactor", FbxDataTypes.FbxMaterialDiffuseFactorDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialBumpDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialBumpDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxMaterialBumpDT&.GetType())
+    AssertEqual("Bump", FbxDataTypes.FbxMaterialBumpDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialNormalMapDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialNormalMapDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxMaterialNormalMapDT&.GetType())
+    AssertEqual("NormalMap", FbxDataTypes.FbxMaterialNormalMapDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialTransparentColorDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialTransparentColorDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxMaterialTransparentColorDT&.GetType())
+    AssertEqual("Transparent", FbxDataTypes.FbxMaterialTransparentColorDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialTransparencyFactorDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialTransparencyFactorDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxMaterialTransparencyFactorDT&.GetType())
+    AssertEqual("TransparencyFactor", FbxDataTypes.FbxMaterialTransparencyFactorDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialSpecularDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialSpecularDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxMaterialSpecularDT&.GetType())
+    AssertEqual("Specular", FbxDataTypes.FbxMaterialSpecularDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialSpecularFactorDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialSpecularFactorDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxMaterialSpecularFactorDT&.GetType())
+    AssertEqual("SpecularFactor", FbxDataTypes.FbxMaterialSpecularFactorDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialShininessDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialShininessDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxMaterialShininessDT&.GetType())
+    AssertEqual("Shininess", FbxDataTypes.FbxMaterialShininessDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialReflectionDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialReflectionDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxMaterialReflectionDT&.GetType())
+    AssertEqual("Reflection", FbxDataTypes.FbxMaterialReflectionDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialReflectionFactorDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialReflectionFactorDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxMaterialReflectionFactorDT&.GetType())
+    AssertEqual("ReflectionFactor", FbxDataTypes.FbxMaterialReflectionFactorDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialDisplacementDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialDisplacementDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxMaterialDisplacementDT&.GetType())
+    AssertEqual("Displacement", FbxDataTypes.FbxMaterialDisplacementDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialVectorDisplacementDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialVectorDisplacementDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxMaterialVectorDisplacementDT&.GetType())
+    AssertEqual("VectorDisplacement", FbxDataTypes.FbxMaterialVectorDisplacementDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialCommonFactorDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialCommonFactorDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxMaterialCommonFactorDT&.GetType())
+    AssertEqual("Unknown Factor", FbxDataTypes.FbxMaterialCommonFactorDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxMaterialCommonTextureDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxMaterialCommonTextureDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxMaterialCommonTextureDT&.GetType())
+    AssertEqual("Unknown texture", FbxDataTypes.FbxMaterialCommonTextureDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLayerElementUndefinedDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLayerElementUndefinedDT&.Valid())
+    AssertEqual(EFbxType::eFbxUndefined, FbxDataTypes.FbxLayerElementUndefinedDT&.GetType())
+    AssertEqual("LayerElementUndefined", FbxDataTypes.FbxLayerElementUndefinedDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLayerElementNormalDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLayerElementNormalDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble4, FbxDataTypes.FbxLayerElementNormalDT&.GetType())
+    AssertEqual("LayerElementNormal", FbxDataTypes.FbxLayerElementNormalDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLayerElementBinormalDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLayerElementBinormalDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble4, FbxDataTypes.FbxLayerElementBinormalDT&.GetType())
+    AssertEqual("LayerElementBinormal", FbxDataTypes.FbxLayerElementBinormalDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLayerElementTangentDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLayerElementTangentDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble4, FbxDataTypes.FbxLayerElementTangentDT&.GetType())
+    AssertEqual("LayerElementTangent", FbxDataTypes.FbxLayerElementTangentDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLayerElementMaterialDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLayerElementMaterialDT&.Valid())
+    AssertEqual(EFbxType::eFbxReference, FbxDataTypes.FbxLayerElementMaterialDT&.GetType())
+    AssertEqual("LayerElementMaterial", FbxDataTypes.FbxLayerElementMaterialDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLayerElementTextureDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLayerElementTextureDT&.Valid())
+    AssertEqual(EFbxType::eFbxReference, FbxDataTypes.FbxLayerElementTextureDT&.GetType())
+    AssertEqual("LayerElementTexture", FbxDataTypes.FbxLayerElementTextureDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLayerElementPolygonGroupDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLayerElementPolygonGroupDT&.Valid())
+    AssertEqual(EFbxType::eFbxInt, FbxDataTypes.FbxLayerElementPolygonGroupDT&.GetType())
+    AssertEqual("LayerElementPolygonGroup", FbxDataTypes.FbxLayerElementPolygonGroupDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLayerElementUVDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLayerElementUVDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble2, FbxDataTypes.FbxLayerElementUVDT&.GetType())
+    AssertEqual("LayerElementUV", FbxDataTypes.FbxLayerElementUVDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLayerElementVertexColorDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLayerElementVertexColorDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble4, FbxDataTypes.FbxLayerElementVertexColorDT&.GetType())
+    AssertEqual("LayerElementVertexColor", FbxDataTypes.FbxLayerElementVertexColorDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLayerElementSmoothingDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLayerElementSmoothingDT&.Valid())
+    AssertEqual(EFbxType::eFbxInt, FbxDataTypes.FbxLayerElementSmoothingDT&.GetType())
+    AssertEqual("LayerElementSmoothing", FbxDataTypes.FbxLayerElementSmoothingDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLayerElementCreaseDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLayerElementCreaseDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxLayerElementCreaseDT&.GetType())
+    AssertEqual("LayerElementCrease", FbxDataTypes.FbxLayerElementCreaseDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLayerElementHoleDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLayerElementHoleDT&.Valid())
+    AssertEqual(EFbxType::eFbxBool, FbxDataTypes.FbxLayerElementHoleDT&.GetType())
+    AssertEqual("LayerElementHole", FbxDataTypes.FbxLayerElementHoleDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLayerElementUserDataDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLayerElementUserDataDT&.Valid())
+    AssertEqual(EFbxType::eFbxReference, FbxDataTypes.FbxLayerElementUserDataDT&.GetType())
+    AssertEqual("LayerElementUserData", FbxDataTypes.FbxLayerElementUserDataDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLayerElementVisibilityDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLayerElementVisibilityDT&.Valid())
+    AssertEqual(EFbxType::eFbxBool, FbxDataTypes.FbxLayerElementVisibilityDT&.GetType())
+    AssertEqual("LayerElementVisibility", FbxDataTypes.FbxLayerElementVisibilityDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxAliasDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxAliasDT&.Valid())
+    AssertEqual(EFbxType::eFbxEnum, FbxDataTypes.FbxAliasDT&.GetType())
+    AssertEqual("Alias", FbxDataTypes.FbxAliasDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxPresetsDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxPresetsDT&.Valid())
+    AssertEqual(EFbxType::eFbxEnum, FbxDataTypes.FbxPresetsDT&.GetType())
+    AssertEqual("Presets", FbxDataTypes.FbxPresetsDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxStatisticsDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxStatisticsDT&.Valid())
+    AssertEqual(EFbxType::eFbxString, FbxDataTypes.FbxStatisticsDT&.GetType())
+    AssertEqual("Statistics", FbxDataTypes.FbxStatisticsDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxTextLineDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxTextLineDT&.Valid())
+    AssertEqual(EFbxType::eFbxString, FbxDataTypes.FbxTextLineDT&.GetType())
+    AssertEqual("TextLine", FbxDataTypes.FbxTextLineDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxUnitsDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxUnitsDT&.Valid())
+    AssertEqual(EFbxType::eFbxString, FbxDataTypes.FbxUnitsDT&.GetType())
+    AssertEqual("Units", FbxDataTypes.FbxUnitsDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxWarningDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxWarningDT&.Valid())
+    AssertEqual(EFbxType::eFbxString, FbxDataTypes.FbxWarningDT&.GetType())
+    AssertEqual("Warning", FbxDataTypes.FbxWarningDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxWebDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxWebDT&.Valid())
+    AssertEqual(EFbxType::eFbxString, FbxDataTypes.FbxWebDT&.GetType())
+    AssertEqual("Web", FbxDataTypes.FbxWebDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxActionDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxActionDT&.Valid())
+    AssertEqual(EFbxType::eFbxBool, FbxDataTypes.FbxActionDT&.GetType())
+    AssertEqual("Action", FbxDataTypes.FbxActionDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxCameraIndexDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxCameraIndexDT&.Valid())
+    AssertEqual(EFbxType::eFbxInt, FbxDataTypes.FbxCameraIndexDT&.GetType())
+    AssertEqual("Camera Index", FbxDataTypes.FbxCameraIndexDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxCharPtrDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxCharPtrDT&.Valid())
+    AssertEqual(EFbxType::eFbxString, FbxDataTypes.FbxCharPtrDT&.GetType())
+    AssertEqual("charptr", FbxDataTypes.FbxCharPtrDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxConeAngleDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxConeAngleDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxConeAngleDT&.GetType())
+    AssertEqual("Cone angle", FbxDataTypes.FbxConeAngleDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxEventDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxEventDT&.Valid())
+    AssertEqual(EFbxType::eFbxUndefined, FbxDataTypes.FbxEventDT&.GetType())
+    AssertEqual("event", FbxDataTypes.FbxEventDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxFieldOfViewDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxFieldOfViewDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxFieldOfViewDT&.GetType())
+    AssertEqual("FieldOfView", FbxDataTypes.FbxFieldOfViewDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxFieldOfViewXDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxFieldOfViewXDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxFieldOfViewXDT&.GetType())
+    AssertEqual("FieldOfViewX", FbxDataTypes.FbxFieldOfViewXDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxFieldOfViewYDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxFieldOfViewYDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxFieldOfViewYDT&.GetType())
+    AssertEqual("FieldOfViewY", FbxDataTypes.FbxFieldOfViewYDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxFogDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxFogDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxFogDT&.GetType())
+    AssertEqual("Fog", FbxDataTypes.FbxFogDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxHSBDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxHSBDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxHSBDT&.GetType())
+    AssertEqual("HSB", FbxDataTypes.FbxHSBDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxIKReachTranslationDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxIKReachTranslationDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxIKReachTranslationDT&.GetType())
+    AssertEqual("IK Reach Translation", FbxDataTypes.FbxIKReachTranslationDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxIKReachRotationDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxIKReachRotationDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxIKReachRotationDT&.GetType())
+    AssertEqual("IK Reach Rotation", FbxDataTypes.FbxIKReachRotationDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxIntensityDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxIntensityDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxIntensityDT&.GetType())
+    AssertEqual("Intensity", FbxDataTypes.FbxIntensityDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxLookAtDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxLookAtDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxLookAtDT&.GetType())
+    AssertEqual("Look at", FbxDataTypes.FbxLookAtDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxOcclusionDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxOcclusionDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxOcclusionDT&.GetType())
+    AssertEqual("Occlusion", FbxDataTypes.FbxOcclusionDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxOpticalCenterXDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxOpticalCenterXDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxOpticalCenterXDT&.GetType())
+    AssertEqual("OpticalCenterX", FbxDataTypes.FbxOpticalCenterXDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxOpticalCenterYDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxOpticalCenterYDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxOpticalCenterYDT&.GetType())
+    AssertEqual("OpticalCenterY", FbxDataTypes.FbxOpticalCenterYDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxOrientationDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxOrientationDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxOrientationDT&.GetType())
+    AssertEqual("Orientation", FbxDataTypes.FbxOrientationDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxRealDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxRealDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxRealDT&.GetType())
+    AssertEqual("Real", FbxDataTypes.FbxRealDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxRollDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxRollDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxRollDT&.GetType())
+    AssertEqual("Roll", FbxDataTypes.FbxRollDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxScalingUVDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxScalingUVDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxScalingUVDT&.GetType())
+    AssertEqual("Scaling UV", FbxDataTypes.FbxScalingUVDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxShapeDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxShapeDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxShapeDT&.GetType())
+    AssertEqual("Shape", FbxDataTypes.FbxShapeDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxStringListDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxStringListDT&.Valid())
+    AssertEqual(EFbxType::eFbxEnumM, FbxDataTypes.FbxStringListDT&.GetType())
+    AssertEqual("stringlist", FbxDataTypes.FbxStringListDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxTextureRotationDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxTextureRotationDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxTextureRotationDT&.GetType())
+    AssertEqual("TextureRotation", FbxDataTypes.FbxTextureRotationDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxTimeCodeDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxTimeCodeDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxTimeCodeDT&.GetType())
+    AssertEqual("TimeCode", FbxDataTypes.FbxTimeCodeDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxTimeWarpDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxTimeWarpDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxTimeWarpDT&.GetType())
+    AssertEqual("TimeWarp", FbxDataTypes.FbxTimeWarpDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxTranslationUVDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxTranslationUVDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble3, FbxDataTypes.FbxTranslationUVDT&.GetType())
+    AssertEqual("Translation UV", FbxDataTypes.FbxTranslationUVDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+test FbxDataTypes_FbxWeightDT_HasDefaults
+    expect
+    AssertTrue(FbxDataTypes.FbxWeightDT&.Valid())
+    AssertEqual(EFbxType::eFbxDouble, FbxDataTypes.FbxWeightDT&.GetType())
+    AssertEqual("Weight", FbxDataTypes.FbxWeightDT&.GetName())
+    # AssertXXX(GetTypeInfoHandle()) ??
+
+
+
+
+# ==
+# !=
+
+
+

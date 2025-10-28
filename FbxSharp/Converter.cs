@@ -6,7 +6,8 @@ namespace FbxSharp
 {
     public class Converter
     {
-        public FbxScene ConvertScene(List<ParseObject> parsedObjects)
+        public FbxScene ConvertScene(List<ParseObject> parsedObjects,
+            FbxScene scene = null)
         {
             var header = GetHeader(parsedObjects);
             if (header != null)
@@ -42,13 +43,13 @@ namespace FbxSharp
 
                         if (converter != null)
                         {
-                            return converter.ConvertScene(parsedObjects);
+                            return converter.ConvertScene(parsedObjects, scene);
                         }
                     }
                 }
             }
 
-            return new Converter7700().ConvertScene(parsedObjects);
+            return new Converter7700().ConvertScene(parsedObjects, scene);
         }
 
         protected ParseObject GetHeader(List<ParseObject> parsedObjects)

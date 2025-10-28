@@ -1,0 +1,6 @@
+*.fbx.hex
+*.bin
+*.bin.hex
+*_layout.txt
+*_layout2.txt
+instance/

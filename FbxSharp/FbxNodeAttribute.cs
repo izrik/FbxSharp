@@ -4,10 +4,11 @@ namespace FbxSharp
 {
     public abstract class FbxNodeAttribute : FbxObject
     {
-        protected FbxNodeAttribute(string name="")
+        protected FbxNodeAttribute(string name = "")
             : base(name)
         {
-            this.Properties.Add(Color);
+            Color = FbxPropertyT<FbxVector3>.StaticInit(this, "Color",
+                FbxVector3.Zero, false);
         }
 
         public enum EAttributeType
@@ -60,7 +61,7 @@ namespace FbxSharp
 
         #region Public Attributes
 
-        public readonly FbxPropertyT<FbxVector3> Color = new FbxPropertyT<FbxVector3>("Color");
+        public readonly FbxPropertyT<FbxVector3> Color;
 
         #endregion
 

@@ -6,7 +6,8 @@ namespace FbxSharp
 {
     public interface IConverter
     {
-        FbxScene ConvertScene(List<ParseObject> parsedObjects);
+        FbxScene ConvertScene(List<ParseObject> parsedObjects,
+            FbxScene scene = null);
     }
 }
 

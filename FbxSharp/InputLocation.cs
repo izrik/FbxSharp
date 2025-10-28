@@ -9,18 +9,19 @@ namespace FbxSharp
             Line = line;
             Column = column;
             Index = index;
-	    Filename = filename;
+            Filename = filename;
         }
 
         public readonly int Line;
         public readonly int Column;
         public readonly int Index;
-	public readonly string Filename;
+        public readonly string Filename;
 
         public override string ToString()
         {
+            if (Index > 0)
+                return string.Format("{0}[{1} 0x{1:x}]", Filename, Index);
             return string.Format("{0}:{1},{2}", Filename, Line, Column);
         }
     }
 }
-

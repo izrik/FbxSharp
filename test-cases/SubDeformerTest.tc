@@ -1,1 +1,7 @@
 ﻿fixture SubDeformerTest
+test SubDeformer_Create_HasNamespacePrefix
+    given
+    FbxCluster obj = new("asdf")
+
+    then
+    AssertEqual("SubDeformer:\:", obj.GetNameSpacePrefix());

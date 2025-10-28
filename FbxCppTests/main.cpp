@@ -3,6 +3,8 @@
 #include <fbxsdk.h>
 #include <iomanip>
 #include <stdio.h>  /* defines FILENAME_MAX */
+#include <vector>
+#include <string>
 #ifdef WIN32
     #include <direct.h>
     #define __getcwd _getcwd
@@ -30,7 +32,13 @@ int main (int argc, char *argv[])
         #endif
     #endif
 
-    RunTests();
+    std::vector<std::string> args;
+    for (int i = 1; i < argc; i++)
+        args.push_back(std::string(argv[i]));
 
+    int nFailures = RunTestsWithArgs(args);
+
+    if (nFailures > 0)
+        return 1;
     return 0;
 }

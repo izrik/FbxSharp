@@ -8,11 +8,17 @@ namespace FbxSharp
     {
         static ulong __uniqueId = 0;
 
+        static FbxObject()
+        {
+            classRootProperty = new FbxPropertyRoot(null);
+        }
+
         public FbxObject(String name="")
         {
             SetInitialName(name ?? "");
 
-            Properties = new FbxObjectPropertyCollection(this);
+            RootProperty = new FbxPropertyRoot(this);
+
             SrcObjects = new ObjectSrcObjectCollection(this);
             DstObjects = new ObjectDstObjectCollection(this);
 
@@ -394,72 +400,55 @@ namespace FbxSharp
 
         #region Property Management
 
-        public readonly FbxObjectPropertyCollection Properties;
-
+        [NotSdk]
         public readonly ObjectSrcPropertyCollection SrcProperties;
+        [NotSdk]
         public readonly ObjectDstPropertyCollection DstProperties;
 
         public FbxProperty GetFirstProperty()
         {
-            if (Properties.Count == 0) return null;
+            if (RootProperty.Children.Count == 0)
+                return FbxProperty.NotValid;
 
-            return Properties[0];
+            return RootProperty.Children[0];
         }
 
         public FbxProperty GetNextProperty(FbxProperty pProperty)
         {
-            if (!Properties.Contains(pProperty)) return null;
+            if (!RootProperty.Children.Contains(pProperty))
+                return FbxProperty.NotValid;
 
-            var index = Properties.IndexOf(pProperty);
-            if (index + 1 >= Properties.Count) return null;
+            var index = RootProperty.Children.IndexOf(pProperty);
+            if (index + 1 >= RootProperty.Children.Count)
+                return FbxProperty.NotValid;
             if (index < 0) return null;
 
-            return Properties[index + 1];
+            return RootProperty.Children[index + 1];
         }
 
         public FbxProperty GetPropertyByIndex(int index)
         {
-            return Properties[index];
+            return RootProperty.Children[index];
         }
 
-        public FbxProperty FindProperty(string pName, bool pCaseSensitive=true)
-        {
-            return Properties.FirstOrDefault(p => string.Compare(p.Name, pName, ignoreCase: !pCaseSensitive) == 0);
-        }
+        public FbxProperty FindProperty(string pName,
+            bool pCaseSensitive = true) =>
+            RootProperty.Find(pName, pCaseSensitive);
 
-        //public Property FindProperty(string pName, FbxDataType pDataType, bool pCaseSensitive=true)
-        public FbxProperty FindProperty(string pName, Type pDataType, bool pCaseSensitive=true)
-        {
-            return FindProperty(prop =>
-                string.Compare(prop.Name, pName, ignoreCase: !pCaseSensitive) == 0 &&
-                prop.PropertyDataType == pDataType);
-        }
+        public FbxProperty FindProperty(string pName, FbxDataType pDataType,
+            bool pCaseSensitive = true) =>
+            RootProperty.Find(pName, pDataType, pCaseSensitive);
 
-        public FbxProperty FindProperty(Func<FbxProperty, bool> predicate)
-        {
-            return FindProperties(predicate).FirstOrDefault();
-        }
+        public FbxProperty FindPropertyHierarchical(string pName,
+            bool pCaseSensitive = true) =>
+            RootProperty.FindHierarchical(pName, pCaseSensitive);
 
-        public IEnumerable<FbxProperty> FindProperties(Func<FbxProperty, bool> predicate)
-        {
-            return Properties.Where(predicate);
-        }
+        public FbxProperty FindPropertyHierarchical(string pName,
+            FbxDataType pDataType, bool pCaseSensitive = true) =>
+            RootProperty.FindHierarchical(pName, pDataType, pCaseSensitive);
 
-        public FbxProperty FindPropertyHierarchical(string pName, bool pCaseSensitive=true)
-        {
-            throw new NotImplementedException();
-        }
-
-        //public Property FindPropertyHierarchical(string pName, FbxDataType pDataType, bool pCaseSensitive=true)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        readonly static FbxPropertyT<object> classRootProperty = new FbxPropertyT<object>();
-        public FbxProperty GetClassRootProperty()
-        {
-            return classRootProperty;
-        }
+        private static readonly FbxProperty classRootProperty;
+        public FbxProperty GetClassRootProperty() => classRootProperty;
 
         public bool ConnectSrcProperty(FbxProperty pProperty)
         {
@@ -531,19 +520,11 @@ namespace FbxSharp
             throw new NotImplementedException();
         }
 
-        public FbxProperty CreateProperty(string name, Type type)
-        {
-            var concreteType = typeof(FbxPropertyT<>).MakeGenericType(type);
-            var prop = (FbxProperty)Activator.CreateInstance(concreteType, (object)name);
-            Properties.Add(prop);
-            return prop;
-        }
-
         #endregion
 
         #region Public Attributes
 
-        public readonly FbxProperty RootProperty = new FbxPropertyT<object>();
+        public readonly FbxProperty RootProperty;
 
         #endregion
 

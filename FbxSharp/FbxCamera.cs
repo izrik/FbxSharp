@@ -4,114 +4,222 @@ namespace FbxSharp
 {
     public class FbxCamera : FbxNodeAttribute
     {
-        public FbxCamera(string name="")
+        public FbxCamera(string name = "")
             : base(name)
         {
-            Properties.Add(Position);
-            Properties.Add(UpVector);
-            Properties.Add(InterestPosition);
-            Properties.Add(Roll);
-            Properties.Add(OpticalCenterX);
-            Properties.Add(OpticalCenterY);
-            Properties.Add(BackgroundColor);
-            Properties.Add(TurnTable);
-            Properties.Add(DisplayTurnTableIcon);
-            Properties.Add(UseMotionBlur);
-            Properties.Add(UseRealTimeMotionBlur);
-            Properties.Add(MotionBlurIntensity);
-            Properties.Add(AspectRatioMode);
-            Properties.Add(AspectWidth);
-            Properties.Add(AspectHeight);
-            Properties.Add(PixelAspectRatio);
-            Properties.Add(ApertureMode);
-            Properties.Add(GateFit);
-            Properties.Add(FieldOfView);
-            Properties.Add(FieldOfViewX);
-            Properties.Add(FieldOfViewY);
-            Properties.Add(FocalLength);
-            Properties.Add(CameraFormat);
-            Properties.Add(UseFrameColor);
-            Properties.Add(FrameColor);
-            Properties.Add(ShowName);
-            Properties.Add(ShowInfoOnMoving);
-            Properties.Add(ShowGrid);
-            Properties.Add(ShowOpticalCenter);
-            Properties.Add(ShowAzimut);
-            Properties.Add(ShowTimeCode);
-            Properties.Add(ShowAudio);
-            Properties.Add(AudioColor);
-            Properties.Add(NearPlane);
-            Properties.Add(FarPlane);
-            Properties.Add(AutoComputeClipPlanes);
-            Properties.Add(FilmWidth);
-            Properties.Add(FilmHeight);
-            Properties.Add(FilmAspectRatio);
-            Properties.Add(FilmSqueezeRatio);
-            Properties.Add(FilmFormat);
-            Properties.Add(FilmOffsetX);
-            Properties.Add(FilmOffsetY);
-            Properties.Add(PreScale);
-            Properties.Add(FilmTranslateX);
-            Properties.Add(FilmTranslateY);
-            Properties.Add(FilmRollPivotX);
-            Properties.Add(FilmRollPivotY);
-            Properties.Add(FilmRollValue);
-            Properties.Add(FilmRollOrder);
-            Properties.Add(ViewCameraToLookAt);
-            Properties.Add(ViewFrustumNearFarPlane);
-            Properties.Add(ViewFrustumBackPlaneMode);
-            Properties.Add(BackPlaneDistance);
-            Properties.Add(BackPlaneDistanceMode);
-            Properties.Add(ViewFrustumFrontPlaneMode);
-            Properties.Add(FrontPlaneDistance);
-            Properties.Add(FrontPlaneDistanceMode);
-            Properties.Add(LockMode);
-            Properties.Add(LockInterestNavigation);
-            Properties.Add(BackPlateFitImage);
-            Properties.Add(BackPlateCrop);
-            Properties.Add(BackPlateCenter);
-            Properties.Add(BackPlateKeepRatio);
-            Properties.Add(BackgroundAlphaTreshold);
-            Properties.Add(BackPlaneOffsetX);
-            Properties.Add(BackPlaneOffsetY);
-            Properties.Add(BackPlaneRotation);
-            Properties.Add(BackPlaneScaleX);
-            Properties.Add(BackPlaneScaleY);
-            Properties.Add(ShowBackplate);
-            Properties.Add(BackgroundTexture);
-            Properties.Add(FrontPlateFitImage);
-            Properties.Add(FrontPlateCrop);
-            Properties.Add(FrontPlateCenter);
-            Properties.Add(FrontPlateKeepRatio);
-            Properties.Add(ShowFrontplate);
-            Properties.Add(FrontPlaneOffsetX);
-            Properties.Add(FrontPlaneOffsetY);
-            Properties.Add(FrontPlaneRotation);
-            Properties.Add(FrontPlaneScaleX);
-            Properties.Add(FrontPlaneScaleY);
-            Properties.Add(ForegroundTexture);
-            Properties.Add(ForegroundOpacity);
-            Properties.Add(DisplaySafeArea);
-            Properties.Add(DisplaySafeAreaOnRender);
-            Properties.Add(SafeAreaDisplayStyle);
-            Properties.Add(SafeAreaAspectRatio);
-            Properties.Add(Use2DMagnifierZoom);
-            Properties.Add(_2DMagnifierZoom);
-            Properties.Add(_2DMagnifierX);
-            Properties.Add(_2DMagnifierY);
-            Properties.Add(ProjectionType);
-            Properties.Add(OrthoZoom);
-            Properties.Add(UseRealTimeDOFAndAA);
-            Properties.Add(UseDepthOfField);
-            Properties.Add(FocusSource);
-            Properties.Add(FocusAngle);
-            Properties.Add(FocusDistance);
-            Properties.Add(UseAntialiasing);
-            Properties.Add(AntialiasingIntensity);
-            Properties.Add(AntialiasingMethod);
-            Properties.Add(UseAccumulationBuffer);
-            Properties.Add(FrameSamplingCount);
-            Properties.Add(FrameSamplingType);
+            Position = FbxPropertyT<FbxVector3>.StaticInit(this, "Position",
+                FbxVector3.Zero, false);
+            UpVector = FbxPropertyT<FbxVector3>.StaticInit(this, "UpVector",
+                FbxVector3.Zero, false);
+            InterestPosition = FbxPropertyT<FbxVector3>.StaticInit(this,
+                "InterestPosition", FbxVector3.Zero, false);
+            Roll = FbxPropertyT<double>.StaticInit(this, "Roll", 0.0, false);
+            OpticalCenterX = FbxPropertyT<double>.StaticInit(this,
+                "OpticalCenterX", 0.0, false);
+            OpticalCenterY = FbxPropertyT<double>.StaticInit(this,
+                "OpticalCenterY", 0.0, false);
+            BackgroundColor = FbxPropertyT<FbxVector3>.StaticInit(this,
+                "BackgroundColor", FbxVector3.Zero, false);
+            TurnTable = FbxPropertyT<double>.StaticInit(this, "TurnTable",
+                0.0, false);
+            DisplayTurnTableIcon = FbxPropertyT<bool>.StaticInit(this,
+                "DisplayTurnTableIcon", false, false);
+            UseMotionBlur = FbxPropertyT<bool>.StaticInit(this,
+                "UseMotionBlur", false, false);
+            UseRealTimeMotionBlur = FbxPropertyT<bool>.StaticInit(this,
+                "UseRealTimeMotionBlur", false, false);
+            MotionBlurIntensity = FbxPropertyT<double>.StaticInit(this,
+                "Motion Blur Intensity", 0.0, false);
+            AspectRatioMode = FbxPropertyT<EAspectRatioMode>.StaticInit(this,
+                "AspectRatioMode", null, default, false);
+            AspectWidth = FbxPropertyT<double>.StaticInit(this, "AspectWidth",
+                0.0, false);
+            AspectHeight = FbxPropertyT<double>.StaticInit(this,
+                "AspectHeight", 0.0, false);
+            PixelAspectRatio = FbxPropertyT<double>.StaticInit(this,
+                "PixelAspectRatio", 0.0, false);
+            ApertureMode = FbxPropertyT<EApertureMode>.StaticInit(this,
+                "ApertureMode", null, default, false);
+            GateFit = FbxPropertyT<EGateFit>.StaticInit(this, "GateFit", null,
+                default, false);
+            FieldOfView = FbxPropertyT<double>.StaticInit(this, "FieldOfView",
+                0.0, false);
+            FieldOfViewX = FbxPropertyT<double>.StaticInit(this,
+                "FieldOfViewX", 0.0, false);
+            FieldOfViewY = FbxPropertyT<double>.StaticInit(this,
+                "FieldOfViewY", 0.0, false);
+            FocalLength = FbxPropertyT<double>.StaticInit(this, "FocalLength",
+                0.0, false);
+            CameraFormat = FbxPropertyT<EFormat>.StaticInit(this,
+                "CameraFormat", null, default, false);
+            UseFrameColor = FbxPropertyT<bool>.StaticInit(this,
+                "UseFrameColor", false, false);
+            FrameColor = FbxPropertyT<FbxVector3>.StaticInit(this,
+                "FrameColor", FbxVector3.Zero, false);
+            ShowName = FbxPropertyT<bool>.StaticInit(this, "ShowName", false,
+                false);
+            ShowInfoOnMoving = FbxPropertyT<bool>.StaticInit(this,
+                "ShowInfoOnMoving", false, false);
+            ShowGrid = FbxPropertyT<bool>.StaticInit(this, "ShowGrid", false,
+                false);
+            ShowOpticalCenter = FbxPropertyT<bool>.StaticInit(this,
+                "ShowOpticalCenter", false, false);
+            ShowAzimut = FbxPropertyT<bool>.StaticInit(this, "ShowAzimut",
+                false, false);
+            ShowTimeCode = FbxPropertyT<bool>.StaticInit(this, "ShowTimeCode",
+                false, false);
+            ShowAudio = FbxPropertyT<bool>.StaticInit(this, "ShowAudio",
+                false, false);
+            AudioColor = FbxPropertyT<FbxVector3>.StaticInit(this,
+                "AudioColor", FbxVector3.Zero, false);
+            NearPlane = FbxPropertyT<double>.StaticInit(this, "NearPlane",
+                0.0, false);
+            FarPlane = FbxPropertyT<double>.StaticInit(this, "FarPlane", 0.0,
+                false);
+            AutoComputeClipPlanes = FbxPropertyT<bool>.StaticInit(this,
+                "AutoComputeClipPanes", false, false);
+            FilmWidth = FbxPropertyT<double>.StaticInit(this, "FilmWidth",
+                0.0, false);
+            FilmHeight = FbxPropertyT<double>.StaticInit(this, "FilmHeight",
+                0.0, false);
+            FilmAspectRatio = FbxPropertyT<double>.StaticInit(this,
+                "FilmAspectRatio", 0.0, false);
+            FilmSqueezeRatio = FbxPropertyT<double>.StaticInit(this,
+                "FilmSqueezeRatio", 0.0, false);
+            FilmFormat = FbxPropertyT<EApertureFormat>.StaticInit(this,
+                "FilmFormatIndex", null, default, false);
+            FilmOffsetX = FbxPropertyT<double>.StaticInit(this,
+                "FilmOffsetX", 0.0, false);
+            FilmOffsetY = FbxPropertyT<double>.StaticInit(this, "FilmOffsetY",
+                0.0, false);
+            PreScale = FbxPropertyT<double>.StaticInit(this, "PreScale", 0.0,
+                false);
+            FilmTranslateX = FbxPropertyT<double>.StaticInit(this,
+                "FilmTranslateX", 0.0, false);
+            FilmTranslateY = FbxPropertyT<double>.StaticInit(this,
+                "FilmTranslateY", 0.0, false);
+            FilmRollPivotX = FbxPropertyT<double>.StaticInit(this,
+                "FilmRollPivotX", 0.0, false);
+            FilmRollPivotY = FbxPropertyT<double>.StaticInit(this,
+                "FilmRollPivotY", 0.0, false);
+            FilmRollValue = FbxPropertyT<double>.StaticInit(this,
+                "FilmRollValue", 0.0, false);
+            FilmRollOrder = FbxPropertyT<EFilmRollOrder>.StaticInit(this,
+                "FilmRollOrder", null, default, false);
+            ViewCameraToLookAt = FbxPropertyT<bool>.StaticInit(this,
+                "ViewCameraToLookAt", false, false);
+            ViewFrustumNearFarPlane = FbxPropertyT<bool>.StaticInit(this,
+                "ViewFrustumNearFarPlane", false, false);
+            ViewFrustumBackPlaneMode =
+                FbxPropertyT<EFrontBackPlaneDisplayMode>.StaticInit(this,
+                    "ViewFrustumBackPlaneMode", null, default, false);
+            BackPlaneDistance = FbxPropertyT<double>.StaticInit(this,
+                "BackPlaneDistance", 0.0, false);
+            BackPlaneDistanceMode =
+                FbxPropertyT<EFrontBackPlaneDistanceMode>.StaticInit(this,
+                    "BackPlaneDistanceMode", null, default, false);
+            ViewFrustumFrontPlaneMode =
+                FbxPropertyT<EFrontBackPlaneDisplayMode>.StaticInit(this,
+                    "ViewFrustumFrontPlaneMode", null, default, false);
+            FrontPlaneDistance = FbxPropertyT<double>.StaticInit(this,
+                "FrontPlaneDistance", 0.0, false);
+            FrontPlaneDistanceMode =
+                FbxPropertyT<EFrontBackPlaneDistanceMode>.StaticInit(this,
+                    "FrontPlaneDistanceMode", null, default, false);
+            LockMode = FbxPropertyT<bool>.StaticInit(this, "LockMode", false,
+                false);
+            LockInterestNavigation = FbxPropertyT<bool>.StaticInit(this,
+                "LockInterestNavigation", false, false);
+            BackPlateFitImage = FbxPropertyT<bool>.StaticInit(this,
+                "BackPlateFitImage", false, false);
+            BackPlateCrop = FbxPropertyT<bool>.StaticInit(this,
+                "BackPlateCrop", false, false);
+            BackPlateCenter = FbxPropertyT<bool>.StaticInit(this,
+                "BackPlateCenter", false, false);
+            BackPlateKeepRatio = FbxPropertyT<bool>.StaticInit(this,
+                "BackPlateKeepRatio", false, false);
+            BackgroundAlphaTreshold = FbxPropertyT<double>.StaticInit(this,
+                "BackgroundAlphaTreshold", 0.0, false);
+            BackPlaneOffsetX = FbxPropertyT<double>.StaticInit(this,
+                "BackPlaneOffsetX", 0.0, false);
+            BackPlaneOffsetY = FbxPropertyT<double>.StaticInit(this,
+                "BackPlaneOffsetY", 0.0, false);
+            BackPlaneRotation = FbxPropertyT<double>.StaticInit(this,
+                "BackPlaneRotation", 0.0, false);
+            BackPlaneScaleX = FbxPropertyT<double>.StaticInit(this,
+                "BackPlaneScaleX", 0.0, false);
+            BackPlaneScaleY = FbxPropertyT<double>.StaticInit(this,
+                "BackPlaneScaleY", 0.0, false);
+            ShowBackplate = FbxPropertyT<bool>.StaticInit(this,
+                "ShowBackplate", false, false);
+            BackgroundTexture = FbxPropertyT<FbxObject>.StaticInit(this,
+                "Background Texture", null, default, false);
+            FrontPlateFitImage = FbxPropertyT<bool>.StaticInit(this,
+                "FrontPlateFitImage", false, false);
+            FrontPlateCrop = FbxPropertyT<bool>.StaticInit(this,
+                "FrontPlateCrop", false, false);
+            FrontPlateCenter = FbxPropertyT<bool>.StaticInit(this,
+                "FrontPlateCenter", false, false);
+            FrontPlateKeepRatio = FbxPropertyT<bool>.StaticInit(this,
+                "FrontPlateKeepRatio", false, false);
+            ShowFrontplate = FbxPropertyT<bool>.StaticInit(this,
+                "ShowFrontplate", false, false);
+            FrontPlaneOffsetX = FbxPropertyT<double>.StaticInit(this,
+                "FrontPlaneOffsetX", 0.0, false);
+            FrontPlaneOffsetY = FbxPropertyT<double>.StaticInit(this,
+                "FrontPlaneOffsetY", 0.0, false);
+            FrontPlaneRotation = FbxPropertyT<double>.StaticInit(this,
+                "FrontPlaneRotation", 0.0, false);
+            FrontPlaneScaleX = FbxPropertyT<double>.StaticInit(this,
+                "FrontPlaneScaleX", 0.0, false);
+            FrontPlaneScaleY = FbxPropertyT<double>.StaticInit(this,
+                "FrontPlaneScaleY", 0.0, false);
+            ForegroundTexture = FbxPropertyT<FbxObject>.StaticInit(this,
+                "Foreground Texture", null, default, false);
+            ForegroundOpacity = FbxPropertyT<double>.StaticInit(this,
+                "Foreground Opacity", 0.0, false);
+            DisplaySafeArea = FbxPropertyT<bool>.StaticInit(this,
+                "DisplaySafeArea", false, false);
+            DisplaySafeAreaOnRender = FbxPropertyT<bool>.StaticInit(this,
+                "DisplaySafeAreaOnRender", false, false);
+            SafeAreaDisplayStyle = FbxPropertyT<ESafeAreaStyle>.StaticInit(
+                this, "SafeAreaDisplayStyle", null, default, false);
+            SafeAreaAspectRatio = FbxPropertyT<double>.StaticInit(this,
+                "SafeAreaAspectRatio", 0.0, false);
+            Use2DMagnifierZoom = FbxPropertyT<bool>.StaticInit(this,
+                "Use2DMagnifierZoom", false, false);
+            _2DMagnifierZoom = FbxPropertyT<double>.StaticInit(this,
+                "2D Magnifier Zoom", 0.0, false);
+            _2DMagnifierX = FbxPropertyT<double>.StaticInit(this,
+                "2D Magnifier X", 0.0, false);
+            _2DMagnifierY = FbxPropertyT<double>.StaticInit(this,
+                "2D Magnifier Y", 0.0, false);
+            ProjectionType = FbxPropertyT<EProjectionType>.StaticInit(this,
+                "CameraProjectionType", null, default, false);
+            OrthoZoom = FbxPropertyT<double>.StaticInit(this, "OrthoZoom",
+                0.0, false);
+            UseRealTimeDOFAndAA = FbxPropertyT<bool>.StaticInit(this,
+                "UseRealTimeDOFAndAA", false, false);
+            UseDepthOfField = FbxPropertyT<bool>.StaticInit(this,
+                "UseDepthOfField", false, false);
+            FocusSource = FbxPropertyT<EFocusDistanceSource>.StaticInit(this,
+                "FocusSource", null, default, false);
+            FocusAngle = FbxPropertyT<double>.StaticInit(this, "FocusAngle",
+                0.0, false);
+            FocusDistance = FbxPropertyT<double>.StaticInit(this,
+                "FocusDistance", 0.0, false);
+            UseAntialiasing = FbxPropertyT<bool>.StaticInit(this,
+                "UseAntialiasing", false, false);
+            AntialiasingIntensity = FbxPropertyT<double>.StaticInit(this,
+                "AntialiasingIntensity", 0.0, false);
+            AntialiasingMethod = FbxPropertyT<EAntialiasingMethod>.StaticInit(
+                this, "AntialiasingMethod", null, default, false);
+            UseAccumulationBuffer = FbxPropertyT<bool>.StaticInit(this,
+                "UseAccumulationBuffer", false, false);
+            FrameSamplingCount = FbxPropertyT<int>.StaticInit(this,
+                "FrameSamplingCount", 0, false);
+            FrameSamplingType = FbxPropertyT<ESamplingType>.StaticInit(this,
+                "FrameSamplingType", null, default, false);
         }
 
         #region implemented abstract members of NodeAttribute
@@ -145,111 +253,117 @@ namespace FbxSharp
 
         #region Public Attributes
 
-        public FbxPropertyT<FbxVector3>                      Position                    = new FbxPropertyT<FbxVector3>                    ("Position");
-        public FbxPropertyT<FbxVector3>                      UpVector                    = new FbxPropertyT<FbxVector3>                    ("UpVector");
-        public FbxPropertyT<FbxVector3>                      InterestPosition            = new FbxPropertyT<FbxVector3>                    ("InterestPosition");
-        public FbxPropertyT<double>                       Roll                        = new FbxPropertyT<double>                     ("Roll");
-        public FbxPropertyT<double>                       OpticalCenterX              = new FbxPropertyT<double>                     ("OpticalCenterX");
-        public FbxPropertyT<double>                       OpticalCenterY              = new FbxPropertyT<double>                     ("OpticalCenterY");
-        public FbxPropertyT<FbxVector3>                      BackgroundColor             = new FbxPropertyT<FbxVector3>                    ("BackgroundColor");
-        public FbxPropertyT<double>                       TurnTable                   = new FbxPropertyT<double>                     ("TurnTable");
-        public FbxPropertyT<bool>                         DisplayTurnTableIcon        = new FbxPropertyT<bool>                       ("DisplayTurnTableIcon");
-        public FbxPropertyT<bool>                         UseMotionBlur               = new FbxPropertyT<bool>                       ("UseMotionBlur");
-        public FbxPropertyT<bool>                         UseRealTimeMotionBlur       = new FbxPropertyT<bool>                       ("UseRealTimeMotionBlur");
-        public FbxPropertyT<double>                       MotionBlurIntensity         = new FbxPropertyT<double>                     ("Motion Blur Intensity");
-        public FbxPropertyT<EAspectRatioMode>             AspectRatioMode             = new FbxPropertyT<EAspectRatioMode>           ("AspectRatioMode");
-        public FbxPropertyT<double>                       AspectWidth                 = new FbxPropertyT<double>                     ("AspectWidth");
-        public FbxPropertyT<double>                       AspectHeight                = new FbxPropertyT<double>                     ("AspectHeight");
-        public FbxPropertyT<double>                       PixelAspectRatio            = new FbxPropertyT<double>                     ("PixelAspectRatio");
-        public FbxPropertyT<EApertureMode>                ApertureMode                = new FbxPropertyT<EApertureMode>              ("ApertureMode");
-        public FbxPropertyT<EGateFit>                     GateFit                     = new FbxPropertyT<EGateFit>                   ("GateFit");
-        public FbxPropertyT<double>                       FieldOfView                 = new FbxPropertyT<double>                     ("FieldOfView");
-        public FbxPropertyT<double>                       FieldOfViewX                = new FbxPropertyT<double>                     ("FieldOfViewX");
-        public FbxPropertyT<double>                       FieldOfViewY                = new FbxPropertyT<double>                     ("FieldOfViewY");
-        public FbxPropertyT<double>                       FocalLength                 = new FbxPropertyT<double>                     ("FocalLength");
-        public FbxPropertyT<EFormat>                      CameraFormat                = new FbxPropertyT<EFormat>                    ("CameraFormat");
-        public FbxPropertyT<bool>                         UseFrameColor               = new FbxPropertyT<bool>                       ("UseFrameColor");
-        public FbxPropertyT<FbxVector3>                      FrameColor                  = new FbxPropertyT<FbxVector3>                    ("FrameColor");
-        public FbxPropertyT<bool>                         ShowName                    = new FbxPropertyT<bool>                       ("ShowName");
-        public FbxPropertyT<bool>                         ShowInfoOnMoving            = new FbxPropertyT<bool>                       ("ShowInfoOnMoving");
-        public FbxPropertyT<bool>                         ShowGrid                    = new FbxPropertyT<bool>                       ("ShowGrid");
-        public FbxPropertyT<bool>                         ShowOpticalCenter           = new FbxPropertyT<bool>                       ("ShowOpticalCenter");
-        public FbxPropertyT<bool>                         ShowAzimut                  = new FbxPropertyT<bool>                       ("ShowAzimut");
-        public FbxPropertyT<bool>                         ShowTimeCode                = new FbxPropertyT<bool>                       ("ShowTimeCode");
-        public FbxPropertyT<bool>                         ShowAudio                   = new FbxPropertyT<bool>                       ("ShowAudio");
-        public FbxPropertyT<FbxVector3>                      AudioColor                  = new FbxPropertyT<FbxVector3>                    ("AudioColor");
-        public FbxPropertyT<double>                       NearPlane                   = new FbxPropertyT<double>                     ("NearPlane");
-        public FbxPropertyT<double>                       FarPlane                    = new FbxPropertyT<double>                     ("FarPlane");
-        public FbxPropertyT<bool>                         AutoComputeClipPlanes       = new FbxPropertyT<bool>                       ("AutoComputeClipPanes");
-        public FbxPropertyT<double>                       FilmWidth                   = new FbxPropertyT<double>                     ("FilmWidth");
-        public FbxPropertyT<double>                       FilmHeight                  = new FbxPropertyT<double>                     ("FilmHeight");
-        public FbxPropertyT<double>                       FilmAspectRatio             = new FbxPropertyT<double>                     ("FilmAspectRatio");
-        public FbxPropertyT<double>                       FilmSqueezeRatio            = new FbxPropertyT<double>                     ("FilmSqueezeRatio");
-        public FbxPropertyT<EApertureFormat>              FilmFormat                  = new FbxPropertyT<EApertureFormat>            ("FilmFormatIndex");
-        public FbxPropertyT<double>                       FilmOffsetX                 = new FbxPropertyT<double>                     ("FilmOffsetX");
-        public FbxPropertyT<double>                       FilmOffsetY                 = new FbxPropertyT<double>                     ("FilmOffsetY");
-        public FbxPropertyT<double>                       PreScale                    = new FbxPropertyT<double>                     ("PreScale");
-        public FbxPropertyT<double>                       FilmTranslateX              = new FbxPropertyT<double>                     ("FilmTranslateX");
-        public FbxPropertyT<double>                       FilmTranslateY              = new FbxPropertyT<double>                     ("FilmTranslateY");
-        public FbxPropertyT<double>                       FilmRollPivotX              = new FbxPropertyT<double>                     ("FilmRollPivotX");
-        public FbxPropertyT<double>                       FilmRollPivotY              = new FbxPropertyT<double>                     ("FilmRollPivotY");
-        public FbxPropertyT<double>                       FilmRollValue               = new FbxPropertyT<double>                     ("FilmRollValue");
-        public FbxPropertyT<EFilmRollOrder>               FilmRollOrder               = new FbxPropertyT<EFilmRollOrder>             ("FilmRollOrder");
-        public FbxPropertyT<bool>                         ViewCameraToLookAt          = new FbxPropertyT<bool>                       ("ViewCameraToLookAt");
-        public FbxPropertyT<bool>                         ViewFrustumNearFarPlane     = new FbxPropertyT<bool>                       ("ViewFrustumNearFarPlane");
-        public FbxPropertyT<EFrontBackPlaneDisplayMode>   ViewFrustumBackPlaneMode    = new FbxPropertyT<EFrontBackPlaneDisplayMode> ("ViewFrustumBackPlaneMode");
-        public FbxPropertyT<double>                       BackPlaneDistance           = new FbxPropertyT<double>                     ("BackPlaneDistance");
-        public FbxPropertyT<EFrontBackPlaneDistanceMode>  BackPlaneDistanceMode       = new FbxPropertyT<EFrontBackPlaneDistanceMode>("BackPlaneDistanceMode");
-        public FbxPropertyT<EFrontBackPlaneDisplayMode>   ViewFrustumFrontPlaneMode   = new FbxPropertyT<EFrontBackPlaneDisplayMode> ("ViewFrustumFrontPlaneMode");
-        public FbxPropertyT<double>                       FrontPlaneDistance          = new FbxPropertyT<double>                     ("FrontPlaneDistance");
-        public FbxPropertyT<EFrontBackPlaneDistanceMode>  FrontPlaneDistanceMode      = new FbxPropertyT<EFrontBackPlaneDistanceMode>("FrontPlaneDistanceMode");
-        public FbxPropertyT<bool>                         LockMode                    = new FbxPropertyT<bool>                       ("LockMode");
-        public FbxPropertyT<bool>                         LockInterestNavigation      = new FbxPropertyT<bool>                       ("LockInterestNavigation");
-        public FbxPropertyT<bool>                         BackPlateFitImage           = new FbxPropertyT<bool>                       ("BackPlateFitImage");
-        public FbxPropertyT<bool>                         BackPlateCrop               = new FbxPropertyT<bool>                       ("BackPlateCrop");
-        public FbxPropertyT<bool>                         BackPlateCenter             = new FbxPropertyT<bool>                       ("BackPlateCenter");
-        public FbxPropertyT<bool>                         BackPlateKeepRatio          = new FbxPropertyT<bool>                       ("BackPlateKeepRatio");
-        public FbxPropertyT<double>                       BackgroundAlphaTreshold     = new FbxPropertyT<double>                     ("BackgroundAlphaTreshold");
-        public FbxPropertyT<double>                       BackPlaneOffsetX            = new FbxPropertyT<double>                     ("BackPlaneOffsetX");
-        public FbxPropertyT<double>                       BackPlaneOffsetY            = new FbxPropertyT<double>                     ("BackPlaneOffsetY");
-        public FbxPropertyT<double>                       BackPlaneRotation           = new FbxPropertyT<double>                     ("BackPlaneRotation");
-        public FbxPropertyT<double>                       BackPlaneScaleX             = new FbxPropertyT<double>                     ("BackPlaneScaleX");
-        public FbxPropertyT<double>                       BackPlaneScaleY             = new FbxPropertyT<double>                     ("BackPlaneScaleY");
-        public FbxPropertyT<bool>                         ShowBackplate               = new FbxPropertyT<bool>                       ("ShowBackplate");
-        public FbxPropertyT<FbxObject>                    BackgroundTexture           = new FbxPropertyT<FbxObject>                  ("Background Texture");
-        public FbxPropertyT<bool>                         FrontPlateFitImage          = new FbxPropertyT<bool>                       ("FrontPlateFitImage");
-        public FbxPropertyT<bool>                         FrontPlateCrop              = new FbxPropertyT<bool>                       ("FrontPlateCrop");
-        public FbxPropertyT<bool>                         FrontPlateCenter            = new FbxPropertyT<bool>                       ("FrontPlateCenter");
-        public FbxPropertyT<bool>                         FrontPlateKeepRatio         = new FbxPropertyT<bool>                       ("FrontPlateKeepRatio");
-        public FbxPropertyT<bool>                         ShowFrontplate              = new FbxPropertyT<bool>                       ("ShowFrontplate");
-        public FbxPropertyT<double>                       FrontPlaneOffsetX           = new FbxPropertyT<double>                     ("FrontPlaneOffsetX");
-        public FbxPropertyT<double>                       FrontPlaneOffsetY           = new FbxPropertyT<double>                     ("FrontPlaneOffsetY");
-        public FbxPropertyT<double>                       FrontPlaneRotation          = new FbxPropertyT<double>                     ("FrontPlaneRotation");
-        public FbxPropertyT<double>                       FrontPlaneScaleX            = new FbxPropertyT<double>                     ("FrontPlaneScaleX");
-        public FbxPropertyT<double>                       FrontPlaneScaleY            = new FbxPropertyT<double>                     ("FrontPlaneScaleY");
-        public FbxPropertyT<FbxObject>                    ForegroundTexture           = new FbxPropertyT<FbxObject>                  ("Foreground Texture");
-        public FbxPropertyT<double>                       ForegroundOpacity           = new FbxPropertyT<double>                     ("Foreground Opacity");
-        public FbxPropertyT<bool>                         DisplaySafeArea             = new FbxPropertyT<bool>                       ("DisplaySafeArea");
-        public FbxPropertyT<bool>                         DisplaySafeAreaOnRender     = new FbxPropertyT<bool>                       ("DisplaySafeAreaOnRender");
-        public FbxPropertyT<ESafeAreaStyle>               SafeAreaDisplayStyle        = new FbxPropertyT<ESafeAreaStyle>             ("SafeAreaDisplayStyle");
-        public FbxPropertyT<double>                       SafeAreaAspectRatio         = new FbxPropertyT<double>                     ("SafeAreaAspectRatio");
-        public FbxPropertyT<bool>                         Use2DMagnifierZoom          = new FbxPropertyT<bool>                       ("Use2DMagnifierZoom");
-        public FbxPropertyT<double>                       _2DMagnifierZoom            = new FbxPropertyT<double>                     ("2D Magnifier Zoom");
-        public FbxPropertyT<double>                       _2DMagnifierX               = new FbxPropertyT<double>                     ("2D Magnifier X");
-        public FbxPropertyT<double>                       _2DMagnifierY               = new FbxPropertyT<double>                     ("2D Magnifier Y");
-        public FbxPropertyT<EProjectionType>              ProjectionType              = new FbxPropertyT<EProjectionType>            ("CameraProjectionType");
-        public FbxPropertyT<double>                       OrthoZoom                   = new FbxPropertyT<double>                     ("OrthoZoom");
-        public FbxPropertyT<bool>                         UseRealTimeDOFAndAA         = new FbxPropertyT<bool>                       ("UseRealTimeDOFAndAA");
-        public FbxPropertyT<bool>                         UseDepthOfField             = new FbxPropertyT<bool>                       ("UseDepthOfField");
-        public FbxPropertyT<EFocusDistanceSource>         FocusSource                 = new FbxPropertyT<EFocusDistanceSource>       ("FocusSource");
-        public FbxPropertyT<double>                       FocusAngle                  = new FbxPropertyT<double>                     ("FocusAngle");
-        public FbxPropertyT<double>                       FocusDistance               = new FbxPropertyT<double>                     ("FocusDistance");
-        public FbxPropertyT<bool>                         UseAntialiasing             = new FbxPropertyT<bool>                       ("UseAntialiasing");
-        public FbxPropertyT<double>                       AntialiasingIntensity       = new FbxPropertyT<double>                     ("AntialiasingIntensity");
-        public FbxPropertyT<EAntialiasingMethod>          AntialiasingMethod          = new FbxPropertyT<EAntialiasingMethod>        ("AntialiasingMethod");
-        public FbxPropertyT<bool>                         UseAccumulationBuffer       = new FbxPropertyT<bool>                       ("UseAccumulationBuffer");
-        public FbxPropertyT<int>                          FrameSamplingCount          = new FbxPropertyT<int>                        ("FrameSamplingCount");
-        public FbxPropertyT<ESamplingType>                FrameSamplingType           = new FbxPropertyT<ESamplingType>              ("FrameSamplingType");
+        public FbxPropertyT<FbxVector3> Position;
+        public FbxPropertyT<FbxVector3> UpVector;
+        public FbxPropertyT<FbxVector3> InterestPosition;
+        public FbxPropertyT<double> Roll;
+        public FbxPropertyT<double> OpticalCenterX;
+        public FbxPropertyT<double> OpticalCenterY;
+        public FbxPropertyT<FbxVector3> BackgroundColor;
+        public FbxPropertyT<double> TurnTable;
+        public FbxPropertyT<bool> DisplayTurnTableIcon;
+        public FbxPropertyT<bool> UseMotionBlur;
+        public FbxPropertyT<bool> UseRealTimeMotionBlur;
+        public FbxPropertyT<double> MotionBlurIntensity;
+        public FbxPropertyT<EAspectRatioMode> AspectRatioMode;
+        public FbxPropertyT<double> AspectWidth;
+        public FbxPropertyT<double> AspectHeight;
+        public FbxPropertyT<double> PixelAspectRatio;
+        public FbxPropertyT<EApertureMode> ApertureMode;
+        public FbxPropertyT<EGateFit> GateFit;
+        public FbxPropertyT<double> FieldOfView;
+        public FbxPropertyT<double> FieldOfViewX;
+        public FbxPropertyT<double> FieldOfViewY;
+        public FbxPropertyT<double> FocalLength;
+        public FbxPropertyT<EFormat> CameraFormat;
+        public FbxPropertyT<bool> UseFrameColor;
+        public FbxPropertyT<FbxVector3> FrameColor;
+        public FbxPropertyT<bool> ShowName;
+        public FbxPropertyT<bool> ShowInfoOnMoving;
+        public FbxPropertyT<bool> ShowGrid;
+        public FbxPropertyT<bool> ShowOpticalCenter;
+        public FbxPropertyT<bool> ShowAzimut;
+        public FbxPropertyT<bool> ShowTimeCode;
+        public FbxPropertyT<bool> ShowAudio;
+        public FbxPropertyT<FbxVector3> AudioColor;
+        public FbxPropertyT<double> NearPlane;
+        public FbxPropertyT<double> FarPlane;
+        public FbxPropertyT<bool> AutoComputeClipPlanes;
+        public FbxPropertyT<double> FilmWidth;
+        public FbxPropertyT<double> FilmHeight;
+        public FbxPropertyT<double> FilmAspectRatio;
+        public FbxPropertyT<double> FilmSqueezeRatio;
+        public FbxPropertyT<EApertureFormat> FilmFormat;
+        public FbxPropertyT<double> FilmOffsetX;
+        public FbxPropertyT<double> FilmOffsetY;
+        public FbxPropertyT<double> PreScale;
+        public FbxPropertyT<double> FilmTranslateX;
+        public FbxPropertyT<double> FilmTranslateY;
+        public FbxPropertyT<double> FilmRollPivotX;
+        public FbxPropertyT<double> FilmRollPivotY;
+        public FbxPropertyT<double> FilmRollValue;
+        public FbxPropertyT<EFilmRollOrder> FilmRollOrder;
+        public FbxPropertyT<bool> ViewCameraToLookAt;
+        public FbxPropertyT<bool> ViewFrustumNearFarPlane;
+
+        public FbxPropertyT<EFrontBackPlaneDisplayMode>
+            ViewFrustumBackPlaneMode;
+
+        public FbxPropertyT<double> BackPlaneDistance;
+        public FbxPropertyT<EFrontBackPlaneDistanceMode> BackPlaneDistanceMode;
+
+        public FbxPropertyT<EFrontBackPlaneDisplayMode>
+            ViewFrustumFrontPlaneMode;
+
+        public FbxPropertyT<double> FrontPlaneDistance;
+        public FbxPropertyT<EFrontBackPlaneDistanceMode> FrontPlaneDistanceMode;
+        public FbxPropertyT<bool> LockMode;
+        public FbxPropertyT<bool> LockInterestNavigation;
+        public FbxPropertyT<bool> BackPlateFitImage;
+        public FbxPropertyT<bool> BackPlateCrop;
+        public FbxPropertyT<bool> BackPlateCenter;
+        public FbxPropertyT<bool> BackPlateKeepRatio;
+        public FbxPropertyT<double> BackgroundAlphaTreshold;
+        public FbxPropertyT<double> BackPlaneOffsetX;
+        public FbxPropertyT<double> BackPlaneOffsetY;
+        public FbxPropertyT<double> BackPlaneRotation;
+        public FbxPropertyT<double> BackPlaneScaleX;
+        public FbxPropertyT<double> BackPlaneScaleY;
+        public FbxPropertyT<bool> ShowBackplate;
+        public FbxPropertyT<FbxObject> BackgroundTexture;
+        public FbxPropertyT<bool> FrontPlateFitImage;
+        public FbxPropertyT<bool> FrontPlateCrop;
+        public FbxPropertyT<bool> FrontPlateCenter;
+        public FbxPropertyT<bool> FrontPlateKeepRatio;
+        public FbxPropertyT<bool> ShowFrontplate;
+        public FbxPropertyT<double> FrontPlaneOffsetX;
+        public FbxPropertyT<double> FrontPlaneOffsetY;
+        public FbxPropertyT<double> FrontPlaneRotation;
+        public FbxPropertyT<double> FrontPlaneScaleX;
+        public FbxPropertyT<double> FrontPlaneScaleY;
+        public FbxPropertyT<FbxObject> ForegroundTexture;
+        public FbxPropertyT<double> ForegroundOpacity;
+        public FbxPropertyT<bool> DisplaySafeArea;
+        public FbxPropertyT<bool> DisplaySafeAreaOnRender;
+        public FbxPropertyT<ESafeAreaStyle> SafeAreaDisplayStyle;
+        public FbxPropertyT<double> SafeAreaAspectRatio;
+        public FbxPropertyT<bool> Use2DMagnifierZoom;
+        public FbxPropertyT<double> _2DMagnifierZoom;
+        public FbxPropertyT<double> _2DMagnifierX;
+        public FbxPropertyT<double> _2DMagnifierY;
+        public FbxPropertyT<EProjectionType> ProjectionType;
+        public FbxPropertyT<double> OrthoZoom;
+        public FbxPropertyT<bool> UseRealTimeDOFAndAA;
+        public FbxPropertyT<bool> UseDepthOfField;
+        public FbxPropertyT<EFocusDistanceSource> FocusSource;
+        public FbxPropertyT<double> FocusAngle;
+        public FbxPropertyT<double> FocusDistance;
+        public FbxPropertyT<bool> UseAntialiasing;
+        public FbxPropertyT<double> AntialiasingIntensity;
+        public FbxPropertyT<EAntialiasingMethod> AntialiasingMethod;
+        public FbxPropertyT<bool> UseAccumulationBuffer;
+        public FbxPropertyT<int> FrameSamplingCount;
+        public FbxPropertyT<ESamplingType> FrameSamplingType;
 
         #endregion
 

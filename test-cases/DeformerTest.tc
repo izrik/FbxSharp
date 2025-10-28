@@ -1,1 +1,7 @@
 ﻿fixture DeformerTest
+test Deformer_Create_HasNamespacePrefix
+    given
+    FbxSkin obj = new("asdf")
+
+    then
+    AssertEqual("Deformer:\:", obj.GetNameSpacePrefix());

@@ -1,0 +1,31 @@
+#use constraints
+
+fixture EFbxTypeTest
+test EFbxType_IdentifiersHaveSpecificValues
+    expect
+    AssertEqual(0, (int)EFbxType::eFbxUndefined)
+    AssertEqual(1, (int)EFbxType::eFbxChar)
+    AssertEqual(2, (int)EFbxType::eFbxUChar)
+    AssertEqual(3, (int)EFbxType::eFbxShort)
+    AssertEqual(4, (int)EFbxType::eFbxUShort)
+    AssertEqual(5, (int)EFbxType::eFbxUInt)
+    AssertEqual(6, (int)EFbxType::eFbxLongLong)
+    AssertEqual(7, (int)EFbxType::eFbxULongLong)
+    AssertEqual(8, (int)EFbxType::eFbxHalfFloat)
+    AssertEqual(9, (int)EFbxType::eFbxBool)
+    AssertEqual(10, (int)EFbxType::eFbxInt)
+    AssertEqual(11, (int)EFbxType::eFbxFloat)
+    AssertEqual(12, (int)EFbxType::eFbxDouble)
+    AssertEqual(13, (int)EFbxType::eFbxDouble2)
+    AssertEqual(14, (int)EFbxType::eFbxDouble3)
+    AssertEqual(15, (int)EFbxType::eFbxDouble4)
+    AssertEqual(16, (int)EFbxType::eFbxDouble4x4)
+    AssertEqual(17, (int)EFbxType::eFbxEnum)
+    AssertEqual(-17, (int)EFbxType::eFbxEnumM)
+    AssertEqual(18, (int)EFbxType::eFbxString)
+    AssertEqual(19, (int)EFbxType::eFbxTime)
+    AssertEqual(20, (int)EFbxType::eFbxReference)
+    AssertEqual(21, (int)EFbxType::eFbxBlob)
+    AssertEqual(22, (int)EFbxType::eFbxDistance)
+    AssertEqual(23, (int)EFbxType::eFbxDateTime)
+    AssertEqual(24, (int)EFbxType::eFbxTypeCount)

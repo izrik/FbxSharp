@@ -3,13 +3,16 @@
 #define __FBXCPPTESTS_TESTS_H
 
 #include <vector>
+#include <string>
 
 #include "objects.h"
 #include "print.h"
 #include "properties.h"
 #include "Assertions.h"
+#include "Utils.h"
 
-void RunTests();
+int RunTests();
+int RunTestsWithArgs(std::vector<std::string>& args);
 
 typedef void (*TestFunction)();
 
@@ -39,7 +42,7 @@ public:
     virtual void TearDown();
     virtual void TearDownFixture();
 
-    const char* Name;
+    std::string Name;
 
     std::vector<TestCase*> TestCases;
 };
@@ -75,5 +78,19 @@ TestClass(AnimCurveKeyTest);
 TestClass(LightTest);
 TestClass(CameraTest);
 TestClass(LayerTest);
+TestClass(FbxImporterTest);
+TestClass(EFbxTypeTest);
+TestClass(FbxPropertyFlagsTest);
+TestClass(FbxDataTypeTest);
+TestClass(FbxPropertyTest);
+TestClass(FbxIOSettingsTest);
+TestClass(FbxDocumentInfoTest);
+TestClass(FbxDataTypesTest);
+TestClass(FbxNullTest);
+TestClass(FbxGlobalSettingsTest);
+TestClass(FbxAxisSystemTest);
+TestClass(FbxSystemUnitTest);
+TestClass(FbxTimeSpanTest);
+TestClass(FbxTimeCodeTest);
 
 #endif // __FBXCPPTESTS_TESTS_H

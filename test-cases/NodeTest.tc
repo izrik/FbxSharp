@@ -932,3 +932,7 @@ test Node_Create_HasNamespacePrefix
 
     then
     AssertEqual("Model:\:", obj.GetNameSpacePrefix())
+
+// TODO: Check the Visibility property. In particular, what happens if we put
+//       "false" as the value in an ascii fbx file. See what we get when we
+//       load a boolean value instead of a double.
